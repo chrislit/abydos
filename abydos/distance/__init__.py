@@ -106,7 +106,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kendall's Tau similarity (:py:class:`.KendallTau`)
     - Kent & Foster I similarity (:py:class:`.KentFosterI`)
     - Kent & Foster II similarity (:py:class:`.KentFosterII`)
-    - Kocher & Wong similarity (:py:class:`.KocherWong`)
     - Köppen I similarity (:py:class:`.KoppenI`)
     - Köppen II similarity (:py:class:`.KoppenII`)
     - Kuder & Richardson similarity (:py:class:`.KuderRichardson`)
@@ -319,7 +318,6 @@ from ._johnson import Johnson
 from ._kendall_tau import KendallTau
 from ._kent_foster_i import KentFosterI
 from ._kent_foster_ii import KentFosterII
-from ._kocher_wong import KocherWong
 from ._koppen_i import KoppenI
 from ._koppen_ii import KoppenII
 from ._kuder_richardson import KuderRichardson
@@ -539,7 +537,6 @@ __all__ = [
     'Johnson',
     'KentFosterI',
     'KentFosterII',
-    'KocherWong',
     'KendallTau',
     'KentFosterI',
     'KentFosterII',
