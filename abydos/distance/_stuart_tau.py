@@ -37,11 +37,13 @@ class StuartTau(_TokenDistance):
     r"""Stuart's Tau similarity.
 
     For two sets X and Y and a population N, Stuart's Tau similarity
-    :cite:`CITATION` is
+    :cite:`Stuart:1953` is
 
         .. math::
 
             sim_{StuartTau}(X, Y) =
+            \frac{4 \cdot (|X \cap Y| + |(N \setminus X) \setminus Y| -
+            |X \triangle Y|)}{|N|^2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +51,7 @@ class StuartTau(_TokenDistance):
         .. math::
 
             sim_{StuartTau} =
+            \frac{4 \cdot (a+d-b-c)}{n^2}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +137,13 @@ class StuartTau(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return 4*(a+d-b-c)/(n**2)
 
 
 if __name__ == '__main__':

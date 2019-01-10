@@ -36,19 +36,23 @@ __all__ = ['AndresMarzoDelta']
 class AndresMarzoDelta(_TokenDistance):
     r"""Andres & Marzo's Delta similarity.
 
-    For two sets X and Y and a population N, Andres & Marzo's Delta similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Andres & Marzo's \Delta similarity
+    :cite:`Andres:2004` is
 
         .. math::
 
-            sim_{AndresMarzoDelta}(X, Y) =
+            sim_{AndresMarzo_\Delta}(X, Y) = \Delta =
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}-
+            \sqrt{\frac{|X \triangle Y|}{|N|}}
+
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{AndresMarzoDelta} =
+            sim_{AndresMarzo_\Delta}(X, Y) = \Delta =
+            \frac{a+d}{n}-\sqrt{\frac{b+c}{n}}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +138,13 @@ class AndresMarzoDelta(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return (a+d)/n-((b+c)/n)**0.5
 
 
 if __name__ == '__main__':

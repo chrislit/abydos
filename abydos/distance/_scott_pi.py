@@ -36,19 +36,35 @@ __all__ = ['ScottPi']
 class ScottPi(_TokenDistance):
     r"""Scott's Pi similarity.
 
-    For two sets X and Y and a population N, Scott's Pi similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Scott's \pi similarity
+    :cite:`Scott:1955` is
 
         .. math::
 
-            sim_{ScottPi}(X, Y) =
+            sim_{Scott_\pi}(X, Y) = \pi =
+            \frac{p_o - p_e^\pi}{1 - p_e^\pi}
+
+    where
+
+        .. math::
+
+            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
+
+            p_e^\pi = \Big(\frac{\frac{|X|}{|N|} + \frac{|Y|}{|N|}}{2}\Big)^2 +
+            \Big(\frac{\frac{|N \setminus X|}{|N|} +
+            \frac{|N \setminus Y|}{|N|}}{2}\Big)^2
+
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{ScottPi} =
+            p_o = \frac{a+d}{n}
+
+            p_e^\pi = \Big(\frac{\frac{a+b}{n} + \frac{a+c}{n}}{2}\Big)^2 +
+            \Big(\frac{\frac{b+d}{n} + \frac{c+d}{n}}{2}\Big)^2
+
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +150,12 @@ class ScottPi(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (4*a*d-b**2-2*b*c-c**2)/((2*a+b+c)*(2*d+b+c))
 
 
 if __name__ == '__main__':
