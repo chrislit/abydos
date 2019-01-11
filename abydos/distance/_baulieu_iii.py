@@ -37,11 +37,15 @@ class BaulieuIII(_TokenDistance):
     r"""Baulieu III distance.
 
     For two sets X and Y and a population N, Baulieu III distance
-    :cite:`CITATION` is
+    :cite:`Baulieu:1989` is
 
         .. math::
 
             sim_{BaulieuIII}(X, Y) =
+            \frac{|N|^2 - 4(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)}{|N|^2}
+
+    This is Baulieu's 20th dissimilarity coefficient.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +53,7 @@ class BaulieuIII(_TokenDistance):
         .. math::
 
             sim_{BaulieuIII} =
+            \frac{n^2 - 4(ad-bc)}{n^2}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +139,13 @@ class BaulieuIII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return (n*n - 4*(a*d-b*c))/(n*n)
 
 
 if __name__ == '__main__':

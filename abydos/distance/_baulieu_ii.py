@@ -37,11 +37,15 @@ class BaulieuII(_TokenDistance):
     r"""Baulieu II distance.
 
     For two sets X and Y and a population N, Baulieu II distance
-    :cite:`CITATION` is
+    :cite:`Baulieu:1989` is
 
         .. math::
 
             sim_{BaulieuII}(X, Y) =
+            \frac{|X \cap Y|^2 \cdot |(N \setminus X) \setminus Y|^2}
+            {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
+
+    This is Baulieu's 13th dissimilarity coefficient.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +53,7 @@ class BaulieuII(_TokenDistance):
         .. math::
 
             sim_{BaulieuII} =
+            \frac{a^2d^2}{(a+b)(a+c)(b+d)(c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +139,12 @@ class BaulieuII(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return (a*a*d*d)/((a+b)*(a+c)*(b+d)*(c+d))
 
 
 if __name__ == '__main__':
