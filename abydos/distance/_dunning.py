@@ -39,7 +39,7 @@ class Dunning(_TokenDistance):
     r"""Dunning similarity.
 
     For two sets X and Y and a population N, Dunning log-likelihood
-    :cite:`Dunning:1993` is
+    :cite:`Dunning:1993`, following :cite:`SequentiX:2018`, is
 
         .. math::
 
