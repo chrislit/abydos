@@ -57,6 +57,9 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Baroni-Urbani & Buser I similarity (:py:class:`.BaroniUrbaniBuserI`)
     - Baroni-Urbani & Buser II similarity (:py:class:`.BaroniUrbaniBuserII`)
     - Batagelj & Bren similarity (:py:class:`.BatageljBren`)
+    - Baulieu I distance (:py:class:`.BaulieuI`)
+    - Baulieu II distance (:py:class:`.BaulieuII`)
+    - Baulieu III distance (:py:class:`.BaulieuIII`)
     - Benini similarity (:py:class:`.Benini`)
     - Bennet's Sigma similarity (:py:class:`.BennetSigma`)
     - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
@@ -123,6 +126,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kuhns XII similarity (:py:class:`.KuhnsXII`)
     - Kulczynski I similarity (:py:class:`.KulczynskiI`)
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
+    - Maarel similarity (:py:class:`.Maarel`)
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
@@ -249,6 +253,9 @@ from ._bag import Bag, bag, dist_bag, sim_bag
 from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
 from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
 from ._batagelj_bren import BatageljBren
+from ._baulieu_i import BaulieuI
+from ._baulieu_ii import BaulieuII
+from ._baulieu_iii import BaulieuIII
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._bennet_sigma import BennetSigma
@@ -345,6 +352,7 @@ from ._levenshtein import (
     levenshtein,
     sim_levenshtein,
 )
+from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
@@ -488,6 +496,9 @@ __all__ = [
     'BaroniUrbaniBuserI',
     'BaroniUrbaniBuserII',
     'BatageljBren',
+    'BaulieuI',
+    'BaulieuII',
+    'BaulieuIII',
     'Benini',
     'BennetSigma',
     'BraunBlanquet',
@@ -553,6 +564,7 @@ __all__ = [
     'KuhnsXII',
     'KulczynskiI',
     'KulczynskiII',
+    'Maarel',
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
