@@ -36,19 +36,25 @@ __all__ = ['Upholt']
 class Upholt(_TokenDistance):
     r"""Upholt similarity.
 
-    For two sets X and Y and a population N, Upholt similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Upholt similarity, Upholt's S,
+    :cite:`Upholt:1977` is
 
         .. math::
 
             sim_{Upholt}(X, Y) =
+            \frac{1}{2}(-\frac{2 \cdot |X \cap Y|}{|X| + |Y|} +
+            \sqrt{(\frac{2 \cdot |X \cap Y|}{|X| + |Y|})^2 +
+            8\frac{2 \cdot |X \cap Y|}{|X| + |Y|}})
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{Upholt} =
+            sim_{Upholt}(X, Y) =
+            \frac{1}{2}(-\frac{2a}{2a+b+c} +
+            \sqrt{(\frac{2a}{2a+b+c})^2 +
+            8\frac{2a}{2a+b+c}})
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +140,13 @@ class Upholt(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        f = 2*a/(2*a+b+c)
+
+        return (-f+((8+f)*f)**0.5)/2
 
 
 if __name__ == '__main__':
