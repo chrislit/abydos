@@ -37,11 +37,13 @@ class Maarel(_TokenDistance):
     r"""Maarel similarity.
 
     For two sets X and Y and a population N, Maarel similarity
-    :cite:`CITATION` is
+    :cite:`Maarel:1969` is
 
         .. math::
 
             sim_{Maarel}(X, Y) =
+            \frac{2|X \cap Y| - (|X| + |Y| - 2|X \cap Y|)}{|X| + |Y|}
+
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +51,7 @@ class Maarel(_TokenDistance):
         .. math::
 
             sim_{Maarel} =
+            \frac{2a - (b + c)}{2a + b + c}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +137,11 @@ class Maarel(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
 
-        return 0.0
+        return (2*a-b-c)/(2*a+b+c)
 
 
 if __name__ == '__main__':
