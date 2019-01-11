@@ -78,7 +78,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Dispersion similarity (:py:class:`.Dispersion`)
     - Doolittle similarity (:py:class:`.Doolittle`)
     - Dunning similarity (:py:class:`.Dunning`)
-    - Excoffier similarity (:py:class:`.Excoffier`)
     - Eyraud similarity (:py:class:`.Eyraud`)
     - Fager similarity (:py:class:`.Fager`)
     - Fager & McGowan similarity (:py:class:`.FagerMcGowan`)
@@ -130,7 +129,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
-    - Michelet similarity (:py:class:`.Michelet`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Pattern difference (:py:class:`.Pattern`)
     - Pearson & Heron II similarity (:py:class:`.PearsonHeronII`)
@@ -141,8 +139,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Peirce similarity (:py:class:`.Peirce`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
-    - Roux I similarity (:py:class:`.RouxI`)
-    - Roux II similarity (:py:class:`.RouxII`)
     - Scott's Pi similarity (:py:class:`.ScottPi`)
     - Shape difference (:py:class:`.Shape`)
     - Size difference (:py:class:`.Size`)
@@ -288,7 +284,6 @@ from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
 from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
-from ._excoffier import Excoffier
 from ._eyraud import Eyraud
 from ._fager import Fager
 from ._fager_mcgowan import FagerMcGowan
@@ -357,7 +352,6 @@ from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
-from ._michelet import Michelet
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
@@ -388,8 +382,6 @@ from ._ratcliff_obershelp import (
 )
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
-from ._roux_i import RouxI
-from ._roux_ii import RouxII
 from ._russell_rao import RussellRao
 from ._scott_pi import ScottPi
 from ._shape import Shape
@@ -517,7 +509,6 @@ __all__ = [
     'Dispersion',
     'Doolittle',
     'Dunning',
-    'Excoffier',
     'Eyraud',
     'Fager',
     'FagerMcGowan',
@@ -568,7 +559,6 @@ __all__ = [
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
-    'Michelet',
     'Mountford',
     'MSContingency',
     'Pattern',
@@ -580,8 +570,6 @@ __all__ = [
     'Peirce',
     'RogersTanimoto',
     'RogotGoldberg',
-    'RouxI',
-    'RouxII',
     'ScottPi',
     'Shape',
     'Size',
