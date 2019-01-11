@@ -37,11 +37,13 @@ class Fager(_TokenDistance):
     r"""Fager similarity.
 
     For two sets X and Y and a population N, Fager similarity
-    :cite:`CITATION` is
+    :cite:`Fager:1957` is
 
         .. math::
 
             sim_{Fager}(X, Y) =
+            \frac{|X \cap Y|}{\sqrt{|X|\cdot|Y|}} -
+            \frac{\sqrt{min(|X|, |Y|)}}{2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +51,7 @@ class Fager(_TokenDistance):
         .. math::
 
             sim_{Fager} =
+            \frac{a}{\sqrt{(a+b)(a+c)}} - \frac{\sqrt{min(a+b, a+c)}}{2}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +137,11 @@ class Fager(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        ab = self.src_card()
+        ac = self.tar_card()
 
-        return 0.0
+        return a / (ab * ac) ** 0.5 - 0.5 * (min(ab, ac) ** 0.5)
 
 
 if __name__ == '__main__':
