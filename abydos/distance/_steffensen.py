@@ -44,8 +44,8 @@ class Steffensen(_TokenDistance):
             sim_{Steffensen}(X, Y) =
             \frac{\frac{|X \cap Y|}{|N|} \cdot (\frac{|X \cap Y|}{|N|}-
             \frac{|X|}{|N|} \cdot \frac{|Y|}{|N|})^2}
-            {\frac{|X|}{|N|} \cdot (1-\frac{|X|}{|N|}) \cdot \frac{|Y|}{|N|}}
-            \cdot (1-\frac{|Y|}{|N|}})}
+            {\frac{|X|}{|N|} \cdot (1-\frac{|X|}{|N|}) \cdot \frac{|Y|}{|N|}
+            \cdot (1-\frac{|Y|}{|N|})}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     after each term has been converted to a proportion by dividing by n, this
