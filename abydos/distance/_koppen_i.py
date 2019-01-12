@@ -65,7 +65,7 @@ class KoppenI(_TokenDistance):
 
             sim_{KoppenI} =
             \frac{\frac{2a+b+c}{2} \cdot (n-\frac{2a+b+c}{2})-
-            \frac{b+c}{2}
+            \frac{b+c}{2}}
             {\frac{2a+b+c}{2} \cdot (n-\frac{2a+b+c}{2}}
 
     Note
