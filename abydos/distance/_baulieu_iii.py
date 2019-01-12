@@ -145,7 +145,7 @@ class BaulieuIII(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (n*n - 4*(a*d-b*c))/(n*n)
+        return (n * n - 4 * (a * d - b * c)) / (n * n)
 
 
 if __name__ == '__main__':

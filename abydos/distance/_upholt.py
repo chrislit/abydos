@@ -144,9 +144,9 @@ class Upholt(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        f = 2*a/(2*a+b+c)
+        f = 2 * a / (2 * a + b + c)
 
-        return (-f+((8+f)*f)**0.5)/2
+        return (-f + ((8 + f) * f) ** 0.5) / 2
 
 
 if __name__ == '__main__':

@@ -158,7 +158,12 @@ class GoodmanKruskalTauB(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return ((a*a+b*b)/(a+b) + (c*c+d*d)/(c+d) - (a+c)**2 - (b+d)**2)/(1-(a+c)**2-(b+d)**2)
+        return (
+            (a * a + b * b) / (a + b)
+            + (c * c + d * d) / (c + d)
+            - (a + c) ** 2
+            - (b + d) ** 2
+        ) / (1 - (a + c) ** 2 - (b + d) ** 2)
 
 
 if __name__ == '__main__':

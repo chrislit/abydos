@@ -147,7 +147,9 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         d = self.total_complement_card()
         n = self.population_card()
 
-        return (a+d - max(a,d) - 0.5*(b+c))/(n - max(a,d) - 0.5*(b+c))
+        return (a + d - max(a, d) - 0.5 * (b + c)) / (
+            n - max(a, d) - 0.5 * (b + c)
+        )
 
 
 if __name__ == '__main__':
