@@ -99,6 +99,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Goodman & Kruskal's Tau A similarity (:py:class:`.GoodmanKruskalTauA`)
     - Goodman & Kruskal's Tau B similarity (:py:class:`.GoodmanKruskalTauB`)
     - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
+    - Guttman Lambda A similarity (:py:class:`.GuttmanLambdaA`)
+    - Guttman Lambda B similarity (:py:class:`.GuttmanLambdaB`)
     - Gwet's Gamma similarity (:py:class:`.GwetGamma`)
     - Hamann similarity (:py:class:`.Hamann`)
     - Harris & Lahey similarity (:py:class:`.HarrisLahey`)
@@ -305,6 +307,8 @@ from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
 from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
 from ._gotoh import Gotoh, gotoh
 from ._gower_legendre import GowerLegendre
+from ._guttman_lambda_a import GuttmanLambdaA
+from ._guttman_lambda_b import GuttmanLambdaB
 from ._gwet_gamma import GwetGamma
 from ._hamann import Hamann
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
@@ -529,6 +533,8 @@ __all__ = [
     'GoodmanKruskalTauA',
     'GoodmanKruskalTauB',
     'GowerLegendre',
+    'GuttmanLambdaA',
+    'GuttmanLambdaB',
     'GwetGamma',
     'Hamann',
     'HarrisLahey',
