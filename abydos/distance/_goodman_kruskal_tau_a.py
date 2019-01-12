@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._goodman_kruskal_probability.
+"""abydos.distance._goodman_kruskal_tau_a.
 
-Goodman & Kruskal's Probability similarity
+Goodman & Kruskal's Tau A similarity
 """
 
 from __future__ import (
@@ -30,25 +30,39 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['GoodmanKruskalProbability']
+__all__ = ['GoodmanKruskalTauA']
 
 
-class GoodmanKruskalProbability(_TokenDistance):
-    r"""Goodman & Kruskal's Probability similarity.
+class GoodmanKruskalTauA(_TokenDistance):
+    r"""Goodman & Kruskal's Tau A similarity.
 
-    For two sets X and Y and a population N, Goodman & Kruskal's Probability
-    similarity :cite:`CITATION` is
+    For two sets X and Y and a population N, Goodman & Kruskal's :math:`\tau_a`
+    similarity :cite:`Goodman:1954`, by analogy with :math:`\tau_b`, is
 
         .. math::
 
-            sim_{GoodmanKruskalProbability}(X, Y) =
+            sim_{GK_\tau_a}(X, Y) =
+            \frac{\frac{(\frac{|X \cap Y|}{|N|})^2 +
+            (\frac{|Y \setminus X|}{|N|})^2}{\frac{|Y|}{|N|}}+
+            \frac{(\frac{|X \setminus Y|}{|N|})^2 +
+            (\frac{|(N \setminus X) \setminus Y|}{|N|})^2}
+            {\frac{|N \setminus X|}{|N|}} -
+            (\frac{|X|}{|N|})^2 - (\frac{|N \setminus X|}{|N|})^2}
+            {1 - (\frac{|X|}{|N|})^2 - (\frac{|N \setminus X|}{|N|})^2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{GoodmanKruskalProbability} =
+            sim_{GK_\tau_a} =
+            \frac{\frac{(\frac{a}{n})^2 +
+            (\frac{c}{n})^2}{\frac{a+c}{n}}+
+            \frac{(\frac{b}{n})^2 +
+            (\frac{d}{n})^2}
+            {\frac{b+d}{n}} -
+            (\frac{a+b}{n})^2 - (\frac{c+d}{n})^2}
+            {1 - (\frac{a+b}{n})^2 - (\frac{c+d}{n})^2}
 
     .. versionadded:: 0.4.0
     """
@@ -58,9 +72,10 @@ class GoodmanKruskalProbability(_TokenDistance):
         alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
+        normalizer='proportional',
         **kwargs
     ):
-        """Initialize GoodmanKruskalProbability instance.
+        """Initialize GoodmanKruskalTauA instance.
 
         Parameters
         ----------
@@ -74,6 +89,9 @@ class GoodmanKruskalProbability(_TokenDistance):
             Specifies the intersection type, and set type as a result:
             See :ref:`intersection_type <intersection_type>` description in
             :py:class:`_TokenDistance` for details.
+        normalizer : str
+            Specifies the normalization type. See :ref:`normalizer <alphabet>`
+            description in :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
 
@@ -94,15 +112,16 @@ class GoodmanKruskalProbability(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(GoodmanKruskalProbability, self).__init__(
+        super(GoodmanKruskalTauA, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
+            normalizer=normalizer,
             **kwargs
         )
 
     def sim(self, src, tar):
-        """Return Goodman & Kruskal's Probability similarity of two strings.
+        """Return Goodman & Kruskal's Tau A similarity of two strings.
 
         Parameters
         ----------
@@ -114,11 +133,11 @@ class GoodmanKruskalProbability(_TokenDistance):
         Returns
         -------
         float
-            Goodman & Kruskal's Probability similarity
+            Goodman & Kruskal's Tau A similarity
 
         Examples
         --------
-        >>> cmp = GoodmanKruskalProbability()
+        >>> cmp = GoodmanKruskalTauA()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -134,13 +153,12 @@ class GoodmanKruskalProbability(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
 
-        return 0.0
+        return ((a*a+c*c)/(a+c) + (b*b+d*d)/(b+d) - (a+b)**2 - (c+d)**2)/(1-(a+b)**2-(c+d)**2)
 
 
 if __name__ == '__main__':

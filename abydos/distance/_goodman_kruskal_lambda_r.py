@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._goodman_kruskal_max.
+"""abydos.distance._goodman_kruskal_lambda_r.
 
-Goodman & Kruskal Max similarity
+Goodman & Kruskal Lambda-r similarity.
 """
 
 from __future__ import (
@@ -30,25 +30,32 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['GoodmanKruskalMax']
+__all__ = ['GoodmanKruskalLambdaR']
 
 
-class GoodmanKruskalMax(_TokenDistance):
-    r"""Goodman & Kruskal Max similarity.
+class GoodmanKruskalLambdaR(_TokenDistance):
+    r"""Goodman & Kruskal Lambda-r similarity.
 
-    For two sets X and Y and a population N, Goodman & Kruskal Max similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Goodman & Kruskal
+    :math:`\lambda_r` similarity :cite:`Goodman:1954` is
 
         .. math::
 
-            sim_{GoodmanKruskalMax}(X, Y) =
+            sim_{GK_\lambda_r}(X, Y) =
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
+            max(|X \cap Y|, |(N \setminus X) \setminus Y|) -
+            \frac{1}{2}(|X \setminus Y| + |Y \setminus X|)}
+            {|N| - max(|X \cap Y|, |(N \setminus X) \setminus Y|) -
+            \frac{1}{2}(|X \setminus Y| + |Y \setminus X|)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{GoodmanKruskalMax} =
+            sim_{GK_\lambda_r} =
+            \frac{a + d - max(a, d) - \frac{1}{2}(b + c)}
+            {n - max(a, d) - \frac{1}{2}(b + c)}
 
     .. versionadded:: 0.4.0
     """
@@ -60,7 +67,7 @@ class GoodmanKruskalMax(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize GoodmanKruskalMax instance.
+        """Initialize GoodmanKruskalLambdaR instance.
 
         Parameters
         ----------
@@ -94,7 +101,7 @@ class GoodmanKruskalMax(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(GoodmanKruskalMax, self).__init__(
+        super(GoodmanKruskalLambdaR, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -118,7 +125,7 @@ class GoodmanKruskalMax(_TokenDistance):
 
         Examples
         --------
-        >>> cmp = GoodmanKruskalMax()
+        >>> cmp = GoodmanKruskalLambdaR()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -134,13 +141,13 @@ class GoodmanKruskalMax(_TokenDistance):
         """
         self.tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self.intersection_card()
+        b = self.src_only_card()
+        c = self.tar_only_card()
+        d = self.total_complement_card()
+        n = self.population_card()
 
-        return 0.0
+        return (a+d - max(a,d) - 0.5*(b+c))/(n - max(a,d) - 0.5*(b+c))
 
 
 if __name__ == '__main__':

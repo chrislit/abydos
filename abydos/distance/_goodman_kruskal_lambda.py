@@ -47,7 +47,8 @@ class GoodmanKruskalLambda(_TokenDistance):
             max(|X \cap Y|, |Y \setminus X|)+
             max(|X \setminus Y|, |(N \setminus X) \setminus Y|))-
             (max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|))}
-            {2|N|-(max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|))}
+            {|N|-\frac{1}{2}(max(|Y|, |N \setminus Y|)+
+            max(|X|, |N \setminus X|))}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -56,7 +57,8 @@ class GoodmanKruskalLambda(_TokenDistance):
 
             sim_{GK_\lambda} =
             \frac{(max(a,b)+max(c,d)+max(a,c)+max(b,d))-
-            (max(a+b,b+d)+max(a+b,c+d))}{2n-(max(a+b,b+d)+max(a+b,c+d))}
+            (max(a+b,c+d)+max(a+c,b+d))}
+            {n-\frac{1}{2}(max(a+b,c+d)+max(a+c,b+d))}
 
     .. versionadded:: 0.4.0
     """
@@ -150,7 +152,7 @@ class GoodmanKruskalLambda(_TokenDistance):
         sigma = max(a, b) + max(c, d) + max(a, c) + max(b, d)
         sigma_prime = max(a + c, b + d) + max(a + b, c + d)
 
-        return sigma - sigma_prime / (2 * (a + b + c + d) - sigma_prime)
+        return sigma - sigma_prime / ((a + b + c + d) - 0.5*sigma_prime)
 
 
 if __name__ == '__main__':
