@@ -38,8 +38,8 @@ __all__ = ['ConsonniTodeschiniIII']
 class ConsonniTodeschiniIII(_TokenDistance):
     r"""Consonni & Todeschini III similarity.
 
-    For two sets X and Y and a population N, Consonni & Todeschini III similarity
-    :cite:`Consonni:2012` is
+    For two sets X and Y and a population N, Consonni & Todeschini III
+    similarity :cite:`Consonni:2012` is
 
         .. math::
 
