@@ -41,7 +41,7 @@ class GoodmanKruskalLambdaR(_TokenDistance):
 
         .. math::
 
-            sim_{GK_\lambda_r}(X, Y) =
+            sim_{GK_{\lambda_r}}(X, Y) =
             \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
             max(|X \cap Y|, |(N \setminus X) \setminus Y|) -
             \frac{1}{2}(|X \setminus Y| + |Y \setminus X|)}
@@ -53,7 +53,7 @@ class GoodmanKruskalLambdaR(_TokenDistance):
 
         .. math::
 
-            sim_{GK_\lambda_r} =
+            sim_{GK_{\lambda_r}} =
             \frac{a + d - max(a, d) - \frac{1}{2}(b + c)}
             {n - max(a, d) - \frac{1}{2}(b + c)}
 

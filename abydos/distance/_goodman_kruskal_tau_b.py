@@ -41,7 +41,7 @@ class GoodmanKruskalTauB(_TokenDistance):
 
         .. math::
 
-            sim_{GK_\tau_b}(X, Y) =
+            sim_{GK_{\tau_b}}(X, Y) =
             \frac{\frac{(\frac{|X \cap Y|}{|N|})^2 +
             (\frac{|X \setminus Y|}{|N|})^2}{\frac{|X|}{|N|}}+
             \frac{(\frac{|Y \setminus X|}{|N|})^2 +
@@ -55,7 +55,7 @@ class GoodmanKruskalTauB(_TokenDistance):
 
         .. math::
 
-            sim_{GK_\tau_b} =
+            sim_{GK_{\tau_b}} =
             \frac{\frac{(\frac{a}{n})^2 +
             (\frac{b}{n})^2}{\frac{a+b}{n}}+
             \frac{(\frac{c}{n})^2 +
