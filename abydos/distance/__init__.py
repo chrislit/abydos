@@ -92,7 +92,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
     - Gini distance (:py:class:`.Gini`)
     - Goodall similarity (:py:class:`.Goodall`)
-    - Goodman & Kruskal Min similarity (:py:class:`.GoodmanKruskalMin`)
     - Goodman & Kruskal's Lambda similarity (:py:class:`.GoodmanKruskalLambda`)
     - Goodman & Kruskal's Lambda R similarity
       (:py:class:`.GoodmanKruskalLambdaR`)
@@ -302,7 +301,6 @@ from ._gini import Gini
 from ._goodall import Goodall
 from ._goodman_kruskal_lambda import GoodmanKruskalLambda
 from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
-from ._goodman_kruskal_min import GoodmanKruskalMin
 from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
 from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
 from ._gotoh import Gotoh, gotoh
@@ -528,7 +526,6 @@ __all__ = [
     'Gini',
     'Goodall',
     'GoodmanKruskalLambdaR',
-    'GoodmanKruskalMin',
     'GoodmanKruskalLambda',
     'GoodmanKruskalTauA',
     'GoodmanKruskalTauB',
