@@ -152,7 +152,7 @@ class GoodmanKruskalLambda(_TokenDistance):
         sigma = max(a, b) + max(c, d) + max(a, c) + max(b, d)
         sigma_prime = max(a + c, b + d) + max(a + b, c + d)
 
-        return (sigma - sigma_prime) / (2*(a + b + c + d) - sigma_prime)
+        return (sigma - sigma_prime) / (2 * (a + b + c + d) - sigma_prime)
 
 
 if __name__ == '__main__':

@@ -158,7 +158,12 @@ class GoodmanKruskalTauA(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return ((a*a+c*c)/(a+c) + (b*b+d*d)/(b+d) - (a+b)**2 - (c+d)**2)/(1-(a+b)**2-(c+d)**2)
+        return (
+            (a * a + c * c) / (a + c)
+            + (b * b + d * d) / (b + d)
+            - (a + b) ** 2
+            - (c + d) ** 2
+        ) / (1 - (a + b) ** 2 - (c + d) ** 2)
 
 
 if __name__ == '__main__':

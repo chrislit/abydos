@@ -144,7 +144,7 @@ class BaulieuII(_TokenDistance):
         c = self.tar_only_card()
         d = self.total_complement_card()
 
-        return (a*a*d*d)/((a+b)*(a+c)*(b+d)*(c+d))
+        return (a * a * d * d) / ((a + b) * (a + c) * (b + d) * (c + d))
 
 
 if __name__ == '__main__':

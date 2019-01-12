@@ -141,7 +141,7 @@ class Maarel(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
 
-        return (2*a-b-c)/(2*a+b+c)
+        return (2 * a - b - c) / (2 * a + b + c)
 
 
 if __name__ == '__main__':
