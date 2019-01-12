@@ -92,12 +92,12 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
     - Gini distance (:py:class:`.Gini`)
     - Goodall similarity (:py:class:`.Goodall`)
-    - Goodman & Kruskal Max similarity (:py:class:`.GoodmanKruskalMax`)
     - Goodman & Kruskal Min similarity (:py:class:`.GoodmanKruskalMin`)
     - Goodman & Kruskal's Lambda similarity (:py:class:`.GoodmanKruskalLambda`)
-    - Goodman & Kruskal's Probability similarity
-      (:py:class:`.GoodmanKruskalProbability`)
-    - Goodman & Kruskal's Tau similarity (:py:class:`.GoodmanKruskalTau`)
+    - Goodman & Kruskal's Lambda R similarity
+      (:py:class:`.GoodmanKruskalLambdaR`)
+    - Goodman & Kruskal's Tau A similarity (:py:class:`.GoodmanKruskalTauA`)
+    - Goodman & Kruskal's Tau B similarity (:py:class:`.GoodmanKruskalTauB`)
     - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
     - Gwet's Gamma similarity (:py:class:`.GwetGamma`)
     - Hamann similarity (:py:class:`.Hamann`)
@@ -299,10 +299,10 @@ from ._gilbert_wells import GilbertWells
 from ._gini import Gini
 from ._goodall import Goodall
 from ._goodman_kruskal_lambda import GoodmanKruskalLambda
-from ._goodman_kruskal_max import GoodmanKruskalMax
+from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
 from ._goodman_kruskal_min import GoodmanKruskalMin
-from ._goodman_kruskal_probability import GoodmanKruskalProbability
-from ._goodman_kruskal_tau import GoodmanKruskalTau
+from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
+from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
 from ._gotoh import Gotoh, gotoh
 from ._gower_legendre import GowerLegendre
 from ._gwet_gamma import GwetGamma
@@ -523,11 +523,11 @@ __all__ = [
     'GilbertWells',
     'Gini',
     'Goodall',
-    'GoodmanKruskalMax',
+    'GoodmanKruskalLambdaR',
     'GoodmanKruskalMin',
     'GoodmanKruskalLambda',
-    'GoodmanKruskalProbability',
-    'GoodmanKruskalTau',
+    'GoodmanKruskalTauA',
+    'GoodmanKruskalTauB',
     'GowerLegendre',
     'GwetGamma',
     'Hamann',
