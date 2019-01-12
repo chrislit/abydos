@@ -37,7 +37,7 @@ including:
     - Phonix (:py:class:`.Phonix`)
     - Standardized Phonetic Frequency Code (:py:class:`.SPFC`)
     - Statistics Canada (:py:class:`.StatisticsCanada`)
-    - Lein (:py:class:`.Lein`)
+    - LEIN (:py:class:`.LEIN`)
     - Roger Root (:py:class:`.RogerRoot`)
     - Eudex phonetic hash (:py:class:`.phonetic.Eudex`)
     - Parmar-Kumbharana (:py:class:`.ParmarKumbharana`)
@@ -126,7 +126,7 @@ from ._koelner import (
     koelner_phonetik_alpha,
     koelner_phonetik_num_to_alpha,
 )
-from ._lein import Lein, lein
+from ._lein import LEIN, lein
 from ._meta_soundex import MetaSoundex, metasoundex
 from ._metaphone import Metaphone, metaphone
 from ._mra import MRA, mra
@@ -175,7 +175,7 @@ __all__ = [
     'dm_soundex',
     'FuzzySoundex',
     'fuzzy_soundex',
-    'Lein',
+    'LEIN',
     'lein',
     'Phonex',
     'phonex',

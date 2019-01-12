@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_lein.
 
-This module contains unit tests for abydos.phonetic.Lein
+This module contains unit tests for abydos.phonetic.LEIN
 """
 
 from __future__ import (
@@ -30,20 +30,20 @@ from __future__ import (
 
 import unittest
 
-from abydos.phonetic import Lein, lein
+from abydos.phonetic import LEIN, lein
 
 
 class LeinTestCases(unittest.TestCase):
-    """Test Lein functions.
+    """Test LEIN functions.
 
-    test cases for abydos.phonetic.Lein
+    test cases for abydos.phonetic.LEIN
     """
 
-    pa = Lein()
-    pa_n0 = Lein(zero_pad=False)
+    pa = LEIN()
+    pa_n0 = LEIN(zero_pad=False)
 
     def test_lein(self):
-        """Test abydos.phonetic.Lein."""
+        """Test abydos.phonetic.LEIN."""
         self.assertEqual(self.pa.encode(''), '0000')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
