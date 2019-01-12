@@ -41,7 +41,7 @@ class GuttmanLambdaB(_TokenDistance):
 
         .. math::
 
-            sim_{Guttman_\lambda_b}(X, Y) =
+            sim_{Guttman_{\lambda_b}}(X, Y) =
             \frac{max(|X \cap Y|, |X \setminus Y|) + max(|Y \setminus X|,
             |(N \setminus X) \setminus Y|) - max(|Y|, |N \setminus Y|)}
             {|N| - max(|Y|, |N \setminus Y|)}
@@ -51,7 +51,7 @@ class GuttmanLambdaB(_TokenDistance):
 
         .. math::
 
-            sim_{Guttman_\lambda_b} =
+            sim_{Guttman_{\lambda_b}} =
             \frac{max(a, b) + max(c, d) - max(a+c, b+d)}{n - max(a+c, b+d)}
 
     .. versionadded:: 0.4.0
