@@ -18,7 +18,7 @@
 
 """abydos.phonetic._lein.
 
-Lein
+Michigan LEIN (Law Enforcement Information Network) encoding
 """
 
 from __future__ import (
@@ -37,13 +37,14 @@ from six import text_type
 from ._phonetic import _Phonetic
 from .. import __version__
 
-__all__ = ['Lein', 'lein']
+__all__ = ['LEIN', 'lein']
 
 
-class Lein(_Phonetic):
-    """Lein code.
+class LEIN(_Phonetic):
+    """LEIN code.
 
-    This is Lein name coding, described in :cite:`Moore:1977`.
+    This is Michigan LEIN (Law Enforcement Information Network) name coding,
+    described in :cite:`Moore:1977`.
 
     .. versionadded:: 0.3.6
     """
@@ -57,7 +58,7 @@ class Lein(_Phonetic):
     _alphabetic = dict(zip((ord(_) for _ in '12345'), 'TNLPK'))
 
     def __init__(self, max_length=4, zero_pad=True):
-        """Initialize Lein instance.
+        """Initialize LEIN instance.
 
         Parameters
         ----------
@@ -75,7 +76,7 @@ class Lein(_Phonetic):
         self._zero_pad = zero_pad
 
     def encode_alpha(self, word):
-        """Return the alphabetic Lein code for a word.
+        """Return the alphabetic LEIN code for a word.
 
         Parameters
         ----------
@@ -85,11 +86,11 @@ class Lein(_Phonetic):
         Returns
         -------
         str
-            The alphabetic Lein code
+            The alphabetic LEIN code
 
         Examples
         --------
-        >>> pe = Lein()
+        >>> pe = LEIN()
         >>> pe.encode_alpha('Christopher')
         'CLKT'
         >>> pe.encode_alpha('Niall')
@@ -107,7 +108,7 @@ class Lein(_Phonetic):
         return code[:1] + code[1:].translate(self._alphabetic)
 
     def encode(self, word):
-        """Return the Lein code for a word.
+        """Return the LEIN code for a word.
 
         Parameters
         ----------
@@ -117,11 +118,11 @@ class Lein(_Phonetic):
         Returns
         -------
         str
-            The Lein code
+            The LEIN code
 
         Examples
         --------
-        >>> pe = Lein()
+        >>> pe = LEIN()
         >>> pe.encode('Christopher')
         'C351'
         >>> pe.encode('Niall')
@@ -157,12 +158,12 @@ class Lein(_Phonetic):
     deprecated_in='0.4.0',
     removed_in='0.6.0',
     current_version=__version__,
-    details='Use the Lein.encode method instead.',
+    details='Use the LEIN.encode method instead.',
 )
 def lein(word, max_length=4, zero_pad=True):
-    """Return the Lein code for a word.
+    """Return the LEIN code for a word.
 
-    This is a wrapper for :py:meth:`Lein.encode`.
+    This is a wrapper for :py:meth:`LEIN.encode`.
 
     Parameters
     ----------
@@ -176,7 +177,7 @@ def lein(word, max_length=4, zero_pad=True):
     Returns
     -------
     str
-        The Lein code
+        The LEIN code
 
     Examples
     --------
@@ -192,7 +193,7 @@ def lein(word, max_length=4, zero_pad=True):
     .. versionadded:: 0.3.0
 
     """
-    return Lein(max_length, zero_pad).encode(word)
+    return LEIN(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':
