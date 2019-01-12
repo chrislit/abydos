@@ -124,9 +124,6 @@ class SokalSneathIII(_TokenDistance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
-        TODO: Figure out how to normalize this.
-
-
         .. versionadded:: 0.4.0
 
         """

@@ -543,6 +543,8 @@ __all__ = [
     'KendallTau',
     'KentFosterI',
     'KentFosterII',
+    'KoppenI',
+    'KoppenII',
     'KuderRichardson',
     'KuhnsI',
     'KuhnsII',
