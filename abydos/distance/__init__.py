@@ -74,6 +74,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Consonni & Todeschini IV similarity (:py:class:`.ConsonniTodeschiniIV`)
     - Consonni & Todeschini V similarity (:py:class:`.ConsonniTodeschiniV`)
     - Dennis similarity (:py:class:`.Dennis`)
+    - Dice's Asymmetric I similarity (:py:class:`.DiceAsymmetricI`)
+    - Dice's Asymmetric II similarity (:py:class:`.DiceAsymmetricII`)
     - Digby similarity (:py:class:`.Digby`)
     - Dispersion similarity (:py:class:`.Dispersion`)
     - Doolittle similarity (:py:class:`.Doolittle`)
@@ -303,6 +305,8 @@ from ._damerau_levenshtein import (
 )
 from ._dennis import Dennis
 from ._dice import Dice, dist_dice, sim_dice
+from ._dice_asymmetric_i import DiceAsymmetricI
+from ._dice_asymmetric_ii import DiceAsymmetricII
 from ._digby import Digby
 from ._dispersion import Dispersion
 from ._distance import _Distance
@@ -559,6 +563,8 @@ __all__ = [
     'ConsonniTodeschiniV',
     'CohenKappa',
     'Dennis',
+    'DiceAsymmetricI',
+    'DiceAsymmetricII',
     'Digby',
     'Dispersion',
     'Doolittle',
