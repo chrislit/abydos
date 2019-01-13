@@ -44,8 +44,7 @@ class Peirce(_TokenDistance):
             sim_{Peirce}(X, Y) = \frac{|X \cap Y| \cdot
             |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus Y|}
-            {(|X \cap Y| + |X \setminus Y|) \cdot
-            (|Y \setminus Y| + |(N \setminus X) \setminus Y|)}
+            {|X| \cdot |N \setminus X|}
 
     Both :cite:`Choi:2010` and :cite:`Hubalek:1982` present a different formula
     and incorrectly attribute it to Peirce. Likewise, :cite:`Doolittle:1884`
@@ -58,7 +57,7 @@ class Peirce(_TokenDistance):
         .. math::
 
             sim_{Peirce} =
-            \frac{ad-bd}{(a+b)(c+d)}
+            \frac{ad-bc}{(a+b)(c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -148,9 +147,8 @@ class Peirce(_TokenDistance):
         b = self.src_only_card()
         c = self.tar_only_card()
         d = self.total_complement_card()
-        ac = self.tar_card()
 
-        return (a * d - b * c) / (ac * (b + c))
+        return (a * d - b * c) / ((a + b) * (c + d))
 
 
 if __name__ == '__main__':
