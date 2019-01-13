@@ -160,6 +160,32 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Tulloss' T similarity (:py:class:`.TullossT`)
     - Tulloss' U similarity (:py:class:`.TullossU`)
     - Weighted Jaccard similarity (:py:class:`.WeightedJaccard`)
+    - Unknown A similarity (:py:class:`.UnknownA`)
+    - Unknown B similarity (:py:class:`.UnknownB`)
+    - Unknown C similarity (:py:class:`.UnknownC`)
+    - Unknown D similarity (:py:class:`.UnknownD`)
+    - Unknown E similarity (:py:class:`.UnknownE`)
+    - Unknown F similarity (:py:class:`.UnknownF`)
+    - Unknown G similarity (:py:class:`.UnknownG`)
+    - Unknown H similarity (:py:class:`.UnknownH`)
+    - Unknown I similarity (:py:class:`.UnknownI`)
+    - Unknown J similarity (:py:class:`.UnknownJ`)
+    - Unknown K similarity (:py:class:`.UnknownK`)
+    - Unknown L similarity (:py:class:`.UnknownL`)
+    - Unknown M similarity (:py:class:`.UnknownM`)
+    - Unknown N similarity (:py:class:`.UnknownN`)
+    - Unknown O similarity (:py:class:`.UnknownO`)
+    - Unknown P similarity (:py:class:`.UnknownP`)
+    - Unknown Q similarity (:py:class:`.UnknownQ`)
+    - Unknown R similarity (:py:class:`.UnknownR`)
+    - Unknown S similarity (:py:class:`.UnknownS`)
+    - Unknown T similarity (:py:class:`.UnknownT`)
+    - Unknown U similarity (:py:class:`.UnknownU`)
+    - Unknown V similarity (:py:class:`.UnknownV`)
+    - Unknown W similarity (:py:class:`.UnknownW`)
+    - Unknown X similarity (:py:class:`.UnknownX`)
+    - Unknown Y similarity (:py:class:`.UnknownY`)
+    - Unknown Z similarity (:py:class:`.UnknownZ`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Warrens I similarity (:py:class:`.WarrensI`)
     - Warrens II similarity (:py:class:`.WarrensII`)
@@ -415,6 +441,32 @@ from ._tulloss_t import TullossT
 from ._tulloss_u import TullossU
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
+from ._unknown_a import UnknownA
+from ._unknown_b import UnknownB
+from ._unknown_c import UnknownC
+from ._unknown_d import UnknownD
+from ._unknown_e import UnknownE
+from ._unknown_f import UnknownF
+from ._unknown_g import UnknownG
+from ._unknown_h import UnknownH
+from ._unknown_i import UnknownI
+from ._unknown_j import UnknownJ
+from ._unknown_k import UnknownK
+from ._unknown_l import UnknownL
+from ._unknown_m import UnknownM
+from ._unknown_n import UnknownN
+from ._unknown_o import UnknownO
+from ._unknown_p import UnknownP
+from ._unknown_q import UnknownQ
+from ._unknown_r import UnknownR
+from ._unknown_s import UnknownS
+from ._unknown_t import UnknownT
+from ._unknown_u import UnknownU
+from ._unknown_v import UnknownV
+from ._unknown_w import UnknownW
+from ._unknown_x import UnknownX
+from ._unknown_y import UnknownY
+from ._unknown_z import UnknownZ
 from ._upholt import Upholt
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
@@ -596,6 +648,32 @@ __all__ = [
     'TullossT',
     'TullossU',
     'WeightedJaccard',
+    'UnknownA',
+    'UnknownB',
+    'UnknownC',
+    'UnknownD',
+    'UnknownE',
+    'UnknownF',
+    'UnknownG',
+    'UnknownH',
+    'UnknownI',
+    'UnknownJ',
+    'UnknownK',
+    'UnknownL',
+    'UnknownM',
+    'UnknownN',
+    'UnknownO',
+    'UnknownP',
+    'UnknownQ',
+    'UnknownR',
+    'UnknownS',
+    'UnknownT',
+    'UnknownU',
+    'UnknownV',
+    'UnknownW',
+    'UnknownX',
+    'UnknownY',
+    'UnknownZ',
     'Upholt',
     'WarrensI',
     'WarrensII',
