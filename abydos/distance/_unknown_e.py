@@ -36,12 +36,17 @@ __all__ = ['UnknownE']
 class UnknownE(_TokenDistance):
     r"""Unknown E similarity.
 
-    For two sets X and Y and a population N, Unknown E similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown E similarity, which
+    :cite:`Morris:2012` attributes to :cite:`Goodman:1954` but could not be
+    located in that source, is
 
         .. math::
 
             sim_{UnknownE}(X, Y) =
+            \frac{2 \cdot min(|X \cap Y|, |(N \setminus X) \setminus Y|) -
+            |X \setminus Y| - |Y \setminus X|}
+            {2 \cdot min(|X \cap Y|, |(N \setminus X) \setminus Y|) +
+            |X \setminus Y| + |Y \setminus X|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +54,7 @@ class UnknownE(_TokenDistance):
         .. math::
 
             sim_{UnknownE} =
+            \frac{2 \cdot min(a, d) - b - c}{2 \cdot min(a, d) + b + c}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +140,12 @@ class UnknownE(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
 
-        return 0.0
+        return (2*min(a,d)-b-c)/(2*min(a,d)+b+c)
 
 
 if __name__ == '__main__':

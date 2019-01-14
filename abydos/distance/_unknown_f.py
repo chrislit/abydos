@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['UnknownF']
@@ -36,12 +38,15 @@ __all__ = ['UnknownF']
 class UnknownF(_TokenDistance):
     r"""Unknown F similarity.
 
-    For two sets X and Y and a population N, Unknown F similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown F similarity, which
+    :cite:`Choi:2010` attributes to :cite:`Gilbert:1966` but could not be
+    located in that source, is
 
         .. math::
 
             sim_{UnknownF}(X, Y) =
+            log(|X \cap Y|) - log(|N|) - log(\frac{|X|}{|N|}) -
+            log(\frac{|Y|}{|N|})
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +54,7 @@ class UnknownF(_TokenDistance):
         .. math::
 
             sim_{UnknownF} =
+            log(a) - log(n) - log(\frac{a+b}{m}) - log(\frac{a+c}{n})
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +140,12 @@ class UnknownF(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        n = self._population_card()
 
-        return 0.0
+        return log(a/n) - log((a+b)/n) - log((a+c)/n)
 
 
 if __name__ == '__main__':

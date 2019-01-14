@@ -36,12 +36,15 @@ __all__ = ['UnknownG']
 class UnknownG(_TokenDistance):
     r"""Unknown G similarity.
 
-    For two sets X and Y and a population N, Unknown G similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown G similarity, which
+    :cite:`Choi:2010` attributes to :cite:`Kulczynski:1927` but could not be
+    located in that source, is
 
         .. math::
 
             sim_{UnknownG}(X, Y) =
+            \frac{\frac{|X \cap Y|}{2} \cdot (|X| + |Y|)}
+            {|X| \cdot |Y|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,13 +52,13 @@ class UnknownG(_TokenDistance):
         .. math::
 
             sim_{UnknownG} =
+            \frac{\frac{a}{2} \cdot (2a+b+c)}{(a+b)(a+c)}
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
         self,
-        alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
         **kwargs
@@ -64,10 +67,6 @@ class UnknownG(_TokenDistance):
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-            See :ref:`alphabet <alphabet>` description in
-            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
@@ -95,7 +94,6 @@ class UnknownG(_TokenDistance):
 
         """
         super(UnknownG, self).__init__(
-            alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
@@ -134,13 +132,11 @@ class UnknownG(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
 
-        return 0.0
+        return (0.5*a*(2*a+b+c))/((a+b)*(a+c))
 
 
 if __name__ == '__main__':

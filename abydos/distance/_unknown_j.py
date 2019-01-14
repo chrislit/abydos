@@ -36,12 +36,14 @@ __all__ = ['UnknownJ']
 class UnknownJ(_TokenDistance):
     r"""Unknown J similarity.
 
-    For two sets X and Y and a population N, Unknown J similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown J similarity, which
+    :cite:`SequentiX:2018` attributes to "Kocher & Wang" but could not be
+    located, is
 
         .. math::
 
             sim_{UnknownJ}(X, Y) =
+            |X \cap Y| \cdot \frac{|N|}{|X| \cdot |N \setminus X|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +51,7 @@ class UnknownJ(_TokenDistance):
         .. math::
 
             sim_{UnknownJ} =
+            a \cdot \frac{n}{(a+b)(c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +137,13 @@ class UnknownJ(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_card()
 
-        return 0.0
+        return a*n/((a+b)*(c+d))
 
 
 if __name__ == '__main__':
