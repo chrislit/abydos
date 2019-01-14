@@ -220,7 +220,7 @@ class _TokenDistance(_Distance):
             elif self.params['normalizer'] == 'complement':
                 self.normalizer = lambda x, n: self._population_card - x
 
-    def tokenize(self, src, tar):
+    def _tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
 
         Parameters
@@ -238,7 +238,7 @@ class _TokenDistance(_Distance):
         Examples
         --------
         >>> pe = _TokenDistance()
-        >>> pe.tokenize('AT', 'TT').get_tokens()
+        >>> pe._tokenize('AT', 'TT')._get_tokens()
         (Counter({'$A': 1, 'AT': 1, 'T#': 1}),
          Counter({'$T': 1, 'TT': 1, 'T#': 1}))
 
@@ -265,52 +265,52 @@ class _TokenDistance(_Distance):
 
         return self
 
-    def get_tokens(self):
+    def _get_tokens(self):
         """Return the src and tar tokens as a tuple."""
         return self._src_tokens, self._tar_tokens
 
-    def src_card(self):
+    def _src_card(self):
         r"""Return the cardinality of the tokens in the source set."""
         return self.normalizer(sum(self._src_tokens.values()), 2)
 
-    def src_only(self):
+    def _src_only(self):
         r"""Return the src tokens minus the tar tokens.
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
         return self._src_tokens - self.intersection()
 
-    def src_only_card(self):
+    def _src_only_card(self):
         """Return the cardinality of the tokens only in the source set."""
-        return self.normalizer(sum(self.src_only().values()), 1)
+        return self.normalizer(sum(self._src_only().values()), 1)
 
-    def tar_card(self):
+    def _tar_card(self):
         r"""Return the cardinality of the tokens in the target set."""
         return self.normalizer(sum(self._tar_tokens.values()), 2)
 
-    def tar_only(self):
+    def _tar_only(self):
         r"""Return the tar tokens minus the src tokens.
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
         return self._tar_tokens - self.intersection()
 
-    def tar_only_card(self):
+    def _tar_only_card(self):
         """Return the cardinality of the tokens only in the target set."""
-        return self.normalizer(sum(self.tar_only().values()), 1)
+        return self.normalizer(sum(self._tar_only().values()), 1)
 
-    def symmetric_difference(self):
+    def _symmetric_difference(self):
         r"""Return the symmetric difference of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \triangle T`.
         """
-        return self.src_only() + self.tar_only()
+        return self._src_only() + self._tar_only()
 
-    def symmetric_difference_card(self):
+    def _symmetric_difference_card(self):
         """Return the cardinality of the symmetric difference."""
-        return self.normalizer(sum(self.symmetric_difference().values()), 2)
+        return self.normalizer(sum(self._symmetric_difference().values()), 2)
 
-    def total(self):
+    def _total(self):
         """Return the sum of the sets.
 
         For (multi-)sets S and T, this is :math:`S + T`.
@@ -320,42 +320,42 @@ class _TokenDistance(_Distance):
         """
         return self._src_tokens + self._tar_tokens
 
-    def total_card(self):
+    def _total_card(self):
         """Return the cardinality of the complement of the total."""
-        return self.normalizer(sum(self.total().values()), 3)
+        return self.normalizer(sum(self._total().values()), 3)
 
-    def total_complement_card(self):
+    def _total_complement_card(self):
         """Return the cardinality of the complement of the total."""
         if self.params['alphabet'] is None:
             return self.normalizer(0, 1)
         elif isinstance(self.params['alphabet'], Counter):
             return self.normalizer(
-                sum((self.params['alphabet']).values() - self.total()), 1
+                sum((self.params['alphabet']).values() - self._total()), 1
             )
         return self.normalizer(
-            self.params['alphabet'] - len(self.total().values()), 1
+            self.params['alphabet'] - len(self._total().values()), 1
         )
 
     def _calc_population_card(self):
         """Return the cardinality of the population."""
-        return self.total_card() + self.total_complement_card()
+        return self._total_card() + self._total_complement_card()
 
-    def population_card(self):
+    def _population_card(self):
         """Return the cardinality of the population."""
         return self.normalizer(self._population_card, 4)
 
-    def union(self):
+    def _union(self):
         r"""Return the union of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
-        return self.total() - self.intersection()
+        return self._total() - self.intersection()
 
-    def union_card(self):
+    def _union_card(self):
         """Return the cardinality of the union."""
-        return self.normalizer(sum(self.union().values()), 3)
+        return self.normalizer(sum(self._union().values()), 3)
 
-    def difference(self):
+    def _difference(self):
         """Return the difference of the tokens, supporting negative values."""
         _src_copy = Counter(self._src_tokens)
         _src_copy.subtract(self._tar_tokens)
@@ -440,7 +440,7 @@ class _TokenDistance(_Distance):
 
         return intersection
 
-    def intersection_card(self):
+    def _intersection_card(self):
         """Return the cardinality of the intersection."""
         return self.normalizer(sum(self.intersection().values()), 1)
 

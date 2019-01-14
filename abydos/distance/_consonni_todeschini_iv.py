@@ -136,11 +136,11 @@ class ConsonniTodeschiniIV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        b = self.src_only_card()
-        c = self.tar_only_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
 
         return log(1 + a) / log(1 + a + b + c)
 

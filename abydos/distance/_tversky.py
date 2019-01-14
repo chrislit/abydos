@@ -174,11 +174,11 @@ class Tversky(_TokenDistance):
         elif not src or not tar:
             return 0.0
 
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        q_src_mag = self.src_only_card()
-        q_tar_mag = self.tar_only_card()
-        q_intersection_mag = self.intersection_card()
+        q_src_mag = self._src_only_card()
+        q_tar_mag = self._tar_only_card()
+        q_intersection_mag = self._intersection_card()
 
         if not self._src_tokens or not self._tar_tokens:
             return 0.0

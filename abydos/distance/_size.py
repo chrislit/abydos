@@ -140,11 +140,11 @@ class Size(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
         return (
-            self.symmetric_difference_card()
-        ) ** 2 / self.population_card() ** 2
+            self._symmetric_difference_card()
+        ) ** 2 / self._population_card() ** 2
 
 
 if __name__ == '__main__':

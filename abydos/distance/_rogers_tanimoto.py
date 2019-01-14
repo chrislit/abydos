@@ -135,12 +135,12 @@ class RogersTanimoto(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        return (self.intersection_card() + self.total_complement_card()) / (
-            self.src_only_card()
-            + self.tar_only_card()
-            + self.population_card()
+        return (self._intersection_card() + self._total_complement_card()) / (
+            self._src_only_card()
+            + self._tar_only_card()
+            + self._population_card()
         )
 
 

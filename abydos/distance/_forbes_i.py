@@ -134,10 +134,10 @@ class ForbesI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        return (self.population_card() * self.intersection_card()) / (
-            self.src_card() * self.tar_card()
+        return (self._population_card() * self._intersection_card()) / (
+                self._src_card() * self._tar_card()
         )
 
 

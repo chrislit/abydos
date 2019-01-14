@@ -147,7 +147,7 @@ class SoftCosine(_TokenDistance):
         if not src or not tar:
             return 0.0
 
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
         similarity = {
             'a': lambda src, tar: 1

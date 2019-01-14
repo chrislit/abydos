@@ -133,12 +133,12 @@ class Bag(_TokenDistance):
         elif not tar:
             return len(src)
 
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        dist = max(self.src_only_card(), self.tar_only_card())
+        dist = max(self._src_only_card(), self._tar_only_card())
 
         if normalized:
-            dist /= max(self.src_card(), self.tar_card())
+            dist /= max(self._src_card(), self._tar_card())
 
         return dist
 

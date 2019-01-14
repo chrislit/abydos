@@ -132,7 +132,7 @@ class UnknownY(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
         # a = self.intersection_card()
         # b = self.src_only_card()

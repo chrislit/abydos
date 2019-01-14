@@ -139,14 +139,14 @@ class PearsonPhi(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        b = self.src_only_card()
-        c = self.tar_only_card()
-        d = self.total_complement_card()
-        ab = self.src_card()
-        ac = self.tar_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        ab = self._src_card()
+        ac = self._tar_card()
 
         return (a * d - b * c) / (ab * ac * (b + d) * (c + d)) ** 0.5
 

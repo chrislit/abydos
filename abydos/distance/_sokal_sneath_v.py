@@ -142,12 +142,12 @@ class SokalSneathV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        b = self.src_only_card()
-        c = self.tar_only_card()
-        d = self.total_complement_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
 
         return a * d / ((a + b) * (a + c) * (b + d) * (c + d)) ** 0.5
 

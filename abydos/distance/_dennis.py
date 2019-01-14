@@ -140,10 +140,10 @@ class Dennis(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        abacn = self.src_card() * self.tar_card() / self.population_card()
+        a = self._intersection_card()
+        abacn = self._src_card() * self._tar_card() / self._population_card()
 
         return (a - abacn) / abacn ** 0.5
 
