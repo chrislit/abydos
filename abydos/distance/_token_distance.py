@@ -37,6 +37,7 @@ from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
 from ._lcprefix import LCPrefix
 from ._levenshtein import Levenshtein
+from ..stats import ConfusionTable
 from ..tokenizer import QGrams, WhitespaceTokenizer
 
 __all__ = ['_TokenDistance']
@@ -443,6 +444,12 @@ class _TokenDistance(_Distance):
     def _intersection_card(self):
         """Return the cardinality of the intersection."""
         return self.normalizer(sum(self.intersection().values()), 1)
+
+    def _get_confusion_table(self):
+        """Return the token counts as a ConfusionTable object."""
+        return ConfusionTable(self._intersection_card(),
+                              self._total_complement_card(),
+                              self._src_only_card(), self._tar_only_card())
 
 
 if __name__ == '__main__':
