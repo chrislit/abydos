@@ -145,7 +145,7 @@ class UnknownH(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_card()
 
-        return (a*d-b*c)/(n*(a+b)*(a+c))**0.5
+        return (a * d - b * c) / (n * (a + b) * (a + c)) ** 0.5
 
 
 if __name__ == '__main__':

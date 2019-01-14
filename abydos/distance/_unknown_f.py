@@ -145,7 +145,7 @@ class UnknownF(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_card()
 
-        return log(a/n) - log((a+b)/n) - log((a+c)/n)
+        return log(a / n) - log((a + b) / n) - log((a + c) / n)
 
 
 if __name__ == '__main__':

@@ -144,7 +144,7 @@ class UnknownP(_TokenDistance):
         ac = self._tar_card()
         n = self._population_card()
 
-        return log(a*n/(ab*ac))
+        return log(a * n / (ab * ac))
 
 
 if __name__ == '__main__':

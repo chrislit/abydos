@@ -145,7 +145,7 @@ class UnknownL(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_card()
 
-        return (a+d)/(min(b, c) + min(n-b, n-c))
+        return (a + d) / (min(b, c) + min(n - b, n - c))
 
 
 if __name__ == '__main__':

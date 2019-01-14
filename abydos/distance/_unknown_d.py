@@ -146,7 +146,7 @@ class UnknownD(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a*d+b*c)/(a*b+2*b*c+c*d)
+        return (a * d + b * c) / (a * b + 2 * b * c + c * d)
 
 
 if __name__ == '__main__':

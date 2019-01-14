@@ -149,7 +149,10 @@ class UnknownO(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return log(a*d/(b*d)) - 3.29 * (1/a+1/b+1/c+1/d)**0.5
+        return (
+            log(a * d / (b * d))
+            - 3.29 * (1 / a + 1 / b + 1 / c + 1 / d) ** 0.5
+        )
 
 
 if __name__ == '__main__':

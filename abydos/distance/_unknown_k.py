@@ -140,7 +140,7 @@ class UnknownK(_TokenDistance):
         a = self._intersection_card()
         n = self._population_card()
 
-        return a*(1-a/n)
+        return a * (1 - a / n)
 
 
 if __name__ == '__main__':
