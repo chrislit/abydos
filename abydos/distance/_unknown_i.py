@@ -36,12 +36,15 @@ __all__ = ['UnknownI']
 class UnknownI(_TokenDistance):
     r"""Unknown I similarity.
 
-    For two sets X and Y and a population N, Unknown I similarity
-    :cite:`CITATION` is
+    For two sets X and Y, Unknown I similarity, which
+    :cite:`Choi:2010` attributes to :cite:`Fager:1963` but could not be
+    located in that source, is
 
         .. math::
 
             sim_{UnknownI}(X, Y) =
+            \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}-
+            \frac{max(|X|, |Y|)}{2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,13 +52,13 @@ class UnknownI(_TokenDistance):
         .. math::
 
             sim_{UnknownI} =
+            \frac{a}{\sqrt{(a+b)(a+c)}}-\frac{max(a+b, a+c)}{2}
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
         self,
-        alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
         **kwargs
@@ -64,10 +67,6 @@ class UnknownI(_TokenDistance):
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-            See :ref:`alphabet <alphabet>` description in
-            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
@@ -95,7 +94,6 @@ class UnknownI(_TokenDistance):
 
         """
         super(UnknownI, self).__init__(
-            alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
@@ -134,13 +132,11 @@ class UnknownI(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
 
-        return 0.0
+        return a/((a+b)*(a+c))**0.5 - max(a+b, a+c)/2
 
 
 if __name__ == '__main__':

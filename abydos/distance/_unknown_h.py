@@ -36,12 +36,16 @@ __all__ = ['UnknownH']
 class UnknownH(_TokenDistance):
     r"""Unknown H similarity.
 
-    For two sets X and Y and a population N, Unknown H similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown H similarity, which
+    :cite:`Choi:2010` attributes to :cite:`Dennis:1965` but could not be
+    located in that source, is
 
         .. math::
 
             sim_{UnknownH}(X, Y) =
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |N \setminus X| \cdot |N \setminus Y|}
+            {\sqrt{|N| \cdot |X| \cdot |Y|}}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +53,7 @@ class UnknownH(_TokenDistance):
         .. math::
 
             sim_{UnknownH} =
+            \frac{ad-bc}{\sqrt{n(a+b)(a+c)}}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +139,13 @@ class UnknownH(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_card()
 
-        return 0.0
+        return (a*d-b*c)/(n*(a+b)*(a+c))**0.5
 
 
 if __name__ == '__main__':

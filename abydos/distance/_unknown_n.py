@@ -36,12 +36,14 @@ __all__ = ['UnknownN']
 class UnknownN(_TokenDistance):
     r"""Unknown N similarity.
 
-    For two sets X and Y and a population N, Unknown N similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown N similarity, which
+    :cite:`SequentiX:2018` attributes to "Michelet" but could not be
+    located, is
 
         .. math::
 
             sim_{UnknownN}(X, Y) =
+            \frac{|X \cap Y|^2}{|X \setminus Y| \cdot |Y \setminus X|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,13 +51,13 @@ class UnknownN(_TokenDistance):
         .. math::
 
             sim_{UnknownN} =
+            \frac{a^2}{bc}
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
         self,
-        alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
         **kwargs
@@ -64,10 +66,6 @@ class UnknownN(_TokenDistance):
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-            See :ref:`alphabet <alphabet>` description in
-            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
@@ -95,7 +93,6 @@ class UnknownN(_TokenDistance):
 
         """
         super(UnknownN, self).__init__(
-            alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
@@ -134,13 +131,11 @@ class UnknownN(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
 
-        return 0.0
+        return a*a/(b*c)
 
 
 if __name__ == '__main__':

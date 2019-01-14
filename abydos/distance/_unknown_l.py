@@ -36,12 +36,16 @@ __all__ = ['UnknownL']
 class UnknownL(_TokenDistance):
     r"""Unknown L similarity.
 
-    For two sets X and Y and a population N, Unknown L similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown L similarity, which
+    :cite:`SequentiX:2018` attributes to "Roux" but could not be
+    located, is
 
         .. math::
 
             sim_{UnknownL}(X, Y) =
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}
+            {min(|X \setminus Y|, |Y \setminus X|) +
+            min(|N|-|X \setminus Y|, |N|-|Y \setminus X|)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +53,7 @@ class UnknownL(_TokenDistance):
         .. math::
 
             sim_{UnknownL} =
+            \frac{a+d}{min(b, c) + min(n-b, n-c)}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +139,13 @@ class UnknownL(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_card()
 
-        return 0.0
+        return (a+d)/(min(b, c) + min(n-b, n-c))
 
 
 if __name__ == '__main__':

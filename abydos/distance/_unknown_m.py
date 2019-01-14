@@ -36,12 +36,15 @@ __all__ = ['UnknownM']
 class UnknownM(_TokenDistance):
     r"""Unknown M similarity.
 
-    For two sets X and Y and a population N, Unknown M similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown < similarity, which
+    :cite:`SequentiX:2018` attributes to "Roux" but could not be
+    located, is
 
         .. math::
 
             sim_{UnknownM}(X, Y) =
+            \frac{|N|-|X \cap Y| \cdot |(N \setminus X) \setminus Y|}
+            {\sqrt{|X| \cdot |N \setminus X| \cdot |Y| \cdot |N \setminus Y|}}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +52,7 @@ class UnknownM(_TokenDistance):
         .. math::
 
             sim_{UnknownM} =
+            \frac{n-ad}{\sqrt{(a+b)(c+d)(a+c)(b+d)}}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +138,13 @@ class UnknownM(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_card()
 
-        return 0.0
+        return (n-a*d)/((a+b)*(c+d)*(a+c)*(b+d))**0.5
 
 
 if __name__ == '__main__':

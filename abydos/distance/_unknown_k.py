@@ -36,12 +36,14 @@ __all__ = ['UnknownK']
 class UnknownK(_TokenDistance):
     r"""Unknown K similarity.
 
-    For two sets X and Y and a population N, Unknown K similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown K similarity, which
+    :cite:`SequentiX:2018` attributes to "Excoffier" but could not be
+    located, is
 
         .. math::
 
             sim_{UnknownK}(X, Y) =
+            |N| \cdot (1 - \frac{|X \cap Y|}{|N|})
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +51,7 @@ class UnknownK(_TokenDistance):
         .. math::
 
             sim_{UnknownK} =
+            n \cdot (1 - \frac{a}{n})
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +137,10 @@ class UnknownK(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        n = self._population_card()
 
-        return 0.0
+        return a*(1-a/n)
 
 
 if __name__ == '__main__':

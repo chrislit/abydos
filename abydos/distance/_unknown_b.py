@@ -36,12 +36,16 @@ __all__ = ['UnknownB']
 class UnknownB(_TokenDistance):
     r"""Unknown B similarity.
 
-    For two sets X and Y and a population N, Unknown B similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown B similarity, which
+    :cite:`Morris:2012` attributes to :cite:`Doolittle:1884` but could not be
+    located in that source, is
 
         .. math::
 
             sim_{UnknownB}(X, Y) =
+            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|}
+            {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +53,7 @@ class UnknownB(_TokenDistance):
         .. math::
 
             sim_{UnknownB} =
+            \frac{(ad-bc)^2}{(a+b)(a+c)(b+d)(c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +139,12 @@ class UnknownB(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
 
-        return 0.0
+        return (a*d-b*c)**2/((a+b)*(a+c)*(b+d)*(c+d))
 
 
 if __name__ == '__main__':

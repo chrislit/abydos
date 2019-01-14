@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['UnknownP']
@@ -36,12 +38,14 @@ __all__ = ['UnknownP']
 class UnknownP(_TokenDistance):
     r"""Unknown P similarity.
 
-    For two sets X and Y and a population N, Unknown P similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown P similarity, which
+    :cite:`SequentiX:2018` attributes terms "Mutual Information" but could not
+    be located, is
 
         .. math::
 
             sim_{UnknownP}(X, Y) =
+            log(\frac{|X \cap Y| \cdot |N|}{|X| \cdot |Y|})
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +53,7 @@ class UnknownP(_TokenDistance):
         .. math::
 
             sim_{UnknownP} =
+            log(\frac{an}{(a+b)(a+c)})
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +139,12 @@ class UnknownP(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        ab = self._src_card()
+        ac = self._tar_card()
+        n = self._population_card()
 
-        return 0.0
+        return log(a*n/(ab*ac))
 
 
 if __name__ == '__main__':

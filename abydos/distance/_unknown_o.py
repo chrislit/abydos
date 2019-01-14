@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['UnknownO']
@@ -36,12 +38,18 @@ __all__ = ['UnknownO']
 class UnknownO(_TokenDistance):
     r"""Unknown O similarity.
 
-    For two sets X and Y and a population N, Unknown O similarity
-    :cite:`CITATION` is
+    For two sets X and Y and a population N, Unknown O similarity, which
+    :cite:`SequentiX:2018` attributes terms "Unigram subtuples" but could not
+    be located, is
 
         .. math::
 
             sim_{UnknownO}(X, Y) =
+            log(\frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y|}
+            {|X \setminus Y| \cdot |Y \setminus Y|}) - 3.29 \cdot
+            \sqrt{\frac{1}{|X \cap Y|} + \frac{1}{|X \setminus Y|} +
+            \frac{1}{|Y \setminus X|} +
+            \frac{1}{|(N \setminus X) \setminus Y|}}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -49,6 +57,8 @@ class UnknownO(_TokenDistance):
         .. math::
 
             sim_{UnknownO} =
+            log(\frac{ad}{bc}) - 3.29 \cdot
+            \sqrt{\frac{1}{a} + \frac{1}{b} + \frac{1}{c} + \frac{1}{d}}
 
     .. versionadded:: 0.4.0
     """
@@ -134,13 +144,12 @@ class UnknownO(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self.intersection_card()
-        # b = self.src_only_card()
-        # c = self.tar_only_card()
-        # d = self.total_complement_card()
-        # n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
 
-        return 0.0
+        return log(a*d/(b*d)) - 3.29 * (1/a+1/b+1/c+1/d)**0.5
 
 
 if __name__ == '__main__':
