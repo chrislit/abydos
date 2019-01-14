@@ -60,7 +60,7 @@ class SokalMichener(_TokenDistance):
     the value of the variance dissimilarity of :cite:`IBM:2017`.
 
     In terms of a confusion matrix, this is equivalent to accuracy
-    :py:math:`ConfusionTable.accuracy`.
+    :py:meth:`ConfusionTable.accuracy`.
 
     .. versionadded:: 0.4.0
     """
