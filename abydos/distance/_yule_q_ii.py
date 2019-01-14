@@ -41,7 +41,7 @@ class YuleQII(_TokenDistance):
 
         .. math::
 
-            dist_{YuleQII}(X, Y) =
+            dist_{Yule_QII}(X, Y) =
             \frac{2 \cdot |X \setminus Y| \cdot |Y \setminus X|}
             {|X \cap Y| \cdot |(N \setminus X) \setminus Y| +
             |X \setminus Y| \cdot |Y \setminus X|}
@@ -51,7 +51,7 @@ class YuleQII(_TokenDistance):
 
         .. math::
 
-            dist_{YuleQII} =
+            dist_{Yule_QII} =
             \frac{2bc}{ad+bc}
 
     .. versionadded:: 0.4.0
