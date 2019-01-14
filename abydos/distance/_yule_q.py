@@ -41,7 +41,7 @@ class YuleQ(_TokenDistance):
 
         .. math::
 
-            sim_{YuleQ}(X, Y) =
+            sim_{Yule_Q}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {|X \cap Y| \cdot |(N \setminus X) \setminus Y| +
@@ -54,7 +54,7 @@ class YuleQ(_TokenDistance):
 
         .. math::
 
-            sim_{YuleQ} =
+            sim_{Yule_Q} =
             \frac{ad-bc}{ad+bc}
 
     .. versionadded:: 0.4.0
