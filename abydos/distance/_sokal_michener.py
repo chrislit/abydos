@@ -59,6 +59,9 @@ class SokalMichener(_TokenDistance):
     The associated distance metric is the mean Manhattan distance and 4 times
     the value of the variance dissimilarity of :cite:`IBM:2017`.
 
+    In terms of a confusion matrix, this is equivalent to accuracy
+    :py:math:`ConfusionTable.accuracy`.
+
     .. versionadded:: 0.4.0
     """
 
