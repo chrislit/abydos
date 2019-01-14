@@ -39,28 +39,29 @@ class Dunning(_TokenDistance):
     r"""Dunning similarity.
 
     For two sets X and Y and a population N, Dunning log-likelihood
-    :cite:`Dunning:1993`, following :cite:`SequentiX:2018`, is
+    :cite:`Dunning:1993`, following :cite:`Church:1991`, is
 
         .. math::
 
-            sim_{Dunning}(X, Y) =
-            2(|X \cap Y| log(|X \cap Y|) +
-            |X \setminus Y| log(|X \setminus Y|) +
-            |Y \setminus X| log(|Y \setminus X|) +
-            |(N \setminus X) \setminus Y| log(|(N \setminus X) \setminus Y|)) -
-            (|X| log(|X|) + |Y| log(|Y|) +
-            |N \setminus Y| log(|N \setminus Y|) +
-            |N \setminus X| log(|N \setminus X|)) +
-            |N| log(|N|)
+            sim_{Dunning}(X, Y) = \lambda =
+            |N| log_2(|N|) + |X \cap Y| log_2(|X \cap Y|) +
+            |X \setminus Y| log_2(|X \setminus Y|) +
+            |Y \setminus X| log_2(|Y \setminus X|) +
+            |(N \setminus X) \setminus Y| log_2(|(N \setminus X) \setminus Y|) -
+            (|X| log_2(|X|) + |Y| log_2(|Y|) +
+            |N \setminus Y| log_2(|N \setminus Y|) +
+            |N \setminus X| log_2(|N \setminus X|)) +
+
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{Dunning} = 2(a log(a) + b log(b) + c log(c) + d log(d)) -
-            ((a+b) log(a+b) + (a+c) log(a+c) + (b+d) log(b+d) +
-            (c+d) log(c+d)) + n log(n)
+            sim_{Dunning} = \lambda =
+            n log_2(n) + a log_2(a) + b log_2(b) + c log_2(c) + d log_2(d) -
+            ((a+b) log_2(a+b) + (a+c) log_2(a+c) + (b+d) log_2(b+d) +
+            (c+d) log_2(c+d))
 
     .. versionadded:: 0.4.0
     """
@@ -152,13 +153,15 @@ class Dunning(_TokenDistance):
         d = self._total_complement_card()
 
         return (
-            2 * (a * log(a) + b * log(b) + c * log(c) + d * log(d))
-            - (a + b) * log(a + b)
-            - (a + c) * log(a + c)
-            - (b + d) * log(b + d)
-            - (c + d) * log(c + d)
-            + (a + b + c + d) * log(a + b + c + d)
-        )
+            (a + b + c + d) * log(a + b + c + d)
+            + (a * log(a) + b * log(b) + c * log(c) + d * log(d))
+            - (
+                (a + b) * log(a + b)
+                + (a + c) * log(a + c)
+                + (b + d) * log(b + d)
+                + (c + d) * log(c + d)
+            )
+        ) / log(2)
 
 
 if __name__ == '__main__':
