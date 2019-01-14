@@ -150,7 +150,11 @@ class YatesChiSquared(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_card()
 
-        return n*(abs(a*d-b*c)-n/2)**2/((a+b)*(c+d)*(a+c)*(b+d))
+        return (
+            n
+            * (abs(a * d - b * c) - n / 2) ** 2
+            / ((a + b) * (c + d) * (a + c) * (b + d))
+        )
 
 
 if __name__ == '__main__':
