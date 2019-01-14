@@ -47,8 +47,8 @@ class Dunning(_TokenDistance):
             |N| log_2(|N|) + |X \cap Y| log_2(|X \cap Y|) +
             |X \setminus Y| log_2(|X \setminus Y|) +
             |Y \setminus X| log_2(|Y \setminus X|) +
-            |(N \setminus X) \setminus Y| log_2(|(N \setminus X) \setminus Y|) -
-            (|X| log_2(|X|) + |Y| log_2(|Y|) +
+            |(N \setminus X) \setminus Y| log_2(|(N \setminus X) \setminus Y|)
+            - (|X| log_2(|X|) + |Y| log_2(|Y|) +
             |N \setminus Y| log_2(|N \setminus Y|) +
             |N \setminus X| log_2(|N \setminus X|)) +
 
