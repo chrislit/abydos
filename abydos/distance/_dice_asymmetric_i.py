@@ -56,7 +56,7 @@ class DiceAsymmetricI(_TokenDistance):
     ----
 
     In terms of a confusion matrix, this is equivalent to precision or
-    positive predictive value :py:math:`ConfusionTable.precision`.
+    positive predictive value :py:meth:`ConfusionTable.precision`.
 
     .. versionadded:: 0.4.0
     """

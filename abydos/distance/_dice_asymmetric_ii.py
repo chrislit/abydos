@@ -56,7 +56,7 @@ class DiceAsymmetricII(_TokenDistance):
     ----
 
     In terms of a confusion matrix, this is equivalent to recall, sensitivity,
-    or true positive rate :py:math:`ConfusionTable.recall`.
+    or true positive rate :py:meth:`ConfusionTable.recall`.
 
     .. versionadded:: 0.4.0
     """
