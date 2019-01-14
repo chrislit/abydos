@@ -52,6 +52,12 @@ class DiceAsymmetricI(_TokenDistance):
             sim_{DiceAsymmetricI} =
             \frac{a}{a+b}
 
+    Note
+    ----
+
+    In terms of a confusion matrix, this is equivalent to precision or
+    positive predictive value :py:math:`ConfusionTable.precision`.
+
     .. versionadded:: 0.4.0
     """
 

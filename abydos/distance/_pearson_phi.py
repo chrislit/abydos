@@ -57,6 +57,12 @@ class PearsonPhi(_TokenDistance):
             \frac{ad-bc}
             {\sqrt{(a+b)(a+c)(b+d)(c+d)}}
 
+    Note
+    ----
+
+    In terms of a confusion matrix, this is equivalent to the Matthews
+    correlation coefficient :py:math:`ConfusionTable.mcc`.
+
     .. versionadded:: 0.4.0
     """
 
