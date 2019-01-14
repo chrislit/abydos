@@ -140,13 +140,13 @@ class Gilbert(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        b = self.src_only_card()
-        c = self.tar_only_card()
-        d = self.total_complement_card()
-        n = self.population_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_card()
 
         return (
             2 * (a * d - b * c) / (n ** 2 - a ** 2 + b ** 2 + c ** 2 - d ** 2)

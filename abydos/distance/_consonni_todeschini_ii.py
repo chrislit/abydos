@@ -137,11 +137,11 @@ class ConsonniTodeschiniII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        b = self.src_only_card()
-        c = self.tar_only_card()
-        n = self.population_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        n = self._population_card()
 
         return (log(1 + n) - log(1 + b + c)) / log(1 + n)
 

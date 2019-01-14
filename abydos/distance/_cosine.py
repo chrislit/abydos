@@ -132,10 +132,10 @@ class Cosine(_TokenDistance):
         if not src or not tar:
             return 0.0
 
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        return self.intersection_card() / sqrt(
-            self.src_card() * self.tar_card()
+        return self._intersection_card() / sqrt(
+            self._src_card() * self._tar_card()
         )
 
 

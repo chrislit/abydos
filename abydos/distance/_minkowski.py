@@ -130,12 +130,12 @@ class Minkowski(_TokenDistance):
             Encapsulated in class
 
         """
-        self.tokenize(src, tar)
-        diffs = self.symmetric_difference().values()
+        self._tokenize(src, tar)
+        diffs = self._symmetric_difference().values()
 
         normalizer = 1
         if normalized:
-            totals = self.total().values()
+            totals = self._total().values()
             if self.params['alphabet'] is not None:
                 normalizer = self.params['alphabet']
             elif self.params['pval'] == 0:

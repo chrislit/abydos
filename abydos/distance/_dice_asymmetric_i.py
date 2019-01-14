@@ -128,10 +128,10 @@ class DiceAsymmetricI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        ab = self.src_card()
+        a = self._intersection_card()
+        ab = self._src_card()
 
         return a/ab
 

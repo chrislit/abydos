@@ -143,13 +143,13 @@ class Shape(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        symdiff = self.symmetric_difference().values()
+        symdiff = self._symmetric_difference().values()
 
         dist = sum(symdiff)
         dist_sq = sum(_ ** 2 for _ in symdiff)
-        n = self.population_card()
+        n = self._population_card()
 
         return dist_sq / n - (dist / n) ** 2
 

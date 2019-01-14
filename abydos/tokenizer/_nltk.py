@@ -84,7 +84,7 @@ class NLTKTokenizer(_Tokenizer):
 
         """
         self._string = string
-        self._ordered_list = self.nltk_tokenizer.tokenize(string)
+        self._ordered_list = self.nltk_tokenizer._tokenize(string)
         super(NLTKTokenizer, self).tokenize()
         return self
 

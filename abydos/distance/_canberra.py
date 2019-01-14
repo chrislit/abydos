@@ -120,9 +120,9 @@ class Canberra(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        return self.symmetric_difference_card() / self.total_card()
+        return self._symmetric_difference_card() / self._total_card()
 
 
 if __name__ == '__main__':

@@ -138,12 +138,12 @@ class PearsonHeronII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
         root_ad = (
-            self.intersection_card() * self.total_complement_card()
+                          self._intersection_card() * self._total_complement_card()
         ) ** 0.5
-        root_bc = (self.src_only_card() * self.tar_only_card()) ** 0.5
+        root_bc = (self._src_only_card() * self._tar_only_card()) ** 0.5
 
         return cos(pi * root_bc / (root_ad + root_bc))
 

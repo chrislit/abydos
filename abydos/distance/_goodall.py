@@ -139,11 +139,11 @@ class Goodall(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        d = self.total_complement_card()
-        n = self.population_card()
+        a = self._intersection_card()
+        d = self._total_complement_card()
+        n = self._population_card()
 
         return 2 / pi * asin(((a + d) / n) ** 0.5)
 

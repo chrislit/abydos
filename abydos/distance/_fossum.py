@@ -134,11 +134,11 @@ class Fossum(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
         return (
-            self.population_card() * (self.intersection_card() - 0.5) ** 2
-        ) / (self.src_card() * self.tar_card())
+                       self._population_card() * (self._intersection_card() - 0.5) ** 2
+        ) / (self._src_card() * self._tar_card())
 
 
 if __name__ == '__main__':

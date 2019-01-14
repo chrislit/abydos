@@ -136,11 +136,11 @@ class BaulieuI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
-        a = self.intersection_card()
-        ab = self.src_card()
-        ac = self.tar_card()
+        a = self._intersection_card()
+        ab = self._src_card()
+        ac = self._tar_card()
 
         return (ab * ac - a * a) / (ab * ac)
 
