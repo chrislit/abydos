@@ -63,6 +63,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Benini similarity (:py:class:`.Benini`)
     - Bennet's Sigma similarity (:py:class:`.BennetSigma`)
     - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
+    - Bray-Curtis distance (:py:class:`.BrayCurtis`)
     - Canberra distance (:py:class:`.Canberra`)
     - Chord distance (:py:class:`.Chord`)
     - Clement similarity (:py:class:`.Clement`)
@@ -84,6 +85,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Fager similarity (:py:class:`.Fager`)
     - Fager & McGowan similarity (:py:class:`.FagerMcGowan`)
     - Faith similarity (:py:class:`.Faith`)
+    - Fidelity similarity (:py:class:`.Fidelity`)
     - Fleiss similarity (:py:class:`.Fleiss`)
     - Fleiss-Levin-Paik similarity (:py:class:`.FleissLevinPaik`)
     - Forbes I similarity (:py:class:`.ForbesI`)
@@ -106,6 +108,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hamann similarity (:py:class:`.Hamann`)
     - Harris & Lahey similarity (:py:class:`.HarrisLahey`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
+    - Hellinger distance (:py:class:`.Hellinger`)
     - Hurlbert similarity (:py:class:`.Hurlbert`)
     - Johnson similarity (:py:class:`.Johnson`)
     - Kendall's Tau similarity (:py:class:`.KendallTau`)
@@ -128,10 +131,13 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kuhns XII similarity (:py:class:`.KuhnsXII`)
     - Kulczynski I similarity (:py:class:`.KulczynskiI`)
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
+    - Lorentzian distance (:py:class:`.Lorentzian`)
     - Maarel similarity (:py:class:`.Maarel`)
+    - Matusita distance (:py:class:`.Matusita`)
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
+    - Motyka distance (:py:class:`.Motyka`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Mutual Information similarity (:py:class:`.MutualInformation`)
     - Pattern difference (:py:class:`.Pattern`)
@@ -143,6 +149,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Peirce similarity (:py:class:`.Peirce`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
+    - Ruzicka distance (:py:class:`.Ruzicka`)
     - Scott's Pi similarity (:py:class:`.ScottPi`)
     - Shape difference (:py:class:`.Shape`)
     - Size difference (:py:class:`.Size`)
@@ -152,6 +159,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Sokal & Sneath III similarity (:py:class:`.SokalSneathIII`)
     - Sokal & Sneath IV similarity (:py:class:`.SokalSneathIV`)
     - Sokal & Sneath V similarity (:py:class:`.SokalSneathV`)
+    - Sørensen distance (:py:class:`.Sorensen`)
     - Sorgenfrei similarity (:py:class:`.Sorgenfrei`)
     - Steffensen similarity (:py:class:`.Steffensen`)
     - Stiles similarity (:py:class:`.Stiles`)
@@ -276,6 +284,7 @@ from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._bennet_sigma import BennetSigma
 from ._braun_blanquet import BraunBlanquet
+from ._bray_curtis import BrayCurtis
 from ._canberra import Canberra
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
@@ -310,6 +319,7 @@ from ._eyraud import Eyraud
 from ._fager import Fager
 from ._fager_mcgowan import FagerMcGowan
 from ._faith import Faith
+from ._fidelity import Fidelity
 from ._fleiss import Fleiss
 from ._fleiss_levin_paik import FleissLevinPaik
 from ._forbes_i import ForbesI
@@ -333,6 +343,7 @@ from ._hamann import Hamann
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._harris_lahey import HarrisLahey
 from ._hawkins_dotson import HawkinsDotson
+from ._hellinger import Hellinger
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
@@ -370,14 +381,17 @@ from ._levenshtein import (
     levenshtein,
     sim_levenshtein,
 )
+from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._matusita import Matusita
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._motyka import Motyka
 from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._ms_contingency import MSContingency
@@ -407,6 +421,7 @@ from ._ratcliff_obershelp import (
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
 from ._russell_rao import RussellRao
+from ._ruzicka import Ruzicka
 from ._scott_pi import ScottPi
 from ._shape import Shape
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
@@ -420,6 +435,7 @@ from ._sokal_sneath_ii import SokalSneathII
 from ._sokal_sneath_iii import SokalSneathIII
 from ._sokal_sneath_iv import SokalSneathIV
 from ._sokal_sneath_v import SokalSneathV
+from ._sorensen import Sorensen
 from ._sorgenfrei import Sorgenfrei
 from ._steffensen import Steffensen
 from ._stiles import Stiles
@@ -534,6 +550,7 @@ __all__ = [
     'Benini',
     'BennetSigma',
     'BraunBlanquet',
+'BrayCurtis',
     'Canberra',
     'Chord',
     'Clement',
@@ -555,6 +572,7 @@ __all__ = [
     'Fager',
     'FagerMcGowan',
     'Faith',
+    'Fidelity',
     'Fleiss',
     'FleissLevinPaik',
     'ForbesI',
@@ -576,6 +594,7 @@ __all__ = [
     'Hamann',
     'HarrisLahey',
     'HawkinsDotson',
+    'Hellinger',
     'Hurlbert',
     'Johnson',
     'KentFosterI',
@@ -600,10 +619,13 @@ __all__ = [
     'KuhnsXII',
     'KulczynskiI',
     'KulczynskiII',
+    'Lorentzian',
     'Maarel',
+    'Matusita',
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
+    'Motyka',
     'Mountford',
     'MutualInformation',
     'MSContingency',
@@ -616,6 +638,7 @@ __all__ = [
     'Peirce',
     'RogersTanimoto',
     'RogotGoldberg',
+    'Ruzicka',
     'ScottPi',
     'Shape',
     'Size',
@@ -625,6 +648,7 @@ __all__ = [
     'SokalSneathIII',
     'SokalSneathIV',
     'SokalSneathV',
+    'Sorensen',
     'Sorgenfrei',
     'Steffensen',
     'Stiles',
