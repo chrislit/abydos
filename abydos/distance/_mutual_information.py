@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._unknown_p.
+"""abydos.distance._mutual_information.
 
-Unknown P similarity
+Mutual Information similarity
 """
 
 from __future__ import (
@@ -32,28 +32,27 @@ from math import log
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['UnknownP']
+__all__ = ['MutualInformation']
 
 
-class UnknownP(_TokenDistance):
-    r"""Unknown P similarity.
+class MutualInformation(_TokenDistance):
+    r"""Mutual Information similarity.
 
-    For two sets X and Y and a population N, Unknown P similarity, which
-    :cite:`SequentiX:2018` attributes terms "Mutual Information" but could not
-    be located, is
+    For two sets X and Y and a population N, Mutual Information similarity
+    :cite:`Church:1991` is
 
         .. math::
 
-            sim_{UnknownP}(X, Y) =
-            log(\frac{|X \cap Y| \cdot |N|}{|X| \cdot |Y|})
+            sim_{MI}(X, Y) =
+            log_2(\frac{|X \cap Y| \cdot |N|}{|X| \cdot |Y|})
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{UnknownP} =
-            log(\frac{an}{(a+b)(a+c)})
+            sim_{MI} =
+            log_2(\frac{an}{(a+b)(a+c)})
 
     .. versionadded:: 0.4.0
     """
@@ -65,7 +64,7 @@ class UnknownP(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize UnknownP instance.
+        """Initialize MutualInformation instance.
 
         Parameters
         ----------
@@ -99,7 +98,7 @@ class UnknownP(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(UnknownP, self).__init__(
+        super(MutualInformation, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -107,7 +106,7 @@ class UnknownP(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Unknown P similarity of two strings.
+        """Return the Mutual Information similarity of two strings.
 
         Parameters
         ----------
@@ -119,11 +118,11 @@ class UnknownP(_TokenDistance):
         Returns
         -------
         float
-            Unknown P similarity
+            Mutual Information similarity
 
         Examples
         --------
-        >>> cmp = UnknownP()
+        >>> cmp = MutualInformation()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -144,7 +143,7 @@ class UnknownP(_TokenDistance):
         ac = self._tar_card()
         n = self._population_card()
 
-        return log(a * n / (ab * ac))
+        return log(a * n / (ab * ac), 2)
 
 
 if __name__ == '__main__':

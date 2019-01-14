@@ -133,6 +133,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
     - Mountford similarity (:py:class:`.Mountford`)
+    - Mutual Information similarity (:py:class:`.MutualInformation`)
     - Pattern difference (:py:class:`.Pattern`)
     - Pearson & Heron II similarity (:py:class:`.PearsonHeronII`)
     - Pearson II similarity (:py:class:`.PearsonII`)
@@ -177,7 +178,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown M similarity (:py:class:`.UnknownM`)
     - Unknown N similarity (:py:class:`.UnknownN`)
     - Unknown O similarity (:py:class:`.UnknownO`)
-    - Unknown P similarity (:py:class:`.UnknownP`)
     - Unknown Q similarity (:py:class:`.UnknownQ`)
     - Unknown R similarity (:py:class:`.UnknownR`)
     - Unknown S similarity (:py:class:`.UnknownS`)
@@ -390,6 +390,7 @@ from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
 from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._ms_contingency import MSContingency
+from ._mutual_information import MutualInformation
 from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
 from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
 from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
@@ -460,7 +461,6 @@ from ._unknown_l import UnknownL
 from ._unknown_m import UnknownM
 from ._unknown_n import UnknownN
 from ._unknown_o import UnknownO
-from ._unknown_p import UnknownP
 from ._unknown_q import UnknownQ
 from ._unknown_r import UnknownR
 from ._unknown_s import UnknownS
@@ -623,6 +623,7 @@ __all__ = [
     'McConnaughey',
     'McEwenMichael',
     'Mountford',
+    'MutualInformation',
     'MSContingency',
     'Pattern',
     'PearsonHeronII',
@@ -669,7 +670,6 @@ __all__ = [
     'UnknownM',
     'UnknownN',
     'UnknownO',
-    'UnknownP',
     'UnknownQ',
     'UnknownR',
     'UnknownS',
