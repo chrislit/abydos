@@ -145,7 +145,7 @@ class UnknownE(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (2*min(a,d)-b-c)/(2*min(a,d)+b+c)
+        return (2 * min(a, d) - b - c) / (2 * min(a, d) + b + c)
 
 
 if __name__ == '__main__':

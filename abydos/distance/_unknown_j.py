@@ -143,7 +143,7 @@ class UnknownJ(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_card()
 
-        return a*n/((a+b)*(c+d))
+        return a * n / ((a + b) * (c + d))
 
 
 if __name__ == '__main__':

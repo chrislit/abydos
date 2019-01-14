@@ -57,12 +57,7 @@ class UnknownI(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize UnknownI instance.
 
         Parameters
@@ -94,9 +89,7 @@ class UnknownI(_TokenDistance):
 
         """
         super(UnknownI, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -136,7 +129,7 @@ class UnknownI(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
 
-        return a/((a+b)*(a+c))**0.5 - max(a+b, a+c)/2
+        return a / ((a + b) * (a + c)) ** 0.5 - max(a + b, a + c) / 2
 
 
 if __name__ == '__main__':
