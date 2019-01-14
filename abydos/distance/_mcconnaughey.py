@@ -133,8 +133,8 @@ class McConnaughey(_TokenDistance):
         self._tokenize(src, tar)
 
         return (
-                       self._intersection_card() ** 2
-                       - self._src_only_card() * self._tar_only_card()
+            self._intersection_card() ** 2
+            - self._src_only_card() * self._tar_only_card()
         ) / (self._src_card() * self._tar_card())
 
 

@@ -137,8 +137,8 @@ class Faith(_TokenDistance):
         self._tokenize(src, tar)
 
         return (
-                self._intersection_card()
-                + 0.5 * self._total_complement_card() / self._population_card()
+            self._intersection_card()
+            + 0.5 * self._total_complement_card() / self._population_card()
         )
 
 

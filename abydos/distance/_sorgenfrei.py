@@ -136,7 +136,7 @@ class Sorgenfrei(_TokenDistance):
         self._tokenize(src, tar)
 
         return (self._intersection_card() ** 2) / (
-                self._src_card() * self._tar_card()
+            self._src_card() * self._tar_card()
         )
 
 

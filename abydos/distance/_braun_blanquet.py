@@ -135,7 +135,9 @@ class BraunBlanquet(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        return self._intersection_card() / max(self._src_card(), self._tar_card())
+        return self._intersection_card() / max(
+            self._src_card(), self._tar_card()
+        )
 
 
 if __name__ == '__main__':

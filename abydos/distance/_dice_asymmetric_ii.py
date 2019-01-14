@@ -55,12 +55,7 @@ class DiceAsymmetricII(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize DiceAsymmetricII instance.
 
         Parameters
@@ -92,9 +87,7 @@ class DiceAsymmetricII(_TokenDistance):
 
         """
         super(DiceAsymmetricII, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
@@ -133,7 +126,7 @@ class DiceAsymmetricII(_TokenDistance):
         a = self._intersection_card()
         ac = self._tar_card()
 
-        return a/ac
+        return a / ac
 
 
 if __name__ == '__main__':

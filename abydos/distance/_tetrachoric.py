@@ -140,7 +140,9 @@ class Tetrachoric(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        rad = (self._intersection_card() * self._total_complement_card()) ** 0.5
+        rad = (
+            self._intersection_card() * self._total_complement_card()
+        ) ** 0.5
         rbc = (self._src_only_card() * self._tar_only_card()) ** 0.5
 
         return cos(pi * rbc / (rad + rbc))
