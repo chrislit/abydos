@@ -184,6 +184,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Warrens III similarity (:py:class:`.WarrensIII`)
     - Warrens IV similarity (:py:class:`.WarrensIV`)
     - Warrens V similarity (:py:class:`.WarrensV`)
+    - Yates' Chi-Squared similarity (:py:class:`.YatesChiSquared`)
     - Yule's Q similarity (:py:class:`.YuleQ`)
     - Yule's Q II distance (:py:class:`.YuleQII`)
     - Yule's Y similarity (:py:class:`.YuleY`)
@@ -458,6 +459,7 @@ from ._warrens_iii import WarrensIII
 from ._warrens_iv import WarrensIV
 from ._warrens_v import WarrensV
 from ._weighted_jaccard import WeightedJaccard
+from ._yates_chi_squared import YatesChiSquared
 from ._yule_q import YuleQ
 from ._yule_q_ii import YuleQII
 from ._yule_y import YuleY
@@ -656,6 +658,7 @@ __all__ = [
     'WarrensIII',
     'WarrensIV',
     'WarrensV',
+    'YatesChiSquared',
     'YuleQ',
     'YuleQII',
     'YuleY',
