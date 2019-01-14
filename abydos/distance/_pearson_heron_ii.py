@@ -141,7 +141,7 @@ class PearsonHeronII(_TokenDistance):
         self._tokenize(src, tar)
 
         root_ad = (
-                          self._intersection_card() * self._total_complement_card()
+            self._intersection_card() * self._total_complement_card()
         ) ** 0.5
         root_bc = (self._src_only_card() * self._tar_only_card()) ** 0.5
 

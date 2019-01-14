@@ -447,9 +447,12 @@ class _TokenDistance(_Distance):
 
     def _get_confusion_table(self):
         """Return the token counts as a ConfusionTable object."""
-        return ConfusionTable(self._intersection_card(),
-                              self._total_complement_card(),
-                              self._src_only_card(), self._tar_only_card())
+        return ConfusionTable(
+            self._intersection_card(),
+            self._total_complement_card(),
+            self._src_only_card(),
+            self._tar_only_card(),
+        )
 
 
 if __name__ == '__main__':

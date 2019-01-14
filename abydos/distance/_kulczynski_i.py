@@ -124,7 +124,7 @@ class KulczynskiI(_TokenDistance):
         self._tokenize(src, tar)
 
         return self._intersection_card() / (
-                self._src_only_card() + self._tar_only_card()
+            self._src_only_card() + self._tar_only_card()
         )
 
 

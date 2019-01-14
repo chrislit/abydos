@@ -137,7 +137,7 @@ class ForbesI(_TokenDistance):
         self._tokenize(src, tar)
 
         return (self._population_card() * self._intersection_card()) / (
-                self._src_card() * self._tar_card()
+            self._src_card() * self._tar_card()
         )
 
 
