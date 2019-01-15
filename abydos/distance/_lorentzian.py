@@ -38,7 +38,7 @@ __all__ = ['Lorentzian']
 class Lorentzian(_TokenDistance):
     r"""Lorentzian distance.
 
-    For two sets X and Y and an alphabet S, Lorentzian distance
+    For two multisets X and Y drawn from an alphabet S, Lorentzian distance
     :cite:`CITATION` is
 
         .. math::

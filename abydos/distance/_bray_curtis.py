@@ -36,7 +36,7 @@ __all__ = ['BrayCurtis']
 class BrayCurtis(_TokenDistance):
     r"""Bray-Curtis distance.
 
-    For two sets X and Y and an alphabet S, Bray-Curtis distance
+    For two multisets X and Y drawn from an alphabet S, Bray-Curtis distance
     :cite:`CITATION` is
 
         .. math::

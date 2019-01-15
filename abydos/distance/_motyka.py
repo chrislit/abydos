@@ -36,7 +36,7 @@ __all__ = ['Motyka']
 class Motyka(_TokenDistance):
     r"""Motyka distance.
 
-    For two sets X and Y and an alphabet S, Motyka distance
+    For two multisets X and Y drawn from an alphabet S, Motyka distance
     :cite:`CITATION` is
 
         .. math::

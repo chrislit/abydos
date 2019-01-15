@@ -36,7 +36,7 @@ __all__ = ['Matusita']
 class Matusita(_TokenDistance):
     r"""Matusita distance.
 
-    For two sets X and Y and an alphabet S, Matusita distance
+    For two multisets X and Y drawn from an alphabet S, Matusita distance
     :cite:`CITATION` is
 
         .. math::
