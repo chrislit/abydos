@@ -36,7 +36,7 @@ __all__ = ['Fidelity']
 class Fidelity(_TokenDistance):
     r"""Fidelity similarity.
 
-    For two sets X and Y and an alphabet S, Fidelity similarity
+    For two multisets X and Y drawn from an alphabet S, Fidelity similarity
     :cite:`CITATION` is
 
         .. math::

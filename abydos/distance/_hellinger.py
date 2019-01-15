@@ -36,7 +36,7 @@ __all__ = ['Hellinger']
 class Hellinger(_TokenDistance):
     r"""Hellinger distance.
 
-    For two sets X and Y and an alphabet S, Hellinger distance
+    For two multisets X and Y drawn from an alphabet S, Hellinger distance
     :cite:`CITATION` is
 
         .. math::

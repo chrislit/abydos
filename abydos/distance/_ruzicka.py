@@ -36,7 +36,7 @@ __all__ = ['Ruzicka']
 class Ruzicka(_TokenDistance):
     r"""Ruzicka distance.
 
-    For two sets X and Y and an alphabet S, Ruzicka distance
+    For two multisets X and Y drawn from an alphabet S, Ruzicka distance
     :cite:`CITATION` is
 
         .. math::
