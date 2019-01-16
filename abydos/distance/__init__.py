@@ -63,7 +63,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Benini similarity (:py:class:`.Benini`)
     - Bennet's Sigma similarity (:py:class:`.BennetSigma`)
     - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
-    - Bray-Curtis distance (:py:class:`.BrayCurtis`)
     - Canberra distance (:py:class:`.Canberra`)
     - Chord distance (:py:class:`.Chord`)
     - Clement similarity (:py:class:`.Clement`)
@@ -283,7 +282,6 @@ from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._bennet_sigma import BennetSigma
 from ._braun_blanquet import BraunBlanquet
-from ._bray_curtis import BrayCurtis
 from ._canberra import Canberra
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
@@ -548,7 +546,6 @@ __all__ = [
     'Benini',
     'BennetSigma',
     'BraunBlanquet',
-    'BrayCurtis',
     'Canberra',
     'Chord',
     'Clement',
