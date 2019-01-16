@@ -47,11 +47,7 @@ class Matusita(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize Matusita instance.
 
         Parameters
@@ -72,10 +68,7 @@ class Matusita(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Matusita, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(Matusita, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def dist(self, src, tar):
         """Return the Matusita distance of two strings.
@@ -112,7 +105,16 @@ class Matusita(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return (sum(((abs(self._src_tokens[tok]))**0.5 - (abs(self._tar_tokens[tok]))**0.5)**2 for tok in alphabet))**0.5
+        return (
+            sum(
+                (
+                    (abs(self._src_tokens[tok])) ** 0.5
+                    - (abs(self._tar_tokens[tok])) ** 0.5
+                )
+                ** 2
+                for tok in alphabet
+            )
+        ) ** 0.5
 
 
 if __name__ == '__main__':

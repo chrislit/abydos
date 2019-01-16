@@ -49,11 +49,7 @@ class Lorentzian(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize Lorentzian instance.
 
         Parameters
@@ -74,10 +70,7 @@ class Lorentzian(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Lorentzian, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(Lorentzian, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def dist(self, src, tar):
         """Return the Lorentzian distance of two strings.
@@ -114,7 +107,10 @@ class Lorentzian(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return sum(log1p(abs(self._src_tokens[tok]-self._tar_tokens[tok])) for tok in alphabet)
+        return sum(
+            log1p(abs(self._src_tokens[tok] - self._tar_tokens[tok]))
+            for tok in alphabet
+        )
 
 
 if __name__ == '__main__':
