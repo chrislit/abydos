@@ -37,7 +37,7 @@ class Matusita(_TokenDistance):
     r"""Matusita distance.
 
     For two multisets X and Y drawn from an alphabet S, Matusita distance
-    :cite:`CITATION` is
+    :cite:`Matusita:1955` is
 
         .. math::
 
