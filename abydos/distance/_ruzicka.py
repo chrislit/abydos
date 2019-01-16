@@ -47,11 +47,7 @@ class Ruzicka(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize Ruzicka instance.
 
         Parameters
@@ -72,10 +68,7 @@ class Ruzicka(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Ruzicka, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(Ruzicka, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def dist(self, src, tar):
         """Return the Ruzicka distance of two strings.
@@ -112,7 +105,13 @@ class Ruzicka(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return sum(min(self._src_tokens[tok], self._tar_tokens[tok]) for tok in alphabet)/sum(max(self._src_tokens[tok], self._tar_tokens[tok]) for tok in alphabet)
+        return sum(
+            min(self._src_tokens[tok], self._tar_tokens[tok])
+            for tok in alphabet
+        ) / sum(
+            max(self._src_tokens[tok], self._tar_tokens[tok])
+            for tok in alphabet
+        )
 
 
 if __name__ == '__main__':

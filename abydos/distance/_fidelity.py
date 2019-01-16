@@ -47,11 +47,7 @@ class Fidelity(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize Fidelity instance.
 
         Parameters
@@ -72,10 +68,7 @@ class Fidelity(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Fidelity, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(Fidelity, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the Fidelity similarity of two strings.
@@ -112,8 +105,10 @@ class Fidelity(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return sum((abs(self._src_tokens[tok] * self._tar_tokens[tok]))**0.5 for tok in alphabet)
-
+        return sum(
+            (abs(self._src_tokens[tok] * self._tar_tokens[tok])) ** 0.5
+            for tok in alphabet
+        )
 
 
 if __name__ == '__main__':

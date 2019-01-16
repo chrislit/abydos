@@ -548,7 +548,7 @@ __all__ = [
     'Benini',
     'BennetSigma',
     'BraunBlanquet',
-'BrayCurtis',
+    'BrayCurtis',
     'Canberra',
     'Chord',
     'Clement',

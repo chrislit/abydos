@@ -47,11 +47,7 @@ class Hellinger(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize Hellinger instance.
 
         Parameters
@@ -72,10 +68,7 @@ class Hellinger(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Hellinger, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(Hellinger, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def dist(self, src, tar):
         """Return the Hellinger distance of two strings.
@@ -112,8 +105,17 @@ class Hellinger(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return (2*sum(((abs(self._src_tokens[tok]))**0.5-(abs(self._tar_tokens[tok]))**0.5)**2 for tok in alphabet))**0.5
-
+        return (
+            2
+            * sum(
+                (
+                    (abs(self._src_tokens[tok])) ** 0.5
+                    - (abs(self._tar_tokens[tok])) ** 0.5
+                )
+                ** 2
+                for tok in alphabet
+            )
+        ) ** 0.5
 
 
 if __name__ == '__main__':
