@@ -42,7 +42,7 @@ class Jaccard(Tversky):
     r"""Jaccard similarity.
 
     For two sets X and Y, the Jaccard similarity coefficient
-    :cite:`Jaccard:1901` is
+    :cite:`Jaccard:1901,Ruzicka:1958` is
 
         .. math::
 

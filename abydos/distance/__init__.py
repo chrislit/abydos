@@ -148,7 +148,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Peirce similarity (:py:class:`.Peirce`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
-    - Ruzicka distance (:py:class:`.Ruzicka`)
     - Scott's Pi similarity (:py:class:`.ScottPi`)
     - Shape difference (:py:class:`.Shape`)
     - Size difference (:py:class:`.Size`)
@@ -418,7 +417,6 @@ from ._ratcliff_obershelp import (
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
 from ._russell_rao import RussellRao
-from ._ruzicka import Ruzicka
 from ._scott_pi import ScottPi
 from ._shape import Shape
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
@@ -633,7 +631,6 @@ __all__ = [
     'Peirce',
     'RogersTanimoto',
     'RogotGoldberg',
-    'Ruzicka',
     'ScottPi',
     'Shape',
     'Size',
