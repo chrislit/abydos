@@ -89,7 +89,7 @@ class Canberra(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def dist(self, src, tar):
         """Return the Canberra distance of two strings.
 
         Parameters
@@ -107,13 +107,13 @@ class Canberra(_TokenDistance):
         Examples
         --------
         >>> cmp = Canberra()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
 
