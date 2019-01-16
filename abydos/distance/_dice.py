@@ -40,7 +40,7 @@ class Dice(Tversky):
     r"""Sørensen–Dice coefficient.
 
     For two sets X and Y, the Sørensen–Dice coefficient
-    :cite:`Dice:1945,Sorensen:1948` is
+    :cite:`Dice:1945,Sorensen:1948,Bray:1949` is
 
         .. math::
 
