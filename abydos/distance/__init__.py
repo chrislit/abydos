@@ -136,7 +136,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
-    - Motyka distance (:py:class:`.Motyka`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Mutual Information similarity (:py:class:`.MutualInformation`)
     - Pattern difference (:py:class:`.Pattern`)
@@ -387,7 +386,6 @@ from ._mcewen_michael import McEwenMichael
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
-from ._motyka import Motyka
 from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._ms_contingency import MSContingency
@@ -618,7 +616,6 @@ __all__ = [
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
-    'Motyka',
     'Mountford',
     'MutualInformation',
     'MSContingency',
