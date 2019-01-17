@@ -38,13 +38,17 @@ __all__ = ['Lorentzian']
 class Lorentzian(_TokenDistance):
     r"""Lorentzian distance.
 
-    For two multisets X and Y drawn from an alphabet S, Lorentzian distance
-    :cite:`CITATION` is
+    For two multisets X and Y drawn from an alphabet S, Lorentzian distance is
 
         .. math::
 
             dist_{Lorentzian}(X, Y) =
             \sum_{i \in S} log(1 + |A_i + B_i|)
+
+    Note
+    ----
+    No primary source for this measure could be located, but it is included
+    in surveys and catalogues, such as :cite:`Deza:2016` and :cite:`Cha:2008`.
 
     .. versionadded:: 0.4.0
     """
