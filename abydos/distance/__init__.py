@@ -195,21 +195,13 @@ A large set of multi-set token-based distance metrics are provided, including:
 
     - Bhattacharyya distance (:py:class:`.Bhattacharyya`)
     - Brainerd-Robinson similarity (:py:class:`.BrainerdRobinson`)
-    - Jensen distance (:py:class:`.Jensen`)
-    - Jensen-Shannon distance (:py:class:`.JensenShannon`)
-    - K divergence distance (:py:class:`.KDivergence`)
-    - Kumar-Johnson distance (:py:class:`.KumarJohnson`)
     - Quantitative Cosine similarity (:py:class:`.QuantitativeCosine`)
     - Quantitative Dice similarity (:py:class:`.QuantitativeDice`)
     - Quantitative Jaccard similarity (:py:class:`.QuantitativeJaccard`)
-    - Squared Chord distance (:py:class:`.SquaredChord`)
-    - Taneja distance (:py:class:`.Taneja`)
-    - Topsoe distance (:py:class:`.Topsoe`)
 
     - Bag distance (:py:class:`.Bag`)
     - Soft cosine similarity (:py:class:`.SoftCosine`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
-
 
 
 Three popular sequence alignment algorithms are provided:
@@ -362,10 +354,7 @@ from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
-from ._jensen import Jensen
-from ._jensen_shannon import JensenShannon
 from ._johnson import Johnson
-from ._k_divergence import KDivergence
 from ._kendall_tau import KendallTau
 from ._kent_foster_i import KentFosterI
 from ._kent_foster_ii import KentFosterII
@@ -386,7 +375,6 @@ from ._kuhns_xi import KuhnsXI
 from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
-from ._kumar_johnson import KumarJohnson
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
@@ -454,19 +442,16 @@ from ._sokal_sneath_iii import SokalSneathIII
 from ._sokal_sneath_iv import SokalSneathIV
 from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
-from ._squared_chord import SquaredChord
 from ._steffensen import Steffensen
 from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._stuart_tau import StuartTau
 from ._suffix import Suffix, dist_suffix, sim_suffix
 from ._synoname import Synoname, synoname
-from ._taneja import Taneja
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
 from ._token_distance import _TokenDistance
-from ._topsoe import Topsoe
 from ._tulloss_r import TullossR
 from ._tulloss_s import TullossS
 from ._tulloss_t import TullossT
@@ -704,16 +689,9 @@ __all__ = [
     'YuleY',
     'Bhattacharyya',
     'BrainerdRobinson',
-    'Jensen',
-    'JensenShannon',
-    'KDivergence',
-    'KumarJohnson',
     'QuantitativeCosine',
     'QuantitativeDice',
     'QuantitativeJaccard',
-    'SquaredChord',
-    'Taneja',
-    'Topsoe',
     'Bag',
     'bag',
     'dist_bag',
