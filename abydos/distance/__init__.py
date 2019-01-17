@@ -195,7 +195,6 @@ A large set of multi-set token-based distance metrics are provided, including:
 
     - Bhattacharyya distance (:py:class:`.Bhattacharyya`)
     - Brainerd-Robinson similarity (:py:class:`.BrainerdRobinson`)
-    - Clark distance (:py:class:`.Clark`)
     - Jensen distance (:py:class:`.Jensen`)
     - Jensen-Shannon distance (:py:class:`.JensenShannon`)
     - K divergence distance (:py:class:`.KDivergence`)
@@ -302,7 +301,6 @@ from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
-from ._clark import Clark
 from ._clement import Clement
 from ._cohen_kappa import CohenKappa
 from ._cole import Cole
@@ -706,7 +704,6 @@ __all__ = [
     'YuleY',
     'Bhattacharyya',
     'BrainerdRobinson',
-    'Clark',
     'Jensen',
     'JensenShannon',
     'KDivergence',
