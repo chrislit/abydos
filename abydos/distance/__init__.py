@@ -106,6 +106,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Gwet's Gamma similarity (:py:class:`.GwetGamma`)
     - Hamann similarity (:py:class:`.Hamann`)
     - Harris & Lahey similarity (:py:class:`.HarrisLahey`)
+    - Hassanat distance (:py:class:`.Hassanat`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hellinger distance (:py:class:`.Hellinger`)
     - Hurlbert similarity (:py:class:`.Hurlbert`)
@@ -188,6 +189,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Warrens III similarity (:py:class:`.WarrensIII`)
     - Warrens IV similarity (:py:class:`.WarrensIV`)
     - Warrens V similarity (:py:class:`.WarrensV`)
+    - Whittaker distance (:py:class:`.Whittaker`)
     - Yates' Chi-Squared similarity (:py:class:`.YatesChiSquared`)
     - Yule's Q similarity (:py:class:`.YuleQ`)
     - Yule's Q II distance (:py:class:`.YuleQII`)
@@ -356,6 +358,7 @@ from ._gwet_gamma import GwetGamma
 from ._hamann import Hamann
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._harris_lahey import HarrisLahey
+from ._hassanat import Hassanat
 from ._hawkins_dotson import HawkinsDotson
 from ._hellinger import Hellinger
 from ._hurlbert import Hurlbert
@@ -489,6 +492,7 @@ from ._warrens_iii import WarrensIII
 from ._warrens_iv import WarrensIV
 from ._warrens_v import WarrensV
 from ._weighted_jaccard import WeightedJaccard
+from ._whittaker import Whittaker
 from ._yates_chi_squared import YatesChiSquared
 from ._yule_q import YuleQ
 from ._yule_q_ii import YuleQII
@@ -606,6 +610,7 @@ __all__ = [
     'GwetGamma',
     'Hamann',
     'HarrisLahey',
+    'Hassanat',
     'HawkinsDotson',
     'Hellinger',
     'Hurlbert',
@@ -670,7 +675,6 @@ __all__ = [
     'TullossS',
     'TullossT',
     'TullossU',
-    'WeightedJaccard',
     'UnknownA',
     'UnknownB',
     'UnknownC',
@@ -692,6 +696,8 @@ __all__ = [
     'WarrensIII',
     'WarrensIV',
     'WarrensV',
+    'WeightedJaccard',
+    'Whittaker',
     'YatesChiSquared',
     'YuleQ',
     'YuleQII',
