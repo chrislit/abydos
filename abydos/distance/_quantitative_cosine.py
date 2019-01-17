@@ -36,12 +36,14 @@ __all__ = ['QuantitativeCosine']
 class QuantitativeCosine(_TokenDistance):
     r"""Quantitative Cosine similarity.
 
-    For two multisets X and Y drawn from an alphabet S, Quantitative Cosine similarity
-    :cite:`CITATION` is
+    For two multisets X and Y drawn from an alphabet S, Quantitative Cosine
+    similarity is
 
         .. math::
 
             sim_{QuantitativeCosine}(X, Y) =
+            \frac{\sum_{i \in S} X_iY_i}
+            {\sqrt{\sum_{i \in S} X_i^2}\sqrt{\sum_{i \in S} Y_i^2}}
 
     .. versionadded:: 0.4.0
     """
@@ -107,11 +109,11 @@ class QuantitativeCosine(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
         alphabet = self._total().keys()
 
-        return 0.0
+        return sum(self._src_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)/(sum(self._src_tokens[tok]*self._src_tokens[tok] for tok in alphabet)**0.5 * sum(self._tar_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)**0.5)
 
 
 if __name__ == '__main__':
