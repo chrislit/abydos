@@ -46,11 +46,7 @@ class Jensen(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize Jensen instance.
 
         Parameters
@@ -71,10 +67,7 @@ class Jensen(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Jensen, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(Jensen, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the Jensen distance of two strings.

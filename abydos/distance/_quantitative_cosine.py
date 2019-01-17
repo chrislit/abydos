@@ -48,11 +48,7 @@ class QuantitativeCosine(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize QuantitativeCosine instance.
 
         Parameters
@@ -73,10 +69,7 @@ class QuantitativeCosine(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(QuantitativeCosine, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(QuantitativeCosine, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the Quantitative Cosine similarity of two strings.
@@ -113,7 +106,20 @@ class QuantitativeCosine(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return sum(self._src_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)/(sum(self._src_tokens[tok]*self._src_tokens[tok] for tok in alphabet)**0.5 * sum(self._tar_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)**0.5)
+        return sum(
+            self._src_tokens[tok] * self._tar_tokens[tok] for tok in alphabet
+        ) / (
+            sum(
+                self._src_tokens[tok] * self._src_tokens[tok]
+                for tok in alphabet
+            )
+            ** 0.5
+            * sum(
+                self._tar_tokens[tok] * self._tar_tokens[tok]
+                for tok in alphabet
+            )
+            ** 0.5
+        )
 
 
 if __name__ == '__main__':

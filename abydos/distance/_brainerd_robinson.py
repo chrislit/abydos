@@ -48,11 +48,7 @@ class BrainerdRobinson(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize BrainerdRobinson instance.
 
         Parameters
@@ -73,10 +69,7 @@ class BrainerdRobinson(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BrainerdRobinson, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(BrainerdRobinson, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim_abs(self, src, tar):
         """Return the Brainerd-Robinson similarity of two strings.
@@ -115,7 +108,13 @@ class BrainerdRobinson(_TokenDistance):
         src_card = self._src_card()
         tar_card = self._tar_card()
 
-        return 200-100*sum(abs(self._src_tokens[tok]/src_card-self._tar_tokens[tok]/tar_card) for tok in alphabet)
+        return 200 - 100 * sum(
+            abs(
+                self._src_tokens[tok] / src_card
+                - self._tar_tokens[tok] / tar_card
+            )
+            for tok in alphabet
+        )
 
     def sim(self, src, tar):
         """Return the normalized Brainerd-Robinson similarity of two strings.
@@ -148,7 +147,7 @@ class BrainerdRobinson(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.sim_abs(src, tar)/200
+        return self.sim_abs(src, tar) / 200
 
 
 if __name__ == '__main__':

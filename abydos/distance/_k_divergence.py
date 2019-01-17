@@ -46,11 +46,7 @@ class KDivergence(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize KDivergence instance.
 
         Parameters
@@ -71,10 +67,7 @@ class KDivergence(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(KDivergence, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(KDivergence, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the K divergence distance of two strings.
