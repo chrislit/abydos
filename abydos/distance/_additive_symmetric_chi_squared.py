@@ -107,7 +107,7 @@ class AdditiveSymmetricChiSquared(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.tokenize(src, tar)
+        self._tokenize(src, tar)
 
         alphabet = self._total().keys()
 
