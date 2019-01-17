@@ -48,11 +48,11 @@ class Hassanat(_TokenDistance):
         .. math::
 
             D(X_i, Y_i) = \left\{ \begin{array}{ll}
-                1-\frac{1+min(X_i, Y_i)}{1+max(X_i, Y_i)},
+                1-\frac{1+min(X_i, Y_i)}{max(X_i, Y_i)},
                 min(X_i, Y_i) \geq 0\\
                 1-\frac{1+min(X_i, Y_i)+|min(X_i, Y_i)|}
-                {1+max(X_i, Y_i)+|min(X_i, Y_i)|},
-                min(X_i, Y_i) \geq 0\\
+                {max(X_i, Y_i)+|min(X_i, Y_i)|},
+                min(X_i, Y_i) < 0\\
             \end{array}\right.
 
     .. versionadded:: 0.4.0
@@ -124,11 +124,9 @@ class Hassanat(_TokenDistance):
             if min_val >= 0:
                 distance += 1 - (1 + min_val) / (1 + max(x, y))
             else:
-                distance += 1 - (1 + min_val + abs(min_val)) / (
-                    1 + max(x, y) + abs(min_val)
-                )
+                distance += 1 - 1 / (1 + max(x, y) - min_val)
 
-        return 0.0
+        return distance
 
 
 if __name__ == '__main__':
