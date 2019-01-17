@@ -354,7 +354,7 @@ class _TokenDistance(_Distance):
 
     def _union_card(self):
         """Return the cardinality of the union."""
-        return self.normalizer(abs(val) for val in sum(self._union().values()), 3)
+        return self.normalizer(sum(abs(val) for val in self._union().values()), 3)
 
     def _difference(self):
         """Return the difference of the tokens, supporting negative values."""
