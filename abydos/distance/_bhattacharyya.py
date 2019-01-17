@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Bhattacharyya']
@@ -37,11 +39,12 @@ class Bhattacharyya(_TokenDistance):
     r"""Bhattacharyya distance.
 
     For two multisets X and Y drawn from an alphabet S, Bhattacharyya distance
-    :cite:`CITATION` is
+    :cite:`Bhattacharyya:1946` is
 
         .. math::
 
-            sim_{Bhattacharyya}(X, Y) =
+            dist_{Bhattacharyya}(X, Y) =
+            -log(\sum_{i \in S} \sqrt{X_iY_i})
 
     .. versionadded:: 0.4.0
     """
@@ -69,7 +72,7 @@ class Bhattacharyya(_TokenDistance):
         """
         super(Bhattacharyya, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def sim(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Bhattacharyya distance of two strings.
 
         Parameters
@@ -87,13 +90,13 @@ class Bhattacharyya(_TokenDistance):
         Examples
         --------
         >>> cmp = Bhattacharyya()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -104,7 +107,12 @@ class Bhattacharyya(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return 0.0
+        return -log(
+            sum(
+                (self._src_tokens[tok] * self._tar_tokens[tok]) ** 0.5
+                for tok in alphabet
+            )
+        )
 
 
 if __name__ == '__main__':
