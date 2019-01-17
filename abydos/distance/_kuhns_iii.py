@@ -69,7 +69,6 @@ class KuhnsIII(_TokenDistance):
 
     Note
     ----
-
     The coefficient presented in :cite:`Eidenberger:2014,Morris:2012` as Kuhns'
     "Proportion of overlap above independence" is a significantly different
     coefficient, not evidenced in :cite:`Kuhns:1965`.

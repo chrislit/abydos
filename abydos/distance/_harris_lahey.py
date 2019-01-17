@@ -58,7 +58,6 @@ class HarrisLahey(_TokenDistance):
 
     Note
     ----
-
     Most catalogs of similarity coefficients
     :cite:`Warrens:2008,Morris:2012,Xiang:2013` omit the :math:`n` terms in the
     denominators, but the worked example in :cite:`Harris:1978` makes it clear

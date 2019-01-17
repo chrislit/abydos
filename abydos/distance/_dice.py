@@ -63,7 +63,6 @@ class Dice(Tversky):
 
     Note
     ----
-
     In terms of a confusion matrix, this is equivalent to :math:`F_1` score
     :py:meth:`ConfusionTable.f1_score`.
 
