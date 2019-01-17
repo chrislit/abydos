@@ -233,6 +233,12 @@ are provided:
     - BWT plus RLE (:py:class:`.NCDbwtrle`)
     - RLE (:py:class:`.NCDrle`)
 
+Three similarity measures from SeatGeek's FuzzyWuzzy:
+
+    - FuzzyWuzzy Partial String similarity (:py:class:`FuzzyWuzzyPartialString`)
+    - FuzzyWuzzy Token Sort similarity (:py:class:`FuzzyWuzzyTokenSort`)
+    - FuzzyWuzzy Token Set similarity (:py:class:`FuzzyWuzzyTokenSet`)
+
 The remaining distance measures & metrics include:
 
     - Western Airlines' Match Rating Algorithm comparison
@@ -330,6 +336,9 @@ from ._fleiss_levin_paik import FleissLevinPaik
 from ._forbes_i import ForbesI
 from ._forbes_ii import ForbesII
 from ._fossum import Fossum
+from ._fuzzywuzzy_partial_string import FuzzyWuzzyPartialString
+from ._fuzzywuzzy_token_sort import FuzzyWuzzyTokenSort
+from ._fuzzywuzzy_token_set import FuzzyWuzzyTokenSet
 from ._generalized_fleiss import GeneralizedFleiss
 from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
@@ -749,6 +758,9 @@ __all__ = [
     'NCDrle',
     'dist_ncd_rle',
     'sim_ncd_rle',
+    'FuzzyWuzzyPartialString',
+    'FuzzyWuzzyTokenSort',
+    'FuzzyWuzzyTokenSet',
     'MRA',
     'mra_compare',
     'dist_mra',
