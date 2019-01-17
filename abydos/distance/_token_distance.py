@@ -272,7 +272,9 @@ class _TokenDistance(_Distance):
 
     def _src_card(self):
         r"""Return the cardinality of the tokens in the source set."""
-        return self.normalizer(sum(abs(val) for val in self._src_tokens.values()), 2)
+        return self.normalizer(
+            sum(abs(val) for val in self._src_tokens.values()), 2
+        )
 
     def _src_only(self):
         r"""Return the src tokens minus the tar tokens.
@@ -283,11 +285,15 @@ class _TokenDistance(_Distance):
 
     def _src_only_card(self):
         """Return the cardinality of the tokens only in the source set."""
-        return self.normalizer(sum(abs(val) for val in self._src_only().values()), 1)
+        return self.normalizer(
+            sum(abs(val) for val in self._src_only().values()), 1
+        )
 
     def _tar_card(self):
         r"""Return the cardinality of the tokens in the target set."""
-        return self.normalizer(sum(abs(val) for val in self._tar_tokens.values()), 2)
+        return self.normalizer(
+            sum(abs(val) for val in self._tar_tokens.values()), 2
+        )
 
     def _tar_only(self):
         r"""Return the tar tokens minus the src tokens.
@@ -298,7 +304,9 @@ class _TokenDistance(_Distance):
 
     def _tar_only_card(self):
         """Return the cardinality of the tokens only in the target set."""
-        return self.normalizer(sum(abs(val) for val in self._tar_only().values()), 1)
+        return self.normalizer(
+            sum(abs(val) for val in self._tar_only().values()), 1
+        )
 
     def _symmetric_difference(self):
         r"""Return the symmetric difference of tokens from src and tar.
@@ -309,7 +317,9 @@ class _TokenDistance(_Distance):
 
     def _symmetric_difference_card(self):
         """Return the cardinality of the symmetric difference."""
-        return self.normalizer(sum(abs(val) for val in self._symmetric_difference().values()), 2)
+        return self.normalizer(
+            sum(abs(val) for val in self._symmetric_difference().values()), 2
+        )
 
     def _total(self):
         """Return the sum of the sets.
@@ -323,7 +333,9 @@ class _TokenDistance(_Distance):
 
     def _total_card(self):
         """Return the cardinality of the complement of the total."""
-        return self.normalizer(sum(abs(val) for val in self._total().values()), 3)
+        return self.normalizer(
+            sum(abs(val) for val in self._total().values()), 3
+        )
 
     def _total_complement_card(self):
         """Return the cardinality of the complement of the total."""
@@ -331,7 +343,12 @@ class _TokenDistance(_Distance):
             return self.normalizer(0, 1)
         elif isinstance(self.params['alphabet'], Counter):
             return self.normalizer(
-                sum(abs(val) for val in (self.params['alphabet']).values() - self._total()), 1
+                sum(
+                    abs(val)
+                    for val in (self.params['alphabet']).values()
+                    - self._total()
+                ),
+                1,
             )
         return self.normalizer(
             self.params['alphabet'] - len(self._total().values()), 1
@@ -354,7 +371,9 @@ class _TokenDistance(_Distance):
 
     def _union_card(self):
         """Return the cardinality of the union."""
-        return self.normalizer(sum(abs(val) for val in self._union().values()), 3)
+        return self.normalizer(
+            sum(abs(val) for val in self._union().values()), 3
+        )
 
     def _difference(self):
         """Return the difference of the tokens, supporting negative values."""
@@ -443,7 +462,9 @@ class _TokenDistance(_Distance):
 
     def _intersection_card(self):
         """Return the cardinality of the intersection."""
-        return self.normalizer(sum(abs(val) for val in self.intersection().values()), 1)
+        return self.normalizer(
+            sum(abs(val) for val in self.intersection().values()), 1
+        )
 
     def _get_confusion_table(self):
         """Return the token counts as a ConfusionTable object."""

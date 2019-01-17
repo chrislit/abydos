@@ -48,11 +48,7 @@ class QuantitativeDice(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize QuantitativeDice instance.
 
         Parameters
@@ -73,10 +69,7 @@ class QuantitativeDice(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(QuantitativeDice, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(QuantitativeDice, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the Quantitative Dice similarity of two strings.
@@ -113,7 +106,23 @@ class QuantitativeDice(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return 2*sum(self._src_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)/(sum(self._src_tokens[tok]*self._src_tokens[tok] for tok in alphabet)+sum(self._tar_tokens[tok]*self._tar_tokens[tok] for tok in alphabet))
+        return (
+            2
+            * sum(
+                self._src_tokens[tok] * self._tar_tokens[tok]
+                for tok in alphabet
+            )
+            / (
+                sum(
+                    self._src_tokens[tok] * self._src_tokens[tok]
+                    for tok in alphabet
+                )
+                + sum(
+                    self._tar_tokens[tok] * self._tar_tokens[tok]
+                    for tok in alphabet
+                )
+            )
+        )
 
 
 if __name__ == '__main__':

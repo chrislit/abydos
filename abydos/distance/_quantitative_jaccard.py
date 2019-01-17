@@ -49,11 +49,7 @@ class QuantitativeJaccard(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize QuantitativeJaccard instance.
 
         Parameters
@@ -75,8 +71,7 @@ class QuantitativeJaccard(_TokenDistance):
 
         """
         super(QuantitativeJaccard, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
+            tokenizer=tokenizer, **kwargs
         )
 
     def sim(self, src, tar):
@@ -114,9 +109,21 @@ class QuantitativeJaccard(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        product = sum(self._src_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)
+        product = sum(
+            self._src_tokens[tok] * self._tar_tokens[tok] for tok in alphabet
+        )
 
-        return product/(sum(self._src_tokens[tok]*self._src_tokens[tok] for tok in alphabet)+sum(self._tar_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)-product)
+        return product / (
+            sum(
+                self._src_tokens[tok] * self._src_tokens[tok]
+                for tok in alphabet
+            )
+            + sum(
+                self._tar_tokens[tok] * self._tar_tokens[tok]
+                for tok in alphabet
+            )
+            - product
+        )
 
 
 if __name__ == '__main__':
