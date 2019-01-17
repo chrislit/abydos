@@ -193,24 +193,16 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Yule's Q II distance (:py:class:`.YuleQII`)
     - Yule's Y similarity (:py:class:`.YuleY`)
 
-    - Additive Symmetric Chi-Squared distance (:py:class:`.AdditiveSymmetricChiSquared`)
     - Bhattacharyya distance (:py:class:`.Bhattacharyya`)
     - Brainerd-Robinson similarity (:py:class:`.BrainerdRobinson`)
     - Clark distance (:py:class:`.Clark`)
-    - Divergence distance (:py:class:`.Divergence`)
-    - Jeffreys distance (:py:class:`.Jeffreys`)
     - Jensen distance (:py:class:`.Jensen`)
     - Jensen-Shannon distance (:py:class:`.JensenShannon`)
     - K divergence distance (:py:class:`.KDivergence`)
-    - Kullback & Leibler distance (:py:class:`.KullbackLeibler`)
     - Kumar-Johnson distance (:py:class:`.KumarJohnson`)
-    - Probabilistic Symmetric Chi-Squared distance (:py:class:`.ProbabilisticSymmetricChiSquared`)
     - Quantitative Cosine similarity (:py:class:`.QuantitativeCosine`)
     - Quantitative Dice similarity (:py:class:`.QuantitativeDice`)
     - Quantitative Jaccard similarity (:py:class:`.QuantitativeJaccard`)
-    - Quantitative Neyman's Chi-Squared distance (:py:class:`.QuantitativeNeymanChiSquared`)
-    - Quantitative Pearson's Chi-Squared distance (:py:class:`.QuantitativePearsonChiSquared`)
-    - Quantitative Squared Chi-Squared distance (:py:class:`.QuantitativeSquaredChiSquared`)
     - Squared Chord distance (:py:class:`.SquaredChord`)
     - Taneja distance (:py:class:`.Taneja`)
     - Topsoe distance (:py:class:`.Topsoe`)
@@ -291,7 +283,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._additive_symmetric_chi_squared import AdditiveSymmetricChiSquared
 from ._ample import AMPLE
 from ._anderberg import Anderberg
 from ._andres_marzo_delta import AndresMarzoDelta
@@ -334,7 +325,6 @@ from ._dice_asymmetric_ii import DiceAsymmetricII
 from ._digby import Digby
 from ._dispersion import Dispersion
 from ._distance import _Distance
-from ._divergence import Divergence
 from ._doolittle import Doolittle
 from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
@@ -374,7 +364,6 @@ from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
-from ._jeffreys import Jeffreys
 from ._jensen import Jensen
 from ._jensen_shannon import JensenShannon
 from ._johnson import Johnson
@@ -399,7 +388,6 @@ from ._kuhns_xi import KuhnsXI
 from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
-from ._kullback_leibler import KullbackLeibler
 from ._kumar_johnson import KumarJohnson
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
@@ -443,13 +431,9 @@ from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
 from ._prefix import Prefix, dist_prefix, sim_prefix
-from ._probabilistic_symmetric_chi_squared import ProbabilisticSymmetricChiSquared
 from ._quantitative_cosine import QuantitativeCosine
 from ._quantitative_dice import QuantitativeDice
 from ._quantitative_jaccard import QuantitativeJaccard
-from ._quantitative_neyman_chi_squared import QuantitativeNeymanChiSquared
-from ._quantitative_pearson_chi_squared import QuantitativePearsonChiSquared
-from ._quantitative_squared_chi_squared import QuantitativeSquaredChiSquared
 from ._ratcliff_obershelp import (
     RatcliffObershelp,
     dist_ratcliff_obershelp,
@@ -720,24 +704,16 @@ __all__ = [
     'YuleQ',
     'YuleQII',
     'YuleY',
-    'AdditiveSymmetricChiSquared',
     'Bhattacharyya',
     'BrainerdRobinson',
     'Clark',
-    'Divergence',
-    'Jeffreys',
     'Jensen',
     'JensenShannon',
     'KDivergence',
-    'KullbackLeibler',
     'KumarJohnson',
-    'ProbabilisticSymmetricChiSquared',
     'QuantitativeCosine',
     'QuantitativeDice',
     'QuantitativeJaccard',
-    'QuantitativeNeymanChiSquared',
-    'QuantitativePearsonChiSquared',
-    'QuantitativeSquaredChiSquared',
     'SquaredChord',
     'Taneja',
     'Topsoe',
