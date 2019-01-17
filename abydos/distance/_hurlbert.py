@@ -45,7 +45,7 @@ class Hurlbert(_TokenDistance):
         .. math::
 
             sim_{Hurlbert} =
-            \frac{ad-bc}{abs(ad-bc)} \sqrt{\frac{Obs_{\chi^2}-Min_{\chi^2}}
+            \frac{ad-bc}{|ad-bc|} \sqrt{\frac{Obs_{\chi^2}-Min_{\chi^2}}
             {Max_{\chi^2}-Min_{\chi^2}}}
 
     Where:
