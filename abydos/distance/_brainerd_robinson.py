@@ -37,11 +37,13 @@ class BrainerdRobinson(_TokenDistance):
     r"""Brainerd-Robinson similarity.
 
     For two multisets X and Y drawn from an alphabet S, Brainerd-Robinson similarity
-    :cite:`CITATION` is
+    :cite:`Robinson:1951,Brainerd:1951` is
 
         .. math::
 
             sim_{BrainerdRobinson}(X, Y) =
+            200 - 100 \cdot \sum_{i \in S} |\frac{X_i}{\sum_{i \in S} |X_i|} -
+            \frac{Y_i}{\sum_{i \in S} |Y_i|}|
 
     .. versionadded:: 0.4.0
     """
@@ -76,7 +78,7 @@ class BrainerdRobinson(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_abs(self, src, tar):
         """Return the Brainerd-Robinson similarity of two strings.
 
         Parameters
@@ -94,6 +96,45 @@ class BrainerdRobinson(_TokenDistance):
         Examples
         --------
         >>> cmp = BrainerdRobinson()
+        >>> cmp.sim_abs('cat', 'hat')
+        0.0
+        >>> cmp.sim_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        alphabet = self._total().keys()
+        src_card = self._src_card()
+        tar_card = self._tar_card()
+
+        return 200-100*sum(abs(self._src_tokens[tok]/src_card-self._tar_tokens[tok]/tar_card) for tok in alphabet)
+
+    def sim(self, src, tar):
+        """Return the normalized Brainerd-Robinson similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Brainerd-Robinson similarity
+
+        Examples
+        --------
+        >>> cmp = BrainerdRobinson()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -107,11 +148,7 @@ class BrainerdRobinson(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        alphabet = self._total().keys()
-
-        return 0.0
+        return self.sim_abs(src, tar)/200
 
 
 if __name__ == '__main__':
