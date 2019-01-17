@@ -192,9 +192,34 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Yule's Q similarity (:py:class:`.YuleQ`)
     - Yule's Q II distance (:py:class:`.YuleQII`)
     - Yule's Y similarity (:py:class:`.YuleY`)
+
+    - Additive Symmetric Chi-Squared distance (:py:class:`.AdditiveSymmetricChiSquared`)
+    - Bhattacharyya distance (:py:class:`.Bhattacharyya`)
+    - Brainerd-Robinson similarity (:py:class:`.BrainerdRobinson`)
+    - Clark distance (:py:class:`.Clark`)
+    - Divergence distance (:py:class:`.Divergence`)
+    - Jeffreys distance (:py:class:`.Jeffreys`)
+    - Jensen distance (:py:class:`.Jensen`)
+    - Jensen-Shannon distance (:py:class:`.JensenShannon`)
+    - K divergence distance (:py:class:`.KDivergence`)
+    - Kullback & Leibler distance (:py:class:`.KullbackLeibler`)
+    - Kumar-Johnson distance (:py:class:`.KumarJohnson`)
+    - Probabilistic Symmetric Chi-Squared distance (:py:class:`.ProbabilisticSymmetricChiSquared`)
+    - Quantitative Cosine similarity (:py:class:`.QuantitativeCosine`)
+    - Quantitative Dice similarity (:py:class:`.QuantitativeDice`)
+    - Quantitative Jaccard similarity (:py:class:`.QuantitativeJaccard`)
+    - Quantitative Neyman's Chi-Squared distance (:py:class:`.QuantitativeNeymanChiSquared`)
+    - Quantitative Pearson's Chi-Squared distance (:py:class:`.QuantitativePearsonChiSquared`)
+    - Quantitative Squared Chi-Squared distance (:py:class:`.QuantitativeSquaredChiSquared`)
+    - Squared Chord distance (:py:class:`.SquaredChord`)
+    - Taneja distance (:py:class:`.Taneja`)
+    - Topsoe distance (:py:class:`.Topsoe`)
+
     - Bag distance (:py:class:`.Bag`)
     - Soft cosine similarity (:py:class:`.SoftCosine`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
+
+
 
 Three popular sequence alignment algorithms are provided:
 
@@ -266,6 +291,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._additive_symmetric_chi_squared import AdditiveSymmetricChiSquared
 from ._ample import AMPLE
 from ._anderberg import Anderberg
 from ._andres_marzo_delta import AndresMarzoDelta
@@ -279,10 +305,13 @@ from ._baulieu_iii import BaulieuIII
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._bennet_sigma import BennetSigma
+from ._bhattacharyya import Bhattacharyya
+from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
+from ._clark import Clark
 from ._clement import Clement
 from ._cohen_kappa import CohenKappa
 from ._cole import Cole
@@ -305,6 +334,7 @@ from ._dice_asymmetric_ii import DiceAsymmetricII
 from ._digby import Digby
 from ._dispersion import Dispersion
 from ._distance import _Distance
+from ._divergence import Divergence
 from ._doolittle import Doolittle
 from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
@@ -344,7 +374,11 @@ from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._jeffreys import Jeffreys
+from ._jensen import Jensen
+from ._jensen_shannon import JensenShannon
 from ._johnson import Johnson
+from ._k_divergence import KDivergence
 from ._kendall_tau import KendallTau
 from ._kent_foster_i import KentFosterI
 from ._kent_foster_ii import KentFosterII
@@ -365,6 +399,8 @@ from ._kuhns_xi import KuhnsXI
 from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
+from ._kullback_leibler import KullbackLeibler
+from ._kumar_johnson import KumarJohnson
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
@@ -407,6 +443,13 @@ from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
 from ._prefix import Prefix, dist_prefix, sim_prefix
+from ._probabilistic_symmetric_chi_squared import ProbabilisticSymmetricChiSquared
+from ._quantitative_cosine import QuantitativeCosine
+from ._quantitative_dice import QuantitativeDice
+from ._quantitative_jaccard import QuantitativeJaccard
+from ._quantitative_neyman_chi_squared import QuantitativeNeymanChiSquared
+from ._quantitative_pearson_chi_squared import QuantitativePearsonChiSquared
+from ._quantitative_squared_chi_squared import QuantitativeSquaredChiSquared
 from ._ratcliff_obershelp import (
     RatcliffObershelp,
     dist_ratcliff_obershelp,
@@ -429,16 +472,19 @@ from ._sokal_sneath_iii import SokalSneathIII
 from ._sokal_sneath_iv import SokalSneathIV
 from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
+from ._squared_chord import SquaredChord
 from ._steffensen import Steffensen
 from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._stuart_tau import StuartTau
 from ._suffix import Suffix, dist_suffix, sim_suffix
 from ._synoname import Synoname, synoname
+from ._taneja import Taneja
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
 from ._token_distance import _TokenDistance
+from ._topsoe import Topsoe
 from ._tulloss_r import TullossR
 from ._tulloss_s import TullossS
 from ._tulloss_t import TullossT
@@ -674,6 +720,27 @@ __all__ = [
     'YuleQ',
     'YuleQII',
     'YuleY',
+    'AdditiveSymmetricChiSquared',
+    'Bhattacharyya',
+    'BrainerdRobinson',
+    'Clark',
+    'Divergence',
+    'Jeffreys',
+    'Jensen',
+    'JensenShannon',
+    'KDivergence',
+    'KullbackLeibler',
+    'KumarJohnson',
+    'ProbabilisticSymmetricChiSquared',
+    'QuantitativeCosine',
+    'QuantitativeDice',
+    'QuantitativeJaccard',
+    'QuantitativeNeymanChiSquared',
+    'QuantitativePearsonChiSquared',
+    'QuantitativeSquaredChiSquared',
+    'SquaredChord',
+    'Taneja',
+    'Topsoe',
     'Bag',
     'bag',
     'dist_bag',
