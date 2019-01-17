@@ -36,12 +36,14 @@ __all__ = ['QuantitativeDice']
 class QuantitativeDice(_TokenDistance):
     r"""Quantitative Dice similarity.
 
-    For two multisets X and Y drawn from an alphabet S, Quantitative Dice similarity
-    :cite:`CITATION` is
+    For two multisets X and Y drawn from an alphabet S, Quantitative Dice
+    similarity is
 
         .. math::
 
             sim_{QuantitativeDice}(X, Y) =
+            \frac{2 \cdot \sum_{i \in S} X_iY_i}
+            {\sum_{i \in S} X_i^2 + \sum_{i \in S} Y_i^2}
 
     .. versionadded:: 0.4.0
     """
@@ -111,7 +113,7 @@ class QuantitativeDice(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return 0.0
+        return 2*sum(self._src_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)/(sum(self._src_tokens[tok]*self._src_tokens[tok] for tok in alphabet)+sum(self._tar_tokens[tok]*self._tar_tokens[tok] for tok in alphabet))
 
 
 if __name__ == '__main__':
