@@ -36,12 +36,15 @@ __all__ = ['QuantitativeJaccard']
 class QuantitativeJaccard(_TokenDistance):
     r"""Quantitative Jaccard similarity.
 
-    For two multisets X and Y drawn from an alphabet S, Quantitative Jaccard similarity
-    :cite:`CITATION` is
+    For two multisets X and Y drawn from an alphabet S, Quantitative Jaccard
+    similarity is
 
         .. math::
 
             sim_{QuantitativeJaccard}(X, Y) =
+            \frac{\sum_{i \in S} X_iY_i}
+            {\sum_{i \in S} X_i^2 + \sum_{i \in S} Y_i^2 -
+            \sum_{i \in S} X_iY_i}
 
     .. versionadded:: 0.4.0
     """
@@ -111,7 +114,9 @@ class QuantitativeJaccard(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return 0.0
+        product = sum(self._src_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)
+
+        return product/(sum(self._src_tokens[tok]*self._src_tokens[tok] for tok in alphabet)+sum(self._tar_tokens[tok]*self._tar_tokens[tok] for tok in alphabet)-product)
 
 
 if __name__ == '__main__':
