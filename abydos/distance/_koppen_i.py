@@ -70,7 +70,6 @@ class KoppenI(_TokenDistance):
 
     Note
     ----
-
     In the usual case all of the above values should be proportional to the
     total number of samples n. I.e., a, b, c, d, & n should all be divided by
     n prior to calculating the coefficient. This class's default normalizer

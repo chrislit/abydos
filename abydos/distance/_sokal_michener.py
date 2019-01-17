@@ -55,7 +55,6 @@ class SokalMichener(_TokenDistance):
 
     Note
     ----
-
     The associated distance metric is the mean Manhattan distance and 4 times
     the value of the variance dissimilarity of :cite:`IBM:2017`.
 

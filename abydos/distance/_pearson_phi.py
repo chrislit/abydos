@@ -59,7 +59,6 @@ class PearsonPhi(_TokenDistance):
 
     Note
     ----
-
     In terms of a confusion matrix, this is equivalent to the Matthews
     correlation coefficient :py:meth:`ConfusionTable.mcc`.
 
