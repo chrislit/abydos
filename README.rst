@@ -152,7 +152,7 @@ Abydos
 
 |
 | `Abydos NLP/IR library <https://github.com/chrislit/abydos>`_
-| Copyright 2014-2018 by Christopher C. Little
+| Copyright 2014-2019 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics,
 stemmers, and string fingerprinters including:
