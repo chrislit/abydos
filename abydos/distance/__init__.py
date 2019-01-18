@@ -52,6 +52,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Cosine similarity (:py:class:`.Cosine`)
     - Russell & Rao similarity (:py:class:`.RussellRao`)
     - AMPLE similarity (:py:class:`.AMPLE`)
+    - AZZOO similarity (:py:class:`.AZZOO`)
     - Anderberg similarity (:py:class:`.Anderberg`)
     - Andres & Marzo's Delta similarity (:py:class:`.AndresMarzoDelta`)
     - Baroni-Urbani & Buser I similarity (:py:class:`.BaroniUrbaniBuserI`)
@@ -284,6 +285,7 @@ from __future__ import (
 )
 
 from ._ample import AMPLE
+from ._azzoo import AZZOO
 from ._anderberg import Anderberg
 from ._andres_marzo_delta import AndresMarzoDelta
 from ._bag import Bag, bag, dist_bag, sim_bag
@@ -559,6 +561,7 @@ __all__ = [
     'sim_cosine',
     'RussellRao',
     'AMPLE',
+    'AZZOO',
     'Anderberg',
     'AndresMarzoDelta',
     'BaroniUrbaniBuserI',
