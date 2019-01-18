@@ -36,8 +36,8 @@ __all__ = ['BrainerdRobinson']
 class BrainerdRobinson(_TokenDistance):
     r"""Brainerd-Robinson similarity.
 
-    For two multisets X and Y drawn from an alphabet S, Brainerd-Robinson similarity
-    :cite:`Robinson:1951,Brainerd:1951` is
+    For two multisets X and Y drawn from an alphabet S, Brainerd-Robinson
+    similarity :cite:`Robinson:1951,Brainerd:1951` is
 
         .. math::
 

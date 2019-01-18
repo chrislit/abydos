@@ -239,7 +239,8 @@ are provided:
 
 Three similarity measures from SeatGeek's FuzzyWuzzy:
 
-    - FuzzyWuzzy Partial String similarity (:py:class:`FuzzyWuzzyPartialString`)
+    - FuzzyWuzzy Partial String similarity
+      (:py:class:`FuzzyWuzzyPartialString`)
     - FuzzyWuzzy Token Sort similarity (:py:class:`FuzzyWuzzyTokenSort`)
     - FuzzyWuzzy Token Set similarity (:py:class:`FuzzyWuzzyTokenSet`)
 
