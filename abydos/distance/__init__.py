@@ -194,6 +194,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Yule's Q similarity (:py:class:`.YuleQ`)
     - Yule's Q II distance (:py:class:`.YuleQII`)
     - Yule's Y similarity (:py:class:`.YuleY`)
+    - YJHHR distance (:py:class:`.YJHHR`)
 
     - Bhattacharyya distance (:py:class:`.Bhattacharyya`)
     - Brainerd-Robinson similarity (:py:class:`.BrainerdRobinson`)
@@ -494,6 +495,7 @@ from ._warrens_v import WarrensV
 from ._weighted_jaccard import WeightedJaccard
 from ._whittaker import Whittaker
 from ._yates_chi_squared import YatesChiSquared
+from ._yjhhr import YJHHR
 from ._yule_q import YuleQ
 from ._yule_q_ii import YuleQII
 from ._yule_y import YuleY
@@ -702,6 +704,7 @@ __all__ = [
     'YuleQ',
     'YuleQII',
     'YuleY',
+    'YJHHR',
     'Bhattacharyya',
     'BrainerdRobinson',
     'QuantitativeCosine',
