@@ -57,7 +57,7 @@ class DamerauLevenshtein(_Distance):
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
 
-    def __init__(self, cost=(1, 1, 1, 1), **kwargs):
+    def __init__(self, cost=(1, 1, 1, 1), normalizer=max, **kwargs):
         """Initialize Levenshtein instance.
 
         Parameters
@@ -66,6 +66,10 @@ class DamerauLevenshtein(_Distance):
             A 4-tuple representing the cost of the four possible edits:
             inserts, deletes, substitutions, and transpositions, respectively
             (by default: (1, 1, 1, 1))
+        normalizer : function
+            A function that takes an list and computes a normalization term
+            by which the edit distance is divided (max by default). Another
+            good option is the sum function.
         **kwargs
             Arbitrary keyword arguments
 
@@ -75,6 +79,7 @@ class DamerauLevenshtein(_Distance):
         """
         super(DamerauLevenshtein, self).__init__(**kwargs)
         self._cost = cost
+        self._normalizer = normalizer
 
     def dist_abs(self, src, tar):
         """Return the Damerau-Levenshtein distance between two strings.
@@ -242,7 +247,7 @@ class DamerauLevenshtein(_Distance):
             return 0.0
         ins_cost, del_cost = self._cost[:2]
         return self.dist_abs(src, tar) / (
-            max(len(src) * del_cost, len(tar) * ins_cost)
+            self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
         )
 
 
