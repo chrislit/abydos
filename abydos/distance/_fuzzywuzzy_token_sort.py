@@ -47,7 +47,7 @@ class FuzzyWuzzyTokenSort(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=RegexpTokenizer(), **kwargs):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize FuzzyWuzzyTokenSort instance.
 
         Parameters
