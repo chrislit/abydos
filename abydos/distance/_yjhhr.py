@@ -176,10 +176,11 @@ class YJHHR(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        distance = self.dist_abs(src, tar)
         union = self._union_card()
         if union == 0:
             return 0.0
-        return self.dist_abs(src, tar)/self._union_card()
+        return distance/union
 
 
 if __name__ == '__main__':
