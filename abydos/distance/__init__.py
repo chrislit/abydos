@@ -286,9 +286,9 @@ from __future__ import (
 )
 
 from ._ample import AMPLE
-from ._azzoo import AZZOO
 from ._anderberg import Anderberg
 from ._andres_marzo_delta import AndresMarzoDelta
+from ._azzoo import AZZOO
 from ._bag import Bag, bag, dist_bag, sim_bag
 from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
 from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
@@ -343,8 +343,8 @@ from ._forbes_i import ForbesI
 from ._forbes_ii import ForbesII
 from ._fossum import Fossum
 from ._fuzzywuzzy_partial_string import FuzzyWuzzyPartialString
-from ._fuzzywuzzy_token_sort import FuzzyWuzzyTokenSort
 from ._fuzzywuzzy_token_set import FuzzyWuzzyTokenSet
+from ._fuzzywuzzy_token_sort import FuzzyWuzzyTokenSort
 from ._generalized_fleiss import GeneralizedFleiss
 from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells

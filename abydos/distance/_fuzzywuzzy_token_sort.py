@@ -30,8 +30,8 @@ from __future__ import (
 
 from difflib import SequenceMatcher
 
-from ..tokenizer import WhitespaceTokenizer
 from ._token_distance import _TokenDistance
+from ..tokenizer import RegexpTokenizer
 
 __all__ = ['FuzzyWuzzyTokenSort']
 
@@ -47,7 +47,7 @@ class FuzzyWuzzyTokenSort(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=WhitespaceTokenizer(), **kwargs):
+    def __init__(self, tokenizer=RegexpTokenizer(), **kwargs):
         """Initialize FuzzyWuzzyTokenSort instance.
 
         Parameters
@@ -70,6 +70,8 @@ class FuzzyWuzzyTokenSort(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if tokenizer is None:
+            tokenizer = RegexpTokenizer()
         super(FuzzyWuzzyTokenSort, self).__init__(
             tokenizer=tokenizer, **kwargs
         )
