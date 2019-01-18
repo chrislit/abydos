@@ -64,7 +64,7 @@ class Levenshtein(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, mode='lev', cost=(1, 1, 1, 1), **kwargs):
+    def __init__(self, mode='lev', cost=(1, 1, 1, 1), normalizer=max, **kwargs):
         """Initialize Levenshtein instance.
 
         Parameters
@@ -83,6 +83,10 @@ class Levenshtein(_Distance):
             A 4-tuple representing the cost of the four possible edits:
             inserts, deletes, substitutions, and transpositions, respectively
             (by default: (1, 1, 1, 1))
+        normalizer : function
+            A function that takes an list and computes a normalization term
+            by which the edit distance is divided (max by default). Another
+            good option is the sum function.
         **kwargs
             Arbitrary keyword arguments
 
@@ -93,6 +97,7 @@ class Levenshtein(_Distance):
         super(Levenshtein, self).__init__(**kwargs)
         self._mode = mode
         self._cost = cost
+        self._normalizer = normalizer
 
     def dist_abs(self, src, tar):
         """Return the Levenshtein distance between two strings.
@@ -215,8 +220,8 @@ class Levenshtein(_Distance):
         if src == tar:
             return 0
         ins_cost, del_cost = self._cost[:2]
-        return levenshtein(src, tar, self._mode, self._cost) / (
-            max(len(src) * del_cost, len(tar) * ins_cost)
+        return self.dist_abs(src, tar, self._mode, self._cost) / (
+            self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
         )
 
 
