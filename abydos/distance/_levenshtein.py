@@ -220,7 +220,7 @@ class Levenshtein(_Distance):
         if src == tar:
             return 0
         ins_cost, del_cost = self._cost[:2]
-        return self.dist_abs(src, tar, self._mode, self._cost) / (
+        return self.dist_abs(src, tar) / (
             self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
         )
 
