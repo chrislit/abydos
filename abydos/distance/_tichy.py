@@ -45,11 +45,15 @@ class Tichy(_Distance):
     to create a string T. The only other operation used by his algorithms for
     string reconstruction are add operations.
 
+    Note
+    ----
     While :cite:`Cormode:2003` counts only move operations to calculate
     distance, I give the option (enabled by default) of counting add operations
-    as part of the distance measure. Further, in the case that S and T are
-    identical, a distance of 0 will be returned, even though this would still
-    be counted as a single move operation spanning the whole of string S.
+    as part of the distance measure. To ignore the cost of add operations, set
+    the cost value to (1, 0), for example, when initializing the object.
+    Further, in the case that S and T are identical, a distance of 0 will be
+    returned, even though this would still be counted as a single move
+    operation spanning the whole of string S.
 
     .. versionadded:: 0.3.6
     """
