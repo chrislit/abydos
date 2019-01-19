@@ -32,6 +32,10 @@ Hamming distance (:py:class:`.Hamming`) and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
 provided.
 
+Block edit distances:
+
+    - Tichy edit distance (:py:class:`.Tichy`)
+
 Distance metrics developed for the US Census are included:
 
     - Jaro distance (:py:class:`.JaroWinkler` with ``mode='Jaro'``)
@@ -467,6 +471,7 @@ from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
+from ._tichy import Tichy
 from ._token_distance import _TokenDistance
 from ._tulloss_r import TullossR
 from ._tulloss_s import TullossS
@@ -524,6 +529,7 @@ __all__ = [
     'hamming',
     'dist_hamming',
     'sim_hamming',
+    'Tichy',
     'JaroWinkler',
     'dist_jaro_winkler',
     'sim_jaro_winkler',
