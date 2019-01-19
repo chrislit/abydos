@@ -64,7 +64,9 @@ class Levenshtein(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, mode='lev', cost=(1, 1, 1, 1), normalizer=max, **kwargs):
+    def __init__(
+        self, mode='lev', cost=(1, 1, 1, 1), normalizer=max, **kwargs
+    ):
         """Initialize Levenshtein instance.
 
         Parameters
