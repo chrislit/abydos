@@ -26,6 +26,7 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Optimal String Alignment distance (:py:class:`.Levenshtein` with
       ``mode='osa'``)
     - Damerau-Levenshtein distance (:py:class:`.DamerauLevenshtein`)
+    - Shapira-Storer edit distance with moves (:py:class:`.ShapiraStorer`)
     - Indel distance (:py:class:`.Indel`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
@@ -450,6 +451,7 @@ from ._rogot_goldberg import RogotGoldberg
 from ._russell_rao import RussellRao
 from ._scott_pi import ScottPi
 from ._shape import Shape
+from ._shapira_storer import ShapiraStorer
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
 from ._size import Size
@@ -521,6 +523,7 @@ __all__ = [
     'damerau_levenshtein',
     'dist_damerau',
     'sim_damerau',
+    'ShapiraStorer',
     'Indel',
     'indel',
     'dist_indel',
