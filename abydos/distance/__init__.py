@@ -26,6 +26,8 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Optimal String Alignment distance (:py:class:`.Levenshtein` with
       ``mode='osa'``)
     - Damerau-Levenshtein distance (:py:class:`.DamerauLevenshtein`)
+    - Levenshtein distance with block operations
+      (:py:class:`.BlockLevenshtein`)
     - Shapira-Storer edit distance with moves (:py:class:`.ShapiraStorer`)
     - Indel distance (:py:class:`.Indel`)
 
@@ -305,6 +307,7 @@ from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._bennet_sigma import BennetSigma
 from ._bhattacharyya import Bhattacharyya
+from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
@@ -523,6 +526,7 @@ __all__ = [
     'damerau_levenshtein',
     'dist_damerau',
     'sim_damerau',
+    'BlockLevenshtein',
     'ShapiraStorer',
     'Indel',
     'indel',
