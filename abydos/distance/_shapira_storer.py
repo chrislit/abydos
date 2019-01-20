@@ -89,36 +89,18 @@ class ShapiraStorer(Levenshtein):
 
         """
         alphabet = set(src) | set(tar)
-        next_char = ord(' ')
-        while len(self.lcs.lcsstr(src, tar)) > 1:
+        next_char = ord('A')
+        lcs = self.lcs.lcsstr(src, tar)
+        while len(lcs) > 1:
             while chr(next_char) in alphabet:
                 next_char += 1
             p = self.lcs.lcsstr(src, tar)
             src = src.replace(p, next_char)
             tar = tar.replace(p, next_char)
             alphabet |= next_char
-        d = self._levenshtein(src, tar)
+            lcs = self.lcs.lcsstr(src, tar)
+        d = super(ShapiraStorer, self).dist_abs(src, tar)
         return d
-
-    def _levenshtein(self, src, tar):
-        """Return the Levenshtein distance between src & tar.
-
-        Parameters
-        ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
-
-        Returns
-        -------
-        int
-            The Levenshtein edit distance between src & tar
-
-        .. versionadded:: 0.4.0
-
-        """
-        return super(ShapiraStorer, self).dist_abs(src, tar)
 
     def dist(self, src, tar):
         """Return the normalized Shapira & Storer distance between two strings.
