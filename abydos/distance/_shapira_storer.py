@@ -60,9 +60,7 @@ class ShapiraStorer(Levenshtein):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self, **kwargs
-    ):
+    def __init__(self, **kwargs):
         """Initialize ShapiraStorer instance.
 
         Parameters

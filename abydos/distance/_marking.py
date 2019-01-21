@@ -45,10 +45,7 @@ class Marking(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        **kwargs
-    ):
+    def __init__(self, **kwargs):
         """Initialize Marking instance.
 
         Parameters
@@ -60,9 +57,7 @@ class Marking(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Marking, self).__init__(
-            **kwargs
-        )
+        super(Marking, self).__init__(**kwargs)
 
     def dist_abs(self, src, tar):
         """Return the marking distance of two strings.
@@ -99,7 +94,7 @@ class Marking(_TokenDistance):
         """
         distance = 0
         unmatched = src[:]
-        for i in range(len(unmatched)-1, -1, -1):
+        for i in range(len(unmatched) - 1, -1, -1):
             if unmatched[i:] not in tar:
                 distance += 1
                 unmatched = unmatched[:i]
@@ -139,7 +134,7 @@ class Marking(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.dist_abs(src, tar)/len(src)
+        return self.dist_abs(src, tar) / len(src)
 
 
 if __name__ == '__main__':
