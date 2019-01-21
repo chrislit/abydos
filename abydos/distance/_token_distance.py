@@ -33,6 +33,16 @@ from collections import Counter
 from itertools import product
 from math import exp, log1p
 
+from numpy import copy as np_copy
+from numpy import zeros as np_ones
+
+try:
+    from scipy.optimize import linear_sum_assignment
+except ImportError:  # pragma: no cover
+    # If the system lacks the scipy library, we'll fall back to our
+    # Python+Numpy implementation of the Hungarian algorithm
+    linear_sum_assignment = None
+
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
 from ._lcprefix import LCPrefix
@@ -97,6 +107,12 @@ class _TokenDistance(_Distance):
                   wherein items can be partially members of the intersection
                   depending on their similarity. This also takes a `metric`
                   (by default :class:`DamerauLevenshtein()`) parameter.
+                - 'linkage': Group linkage, defined by :cite:`On:2007`. Like
+                  the soft intersection, items can be partially members of the
+                  intersection, but the method of pairing similar members is
+                  somewhat more complex. See the cited paper for details. This
+                  also takes `metric` (by default :class:`Levenshtein()`) and
+                  `threshold` (by default 0.8) parameters.
         **kwargs
             Arbitrary keyword arguments
 
@@ -459,6 +475,127 @@ class _TokenDistance(_Distance):
                     intersection[tar_tok] += sim / 2
 
         return intersection
+
+    def _group_linkage_intersection(self):
+        r"""Return the group linkage intersection of the tokens in src and tar.
+
+        This is based on group linkage, as defined by :cite:`On:2007`.
+
+        Most of this method is concerned with solving the assignment problem,
+        in order to find the weight of the maximum weight bipartite matching.
+        If the system has SciPy installed, we use it's linear_sum_assignment
+        function to get the assignments. Otherwise, we use the Hungarian
+        algorithm of Munkres :cite:`Minkres:1957`, implemented in Python &
+        Numpy.
+
+        .. versionadded:: 0.4.0
+
+        """
+        intersection = self._crisp_intersection()
+        src_only = sorted(self._src_tokens - self._tar_tokens)
+        tar_only = sorted(self._tar_tokens - self._src_tokens)
+
+        if linear_sum_assignment:
+            arr = np_ones((len(tar_only), len(src_only)))
+
+            for col in range(len(src_only)):
+                for row in range(len(tar_only)):
+                    arr[row, col] = self.params['metric'].dist(
+                        src_only[col], tar_only[row]
+                    )
+
+            for row, col in zip(*linear_sum_assignment(arr)):
+                sim = 1.0 - arr[row, col]
+                if sim >= self.params['threshold']:
+                    intersection[src_only[col]] += sim / 2
+                    intersection[tar_only[row]] += sim / 2
+        else:
+            n = max(len(tar_only), len(src_only))
+            arr = np_ones((n, n), dtype=float)
+
+            for col in range(len(src_only)):
+                for row in range(len(tar_only)):
+                    arr[row, col] = self.params['metric'].dist(
+                        src_only[col], tar_only[row]
+                    )
+
+            src_only += [''] * (n - len(src_only))
+            tar_only += [''] * (n - len(tar_only))
+
+            orig_sim = 1 - np_copy(arr)
+
+            # Step 1
+            for row in range(n):
+                arr[row, :] -= arr[row, :].min()
+            # Step 2
+            for col in range(n):
+                arr[:, col] -= arr[:, col].min()
+
+            while True:
+                # Step 3
+                assignments = {}
+
+                allocated_cols = set()
+                allocated_rows = set()
+                assigned_rows = set()
+                assigned_cols = set()
+
+                for row in range(n):
+                    if (arr[row, :] == 0.0).sum() == 1:
+                        col = arr[row, :].argmin()
+                        if col not in allocated_cols:
+                            assignments[row, col] = orig_sim[row, col]
+                            allocated_cols.add(col)
+                            assigned_rows.add(row)
+                            assigned_cols.add(col)
+
+                for col in range(n):
+                    if (arr[:, col] == 0.0).sum() == 1:
+                        row = arr[:, col].argmin()
+                        if row not in allocated_rows:
+                            assignments[row, col] = orig_sim[row, col]
+                            allocated_rows.add(row)
+                            assigned_rows.add(row)
+                            assigned_cols.add(col)
+
+                if len(assignments) == n:
+                    break
+
+                marked_rows = set(
+                    _ for _ in range(n) if _ not in assigned_rows
+                )
+                marked_cols = set()
+                for row in set(marked_rows):
+                    for col, mark in enumerate(arr[row, :] == 0.0):
+                        if mark:
+                            marked_cols.add(col)
+                            for row2 in range(n):
+                                if (row2, col) in assignments:
+                                    marked_rows.add(row2)
+
+                if n - len(marked_rows) + len(marked_cols) == n:
+                    # We have sufficient lines
+                    for col in range(n):
+                        row = arr[:, col].argmin()
+                        assignments[row, col] = orig_sim[row, col]
+                    break
+
+                # Step 4
+                min_val = arr[tuple(marked_rows), :][
+                    :, tuple(set(range(n)) - marked_cols)
+                ].min()
+                for row in range(n):
+                    for col in range(n):
+                        if row in marked_rows and col not in marked_cols:
+                            arr[row, col] -= min_val
+                        elif row not in marked_rows and col in marked_cols:
+                            arr[row, col] += min_val
+
+            for row, col in assignments.keys():
+                sim = orig_sim[row, col]
+                if sim >= self.params['threshold']:
+                    intersection[src_only[col]] += sim / 2
+                    intersection[tar_only[row]] += sim / 2
 
     def _intersection_card(self):
         """Return the cardinality of the intersection."""
