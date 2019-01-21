@@ -141,6 +141,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
     - Lorentzian distance (:py:class:`.Lorentzian`)
     - Maarel similarity (:py:class:`.Maarel`)
+    - marking distance (:py:class:`.Marking`)
     - Matusita distance (:py:class:`.Matusita`)
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
@@ -414,6 +415,7 @@ from ._levenshtein import (
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._marking import Marking
 from ._matusita import Matusita
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
@@ -530,6 +532,7 @@ __all__ = [
     'sim_damerau',
     'BlockLevenshtein',
     'ShapiraStorer',
+    'Marking',
     'Indel',
     'indel',
     'dist_indel',
