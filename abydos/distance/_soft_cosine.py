@@ -53,7 +53,7 @@ class SoftCosine(_TokenDistance):
     This class implements soft cosine similarity, as defined by
     :cite:`Sidorov:2014`. An alternative formulation of soft cosine similarity
     using soft (multi-)sets is provided by the :class:`Cosine` class using
-    :attr:`Cosine.intersection_type`='soft', based on the soft intersection
+    intersection_type='soft', based on the soft intersection
     defined in :cite:`Russ:2014`.
 
     .. versionadded:: 0.4.0
