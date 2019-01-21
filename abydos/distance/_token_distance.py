@@ -43,6 +43,7 @@ except ImportError:  # pragma: no cover
     # Python+Numpy implementation of the Hungarian algorithm
     linear_sum_assignment = None
 
+from ._cosine import Cosine
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
 from ._lcprefix import LCPrefix
@@ -111,8 +112,8 @@ class _TokenDistance(_Distance):
                   the soft intersection, items can be partially members of the
                   intersection, but the method of pairing similar members is
                   somewhat more complex. See the cited paper for details. This
-                  also takes `metric` (by default :class:`Levenshtein()`) and
-                  `threshold` (by default 0.8) parameters.
+                  also takes `metric` (by default :class:`Cosine()`) and
+                  `threshold` (by default 0.1) parameters.
         **kwargs
             Arbitrary keyword arguments
 
@@ -209,6 +210,12 @@ class _TokenDistance(_Distance):
                 self.params['metric'] = Levenshtein()
             if 'threshold' not in self.params:
                 self.params['threshold'] = 0.8
+            self.intersection = self._fuzzy_intersection
+        elif intersection_type == 'linkage':
+            if 'metric' not in self.params or self.params['metric'] is None:
+                self.params['metric'] = Cosine()
+            if 'threshold' not in self.params:
+                self.params['threshold'] = 0.1
             self.intersection = self._fuzzy_intersection
         else:
             self.intersection = self._crisp_intersection
@@ -469,6 +476,9 @@ class _TokenDistance(_Distance):
 
         for src_tok in src_only:
             for tar_tok in tar_only:
+                # TODO: should sim be divided by 2? should this be multiplied
+                #  by the bag value? should it really be every token in both
+                #  sets that we compare?
                 sim = self.params['metric'].sim(src_tok, tar_tok)
                 if sim >= self.params['threshold']:
                     intersection[src_tok] += (sim / 2) * src_only[src_tok]
@@ -597,6 +607,8 @@ class _TokenDistance(_Distance):
 
             for row, col in assignments.keys():
                 sim = orig_sim[row, col]
+                # TODO: should sim be divided by 2? should this be multiplied
+                #  by the bag value?
                 if sim >= self.params['threshold']:
                     intersection[src_only[col]] += (sim / 2) * (
                         self._src_tokens - self._tar_tokens
@@ -604,6 +616,8 @@ class _TokenDistance(_Distance):
                     intersection[tar_only[row]] += (sim / 2) * (
                         self._tar_tokens - self._src_tokens
                     )[tar_only[row]]
+
+        return intersection
 
     def _intersection_card(self):
         """Return the cardinality of the intersection."""
