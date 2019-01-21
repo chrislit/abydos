@@ -69,12 +69,7 @@ class QGram(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize QGram instance.
 
         Parameters
@@ -113,9 +108,7 @@ class QGram(_TokenDistance):
             tokenizer = QGramTokenizer(qval=qval, start_stop='')
 
         super(QGram, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def dist_abs(self, src, tar):
@@ -156,7 +149,7 @@ class QGram(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
 
-        return b+c
+        return b + c
 
     def dist(self, src, tar):
         """Return the normalized q-gram distance of two strings.
@@ -189,7 +182,7 @@ class QGram(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.dist_abs(src, tar)/self._union_card()
+        return self.dist_abs(src, tar) / self._union_card()
 
 
 if __name__ == '__main__':

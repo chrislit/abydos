@@ -45,9 +45,7 @@ class BlockLevenshtein(Levenshtein):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self, cost=(1, 1, 1, 1), normalizer=max, **kwargs
-    ):
+    def __init__(self, cost=(1, 1, 1, 1), normalizer=max, **kwargs):
         """Initialize BlockLevenshtein instance.
 
         Parameters
@@ -59,7 +57,9 @@ class BlockLevenshtein(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
-        super(BlockLevenshtein, self).__init__(cost=cost, normalizer=normalizer, **kwargs)
+        super(BlockLevenshtein, self).__init__(
+            cost=cost, normalizer=normalizer, **kwargs
+        )
         self.lcs = LCSstr()
 
     def dist_abs(self, src, tar):
