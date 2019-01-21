@@ -45,8 +45,8 @@ class Lorentzian(_TokenDistance):
             dist_{Lorentzian}(X, Y) =
             \sum_{i \in S} log(1 + |A_i + B_i|)
 
-    Note
-    ----
+    Notes
+    -----
     No primary source for this measure could be located, but it is included
     in surveys and catalogues, such as :cite:`Deza:2016` and :cite:`Cha:2008`.
 

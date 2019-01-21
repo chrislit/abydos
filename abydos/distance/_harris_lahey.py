@@ -56,8 +56,8 @@ class HarrisLahey(_TokenDistance):
             \frac{a}{a+b+c}\cdot\frac{2d+b+c}{2n}+
             \frac{d}{d+b+c}\cdot\frac{2a+b+c}{2n}
 
-    Note
-    ----
+    Notes
+    -----
     Most catalogs of similarity coefficients
     :cite:`Warrens:2008,Morris:2012,Xiang:2013` omit the :math:`n` terms in the
     denominators, but the worked example in :cite:`Harris:1978` makes it clear

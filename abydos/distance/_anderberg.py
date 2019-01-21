@@ -58,8 +58,8 @@ class Anderberg(_TokenDistance):
             \frac{(max(a,b)+max(c,d)+max(a,c)+max(b,d))-
             (max(a+b,b+d)+max(a+b,c+d))}{2n}
 
-    Note
-    ----
+    Notes
+    -----
     There are various references to another "Anderberg similarity",
     :math:`sim_{Anderberg} = \frac{8a}{8a+b+c}`, but I cannot substantiate
     the claim that this appears in :cite:`Anderberg:1973`. In any case,

@@ -51,8 +51,8 @@ class QGram(_TokenDistance):
 
             sim_{QGram} = b+c
 
-    Note
-    ----
+    Notes
+    -----
     This class uses bigrams without appended start or stop symbols, by default,
     as in :cite:`Ukkonen:1992`'s examples. It is described as the :math:`L_1`
     norm of the difference of two strings' q-gram profiles, which are the
