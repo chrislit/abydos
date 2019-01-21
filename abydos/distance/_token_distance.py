@@ -471,8 +471,8 @@ class _TokenDistance(_Distance):
             for tar_tok in tar_only:
                 sim = self.params['metric'].sim(src_tok, tar_tok)
                 if sim >= self.params['threshold']:
-                    intersection[src_tok] += sim / 2
-                    intersection[tar_tok] += sim / 2
+                    intersection[src_tok] += (sim / 2) * src_only[src_tok]
+                    intersection[tar_tok] += (sim / 2) * tar_only[tar_tok]
 
         return intersection
 
@@ -507,8 +507,12 @@ class _TokenDistance(_Distance):
             for row, col in zip(*linear_sum_assignment(arr)):
                 sim = 1.0 - arr[row, col]
                 if sim >= self.params['threshold']:
-                    intersection[src_only[col]] += sim / 2
-                    intersection[tar_only[row]] += sim / 2
+                    intersection[src_only[col]] += (sim / 2) * (
+                        self._src_tokens - self._tar_tokens
+                    )[src_only[col]]
+                    intersection[tar_only[row]] += (sim / 2) * (
+                        self._tar_tokens - self._src_tokens
+                    )[tar_only[row]]
         else:
             n = max(len(tar_only), len(src_only))
             arr = np_ones((n, n), dtype=float)
@@ -594,8 +598,12 @@ class _TokenDistance(_Distance):
             for row, col in assignments.keys():
                 sim = orig_sim[row, col]
                 if sim >= self.params['threshold']:
-                    intersection[src_only[col]] += sim / 2
-                    intersection[tar_only[row]] += sim / 2
+                    intersection[src_only[col]] += (sim / 2) * (
+                        self._src_tokens - self._tar_tokens
+                    )[src_only[col]]
+                    intersection[tar_only[row]] += (sim / 2) * (
+                        self._tar_tokens - self._src_tokens
+                    )[tar_only[row]]
 
     def _intersection_card(self):
         """Return the cardinality of the intersection."""
