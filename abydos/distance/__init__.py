@@ -29,6 +29,7 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Levenshtein distance with block operations
       (:py:class:`.BlockLevenshtein`)
     - Shapira-Storer edit distance with moves (:py:class:`.ShapiraStorer`)
+    - Yujian-Bo normalized edit distance (:py:class:`.YujianBo`)
     - Indel distance (:py:class:`.Indel`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
@@ -513,6 +514,7 @@ from ._weighted_jaccard import WeightedJaccard
 from ._whittaker import Whittaker
 from ._yates_chi_squared import YatesChiSquared
 from ._yjhhr import YJHHR
+from ._yujian_bo import YujianBo
 from ._yule_q import YuleQ
 from ._yule_q_ii import YuleQII
 from ._yule_y import YuleY
@@ -533,6 +535,7 @@ __all__ = [
     'BlockLevenshtein',
     'ShapiraStorer',
     'Marking',
+    'YujianBo',
     'Indel',
     'indel',
     'dist_indel',
