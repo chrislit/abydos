@@ -28,8 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
-from ..tokenizer import QGrams as QGramTokenizer
 from ._token_distance import _TokenDistance
+from ..tokenizer import QGrams as QGramTokenizer
 
 __all__ = ['QGram']
 
