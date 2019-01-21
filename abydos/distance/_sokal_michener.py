@@ -53,8 +53,8 @@ class SokalMichener(_TokenDistance):
             sim_{SokalMichener} =
             \frac{a+d}{n}
 
-    Note
-    ----
+    Notes
+    -----
     The associated distance metric is the mean Manhattan distance and 4 times
     the value of the variance dissimilarity of :cite:`IBM:2017`.
 

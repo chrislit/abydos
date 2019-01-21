@@ -61,8 +61,8 @@ class Dice(Tversky):
             sim_{Dice} =
             \frac{2a}{2a+b+c}
 
-    Note
-    ----
+    Notes
+    -----
     In terms of a confusion matrix, this is equivalent to :math:`F_1` score
     :py:meth:`ConfusionTable.f1_score`.
 

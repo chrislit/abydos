@@ -45,8 +45,8 @@ class Tichy(_Distance):
     to create a string T. The only other operation used by his algorithms for
     string reconstruction are add operations.
 
-    Note
-    ----
+    Notes
+    -----
     While :cite:`Cormode:2003` counts only move operations to calculate
     distance, I give the option (enabled by default) of counting add operations
     as part of the distance measure. To ignore the cost of add operations, set
@@ -182,7 +182,7 @@ class Tichy(_Distance):
         if src == tar:
             return 0
 
-        return self.dist_abs(src, tar) / (len(tar) * max(self._cost))
+        return self.dist_abs(src, tar) / (len(tar)*max(self._cost))
 
 
 if __name__ == '__main__':
