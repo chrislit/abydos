@@ -154,6 +154,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Pearson's Chi-Squared similarity (:py:class:`.PearsonChiSquared`)
     - Pearson's Phi (:py:class:`.PearsonPhi`)
     - Peirce similarity (:py:class:`.Peirce`)
+    - q-gram distance (:py:class:`.QGram`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
     - Scott's Pi similarity (:py:class:`.ScottPi`)
@@ -441,6 +442,7 @@ from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
 from ._prefix import Prefix, dist_prefix, sim_prefix
+from ._q_gram import QGram
 from ._quantitative_cosine import QuantitativeCosine
 from ._quantitative_dice import QuantitativeDice
 from ._quantitative_jaccard import QuantitativeJaccard
@@ -672,6 +674,7 @@ __all__ = [
     'PearsonChiSquared',
     'PearsonPhi',
     'Peirce',
+    'QGram',
     'RogersTanimoto',
     'RogotGoldberg',
     'ScottPi',
