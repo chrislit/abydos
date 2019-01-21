@@ -182,7 +182,7 @@ class Tichy(_Distance):
         if src == tar:
             return 0
 
-        return self.dist_abs(src, tar) / (len(tar)*max(self._cost))
+        return self.dist_abs(src, tar) / (len(tar) * max(self._cost))
 
 
 if __name__ == '__main__':
