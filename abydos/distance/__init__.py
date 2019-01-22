@@ -30,6 +30,8 @@ These include traditional Levenshtein edit distance and related algorithms:
       (:py:class:`.BlockLevenshtein`)
     - Shapira-Storer edit distance with moves (:py:class:`.ShapiraStorer`)
     - Yujian-Bo normalized edit distance (:py:class:`.YujianBo`)
+    - Higuera-Micó contextual normalized edit distance
+      (:py:class:`.HigueraMico`)
     - Indel distance (:py:class:`.Indel`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
@@ -376,6 +378,7 @@ from ._harris_lahey import HarrisLahey
 from ._hassanat import Hassanat
 from ._hawkins_dotson import HawkinsDotson
 from ._hellinger import Hellinger
+from ._higuera_mico import HigueraMico
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
@@ -536,6 +539,7 @@ __all__ = [
     'ShapiraStorer',
     'Marking',
     'YujianBo',
+    'HigueraMico',
     'Indel',
     'indel',
     'dist_indel',
