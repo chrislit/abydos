@@ -217,7 +217,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Quantitative Cosine similarity (:py:class:`.QuantitativeCosine`)
     - Quantitative Dice similarity (:py:class:`.QuantitativeDice`)
     - Quantitative Jaccard similarity (:py:class:`.QuantitativeJaccard`)
-    - Gleason similarity (:py:class:`.Gleason`)
     - Maryland Bridge similarity (:py:class:`.MarylandBridge`)
     - Roberts similarity (:py:class:`.Roberts`)
     - Average linkage distance (:py:class:`.AverageLinkage`)
@@ -372,7 +371,6 @@ from ._generalized_fleiss import GeneralizedFleiss
 from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
 from ._gini import Gini
-from ._gleason import Gleason
 from ._goodall import Goodall
 from ._goodman_kruskal_lambda import GoodmanKruskalLambda
 from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
@@ -760,7 +758,6 @@ __all__ = [
     'QuantitativeCosine',
     'QuantitativeDice',
     'QuantitativeJaccard',
-    'Gleason',
     'MarylandBridge',
     'Roberts',
     'AverageLinkage',
