@@ -66,6 +66,8 @@ class Dice(Tversky):
     In terms of a confusion matrix, this is equivalent to :math:`F_1` score
     :py:meth:`ConfusionTable.f1_score`.
 
+    The multiset variant is termed Gleason similarity :cite:`Gleason:1920`.
+
     .. versionadded:: 0.3.6
     """
 
