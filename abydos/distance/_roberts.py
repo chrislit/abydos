@@ -37,11 +37,13 @@ class Roberts(_TokenDistance):
     r"""Roberts similarity.
 
     For two multisets X and Y drawn from an alphabet S, Roberts similarity
-    :cite:`CITATION` is
+    :cite:`Roberts:1986` is
 
         .. math::
 
             sim_{Roberts}(X, Y) =
+            \frac{\sum_{i \in S} (X_i + Y_i)
+            \frac{min(X_i, Y_i)}{max(X_i, Y_i)}}{\sum_{i \in S} (X_i + Y_i)}
 
     .. versionadded:: 0.4.0
     """
@@ -111,7 +113,7 @@ class Roberts(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return 0.0
+        return sum((self._src_tokens[i] + self._tar_tokens[i])*min(self._src_tokens[i], self._tar_tokens[i])/max(self._src_tokens[i], self._tar_tokens[i]) for i in alphabet)/sum((self._src_tokens[i] + self._tar_tokens[i]) for i in alphabet)
 
 
 if __name__ == '__main__':
