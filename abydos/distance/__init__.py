@@ -33,6 +33,9 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Higuera-Micó contextual normalized edit distance
       (:py:class:`.HigueraMico`)
     - Indel distance (:py:class:`.Indel`)
+    - Laver consonant distance (:py:class:`.LaverConsonant`)
+    - Laver mishearing distance (:py:class:`.LaverMishearing`)
+    - syllabic alignment distance (:py:class:`.SyllabicAlignment`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
@@ -214,11 +217,19 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Quantitative Cosine similarity (:py:class:`.QuantitativeCosine`)
     - Quantitative Dice similarity (:py:class:`.QuantitativeDice`)
     - Quantitative Jaccard similarity (:py:class:`.QuantitativeJaccard`)
+    - Ellenberg similarity (:py:class:`.Ellenberg`)
+    - Gleason similarity (:py:class:`.Gleason`)
+    - Maryland Bridge similarity (:py:class:`.MarylandBridge`)
+    - Roberts similarity (:py:class:`.Roberts`)
+    - average linkage distance (:py:class:`.AverageLinkage`)
+    - single linkage distance (:py:class:`.SingleLinkage`)
+    - centroid linkage distance (:py:class:`.CentroidLinkage`)
+    - complete linkage distance (:py:class:`.CompleteLinkage`)
+    - Ward linkage distance (:py:class:`.WardLinkage`)
 
     - Bag distance (:py:class:`.Bag`)
     - Soft cosine similarity (:py:class:`.SoftCosine`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
-
 
 Three popular sequence alignment algorithms are provided:
 
@@ -300,6 +311,7 @@ from __future__ import (
 from ._ample import AMPLE
 from ._anderberg import Anderberg
 from ._andres_marzo_delta import AndresMarzoDelta
+from ._average_linkage import AverageLinkage
 from ._azzoo import AZZOO
 from ._bag import Bag, bag, dist_bag, sim_bag
 from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
@@ -316,11 +328,13 @@ from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
+from ._centroid_linkage import CentroidLinkage
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
 from ._clement import Clement
 from ._cohen_kappa import CohenKappa
 from ._cole import Cole
+from ._complete_linkage import CompleteLinkage
 from ._consonni_todeschini_i import ConsonniTodeschiniI
 from ._consonni_todeschini_ii import ConsonniTodeschiniII
 from ._consonni_todeschini_iii import ConsonniTodeschiniIII
@@ -343,6 +357,7 @@ from ._distance import _Distance
 from ._doolittle import Doolittle
 from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
+from ._ellenberg import Ellenberg
 from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
 from ._eyraud import Eyraud
@@ -362,6 +377,7 @@ from ._generalized_fleiss import GeneralizedFleiss
 from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
 from ._gini import Gini
+from ._gleason import Gleason
 from ._goodall import Goodall
 from ._goodman_kruskal_lambda import GoodmanKruskalLambda
 from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
@@ -405,6 +421,8 @@ from ._kuhns_xi import KuhnsXI
 from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
+from ._laver_consonant import LaverConsonant
+from ._laver_mishearing import LaverMishearing
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
@@ -420,6 +438,7 @@ from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._marking import Marking
+from ._maryland_bridge import MarylandBridge
 from ._matusita import Matusita
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
@@ -457,6 +476,7 @@ from ._ratcliff_obershelp import (
     dist_ratcliff_obershelp,
     sim_ratcliff_obershelp,
 )
+from ._roberts import Roberts
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
 from ._russell_rao import RussellRao
@@ -465,6 +485,7 @@ from ._shape import Shape
 from ._shapira_storer import ShapiraStorer
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
+from ._single_linkage import SingleLinkage
 from ._size import Size
 from ._smith_waterman import SmithWaterman, smith_waterman
 from ._soft_cosine import SoftCosine
@@ -480,6 +501,7 @@ from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._stuart_tau import StuartTau
 from ._suffix import Suffix, dist_suffix, sim_suffix
+from ._syllabic_alignment import SyllabicAlignment
 from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
@@ -508,6 +530,7 @@ from ._unknown_m import UnknownM
 from ._unknown_n import UnknownN
 from ._unknown_o import UnknownO
 from ._upholt import Upholt
+from ._ward_linkage import WardLinkage
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
 from ._warrens_iii import WarrensIII
@@ -544,6 +567,9 @@ __all__ = [
     'indel',
     'dist_indel',
     'sim_indel',
+    'LaverConsonant',
+    'LaverMishearing',
+    'SyllabicAlignment',
     'Hamming',
     'hamming',
     'dist_hamming',
@@ -740,6 +766,15 @@ __all__ = [
     'QuantitativeCosine',
     'QuantitativeDice',
     'QuantitativeJaccard',
+    'Ellenberg',
+    'Gleason',
+    'MarylandBridge',
+    'Roberts',
+    'AverageLinkage',
+    'SingleLinkage',
+    'CompleteLinkage',
+    'CentroidLinkage',
+    'WardLinkage',
     'Bag',
     'bag',
     'dist_bag',
