@@ -217,7 +217,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Quantitative Cosine similarity (:py:class:`.QuantitativeCosine`)
     - Quantitative Dice similarity (:py:class:`.QuantitativeDice`)
     - Quantitative Jaccard similarity (:py:class:`.QuantitativeJaccard`)
-    - Ellenberg similarity (:py:class:`.Ellenberg`)
     - Gleason similarity (:py:class:`.Gleason`)
     - Maryland Bridge similarity (:py:class:`.MarylandBridge`)
     - Roberts similarity (:py:class:`.Roberts`)
@@ -354,7 +353,6 @@ from ._distance import _Distance
 from ._doolittle import Doolittle
 from ._dunning import Dunning
 from ._editex import Editex, dist_editex, editex, sim_editex
-from ._ellenberg import Ellenberg
 from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
 from ._eyraud import Eyraud
@@ -762,7 +760,6 @@ __all__ = [
     'QuantitativeCosine',
     'QuantitativeDice',
     'QuantitativeJaccard',
-    'Ellenberg',
     'Gleason',
     'MarylandBridge',
     'Roberts',

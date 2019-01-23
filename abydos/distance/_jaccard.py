@@ -62,6 +62,10 @@ class Jaccard(Tversky):
             sim_{Jaccard} =
             \frac{a}{a+b+c}
 
+    Notes
+    -----
+    The multiset variant is termed Ellenberg similarity :cite:`Ellenberg:1956`.
+
     .. versionadded:: 0.3.6
     """
 
