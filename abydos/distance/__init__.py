@@ -217,7 +217,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Quantitative Cosine similarity (:py:class:`.QuantitativeCosine`)
     - Quantitative Dice similarity (:py:class:`.QuantitativeDice`)
     - Quantitative Jaccard similarity (:py:class:`.QuantitativeJaccard`)
-    - Maryland Bridge similarity (:py:class:`.MarylandBridge`)
     - Roberts similarity (:py:class:`.Roberts`)
     - Average linkage distance (:py:class:`.AverageLinkage`)
     - Single linkage distance (:py:class:`.SingleLinkage`)
@@ -431,7 +430,6 @@ from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._marking import Marking
-from ._maryland_bridge import MarylandBridge
 from ._matusita import Matusita
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
@@ -758,7 +756,6 @@ __all__ = [
     'QuantitativeCosine',
     'QuantitativeDice',
     'QuantitativeJaccard',
-    'MarylandBridge',
     'Roberts',
     'AverageLinkage',
     'SingleLinkage',
