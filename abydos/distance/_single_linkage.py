@@ -29,19 +29,21 @@ from __future__ import (
 )
 
 from ._token_distance import _TokenDistance
+from ._levenshtein import Levenshtein
 
 __all__ = ['SingleLinkage']
 
 
 class SingleLinkage(_TokenDistance):
-    r"""single linkage distance.
+    r"""Single linkage distance.
 
-    For two multisets X and Y drawn from an alphabet S, single linkage distance
-    :cite:`CITATION` is
+    For two multisets X and Y, single linkage distance
+    :cite:`Deza:2016` is
 
         .. math::
 
-            sim_{SingleLinkage}(X, Y) =
+            dist_{SingleLinkage}(X, Y) =
+            min_{i \in X, j \in Y} dist(X_i, Y_j)
 
     .. versionadded:: 0.4.0
     """
@@ -49,6 +51,7 @@ class SingleLinkage(_TokenDistance):
     def __init__(
         self,
         tokenizer=None,
+        metric=None,
         **kwargs
     ):
         """Initialize SingleLinkage instance.
@@ -57,6 +60,9 @@ class SingleLinkage(_TokenDistance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        metric : _Distance
+            A string distance measure class for use in the 'soft' and 'fuzzy'
+            variants. (Defaults to Levenshtein distance)
         **kwargs
             Arbitrary keyword arguments
 
@@ -75,8 +81,12 @@ class SingleLinkage(_TokenDistance):
             tokenizer=tokenizer,
             **kwargs
         )
+        if metric is None:
+            self._metric = Levenshtein()
+        else:
+            self._metric = metric
 
-    def sim(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the single linkage distance of two strings.
 
         Parameters
@@ -94,13 +104,13 @@ class SingleLinkage(_TokenDistance):
         Examples
         --------
         >>> cmp = SingleLinkage()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -109,9 +119,58 @@ class SingleLinkage(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        alphabet = self._total().keys()
+        src, tar = self._get_tokens()
 
-        return 0.0
+        min_val = float('inf')
+
+        for term_src in src.keys():
+            for term_tar in tar.keys():
+                min_val = min(min_val, self._metric.dist_abs(term_src, term_tar))
+
+        return min_val
+
+    def dist(self, src, tar):
+        """Return the normalized single linkage distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            normalized single linkage distance
+
+        Examples
+        --------
+        >>> cmp = SingleLinkage()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        src, tar = self._get_tokens()
+
+        min_val = float('inf')
+
+        for term_src in src.keys():
+            for term_tar in tar.keys():
+                min_val = min(min_val, self._metric.dist(term_src, term_tar))
+
+        return min_val
 
 
 if __name__ == '__main__':

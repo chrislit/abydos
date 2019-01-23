@@ -18,7 +18,7 @@
 
 """abydos.distance._average_linkage.
 
-average linkage distance
+Average linkage distance
 """
 
 from __future__ import (
@@ -29,19 +29,22 @@ from __future__ import (
 )
 
 from ._token_distance import _TokenDistance
+from ._levenshtein import Levenshtein
 
 __all__ = ['AverageLinkage']
 
 
 class AverageLinkage(_TokenDistance):
-    r"""average linkage distance.
+    r"""Average linkage distance.
 
-    For two multisets X and Y drawn from an alphabet S, average linkage distance
-    :cite:`CITATION` is
+    For two multisets X and Y, average linkage distance
+    :cite:`Deza:2016` is
 
         .. math::
 
-            sim_{AverageLinkage}(X, Y) =
+            dist_{AverageLinkage}(X, Y) =
+            \frac{\sum_{i \in X} \sum{j \in Y} dist(X_i, Y_j)
+            \cdot |X_i| \cdot |Y_j|}{|X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """
@@ -49,6 +52,7 @@ class AverageLinkage(_TokenDistance):
     def __init__(
         self,
         tokenizer=None,
+        metric=None,
         **kwargs
     ):
         """Initialize AverageLinkage instance.
@@ -57,6 +61,9 @@ class AverageLinkage(_TokenDistance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        metric : _Distance
+            A string distance measure class for use in the 'soft' and 'fuzzy'
+            variants. (Defaults to Levenshtein distance)
         **kwargs
             Arbitrary keyword arguments
 
@@ -75,6 +82,10 @@ class AverageLinkage(_TokenDistance):
             tokenizer=tokenizer,
             **kwargs
         )
+        if metric is None:
+            self._metric = Levenshtein()
+        else:
+            self._metric = metric
 
     def sim(self, src, tar):
         """Return the average linkage distance of two strings.
@@ -109,9 +120,16 @@ class AverageLinkage(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        alphabet = self._total().keys()
+        src, tar = self._get_tokens()
 
-        return 0.0
+        num = 0
+        den = sum(src.values()) * sum(src.values())
+
+        for term_src, wt_src in src.items():
+            for term_tar, wt_tar in tar.items():
+                num += self._metric.dist(term_src, term_tar) * wt_src * wt_tar
+
+        return num / den
 
 
 if __name__ == '__main__':
