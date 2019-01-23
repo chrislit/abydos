@@ -221,11 +221,9 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Gleason similarity (:py:class:`.Gleason`)
     - Maryland Bridge similarity (:py:class:`.MarylandBridge`)
     - Roberts similarity (:py:class:`.Roberts`)
-    - average linkage distance (:py:class:`.AverageLinkage`)
-    - single linkage distance (:py:class:`.SingleLinkage`)
-    - centroid linkage distance (:py:class:`.CentroidLinkage`)
-    - complete linkage distance (:py:class:`.CompleteLinkage`)
-    - Ward linkage distance (:py:class:`.WardLinkage`)
+    - Average linkage distance (:py:class:`.AverageLinkage`)
+    - Single linkage distance (:py:class:`.SingleLinkage`)
+    - Complete linkage distance (:py:class:`.CompleteLinkage`)
 
     - Bag distance (:py:class:`.Bag`)
     - Soft cosine similarity (:py:class:`.SoftCosine`)
@@ -328,7 +326,6 @@ from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
-from ._centroid_linkage import CentroidLinkage
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
 from ._clement import Clement
@@ -530,7 +527,6 @@ from ._unknown_m import UnknownM
 from ._unknown_n import UnknownN
 from ._unknown_o import UnknownO
 from ._upholt import Upholt
-from ._ward_linkage import WardLinkage
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
 from ._warrens_iii import WarrensIII
@@ -773,8 +769,6 @@ __all__ = [
     'AverageLinkage',
     'SingleLinkage',
     'CompleteLinkage',
-    'CentroidLinkage',
-    'WardLinkage',
     'Bag',
     'bag',
     'dist_bag',
