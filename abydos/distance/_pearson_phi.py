@@ -63,6 +63,7 @@ class PearsonPhi(_TokenDistance):
     correlation coefficient :py:meth:`ConfusionTable.mcc`.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(

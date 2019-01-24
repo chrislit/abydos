@@ -34,7 +34,7 @@ __all__ = ['YujianBo']
 
 
 class YujianBo(Levenshtein):
-    """Yujian-Bo normalized Levenshtein distance.
+    r"""Yujian-Bo normalized Levenshtein distance.
 
     Yujian-Bo's normalization of Levenshtein distance :cite:`Yujian:2007`,
     given Levenshtein distance :math:`GLD(X, Y)` between two strings X and Y,

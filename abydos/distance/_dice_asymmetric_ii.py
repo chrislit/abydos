@@ -58,6 +58,7 @@ class DiceAsymmetricII(_TokenDistance):
     or true positive rate :py:meth:`ConfusionTable.recall`.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):

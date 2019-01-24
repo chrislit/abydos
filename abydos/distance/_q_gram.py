@@ -67,6 +67,7 @@ class QGram(_TokenDistance):
     uses bigrams with start & stop symbols.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
