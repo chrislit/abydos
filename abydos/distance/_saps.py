@@ -49,7 +49,11 @@ class SAPS(_Distance):
     """
 
     def __init__(
-        self, cost=(1, -1, -4, 6, -2, -1, -3), normalizer=max, tokenizer=None, **kwargs
+        self,
+        cost=(1, -1, -4, 6, -2, -1, -3),
+        normalizer=max,
+        tokenizer=None,
+        **kwargs
     ):
         """Initialize SAPS instance.
 
@@ -77,7 +81,9 @@ class SAPS(_Distance):
 
         """
         super(SAPS, self).__init__(**kwargs)
-        self._s1, self._s2, self._s3, self._s4, self._s5, self._g1, self._g2 = cost
+        self._s1, self._s2, self._s3, self._s4, self._s5, self._g1, self._g2 = (
+            cost
+        )
         self._normalizer = normalizer
         if tokenizer is None:
             self._tokenizer = SAPSTokenizer()
@@ -141,15 +147,15 @@ class SAPS(_Distance):
 
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         for i in range(len(src)):
-            d_mat[i+1, 0] = d_mat[i, 0] + self._g(src[i])
+            d_mat[i + 1, 0] = d_mat[i, 0] + self._g(src[i])
         for j in range(len(tar)):
-            d_mat[0, j+1] = d_mat[0, j] + self._g(tar[j])
+            d_mat[0, j + 1] = d_mat[0, j] + self._g(tar[j])
 
         for i in range(len(src)):
             for j in range(len(tar)):
-                d_mat[i+1, j+1] = max(
-                    d_mat[i, j+1] + self._g(src[i]),  # ins
-                    d_mat[i+1, j] + self._g(tar[j]),  # del
+                d_mat[i + 1, j + 1] = max(
+                    d_mat[i, j + 1] + self._g(src[i]),  # ins
+                    d_mat[i + 1, j] + self._g(tar[j]),  # del
                     d_mat[i, j] + self._s(src[i], tar[j]),  # sub/==
                 )
 
@@ -188,7 +194,7 @@ class SAPS(_Distance):
         """
         dist = self.sim_abs(src, tar)
         src = self._tokenizer.tokenize(src).get_list()
-        src_max = sum(5+len(_) for _ in src)
+        src_max = sum(5 + len(_) for _ in src)
         tar = self._tokenizer.tokenize(tar).get_list()
         tar_max = sum(5 + len(_) for _ in tar)
 

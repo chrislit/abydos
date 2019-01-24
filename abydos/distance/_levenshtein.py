@@ -66,7 +66,12 @@ class Levenshtein(_Distance):
     """
 
     def __init__(
-        self, mode='lev', cost=(1, 1, 1, 1), normalizer=max, taper=None, **kwargs
+        self,
+        mode='lev',
+        cost=(1, 1, 1, 1),
+        normalizer=max,
+        taper=None,
+        **kwargs
     ):
         """Initialize Levenshtein instance.
 
@@ -110,7 +115,11 @@ class Levenshtein(_Distance):
 
     def _taper(self, pos, length):
         # print(pos, length, max(0,1+((length-pos)/length)*1.0001))
-        return round(1+((length-pos)/length)*1.0001, 5) if self._taper_enabled else 1
+        return (
+            round(1 + ((length - pos) / length) * 1.0001, 5)
+            if self._taper_enabled
+            else 1
+        )
 
     def dist_abs(self, src, tar):
         """Return the Levenshtein distance between two strings.
@@ -160,9 +169,13 @@ class Levenshtein(_Distance):
         if src == tar:
             return 0
         if not src:
-            return sum(ins_cost * self._taper(pos, max_len) for pos in range(tar_len))
+            return sum(
+                ins_cost * self._taper(pos, max_len) for pos in range(tar_len)
+            )
         if not tar:
-            return sum(del_cost * self._taper(pos, max_len) for pos in range(src_len))
+            return sum(
+                del_cost * self._taper(pos, max_len) for pos in range(src_len)
+            )
 
         d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
         for i in range(src_len + 1):
@@ -173,10 +186,16 @@ class Levenshtein(_Distance):
         for i in range(src_len):
             for j in range(tar_len):
                 d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + ins_cost * self._taper(2+i+j, max_len),  # ins
-                    d_mat[i, j + 1] + del_cost * self._taper(2+i+j, max_len),  # del
+                    d_mat[i + 1, j]
+                    + ins_cost * self._taper(2 + i + j, max_len),  # ins
+                    d_mat[i, j + 1]
+                    + del_cost * self._taper(2 + i + j, max_len),  # del
                     d_mat[i, j]
-                    + (sub_cost * self._taper(2+i+j, max_len) if src[i] != tar[j] else 0),  # sub/==
+                    + (
+                        sub_cost * self._taper(2 + i + j, max_len)
+                        if src[i] != tar[j]
+                        else 0
+                    ),  # sub/==
                 )
 
                 if self._mode == 'osa':
@@ -189,7 +208,8 @@ class Levenshtein(_Distance):
                         # transposition
                         d_mat[i + 1, j + 1] = min(
                             d_mat[i + 1, j + 1],
-                            d_mat[i - 1, j - 1] + trans_cost * self._taper(2+i+j, max_len),
+                            d_mat[i - 1, j - 1]
+                            + trans_cost * self._taper(2 + i + j, max_len),
                         )
 
         if self._taper_enabled:
@@ -245,10 +265,22 @@ class Levenshtein(_Distance):
         tar_len = len(tar)
 
         if self._taper_enabled:
-            normalize_term = self._normalizer([sum(self._taper(pos, src_len) * del_cost for pos in range(src_len)),
-                                               sum(self._taper(pos, tar_len) * ins_cost for pos in range(tar_len))])
+            normalize_term = self._normalizer(
+                [
+                    sum(
+                        self._taper(pos, src_len) * del_cost
+                        for pos in range(src_len)
+                    ),
+                    sum(
+                        self._taper(pos, tar_len) * ins_cost
+                        for pos in range(tar_len)
+                    ),
+                ]
+            )
         else:
-            normalize_term = self._normalizer([src_len * del_cost, tar_len * ins_cost])
+            normalize_term = self._normalizer(
+                [src_len * del_cost, tar_len * ins_cost]
+            )
 
         return self.dist_abs(src, tar) / normalize_term
 
