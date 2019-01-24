@@ -28,8 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._token_distance import _TokenDistance
 from ._levenshtein import Levenshtein
+from ._token_distance import _TokenDistance
 
 __all__ = ['SingleLinkage']
 
