@@ -54,6 +54,7 @@ class HigueraMico(_Distance):
     is merely the minimum of the distance and 1.0.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(self, **kwargs):

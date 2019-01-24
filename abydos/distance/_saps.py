@@ -81,9 +81,9 @@ class SAPS(_Distance):
 
         """
         super(SAPS, self).__init__(**kwargs)
-        self._s1, self._s2, self._s3, self._s4, self._s5, self._g1, self._g2 = (
-            cost
-        )
+        self._s1, self._s2, self._s3, self._s4, self._s5 = cost[:5]
+        self._g1, self._g2 = cost[5:]
+
         self._normalizer = normalizer
         if tokenizer is None:
             self._tokenizer = SAPSTokenizer()

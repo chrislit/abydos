@@ -67,6 +67,7 @@ class Anderberg(_TokenDistance):
     :py:class:`WeightedJaccard` with `weight=8`.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(

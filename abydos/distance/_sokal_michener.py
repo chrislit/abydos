@@ -62,6 +62,7 @@ class SokalMichener(_TokenDistance):
     :py:meth:`ConfusionTable.accuracy`.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(

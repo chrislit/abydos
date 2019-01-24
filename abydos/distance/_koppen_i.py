@@ -76,6 +76,7 @@ class KoppenI(_TokenDistance):
     is, accordingly, 'proportional'.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(

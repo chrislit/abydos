@@ -51,6 +51,7 @@ class Lorentzian(_TokenDistance):
     in surveys and catalogues, such as :cite:`Deza:2016` and :cite:`Cha:2008`.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(self, tokenizer=None, **kwargs):

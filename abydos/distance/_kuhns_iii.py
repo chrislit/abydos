@@ -74,6 +74,7 @@ class KuhnsIII(_TokenDistance):
     coefficient, not evidenced in :cite:`Kuhns:1965`.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(

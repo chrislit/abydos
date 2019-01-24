@@ -69,6 +69,7 @@ class Dice(Tversky):
     The multiset variant is termed Gleason similarity :cite:`Gleason:1920`.
 
     .. versionadded:: 0.3.6
+
     """
 
     def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):

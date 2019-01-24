@@ -55,7 +55,8 @@ class Tichy(_Distance):
     returned, even though this would still be counted as a single move
     operation spanning the whole of string S.
 
-    .. versionadded:: 0.3.6
+    .. versionadded:: 0.4.0
+
     """
 
     def __init__(self, cost=(1, 1), **kwargs):
@@ -176,7 +177,7 @@ class Tichy(_Distance):
         0.75
 
 
-        .. versionadded:: 0.40
+        .. versionadded:: 0.4.0
 
         """
         if src == tar:

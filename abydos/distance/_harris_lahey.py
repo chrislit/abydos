@@ -64,6 +64,7 @@ class HarrisLahey(_TokenDistance):
     that this is intended in the original.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(
