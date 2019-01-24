@@ -59,6 +59,7 @@ from ._legalipy import LegaliPyTokenizer
 from ._nltk import NLTKTokenizer
 from ._qgrams import QGrams
 from ._regexp import RegexpTokenizer
+from ._saps import SAPSTokenizer
 from ._sonoripy import SonoriPyTokenizer
 from ._tokenizer import _Tokenizer
 from ._whitespace import WhitespaceTokenizer
@@ -74,6 +75,7 @@ __all__ = [
     'NLTKTokenizer',
     'SonoriPyTokenizer',
     'LegaliPyTokenizer',
+    'SAPSTokenizer',
 ]
 
 
