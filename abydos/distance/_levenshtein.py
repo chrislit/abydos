@@ -35,6 +35,7 @@ from __future__ import (
 from deprecation import deprecated
 
 from numpy import int as np_int
+from numpy import float as np_float
 from numpy import zeros as np_zeros
 
 from six.moves import range
@@ -65,7 +66,7 @@ class Levenshtein(_Distance):
     """
 
     def __init__(
-        self, mode='lev', cost=(1, 1, 1, 1), normalizer=max, **kwargs
+        self, mode='lev', cost=(1, 1, 1, 1), normalizer=max, taper=None, **kwargs
     ):
         """Initialize Levenshtein instance.
 
@@ -89,6 +90,11 @@ class Levenshtein(_Distance):
             A function that takes an list and computes a normalization term
             by which the edit distance is divided (max by default). Another
             good option is the sum function.
+        taper : bool
+            Enables cost tapering. Following :cite:`Zobel:1996`, it causes
+            edits at the start of the string to "just [exceed] twice the
+            minimum penalty for replacement or deletion at the end of the
+            string".
         **kwargs
             Arbitrary keyword arguments
 
@@ -100,6 +106,11 @@ class Levenshtein(_Distance):
         self._mode = mode
         self._cost = cost
         self._normalizer = normalizer
+        self._taper_enabled = taper
+
+    def _taper(self, pos, length):
+        # print(pos, length, max(0,1+((length-pos)/length)*1.0001))
+        return round(1+((length-pos)/length)*1.0001, 5) if self._taper_enabled else 1
 
     def dist_abs(self, src, tar):
         """Return the Levenshtein distance between two strings.
@@ -142,26 +153,30 @@ class Levenshtein(_Distance):
         """
         ins_cost, del_cost, sub_cost, trans_cost = self._cost
 
+        src_len = len(src)
+        tar_len = len(tar)
+        max_len = max(src_len, tar_len)
+
         if src == tar:
             return 0
         if not src:
-            return len(tar) * ins_cost
+            return sum(ins_cost * self._taper(pos, max_len) for pos in range(tar_len))
         if not tar:
-            return len(src) * del_cost
+            return sum(del_cost * self._taper(pos, max_len) for pos in range(src_len))
 
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-        for i in range(len(src) + 1):
-            d_mat[i, 0] = i * del_cost
-        for j in range(len(tar) + 1):
-            d_mat[0, j] = j * ins_cost
+        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+        for i in range(src_len + 1):
+            d_mat[i, 0] = i * self._taper(i, max_len) * del_cost
+        for j in range(tar_len + 1):
+            d_mat[0, j] = j * self._taper(j, max_len) * ins_cost
 
-        for i in range(len(src)):
-            for j in range(len(tar)):
+        for i in range(src_len):
+            for j in range(tar_len):
                 d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + ins_cost,  # ins
-                    d_mat[i, j + 1] + del_cost,  # del
+                    d_mat[i + 1, j] + ins_cost * self._taper(2+i+j, max_len),  # ins
+                    d_mat[i, j + 1] + del_cost * self._taper(2+i+j, max_len),  # del
                     d_mat[i, j]
-                    + (sub_cost if src[i] != tar[j] else 0),  # sub/==
+                    + (sub_cost * self._taper(2+i+j, max_len) if src[i] != tar[j] else 0),  # sub/==
                 )
 
                 if self._mode == 'osa':
@@ -174,10 +189,13 @@ class Levenshtein(_Distance):
                         # transposition
                         d_mat[i + 1, j + 1] = min(
                             d_mat[i + 1, j + 1],
-                            d_mat[i - 1, j - 1] + trans_cost,
+                            d_mat[i - 1, j - 1] + trans_cost * self._taper(2+i+j, max_len),
                         )
 
-        return d_mat[len(src), len(tar)]
+        if self._taper_enabled:
+            return d_mat[src_len, tar_len]
+        else:
+            return int(d_mat[src_len, tar_len])
 
     def dist(self, src, tar):
         """Return the normalized Levenshtein distance between two strings.
@@ -222,9 +240,17 @@ class Levenshtein(_Distance):
         if src == tar:
             return 0
         ins_cost, del_cost = self._cost[:2]
-        return self.dist_abs(src, tar) / (
-            self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
-        )
+
+        src_len = len(src)
+        tar_len = len(tar)
+
+        if self._taper_enabled:
+            normalize_term = self._normalizer([sum(self._taper(pos, src_len) * del_cost for pos in range(src_len)),
+                                               sum(self._taper(pos, tar_len) * ins_cost for pos in range(tar_len))])
+        else:
+            normalize_term = self._normalizer([src_len * del_cost, tar_len * ins_cost])
+
+        return self.dist_abs(src, tar) / normalize_term
 
 
 @deprecated(
