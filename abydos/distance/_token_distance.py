@@ -43,7 +43,6 @@ except ImportError:  # pragma: no cover
     # Python+Numpy implementation of the Hungarian algorithm
     linear_sum_assignment = None
 
-from ._cosine import Cosine
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
 from ._lcprefix import LCPrefix
@@ -112,8 +111,9 @@ class _TokenDistance(_Distance):
                   the soft intersection, items can be partially members of the
                   intersection, but the method of pairing similar members is
                   somewhat more complex. See the cited paper for details. This
-                  also takes `metric` (by default :class:`Cosine()`) and
-                  `threshold` (by default 0.1) parameters.
+                  also takes `metric`
+                  (by default :class:`DamerauLevenshtein()`) and `threshold`
+                  (by default 0.1) parameters.
         **kwargs
             Arbitrary keyword arguments
 
@@ -213,7 +213,7 @@ class _TokenDistance(_Distance):
             self.intersection = self._fuzzy_intersection
         elif intersection_type == 'linkage':
             if 'metric' not in self.params or self.params['metric'] is None:
-                self.params['metric'] = Cosine()
+                self.params['metric'] = DamerauLevenshtein()
             if 'threshold' not in self.params:
                 self.params['threshold'] = 0.1
             self.intersection = self._fuzzy_intersection
