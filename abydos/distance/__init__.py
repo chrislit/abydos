@@ -35,7 +35,8 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Indel distance (:py:class:`.Indel`)
     - Laver consonant distance (:py:class:`.LaverConsonant`)
     - Laver mishearing distance (:py:class:`.LaverMishearing`)
-    - syllabic alignment distance (:py:class:`.SyllabicAlignment`)
+    - Syllable Alignment Pattern Searching similarity
+      (:py:class:`.distance.SAPS`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
@@ -473,6 +474,7 @@ from ._roberts import Roberts
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
 from ._russell_rao import RussellRao
+from ._saps import SAPS
 from ._scott_pi import ScottPi
 from ._shape import Shape
 from ._shapira_storer import ShapiraStorer
@@ -494,7 +496,6 @@ from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._stuart_tau import StuartTau
 from ._suffix import Suffix, dist_suffix, sim_suffix
-from ._syllabic_alignment import SyllabicAlignment
 from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
@@ -561,7 +562,7 @@ __all__ = [
     'sim_indel',
     'LaverConsonant',
     'LaverMishearing',
-    'SyllabicAlignment',
+    'SAPS',
     'Hamming',
     'hamming',
     'dist_hamming',
