@@ -32,7 +32,7 @@ from ._tokenizer import _Tokenizer
 
 
 class SAPSTokenizer(_Tokenizer):
-    """SAPS tokenizer.
+    """Syllable Alignment Pattern Searching tokenizer.
 
     This is the syllabifier described on p. 917 of :cite:`Ruibin:2005`.
 
