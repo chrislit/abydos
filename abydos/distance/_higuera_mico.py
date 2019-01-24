@@ -56,9 +56,7 @@ class HigueraMico(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self, **kwargs
-    ):
+    def __init__(self, **kwargs):
         """Initialize Levenshtein instance.
 
         Parameters
@@ -105,9 +103,11 @@ class HigueraMico(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        mx = np_full((len(src) + 1, len(tar) + 1, len(src) + len(tar) + 1),
-                     fill_value=float('-inf'),
-                     dtype=float)
+        mx = np_full(
+            (len(src) + 1, len(tar) + 1, len(src) + len(tar) + 1),
+            fill_value=float('-inf'),
+            dtype=float,
+        )
 
         for i in range(1, len(src) + 1):
             mx[i, 0, i] = 0
@@ -122,9 +122,11 @@ class HigueraMico(_Distance):
                     for k in range(1, len(src) + len(tar) + 1):
                         mx[i, j, k] = mx[i - 1, j - 1, k - 1]
                 for k in range(1, len(src) + len(tar) + 1):
-                    mx[i, j, k] = max(mx[i - 1, j, k - 1],
-                                      mx[i, j - 1, k - 1] + 1,
-                                      mx[i, j, k])
+                    mx[i, j, k] = max(
+                        mx[i - 1, j, k - 1],
+                        mx[i, j - 1, k - 1] + 1,
+                        mx[i, j, k],
+                    )
 
         min_dist = float('inf')
         for k in range(len(src) + len(tar) + 1):
@@ -134,10 +136,10 @@ class HigueraMico(_Distance):
                 n_s = k - (n_i + n_d)
                 min_dist = 0
                 for i in range(len(src) + 1, len(src) + n_i + 1):
-                    min_dist += (1 / i)
+                    min_dist += 1 / i
                 min_dist += n_s / (len(src) + n_i)
                 for i in range(len(tar) + 1, len(tar) + n_d + 1):
-                    min_dist += (1 / i)
+                    min_dist += 1 / i
                 if min_dist < B:
                     B = min_dist
 

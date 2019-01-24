@@ -48,12 +48,7 @@ class CompleteLinkage(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        metric=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, metric=None, **kwargs):
         """Initialize CompleteLinkage instance.
 
         Parameters
@@ -77,10 +72,7 @@ class CompleteLinkage(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(CompleteLinkage, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(CompleteLinkage, self).__init__(tokenizer=tokenizer, **kwargs)
         if metric is None:
             self._metric = Levenshtein()
         else:
@@ -125,7 +117,9 @@ class CompleteLinkage(_TokenDistance):
 
         for term_src in src.keys():
             for term_tar in tar.keys():
-                max_val = max(max_val, self._metric.dist_abs(term_src, term_tar))
+                max_val = max(
+                    max_val, self._metric.dist_abs(term_src, term_tar)
+                )
 
         return max_val
 

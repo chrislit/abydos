@@ -48,11 +48,7 @@ class Roberts(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize Roberts instance.
 
         Parameters
@@ -73,10 +69,7 @@ class Roberts(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Roberts, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(Roberts, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the Roberts similarity of two strings.
@@ -113,7 +106,12 @@ class Roberts(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        return sum((self._src_tokens[i] + self._tar_tokens[i])*min(self._src_tokens[i], self._tar_tokens[i])/max(self._src_tokens[i], self._tar_tokens[i]) for i in alphabet)/sum((self._src_tokens[i] + self._tar_tokens[i]) for i in alphabet)
+        return sum(
+            (self._src_tokens[i] + self._tar_tokens[i])
+            * min(self._src_tokens[i], self._tar_tokens[i])
+            / max(self._src_tokens[i], self._tar_tokens[i])
+            for i in alphabet
+        ) / sum((self._src_tokens[i] + self._tar_tokens[i]) for i in alphabet)
 
 
 if __name__ == '__main__':

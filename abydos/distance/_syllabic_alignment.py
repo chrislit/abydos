@@ -46,11 +46,7 @@ class SyllabicAlignment(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize SyllabicAlignment instance.
 
         Parameters
@@ -71,10 +67,7 @@ class SyllabicAlignment(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(SyllabicAlignment, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(SyllabicAlignment, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the syllabic alignment distance of two strings.
