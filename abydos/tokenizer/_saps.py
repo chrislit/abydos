@@ -91,11 +91,14 @@ class SAPSTokenizer(_Tokenizer):
                 while w[i : i + 1] in _vowels:
                     syll += w[i : i + 1]
                     i += 1
-                if (
-                    len(w[i:]) > 1
-                    and w[i : i + 1] not in _vowels
-                    and w[i + 1 : i + 2] not in _vowels
-                ) or (len(w[i:]) == 1 and w[i : i + 1] not in _vowels):
+                if syll[-1] in _vowels and (
+                    (
+                        len(w[i:]) > 1
+                        and w[i : i + 1] not in _vowels
+                        and w[i + 1 : i + 2] not in _vowels
+                    )
+                    or (len(w[i:]) == 1 and w[i : i + 1] not in _vowels)
+                ):
                     syll += w[i : i + 1]
                     i += 1
                 self._ordered_list.append(syll)
