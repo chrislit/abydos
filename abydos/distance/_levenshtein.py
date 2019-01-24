@@ -34,7 +34,6 @@ from __future__ import (
 
 from deprecation import deprecated
 
-from numpy import int as np_int
 from numpy import float as np_float
 from numpy import zeros as np_zeros
 

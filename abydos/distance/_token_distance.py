@@ -575,9 +575,9 @@ class _TokenDistance(_Distance):
                 if len(assignments) == n:
                     break
 
-                marked_rows = set(
+                marked_rows = {
                     _ for _ in range(n) if _ not in assigned_rows
-                )
+                }
                 marked_cols = set()
                 for row in set(marked_rows):
                     for col, mark in enumerate(arr[row, :] == 0.0):
