@@ -142,7 +142,7 @@ class JaccardNM(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_card()
 
-        return a/(a+b+c+n)
+        return a / (a + b + c + n)
 
     def sim(self, src, tar):
         """Return the Jaccard-NM similarity of two strings.
@@ -175,7 +175,7 @@ class JaccardNM(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return 2*self.sim_abs(src, tar)
+        return 2 * self.sim_abs(src, tar)
 
 
 if __name__ == '__main__':

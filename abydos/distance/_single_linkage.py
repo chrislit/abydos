@@ -48,12 +48,7 @@ class SingleLinkage(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        metric=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, metric=None, **kwargs):
         """Initialize SingleLinkage instance.
 
         Parameters
@@ -77,10 +72,7 @@ class SingleLinkage(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(SingleLinkage, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(SingleLinkage, self).__init__(tokenizer=tokenizer, **kwargs)
         if metric is None:
             self._metric = Levenshtein()
         else:
@@ -125,7 +117,9 @@ class SingleLinkage(_TokenDistance):
 
         for term_src in src.keys():
             for term_tar in tar.keys():
-                min_val = min(min_val, self._metric.dist_abs(term_src, term_tar))
+                min_val = min(
+                    min_val, self._metric.dist_abs(term_src, term_tar)
+                )
 
         return min_val
 
