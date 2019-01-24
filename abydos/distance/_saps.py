@@ -131,23 +131,23 @@ class SAPS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        src = self._tokenizer.tokenizer(src).get_list()
-        tar = self._tokenizer.tokenizer(tar).get_list()
+        src = self._tokenizer.tokenize(src).get_list()
+        tar = self._tokenizer.tokenize(tar).get_list()
 
         src = ''.join([_[0].upper() + _[1:].lower() for _ in src])
         tar = ''.join([_[0].upper() + _[1:].lower() for _ in tar])
 
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-        for i in range(len(src) + 1):
-            d_mat[i, 0] = i + self._g(src[i])
-        for j in range(len(tar) + 1):
-            d_mat[0, j] = j + self._g(tar[j])
+        for i in range(len(src)):
+            d_mat[i+1, 0] = d_mat[i, 0] + self._g(src[i])
+        for j in range(len(tar)):
+            d_mat[0, j+1] = d_mat[0, j] + self._g(tar[j])
 
         for i in range(len(src)):
             for j in range(len(tar)):
-                d_mat[i + 1, j + 1] = max(
-                    d_mat[i + 1, j] + self._g(src[i]),  # ins
-                    d_mat[i, j + 1] + self._g(tar[j]),  # del
+                d_mat[i+1, j+1] = max(
+                    d_mat[i, j+1] + self._g(src[i]),  # ins
+                    d_mat[i+1, j] + self._g(tar[j]),  # del
                     d_mat[i, j] + self._s(src[i], tar[j]),  # sub/==
                 )
 
@@ -184,12 +184,13 @@ class SAPS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        if src == tar:
-            return 0
-        # ins_cost, del_cost = self._cost[:2]
-        # return self.dist_abs(src, tar) / (
-        #    self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
-        # )
+        dist = self.sim_abs(src, tar)
+        src = self._tokenizer.tokenize(src).get_list()
+        src_max = sum(5+len(_) for _ in src)
+        tar = self._tokenizer.tokenize(tar).get_list()
+        tar_max = sum(5 + len(_) for _ in tar)
+
+        return dist / max(src_max, tar_max)
 
 
 if __name__ == '__main__':
