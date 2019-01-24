@@ -33,8 +33,6 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Higuera-Micó contextual normalized edit distance
       (:py:class:`.HigueraMico`)
     - Indel distance (:py:class:`.Indel`)
-    - Laver consonant distance (:py:class:`.LaverConsonant`)
-    - Laver mishearing distance (:py:class:`.LaverMishearing`)
     - Syllable Alignment Pattern Searching similarity
       (:py:class:`.distance.SAPS`)
 
@@ -416,8 +414,6 @@ from ._kuhns_xi import KuhnsXI
 from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
-from ._laver_consonant import LaverConsonant
-from ._laver_mishearing import LaverMishearing
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
@@ -560,8 +556,6 @@ __all__ = [
     'indel',
     'dist_indel',
     'sim_indel',
-    'LaverConsonant',
-    'LaverMishearing',
     'SAPS',
     'Hamming',
     'hamming',
