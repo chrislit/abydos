@@ -126,6 +126,8 @@ class SAPS(_Distance):
         7
         >>> cmp.sim_abs('ATCG', 'TAGC')
         3
+        >>> cmp.sim_abs('Stevenson', 'Stinson')
+        16
 
 
         .. versionadded:: 0.4.0
