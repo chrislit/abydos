@@ -114,7 +114,6 @@ class Levenshtein(_Distance):
         self._taper_enabled = taper
 
     def _taper(self, pos, length):
-        # print(pos, length, max(0,1+((length-pos)/length)*1.0001))
         return (
             round(1 + ((length - pos) / length) * 1.0001, 5)
             if self._taper_enabled
