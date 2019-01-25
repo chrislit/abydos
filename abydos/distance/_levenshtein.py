@@ -62,6 +62,8 @@ class Levenshtein(_Distance):
     substitution costs.
 
     .. versionadded:: 0.3.6
+    .. versionchanged:: 0.4.0
+        Added taper option
     """
 
     def __init__(
@@ -69,7 +71,7 @@ class Levenshtein(_Distance):
         mode='lev',
         cost=(1, 1, 1, 1),
         normalizer=max,
-        taper=None,
+        taper=False,
         **kwargs
     ):
         """Initialize Levenshtein instance.
@@ -114,7 +116,7 @@ class Levenshtein(_Distance):
 
     def _taper(self, pos, length):
         return (
-            round(1 + ((length - pos) / length) * 1.0001, 5)
+            round(1 + ((length - pos) / length) * 1.000000000000001, 15)
             if self._taper_enabled
             else 1
         )
@@ -185,12 +187,12 @@ class Levenshtein(_Distance):
             for j in range(tar_len):
                 d_mat[i + 1, j + 1] = min(
                     d_mat[i + 1, j]
-                    + ins_cost * self._taper(2 + i + j, max_len),  # ins
+                    + ins_cost * self._taper(1 + max(i, j), max_len),  # ins
                     d_mat[i, j + 1]
-                    + del_cost * self._taper(2 + i + j, max_len),  # del
+                    + del_cost * self._taper(1 + max(i, j), max_len),  # del
                     d_mat[i, j]
                     + (
-                        sub_cost * self._taper(2 + i + j, max_len)
+                        sub_cost * self._taper(1 + max(i, j), max_len)
                         if src[i] != tar[j]
                         else 0
                     ),  # sub/==
@@ -207,13 +209,13 @@ class Levenshtein(_Distance):
                         d_mat[i + 1, j + 1] = min(
                             d_mat[i + 1, j + 1],
                             d_mat[i - 1, j - 1]
-                            + trans_cost * self._taper(2 + i + j, max_len),
+                            + trans_cost * self._taper(1 + max(i, j), max_len),
                         )
 
-        if self._taper_enabled:
-            return d_mat[src_len, tar_len]
-        else:
+        if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
+        else:
+            return d_mat[src_len, tar_len]
 
     def dist(self, src, tar):
         """Return the normalized Levenshtein distance between two strings.
