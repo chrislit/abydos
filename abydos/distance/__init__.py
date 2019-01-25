@@ -26,8 +26,6 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Optimal String Alignment distance (:py:class:`.Levenshtein` with
       ``mode='osa'``)
     - Damerau-Levenshtein distance (:py:class:`.DamerauLevenshtein`)
-    - Levenshtein distance with block operations
-      (:py:class:`.BlockLevenshtein`)
     - Shapira-Storer edit distance with moves (:py:class:`.ShapiraStorer`)
     - Yujian-Bo normalized edit distance (:py:class:`.YujianBo`)
     - Higuera-Micó contextual normalized edit distance
@@ -43,6 +41,8 @@ provided.
 Block edit distances:
 
     - Tichy edit distance (:py:class:`.Tichy`)
+    - Levenshtein distance with block operations
+      (:py:class:`.BlockLevenshtein`)
 
 Distance metrics developed for the US Census are included:
 
@@ -225,6 +225,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Bag distance (:py:class:`.Bag`)
     - Soft cosine similarity (:py:class:`.SoftCosine`)
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
+    - TF-IDF similarity (:py:class:`.TFIDF`)
+    - SoftTF-IDF similarity (:py:class:`.SoftTFIDF`)
 
 Three popular sequence alignment algorithms are provided:
 
@@ -480,6 +482,7 @@ from ._single_linkage import SingleLinkage
 from ._size import Size
 from ._smith_waterman import SmithWaterman, smith_waterman
 from ._soft_cosine import SoftCosine
+from ._softtf_idf import SoftTFIDF
 from ._sokal_michener import SokalMichener
 from ._sokal_sneath_i import SokalSneathI
 from ._sokal_sneath_ii import SokalSneathII
@@ -496,6 +499,7 @@ from ._synoname import Synoname, synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
+from ._tf_idf import TFIDF
 from ._tichy import Tichy
 from ._token_distance import _TokenDistance
 from ._tulloss_r import TullossR
@@ -762,10 +766,12 @@ __all__ = [
     'bag',
     'dist_bag',
     'sim_bag',
+    'SoftCosine',
     'MongeElkan',
     'dist_monge_elkan',
     'sim_monge_elkan',
-    'SoftCosine',
+    'TFIDF',
+    'SoftTFIDF',
     'NeedlemanWunsch',
     'needleman_wunsch',
     'SmithWaterman',
