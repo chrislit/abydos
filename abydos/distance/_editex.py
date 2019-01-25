@@ -32,7 +32,7 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from numpy import int as np_int
+from numpy import float as np_float
 from numpy import zeros as np_zeros
 
 from six import text_type
@@ -52,6 +52,8 @@ class Editex(_Distance):
     The local variant is based on :cite:`Ring:2009`.
 
     .. versionadded:: 0.3.6
+    .. versionchanged:: 0.4.0
+        Added taper option
     """
 
     _letter_groups = (
@@ -68,7 +70,7 @@ class Editex(_Distance):
 
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 
-    def __init__(self, cost=(0, 1, 2), local=False, **kwargs):
+    def __init__(self, cost=(0, 1, 2), local=False, taper=False, **kwargs):
         """Initialize Editex instance.
 
         Parameters
@@ -78,6 +80,11 @@ class Editex(_Distance):
             same-group, and mismatch respectively (by default: (0, 1, 2))
         local : bool
             If True, the local variant of Editex is used
+        taper : bool
+            Enables cost tapering. Following :cite:`Zobel:1996`, it causes
+            edits at the start of the string to "just [exceed] twice the
+            minimum penalty for replacement or deletion at the end of the
+            string".
         **kwargs
             Arbitrary keyword arguments
 
@@ -88,6 +95,14 @@ class Editex(_Distance):
         super(Editex, self).__init__(**kwargs)
         self._cost = cost
         self._local = local
+        self._taper_enabled = taper
+
+    def _taper(self, pos, length):
+        return (
+            round(1 + ((length - pos) / length) * 1.000000000000001, 15)
+            if self._taper_enabled
+            else 1
+        )
 
     def dist_abs(self, src, tar):
         """Return the Editex distance between two strings.
@@ -179,34 +194,54 @@ class Editex(_Distance):
         src = src.replace('ß', 'SS')
         tar = tar.replace('ß', 'SS')
 
+        src_len = len(src)
+        tar_len = len(tar)
+        max_len = max(src_len, tar_len)
+
         if src == tar:
             return 0.0
         if not src:
-            return len(tar) * mismatch_cost
+            return sum(
+                mismatch_cost * self._taper(pos, max_len)
+                for pos in range(tar_len)
+            )
         if not tar:
-            return len(src) * mismatch_cost
+            return sum(
+                mismatch_cost * self._taper(pos, max_len)
+                for pos in range(src_len)
+            )
 
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-        lens = len(src)
-        lent = len(tar)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
         src = ' ' + src
         tar = ' ' + tar
 
         if not self._local:
-            for i in range(1, lens + 1):
-                d_mat[i, 0] = d_mat[i - 1, 0] + d_cost(src[i - 1], src[i])
-        for j in range(1, lent + 1):
-            d_mat[0, j] = d_mat[0, j - 1] + d_cost(tar[j - 1], tar[j])
+            for i in range(1, src_len + 1):
+                d_mat[i, 0] = d_mat[i - 1, 0] + d_cost(
+                    src[i - 1], src[i]
+                ) * self._taper(i, max_len)
+        for j in range(1, tar_len + 1):
+            d_mat[0, j] = d_mat[0, j - 1] + d_cost(
+                tar[j - 1], tar[j]
+            ) * self._taper(j, max_len)
 
-        for i in range(1, lens + 1):
-            for j in range(1, lent + 1):
+        for i in range(1, src_len + 1):
+            for j in range(1, tar_len + 1):
                 d_mat[i, j] = min(
-                    d_mat[i - 1, j] + d_cost(src[i - 1], src[i]),
-                    d_mat[i, j - 1] + d_cost(tar[j - 1], tar[j]),
-                    d_mat[i - 1, j - 1] + r_cost(src[i], tar[j]),
+                    d_mat[i - 1, j]
+                    + d_cost(src[i - 1], src[i])
+                    * self._taper(max(i, j), max_len),
+                    d_mat[i, j - 1]
+                    + d_cost(tar[j - 1], tar[j])
+                    * self._taper(max(i, j), max_len),
+                    d_mat[i - 1, j - 1]
+                    + r_cost(src[i], tar[j]) * self._taper(max(i, j), max_len),
                 )
 
-        return d_mat[lens, lent]
+        if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
+            return int(d_mat[src_len, tar_len])
+        else:
+            return d_mat[src_len, tar_len]
 
     def dist(self, src, tar):
         """Return the normalized Editex distance between two strings.
@@ -250,10 +285,29 @@ class Editex(_Distance):
         """
         if src == tar:
             return 0.0
-        mismatch_cost = self._cost[2]
-        return self.dist_abs(src, tar) / (
-            max(len(src) * mismatch_cost, len(tar) * mismatch_cost)
-        )
+
+        match_cost, group_cost, mismatch_cost = self._cost
+        src_len = len(src)
+        tar_len = len(tar)
+
+        if self._taper_enabled:
+            normalize_term = max(
+                [
+                    sum(
+                        self._taper(pos, src_len) * mismatch_cost
+                        for pos in range(src_len)
+                    ),
+                    sum(
+                        self._taper(pos, tar_len) * mismatch_cost
+                        for pos in range(tar_len)
+                    ),
+                ]
+            )
+        else:
+            normalize_term = max(
+                src_len * mismatch_cost, tar_len * mismatch_cost
+            )
+        return self.dist_abs(src, tar) / normalize_term
 
 
 @deprecated(
