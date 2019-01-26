@@ -254,11 +254,11 @@ class CorpusTestCases(unittest.TestCase):
         wiki_idf_corpus = Corpus(wiki_idf_sample)
 
         self.assertAlmostEqual(wiki_idf_corpus.idf('this'), 0)
-        self.assertAlmostEqual(wiki_idf_corpus.idf('example'), 0.30102999566)
+        self.assertAlmostEqual(wiki_idf_corpus.idf('example'), 0.69314718056)
         self.assertAlmostEqual(wiki_idf_corpus.idf('these'), float('inf'))
         self.assertAlmostEqual(wiki_idf_corpus.idf('A'), float('inf'))
         self.assertAlmostEqual(
-            wiki_idf_corpus.idf('A', lambda w: w.upper()), 0.30102999566
+            wiki_idf_corpus.idf('A', lambda w: w.upper()), 0.69314718056
         )
 
 

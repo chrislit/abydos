@@ -215,8 +215,8 @@ class NGramCorpusTestCases(unittest.TestCase):
         self.assertEqual(self.sotu_ngcorpus_uni.tf('Niall'), 0)
 
         # simple cases
-        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('the'), 2.2787536)
-        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('America'), 1.4771213)
+        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('the'), 3.94443898)
+        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('America'), 2.0986123)
 
         # bigrams
         self.assertRaises(ValueError, self.sotu_ngcorpus_tri.tf, 'the sense')

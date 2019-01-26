@@ -260,7 +260,7 @@ class NGramCorpus(object):
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus(Corpus(tqbf))
         >>> NGramCorpus(Corpus(tqbf)).tf('the')
-        1.3010299956639813
+        1.6931471805599454
         >>> NGramCorpus(Corpus(tqbf)).tf('fox')
         1.0
 
