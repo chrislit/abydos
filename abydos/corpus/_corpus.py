@@ -29,7 +29,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log10
+from math import log
 
 __all__ = ['Corpus']
 
@@ -341,7 +341,7 @@ class Corpus(object):
         if docs_with_term == 0:
             return float('inf')
 
-        return log10(len(docs) / docs_with_term)
+        return log(len(docs) / docs_with_term)
 
 
 if __name__ == '__main__':

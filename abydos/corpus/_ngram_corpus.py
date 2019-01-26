@@ -30,7 +30,7 @@ from __future__ import (
 
 from codecs import open as c_open
 from collections import Counter
-from math import log10
+from math import log
 
 from six import text_type
 from six.moves import range
@@ -275,7 +275,7 @@ class NGramCorpus(object):
         tcount = self.get_count(term)
         if tcount == 0:
             return 0.0
-        return 1 + log10(tcount)
+        return 1 + log(tcount)
 
 
 if __name__ == '__main__':
