@@ -52,7 +52,7 @@ class Corpus(object):
         sent_split='\n',
         filter_chars='',
         stop_words=None,
-        word_tokenizer=None
+        word_tokenizer=None,
     ):
         r"""Initialize Corpus.
 
@@ -317,9 +317,9 @@ class Corpus(object):
         [['And', 'then', 'it', 'slept.']],
         [['And', 'the', 'dog', 'ran', 'off.']]]
         >>> round(corp.idf('dog'), 10)
-        0.4771212547
+        1.0986122887
         >>> round(corp.idf('the'), 10)
-        0.1760912591
+        0.4054651081
 
 
         .. versionadded:: 0.1.0
