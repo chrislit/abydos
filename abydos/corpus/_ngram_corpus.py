@@ -166,9 +166,9 @@ class NGramCorpus(object):
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus(Corpus(tqbf))
-        >>> NGramCorpus(Corpus(tqbf)).get_count('the')
+        >>> ngcorp.get_count('the')
         2
-        >>> NGramCorpus(Corpus(tqbf)).get_count('fox')
+        >>> ngcorp.get_count('fox')
         1
 
 
