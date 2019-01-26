@@ -52,6 +52,7 @@ class Corpus(object):
         sent_split='\n',
         filter_chars='',
         stop_words=None,
+        word_tokenizer=None
     ):
         r"""Initialize Corpus.
 
@@ -74,6 +75,9 @@ class Corpus(object):
         stop_words : list
             A list of words (as a tuple, set, or list) to filter out of the
             corpus text
+        word_tokenizer : _Tokenizer
+            A tokenizer to apply to each sentence in order to retrieve the
+            individual "word" tokens. If set to none, str.split() will be used.
 
         Example
         -------
@@ -91,7 +95,12 @@ class Corpus(object):
 
         for document in corpus_text.split(doc_split):
             doc = []
-            for sentence in (s.split() for s in document.split(sent_split)):
+            for sentence in document.split(sent_split):
+                if word_tokenizer:
+                    sentence = word_tokenizer.tokenize(sentence).get_list()
+                else:
+                    sentence = sentence.split()
+
                 if stop_words:
                     for word in set(stop_words):
                         while word in sentence:
