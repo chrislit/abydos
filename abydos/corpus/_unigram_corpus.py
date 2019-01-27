@@ -18,7 +18,7 @@
 
 """abydos.corpus._unigram_corpus.
 
-
+Unigram Corpus
 """
 
 from __future__ import (
