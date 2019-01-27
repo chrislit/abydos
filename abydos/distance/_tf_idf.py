@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
+from ..corpus import UnigramCorpus
 
 __all__ = ['TFIDF']
 
@@ -55,25 +58,24 @@ class TFIDF(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
+        corpus=None,
         **kwargs
     ):
         """Initialize TFIDF instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-            See :ref:`alphabet <alphabet>` description in
-            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
             Specifies the intersection type, and set type as a result:
             See :ref:`intersection_type <intersection_type>` description in
             :py:class:`_TokenDistance` for details.
+        corpus : UnigramCorpus
+            A unigram corpus :py:class:`UnigramCorpus`. If None, a corpus will
+            be created from the two words when a similarity function is called.
         **kwargs
             Arbitrary keyword arguments
 
@@ -83,23 +85,17 @@ class TFIDF(_TokenDistance):
             The length of each q-gram. Using this parameter and tokenizer=None
             will cause the instance to use the QGram tokenizer with this
             q value.
-        metric : _Distance
-            A string distance measure class for use in the 'soft' and 'fuzzy'
-            variants.
-        threshold : float
-            A threshold value, similarities above which are counted as
-            members of the intersection for the 'fuzzy' variant.
 
 
         .. versionadded:: 0.4.0
 
         """
         super(TFIDF, self).__init__(
-            alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
         )
+        self._corpus = corpus
 
     def sim(self, src, tar):
         """Return the TF-IDF similarity of two strings.
@@ -134,13 +130,27 @@ class TFIDF(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self._intersection_card()
-        # b = self._src_only_card()
-        # c = self._tar_only_card()
-        # d = self._total_complement_card()
-        # n = self._population_card()
+        src_tok, tar_tok = self._get_tokens()
 
-        return 0.0
+        if self._corpus is None:
+            corpus = UnigramCorpus()
+            for word, count in src_tok.items():
+                corpus.add_to_corpus(word, count, 1)
+            for word, count in tar_tok.items():
+                corpus.add_to_corpus(word, count, 1)
+        else:
+            corpus = self._corpus
+
+        vws_dict = {}
+        vwt_dict = {}
+        for token in self._intersection().keys():
+            vws_dict[token] = (1+log(src_tok[token])) * corpus.idf(token)
+            vwt_dict[token] = (1+log(tar_tok[token])) * corpus.idf(token)
+
+        vws_rss = sum(score**2 for score in vws_dict.values())**0.5
+        vwt_rss = sum(score**2 for score in vwt_dict.values())**0.5
+
+        return sum(vws_dict[token]/vws_rss * vwt_dict[token]/vwt_rss for token in self._intersection().keys())
 
 
 if __name__ == '__main__':
