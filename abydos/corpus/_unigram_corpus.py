@@ -82,20 +82,21 @@ class UnigramCorpus(object):
         .. versionadded:: 0.4.0
 
         """
-        self.corpus = defaultdict()
+        self.corpus = defaultdict(lambda: (0,0))
         self.transform = word_transform
         self.tokenizer = word_tokenizer
         self.doc_count = documents
 
         for word, count in Counter(corpus_text.split()).items():
-            self._add_to_corpus(word, count, 1)
+            self.add_to_corpus(word, count, 1)
         self._update_doc_count()
 
     def _update_doc_count(self):
-        max_docs = max(self.corpus, key=lambda _: _[1])
-        self.doc_count = max(max_docs, self.doc_count)
+        if self.corpus:
+            max_docs = max(self.corpus.values(), key=lambda _: _[1])[1]
+            self.doc_count = max(max_docs, self.doc_count)
 
-    def _add_to_corpus(self, word, count, doc_count):
+    def add_to_corpus(self, word, count, doc_count):
         """Add a term to the corpus, possibly after tokenization.
 
         Parameters
@@ -118,9 +119,11 @@ class UnigramCorpus(object):
             tokens = self.tokenizer.tokenize(word).get_counter()
             for tok in tokens:
                 n = tokens[tok]*count
-                self.corpus[tok] = ((i + n, j + doc_count) for i, j in self.corpus[tok])
+                prior_count, prior_doc_count = self.corpus[tok]
+                self.corpus[tok] = (prior_count + n, prior_doc_count + doc_count)
         else:
-            self.corpus[word] = ((i + count, j + doc_count) for i, j in self.corpus[word])
+            prior_count, prior_doc_count = self.corpus[word]
+            self.corpus[word] = (prior_count + count, prior_doc_count + doc_count)
 
     def gng_importer(self, corpus_file):
         """Fill in self.corpus from a Google NGram corpus file.
@@ -137,9 +140,11 @@ class UnigramCorpus(object):
         with c_open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
                 line = line.rstrip().split('\t')
-                word = line[0][line[0].find('_')]
+                word = line[0]
+                if '_' in word:
+                    word = word[:word.find('_')]
 
-                self._add_to_corpus(word, int(line[2]), int(line[3]))
+                self.add_to_corpus(word, int(line[2]), int(line[3]))
             self._update_doc_count()
 
     def idf(self, term):
@@ -157,29 +162,24 @@ class UnigramCorpus(object):
 
         Examples
         --------
-        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n\n'
-        >>> tqbf += 'And then it slept.\n\n And the dog ran off.'
-        >>> corp = Corpus(tqbf)
-        >>> print(corp.docs())
-        [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy',
-        'dog.']],
-        [['And', 'then', 'it', 'slept.']],
-        [['And', 'the', 'dog', 'ran', 'off.']]]
+        >>> tqbf = 'the quick brown fox jumped over the lazy dog\n\n'
+        >>> tqbf += 'and then it slept\n\n and the dog ran off'
+        >>> corp = UnigramCorpus(tqbf)
         >>> round(corp.idf('dog'), 10)
-        1.0986122887
+        0.6931471806
         >>> round(corp.idf('the'), 10)
-        0.4054651081
+        0.6931471806
 
 
         .. versionadded:: 0.4.0
 
         """
-        count, doc_count = self.corpus[term]
-
-        if doc_count == 0:
+        if term in self.corpus:
+            count, term_doc_count = self.corpus[term]
+            print(count, term_doc_count)
+            return log1p(self.doc_count / term_doc_count)
+        else:
             return float('inf')
-
-        return log1p(self.doc_count / doc_count)
 
 
 if __name__ == '__main__':
