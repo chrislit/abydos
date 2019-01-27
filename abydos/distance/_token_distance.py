@@ -623,6 +623,14 @@ class _TokenDistance(_Distance):
             sum(abs(val) for val in self.intersection().values()), 1
         )
 
+    def _intersection(self):
+        """Return the intersection.
+
+        This function may be overridden by setting the intersection_type during
+        initialization.
+        """
+        return self._crisp_intersection()
+
     def _get_confusion_table(self):
         """Return the token counts as a ConfusionTable object."""
         return ConfusionTable(
