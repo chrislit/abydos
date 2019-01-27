@@ -22,6 +22,7 @@ The corpus package includes basic and n-gram corpus classes:
 
 - :py:class:`Corpus`
 - :py:class:`NGramCorpus`
+- :py:class:`UnigramCorpus`
 
 
 As a quick example of :py:class:`.Corpus`:
@@ -64,8 +65,9 @@ from __future__ import (
 
 from ._corpus import Corpus
 from ._ngram_corpus import NGramCorpus
+from ._unigram_corpus import UnigramCorpus
 
-__all__ = ['Corpus', 'NGramCorpus']
+__all__ = ['Corpus', 'NGramCorpus', 'UnigramCorpus']
 
 
 if __name__ == '__main__':
