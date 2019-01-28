@@ -35,6 +35,9 @@ from math import log1p
 __all__ = ['UnigramCorpus']
 
 
+def _dd_default(*args):
+    return 0, 0
+
 class UnigramCorpus(object):
     """Unigram corpus class.
 
@@ -82,7 +85,7 @@ class UnigramCorpus(object):
         .. versionadded:: 0.4.0
 
         """
-        self.corpus = defaultdict(lambda: (0,0))
+        self.corpus = defaultdict(_dd_default)
         self.transform = word_transform
         self.tokenizer = word_tokenizer
         self.doc_count = documents
