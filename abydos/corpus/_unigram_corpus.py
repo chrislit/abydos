@@ -176,7 +176,6 @@ class UnigramCorpus(object):
         """
         if term in self.corpus:
             count, term_doc_count = self.corpus[term]
-            print(count, term_doc_count)
             return log1p(self.doc_count / term_doc_count)
         else:
             return float('inf')
