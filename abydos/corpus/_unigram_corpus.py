@@ -38,6 +38,7 @@ __all__ = ['UnigramCorpus']
 def _dd_default(*args):
     return 0, 0
 
+
 class UnigramCorpus(object):
     """Unigram corpus class.
 
@@ -135,12 +136,18 @@ class UnigramCorpus(object):
         if self.tokenizer is not None:
             tokens = self.tokenizer.tokenize(word).get_counter()
             for tok in tokens:
-                n = tokens[tok]*count
+                n = tokens[tok] * count
                 prior_count, prior_doc_count = self.corpus[tok]
-                self.corpus[tok] = (prior_count + n, prior_doc_count + doc_count)
+                self.corpus[tok] = (
+                    prior_count + n,
+                    prior_doc_count + doc_count,
+                )
         else:
             prior_count, prior_doc_count = self.corpus[word]
-            self.corpus[word] = (prior_count + count, prior_doc_count + doc_count)
+            self.corpus[word] = (
+                prior_count + count,
+                prior_doc_count + doc_count,
+            )
 
     def gng_importer(self, corpus_file):
         """Fill in self.corpus from a Google NGram corpus file.
@@ -159,7 +166,7 @@ class UnigramCorpus(object):
                 line = line.rstrip().split('\t')
                 word = line[0]
                 if '_' in word:
-                    word = word[:word.find('_')]
+                    word = word[: word.find('_')]
 
                 self._add_word(word, int(line[2]), int(line[3]))
             self._update_doc_count()
