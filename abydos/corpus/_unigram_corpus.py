@@ -90,16 +90,30 @@ class UnigramCorpus(object):
         self.tokenizer = word_tokenizer
         self.doc_count = documents
 
-        for word, count in Counter(corpus_text.split()).items():
-            self.add_to_corpus(word, count, 1)
-        self._update_doc_count()
+        self.add_document(corpus_text)
+
+    def add_document(self, doc):
+        """Add a new document to the corpus.
+
+        Parameters
+        ----------
+        doc : str
+            A string, representing the document to be added.
+
+        .. versionadded:: 0.4.0
+
+        """
+        for word, count in Counter(doc.split()).items():
+            self._add_word(word, count, 1)
+        self.doc_count += 1
 
     def _update_doc_count(self):
+        """Update document count, if necessary."""
         if self.corpus:
             max_docs = max(self.corpus.values(), key=lambda _: _[1])[1]
             self.doc_count = max(max_docs, self.doc_count)
 
-    def add_to_corpus(self, word, count, doc_count):
+    def _add_word(self, word, count, doc_count):
         """Add a term to the corpus, possibly after tokenization.
 
         Parameters
@@ -147,7 +161,7 @@ class UnigramCorpus(object):
                 if '_' in word:
                     word = word[:word.find('_')]
 
-                self.add_to_corpus(word, int(line[2]), int(line[3]))
+                self._add_word(word, int(line[2]), int(line[3]))
             self._update_doc_count()
 
     def idf(self, term):
