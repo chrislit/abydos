@@ -60,12 +60,7 @@ class TFIDF(_TokenDistance):
 
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        corpus=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, corpus=None, **kwargs):
         """Initialize TFIDF instance.
 
         Parameters
@@ -89,10 +84,7 @@ class TFIDF(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(TFIDF, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(TFIDF, self).__init__(tokenizer=tokenizer, **kwargs)
         self._corpus = corpus
 
     def sim(self, src, tar):
@@ -144,10 +136,16 @@ class TFIDF(_TokenDistance):
         for token in tar_tok.keys():
             vwt_dict[token] = log1p(tar_tok[token]) * corpus.idf(token)
 
-        vws_rss = sum(score**2 for score in vws_dict.values())**0.5
-        vwt_rss = sum(score**2 for score in vwt_dict.values())**0.5
+        vws_rss = sum(score ** 2 for score in vws_dict.values()) ** 0.5
+        vwt_rss = sum(score ** 2 for score in vwt_dict.values()) ** 0.5
 
-        return round(sum(vws_dict[token]/vws_rss * vwt_dict[token]/vwt_rss for token in self._intersection().keys()), 14)
+        return round(
+            sum(
+                vws_dict[token] / vws_rss * vwt_dict[token] / vwt_rss
+                for token in self._intersection().keys()
+            ),
+            14,
+        )
 
 
 if __name__ == '__main__':
