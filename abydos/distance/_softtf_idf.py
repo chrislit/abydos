@@ -28,7 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from collections import Counter
+from math import log1p
+
+from ._jaro_winkler import JaroWinkler
 from ._token_distance import _TokenDistance
+from ..corpus import UnigramCorpus
 
 __all__ = ['SoftTFIDF']
 
@@ -37,43 +42,49 @@ class SoftTFIDF(_TokenDistance):
     r"""SoftTF-IDF similarity.
 
     For two sets X and Y and a population N, SoftTF-IDF similarity
-    :cite:`CITATION` is
+    :cite:`Cohen:2003` is
 
         .. math::
 
-            sim_{SoftTFIDF}(X, Y) =
+            sim_{SoftTF-IDF}(X, Y) = \sum_{w \in \{sim_{metric}(x, y) > \theta
+            | x \in X, y \in Y \}} V(w, X) \cdot V(w, Y)
 
-    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
-    this is
+            V(w, S) = \frac{V'(w, S)}{\sqrt{\sum_{w \in S} V'(w, S)^2}}
 
-        .. math::
+            V'(w, S) = log(1+TF_{w,S}) \cdot log(1+IDF_w)
 
-            sim_{SoftTFIDF} =
+    Notes
+    -----
+    One is added to both the TF & IDF values before taking the logarithm to
+    ensure the logarithms do not fall to 0, which will tend to result in 0.0
+    similarities even when there is a degree of matching.
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
         self,
-        alphabet=None,
         tokenizer=None,
-        intersection_type='crisp',
+        corpus=None,
+        metric=None,
+        threshold=0.9,
         **kwargs
     ):
         """Initialize SoftTFIDF instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-            See :ref:`alphabet <alphabet>` description in
-            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
-        intersection_type : str
-            Specifies the intersection type, and set type as a result:
-            See :ref:`intersection_type <intersection_type>` description in
-            :py:class:`_TokenDistance` for details.
+        corpus : UnigramCorpus
+            A unigram corpus :py:class:`UnigramCorpus`. If None, a corpus will
+            be created from the two words when a similarity function is called.
+        metric : _Distance
+            A string distance measure class for making soft matches, by default
+            Jaro-Winkler.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            soft matches, by default 0.9.
         **kwargs
             Arbitrary keyword arguments
 
@@ -83,23 +94,21 @@ class SoftTFIDF(_TokenDistance):
             The length of each q-gram. Using this parameter and tokenizer=None
             will cause the instance to use the QGram tokenizer with this
             q value.
-        metric : _Distance
-            A string distance measure class for use in the 'soft' and 'fuzzy'
-            variants.
-        threshold : float
-            A threshold value, similarities above which are counted as
-            members of the intersection for the 'fuzzy' variant.
 
 
         .. versionadded:: 0.4.0
 
         """
         super(SoftTFIDF, self).__init__(
-            alphabet=alphabet,
             tokenizer=tokenizer,
-            intersection_type=intersection_type,
             **kwargs
         )
+        self._corpus = corpus
+        self._metric = metric
+        self._threshold = threshold
+
+        if self._metric is None:
+            self._metric = JaroWinkler()
 
     def sim(self, src, tar):
         """Return the SoftTF-IDF similarity of two strings.
@@ -134,13 +143,50 @@ class SoftTFIDF(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self._intersection_card()
-        # b = self._src_only_card()
-        # c = self._tar_only_card()
-        # d = self._total_complement_card()
-        # n = self._population_card()
+        self._tokenize(src, tar)
 
-        return 0.0
+        src_tok, tar_tok = self._get_tokens()
+
+        if self._corpus is None:
+            corpus = UnigramCorpus(word_tokenizer=self.params['tokenizer'])
+            corpus.add_document(src)
+            corpus.add_document(tar)
+        else:
+            corpus = self._corpus
+
+        matches = {(tok, tok): 1.0 for tok in self._crisp_intersection()}
+        sims = Counter()
+        s_toks = set(self._src_only().keys())
+        t_toks = set(self._tar_only().keys())
+        for s_tok in s_toks:
+            for t_tok in t_toks:
+                sim = self._metric.sim(s_tok, t_tok)
+                if sim > self._threshold:
+                    sims[(s_tok, t_tok)] = sim
+        for tokens, value in sims.most_common():
+            if tokens[0] in s_toks and tokens[1] in t_toks:
+                matches[tokens] = value
+                s_toks.remove(tokens[0])
+                t_toks.remove(tokens[1])
+
+        vws_dict = {}
+        vwt_dict = {}
+        for token in src_tok.keys():
+            vws_dict[token] = log1p(src_tok[token]) * corpus.idf(token)
+        for token in tar_tok.keys():
+            vwt_dict[token] = log1p(tar_tok[token]) * corpus.idf(token)
+
+        vws_rss = sum(score ** 2 for score in vws_dict.values()) ** 0.5
+        vwt_rss = sum(score ** 2 for score in vwt_dict.values()) ** 0.5
+
+        return round(
+            sum(
+                vws_dict[s_tok] / vws_rss * vwt_dict[t_tok] / vwt_rss *
+                matches[(s_tok, t_tok)]
+                for s_tok, t_tok in matches.keys()
+            ),
+            14,
+        )
 
 
 if __name__ == '__main__':
