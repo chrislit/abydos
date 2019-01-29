@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log
+from math import log1p
 
 from ._token_distance import _TokenDistance
 from ..corpus import UnigramCorpus
@@ -40,26 +40,29 @@ class TFIDF(_TokenDistance):
     r"""TF-IDF similarity.
 
     For two sets X and Y and a population N, TF-IDF similarity
-    :cite:`CITATION` is
+    :cite:`Cohen:2003` is
 
         .. math::
 
-            sim_{TFIDF}(X, Y) =
+            sim_{TF-IDF}(X, Y) = \sum_{w \in X \cap Y} V(w, X) \cdot V(w, Y)
 
-    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
-    this is
+            V(w, S) = \frac{V'(w, S)}{\sqrt{\sum_{w \in S} V'(w, S)^2}}
 
-        .. math::
+            V'(w, S) = log(1+TF_{w,S}) \cdot log(1+IDF_w)
 
-            sim_{TFIDF} =
+    Notes
+    -----
+    One is added to both the TF & IDF values before taking the logarithm to
+    ensure the logarithms do not fall to 0, which will tend to result in 0.0
+    similarities even when there is a degree of matching.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(
         self,
         tokenizer=None,
-        intersection_type='crisp',
         corpus=None,
         **kwargs
     ):
@@ -69,10 +72,6 @@ class TFIDF(_TokenDistance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
-        intersection_type : str
-            Specifies the intersection type, and set type as a result:
-            See :ref:`intersection_type <intersection_type>` description in
-            :py:class:`_TokenDistance` for details.
         corpus : UnigramCorpus
             A unigram corpus :py:class:`UnigramCorpus`. If None, a corpus will
             be created from the two words when a similarity function is called.
@@ -92,7 +91,6 @@ class TFIDF(_TokenDistance):
         """
         super(TFIDF, self).__init__(
             tokenizer=tokenizer,
-            intersection_type=intersection_type,
             **kwargs
         )
         self._corpus = corpus
@@ -133,24 +131,23 @@ class TFIDF(_TokenDistance):
         src_tok, tar_tok = self._get_tokens()
 
         if self._corpus is None:
-            corpus = UnigramCorpus()
-            for word, count in src_tok.items():
-                corpus.add_to_corpus(word, count, 1)
-            for word, count in tar_tok.items():
-                corpus.add_to_corpus(word, count, 1)
+            corpus = UnigramCorpus(word_tokenizer=self.params['tokenizer'])
+            corpus.add_document(src)
+            corpus.add_document(tar)
         else:
             corpus = self._corpus
 
         vws_dict = {}
         vwt_dict = {}
-        for token in self._intersection().keys():
-            vws_dict[token] = (1+log(src_tok[token])) * corpus.idf(token)
-            vwt_dict[token] = (1+log(tar_tok[token])) * corpus.idf(token)
+        for token in src_tok.keys():
+            vws_dict[token] = log1p(src_tok[token]) * corpus.idf(token)
+        for token in tar_tok.keys():
+            vwt_dict[token] = log1p(tar_tok[token]) * corpus.idf(token)
 
         vws_rss = sum(score**2 for score in vws_dict.values())**0.5
         vwt_rss = sum(score**2 for score in vwt_dict.values())**0.5
 
-        return sum(vws_dict[token]/vws_rss * vwt_dict[token]/vwt_rss for token in self._intersection().keys())
+        return round(sum(vws_dict[token]/vws_rss * vwt_dict[token]/vwt_rss for token in self._intersection().keys()), 14)
 
 
 if __name__ == '__main__':
