@@ -46,7 +46,7 @@ class SoftTFIDF(_TokenDistance):
 
         .. math::
 
-            sim_{SoftTF-IDF}(X, Y) = \sum_{w \in \{sim_{metric}(x, y) > \theta
+            sim_{SoftTF-IDF}(X, Y) = \sum_{w \in \{sim_{metric}(x, y) \ge \theta
             | x \in X, y \in Y \}} V(w, X) \cdot V(w, Y)
 
             V(w, S) = \frac{V'(w, S)}{\sqrt{\sum_{w \in S} V'(w, S)^2}}
@@ -59,7 +59,11 @@ class SoftTFIDF(_TokenDistance):
     ensure the logarithms do not fall to 0, which will tend to result in 0.0
     similarities even when there is a degree of matching.
 
+    Rather than needing to exceed the threshold value, as in :cite:`Cohen:2003`
+    the similarity must be greater than or equal to the threshold.
+
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(
