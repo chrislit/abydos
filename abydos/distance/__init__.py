@@ -43,6 +43,8 @@ Block edit distances:
     - Tichy edit distance (:py:class:`.Tichy`)
     - Levenshtein distance with block operations
       (:py:class:`.BlockLevenshtein`)
+    - Cormode's Compression distance (:py:class:`.CormodeCompression`)
+    - Cormode's LZ distance (:py:class:`.CormodeLZ`)
 
 Distance metrics developed for the US Census are included:
 
@@ -227,6 +229,9 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
     - TF-IDF similarity (:py:class:`.TFIDF`)
     - SoftTF-IDF similarity (:py:class:`.SoftTFIDF`)
+    - Kullback-Leibler distance (:py:class:`.KullbackLeibler`)
+    - Jensen-Shannon distance (:py:class:`.JensenShannon`)
+    - MinHash similarity (:py:class:`.MinHash`)
 
 Three popular sequence alignment algorithms are provided:
 
@@ -336,6 +341,8 @@ from ._consonni_todeschini_ii import ConsonniTodeschiniII
 from ._consonni_todeschini_iii import ConsonniTodeschiniIII
 from ._consonni_todeschini_iv import ConsonniTodeschiniIV
 from ._consonni_todeschini_v import ConsonniTodeschiniV
+from ._cormode_compression import CormodeCompression
+from ._cormode_lz import CormodeLZ
 from ._cosine import Cosine, dist_cosine, sim_cosine
 from ._damerau_levenshtein import (
     DamerauLevenshtein,
@@ -395,6 +402,7 @@ from ._indel import Indel, dist_indel, indel, sim_indel
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaccard_nm import JaccardNM
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._jensen_shannon import JensenShannon
 from ._johnson import Johnson
 from ._kendall_tau import KendallTau
 from ._kent_foster_i import KentFosterI
@@ -416,6 +424,7 @@ from ._kuhns_xi import KuhnsXI
 from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
+from ._kullback_leibler import KullbackLeibler
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
@@ -435,6 +444,7 @@ from ._matusita import Matusita
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
+from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
@@ -551,7 +561,6 @@ __all__ = [
     'damerau_levenshtein',
     'dist_damerau',
     'sim_damerau',
-    'BlockLevenshtein',
     'ShapiraStorer',
     'Marking',
     'YujianBo',
@@ -565,7 +574,13 @@ __all__ = [
     'hamming',
     'dist_hamming',
     'sim_hamming',
+    'MLIPNS',
+    'dist_mlipns',
+    'sim_mlipns',
     'Tichy',
+    'BlockLevenshtein',
+    'CormodeCompression',
+    'CormodeLZ',
     'JaroWinkler',
     'dist_jaro_winkler',
     'sim_jaro_winkler',
@@ -772,6 +787,9 @@ __all__ = [
     'sim_monge_elkan',
     'TFIDF',
     'SoftTFIDF',
+    'KullbackLeibler',
+    'JensenShannon',
+    'MinHash',
     'NeedlemanWunsch',
     'needleman_wunsch',
     'SmithWaterman',
@@ -832,9 +850,6 @@ __all__ = [
     'editex',
     'dist_editex',
     'sim_editex',
-    'MLIPNS',
-    'dist_mlipns',
-    'sim_mlipns',
     'Baystat',
     'dist_baystat',
     'sim_baystat',
