@@ -46,8 +46,8 @@ class SoftTFIDF(_TokenDistance):
 
         .. math::
 
-            sim_{SoftTF-IDF}(X, Y) = \sum_{w \in \{sim_{metric}(x, y) \ge \theta
-            | x \in X, y \in Y \}} V(w, X) \cdot V(w, Y)
+            sim_{SoftTF-IDF}(X, Y) = \sum_{w \in \{sim_{metric}(x, y) \ge
+            \theta | x \in X, y \in Y \}} V(w, X) \cdot V(w, Y)
 
             V(w, S) = \frac{V'(w, S)}{\sqrt{\sum_{w \in S} V'(w, S)^2}}
 
@@ -67,12 +67,7 @@ class SoftTFIDF(_TokenDistance):
     """
 
     def __init__(
-        self,
-        tokenizer=None,
-        corpus=None,
-        metric=None,
-        threshold=0.9,
-        **kwargs
+        self, tokenizer=None, corpus=None, metric=None, threshold=0.9, **kwargs
     ):
         """Initialize SoftTFIDF instance.
 
@@ -103,10 +98,7 @@ class SoftTFIDF(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(SoftTFIDF, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(SoftTFIDF, self).__init__(tokenizer=tokenizer, **kwargs)
         self._corpus = corpus
         self._metric = metric
         self._threshold = threshold
@@ -185,8 +177,11 @@ class SoftTFIDF(_TokenDistance):
 
         return round(
             sum(
-                vws_dict[s_tok] / vws_rss * vwt_dict[t_tok] / vwt_rss *
-                matches[(s_tok, t_tok)]
+                vws_dict[s_tok]
+                / vws_rss
+                * vwt_dict[t_tok]
+                / vwt_rss
+                * matches[(s_tok, t_tok)]
                 for s_tok, t_tok in matches.keys()
             ),
             14,

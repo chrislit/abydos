@@ -29,7 +29,7 @@ from __future__ import (
 )
 
 from codecs import open as c_open
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
 from math import log1p
 
 __all__ = ['UnigramCorpus']
