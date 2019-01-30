@@ -33,7 +33,7 @@ from ._distance import _Distance
 __all__ = ['CormodeLZ']
 
 
-class CormodeLZ(_TokenDistance):
+class CormodeLZ(_Distance):
     r"""Cormode's LZ distance.
 
     Cormode's LZ distance :cite:`CITATION`

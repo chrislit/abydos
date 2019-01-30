@@ -33,7 +33,7 @@ from ._distance import _Distance
 __all__ = ['CormodeCompression']
 
 
-class CormodeCompression(_TokenDistance):
+class CormodeCompression(_Distance):
     r"""Cormode's Compression distance.
 
     Cormode's Compression distance :cite:`CITATION`
