@@ -55,8 +55,53 @@ class CormodeLZ(_Distance):
         """
         super(CormodeLZ, self).__init__(**kwargs)
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Cormode's LZ distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Cormode's LZ distance
+
+        Examples
+        --------
+        >>> cmp = CormodeLZ()
+        >>> cmp.dist_abs('cat', 'hat')
+        0.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        edits = 0
+        pos = 0
+        span = 1
+
+        while max(pos + 1, pos + span) <= len(src):
+            if (src[pos:pos + span] in tar) or (src[pos:pos + span] in src[:pos]):
+                span += 1
+            else:
+                edits += 1
+                pos += max(1, span - 1)
+                span = 1
+
+        return 1+edits
+
+    def dist(self, src, tar):
+        """Return the normalized Cormode's LZ distance of two strings.
 
         Parameters
         ----------
@@ -86,9 +131,7 @@ class CormodeLZ(_Distance):
         .. versionadded:: 0.4.0
 
         """
-
-        return 0.0
-
+        return (self.dist_abs(src,tar)-1)/(len(src)-1)
 
 if __name__ == '__main__':
     import doctest
