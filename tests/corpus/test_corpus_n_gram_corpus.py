@@ -47,8 +47,8 @@ class NGramCorpusTestCases(unittest.TestCase):
     double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
     double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
 
-    sotu2015Sample = 'Mr. Speaker, Mr. Vice President, Members of Congress, my\
-    fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
+    sotu2015_sample = 'Mr. Speaker, Mr. Vice President, Members of Congress,\
+    my fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
     years that dawned with terror touching our shores; that unfolded with a\
     new generation fighting two long and costly wars; that saw a vicious\
     recession spread across our nation and the world.\n It has been, and still\
@@ -84,15 +84,15 @@ class NGramCorpusTestCases(unittest.TestCase):
     crisscross the country making a case for those ideas.\n So tonight, I want\
     to focus less on a checklist of proposals, and focus more on the values at\
     stake in the choices before us.'
-    sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
+    sotu2015_corpus = Corpus(sotu2015_sample, filter_chars='.?-;,:')
 
-    sotu_ngcorpus_uni = NGramCorpus(sotu2015Corpus)
+    sotu_ngcorpus_uni = NGramCorpus(sotu2015_corpus)
 
     sotu_ngcorpus_tri = NGramCorpus()
-    sotu_ngcorpus_tri.corpus_importer(sotu2015Corpus, 3, '<SOS>', '<EOS>')
+    sotu_ngcorpus_tri.corpus_importer(sotu2015_corpus, 3, '<SOS>', '<EOS>')
 
     sotu_ngcorpus_5 = NGramCorpus()
-    sotu_ngcorpus_5.corpus_importer(sotu2015Corpus, 5, '', '')
+    sotu_ngcorpus_5.corpus_importer(sotu2015_corpus, 5, '', '')
 
     simple_ngcorpus_5 = NGramCorpus()
     simple_ngcorpus_5.corpus_importer(
@@ -103,7 +103,7 @@ class NGramCorpusTestCases(unittest.TestCase):
         """Test abydos.corpus.NGramCorpus.__init__."""
         self.assertIsInstance(NGramCorpus(), NGramCorpus)
         self.assertRaises(TypeError, NGramCorpus, ['a', 'b', 'c'])
-        self.assertIsInstance(NGramCorpus(self.sotu2015Corpus), NGramCorpus)
+        self.assertIsInstance(NGramCorpus(self.sotu2015_corpus), NGramCorpus)
 
     def test_corpus_importer(self):
         """Test abydos.corpus.NGramCorpus.corpus_importer."""

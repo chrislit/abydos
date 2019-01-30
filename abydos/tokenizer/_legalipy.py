@@ -31,11 +31,12 @@ from __future__ import (
 from ._tokenizer import _Tokenizer
 
 try:
-    from syllabipy.legalipy import getOnsets, LegaliPy
+    from syllabipy.legalipy import LegaliPy
+    from syllabipy.legalipy import getOnsets as gen_onsets  # noqa: N813
 except ImportError:  # pragma: no cover
     # If the system lacks the SyllabiPy library, that's fine, but SyllabiPy
     # tokenization won't be supported.
-    getOnsets = None
+    gen_onsets = None
     LegaliPy = None
 
 
@@ -92,7 +93,7 @@ class LegaliPyTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        new_onsets = getOnsets(text, threshold, clean)
+        new_onsets = gen_onsets(text, threshold, clean)
         if append:
             self._onsets = list(set(self._onsets + new_onsets))
         else:
