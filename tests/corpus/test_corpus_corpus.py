@@ -36,8 +36,8 @@ from abydos.corpus import Corpus
 class CorpusTestCases(unittest.TestCase):
     """Test Corpus class."""
 
-    sotu2015Sample = 'Mr. Speaker, Mr. Vice President, Members of Congress, my\
-    fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
+    sotu2015_sample = 'Mr. Speaker, Mr. Vice President, Members of Congress,\
+    my fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
     years that dawned with terror touching our shores; that unfolded with a\
     new generation fighting two long and costly wars; that saw a vicious\
     recession spread across our nation and the world.\n It has been, and still\
@@ -73,7 +73,7 @@ class CorpusTestCases(unittest.TestCase):
     crisscross the country making a case for those ideas.\n So tonight, I want\
     to focus less on a checklist of proposals, and focus more on the values at\
     stake in the choices before us.'
-    sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
+    sotu2015_corpus = Corpus(sotu2015_sample, filter_chars='.?-;,:')
 
     def test_corpus(self):
         """Test abydos.corpus.Corpus."""
