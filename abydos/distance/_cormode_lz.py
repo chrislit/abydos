@@ -91,14 +91,16 @@ class CormodeLZ(_Distance):
         span = 1
 
         while max(pos + 1, pos + span) <= len(src):
-            if (src[pos:pos + span] in tar) or (src[pos:pos + span] in src[:pos]):
+            if (src[pos : pos + span] in tar) or (
+                src[pos : pos + span] in src[:pos]
+            ):
                 span += 1
             else:
                 edits += 1
                 pos += max(1, span - 1)
                 span = 1
 
-        return 1+edits
+        return 1 + edits
 
     def dist(self, src, tar):
         """Return the normalized Cormode's LZ distance of two strings.
@@ -131,7 +133,8 @@ class CormodeLZ(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return (self.dist_abs(src,tar)-1)/(len(src)-1)
+        return (self.dist_abs(src, tar) - 1) / (len(src) - 1)
+
 
 if __name__ == '__main__':
     import doctest
