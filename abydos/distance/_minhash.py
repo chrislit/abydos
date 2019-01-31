@@ -46,11 +46,7 @@ class MinHash(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize MinHash instance.
 
         Parameters
@@ -71,10 +67,7 @@ class MinHash(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(MinHash, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(MinHash, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the MinHash similarity of two strings.

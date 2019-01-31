@@ -46,11 +46,7 @@ class KullbackLeibler(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, tokenizer=None, **kwargs):
         """Initialize KullbackLeibler instance.
 
         Parameters
@@ -71,10 +67,7 @@ class KullbackLeibler(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(KullbackLeibler, self).__init__(
-            tokenizer=tokenizer,
-            **kwargs
-        )
+        super(KullbackLeibler, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
         """Return the Kullback-Leibler distance of two strings.
