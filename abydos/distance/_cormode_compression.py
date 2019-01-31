@@ -36,7 +36,7 @@ __all__ = ['CormodeCompression']
 class CormodeCompression(_Distance):
     r"""Cormode's Compression distance.
 
-    Cormode's Compression distance :cite:`CITATION`
+    Cormode's Compression distance :cite:`Cormode:2000,Cormode:2003`
 
     .. versionadded:: 0.4.0
     """

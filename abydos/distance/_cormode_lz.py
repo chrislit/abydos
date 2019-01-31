@@ -36,7 +36,7 @@ __all__ = ['CormodeLZ']
 class CormodeLZ(_Distance):
     r"""Cormode's LZ distance.
 
-    Cormode's LZ distance :cite:`CITATION`
+    Cormode's LZ distance :cite:`Cormode:2000,Cormode:2003`
 
     .. versionadded:: 0.4.0
     """
