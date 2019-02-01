@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['JensenShannon']
@@ -36,48 +38,34 @@ __all__ = ['JensenShannon']
 class JensenShannon(_TokenDistance):
     r"""Jensen-Shannon distance.
 
-    For two multisets X and Y drawn from an alphabet S, Jensen-Shannon distance
-    :cite:`CITATION` is
-
-        .. math::
-
-            sim_{JensenShannon}(X, Y) =
+    Jensen-Shannon distance :cite:`Dagan:1999`
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(self, **kwargs):
         """Initialize JensenShannon instance.
 
         Parameters
         ----------
-        tokenizer : _Tokenizer
-            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         **kwargs
             Arbitrary keyword arguments
-
-        Other Parameters
-        ----------------
-        qval : int
-            The length of each q-gram. Using this parameter and tokenizer=None
-            will cause the instance to use the QGram tokenizer with this
-            q value.
 
 
         .. versionadded:: 0.4.0
 
         """
-        super(JensenShannon, self).__init__(tokenizer=tokenizer, **kwargs)
+        super(JensenShannon, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Jensen-Shannon distance of two strings.
 
         Parameters
         ----------
         src : str
-            Source string (or QGrams/Counter objects) for comparison
+            Source string for comparison
         tar : str
-            Target string (or QGrams/Counter objects) for comparison
+            Target string for comparison
 
         Returns
         -------
@@ -87,13 +75,13 @@ class JensenShannon(_TokenDistance):
         Examples
         --------
         >>> cmp = JensenShannon()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -102,10 +90,54 @@ class JensenShannon(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        alphabet = self._total().keys()
+        def entropy(prob):
+            """Return the entropy of prob."""
+            return -(prob * log(prob))
 
-        return 0.0
+        src_total = sum(self._src_tokens.values())
+        tar_total = sum(self._tar_tokens.values())
 
+        diverg = 0.0
+        for key in self._intersection().keys():
+            p_src = self._src_tokens[key]/src_total
+            p_tar = self._tar_tokens[key]/tar_total
+
+            diverg -= entropy(p_src+p_tar)-entropy(p_src)-entropy(p_tar)
+
+        return diverg
+
+    def dist(self, src, tar):
+        """Return the normalized Jensen-Shannon distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized Jensen-Shannon distance
+
+        Examples
+        --------
+        >>> cmp = JensenShannon()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.dist_abs(src, tar)/log(4)
 
 if __name__ == '__main__':
     import doctest
