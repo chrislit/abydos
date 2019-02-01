@@ -229,7 +229,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
     - TF-IDF similarity (:py:class:`.TFIDF`)
     - SoftTF-IDF similarity (:py:class:`.SoftTFIDF`)
-    - Kullback-Leibler distance (:py:class:`.KullbackLeibler`)
     - Jensen-Shannon distance (:py:class:`.JensenShannon`)
     - MinHash similarity (:py:class:`.MinHash`)
 
@@ -424,7 +423,6 @@ from ._kuhns_xi import KuhnsXI
 from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
-from ._kullback_leibler import KullbackLeibler
 from ._lcprefix import LCPrefix
 from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
 from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
@@ -787,7 +785,6 @@ __all__ = [
     'sim_monge_elkan',
     'TFIDF',
     'SoftTFIDF',
-    'KullbackLeibler',
     'JensenShannon',
     'MinHash',
     'NeedlemanWunsch',
