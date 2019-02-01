@@ -28,31 +28,41 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._token_distance import _TokenDistance
+from hashlib import sha1
+
+import numpy as np
+
+from ._distance import _Distance
+from ..tokenizer import QGrams, WhitespaceTokenizer
 
 __all__ = ['MinHash']
 
 
-class MinHash(_TokenDistance):
+_MININT = np.iinfo(np.int64).min
+_MAXINT = np.iinfo(np.int64).max
+
+
+class MinHash(_Distance):
     r"""MinHash similarity.
 
-    For two multisets X and Y drawn from an alphabet S, MinHash similarity
-    :cite:`CITATION` is
-
-        .. math::
-
-            sim_{MinHash}(X, Y) =
+    MinHash similarity :cite:`Broder:1997` is a method of approximating the
+    intersection over the union of two sets. This implementation is based on
+    :cite:`Kula:2015`.
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(self, tokenizer=None, k=0, seed=10, **kwargs):
         """Initialize MinHash instance.
 
         Parameters
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        k : int
+            The number of hash functions to use for similarity estimation
+        seed : int
+            A seed value for the random functions
         **kwargs
             Arbitrary keyword arguments
 
@@ -67,7 +77,18 @@ class MinHash(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        self._k = k
+        self._seed = seed
         super(MinHash, self).__init__(tokenizer=tokenizer, **kwargs)
+
+        qval = 2 if 'qval' not in self.params else self.params['qval']
+        self.params['tokenizer'] = (
+            tokenizer
+            if tokenizer is not None
+            else WhitespaceTokenizer()
+            if qval == 0
+            else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
+        )
 
     def sim(self, src, tar):
         """Return the MinHash similarity of two strings.
@@ -100,11 +121,24 @@ class MinHash(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
+        src_tokens = self.params['tokenizer'].tokenize(src).get_set()
+        tar_tokens = self.params['tokenizer'].tokenize(tar).get_set()
 
-        alphabet = self._total().keys()
+        k = self._k if self._k else max(len(src_tokens), len(tar_tokens))
 
-        return 0.0
+        masks = (np.random.RandomState(seed=self._seed)
+                 .randint(_MININT, _MAXINT, k))
+
+        hashes_src = np.full(k, _MAXINT, dtype=np.int64)
+        hashes_tar = np.full(k, _MAXINT, dtype=np.int64)
+
+        for tok in src_tokens:
+            hashes_src = np.minimum(hashes_src, np.bitwise_xor(masks, int(sha1(tok.encode()).hexdigest(), 16)))
+
+        for tok in tar_tokens:
+            hashes_tar = np.minimum(hashes_tar, np.bitwise_xor(masks, int(sha1(tok.encode()).hexdigest(), 16)))
+
+        return (hashes_src == hashes_tar).sum()/k
 
 
 if __name__ == '__main__':
