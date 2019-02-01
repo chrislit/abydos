@@ -99,10 +99,10 @@ class JensenShannon(_TokenDistance):
 
         diverg = 0.0
         for key in self._intersection().keys():
-            p_src = self._src_tokens[key]/src_total
-            p_tar = self._tar_tokens[key]/tar_total
+            p_src = self._src_tokens[key] / src_total
+            p_tar = self._tar_tokens[key] / tar_total
 
-            diverg -= entropy(p_src+p_tar)-entropy(p_src)-entropy(p_tar)
+            diverg -= entropy(p_src + p_tar) - entropy(p_src) - entropy(p_tar)
 
         return diverg
 
@@ -137,7 +137,8 @@ class JensenShannon(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.dist_abs(src, tar)/log(4)
+        return self.dist_abs(src, tar) / log(4)
+
 
 if __name__ == '__main__':
     import doctest
