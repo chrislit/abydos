@@ -232,7 +232,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - TF-IDF similarity (:py:class:`.TFIDF`)
     - SoftTF-IDF similarity (:py:class:`.SoftTFIDF`)
     - Jensen-Shannon distance (:py:class:`.JensenShannon`)
-    - Simplified Fellegi-Sunter distance (:py:class:`.SimplifiedFellegiSunter`)
+    - Simplified Fellegi-Sunter distance (:py:class:`.FellegiSunter`)
     - MinHash similarity (:py:class:`.MinHash`)
 
     - Rouge-L similarity (:py:class:`.RougeL`)
@@ -502,7 +502,7 @@ from ._shapira_storer import ShapiraStorer
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_extended import Sift4Extended
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
-from ._simplified_fellegi_sunter import SimplifiedFellegiSunter
+from ._fellegi_sunter import FellegiSunter
 from ._single_linkage import SingleLinkage
 from ._size import Size
 from ._smith_waterman import SmithWaterman, smith_waterman
@@ -809,7 +809,7 @@ __all__ = [
     'TFIDF',
     'SoftTFIDF',
     'JensenShannon',
-    'SimplifiedFellegiSunter',
+    'FellegiSunter',
     'MinHash',
     'NeedlemanWunsch',
     'needleman_wunsch',
