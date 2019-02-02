@@ -57,7 +57,8 @@ from __future__ import (
 from ._character import CharacterTokenizer
 from ._legalipy import LegaliPyTokenizer
 from ._nltk import NLTKTokenizer
-from ._qgrams import QGrams
+from ._q_grams import QGrams
+from ._q_skipgrams import QSkipgrams
 from ._regexp import RegexpTokenizer
 from ._saps import SAPSTokenizer
 from ._sonoripy import SonoriPyTokenizer
@@ -68,6 +69,7 @@ from ._wordpunct import WordpunctTokenizer
 __all__ = [
     '_Tokenizer',
     'QGrams',
+    'QSkipgrams',
     'CharacterTokenizer',
     'RegexpTokenizer',
     'WhitespaceTokenizer',
