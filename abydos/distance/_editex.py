@@ -28,6 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from sys import float_info
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
@@ -99,7 +100,7 @@ class Editex(_Distance):
 
     def _taper(self, pos, length):
         return (
-            round(1 + ((length - pos) / length) * 1.000000000000001, 15)
+            round(1 + ((length - pos) / length) * (1 + float_info.epsilon), 15)
             if self._taper_enabled
             else 1
         )
