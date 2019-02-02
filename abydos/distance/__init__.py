@@ -237,7 +237,8 @@ A large set of multi-set token-based distance metrics are provided, including:
 
     - Rouge-L similarity (:py:class:`.RougeL`)
     - Rouge-W similarity (:py:class:`.RougeW`)
-    - Rough-S similarity (:py:class:`.RoughS`)
+    - Rouge-S similarity (:py:class:`.RougeS`)
+    - Rouge-SU similarity (:py:class:`.RougeSU`)
 
 Three popular sequence alignment algorithms are provided:
 
@@ -491,7 +492,8 @@ from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
 from ._rouge_l import RougeL
 from ._rouge_w import RougeW
-from ._rough_s import RoughS
+from ._rouge_s import RougeS
+from ._rouge_su import RougeSU
 from ._russell_rao import RussellRao
 from ._saps import SAPS
 from ._scott_pi import ScottPi
@@ -737,7 +739,8 @@ __all__ = [
     'RogotGoldberg',
     'RougeL',
     'RougeW',
-    'RoughS',
+    'RougeS',
+    'RougeSU',
     'ScottPi',
     'Shape',
     'Size',
