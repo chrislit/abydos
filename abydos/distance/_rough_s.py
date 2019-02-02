@@ -29,6 +29,8 @@ from __future__ import (
 )
 
 from ._distance import _Distance
+from ..tokenizer import QSkipgrams
+from ..util._ncr import _ncr
 
 __all__ = ['RoughS']
 
@@ -36,12 +38,12 @@ __all__ = ['RoughS']
 class RoughS(_Distance):
     r"""Rough-S similarity.
 
-    Rough-S similarity :cite:`CITATION`
+    Rough-S similarity :cite:`Lin:2004`, operating on character-level skipgrams
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, qval=2, **kwargs):
         """Initialize RoughS instance.
 
         Parameters
@@ -54,8 +56,10 @@ class RoughS(_Distance):
 
         """
         super(RoughS, self).__init__(**kwargs)
+        self._qval = qval
+        self._tokenizer = QSkipgrams(qval=qval)
 
-    def sim(self, src, tar):
+    def sim(self, src, tar, beta=8):
         """Return the Rough-S similarity of two strings.
 
         Parameters
@@ -64,6 +68,8 @@ class RoughS(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
+        beta : int or float
+            A weighting factor to prejudice similarity towards src
 
         Returns
         -------
@@ -86,8 +92,15 @@ class RoughS(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        qsg_src = self._tokenizer.tokenize(src)
+        qsg_tar = self._tokenizer.tokenize(tar)
+        intersection = qsg_src & qsg_tar
 
-        return 0.0
+        r_skip = intersection / _ncr(len(src), self._qval)
+        p_skip = intersection / _ncr(len(tar), self._qval)
+        beta_sq = beta * beta
+
+        return (1 + beta_sq) * r_skip * p_skip / (r_skip + beta_sq * p_skip)
 
 
 if __name__ == '__main__':
