@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from hashlib import sha1
+from hashlib import sha512
 
 import numpy as np
 
@@ -136,13 +136,17 @@ class MinHash(_Distance):
         for tok in src_tokens:
             hashes_src = np.minimum(
                 hashes_src,
-                np.bitwise_xor(masks, int(sha1(tok.encode()).hexdigest(), 16)),
+                np.bitwise_xor(
+                    masks, int(sha512(tok.encode()).hexdigest(), 16)
+                ),
             )
 
         for tok in tar_tokens:
             hashes_tar = np.minimum(
                 hashes_tar,
-                np.bitwise_xor(masks, int(sha1(tok.encode()).hexdigest(), 16)),
+                np.bitwise_xor(
+                    masks, int(sha512(tok.encode()).hexdigest(), 16)
+                ),
             )
 
         return (hashes_src == hashes_tar).sum() / k
