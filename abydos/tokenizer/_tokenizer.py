@@ -73,7 +73,7 @@ class _Tokenizer(object):
 
         Parameters
         ----------
-        string : str
+        string : str or None
             The string to tokenize
 
 

@@ -115,7 +115,7 @@ class QSkipgrams(_Tokenizer):
 
         Parameters
         ----------
-        string : str or None
+        string : str
             The string to tokenize
 
 
