@@ -28,6 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from . import LCSseq
 from ._distance import _Distance
 
 __all__ = ['RougeL']
@@ -36,10 +37,12 @@ __all__ = ['RougeL']
 class RougeL(_Distance):
     r"""Rouge-L similarity.
 
-    Rouge-L similarity :cite:`CITATION`
+    Rouge-L similarity :cite:`Lin:2004`
 
     .. versionadded:: 0.4.0
     """
+
+    _lcs = LCSseq(normalizer=lambda x: sum(x) / 2.0)
 
     def __init__(self, **kwargs):
         """Initialize RougeL instance.
@@ -55,7 +58,7 @@ class RougeL(_Distance):
         """
         super(RougeL, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src, tar, beta=8):
         """Return the Rouge-L similarity of two strings.
 
         Parameters
@@ -64,6 +67,8 @@ class RougeL(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
+        beta : int or float
+            A weighting factor to prejudice similarity towards src
 
         Returns
         -------
@@ -86,8 +91,12 @@ class RougeL(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        lcs_len = len(self._lcs.lcsseq(src, tar))
+        r_lcs = lcs_len / len(src)
+        p_lcs = lcs_len / len(tar)
+        beta_sq = beta*beta
 
-        return 0.0
+        return (1+beta_sq)*r_lcs*p_lcs/(r_lcs+beta_sq*p_lcs)
 
 
 if __name__ == '__main__':
