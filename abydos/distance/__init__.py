@@ -236,7 +236,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - MinHash similarity (:py:class:`.MinHash`)
 
     - Rouge-L similarity (:py:class:`.RougeL`)
-    - Rouge-N similarity (:py:class:`.RougeN`)
     - Rouge-W similarity (:py:class:`.RougeW`)
     - Rough-S similarity (:py:class:`.RoughS`)
 
@@ -491,7 +490,6 @@ from ._roberts import Roberts
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
 from ._rouge_l import RougeL
-from ._rouge_n import RougeN
 from ._rouge_w import RougeW
 from ._rough_s import RoughS
 from ._russell_rao import RussellRao
@@ -738,7 +736,6 @@ __all__ = [
     'RogersTanimoto',
     'RogotGoldberg',
     'RougeL',
-    'RougeN',
     'RougeW',
     'RoughS',
     'ScottPi',
