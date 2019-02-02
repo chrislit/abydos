@@ -18,7 +18,7 @@
 
 """abydos.util._ncr.
 
-The util._ncr module defines ncr, which computes n Choose r.
+The util._ncr module defines _ncr, which computes n Choose r.
 """
 
 from __future__ import (
@@ -60,7 +60,7 @@ def _ncr(n, r):
     .. versionadded:: 0.4.0
 
     """
-    return factorial(n)/(factorial(r)*factorial(n-r))
+    return factorial(n) / (factorial(r) * factorial(n - r))
 
 
 if __name__ == '__main__':
