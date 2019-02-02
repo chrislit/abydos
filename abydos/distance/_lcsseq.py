@@ -48,6 +48,25 @@ class LCSseq(_Distance):
     .. versionadded:: 0.3.6
     """
 
+    def __init__(self, normalizer=max, **kwargs):
+        """Initialize LCSseq.
+
+        Parameters
+        ----------
+        normalizer : function
+            A normalization function for the normalized similarity & distance.
+            By default, the max of the lengths of the input strings. If sum is
+            supplied, the normalization proposed in :cite:`Radev:2001` is used,
+            i.e. :math:`\frac{2 \dot |LCS(src, tar)|}{|src| + |tar|}`.
+        **kwargs
+            Arbitrary keyword arguments
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(LCSseq, self).__init__(**kwargs)
+        self._normalizer = normalizer
+
     def lcsseq(self, src, tar):
         """Return the longest common subsequence of two strings.
 
@@ -149,13 +168,19 @@ class LCSseq(_Distance):
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.4.0
+            Added normalization option
 
         """
         if src == tar:
             return 1.0
         elif not src or not tar:
             return 0.0
-        return len(self.lcsseq(src, tar)) / max(len(src), len(tar))
+        elif self._normalizer == sum:
+            return 2 * len(self.lcsseq(src, tar)) / (len(src) + len(tar))
+        return len(self.lcsseq(src, tar)) / self._normalizer(
+            len(src), len(tar)
+        )
 
 
 @deprecated(
