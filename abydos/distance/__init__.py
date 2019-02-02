@@ -491,9 +491,9 @@ from ._roberts import Roberts
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
 from ._rouge_l import RougeL
-from ._rouge_w import RougeW
 from ._rouge_s import RougeS
 from ._rouge_su import RougeSU
+from ._rouge_w import RougeW
 from ._russell_rao import RussellRao
 from ._saps import SAPS
 from ._scott_pi import ScottPi

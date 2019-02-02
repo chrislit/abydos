@@ -33,6 +33,7 @@ from __future__ import (
 )
 
 from sys import float_info
+
 from deprecation import deprecated
 
 from numpy import float as np_float
