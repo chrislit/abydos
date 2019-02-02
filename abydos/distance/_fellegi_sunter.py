@@ -88,9 +88,7 @@ class FellegiSunter(_TokenDistance):
 
         """
         super(FellegiSunter, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
         self._simplified = simplified
         self._mismatch_factor = mismatch_factor
@@ -137,15 +135,23 @@ class FellegiSunter(_TokenDistance):
         similarity = 0.0
         for tok, count in self._intersection().items():
             if self._simplified:
-                similarity += -log(count/tar_total)
+                similarity += -log(count / tar_total)
             else:
-                prob = count/tar_total
+                prob = count / tar_total
                 print(prob)
-                similarity -= log(1 + float_info.epsilon - exp(src_unique * tar_unique * log(1 + float_info.epsilon - prob * prob)))
+                similarity -= log(
+                    1
+                    + float_info.epsilon
+                    - exp(
+                        src_unique
+                        * tar_unique
+                        * log(1 + float_info.epsilon - prob * prob)
+                    )
+                )
 
         for tok, count in self._src_only().items():
             if self._simplified:
-                similarity -= -log(count/src_total)*self._mismatch_factor
+                similarity -= -log(count / src_total) * self._mismatch_factor
 
         return similarity
 
