@@ -133,12 +133,11 @@ class FellegiSunter(_TokenDistance):
         tar_unique = len(tar_tokens)
 
         similarity = 0.0
-        for tok, count in self._intersection().items():
+        for _tok, count in self._intersection().items():
             if self._simplified:
                 similarity += -log(count / tar_total)
             else:
                 prob = count / tar_total
-                print(prob)
                 similarity -= log(
                     1
                     + float_info.epsilon
@@ -149,7 +148,7 @@ class FellegiSunter(_TokenDistance):
                     )
                 )
 
-        for tok, count in self._src_only().items():
+        for _tok, count in self._src_only().items():
             if self._simplified:
                 similarity -= -log(count / src_total) * self._mismatch_factor
 
