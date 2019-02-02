@@ -18,7 +18,7 @@
 
 """abydos.util._prod.
 
-The util._prod module defines prod, which computes the product of a collection
+The util._prod module defines _prod, which computes the product of a collection
 of numbers (akin to sum, but for product).
 """
 
