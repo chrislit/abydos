@@ -33,6 +33,7 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Indel distance (:py:class:`.Indel`)
     - Syllable Alignment Pattern Searching similarity
       (:py:class:`.distance.SAPS`)
+    - Meta-Levenshtein distance (:py:class:`.MetaLevenshtein`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
@@ -43,6 +44,7 @@ Block edit distances:
     - Tichy edit distance (:py:class:`.Tichy`)
     - Levenshtein distance with block operations
       (:py:class:`.BlockLevenshtein`)
+    - Rees-Levenshtein distance (:py:class:`.ReesLevenshtein`)
     - Cormode's Compression distance (:py:class:`.CormodeCompression`)
     - Cormode's LZ distance (:py:class:`.CormodeLZ`)
 
@@ -230,7 +232,13 @@ A large set of multi-set token-based distance metrics are provided, including:
     - TF-IDF similarity (:py:class:`.TFIDF`)
     - SoftTF-IDF similarity (:py:class:`.SoftTFIDF`)
     - Jensen-Shannon distance (:py:class:`.JensenShannon`)
+    - Simplified Fellegi-Sunter distance (:py:class:`.SimplifiedFellegiSunter`)
     - MinHash similarity (:py:class:`.MinHash`)
+
+    - Rouge-L similarity (:py:class:`.RougeL`)
+    - Rouge-N similarity (:py:class:`.RougeN`)
+    - Rouge-W similarity (:py:class:`.RougeW`)
+    - Rough-S similarity (:py:class:`.RoughS`)
 
 Three popular sequence alignment algorithms are provided:
 
@@ -275,7 +283,8 @@ The remaining distance measures & metrics include:
     - Editex (:py:class:`.Editex`)
     - Bavarian Landesamt für Statistik distance (:py:class:`.Baystat`)
     - Eudex distance (:py:class:`.distance.Eudex`)
-    - Sift4 distance (:py:class:`.Sift4` and :py:class:`.Sift4Simplest`)
+    - Sift4 distance (:py:class:`.Sift4`, :py:class:`.Sift4Simplest`,
+      :py:class:`.Sift4Extended`)
     - Typo distance (:py:class:`.Typo`)
     - Synoname (:py:class:`.Synoname`)
     - Ozbay metric (:py:class:`.Ozbay`)
@@ -442,6 +451,7 @@ from ._matusita import Matusita
 from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
+from ._meta_levenshtein import MetaLevenshtein
 from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
@@ -476,16 +486,23 @@ from ._ratcliff_obershelp import (
     dist_ratcliff_obershelp,
     sim_ratcliff_obershelp,
 )
+from ._rees_levenshtein import ReesLevenshtein
 from ._roberts import Roberts
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
+from ._rouge_l import RougeL
+from ._rouge_n import RougeN
+from ._rouge_w import RougeW
+from ._rough_s import RoughS
 from ._russell_rao import RussellRao
 from ._saps import SAPS
 from ._scott_pi import ScottPi
 from ._shape import Shape
 from ._shapira_storer import ShapiraStorer
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
+from ._sift4_extended import Sift4Extended
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
+from ._simplified_fellegi_sunter import SimplifiedFellegiSunter
 from ._single_linkage import SingleLinkage
 from ._size import Size
 from ._smith_waterman import SmithWaterman, smith_waterman
@@ -705,6 +722,7 @@ __all__ = [
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
+    'MetaLevenshtein',
     'Mountford',
     'MutualInformation',
     'MSContingency',
@@ -716,8 +734,13 @@ __all__ = [
     'PearsonPhi',
     'Peirce',
     'QGram',
+    'ReesLevenshtein',
     'RogersTanimoto',
     'RogotGoldberg',
+    'RougeL',
+    'RougeN',
+    'RougeW',
+    'RoughS',
     'ScottPi',
     'Shape',
     'Size',
@@ -786,6 +809,7 @@ __all__ = [
     'TFIDF',
     'SoftTFIDF',
     'JensenShannon',
+    'SimplifiedFellegiSunter',
     'MinHash',
     'NeedlemanWunsch',
     'needleman_wunsch',
@@ -856,6 +880,7 @@ __all__ = [
     'sim_eudex',
     'Sift4',
     'Sift4Simplest',
+    'Sift4Extended',
     'sift4_common',
     'sift4_simplest',
     'dist_sift4',
