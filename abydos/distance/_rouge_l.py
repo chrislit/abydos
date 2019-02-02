@@ -94,9 +94,9 @@ class RougeL(_Distance):
         lcs_len = len(self._lcs.lcsseq(src, tar))
         r_lcs = lcs_len / len(src)
         p_lcs = lcs_len / len(tar)
-        beta_sq = beta*beta
+        beta_sq = beta * beta
 
-        return (1+beta_sq)*r_lcs*p_lcs/(r_lcs+beta_sq*p_lcs)
+        return (1 + beta_sq) * r_lcs * p_lcs / (r_lcs + beta_sq * p_lcs)
 
 
 if __name__ == '__main__':

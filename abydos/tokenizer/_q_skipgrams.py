@@ -146,7 +146,10 @@ class QSkipgrams(_Tokenizer):
             if len(string) > len(self._string_ss):
                 self._string_ss = string
 
-            self._ordered_list += [''.join(l[1] for l in t) for t in combinations(enumerate(string), qval_i)]
+            self._ordered_list += [
+                ''.join(l[1] for l in t)
+                for t in combinations(enumerate(string), qval_i)
+            ]
 
         super(QSkipgrams, self).tokenize()
         return self
