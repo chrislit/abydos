@@ -374,6 +374,7 @@ from ._eyraud import Eyraud
 from ._fager import Fager
 from ._fager_mcgowan import FagerMcGowan
 from ._faith import Faith
+from ._fellegi_sunter import FellegiSunter
 from ._fidelity import Fidelity
 from ._fleiss import Fleiss
 from ._fleiss_levin_paik import FleissLevinPaik
@@ -502,7 +503,6 @@ from ._shapira_storer import ShapiraStorer
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_extended import Sift4Extended
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
-from ._fellegi_sunter import FellegiSunter
 from ._single_linkage import SingleLinkage
 from ._size import Size
 from ._smith_waterman import SmithWaterman, smith_waterman
