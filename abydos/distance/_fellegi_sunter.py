@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._simplified_fellegi_sunter.
+"""abydos.distance._fellegi_sunter.
 
-Simplified Fellegi-Sunter distance
+Fellegi-Sunter distance
 """
 
 from __future__ import (
@@ -28,52 +28,45 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import exp, log
+from sys import float_info
+
 from ._token_distance import _TokenDistance
 
-__all__ = ['SimplifiedFellegiSunter']
+__all__ = ['FellegiSunter']
 
 
-class SimplifiedFellegiSunter(_TokenDistance):
-    r"""Simplified Fellegi-Sunter distance.
+class FellegiSunter(_TokenDistance):
+    r"""Fellegi-Sunter distance.
 
-    For two sets X and Y and a population N, Simplified Fellegi-Sunter distance
-    :cite:`CITATION` is
-
-        .. math::
-
-            sim_{SimplifiedFellegiSunter}(X, Y) =
-
-    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
-    this is
-
-        .. math::
-
-            sim_{SimplifiedFellegiSunter} =
+    Fellegi-Sunter distance is based on the description in
+    :cite:`Cohen:2003` and implementation in :cite:`Cohen:2003b`.
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(
         self,
-        alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
+        simplified=False,
+        mismatch_factor=0.5,
         **kwargs
     ):
-        """Initialize SimplifiedFellegiSunter instance.
+        """Initialize FellegiSunter instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-            See :ref:`alphabet <alphabet>` description in
-            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
             Specifies the intersection type, and set type as a result:
             See :ref:`intersection_type <intersection_type>` description in
             :py:class:`_TokenDistance` for details.
+        simplified : bool
+            Specifies to use the simplified scoring variant
+        mismatch_factor : float
+            Specifies the penalty factor for mismatches
         **kwargs
             Arbitrary keyword arguments
 
@@ -94,15 +87,16 @@ class SimplifiedFellegiSunter(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(SimplifiedFellegiSunter, self).__init__(
-            alphabet=alphabet,
+        super(FellegiSunter, self).__init__(
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
         )
+        self._simplified = simplified
+        self._mismatch_factor = mismatch_factor
 
-    def dist(self, src, tar):
-        """Return the Simplified Fellegi-Sunter distance of two strings.
+    def dist_abs(self, src, tar):
+        """Return the Fellegi-Sunter distance of two strings.
 
         Parameters
         ----------
@@ -114,18 +108,18 @@ class SimplifiedFellegiSunter(_TokenDistance):
         Returns
         -------
         float
-            Simplified Fellegi-Sunter distance
+            Fellegi-Sunter distance
 
         Examples
         --------
-        >>> cmp = SimplifiedFellegiSunter()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp = FellegiSunter()
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -133,14 +127,27 @@ class SimplifiedFellegiSunter(_TokenDistance):
 
         """
         self._tokenize(src, tar)
+        src_tokens, tar_tokens = self._get_tokens()
 
-        # a = self._intersection_card()
-        # b = self._src_only_card()
-        # c = self._tar_only_card()
-        # d = self._total_complement_card()
-        # n = self._population_card()
+        src_total = sum(src_tokens.values())
+        tar_total = sum(tar_tokens.values())
+        src_unique = len(src_tokens)
+        tar_unique = len(tar_tokens)
 
-        return 0.0
+        similarity = 0.0
+        for tok, count in self._intersection().items():
+            if self._simplified:
+                similarity += -log(count/tar_total)
+            else:
+                prob = count/tar_total
+                print(prob)
+                similarity -= log(1 + float_info.epsilon - exp(src_unique * tar_unique * log(1 + float_info.epsilon - prob * prob)))
+
+        for tok, count in self._src_only().items():
+            if self._simplified:
+                similarity -= -log(count/src_total)*self._mismatch_factor
+
+        return similarity
 
 
 if __name__ == '__main__':
