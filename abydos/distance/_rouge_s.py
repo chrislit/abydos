@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._rough_s.
+"""abydos.distance._rouge_s.
 
-Rough-S similarity
+Rouge-S similarity
 """
 
 from __future__ import (
@@ -32,19 +32,19 @@ from ._distance import _Distance
 from ..tokenizer import QSkipgrams
 from ..util._ncr import _ncr
 
-__all__ = ['RoughS']
+__all__ = ['RougeS']
 
 
-class RoughS(_Distance):
-    r"""Rough-S similarity.
+class RougeS(_Distance):
+    r"""Rouge-S similarity.
 
-    Rough-S similarity :cite:`Lin:2004`, operating on character-level skipgrams
+    Rouge-S similarity :cite:`Lin:2004`, operating on character-level skipgrams
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(self, qval=2, **kwargs):
-        """Initialize RoughS instance.
+        """Initialize RougeS instance.
 
         Parameters
         ----------
@@ -55,12 +55,12 @@ class RoughS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(RoughS, self).__init__(**kwargs)
+        super(RougeS, self).__init__(**kwargs)
         self._qval = qval
-        self._tokenizer = QSkipgrams(qval=qval)
+        self._tokenizer = QSkipgrams(qval=qval, start_stop='')
 
     def sim(self, src, tar, beta=8):
-        """Return the Rough-S similarity of two strings.
+        """Return the Rouge-S similarity of two strings.
 
         Parameters
         ----------
@@ -74,11 +74,11 @@ class RoughS(_Distance):
         Returns
         -------
         float
-            Rough-S similarity
+            Rouge-S similarity
 
         Examples
         --------
-        >>> cmp = RoughS()
+        >>> cmp = RougeS()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
