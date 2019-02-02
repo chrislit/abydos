@@ -48,7 +48,7 @@ class LCSstr(_Distance):
     """
 
     def __init__(self, normalizer=max, **kwargs):
-        """Initialize LCSseq.
+        r"""Initialize LCSseq.
 
         Parameters
         ----------
