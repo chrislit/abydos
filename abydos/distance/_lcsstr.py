@@ -54,9 +54,10 @@ class LCSstr(_Distance):
         ----------
         normalizer : function
             A normalization function for the normalized similarity & distance.
-            By default, the max of the lengths of the input strings. If sum is
-            supplied, the normalization proposed in :cite:`Radev:2001` is used,
-            i.e. :math:`\frac{2 \dot |LCS(src, tar)|}{|src| + |tar|}`.
+            By default, the max of the lengths of the input strings. If
+            lambda x: sum(x)/2.0 is supplied, the normalization proposed in
+            :cite:`Radev:2001` is used, i.e.
+            :math:`\frac{2 \dot |LCS(src, tar)|}{|src| + |tar|}`.
         **kwargs
             Arbitrary keyword arguments
 
@@ -168,9 +169,9 @@ class LCSstr(_Distance):
             return 1.0
         elif not src or not tar:
             return 0.0
-        elif self._normalizer == sum:
-            return 2 * len(self.lcsstr(src, tar)) / (len(src) + len(tar))
-        return len(self.lcsstr(src, tar)) / max(len(src), len(tar))
+        return len(self.lcsstr(src, tar)) / self._normalizer(
+            [len(src), len(tar)]
+        )
 
 
 @deprecated(
