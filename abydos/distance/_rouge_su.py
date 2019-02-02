@@ -89,7 +89,7 @@ class RougeSU(RougeS):
         .. versionadded:: 0.4.0
 
         """
-        return super(RougeSU, self).sim('$'+src, '$'+tar)
+        return super(RougeSU, self).sim('$' + src, '$' + tar)
 
 
 if __name__ == '__main__':
