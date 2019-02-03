@@ -112,7 +112,6 @@ class QSkipgrams(_Tokenizer):
 
         self._string_ss = self._string
         self._lambda = lambda_val
-        self._ordered_weights = []
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -130,7 +129,7 @@ class QSkipgrams(_Tokenizer):
 
         """
         self._string = string
-        self._ordered_list = []
+        self._ordered_tokens = []
         self._ordered_weights = []
 
         if not isinstance(self.qval, Iterable):
@@ -155,21 +154,17 @@ class QSkipgrams(_Tokenizer):
                 self._string_ss = string
 
             combs = list(combinations(enumerate(string), qval_i))
-            self._ordered_list += [''.join(l[1] for l in t) for t in combs]
+            self._ordered_tokens += [''.join(l[1] for l in t) for t in combs]
 
             if self._scaler == 'SSK':
                 self._ordered_weights += [
                     self._lambda ** (t[-1][0] - t[0][0] + len(t) - 1)
                     for t in combs
                 ]
+            else:
+                self._ordered_weights += [1]*len(combs)
 
-        if self._scaler == 'SSK':
-            for token, weight in zip(
-                self._ordered_list, self._ordered_weights
-            ):
-                self._tokens[token] += weight
-        else:
-            super(QSkipgrams, self).tokenize()
+        super(QSkipgrams, self).tokenize()
         return self
 
     def __repr__(self):

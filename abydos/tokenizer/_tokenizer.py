@@ -63,7 +63,8 @@ class _Tokenizer(object):
         self._scaler = scaler
         self._tokens = Counter()
         self._string = ''
-        self._ordered_list = []
+        self._ordered_tokens = []
+        self._ordered_weights = []
 
     def tokenize(self, string=None):
         """Tokenize the term and store it.
@@ -82,9 +83,15 @@ class _Tokenizer(object):
         """
         if string is not None:
             self._string = string
-            self._ordered_list = [self._string]
+            self._ordered_tokens = [self._string]
+            self._ordered_weights = [1]
 
-        self._tokens = Counter(self._ordered_list)
+        if self._scaler in {'SSK'}:
+            for token, weight in zip(self._ordered_tokens, self._ordered_weights):
+                self._tokens[token] += weight
+        else:
+            self._tokens = Counter(self._ordered_tokens)
+
         return self
 
     def count(self):
@@ -145,15 +152,14 @@ class _Tokenizer(object):
         .. versionadded:: 0.4.0
 
         """
-        if self._scaler is None:
-            return self._tokens
-        elif self._scaler == 'set':
+        if self._scaler == 'set':
             return Counter({key: 1 for key in self._tokens.keys()})
         elif callable(self._scaler):
             return Counter(
                 {key: self._scaler(val) for key, val in self._tokens.items()}
             )
-        raise ValueError('Unsupported scaler value.')
+        else:
+            return self._tokens
 
     def get_set(self):
         """Return the unique tokens as a set.
@@ -193,7 +199,7 @@ class _Tokenizer(object):
         .. versionadded:: 0.4.0
 
         """
-        return self._ordered_list
+        return self._ordered_tokens
 
 
 if __name__ == '__main__':

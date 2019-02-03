@@ -132,7 +132,7 @@ class QGrams(_Tokenizer):
 
         """
         self._string = string
-        self._ordered_list = []
+        self._ordered_tokens = []
 
         if not isinstance(self.qval, Iterable):
             self.qval = (self.qval,)
@@ -159,7 +159,7 @@ class QGrams(_Tokenizer):
                     self._string_ss = string
 
                 skip_i += 1
-                self._ordered_list += [
+                self._ordered_tokens += [
                     string[i : i + (qval_i * skip_i) : skip_i]
                     for i in range(len(string) - (qval_i - 1))
                 ]

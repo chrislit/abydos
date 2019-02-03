@@ -76,7 +76,7 @@ class CharacterTokenizer(_Tokenizer):
 
         """
         self._string = string
-        self._ordered_list = list(string)
+        self._ordered_tokens = list(string)
 
         super(CharacterTokenizer, self).tokenize()
         return self

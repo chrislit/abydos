@@ -77,13 +77,13 @@ class SAPSTokenizer(_Tokenizer):
         """
         self._string = string
 
-        self._ordered_list = []
+        self._ordered_tokens = []
 
         _vowels = set('aeiouyAEIOUY')
 
         words = self._string.split()
         for w in words:
-            self._ordered_list = []
+            self._ordered_tokens = []
             i = 0
             while i < len(w):
                 syll = w[i : i + 1]
@@ -101,7 +101,7 @@ class SAPSTokenizer(_Tokenizer):
                 ):
                     syll += w[i : i + 1]
                     i += 1
-                self._ordered_list.append(syll)
+                self._ordered_tokens.append(syll)
 
         super(SAPSTokenizer, self).tokenize()
         return self
