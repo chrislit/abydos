@@ -118,9 +118,9 @@ class LegaliPyTokenizer(_Tokenizer):
         """
         self._string = string
 
-        self._ordered_list = []
+        self._ordered_tokens = []
         for word in string.split():
-            self._ordered_list += LegaliPy(word, self._onsets)
+            self._ordered_tokens += LegaliPy(word, self._onsets)
 
         super(LegaliPyTokenizer, self).tokenize()
         return self

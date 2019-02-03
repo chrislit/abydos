@@ -66,7 +66,7 @@ class RegexpTokenizer(_Tokenizer):
         self.regexp = re.compile(regexp, flags)
 
         self._string = ''
-        self._ordered_list = []
+        self._ordered_tokens = []
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -84,7 +84,7 @@ class RegexpTokenizer(_Tokenizer):
 
         """
         self._string = string
-        self._ordered_list = self.regexp.findall(self._string)
+        self._ordered_tokens = self.regexp.findall(self._string)
         super(RegexpTokenizer, self).tokenize()
         return self
 
