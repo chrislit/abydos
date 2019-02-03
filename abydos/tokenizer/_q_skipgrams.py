@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Iterable
+from collections import Counter, Iterable
 from itertools import combinations
 
 from ._tokenizer import _Tokenizer
@@ -47,7 +47,7 @@ class QSkipgrams(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', scaler=None):
+    def __init__(self, qval=2, start_stop='$#', scaler=None, lambda_val=0.9):
         """Initialize QSkipgrams.
 
         Parameters
@@ -73,6 +73,11 @@ class QSkipgrams(_Tokenizer):
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
+                - 'SSK' : Applies weighting according to the substring kernel
+                  rules of :cite:`Lodhi:2002`.
+        lambda_val : float
+            A value in the range (0.0, 1.0) used for discouting gaps between
+            characters according to the method described in :cite:`Lodhi:2002`.
 
         Raises
         ------
@@ -106,6 +111,8 @@ class QSkipgrams(_Tokenizer):
             self.start_stop = ''
 
         self._string_ss = self._string
+        self._lambda = lambda_val
+        self._ordered_weights = []
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -124,6 +131,7 @@ class QSkipgrams(_Tokenizer):
         """
         self._string = string
         self._ordered_list = []
+        self._ordered_weights = []
 
         if not isinstance(self.qval, Iterable):
             self.qval = (self.qval,)
@@ -146,12 +154,22 @@ class QSkipgrams(_Tokenizer):
             if len(string) > len(self._string_ss):
                 self._string_ss = string
 
-            self._ordered_list += [
-                ''.join(l[1] for l in t)
-                for t in combinations(enumerate(string), qval_i)
-            ]
+            combs = list(combinations(enumerate(string), qval_i))
+            self._ordered_list += [''.join(l[1] for l in t) for t in combs]
 
-        super(QSkipgrams, self).tokenize()
+            if self._scaler == 'SSK':
+                self._ordered_weights += [
+                    self._lambda ** (t[-1][0] - t[0][0] + len(t) - 1)
+                    for t in combs
+                ]
+
+        if self._scaler == 'SSK':
+            for token, weight in zip(
+                self._ordered_list, self._ordered_weights
+            ):
+                self._tokens[token] += weight
+        else:
+            super(QSkipgrams, self).tokenize()
         return self
 
     def __repr__(self):
