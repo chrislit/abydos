@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Counter, Iterable
+from collections import Iterable
 from itertools import combinations
 
 from ._tokenizer import _Tokenizer
