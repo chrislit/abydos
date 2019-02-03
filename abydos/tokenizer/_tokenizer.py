@@ -60,7 +60,7 @@ class _Tokenizer(object):
         """
         super(_Tokenizer, self).__init__()
 
-        self.scaler = scaler
+        self._scaler = scaler
         self._tokens = Counter()
         self._string = ''
         self._ordered_list = []
@@ -145,13 +145,13 @@ class _Tokenizer(object):
         .. versionadded:: 0.4.0
 
         """
-        if self.scaler is None:
+        if self._scaler is None:
             return self._tokens
-        elif self.scaler == 'set':
+        elif self._scaler == 'set':
             return Counter({key: 1 for key in self._tokens.keys()})
-        elif callable(self.scaler):
+        elif callable(self._scaler):
             return Counter(
-                {key: self.scaler(val) for key, val in self._tokens.items()}
+                {key: self._scaler(val) for key, val in self._tokens.items()}
             )
         raise ValueError('Unsupported scaler value.')
 
