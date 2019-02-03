@@ -235,6 +235,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Simplified Fellegi-Sunter distance (:py:class:`.FellegiSunter`)
     - MinHash similarity (:py:class:`.MinHash`)
 
+    - BLEU similarity (:py:class:`.BLEU`)
     - Rouge-L similarity (:py:class:`.RougeL`)
     - Rouge-W similarity (:py:class:`.RougeW`)
     - Rouge-S similarity (:py:class:`.RougeS`)
@@ -334,6 +335,7 @@ from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._bennet_sigma import BennetSigma
 from ._bhattacharyya import Bhattacharyya
+from ._bleu import BLEU
 from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
@@ -737,10 +739,6 @@ __all__ = [
     'ReesLevenshtein',
     'RogersTanimoto',
     'RogotGoldberg',
-    'RougeL',
-    'RougeW',
-    'RougeS',
-    'RougeSU',
     'ScottPi',
     'Shape',
     'Size',
@@ -811,6 +809,11 @@ __all__ = [
     'JensenShannon',
     'FellegiSunter',
     'MinHash',
+    'BLEU',
+    'RougeL',
+    'RougeW',
+    'RougeS',
+    'RougeSU',
     'NeedlemanWunsch',
     'needleman_wunsch',
     'SmithWaterman',
