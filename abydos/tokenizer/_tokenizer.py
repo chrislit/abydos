@@ -87,7 +87,9 @@ class _Tokenizer(object):
             self._ordered_weights = [1]
 
         if self._scaler in {'SSK'}:
-            for token, weight in zip(self._ordered_tokens, self._ordered_weights):
+            for token, weight in zip(
+                self._ordered_tokens, self._ordered_weights
+            ):
                 self._tokens[token] += weight
         else:
             self._tokens = Counter(self._ordered_tokens)
