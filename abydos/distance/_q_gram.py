@@ -37,7 +37,7 @@ __all__ = ['QGram']
 class QGram(_TokenDistance):
     r"""q-gram distance.
 
-    For two sets X and Y and a population N, q-gram distance
+    For two multisets X and Y, q-gram distance
     :cite:`Ukkonen:1992` is
 
         .. math::
