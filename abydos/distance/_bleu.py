@@ -45,7 +45,7 @@ class BLEU(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, n_min=1, n_max=4, **kwargs):
+    def __init__(self, n_min=1, n_max=4, tokenizers=None, **kwargs):
         """Initialize BLEU instance.
 
         Parameters
@@ -54,6 +54,8 @@ class BLEU(_Distance):
             The minimum q-gram value for BLEU score calculation (1 by default)
         n_max : int
             The maximum q-gram value for BLEU score calculation (4 by default)
+        tokenizers : list
+            A list of initialized tokenizers
         **kwargs
             Arbitrary keyword arguments
 
@@ -61,8 +63,11 @@ class BLEU(_Distance):
 
         """
         super(BLEU, self).__init__(**kwargs)
-        self._n_min = n_min
-        self._n_max = n_max
+        self._tokenizers = (
+            [QGrams(qval=n, start_stop='') for n in range(n_min, n_max + 1)]
+            if tokenizers is None
+            else tokenizers
+        )
 
     def sim(self, src, tar):
         """Return the BLEU similarity of two strings.
@@ -100,10 +105,8 @@ class BLEU(_Distance):
         )
 
         bleu_sum = 0.0
-        n_grams = list(range(self._n_min, self._n_max + 1))
 
-        for n in n_grams:
-            tokenizer = QGrams(qval=n, start_stop='')
+        for tokenizer in self._tokenizers:
             src_tokens = tokenizer.tokenize(src).get_counter()
             tar_tokens = tokenizer.tokenize(tar).get_counter()
             tar_total = sum(tar_tokens.values())
@@ -113,7 +116,7 @@ class BLEU(_Distance):
                     min(src_tokens[tok], tar_tokens[tok]) for tok in tar_tokens
                 )
                 / tar_total
-            ) / len(n_grams)
+            ) / len(self._tokenizers)
 
         return brevity_penalty * exp(bleu_sum)
 
