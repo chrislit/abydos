@@ -45,7 +45,6 @@ Block edit distances:
     - Levenshtein distance with block operations
       (:py:class:`.BlockLevenshtein`)
     - Rees-Levenshtein distance (:py:class:`.ReesLevenshtein`)
-    - Cormode's Compression distance (:py:class:`.CormodeCompression`)
     - Cormode's LZ distance (:py:class:`.CormodeLZ`)
 
 Distance metrics developed for the US Census are included:
@@ -351,7 +350,6 @@ from ._consonni_todeschini_ii import ConsonniTodeschiniII
 from ._consonni_todeschini_iii import ConsonniTodeschiniIII
 from ._consonni_todeschini_iv import ConsonniTodeschiniIV
 from ._consonni_todeschini_v import ConsonniTodeschiniV
-from ._cormode_compression import CormodeCompression
 from ._cormode_lz import CormodeLZ
 from ._cosine import Cosine, dist_cosine, sim_cosine
 from ._damerau_levenshtein import (
@@ -596,7 +594,6 @@ __all__ = [
     'sim_mlipns',
     'Tichy',
     'BlockLevenshtein',
-    'CormodeCompression',
     'CormodeLZ',
     'JaroWinkler',
     'dist_jaro_winkler',
