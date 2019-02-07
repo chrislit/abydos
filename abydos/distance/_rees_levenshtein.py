@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from numpy import float as np_float
+from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -39,7 +39,9 @@ __all__ = ['ReesLevenshtein']
 class ReesLevenshtein(_Distance):
     r"""Rees-Levenshtein distance.
 
-    Rees-Levenshtein distance :cite:`CITATION`
+    Rees-Levenshtein distance :cite:`Rees:2014,Rees:2013` is the "Modified
+    Damerau-Levenshtein Distance Algorithm, created by Tony Rees as part of
+    Taxamatch.
 
     .. versionadded:: 0.4.0
     """
@@ -63,7 +65,7 @@ class ReesLevenshtein(_Distance):
         super(ReesLevenshtein, self).__init__(**kwargs)
         self._normalizer = normalizer
 
-    def dist_abs(self, p_str1, p_str2, p_block_limit=2):
+    def dist_abs(self, p_str1, p_str2, p_block_limit=4):
         """Return the Rees-Levenshtein distance of two strings.
 
         This is a straightforward port of the PL/SQL implementation at
@@ -111,6 +113,19 @@ class ReesLevenshtein(_Distance):
         if v_str1_length == 1 and v_str2_length == 1:
             return 1
 
+        def _substr(string, start, length=None):
+            if start > 0:
+                start -= 1
+            else:
+                start += len(string) - 1
+
+            if length is None:
+                end = len(string)
+            else:
+                end = start + length
+
+            return string[start:end]
+
         v_temp_str1 = str(p_str1)
         v_temp_str2 = str(p_str2)
 
@@ -134,9 +149,7 @@ class ReesLevenshtein(_Distance):
             return 1
 
         # create table (NB: this is transposed relative to the PL/SQL version)
-        d_mat = np_zeros(
-            (v_str1_length + 1, v_str2_length + 1), dtype=np_float
-        )
+        d_mat = np_zeros((v_str1_length + 1, v_str2_length + 1), dtype=np_int)
 
         # enter values in first (leftmost) column
         for i in range(1, v_str1_length + 1):
@@ -146,7 +159,7 @@ class ReesLevenshtein(_Distance):
             d_mat[0, j] = j
 
             for i in range(1, v_str1_length + 1):
-                if v_temp_str1[i] == v_temp_str2[j]:
+                if v_temp_str1[i - 1] == v_temp_str2[j - 1]:
                     v_this_cost = 0
                 else:
                     v_this_cost = 1
@@ -155,45 +168,38 @@ class ReesLevenshtein(_Distance):
                 # character transpositions
                 # that includes calculation of original Levenshtein distance
                 # when no transposition found
-                v_temp_block_length = min(
-                    v_str1_length / 2, v_str2_length / 2, p_block_limit
+                v_temp_block_length = int(
+                    min(v_str1_length / 2, v_str2_length / 2, p_block_limit)
                 )
+
                 while v_temp_block_length >= 1:
                     if (
-                        i >= v_temp_block_length * 2
-                        and j >= v_temp_block_length * 2
-                        and v_temp_str1[
-                            i
-                            - v_temp_block_length * 2
-                            - 1 : i
-                            - v_temp_block_length * 2
-                            - 1
-                            + v_temp_block_length
-                        ]
-                        == v_temp_str2[
-                            j
-                            - v_temp_block_length
-                            - 1 : j
-                            - v_temp_block_length
-                            - 1
-                            + v_temp_block_length
-                        ]
-                        and v_temp_str1[
-                            i
-                            - v_temp_block_length
-                            - 1 : i
-                            - v_temp_block_length
-                            - 1
-                            + v_temp_block_length
-                        ]
-                        == v_temp_str2[
-                            j
-                            - v_temp_block_length * 2
-                            - 1 : j
-                            - v_temp_block_length * 2
-                            - 1
-                            + v_temp_block_length
-                        ]
+                        (i >= v_temp_block_length * 2)
+                        and (j >= v_temp_block_length * 2)
+                        and (
+                            _substr(
+                                v_temp_str1,
+                                i - v_temp_block_length * 2 - 1,
+                                v_temp_block_length,
+                            )
+                            == _substr(
+                                v_temp_str2,
+                                j - v_temp_block_length - 1,
+                                v_temp_block_length,
+                            )
+                        )
+                        and (
+                            _substr(
+                                v_temp_str1,
+                                i - v_temp_block_length - 1,
+                                v_temp_block_length,
+                            )
+                            == _substr(
+                                v_temp_str2,
+                                j - v_temp_block_length * 2 - 1,
+                                v_temp_block_length,
+                            )
+                        )
                     ):
                         # transposition found
                         d_mat[i, j] = min(
@@ -216,6 +222,7 @@ class ReesLevenshtein(_Distance):
                             d_mat[i - 1, j - 1] + v_this_cost,
                         )
                     v_temp_block_length -= 1
+
         return d_mat[v_str1_length, v_str2_length]
 
     def dist(self, src, tar):
