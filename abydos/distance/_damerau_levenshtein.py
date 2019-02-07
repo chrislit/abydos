@@ -135,9 +135,7 @@ class DamerauLevenshtein(_Distance):
                 + 'must not be less than the cost of an insert plus a delete.'
             )
 
-        d_mat = np_zeros((len(src)) * (len(tar)), dtype=np_int).reshape(
-            (len(src), len(tar))
-        )
+        d_mat = np_zeros((len(src), len(tar)), dtype=np_int)
 
         if src[0] != tar[0]:
             d_mat[0, 0] = min(sub_cost, ins_cost + del_cost)
