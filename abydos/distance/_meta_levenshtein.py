@@ -28,7 +28,16 @@ from __future__ import (
     unicode_literals,
 )
 
+from collections import Counter
+from math import log1p
+
+from numpy import int as np_float
+from numpy import zeros as np_zeros
+
 from ._distance import _Distance
+from ._jaro_winkler import JaroWinkler
+from ..corpus import UnigramCorpus
+from ..tokenizer import QGrams, WhitespaceTokenizer
 
 __all__ = ['MetaLevenshtein']
 
@@ -36,26 +45,60 @@ __all__ = ['MetaLevenshtein']
 class MetaLevenshtein(_Distance):
     r"""Meta-Levenshtein distance.
 
-    Meta-Levenshtein distance :cite:`CITATION`
+    Meta-Levenshtein distance :cite:`Moreau:2008`
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, tokenizer=None, corpus=None, metric=None, normalizer=max, **kwargs):
         """Initialize MetaLevenshtein instance.
 
         Parameters
         ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        corpus : UnigramCorpus
+            A unigram corpus :py:class:`UnigramCorpus`. If None, a corpus will
+            be created from the two words when a similarity function is called.
+        metric : _Distance
+            A string distance measure class for making soft matches, by default
+            Jaro-Winkler.
+        normalizer : function
+            A function that takes an list and computes a normalization term
+            by which the edit distance is divided (max by default). Another
+            good option is the sum function.
         **kwargs
             Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
 
 
         .. versionadded:: 0.4.0
 
         """
         super(MetaLevenshtein, self).__init__(**kwargs)
+        self._corpus = corpus
+        self._metric = metric
+        self._normalizer = normalizer
 
-    def dist(self, src, tar):
+        qval = 2 if 'qval' not in self.params else self.params['qval']
+        self.params['tokenizer'] = (
+            tokenizer
+            if tokenizer is not None
+            else WhitespaceTokenizer()
+            if qval == 0
+            else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
+        )
+
+        if self._metric is None:
+            self._metric = JaroWinkler()
+
+    def dist_abs(self, src, tar):
         """Return the Meta-Levenshtein distance of two strings.
 
         Parameters
@@ -73,21 +116,118 @@ class MetaLevenshtein(_Distance):
         Examples
         --------
         >>> cmp = MetaLevenshtein()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
+        src_tok = self.params['tokenizer'].tokenize(src)
+        src_ordered = src_tok.get_list()
+        src_tok = src_tok.get_counter()
 
-        return 0.0
+        tar_tok = self.params['tokenizer'].tokenize(tar)
+        tar_ordered = tar_tok.get_list()
+        tar_tok = tar_tok.get_counter()
+
+        if self._corpus is None:
+            corpus = UnigramCorpus(word_tokenizer=self.params['tokenizer'])
+            corpus.add_document(src)
+            corpus.add_document(tar)
+        else:
+            corpus = self._corpus
+
+        dists = Counter()
+        s_toks = set(src_tok.keys())
+        t_toks = set(tar_tok.keys())
+        for s_tok in s_toks:
+            for t_tok in t_toks:
+                dists[(s_tok, t_tok)] = self._metric.dist(s_tok, t_tok) if s_tok != t_tok else 0
+
+        vws_dict = {}
+        vwt_dict = {}
+        for token in src_tok.keys():
+            vws_dict[token] = log1p(src_tok[token]) * corpus.idf(token)
+        for token in tar_tok.keys():
+            vwt_dict[token] = log1p(tar_tok[token]) * corpus.idf(token)
+
+        def _dist(s_tok, t_tok):
+            return dists[(s_tok, t_tok)]*vws_dict[s_tok]*vwt_dict[t_tok]
+
+        if src == tar:
+            return 0
+        if not src:
+            return len(tar_ordered)
+        if not tar:
+            return len(src_ordered)
+
+        d_mat = np_zeros((len(src_ordered) + 1, len(tar_ordered) + 1), dtype=np_float)
+        for i in range(len(src_ordered) + 1):
+            d_mat[i, 0] = i
+        for j in range(len(tar_ordered) + 1):
+            d_mat[0, j] = j
+
+        for i in range(len(src_ordered)):
+            for j in range(len(tar_ordered)):
+                d_mat[i + 1, j + 1] = min(
+                    d_mat[i + 1, j] + 1,  # ins
+                    d_mat[i, j + 1] + 1,  # del
+                    d_mat[i, j] + _dist(src[i], tar[j]),  # sub/==
+                )
+
+        return d_mat[len(src_ordered), len(tar_ordered)]
+
+    def dist(self, src, tar):
+        """Return the normalized Levenshtein distance between two strings.
+
+        The Levenshtein distance is normalized by dividing the Levenshtein
+        distance (calculated by any of the three supported methods) by the
+        greater of the number of characters in src times the cost of a delete
+        and the number of characters in tar times the cost of an insert.
+        For the case in which all operations have :math:`cost = 1`, this is
+        equivalent to the greater of the length of the two strings src & tar.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            The normalized Levenshtein distance between src & tar
+
+        Examples
+        --------
+        >>> cmp = MetaLevenshtein()
+        >>> round(cmp.dist('cat', 'hat'), 12)
+        0.333333333333
+        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        0.6
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.875
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.75
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
+        """
+        if src == tar:
+            return 0
+
+        return self.dist_abs(src, tar) / self._normalizer([len(src), len(tar)])
 
 
 if __name__ == '__main__':
