@@ -46,11 +46,13 @@ class ReesLevenshtein(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, normalizer=max, **kwargs):
+    def __init__(self, block_limit=2, normalizer=max, **kwargs):
         """Initialize ReesLevenshtein instance.
 
         Parameters
         ----------
+        block_limit : int
+            The block length limit
         normalizer : function
             A function that takes an list and computes a normalization term
             by which the edit distance is divided (max by default). Another
@@ -64,8 +66,9 @@ class ReesLevenshtein(_Distance):
         """
         super(ReesLevenshtein, self).__init__(**kwargs)
         self._normalizer = normalizer
+        self._block_limit = block_limit
 
-    def dist_abs(self, p_str1, p_str2, p_block_limit=4):
+    def dist_abs(self, src, tar):
         """Return the Rees-Levenshtein distance of two strings.
 
         This is a straightforward port of the PL/SQL implementation at
@@ -73,12 +76,10 @@ class ReesLevenshtein(_Distance):
 
         Parameters
         ----------
-        p_str1 : str
+        src : str
             Source string for comparison
-        p_str2 : str
+        tar : str
             Target string for comparison
-        p_block_limit : int
-            The block length limit
 
         Returns
         -------
@@ -101,15 +102,15 @@ class ReesLevenshtein(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        v_str1_length = len(p_str1)
-        v_str2_length = len(p_str2)
+        v_str1_length = len(src)
+        v_str2_length = len(tar)
 
-        if p_str2 == p_str1:
+        if tar == src:
             return 0
-        if not p_str1:
-            return len(p_str2)
-        if not p_str2:
-            return len(p_str1)
+        if not src:
+            return len(tar)
+        if not tar:
+            return len(src)
         if v_str1_length == 1 and v_str2_length == 1:
             return 1
 
@@ -126,8 +127,8 @@ class ReesLevenshtein(_Distance):
 
             return string[start:end]
 
-        v_temp_str1 = str(p_str1)
-        v_temp_str2 = str(p_str2)
+        v_temp_str1 = str(src)
+        v_temp_str2 = str(tar)
 
         # first trim common leading characters
         while v_temp_str1[:1] == v_temp_str2[:1]:
@@ -169,7 +170,9 @@ class ReesLevenshtein(_Distance):
                 # that includes calculation of original Levenshtein distance
                 # when no transposition found
                 v_temp_block_length = int(
-                    min(v_str1_length / 2, v_str2_length / 2, p_block_limit)
+                    min(
+                        v_str1_length / 2, v_str2_length / 2, self._block_limit
+                    )
                 )
 
                 while v_temp_block_length >= 1:
