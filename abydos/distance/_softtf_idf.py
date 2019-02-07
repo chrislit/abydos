@@ -139,8 +139,6 @@ class SoftTFIDF(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        self._tokenize(src, tar)
-
         src_tok, tar_tok = self._get_tokens()
 
         if self._corpus is None:
