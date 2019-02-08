@@ -239,15 +239,11 @@ class Covington(_Distance):
 
             return self._weights[5]
 
-        def _add_nodes(cost, src, tar, src_align, tar_align):
-            match = None
-            gap_src = None
-            gap_tar = None
-
+        def _add_alignments(cost, src, tar, src_align, tar_align):
             cost += _cost(src_align, tar_align)
 
             if src and tar:
-                match = _add_nodes(
+                _add_alignments(
                     cost,
                     src[1:],
                     tar[1:],
@@ -255,30 +251,22 @@ class Covington(_Distance):
                     tar_align + tar[0],
                 )
             if tar and tar_align[-1] != '-':
-                gap_src = _add_nodes(
+                _add_alignments(
                     cost, src, tar[1:], src_align + '-', tar_align + tar[0]
                 )
             if src and src_align[-1] != '-':
-                gap_tar = _add_nodes(
+                _add_alignments(
                     cost, src[1:], tar, src_align + src[0], tar_align + '-'
                 )
 
             if not src and not tar:
                 terminals.append(Alignment(src_align, tar_align, cost))
 
-            return [
-                [src_align, tar_align, cost],
-                [gap_src],
-                [gap_tar],
-                [match],
-            ]
+            return
 
-        _tree = [
-            ['', '', 0],
-            [_add_nodes(0, src, tar[1:], '-', tar[0])],
-            [_add_nodes(0, src[1:], tar, src[0], '-')],
-            [_add_nodes(0, src[1:], tar[1:], src[0], tar[0])],
-        ]
+        _add_alignments(0, src, tar[1:], '-', tar[0])
+        _add_alignments(0, src[1:], tar, src[0], '-')
+        _add_alignments(0, src[1:], tar[1:], src[0], tar[0])
 
         terminals = sorted(terminals, key=lambda al: al.score)
 
