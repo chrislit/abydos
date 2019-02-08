@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._meteor.
+"""abydos.distance._flexmetric.
 
-METEOR similarity
+FlexMetric distance
 """
 
 from __future__ import (
@@ -30,19 +30,19 @@ from __future__ import (
 
 from ._distance import _Distance
 
-__all__ = ['METEOR']
+__all__ = ['FlexMetric']
 
 
-class METEOR(_Distance):
-    r"""METEOR similarity.
+class FlexMetric(_Distance):
+    r"""FlexMetric distance.
 
-    METEOR similarity :cite:`CITATION`
+    FlexMetric distance :cite:`CITATION`
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(self, **kwargs):
-        """Initialize METEOR instance.
+        """Initialize FlexMetric instance.
 
         Parameters
         ----------
@@ -53,10 +53,10 @@ class METEOR(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(METEOR, self).__init__(**kwargs)
+        super(FlexMetric, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
-        """Return the METEOR similarity of two strings.
+    def dist(self, src, tar):
+        """Return the FlexMetric distance of two strings.
 
         Parameters
         ----------
@@ -68,18 +68,18 @@ class METEOR(_Distance):
         Returns
         -------
         float
-            METEOR similarity
+            FlexMetric distance
 
         Examples
         --------
-        >>> cmp = METEOR()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp = FlexMetric()
+        >>> cmp.dist('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
 
