@@ -241,7 +241,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Rouge-S similarity (:py:class:`.RougeS`)
     - Rouge-SU similarity (:py:class:`.RougeSU`)
     - METEOR similarity (:py:class:`.METEOR`)
-    - NIST similarity (:py:class:`.NIST`)
 
     - Positional Q-Gram Dice distance (:py:class:`.PositionalQGramDice`)
     - Positional Q-Gram Jaccard distance (:py:class:`.PositionalQGramJaccard`)
@@ -477,7 +476,6 @@ from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
-from ._nist import NIST
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
 from ._pattern import Pattern
@@ -826,7 +824,6 @@ __all__ = [
     'RougeS',
     'RougeSU',
     'METEOR',
-    'NIST',
     'PositionalQGramDice',
     'PositionalQGramJaccard',
     'PositionalQGramOverlap',
