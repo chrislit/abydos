@@ -35,6 +35,7 @@ These include traditional Levenshtein edit distance and related algorithms:
       (:py:class:`.distance.SAPS`)
     - Meta-Levenshtein distance (:py:class:`.MetaLevenshtein`)
     - Covington distance (:py:class:`.Covington`)
+    - FlexMetric distance (:py:class:`.FlexMetric`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
@@ -240,7 +241,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Rouge-W similarity (:py:class:`.RougeW`)
     - Rouge-S similarity (:py:class:`.RougeS`)
     - Rouge-SU similarity (:py:class:`.RougeSU`)
-    - METEOR similarity (:py:class:`.METEOR`)
 
     - Positional Q-Gram Dice distance (:py:class:`.PositionalQGramDice`)
     - Positional Q-Gram Jaccard distance (:py:class:`.PositionalQGramJaccard`)
@@ -385,6 +385,7 @@ from ._fellegi_sunter import FellegiSunter
 from ._fidelity import Fidelity
 from ._fleiss import Fleiss
 from ._fleiss_levin_paik import FleissLevinPaik
+from ._flexmetric import FlexMetric
 from ._forbes_i import ForbesI
 from ._forbes_ii import ForbesII
 from ._fossum import Fossum
@@ -460,7 +461,6 @@ from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
 from ._meta_levenshtein import MetaLevenshtein
-from ._meteor import METEOR
 from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
@@ -598,6 +598,7 @@ __all__ = [
     'SAPS',
     'MetaLevenshtein',
     'Covington',
+    'FlexMetric',
     'Hamming',
     'hamming',
     'dist_hamming',
@@ -823,7 +824,6 @@ __all__ = [
     'RougeW',
     'RougeS',
     'RougeSU',
-    'METEOR',
     'PositionalQGramDice',
     'PositionalQGramJaccard',
     'PositionalQGramOverlap',
