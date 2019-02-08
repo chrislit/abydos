@@ -36,7 +36,7 @@ __all__ = ['FlexMetric']
 class FlexMetric(_Distance):
     r"""FlexMetric distance.
 
-    FlexMetric distance :cite:`CITATION`
+    FlexMetric distance :cite:`Kempken:2005`
 
     .. versionadded:: 0.4.0
     """
