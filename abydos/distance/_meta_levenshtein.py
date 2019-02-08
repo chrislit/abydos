@@ -136,6 +136,13 @@ class MetaLevenshtein(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+        if not src:
+            return len(src)
+        if not tar:
+            return len(tar)
+
         src_tok = self.params['tokenizer'].tokenize(src)
         src_ordered = src_tok.get_list()
         src_tok = src_tok.get_counter()
@@ -169,13 +176,6 @@ class MetaLevenshtein(_Distance):
 
         def _dist(s_tok, t_tok):
             return dists[(s_tok, t_tok)] * vws_dict[s_tok] * vwt_dict[t_tok]
-
-        if src == tar:
-            return 0
-        if not src:
-            return len(tar_ordered)
-        if not tar:
-            return len(src_ordered)
 
         d_mat = np_zeros(
             (len(src_ordered) + 1, len(tar_ordered) + 1), dtype=np_float
