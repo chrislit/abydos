@@ -34,6 +34,7 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Syllable Alignment Pattern Searching similarity
       (:py:class:`.distance.SAPS`)
     - Meta-Levenshtein distance (:py:class:`.MetaLevenshtein`)
+    - Covington distance (:py:class:`.Covington`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
@@ -239,6 +240,12 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Rouge-W similarity (:py:class:`.RougeW`)
     - Rouge-S similarity (:py:class:`.RougeS`)
     - Rouge-SU similarity (:py:class:`.RougeSU`)
+    - METEOR similarity (:py:class:`.METEOR`)
+    - NIST similarity (:py:class:`.NIST`)
+
+    - Positional Q-Gram Dice distance (:py:class:`.PositionalQGramDice`)
+    - Positional Q-Gram Jaccard distance (:py:class:`.PositionalQGramJaccard`)
+    - Positional Q-Gram Overlap distance (:py:class:`.PositionalQGramOverlap`)
 
 Three popular sequence alignment algorithms are provided:
 
@@ -352,6 +359,7 @@ from ._consonni_todeschini_iv import ConsonniTodeschiniIV
 from ._consonni_todeschini_v import ConsonniTodeschiniV
 from ._cormode_lz import CormodeLZ
 from ._cosine import Cosine, dist_cosine, sim_cosine
+from ._covington import Covington
 from ._damerau_levenshtein import (
     DamerauLevenshtein,
     damerau_levenshtein,
@@ -453,6 +461,7 @@ from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
 from ._meta_levenshtein import MetaLevenshtein
+from ._meteor import METEOR
 from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
@@ -468,6 +477,7 @@ from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
+from ._nist import NIST
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
 from ._pattern import Pattern
@@ -477,6 +487,9 @@ from ._pearson_ii import PearsonII
 from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
+from ._positional_q_gram_dice import PositionalQGramDice
+from ._positional_q_gram_jaccard import PositionalQGramJaccard
+from ._positional_q_gram_overlap import PositionalQGramOverlap
 from ._prefix import Prefix, dist_prefix, sim_prefix
 from ._q_gram import QGram
 from ._quantitative_cosine import QuantitativeCosine
@@ -585,6 +598,8 @@ __all__ = [
     'dist_indel',
     'sim_indel',
     'SAPS',
+    'MetaLevenshtein',
+    'Covington',
     'Hamming',
     'hamming',
     'dist_hamming',
@@ -721,7 +736,6 @@ __all__ = [
     'MaxwellPilliner',
     'McConnaughey',
     'McEwenMichael',
-    'MetaLevenshtein',
     'Mountford',
     'MutualInformation',
     'MSContingency',
@@ -811,6 +825,11 @@ __all__ = [
     'RougeW',
     'RougeS',
     'RougeSU',
+    'METEOR',
+    'NIST',
+    'PositionalQGramDice',
+    'PositionalQGramJaccard',
+    'PositionalQGramOverlap',
     'NeedlemanWunsch',
     'needleman_wunsch',
     'SmithWaterman',
