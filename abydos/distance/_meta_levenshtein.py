@@ -190,7 +190,8 @@ class MetaLevenshtein(_Distance):
                 d_mat[i + 1, j + 1] = min(
                     d_mat[i + 1, j] + 1,  # ins
                     d_mat[i, j + 1] + 1,  # del
-                    d_mat[i, j] + _dist(src_ordered[i], tar_ordered[j]),  # sub/==
+                    d_mat[i, j]
+                    + _dist(src_ordered[i], tar_ordered[j]),  # sub/==
                 )
 
         return d_mat[len(src_ordered), len(tar_ordered)]
