@@ -31,7 +31,7 @@ from __future__ import (
 from collections import Counter
 from math import log1p
 
-from numpy import int as np_float
+from numpy import float as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -50,7 +50,14 @@ class MetaLevenshtein(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, corpus=None, metric=None, normalizer=max, **kwargs):
+    def __init__(
+        self,
+        tokenizer=None,
+        corpus=None,
+        metric=None,
+        normalizer=max,
+        **kwargs
+    ):
         """Initialize MetaLevenshtein instance.
 
         Parameters
@@ -149,7 +156,9 @@ class MetaLevenshtein(_Distance):
         t_toks = set(tar_tok.keys())
         for s_tok in s_toks:
             for t_tok in t_toks:
-                dists[(s_tok, t_tok)] = self._metric.dist(s_tok, t_tok) if s_tok != t_tok else 0
+                dists[(s_tok, t_tok)] = (
+                    self._metric.dist(s_tok, t_tok) if s_tok != t_tok else 0
+                )
 
         vws_dict = {}
         vwt_dict = {}
@@ -159,7 +168,7 @@ class MetaLevenshtein(_Distance):
             vwt_dict[token] = log1p(tar_tok[token]) * corpus.idf(token)
 
         def _dist(s_tok, t_tok):
-            return dists[(s_tok, t_tok)]*vws_dict[s_tok]*vwt_dict[t_tok]
+            return dists[(s_tok, t_tok)] * vws_dict[s_tok] * vwt_dict[t_tok]
 
         if src == tar:
             return 0
@@ -168,7 +177,9 @@ class MetaLevenshtein(_Distance):
         if not tar:
             return len(src_ordered)
 
-        d_mat = np_zeros((len(src_ordered) + 1, len(tar_ordered) + 1), dtype=np_float)
+        d_mat = np_zeros(
+            (len(src_ordered) + 1, len(tar_ordered) + 1), dtype=np_float
+        )
         for i in range(len(src_ordered) + 1):
             d_mat[i, 0] = i
         for j in range(len(tar_ordered) + 1):
@@ -179,7 +190,7 @@ class MetaLevenshtein(_Distance):
                 d_mat[i + 1, j + 1] = min(
                     d_mat[i + 1, j] + 1,  # ins
                     d_mat[i, j + 1] + 1,  # del
-                    d_mat[i, j] + _dist(src[i], tar[j]),  # sub/==
+                    d_mat[i, j] + _dist(src_ordered[i], tar_ordered[j]),  # sub/==
                 )
 
         return d_mat[len(src_ordered), len(tar_ordered)]
