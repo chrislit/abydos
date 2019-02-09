@@ -178,14 +178,19 @@ class FlexMetric(_Distance):
         for j in range(1, tar_len + 1):
             d_mat[0, j] = d_mat[0, j - 1] + self._cost('', -1, tar, j - 1)
 
+        src_lc = src.lower()
+        tar_lc = tar.lower()
+
         for i in range(src_len):
             for j in range(tar_len):
                 d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + self._cost('', -1, tar, j),  # ins
-                    d_mat[i, j + 1] + self._cost(src, i, '', -1),  # del
+                    d_mat[i + 1, j] + self._cost('', -1, tar_lc, j),  # ins
+                    d_mat[i, j + 1] + self._cost(src_lc, i, '', -1),  # del
                     d_mat[i, j]
                     + (
-                        self._cost(src, i, tar, j) if src[i] != tar[j] else 0
+                        self._cost(src_lc, i, tar_lc, j)
+                        if src[i] != tar[j]
+                        else 0
                     ),  # sub/==
                 )
 
