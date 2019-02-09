@@ -28,6 +28,9 @@ from __future__ import (
     unicode_literals,
 )
 
+from numpy import float as np_float
+from numpy import zeros as np_zeros
+
 from ._distance import _Distance
 
 __all__ = ['FlexMetric']
@@ -41,11 +44,28 @@ class FlexMetric(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(
+        self, normalizer=max, indel_costs=None, subst_costs=None, **kwargs
+    ):
         """Initialize FlexMetric instance.
 
         Parameters
         ----------
+        normalizer : function
+            A function that takes an list and computes a normalization term
+            by which the edit distance is divided (max by default). Another
+            good option is the sum function.
+        indel_costs : list of tuples
+            A list of insertion and deletion costs. Each list element should
+            be a tuple consisting of an iterable (sets are best) and a float
+            value. The iterable consists of those letters whose insertion
+            or deletion has a cost equal to the float value.
+        subst_costs : list of tuples
+            A list of substitution costs. Each list element should
+            be a tuple consisting of an iterable (sets are best) and a float
+            value. The iterable consists of the letters in each letter class,
+            which may be substituted for each other at cost equal to the float
+            value.
         **kwargs
             Arbitrary keyword arguments
 
@@ -54,8 +74,64 @@ class FlexMetric(_Distance):
 
         """
         super(FlexMetric, self).__init__(**kwargs)
+        self._normalizer = normalizer
 
-    def dist(self, src, tar):
+        if indel_costs is None:
+            self._indel_costs = [
+                (frozenset('dtch'), 0.4),
+                (frozenset('e'), 0.5),
+                (frozenset('u'), 0.9),
+                (frozenset('rpn'), 0.95),
+            ]
+        else:
+            self._indel_costs = indel_costs
+        if subst_costs is None:
+            self._subst_costs = [
+                (frozenset('szß'), 0.1),
+                (frozenset('dt'), 0.1),
+                (frozenset('iy'), 0.1),
+                (frozenset('ckq'), 0.1),
+                (frozenset('eä'), 0.1),
+                (frozenset('uüv'), 0.1),
+                (frozenset('iü'), 0.1),
+                (frozenset('fv'), 0.1),
+                (frozenset('zc'), 0.1),
+                (frozenset('ij'), 0.1),
+                (frozenset('bp'), 0.1),
+                (frozenset('eoö'), 0.2),
+                (frozenset('aä'), 0.2),
+                (frozenset('mbp'), 0.4),
+                (frozenset('uw'), 0.4),
+                (frozenset('uo'), 0.8),
+                (frozenset('aeiouy'), 0.9),
+            ]
+        else:
+            self._subst_costs = sorted(subst_costs, key=lambda s: s[1])
+
+    def _cost(self, src, s_pos, tar, t_pos):
+        if s_pos == -1:
+            if t_pos > 0 and tar[t_pos - 1] == tar[t_pos]:
+                return 0.0
+            for letter_set in self._indel_costs:
+                if tar[t_pos] in letter_set[0]:
+                    return letter_set[1]
+            else:
+                return 1.0
+        elif t_pos == -1:
+            if s_pos > 0 and src[s_pos - 1] == src[s_pos]:
+                return 0.0
+            for letter_set in self._indel_costs:
+                if src[s_pos] in letter_set[0]:
+                    return letter_set[1]
+            else:
+                return 1.0
+        for letter_set in self._subst_costs:
+            if src[s_pos] in letter_set[0] and tar[t_pos] in letter_set[0]:
+                return letter_set[1]
+        else:
+            return 1.0
+
+    def dist_abs(self, src, tar):
         """Return the FlexMetric distance of two strings.
 
         Parameters
@@ -73,6 +149,66 @@ class FlexMetric(_Distance):
         Examples
         --------
         >>> cmp = FlexMetric()
+        >>> cmp.dist_abs('cat', 'hat')
+        0.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        src_len = len(src)
+        tar_len = len(tar)
+
+        if src == tar:
+            return 0
+        if not src:
+            return sum(self._cost('', -1, tar, j) for j in range(len(tar)))
+        if not tar:
+            return sum(self._cost(src, i, '', -1) for i in range(len(src)))
+
+        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+        for i in range(1, src_len + 1):
+            d_mat[i, 0] = d_mat[i - 1, 0] + self._cost(src, i - 1, '', -1)
+        for j in range(1, tar_len + 1):
+            d_mat[0, j] = d_mat[0, j - 1] + self._cost('', -1, tar, j - 1)
+
+        for i in range(src_len):
+            for j in range(tar_len):
+                d_mat[i + 1, j + 1] = min(
+                    d_mat[i + 1, j] + self._cost('', -1, tar, j),  # ins
+                    d_mat[i, j + 1] + self._cost(src, i, '', -1),  # del
+                    d_mat[i, j]
+                    + (
+                        self._cost(src, i, tar, j) if src[i] != tar[j] else 0
+                    ),  # sub/==
+                )
+
+        return d_mat[src_len, tar_len]
+
+    def dist(self, src, tar):
+        """Return the normalized FlexMetric distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized FlexMetric distance
+
+        Examples
+        --------
+        >>> cmp = FlexMetric()
         >>> cmp.dist('cat', 'hat')
         0.0
         >>> cmp.dist('Niall', 'Neil')
@@ -86,8 +222,7 @@ class FlexMetric(_Distance):
         .. versionadded:: 0.4.0
 
         """
-
-        return 0.0
+        return self.dist_abs(src, tar) / self._normalizer([len(src), len(tar)])
 
 
 if __name__ == '__main__':
