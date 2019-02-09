@@ -35,6 +35,7 @@ These include traditional Levenshtein edit distance and related algorithms:
       (:py:class:`.distance.SAPS`)
     - Meta-Levenshtein distance (:py:class:`.MetaLevenshtein`)
     - Covington distance (:py:class:`.Covington`)
+    - ALINE distance (:py:class:`.ALINE`)
     - FlexMetric distance (:py:class:`.FlexMetric`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
@@ -49,11 +50,12 @@ Block edit distances:
     - Rees-Levenshtein distance (:py:class:`.ReesLevenshtein`)
     - Cormode's LZ distance (:py:class:`.CormodeLZ`)
 
-Distance metrics developed for the US Census are included:
+Distance metrics developed for the US Census or derived from them are included:
 
     - Jaro distance (:py:class:`.JaroWinkler` with ``mode='Jaro'``)
     - Jaro-Winkler distance (:py:class:`.JaroWinkler`)
     - Strcmp95 distance (:py:class:`.Strcmp95`)
+    - Stoilos-Stamou-Kollias similarity (:py:class:`.StoilosStamouKollias`)
 
 A large set of multi-set token-based distance metrics are provided, including:
 
@@ -324,6 +326,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._aline import ALINE
 from ._ample import AMPLE
 from ._anderberg import Anderberg
 from ._andres_marzo_delta import AndresMarzoDelta
@@ -528,6 +531,7 @@ from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
 from ._steffensen import Steffensen
 from ._stiles import Stiles
+from ._stoilos_stamou_kollias import StoilosStamouKollias
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._stuart_tau import StuartTau
 from ._suffix import Suffix, dist_suffix, sim_suffix
@@ -598,6 +602,7 @@ __all__ = [
     'SAPS',
     'MetaLevenshtein',
     'Covington',
+    'ALINE',
     'FlexMetric',
     'Hamming',
     'hamming',
@@ -615,6 +620,7 @@ __all__ = [
     'Strcmp95',
     'dist_strcmp95',
     'sim_strcmp95',
+    'StoilosStamouKollias',
     'Minkowski',
     'minkowski',
     'dist_minkowski',
