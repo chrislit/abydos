@@ -36,7 +36,7 @@ __all__ = ['StoilosStamouKollias']
 class StoilosStamouKollias(_Distance):
     r"""Stoilos-Stamou-Kollias similarity.
 
-    Stoilos-Stamou-Kollias similarity :cite:`CITATION`
+    Stoilos-Stamou-Kollias similarity :cite:`Stoilos:2005`
 
     .. versionadded:: 0.4.0
     """
