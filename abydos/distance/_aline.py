@@ -36,7 +36,7 @@ __all__ = ['ALINE']
 class ALINE(_Distance):
     r"""ALINE distance.
 
-    ALINE distance :cite:`CITATION`
+    ALINE distance :cite:`Kondrak:2000`
 
     .. versionadded:: 0.4.0
     """
