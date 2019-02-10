@@ -109,9 +109,9 @@ class IterativeSubString(_Distance):
             src = src.lower()
             tar = tar.lower()
 
-            for remo in '._ ':
-                src = src.replace(remo, '')
-                tar = tar.replace(remo, '')
+            for ch in '._ ':
+                src = src.replace(ch, '')
+                tar = tar.replace(ch, '')
 
         src_len = len(src)
         tar_len = len(tar)
@@ -159,8 +159,9 @@ class IterativeSubString(_Distance):
                             end_tar = j
                 i += 1
 
-            src = src[:start_src] + src[end_src + 1 :]
-            tar = tar[:start_tar] + tar[end_tar + 1 :]
+            print(src[start_src:end_src], tar[start_tar:end_tar])
+            src = src[:start_src] + src[end_src:]
+            tar = tar[:start_tar] + tar[end_tar:]
 
             if best > 2:
                 common += best
