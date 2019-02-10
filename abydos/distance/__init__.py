@@ -55,7 +55,8 @@ Distance metrics developed for the US Census or derived from them are included:
     - Jaro distance (:py:class:`.JaroWinkler` with ``mode='Jaro'``)
     - Jaro-Winkler distance (:py:class:`.JaroWinkler`)
     - Strcmp95 distance (:py:class:`.Strcmp95`)
-    - Stoilos-Stamou-Kollias similarity (:py:class:`.StoilosStamouKollias`)
+    - Iterative-SubString (I-Sub) similarity
+      (:py:class:`.StoilosStamouKollias`)
 
 A large set of multi-set token-based distance metrics are provided, including:
 
@@ -419,6 +420,7 @@ from ._higuera_mico import HigueraMico
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
 from ._indel import Indel, dist_indel, indel, sim_indel
+from ._iterative_substring import IterativeSubString
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaccard_nm import JaccardNM
 from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
@@ -531,7 +533,6 @@ from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
 from ._steffensen import Steffensen
 from ._stiles import Stiles
-from ._stoilos_stamou_kollias import StoilosStamouKollias
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
 from ._stuart_tau import StuartTau
 from ._suffix import Suffix, dist_suffix, sim_suffix
@@ -620,7 +621,7 @@ __all__ = [
     'Strcmp95',
     'dist_strcmp95',
     'sim_strcmp95',
-    'StoilosStamouKollias',
+    'IterativeSubString',
     'Minkowski',
     'minkowski',
     'dist_minkowski',
