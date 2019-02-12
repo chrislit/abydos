@@ -1314,7 +1314,7 @@ class ALINE(_Distance):
                 if s_mat[i,j] >= threshold:
                     self.retrieve(i,j,0,s_mat,threshold,src,tar,[])
         """
-        return s_mat.max()
+        return s_mat[src_len, tar_len]
 
 
 if __name__ == '__main__':
