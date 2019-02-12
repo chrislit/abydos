@@ -853,12 +853,8 @@ class ALINE(_Distance):
             'long': 'minus',
             'aspirated': 'minus',
         },
-        'ː': {
-            'long': 'plus'
-        },
-        'ʰ': {
-            'aspirated': 'plus'
-        }
+        'ː': {'long': 'plus'},
+        'ʰ': {'aspirated': 'plus'},
     }
 
     phones_kondrak = {
@@ -872,7 +868,7 @@ class ALINE(_Distance):
             'lateral': 'minus',
             'high': 'low',
             'back': 'central',
-            'round': 'minus'
+            'round': 'minus',
         },
         'b': {
             'place': 'bilabial',
@@ -911,7 +907,7 @@ class ALINE(_Distance):
             'lateral': 'minus',
             'high': 'mid',
             'back': 'central',
-            'round': 'minus'
+            'round': 'minus',
         },
         'f': {
             'place': 'labiodental',
@@ -1007,7 +1003,7 @@ class ALINE(_Distance):
             'lateral': 'minus',
             'high': 'mid',
             'back': 'back',
-            'round': 'plus'
+            'round': 'plus',
         },
         'p': {
             'place': 'bilabial',
@@ -1064,7 +1060,7 @@ class ALINE(_Distance):
             'lateral': 'minus',
             'high': 'high',
             'back': 'back',
-            'round': 'plus'
+            'round': 'plus',
         },
         'v': {
             'place': 'labiodental',
@@ -1085,7 +1081,7 @@ class ALINE(_Distance):
             'lateral': 'minus',
             'high': 'high',
             'back': 'back',
-            'round': 'plus'
+            'round': 'plus',
         },
         'x': {
             'place': 'velar',
@@ -1106,7 +1102,7 @@ class ALINE(_Distance):
             'lateral': 'minus',
             'high': 'high',
             'back': 'front',
-            'round': 'minus'
+            'round': 'minus',
         },
         'z': {
             'place': 'alveolar',
@@ -1169,10 +1165,10 @@ class ALINE(_Distance):
 
         for ch in range(1, len(src)):
             if src[ch] == 'ː':
-                src[ch] = src[ch-1].upper()
+                src[ch] = src[ch - 1].upper()
         for ch in range(1, len(tar)):
             if tar[ch] == 'ː':
-                tar[ch] = tar[ch-1].upper()
+                tar[ch] = tar[ch - 1].upper()
 
         src = [ch for ch in src if ch in self.phones]
         tar = [ch for ch in tar if ch in self.phones]
