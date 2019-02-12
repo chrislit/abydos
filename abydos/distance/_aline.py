@@ -1179,45 +1179,6 @@ class ALINE(_Distance):
         self._c_vwl = c_vwl
         self._phones = self.phones_ipa if ipa else self.phones_kondrak
 
-    def sig_sub(self, seg1, seg2):
-        return (
-            self._c_sub
-            - self.delta(seg1, seg2)
-            - self.sig_vwl(seg1)
-            - self.sig_vwl(seg2)
-        )
-
-    def sig_exp(self, seg1, seg2a, seg2b):
-        return (
-            self._c_exp
-            - self.delta(seg1, seg2a)
-            - self.delta(seg1, seg2b)
-            - self.sig_vwl(seg1)
-            - max(self.sig_vwl(seg2a), self.sig_vwl(seg2b))
-        )
-
-    def sig_vwl(self, seg):
-        return (
-            0.0
-            if seg['manner'] > self.feature_weights['high vowel']
-            else self._c_vwl
-        )
-
-    def delta(self, seg1, seg2):
-        features = (
-            self.c_features
-            if max(seg1['manner'], seg2['manner'])
-            > self.feature_weights['high vowel']
-            else self.v_features
-        )
-        diff = 0.0
-        for f in features:
-            diff += abs(seg1.get(f, 0.0) - seg2.get(f, 0.0)) * self.salience[f]
-        return diff
-
-    def retrieve(self, i, j, score, s_mat, threshold, src, tar, out):
-        pass
-
     def sim_abs(self, src, tar):
         """Return the ALINE distance of two strings.
 
@@ -1249,6 +1210,45 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.0
 
         """
+
+        def sig_sub(seg1, seg2):
+            return (
+                self._c_sub - delta(seg1, seg2) - sig_vwl(seg1) - sig_vwl(seg2)
+            )
+
+        def sig_exp(seg1, seg2a, seg2b):
+            return (
+                self._c_exp
+                - delta(seg1, seg2a)
+                - delta(seg1, seg2b)
+                - sig_vwl(seg1)
+                - max(sig_vwl(seg2a), sig_vwl(seg2b))
+            )
+
+        def sig_vwl(seg):
+            return (
+                0.0
+                if seg['manner'] > self.feature_weights['high vowel']
+                else self._c_vwl
+            )
+
+        def delta(seg1, seg2):
+            features = (
+                self.c_features
+                if max(seg1['manner'], seg2['manner'])
+                > self.feature_weights['high vowel']
+                else self.v_features
+            )
+            diff = 0.0
+            for f in features:
+                diff += (
+                    abs(seg1.get(f, 0.0) - seg2.get(f, 0.0)) * self.salience[f]
+                )
+            return diff
+
+        def retrieve(i, j, score, s_mat, threshold, src, tar, out):
+            pass
+
         src = list(src)
         tar = list(tar)
 
@@ -1299,21 +1299,21 @@ class ALINE(_Distance):
                 s_mat[i, j] = max(
                     s_mat[i - 1, j] + self._c_skip,
                     s_mat[i, j - 1] + self._c_skip,
-                    s_mat[i - 1, j - 1] + self.sig_sub(src[i - 1], tar[j - 1]),
+                    s_mat[i - 1, j - 1] + sig_sub(src[i - 1], tar[j - 1]),
                     s_mat[i - 1, j - 2]
-                    + self.sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
+                    + sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
                     s_mat[i - 2, j - 1]
-                    + self.sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
+                    + sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
                     0,
                 )
 
         threshold = (1 - self._epsilon) * s_mat.max()
-        """
-        for i in range(1, src_len+1):
+
+        for i in range(1, src_len + 1):
             for j in range(1, tar_len):
-                if s_mat[i,j] >= threshold:
-                    self.retrieve(i,j,0,s_mat,threshold,src,tar,[])
-        """
+                if s_mat[i, j] >= threshold:
+                    retrieve(i, j, 0, s_mat, threshold, src, tar, [])
+
         return s_mat[src_len, tar_len]
 
 
