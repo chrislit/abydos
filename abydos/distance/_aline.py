@@ -28,6 +28,9 @@ from __future__ import (
     unicode_literals,
 )
 
+from numpy import float as np_float
+from numpy import zeros as np_zeros
+
 from ._distance import _Distance
 
 __all__ = ['ALINE']
@@ -58,7 +61,6 @@ class ALINE(_Distance):
         'uvular': 0.5,
         'pharyngeal': 0.3,
         'glottal': 0.1,
-        'labiovelar': 1.0,
         # manner
         'stop': 1.0,
         'affricate': 0.9,
@@ -80,6 +82,26 @@ class ALINE(_Distance):
         # binary features
         'plus': 1.0,
         'minus': 0.0,
+    }
+
+    v_features = {
+        'syllabic',
+        'nasal',
+        'retroflex',
+        'high',
+        'back',
+        'round',
+        'long',
+    }
+    c_features = {
+        'syllabic',
+        'manner',
+        'voice',
+        'nasal',
+        'retroflex',
+        'lateral',
+        'aspirated',
+        'place',
     }
 
     salience = {
@@ -649,7 +671,7 @@ class ALINE(_Distance):
             'aspirated': 'minus',
         },
         'w': {
-            'place': 'labiovelar',
+            'place': 'velar',
             'manner': 'approximant',
             'syllabic': 'minus',
             'voice': 'plus',
@@ -657,6 +679,7 @@ class ALINE(_Distance):
             'retroflex': 'minus',
             'lateral': 'minus',
             'aspirated': 'minus',
+            'double': 'bilabial',
         },
         'i': {
             'manner': 'high vowel',
@@ -853,8 +876,8 @@ class ALINE(_Distance):
             'long': 'minus',
             'aspirated': 'minus',
         },
-        'ː': {'long': 'plus'},
-        'ʰ': {'aspirated': 'plus'},
+        'ː': {'long': 'plus', 'supplemental': True},
+        'ʰ': {'aspirated': 'plus', 'supplemental': True},
     }
 
     phones_kondrak = {
@@ -1082,6 +1105,7 @@ class ALINE(_Distance):
             'high': 'high',
             'back': 'back',
             'round': 'plus',
+            'double': 'bilabial',
         },
         'x': {
             'place': 'velar',
@@ -1113,9 +1137,29 @@ class ALINE(_Distance):
             'retroflex': 'minus',
             'lateral': 'minus',
         },
+        'A': {'aspirated': 'plus', 'supplemental': True},
+        'B': {'back': 'back', 'supplemental': True},
+        'C': {'back': 'central', 'supplemental': True},
+        'D': {'place': 'dental', 'supplemental': True},
+        'F': {'back': 'front', 'supplemental': True},
+        'H': {'long': 'plus', 'supplemental': True},
+        'N': {'nasal': 'plus', 'supplemental': True},
+        'P': {'place': 'palatal', 'supplemental': True},
+        'R': {'round': 'plus', 'supplemental': True},
+        'S': {'manner': 'fricative', 'supplemental': True},
+        'V': {'place': 'palato-alveolar', 'supplemental': True},
     }
 
-    def __init__(self, **kwargs):
+    def __init__(
+        self,
+        epsilon=0,
+        c_skip=-10,
+        c_sub=35,
+        c_exp=45,
+        c_vwl=10,
+        ipa=False,
+        **kwargs
+    ):
         """Initialize ALINE instance.
 
         Parameters
@@ -1128,8 +1172,53 @@ class ALINE(_Distance):
 
         """
         super(ALINE, self).__init__(**kwargs)
+        self._epsilon = epsilon
+        self._c_skip = c_skip
+        self._c_sub = c_sub
+        self._c_exp = c_exp
+        self._c_vwl = c_vwl
+        self._phones = self.phones_ipa if ipa else self.phones_kondrak
 
-    def dist(self, src, tar):
+    def sig_sub(self, seg1, seg2):
+        return (
+            self._c_sub
+            - self.delta(seg1, seg2)
+            - self.sig_vwl(seg1)
+            - self.sig_vwl(seg2)
+        )
+
+    def sig_exp(self, seg1, seg2a, seg2b):
+        return (
+            self._c_exp
+            - self.delta(seg1, seg2a)
+            - self.delta(seg1, seg2b)
+            - self.sig_vwl(seg1)
+            - max(self.sig_vwl(seg2a), self.sig_vwl(seg2b))
+        )
+
+    def sig_vwl(self, seg):
+        return (
+            0.0
+            if seg['manner'] > self.feature_weights['high vowel']
+            else self._c_vwl
+        )
+
+    def delta(self, seg1, seg2):
+        features = (
+            self.c_features
+            if max(seg1['manner'], seg2['manner'])
+            > self.feature_weights['high vowel']
+            else self.v_features
+        )
+        diff = 0.0
+        for f in features:
+            diff += abs(seg1.get(f, 0.0) - seg2.get(f, 0.0)) * self.salience[f]
+        return diff
+
+    def retrieve(self, i, j, score, s_mat, threshold, src, tar, out):
+        pass
+
+    def sim_abs(self, src, tar):
         """Return the ALINE distance of two strings.
 
         Parameters
@@ -1160,20 +1249,72 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        src = list(src.lower())
-        tar = list(tar.lower())
+        src = list(src)
+        tar = list(tar)
 
-        for ch in range(1, len(src)):
-            if src[ch] == 'ː':
-                src[ch] = src[ch - 1].upper()
-        for ch in range(1, len(tar)):
-            if tar[ch] == 'ː':
-                tar[ch] = tar[ch - 1].upper()
+        for ch in range(len(src)):
+            if src[ch] in self._phones:
+                src[ch] = dict(self._phones[src[ch]])
+        for ch in range(len(tar)):
+            if tar[ch] in self._phones:
+                tar[ch] = dict(self._phones[tar[ch]])
 
-        src = [ch for ch in src if ch in self.phones]
-        tar = [ch for ch in tar if ch in self.phones]
+        src = [fb for fb in src if isinstance(fb, dict)]
+        tar = [fb for fb in tar if isinstance(fb, dict)]
 
-        return 0.0
+        for i in range(1, len(src)):
+            if 'supplemental' in src[i]:
+                for j in range(i - 1, -1, -1):
+                    if 'supplemental' not in src[j]:
+                        for key, value in src[i].items():
+                            if key != 'supplemental':
+                                src[j][key] = value
+                        break
+        src = [fb for fb in src if 'supplemental' not in fb]
+
+        for i in range(1, len(tar)):
+            if 'supplemental' in tar[i]:
+                for j in range(i - 1, -1, -1):
+                    if 'supplemental' not in tar[j]:
+                        for key, value in tar[i].items():
+                            if key != 'supplemental':
+                                tar[j][key] = value
+                        break
+        tar = [fb for fb in tar if 'supplemental' not in fb]
+
+        for i in range(len(src)):
+            for key, value in src[i].items():
+                src[i][key] = self.feature_weights[value]
+        for i in range(len(tar)):
+            for key in tar[i].keys():
+                tar[i][key] = self.feature_weights[tar[i][key]]
+
+        src_len = len(src)
+        tar_len = len(tar)
+
+        s_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+
+        for i in range(1, src_len + 1):
+            for j in range(1, tar_len + 1):
+                s_mat[i, j] = max(
+                    s_mat[i - 1, j] + self._c_skip,
+                    s_mat[i, j - 1] + self._c_skip,
+                    s_mat[i - 1, j - 1] + self.sig_sub(src[i - 1], tar[j - 1]),
+                    s_mat[i - 1, j - 2]
+                    + self.sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
+                    s_mat[i - 2, j - 1]
+                    + self.sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
+                    0,
+                )
+
+        threshold = (1 - self._epsilon) * s_mat.max()
+        """
+        for i in range(1, src_len+1):
+            for j in range(1, tar_len):
+                if s_mat[i,j] >= threshold:
+                    self.retrieve(i,j,0,s_mat,threshold,src,tar,[])
+        """
+        return s_mat.max()
 
 
 if __name__ == '__main__':
