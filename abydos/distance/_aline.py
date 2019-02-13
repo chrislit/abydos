@@ -18,7 +18,7 @@
 
 """abydos.distance._aline.
 
-ALINE distance
+ALINE similarity
 """
 
 from __future__ import (
@@ -37,9 +37,9 @@ __all__ = ['ALINE']
 
 
 class ALINE(_Distance):
-    r"""ALINE distance.
+    r"""ALINE similarity.
 
-    ALINE distance :cite:`Kondrak:2000`
+    ALINE similarity :cite:`Kondrak:2000` and distance :cite:`Downey:2008`
 
     .. versionadded:: 0.4.0
     """
@@ -65,8 +65,8 @@ class ALINE(_Distance):
         'stop': 1.0,
         'affricate': 0.9,
         'fricative': 0.8,
-        'trill': 0.7,
-        'tap': 0.65,
+        'trill': 0.7,  # not in original
+        'tap': 0.65,  # not in original
         'approximant': 0.6,
         'high vowel': 0.4,
         'mid vowel': 0.2,
@@ -1180,7 +1180,7 @@ class ALINE(_Distance):
         self._phones = self.phones_ipa if ipa else self.phones_kondrak
 
     def sim_abs(self, src, tar):
-        """Return the ALINE distance of two strings.
+        """Return the ALINE similarity of two strings.
 
         Parameters
         ----------
@@ -1192,7 +1192,7 @@ class ALINE(_Distance):
         Returns
         -------
         float
-            ALINE distance
+            ALINE similarity
 
         Examples
         --------
@@ -1210,29 +1210,34 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        def _sig_skip(seg):
+            return self._c_skip
 
-        def sig_sub(seg1, seg2):
+        def _sig_sub(seg1, seg2):
             return (
-                self._c_sub - delta(seg1, seg2) - sig_vwl(seg1) - sig_vwl(seg2)
+                self._c_sub
+                - _delta(seg1, seg2)
+                - _sig_vwl(seg1)
+                - _sig_vwl(seg2)
             )
 
-        def sig_exp(seg1, seg2a, seg2b):
+        def _sig_exp(seg1, seg2a, seg2b):
             return (
                 self._c_exp
-                - delta(seg1, seg2a)
-                - delta(seg1, seg2b)
-                - sig_vwl(seg1)
-                - max(sig_vwl(seg2a), sig_vwl(seg2b))
+                - _delta(seg1, seg2a)
+                - _delta(seg1, seg2b)
+                - _sig_vwl(seg1)
+                - max(_sig_vwl(seg2a), _sig_vwl(seg2b))
             )
 
-        def sig_vwl(seg):
+        def _sig_vwl(seg):
             return (
                 0.0
                 if seg['manner'] > self.feature_weights['high vowel']
                 else self._c_vwl
             )
 
-        def delta(seg1, seg2):
+        def _delta(seg1, seg2):
             features = (
                 self.c_features
                 if max(seg1['manner'], seg2['manner'])
@@ -1246,18 +1251,97 @@ class ALINE(_Distance):
                 )
             return diff
 
-        def retrieve(i, j, score, s_mat, threshold, src, tar, out):
-            pass
+        def _retrieve(i, j, score):
+            if s_mat[i, j] == 0:
+                return out, score
+            else:
+                if (
+                    i > 0
+                    and j > 0
+                    and s_mat[i - 1, j - 1]
+                    + _sig_sub(src[i - 1], tar[j - 1])
+                    + score
+                    >= threshold
+                ):
+                    out.insert(
+                        0, (src[i - 1]['segment'], tar[j - 1]['segment'])
+                    )
+                    _retrieve(
+                        i - 1, j - 1, score + _sig_sub(src[i - 1], tar[j - 1])
+                    )
+                    out.pop()
+                if (
+                    j > 0
+                    and s_mat[i, j - 1] + _sig_skip(tar[j - 1]) + score
+                    >= threshold
+                ):
+                    out.insert(0, (None, tar[j - 1]['segment']))
+                    _retrieve(i, j - 1, score + _sig_skip(tar[j - 1]))
+                    out.pop()
+                if (
+                    i > 0
+                    and j > 1
+                    and s_mat[i - 1, j - 2]
+                    + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1])
+                    + score
+                    >= threshold
+                ):
+                    out.insert(
+                        0,
+                        (
+                            src[i - 1]['segment'],
+                            tar[j - 2]['segment'] + tar[j - 1]['segment'],
+                        ),
+                    )
+                    _retrieve(
+                        i - 1,
+                        j - 2,
+                        score + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
+                    )
+                    out.pop()
+                if (
+                    i > 0
+                    and s_mat[i - 1, j] + _sig_skip(src[i - 1]) + score
+                    >= threshold
+                ):
+                    out.insert(0, (src[i - 1]['segment'], None))
+                    _retrieve(i - 1, j, score + _sig_skip(src[i - 1]))
+                    out.pop()
+                if (
+                    i > 1
+                    and j > 0
+                    and s_mat[i - 2, j - 1]
+                    + _sig_exp(tar[j - 1], src[i - 2], src[i - 1])
+                    + score
+                    >= threshold
+                ):
+                    out.insert(
+                        0,
+                        (
+                            src[i - 2]['segment'] + src[i - 1]['segment'],
+                            tar[j - 1]['segment'],
+                        ),
+                    )
+                    _retrieve(
+                        i - 2,
+                        j - 1,
+                        score + _sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
+                    )
+                    out.pop()
 
         src = list(src)
         tar = list(tar)
 
         for ch in range(len(src)):
             if src[ch] in self._phones:
+                seg = src[ch]
                 src[ch] = dict(self._phones[src[ch]])
+                src[ch]['segment'] = seg
         for ch in range(len(tar)):
             if tar[ch] in self._phones:
+                seg = tar[ch]
                 tar[ch] = dict(self._phones[tar[ch]])
+                tar[ch]['segment'] = seg
 
         src = [fb for fb in src if isinstance(fb, dict)]
         tar = [fb for fb in tar if isinstance(fb, dict)]
@@ -1268,7 +1352,10 @@ class ALINE(_Distance):
                     if 'supplemental' not in src[j]:
                         for key, value in src[i].items():
                             if key != 'supplemental':
-                                src[j][key] = value
+                                if key == 'segment':
+                                    src[j]['segment'] += value
+                                else:
+                                    src[j][key] = value
                         break
         src = [fb for fb in src if 'supplemental' not in fb]
 
@@ -1278,16 +1365,20 @@ class ALINE(_Distance):
                     if 'supplemental' not in tar[j]:
                         for key, value in tar[i].items():
                             if key != 'supplemental':
+                                if key == 'segment':
+                                    tar[j]['segment'] += value
                                 tar[j][key] = value
                         break
         tar = [fb for fb in tar if 'supplemental' not in fb]
 
         for i in range(len(src)):
-            for key, value in src[i].items():
-                src[i][key] = self.feature_weights[value]
+            for key in src[i].keys():
+                if key != 'segment':
+                    src[i][key] = self.feature_weights[src[i][key]]
         for i in range(len(tar)):
             for key in tar[i].keys():
-                tar[i][key] = self.feature_weights[tar[i][key]]
+                if key != 'segment':
+                    tar[i][key] = self.feature_weights[tar[i][key]]
 
         src_len = len(src)
         tar_len = len(tar)
@@ -1297,24 +1388,66 @@ class ALINE(_Distance):
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
                 s_mat[i, j] = max(
-                    s_mat[i - 1, j] + self._c_skip,
-                    s_mat[i, j - 1] + self._c_skip,
-                    s_mat[i - 1, j - 1] + sig_sub(src[i - 1], tar[j - 1]),
+                    s_mat[i - 1, j] + _sig_skip(src[i - 1]),
+                    s_mat[i, j - 1] + _sig_skip(tar[j - 1]),
+                    s_mat[i - 1, j - 1] + _sig_sub(src[i - 1], tar[j - 1]),
                     s_mat[i - 1, j - 2]
-                    + sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
+                    + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1])
+                    if j > 1
+                    else float('-inf'),
                     s_mat[i - 2, j - 1]
-                    + sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
+                    + _sig_exp(tar[j - 1], src[i - 2], src[i - 1])
+                    if i > 1
+                    else float('-inf'),
                     0,
                 )
 
         threshold = (1 - self._epsilon) * s_mat.max()
 
+        out = []
         for i in range(1, src_len + 1):
-            for j in range(1, tar_len):
+            for j in range(1, tar_len + 1):
                 if s_mat[i, j] >= threshold:
-                    retrieve(i, j, 0, s_mat, threshold, src, tar, [])
+                    _retrieve(i, j, 0)
 
-        return s_mat[src_len, tar_len]
+        return s_mat.max()
+
+    def sim(self, src, tar):
+        """Return the normalized ALINE similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized ALINE similarity
+
+        Examples
+        --------
+        >>> cmp = ALINE()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (
+            2
+            * self.sim_abs(src, tar)
+            / (self.sim_abs(src, src) + self.sim_abs(tar, tar))
+        )
 
 
 if __name__ == '__main__':
