@@ -1295,21 +1295,39 @@ class ALINE(_Distance):
 
         def _retrieve(i, j, score, out=None):
             def _record(score):
-                out.insert(0, ('|', '|'))
-                out.append(('|', '|'))
-                for i1 in range(i, -1, -1):
-                    out.insert(0, (src[i1-1]['segment'], ''))
-                for j1 in range(j, -1, -1):
-                    out.insert(0, ('', tar[j1-1]['segment']))
+                out.insert(0, ('‖', '‖'))
+                for i1 in range(i-1, -1, -1):
+                    out.insert(0, (src[i1]['segment'], ''))
+                for j1 in range(j-1, -1, -1):
+                    out.insert(0, ('', tar[j1]['segment']))
                 if self._mode == 'global':
                     score += (i+j)*_sig_skip('')
 
                 src_alignment = []
                 tar_alignment = []
                 for ss, ts in out:
-                    src_alignment.append(ss + '-' * (len(ts) - len(ss)))
-                    tar_alignment.append(ts + '-' * (len(ss) - len(ts)))
-                alignments.append((score, ' '.join(src_alignment), ' '.join(tar_alignment)))
+                    src_alignment.append(ss)  # + '-' * (len(ts) - len(ss)))
+                    tar_alignment.append(ts)  # + '-' * (len(ss) - len(ts)))
+
+                src_alignment = ' '.join(src_alignment)
+                tar_alignment = ' '.join(tar_alignment)
+
+                # Do some further cleanup to match formatting in Kondrak (2002)
+                src_alignment = src_alignment.split('‖')
+                src_alignment[0] = src_alignment[0].replace(' ', '')
+                src_alignment[0] = src_alignment[0].replace('-', '')+' '
+                src_alignment[2] = src_alignment[2].replace(' ', '')
+                src_alignment[2] = ' '+src_alignment[2].replace('-', '')
+                src_alignment = '‖'.join(src_alignment).strip()
+
+                tar_alignment = tar_alignment.split('‖')
+                tar_alignment[0] = tar_alignment[0].replace(' ', '')
+                tar_alignment[0] = tar_alignment[0].replace('-', '')+' '
+                tar_alignment[2] = tar_alignment[2].replace(' ', '')
+                tar_alignment[2] = ' '+tar_alignment[2].replace('-', '')
+                tar_alignment = '‖'.join(tar_alignment).strip()
+
+                alignments.append((score, src_alignment, tar_alignment))
                 return
 
             if out is None:
@@ -1318,7 +1336,6 @@ class ALINE(_Distance):
                 _record(score)
                 return
             else:
-                out = deepcopy(out)
                 if i == 0 and j == 0:
                     _record(score)
                     return
@@ -1330,6 +1347,7 @@ class ALINE(_Distance):
                     + score
                     >= threshold
                 ):
+                    out = deepcopy(out)
                     out.insert(
                         0, (src[i - 1]['segment'], tar[j - 1]['segment'])
                     )
@@ -1345,7 +1363,8 @@ class ALINE(_Distance):
                     and s_mat[i, j - 1] + _sig_skip(tar[j - 1]) + score
                     >= threshold
                 ):
-                    out.insert(0, ('', tar[j - 1]['segment']))
+                    out = deepcopy(out)
+                    out.insert(0, ('-', tar[j - 1]['segment']))
                     _retrieve(i, j - 1, score + _sig_skip(tar[j - 1]), out)
                     out.pop()
                 if (
@@ -1356,10 +1375,11 @@ class ALINE(_Distance):
                     + score
                     >= threshold
                 ):
+                    out = deepcopy(out)
                     out.insert(
                         0,
                         (
-                            src[i - 1]['segment'],
+                            src[i - 1]['segment'] + ' ',
                             tar[j - 2]['segment'] + tar[j - 1]['segment'],
                         ),
                     )
@@ -1375,7 +1395,8 @@ class ALINE(_Distance):
                     and s_mat[i - 1, j] + _sig_skip(src[i - 1]) + score
                     >= threshold
                 ):
-                    out.insert(0, (src[i - 1]['segment'], ''))
+                    out = deepcopy(out)
+                    out.insert(0, (src[i - 1]['segment'], '-'))
                     _retrieve(i - 1, j, score + _sig_skip(src[i - 1]), out)
                     out.pop()
                 if (
@@ -1386,11 +1407,12 @@ class ALINE(_Distance):
                     + score
                     >= threshold
                 ):
+                    out = deepcopy(out)
                     out.insert(
                         0,
                         (
                             src[i - 2]['segment'] + src[i - 1]['segment'],
-                            tar[j - 1]['segment'],
+                            tar[j - 1]['segment'] + ' ',
                         ),
                     )
                     _retrieve(
@@ -1511,8 +1533,14 @@ class ALINE(_Distance):
                     continue
                 if self._mode == 'semi-global' and (i < src_len+1 and j < tar_len+1):
                     continue
+                out = []
+                for j1 in range(tar_len-1, j-1, -1):
+                    out.insert(0, ('', tar[j1]['segment']))
+                for i1 in range(src_len-1, i-1, -1):
+                    out.insert(0, (src[i1]['segment'], ''))
+                out.insert(0, ('‖', '‖'))
                 if s_mat[i, j] >= threshold:
-                    _retrieve(i, j, 0, [])
+                    _retrieve(i, j, 0, out)
 
         return s_mat.max(), sorted(alignments, key=lambda _:_[0], reverse=True)
 
