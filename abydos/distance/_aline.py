@@ -28,13 +28,15 @@ from __future__ import (
     unicode_literals,
 )
 
+from copy import deepcopy
+
 from numpy import float as np_float
 from numpy import zeros as np_zeros
+from numpy import NINF as neg_inf
 
 from ._distance import _Distance
 
 __all__ = ['ALINE']
-
 
 class ALINE(_Distance):
     r"""ALINE similarity.
@@ -65,9 +67,9 @@ class ALINE(_Distance):
         'stop': 1.0,
         'affricate': 0.9,
         'fricative': 0.8,
-        'trill': 0.7,  # not in original
-        'tap': 0.65,  # not in original
         'approximant': 0.6,
+        'trill': 0.55,  # not in original
+        'tap': 0.5,  # not in original
         'high vowel': 0.4,
         'mid vowel': 0.2,
         'low vowel': 0.0,
@@ -1157,6 +1159,7 @@ class ALINE(_Distance):
         c_sub=35,
         c_exp=45,
         c_vwl=10,
+        mode='local',
         ipa=False,
         **kwargs
     ):
@@ -1177,10 +1180,13 @@ class ALINE(_Distance):
         self._c_sub = c_sub
         self._c_exp = c_exp
         self._c_vwl = c_vwl
+        self._mode = mode
+        if self._mode not in {'local', 'global', 'half-local', 'semi-global'}:
+            self._mode = 'local'
         self._phones = self.phones_ipa if ipa else self.phones_kondrak
 
     def sim_abs(self, src, tar):
-        """Return the ALINE similarity of two strings.
+        """Return the ALINE alignment of two strings.
 
         Parameters
         ----------
@@ -1191,25 +1197,61 @@ class ALINE(_Distance):
 
         Returns
         -------
-        float
-            ALINE similarity
+        tuple(str)
+            ALINE alignment
 
         Examples
         --------
         >>> cmp = ALINE()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp.alignment('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.alignment('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.alignment('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.alignment('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
+        return self.alignment(src, tar, score_only=True)
+
+    def alignment(self, src, tar, score_only=False):
+        """Return the ALINE alignment of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        score_only : bool
+            Return the score only, not the alignments
+
+        Returns
+        -------
+        tuple(str) or float
+            ALINE alignment
+
+        Examples
+        --------
+        >>> cmp = ALINE()
+        >>> cmp.alignment('cat', 'hat')
+        0.0
+        >>> cmp.alignment('Niall', 'Neil')
+        0.0
+        >>> cmp.alignment('aluminum', 'Catalan')
+        0.0
+        >>> cmp.alignment('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+
         def _sig_skip(seg):
             return self._c_skip
 
@@ -1251,10 +1293,35 @@ class ALINE(_Distance):
                 )
             return diff
 
-        def _retrieve(i, j, score):
+        def _retrieve(i, j, score, out=None):
+            def _record(score):
+                out.insert(0, ('|', '|'))
+                out.append(('|', '|'))
+                for i1 in range(i, -1, -1):
+                    out.insert(0, (src[i1-1]['segment'], ''))
+                for j1 in range(j, -1, -1):
+                    out.insert(0, ('', tar[j1-1]['segment']))
+                if self._mode == 'global':
+                    score += (i+j)*_sig_skip('')
+
+                src_alignment = []
+                tar_alignment = []
+                for ss, ts in out:
+                    src_alignment.append(ss + '-' * (len(ts) - len(ss)))
+                    tar_alignment.append(ts + '-' * (len(ss) - len(ts)))
+                alignments.append((score, ' '.join(src_alignment), ' '.join(tar_alignment)))
+                return
+
+            if out is None:
+                out = []
             if s_mat[i, j] == 0:
-                return out, score
+                _record(score)
+                return
             else:
+                out = deepcopy(out)
+                if i == 0 and j == 0:
+                    _record(score)
+                    return
                 if (
                     i > 0
                     and j > 0
@@ -1267,7 +1334,10 @@ class ALINE(_Distance):
                         0, (src[i - 1]['segment'], tar[j - 1]['segment'])
                     )
                     _retrieve(
-                        i - 1, j - 1, score + _sig_sub(src[i - 1], tar[j - 1])
+                        i - 1,
+                        j - 1,
+                        score + _sig_sub(src[i - 1], tar[j - 1]),
+                        out,
                     )
                     out.pop()
                 if (
@@ -1275,8 +1345,8 @@ class ALINE(_Distance):
                     and s_mat[i, j - 1] + _sig_skip(tar[j - 1]) + score
                     >= threshold
                 ):
-                    out.insert(0, (None, tar[j - 1]['segment']))
-                    _retrieve(i, j - 1, score + _sig_skip(tar[j - 1]))
+                    out.insert(0, ('', tar[j - 1]['segment']))
+                    _retrieve(i, j - 1, score + _sig_skip(tar[j - 1]), out)
                     out.pop()
                 if (
                     i > 0
@@ -1297,6 +1367,7 @@ class ALINE(_Distance):
                         i - 1,
                         j - 2,
                         score + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
+                        out,
                     )
                     out.pop()
                 if (
@@ -1304,8 +1375,8 @@ class ALINE(_Distance):
                     and s_mat[i - 1, j] + _sig_skip(src[i - 1]) + score
                     >= threshold
                 ):
-                    out.insert(0, (src[i - 1]['segment'], None))
-                    _retrieve(i - 1, j, score + _sig_skip(src[i - 1]))
+                    out.insert(0, (src[i - 1]['segment'], ''))
+                    _retrieve(i - 1, j, score + _sig_skip(src[i - 1]), out)
                     out.pop()
                 if (
                     i > 1
@@ -1326,8 +1397,14 @@ class ALINE(_Distance):
                         i - 2,
                         j - 1,
                         score + _sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
+                        out,
                     )
                     out.pop()
+                if self._mode in {'local', 'half-local'} and s_mat[i,j] == 0:
+                    _record(score)
+                    return
+
+        sg_max = 0.0
 
         src = list(src)
         tar = list(tar)
@@ -1385,6 +1462,12 @@ class ALINE(_Distance):
 
         s_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
 
+        if self._mode == 'global':
+            for i in range(1, src_len+1):
+                s_mat[i,0] = s_mat[i-1,0]+_sig_skip(src[i-1])
+            for j in range(1, tar_len+1):
+                s_mat[0,j] = s_mat[0,j-1]+_sig_skip(tar[j-1])
+
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
                 s_mat[i, j] = max(
@@ -1394,23 +1477,44 @@ class ALINE(_Distance):
                     s_mat[i - 1, j - 2]
                     + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1])
                     if j > 1
-                    else float('-inf'),
+                    else neg_inf,
                     s_mat[i - 2, j - 1]
                     + _sig_exp(tar[j - 1], src[i - 2], src[i - 1])
                     if i > 1
-                    else float('-inf'),
-                    0,
+                    else neg_inf,
+                    0 if self._mode in {'local', 'half-local'} else neg_inf,
                 )
 
-        threshold = (1 - self._epsilon) * s_mat.max()
+                if s_mat[i, j] > sg_max:
+                    if self._mode == 'semi-global':
+                        if i == src_len or j == tar_len:
+                            sg_max = s_mat[i,j]
+                    else:
+                        sg_max = s_mat[i, j]
 
-        out = []
+        if self._mode in {'global', 'half-local'}:
+            dp_score = s_mat[src_len, tar_len]
+        else:
+            dp_score = s_mat.max()
+
+        if score_only:
+            return dp_score
+
+        threshold = (1 - self._epsilon) * dp_score
+
+        alignments = []
+
+        print(s_mat)
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
+                if self._mode in {'global', 'half-local'} and (i < src_len+1 or j < tar_len+1):
+                    continue
+                if self._mode == 'semi-global' and (i < src_len+1 and j < tar_len+1):
+                    continue
                 if s_mat[i, j] >= threshold:
-                    _retrieve(i, j, 0)
+                    _retrieve(i, j, 0, [])
 
-        return s_mat.max()
+        return s_mat.max(), sorted(alignments, key=lambda _:_[0], reverse=True)
 
     def sim(self, src, tar):
         """Return the normalized ALINE similarity of two strings.
