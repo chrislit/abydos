@@ -1293,15 +1293,15 @@ class ALINE(_Distance):
                 )
             return diff
 
-        def _retrieve(i, j, score, out=None):
-            def _record(score):
+        def _retrieve(i, j, score, out):
+            def _record(score, out):
                 out.insert(0, ('‖', '‖'))
                 for i1 in range(i-1, -1, -1):
                     out.insert(0, (src[i1]['segment'], ''))
                 for j1 in range(j-1, -1, -1):
                     out.insert(0, ('', tar[j1]['segment']))
                 if self._mode == 'global':
-                    score += (i+j)*_sig_skip('')
+                    score += (i+j)*_sig_skip('')  # TODO: should be i+j?
 
                 src_alignment = []
                 tar_alignment = []
@@ -1314,6 +1314,7 @@ class ALINE(_Distance):
 
                 # Do some further cleanup to match formatting in Kondrak (2002)
                 src_alignment = src_alignment.split('‖')
+
                 src_alignment[0] = src_alignment[0].replace(' ', '')
                 src_alignment[0] = src_alignment[0].replace('-', '')+' '
                 src_alignment[2] = src_alignment[2].replace(' ', '')
@@ -1330,15 +1331,14 @@ class ALINE(_Distance):
                 alignments.append((score, src_alignment, tar_alignment))
                 return
 
-            if out is None:
-                out = []
             if s_mat[i, j] == 0:
-                _record(score)
+                _record(score, out)
                 return
             else:
                 if i == 0 and j == 0:
-                    _record(score)
+                    _record(score, out)
                     return
+
                 if (
                     i > 0
                     and j > 0
@@ -1347,26 +1347,28 @@ class ALINE(_Distance):
                     + score
                     >= threshold
                 ):
-                    out = deepcopy(out)
-                    out.insert(
+                    loc_out = deepcopy(out)
+                    loc_out.insert(
                         0, (src[i - 1]['segment'], tar[j - 1]['segment'])
                     )
                     _retrieve(
                         i - 1,
                         j - 1,
                         score + _sig_sub(src[i - 1], tar[j - 1]),
-                        out,
+                        loc_out,
                     )
-                    out.pop()
+                    loc_out.pop()
+
                 if (
                     j > 0
                     and s_mat[i, j - 1] + _sig_skip(tar[j - 1]) + score
                     >= threshold
                 ):
-                    out = deepcopy(out)
-                    out.insert(0, ('-', tar[j - 1]['segment']))
-                    _retrieve(i, j - 1, score + _sig_skip(tar[j - 1]), out)
-                    out.pop()
+                    loc_out = deepcopy(out)
+                    loc_out.insert(0, ('-', tar[j - 1]['segment']))
+                    _retrieve(i, j - 1, score + _sig_skip(tar[j - 1]), loc_out)
+                    loc_out.pop()
+
                 if (
                     i > 0
                     and j > 1
@@ -1375,8 +1377,8 @@ class ALINE(_Distance):
                     + score
                     >= threshold
                 ):
-                    out = deepcopy(out)
-                    out.insert(
+                    loc_out = deepcopy(out)
+                    loc_out.insert(
                         0,
                         (
                             src[i - 1]['segment'] + ' ',
@@ -1387,18 +1389,20 @@ class ALINE(_Distance):
                         i - 1,
                         j - 2,
                         score + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
-                        out,
+                        loc_out,
                     )
-                    out.pop()
+                    loc_out.pop()
+
                 if (
                     i > 0
                     and s_mat[i - 1, j] + _sig_skip(src[i - 1]) + score
                     >= threshold
                 ):
-                    out = deepcopy(out)
-                    out.insert(0, (src[i - 1]['segment'], '-'))
-                    _retrieve(i - 1, j, score + _sig_skip(src[i - 1]), out)
-                    out.pop()
+                    loc_out = deepcopy(out)
+                    loc_out.insert(0, (src[i - 1]['segment'], '-'))
+                    _retrieve(i - 1, j, score + _sig_skip(src[i - 1]), loc_out)
+                    loc_out.pop()
+
                 if (
                     i > 1
                     and j > 0
@@ -1407,8 +1411,8 @@ class ALINE(_Distance):
                     + score
                     >= threshold
                 ):
-                    out = deepcopy(out)
-                    out.insert(
+                    loc_out = deepcopy(out)
+                    loc_out.insert(
                         0,
                         (
                             src[i - 2]['segment'] + src[i - 1]['segment'],
@@ -1419,11 +1423,12 @@ class ALINE(_Distance):
                         i - 2,
                         j - 1,
                         score + _sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
-                        out,
+                        loc_out,
                     )
-                    out.pop()
+                    loc_out.pop()
+
                 if self._mode in {'local', 'half-local'} and s_mat[i,j] == 0:
-                    _record(score)
+                    _record(score, out)
                     return
 
         sg_max = 0.0
@@ -1526,12 +1531,11 @@ class ALINE(_Distance):
 
         alignments = []
 
-        print(s_mat)
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
-                if self._mode in {'global', 'half-local'} and (i < src_len+1 or j < tar_len+1):
+                if self._mode in {'global', 'half-local'} and (i < src_len or j < tar_len):
                     continue
-                if self._mode == 'semi-global' and (i < src_len+1 and j < tar_len+1):
+                if self._mode == 'semi-global' and (i < src_len and j < tar_len):
                     continue
                 out = []
                 for j1 in range(tar_len-1, j-1, -1):
