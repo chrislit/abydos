@@ -30,13 +30,14 @@ from __future__ import (
 
 from six.moves import range
 
+from ._distance import _Distance
 from ._sift4 import Sift4
 from ..tokenizer import CharacterTokenizer
 
 __all__ = ['Sift4Extended']
 
 
-class Sift4Extended(Sift4):
+class Sift4Extended(_Distance):
     r"""Sift4 Extended version.
 
     This is an approximation of edit distance, described in
@@ -44,6 +45,8 @@ class Sift4Extended(Sift4):
 
     .. versionadded:: 0.4.0
     """
+
+    _sift4 = Sift4()
 
     def __init__(
         self,
@@ -65,6 +68,27 @@ class Sift4Extended(Sift4):
             The number of characters to search for matching letters
         max_distance : int
             The distance at which to stop and exit
+        tokenizer : _Tokenizer
+            A tokenizer instance (character tokenization by default)
+        token_matcher : function
+            A token matcher function of two parameters (equality by default).
+            :math:`Sift4Extended.sift4_token_matcher` is also supplied.
+        matching_evaluator : function
+            A token match quality function of two parameters (1 by default).
+            :math:`Sift4Extended.sift4_matching_evaluator` is also supplied.
+        local_length_evaluator : function
+            A local length evaluator function (its single parameter by
+            default). :math:`Sift4Extended.reward_length_evaluator` and
+            :math:`Sift4Extended.reward_length_evaluator_exp` are also
+            supplied.
+        transposition_cost_evaluator : function
+            A transposition cost evaluator function of two parameters (1 by
+            default).
+            :math:`Sift4Extended.longer_transpositions_are_more_costly` is also
+            supplied.
+        transpositions_evaluator : function
+            A transpositions evaluator function of two parameters (the second
+            parameter subtracted from the first, by default).
         **kwargs
             Arbitrary keyword arguments
 
@@ -72,7 +96,7 @@ class Sift4Extended(Sift4):
         .. versionadded:: 0.4.0
 
         """
-        super(Sift4, self).__init__(**kwargs)
+        super(_Distance, self).__init__(**kwargs)
         self._max_offset = max_offset
         self._max_distance = max_distance
         self._tokenizer = tokenizer
@@ -219,6 +243,109 @@ class Sift4Extended(Sift4):
             self._local_length_evaluator(max(src_len, tar_len))
             - self._transpositions_evaluator(lcss, trans)
         )
+
+    @staticmethod
+    def sift4_token_matcher(src, tar):
+        """Sift4 Token Matcher.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        bool
+            Whether the Sift4 similarity of the two tokens is over 0.7
+
+        .. versionadded:: 0.4.0
+
+        """
+        return Sift4Extended.sift4_matching_evaluator(src, tar) > 0.7
+
+    @staticmethod
+    def sift4_matching_evaluator(src, tar):
+        """Sift4 Matching Evaluator.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            The Sift4 similarity of the two tokens
+
+        .. versionadded:: 0.4.0
+
+        """
+        return Sift4Extended._sift4.sim(src, tar)
+
+    @staticmethod
+    def reward_length_evaluator(length):
+        """Reward Length Evaluator.
+
+        Parameters
+        ----------
+        length : int
+            The length of a local match
+
+        Returns
+        -------
+        float
+            A reward value that grows sub-linearly
+
+        .. versionadded:: 0.4.0
+
+        """
+        if length < 1:
+            return 1
+        return length - 1 / (length + 1)
+
+    @staticmethod
+    def reward_length_evaluator_exp(length):
+        """Reward Length Evaluator.
+
+        Parameters
+        ----------
+        length : int
+            The length of a local match
+
+        Returns
+        -------
+        float
+            A reward value that grows exponentially
+
+        .. versionadded:: 0.4.0
+
+        """
+        return length ** 1.5
+
+    @staticmethod
+    def longer_transpositions_are_more_costly(pos1, pos2):
+        """Longer Transpositions Are More Costly.
+
+        Parameters
+        ----------
+        pos1 : int
+            The position of the first transposition
+        pos2 : int
+            The position of the second transposition
+
+        Returns
+        -------
+        float
+            A cost that grows as difference in the positions increases
+
+        .. versionadded:: 0.4.0
+
+        """
+        return abs(pos2 - pos1) / 9 + 1
 
 
 if __name__ == '__main__':
