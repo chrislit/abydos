@@ -30,9 +30,10 @@ from __future__ import (
 
 from copy import deepcopy
 
+from numpy import NINF
 from numpy import float as np_float
 from numpy import zeros as np_zeros
-from numpy import NINF as neg_inf
+
 
 from ._distance import _Distance
 
@@ -1502,12 +1503,12 @@ class ALINE(_Distance):
                     s_mat[i - 1, j - 2]
                     + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1])
                     if j > 1
-                    else neg_inf,
+                    else NINF,
                     s_mat[i - 2, j - 1]
                     + _sig_exp(tar[j - 1], src[i - 2], src[i - 1])
                     if i > 1
-                    else neg_inf,
-                    0 if self._mode in {'local', 'half-local'} else neg_inf,
+                    else NINF,
+                    0 if self._mode in {'local', 'half-local'} else NINF,
                 )
 
                 if s_mat[i, j] > sg_max:

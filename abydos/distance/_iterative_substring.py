@@ -159,7 +159,6 @@ class IterativeSubString(_Distance):
                             end_tar = j
                 i += 1
 
-            print(src[start_src:end_src], tar[start_tar:end_tar])
             src = src[:start_src] + src[end_src:]
             tar = tar[:start_tar] + tar[end_tar:]
 
