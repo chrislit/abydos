@@ -1308,28 +1308,34 @@ class ALINE(_Distance):
 
                 src_alignment = []
                 tar_alignment = []
+
+                out.append(('‖', '‖'))
+                part = 0
+                s_segment = ''
+                t_segment = ''
                 for ss, ts in out:
-                    src_alignment.append(ss)
-                    tar_alignment.append(ts)
+                    if ss == '‖':
+                        if part % 2 == 0:
+                            src_alignment.append(s_segment)
+                            tar_alignment.append(t_segment)
+                            s_segment = []
+                            t_segment = []
+                        else:
+                            src_alignment.append(' '.join(s_segment))
+                            tar_alignment.append(' '.join(t_segment))
+                            s_segment = ''
+                            t_segment = ''
+                        part += 1
+                    else:
+                        if part % 2 == 0:
+                            s_segment += ss
+                            t_segment += ts
+                        else:
+                            s_segment.append(ss)
+                            t_segment.append(ts)
 
-                src_alignment = ' '.join(src_alignment)
-                tar_alignment = ' '.join(tar_alignment)
-
-                # Do some further cleanup to match formatting in Kondrak (2002)
-                src_alignment = src_alignment.split('‖')
-
-                src_alignment[0] = src_alignment[0].replace(' ', '')
-                src_alignment[0] = src_alignment[0].replace('-', '') + ' '
-                src_alignment[2] = src_alignment[2].replace(' ', '')
-                src_alignment[2] = ' ' + src_alignment[2].replace('-', '')
-                src_alignment = '‖'.join(src_alignment).strip()
-
-                tar_alignment = tar_alignment.split('‖')
-                tar_alignment[0] = tar_alignment[0].replace(' ', '')
-                tar_alignment[0] = tar_alignment[0].replace('-', '') + ' '
-                tar_alignment[2] = tar_alignment[2].replace(' ', '')
-                tar_alignment[2] = ' ' + tar_alignment[2].replace('-', '')
-                tar_alignment = '‖'.join(tar_alignment).strip()
+                src_alignment = ' ‖ '.join(src_alignment).strip()
+                tar_alignment = ' ‖ '.join(tar_alignment).strip()
 
                 alignments.append((score, src_alignment, tar_alignment))
                 return
