@@ -47,8 +47,6 @@ class NCDarith(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    _coder = None
-
     def __init__(self, probs=None, **kwargs):
         """Initialize the arithmetic coder object.
 
