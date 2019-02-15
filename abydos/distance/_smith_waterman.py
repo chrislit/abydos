@@ -110,10 +110,6 @@ class SmithWaterman(NeedlemanWunsch):
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
-        for i in range(len(src) + 1):
-            d_mat[i, 0] = 0
-        for j in range(len(tar) + 1):
-            d_mat[0, j] = 0
         for i in range(1, len(src) + 1):
             for j in range(1, len(tar) + 1):
                 match = d_mat[i - 1, j - 1] + self._sim_func(
