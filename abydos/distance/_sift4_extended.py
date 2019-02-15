@@ -85,7 +85,7 @@ class Sift4Extended(Sift4):
         if self._tokenizer is None:
             self._tokenizer = CharacterTokenizer()
         if self._token_matcher is None:
-            self._token_matcher = lambda t1, t2: t1==t2
+            self._token_matcher = lambda t1, t2: t1 == t2
         if self._matching_evaluator is None:
             self._matching_evaluator = lambda t1, t2: 1
         if self._local_length_evaluator is None:
@@ -93,7 +93,7 @@ class Sift4Extended(Sift4):
         if self._transposition_cost_evaluator is None:
             self._transposition_cost_evaluator = lambda c1, c2: 1
         if self._transpositions_evaluator is None:
-            self._transpositions_evaluator = lambda lcss, trans: lcss-trans
+            self._transpositions_evaluator = lambda lcss, trans: lcss - trans
 
     def dist_abs(self, src, tar):
         """Return the Sift4 Extended distance between two strings.
@@ -147,7 +147,9 @@ class Sift4Extended(Sift4):
 
         while (src_cur < src_len) and (tar_cur < tar_len):
             if self._token_matcher(src[src_cur], tar[tar_cur]):
-                local_cs += self._matching_evaluator(src[src_cur], tar[tar_cur])
+                local_cs += self._matching_evaluator(
+                    src[src_cur], tar[tar_cur]
+                )
                 is_trans = False
                 i = 0
                 while i < len(offset_arr):
@@ -157,10 +159,14 @@ class Sift4Extended(Sift4):
                             ofs['tar_cur'] - ofs['src_cur']
                         )
                         if is_trans:
-                            trans += self._transposition_cost_evaluator(src_cur, tar_cur)
+                            trans += self._transposition_cost_evaluator(
+                                src_cur, tar_cur
+                            )
                         elif not ofs['trans']:
                             ofs['trans'] = True
-                            trans += self._transposition_cost_evaluator(ofs['tar_cur'], ofs['src_cur'])
+                            trans += self._transposition_cost_evaluator(
+                                ofs['tar_cur'], ofs['src_cur']
+                            )
                         break
                     elif src_cur > ofs['tar_cur'] and tar_cur > ofs['src_cur']:
                         del offset_arr[i]
@@ -197,7 +203,9 @@ class Sift4Extended(Sift4):
             tar_cur += 1
 
             if self._max_distance:
-                temporary_distance = self._local_length_evaluator(max(src_cur, tar_cur)) - self._transpositions_evaluator(lcss, trans)
+                temporary_distance = self._local_length_evaluator(
+                    max(src_cur, tar_cur)
+                ) - self._transpositions_evaluator(lcss, trans)
                 if temporary_distance >= self._max_distance:
                     return round(temporary_distance)
 
@@ -207,7 +215,10 @@ class Sift4Extended(Sift4):
                 src_cur = tar_cur = min(src_cur, tar_cur)
 
         lcss += self._local_length_evaluator(local_cs)
-        return round(self._local_length_evaluator(max(src_len, tar_len)) - self._transpositions_evaluator(lcss, trans))
+        return round(
+            self._local_length_evaluator(max(src_len, tar_len))
+            - self._transpositions_evaluator(lcss, trans)
+        )
 
 
 if __name__ == '__main__':
