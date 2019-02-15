@@ -1161,13 +1161,34 @@ class ALINE(_Distance):
         c_exp=45,
         c_vwl=10,
         mode='local',
-        ipa=False,
+        phones='aline',
         **kwargs
     ):
         """Initialize ALINE instance.
 
         Parameters
         ----------
+        epsilon : float
+            The portion (out of 1.0) of the maximum ALINE score, above which
+            alignments are returned. If set to 0, only the alignments matching
+            the maximum alignment score are returned. If set to 1, all
+            alignments scoring 0 or higher are returned.
+        c_skip : int
+            The cost of an insertion or deletion
+        c_sub : int
+            The cost of a substitution
+        c_exp : int
+            The cost of an expansion or contraction
+        c_vwl : int
+            The additional cost of a vowel substitution, expansion, or
+            contraction
+        mode : str
+            Alignment mode, which can be 'local' (default), 'global',
+            'half-local', or 'semi-global'
+        phones : str
+            Phonetic symbol set, which can be:
+                - 'aline' selects Kondrak's original symbols set
+                - 'ipa' selects IPA symbols
         **kwargs
             Arbitrary keyword arguments
 
@@ -1184,43 +1205,13 @@ class ALINE(_Distance):
         self._mode = mode
         if self._mode not in {'local', 'global', 'half-local', 'semi-global'}:
             self._mode = 'local'
-        self._phones = self.phones_ipa if ipa else self.phones_kondrak
-
-    def sim_abs(self, src, tar):
-        """Return the ALINE alignment of two strings.
-
-        Parameters
-        ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
-
-        Returns
-        -------
-        tuple(str)
-            ALINE alignment
-
-        Examples
-        --------
-        >>> cmp = ALINE()
-        >>> cmp.alignment('cat', 'hat')
-        0.0
-        >>> cmp.alignment('Niall', 'Neil')
-        0.0
-        >>> cmp.alignment('aluminum', 'Catalan')
-        0.0
-        >>> cmp.alignment('ATCG', 'TAGC')
-        0.0
-
-
-        .. versionadded:: 0.4.0
-
-        """
-        return self.alignment(src, tar, score_only=True)
+        if phones == 'ipa':
+            self._phones = self.phones_ipa
+        else:
+            self._phones = self.phones_kondrak
 
     def alignment(self, src, tar, score_only=False):
-        """Return the ALINE alignment of two strings.
+        """Return the ALINE alignments of two strings.
 
         Parameters
         ----------
@@ -1233,8 +1224,8 @@ class ALINE(_Distance):
 
         Returns
         -------
-        tuple(str) or float
-            ALINE alignment
+        list(tuple(float, str, str) or float
+            ALINE alignments and their scores or the top score
 
         Examples
         --------
@@ -1558,6 +1549,39 @@ class ALINE(_Distance):
                     _retrieve(i, j, 0, out)
 
         return sorted(alignments, key=lambda _: _[0], reverse=True)
+
+    def sim_abs(self, src, tar):
+        """Return the ALINE alignment score of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            ALINE alignment score
+
+        Examples
+        --------
+        >>> cmp = ALINE()
+        >>> cmp.sim_abs('cat', 'hat')
+        0.0
+        >>> cmp.sim_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.alignment(src, tar, score_only=True)
 
     def sim(self, src, tar):
         """Return the normalized ALINE similarity of two strings.
