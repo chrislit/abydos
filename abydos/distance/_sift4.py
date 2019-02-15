@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -191,10 +191,6 @@ class Sift4(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        max_offset : int
-            The number of characters to search for matching letters
-        max_distance : int
-            The distance at which to stop and exit
 
         Returns
         -------
