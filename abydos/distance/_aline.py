@@ -1309,8 +1309,8 @@ class ALINE(_Distance):
                 src_alignment = []
                 tar_alignment = []
                 for ss, ts in out:
-                    src_alignment.append(ss)  # + '-' * (len(ts) - len(ss)))
-                    tar_alignment.append(ts)  # + '-' * (len(ss) - len(ts)))
+                    src_alignment.append(ss)
+                    tar_alignment.append(ts)
 
                 src_alignment = ' '.join(src_alignment)
                 tar_alignment = ' '.join(tar_alignment)
