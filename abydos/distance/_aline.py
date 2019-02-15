@@ -34,7 +34,6 @@ from numpy import NINF
 from numpy import float as np_float
 from numpy import zeros as np_zeros
 
-
 from ._distance import _Distance
 
 __all__ = ['ALINE']
