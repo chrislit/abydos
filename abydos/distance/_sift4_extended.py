@@ -18,7 +18,7 @@
 
 """abydos.distance._sift4_extended.
 
-Sift4 Extended distance
+Sift4 Extended approximate string distance
 """
 
 from __future__ import (
@@ -28,119 +28,152 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._token_distance import _TokenDistance
+from six.moves import range
+
+from ._sift4 import Sift4
 
 __all__ = ['Sift4Extended']
 
 
-class Sift4Extended(_TokenDistance):
-    r"""Sift4 Extended distance.
+class Sift4Extended(Sift4):
+    r"""Sift4 Extended version.
 
-    For two sets X and Y and a population N, Sift4 Extended distance
-    :cite:`CITATION` is
-
-        .. math::
-
-            sim_{Sift4Extended}(X, Y) =
-
-    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
-    this is
-
-        .. math::
-
-            sim_{Sift4Extended} =
+    This is an approximation of edit distance, described in
+    :cite:`Zackwehdex:2014`.
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(
-        self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+    def __init__(self, max_offset=5, max_distance=0, **kwargs):
         """Initialize Sift4Extended instance.
 
         Parameters
         ----------
-        alphabet : Counter, collection, int, or None
-            This represents the alphabet of possible tokens.
-            See :ref:`alphabet <alphabet>` description in
-            :py:class:`_TokenDistance` for details.
-        tokenizer : _Tokenizer
-            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
-        intersection_type : str
-            Specifies the intersection type, and set type as a result:
-            See :ref:`intersection_type <intersection_type>` description in
-            :py:class:`_TokenDistance` for details.
+        max_offset : int
+            The number of characters to search for matching letters
+        max_distance : int
+            The distance at which to stop and exit
         **kwargs
             Arbitrary keyword arguments
-
-        Other Parameters
-        ----------------
-        qval : int
-            The length of each q-gram. Using this parameter and tokenizer=None
-            will cause the instance to use the QGram tokenizer with this
-            q value.
-        metric : _Distance
-            A string distance measure class for use in the 'soft' and 'fuzzy'
-            variants.
-        threshold : float
-            A threshold value, similarities above which are counted as
-            members of the intersection for the 'fuzzy' variant.
 
 
         .. versionadded:: 0.4.0
 
         """
-        super(Sift4Extended, self).__init__(
-            alphabet=alphabet,
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
-        )
+        super(Sift4, self).__init__(**kwargs)
+        self._max_offset = max_offset
+        self._max_distance = max_distance
 
-    def dist(self, src, tar):
-        """Return the Sift4 Extended distance of two strings.
+    def dist_abs(self, src, tar):
+        """Return the Sift4 Extended distance between two strings.
 
         Parameters
         ----------
         src : str
-            Source string (or QGrams/Counter objects) for comparison
+            Source string for comparison
         tar : str
-            Target string (or QGrams/Counter objects) for comparison
+            Target string for comparison
 
         Returns
         -------
-        float
-            Sift4 Extended distance
+        int
+            The Sift4 distance according to the extended formula
 
         Examples
         --------
         >>> cmp = Sift4Extended()
-        >>> cmp.dist('cat', 'hat')
-        0.0
-        >>> cmp.dist('Niall', 'Neil')
-        0.0
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        >>> cmp.dist_abs('cat', 'hat')
+        1
+        >>> cmp.dist_abs('Niall', 'Neil')
+        2
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        3
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        2
 
 
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
+        if not src:
+            return len(tar)
 
-        # a = self._intersection_card()
-        # b = self._src_only_card()
-        # c = self._tar_only_card()
-        # d = self._total_complement_card()
-        # n = self._population_card()
+        if not tar:
+            return len(src)
 
-        return 0.0
+        src_len = len(src)
+        tar_len = len(tar)
+
+        src_cur = 0
+        tar_cur = 0
+        lcss = 0
+        local_cs = 0
+        trans = 0
+        offset_arr = []
+
+        while (src_cur < src_len) and (tar_cur < tar_len):
+            if src[src_cur] == tar[tar_cur]:
+                local_cs += 1
+                is_trans = False
+                i = 0
+                while i < len(offset_arr):
+                    ofs = offset_arr[i]
+                    if src_cur <= ofs['src_cur'] or tar_cur <= ofs['tar_cur']:
+                        is_trans = abs(tar_cur - src_cur) >= abs(
+                            ofs['tar_cur'] - ofs['src_cur']
+                        )
+                        if is_trans:
+                            trans += 1
+                        elif not ofs['trans']:
+                            ofs['trans'] = True
+                            trans += 1
+                        break
+                    elif src_cur > ofs['tar_cur'] and tar_cur > ofs['src_cur']:
+                        del offset_arr[i]
+                    else:
+                        i += 1
+
+                offset_arr.append(
+                    {'src_cur': src_cur, 'tar_cur': tar_cur, 'trans': is_trans}
+                )
+            else:
+                lcss += local_cs
+                local_cs = 0
+                if src_cur != tar_cur:
+                    src_cur = tar_cur = min(src_cur, tar_cur)
+                for i in range(self._max_offset):
+                    if not (
+                        (src_cur + i < src_len) or (tar_cur + i < tar_len)
+                    ):
+                        break
+                    if (src_cur + i < src_len) and (
+                        src[src_cur + i] == tar[tar_cur]
+                    ):
+                        src_cur += i - 1
+                        tar_cur -= 1
+                        break
+                    if (tar_cur + i < tar_len) and (
+                        src[src_cur] == tar[tar_cur + i]
+                    ):
+                        src_cur -= 1
+                        tar_cur += i - 1
+                        break
+
+            src_cur += 1
+            tar_cur += 1
+
+            if self._max_distance:
+                temporary_distance = max(src_cur, tar_cur) - lcss + trans
+                if temporary_distance >= self._max_distance:
+                    return round(temporary_distance)
+
+            if (src_cur >= src_len) or (tar_cur >= tar_len):
+                lcss += local_cs
+                local_cs = 0
+                src_cur = tar_cur = min(src_cur, tar_cur)
+
+        lcss += local_cs
+        return round(max(src_len, tar_len) - lcss + trans)
 
 
 if __name__ == '__main__':
