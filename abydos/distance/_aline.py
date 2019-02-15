@@ -38,6 +38,7 @@ from ._distance import _Distance
 
 __all__ = ['ALINE']
 
+
 class ALINE(_Distance):
     r"""ALINE similarity.
 
@@ -1296,12 +1297,12 @@ class ALINE(_Distance):
         def _retrieve(i, j, score, out):
             def _record(score, out):
                 out.append(('‖', '‖'))
-                for i1 in range(i-1, -1, -1):
+                for i1 in range(i - 1, -1, -1):
                     out.append((src[i1]['segment'], ''))
-                for j1 in range(j-1, -1, -1):
+                for j1 in range(j - 1, -1, -1):
                     out.append(('', tar[j1]['segment']))
                 if self._mode == 'global':
-                    score += (i+j)*_sig_skip('')
+                    score += (i + j) * _sig_skip('')
 
                 out = out[::-1]
 
@@ -1318,16 +1319,16 @@ class ALINE(_Distance):
                 src_alignment = src_alignment.split('‖')
 
                 src_alignment[0] = src_alignment[0].replace(' ', '')
-                src_alignment[0] = src_alignment[0].replace('-', '')+' '
+                src_alignment[0] = src_alignment[0].replace('-', '') + ' '
                 src_alignment[2] = src_alignment[2].replace(' ', '')
-                src_alignment[2] = ' '+src_alignment[2].replace('-', '')
+                src_alignment[2] = ' ' + src_alignment[2].replace('-', '')
                 src_alignment = '‖'.join(src_alignment).strip()
 
                 tar_alignment = tar_alignment.split('‖')
                 tar_alignment[0] = tar_alignment[0].replace(' ', '')
-                tar_alignment[0] = tar_alignment[0].replace('-', '')+' '
+                tar_alignment[0] = tar_alignment[0].replace('-', '') + ' '
                 tar_alignment[2] = tar_alignment[2].replace(' ', '')
-                tar_alignment[2] = ' '+tar_alignment[2].replace('-', '')
+                tar_alignment[2] = ' ' + tar_alignment[2].replace('-', '')
                 tar_alignment = '‖'.join(tar_alignment).strip()
 
                 alignments.append((score, src_alignment, tar_alignment))
@@ -1350,7 +1351,8 @@ class ALINE(_Distance):
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
-                    loc_out.append((src[i - 1]['segment'], tar[j - 1]['segment'])
+                    loc_out.append(
+                        (src[i - 1]['segment'], tar[j - 1]['segment'])
                     )
                     _retrieve(
                         i - 1,
@@ -1383,7 +1385,7 @@ class ALINE(_Distance):
                         (
                             src[i - 1]['segment'] + ' ',
                             tar[j - 2]['segment'] + tar[j - 1]['segment'],
-                        ),
+                        )
                     )
                     _retrieve(
                         i - 1,
@@ -1416,7 +1418,7 @@ class ALINE(_Distance):
                         (
                             src[i - 2]['segment'] + src[i - 1]['segment'],
                             tar[j - 1]['segment'] + ' ',
-                        ),
+                        )
                     )
                     _retrieve(
                         i - 2,
@@ -1426,7 +1428,7 @@ class ALINE(_Distance):
                     )
                     loc_out.pop()
 
-                if self._mode in {'local', 'half-local'} and s_mat[i,j] == 0:
+                if self._mode in {'local', 'half-local'} and s_mat[i, j] == 0:
                     _record(score, out)
                     return
 
@@ -1489,10 +1491,10 @@ class ALINE(_Distance):
         s_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
 
         if self._mode == 'global':
-            for i in range(1, src_len+1):
-                s_mat[i,0] = s_mat[i-1,0]+_sig_skip(src[i-1])
-            for j in range(1, tar_len+1):
-                s_mat[0,j] = s_mat[0,j-1]+_sig_skip(tar[j-1])
+            for i in range(1, src_len + 1):
+                s_mat[i, 0] = s_mat[i - 1, 0] + _sig_skip(src[i - 1])
+            for j in range(1, tar_len + 1):
+                s_mat[0, j] = s_mat[0, j - 1] + _sig_skip(tar[j - 1])
 
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
@@ -1514,7 +1516,7 @@ class ALINE(_Distance):
                 if s_mat[i, j] > sg_max:
                     if self._mode == 'semi-global':
                         if i == src_len or j == tar_len:
-                            sg_max = s_mat[i,j]
+                            sg_max = s_mat[i, j]
                     else:
                         sg_max = s_mat[i, j]
 
@@ -1532,20 +1534,27 @@ class ALINE(_Distance):
 
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
-                if self._mode in {'global', 'half-local'} and (i < src_len or j < tar_len):
+                if self._mode in {'global', 'half-local'} and (
+                    i < src_len or j < tar_len
+                ):
                     continue
-                if self._mode == 'semi-global' and (i < src_len and j < tar_len):
+                if self._mode == 'semi-global' and (
+                    i < src_len and j < tar_len
+                ):
                     continue
                 if s_mat[i, j] >= threshold:
                     out = []
-                    for j1 in range(tar_len-1, j-1, -1):
+                    for j1 in range(tar_len - 1, j - 1, -1):
                         out.append(('', tar[j1]['segment']))
-                    for i1 in range(src_len-1, i-1, -1):
+                    for i1 in range(src_len - 1, i - 1, -1):
                         out.append((src[i1]['segment'], ''))
                     out.append(('‖', '‖'))
                     _retrieve(i, j, 0, out)
 
-        return s_mat.max(), sorted(alignments, key=lambda _:_[0], reverse=True)
+        return (
+            s_mat.max(),
+            sorted(alignments, key=lambda _: _[0], reverse=True),
+        )
 
     def sim(self, src, tar):
         """Return the normalized ALINE similarity of two strings.
