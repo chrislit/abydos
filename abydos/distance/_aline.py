@@ -1301,7 +1301,7 @@ class ALINE(_Distance):
                 for j1 in range(j-1, -1, -1):
                     out.insert(0, ('', tar[j1]['segment']))
                 if self._mode == 'global':
-                    score += (i+j)*_sig_skip('')  # TODO: should be i+j?
+                    score += (i+j)*_sig_skip('')
 
                 src_alignment = []
                 tar_alignment = []
