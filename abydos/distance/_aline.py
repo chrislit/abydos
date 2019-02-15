@@ -1557,10 +1557,7 @@ class ALINE(_Distance):
                     out.append(('‖', '‖'))
                     _retrieve(i, j, 0, out)
 
-        return (
-            s_mat.max(),
-            sorted(alignments, key=lambda _: _[0], reverse=True),
-        )
+        return sorted(alignments, key=lambda _: _[0], reverse=True)
 
     def sim(self, src, tar):
         """Return the normalized ALINE similarity of two strings.
