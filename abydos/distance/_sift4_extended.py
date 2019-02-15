@@ -31,6 +31,7 @@ from __future__ import (
 from six.moves import range
 
 from ._sift4 import Sift4
+from ..tokenizer import CharacterTokenizer
 
 __all__ = ['Sift4Extended']
 
@@ -44,7 +45,18 @@ class Sift4Extended(Sift4):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, max_offset=5, max_distance=0, **kwargs):
+    def __init__(
+        self,
+        max_offset=5,
+        max_distance=0,
+        tokenizer=None,
+        token_matcher=None,
+        matching_evaluator=None,
+        local_length_evaluator=None,
+        transposition_cost_evaluator=None,
+        transpositions_evaluator=None,
+        **kwargs
+    ):
         """Initialize Sift4Extended instance.
 
         Parameters
@@ -63,6 +75,25 @@ class Sift4Extended(Sift4):
         super(Sift4, self).__init__(**kwargs)
         self._max_offset = max_offset
         self._max_distance = max_distance
+        self._tokenizer = tokenizer
+        self._token_matcher = token_matcher
+        self._matching_evaluator = matching_evaluator
+        self._local_length_evaluator = local_length_evaluator
+        self._transposition_cost_evaluator = transposition_cost_evaluator
+        self._transpositions_evaluator = transpositions_evaluator
+
+        if self._tokenizer is None:
+            self._tokenizer = CharacterTokenizer()
+        if self._token_matcher is None:
+            self._token_matcher = lambda t1, t2: t1==t2
+        if self._matching_evaluator is None:
+            self._matching_evaluator = lambda t1, t2: 1
+        if self._local_length_evaluator is None:
+            self._local_length_evaluator = lambda local_cs: local_cs
+        if self._transposition_cost_evaluator is None:
+            self._transposition_cost_evaluator = lambda c1, c2: 1
+        if self._transpositions_evaluator is None:
+            self._transpositions_evaluator = lambda lcss, trans: lcss-trans
 
     def dist_abs(self, src, tar):
         """Return the Sift4 Extended distance between two strings.
@@ -95,6 +126,9 @@ class Sift4Extended(Sift4):
         .. versionadded:: 0.4.0
 
         """
+        src = self._tokenizer.tokenize(src).get_list()
+        tar = self._tokenizer.tokenize(tar).get_list()
+
         if not src:
             return len(tar)
 
@@ -112,8 +146,8 @@ class Sift4Extended(Sift4):
         offset_arr = []
 
         while (src_cur < src_len) and (tar_cur < tar_len):
-            if src[src_cur] == tar[tar_cur]:
-                local_cs += 1
+            if self._token_matcher(src[src_cur], tar[tar_cur]):
+                local_cs += self._matching_evaluator(src[src_cur], tar[tar_cur])
                 is_trans = False
                 i = 0
                 while i < len(offset_arr):
@@ -123,10 +157,10 @@ class Sift4Extended(Sift4):
                             ofs['tar_cur'] - ofs['src_cur']
                         )
                         if is_trans:
-                            trans += 1
+                            trans += self._transposition_cost_evaluator(src_cur, tar_cur)
                         elif not ofs['trans']:
                             ofs['trans'] = True
-                            trans += 1
+                            trans += self._transposition_cost_evaluator(ofs['tar_cur'], ofs['src_cur'])
                         break
                     elif src_cur > ofs['tar_cur'] and tar_cur > ofs['src_cur']:
                         del offset_arr[i]
@@ -137,7 +171,7 @@ class Sift4Extended(Sift4):
                     {'src_cur': src_cur, 'tar_cur': tar_cur, 'trans': is_trans}
                 )
             else:
-                lcss += local_cs
+                lcss += self._local_length_evaluator(local_cs)
                 local_cs = 0
                 if src_cur != tar_cur:
                     src_cur = tar_cur = min(src_cur, tar_cur)
@@ -147,13 +181,13 @@ class Sift4Extended(Sift4):
                     ):
                         break
                     if (src_cur + i < src_len) and (
-                        src[src_cur + i] == tar[tar_cur]
+                        self._token_matcher(src[src_cur + i], tar[tar_cur])
                     ):
                         src_cur += i - 1
                         tar_cur -= 1
                         break
                     if (tar_cur + i < tar_len) and (
-                        src[src_cur] == tar[tar_cur + i]
+                        self._token_matcher(src[src_cur], tar[tar_cur + i])
                     ):
                         src_cur -= 1
                         tar_cur += i - 1
@@ -163,17 +197,17 @@ class Sift4Extended(Sift4):
             tar_cur += 1
 
             if self._max_distance:
-                temporary_distance = max(src_cur, tar_cur) - lcss + trans
+                temporary_distance = self._local_length_evaluator(max(src_cur, tar_cur)) - self._transpositions_evaluator(lcss, trans)
                 if temporary_distance >= self._max_distance:
                     return round(temporary_distance)
 
             if (src_cur >= src_len) or (tar_cur >= tar_len):
-                lcss += local_cs
+                lcss += self._local_length_evaluator(local_cs)
                 local_cs = 0
                 src_cur = tar_cur = min(src_cur, tar_cur)
 
-        lcss += local_cs
-        return round(max(src_len, tar_len) - lcss + trans)
+        lcss += self._local_length_evaluator(local_cs)
+        return round(self._local_length_evaluator(max(src_len, tar_len)) - self._transpositions_evaluator(lcss, trans))
 
 
 if __name__ == '__main__':
