@@ -42,7 +42,8 @@ __all__ = ['ALINE']
 class ALINE(_Distance):
     r"""ALINE similarity.
 
-    ALINE similarity :cite:`Kondrak:2000` and distance :cite:`Downey:2008`
+    ALINE similarity :cite:`Kondrak:2000,Kondrak:2002` and distance
+    :cite:`Downey:2008`
 
     .. versionadded:: 0.4.0
     """
@@ -1581,6 +1582,8 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if src == '' and tar == '':
+            return 1.0
         return self.alignment(src, tar, score_only=True)
 
     def sim(self, src, tar):
