@@ -1470,7 +1470,8 @@ class ALINE(_Distance):
                             if key != 'supplemental':
                                 if key == 'segment':
                                     tar[j]['segment'] += value
-                                tar[j][key] = value
+                                else:
+                                    tar[j][key] = value
                         break
         tar = [fb for fb in tar if 'supplemental' not in fb]
 
