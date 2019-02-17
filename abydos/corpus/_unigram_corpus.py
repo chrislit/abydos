@@ -110,9 +110,8 @@ class UnigramCorpus(object):
 
     def _update_doc_count(self):
         """Update document count, if necessary."""
-        if self.corpus:
-            max_docs = max(self.corpus.values(), key=lambda _: _[1])[1]
-            self.doc_count = max(max_docs, self.doc_count)
+        max_docs = max(self.corpus.values(), key=lambda _: _[1])[1]
+        self.doc_count = max(max_docs, self.doc_count)
 
     def _add_word(self, word, count, doc_count):
         """Add a term to the corpus, possibly after tokenization.
