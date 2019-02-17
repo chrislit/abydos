@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.corpus import Corpus
+from abydos.tokenizer import QSkipgrams
 
 
 class CorpusTestCases(unittest.TestCase):
@@ -204,6 +205,27 @@ class CorpusTestCases(unittest.TestCase):
                 [
                     ['The', 'quick', 'brown'],
                     ['fox', 'jumped', 'over', 'the', 'lazy', 'dog'],
+                ]
+            ],
+        )
+        self.assertEqual(
+            Corpus(
+                'quick', word_tokenizer=QSkipgrams(qval=3, start_stop='')
+            ).corpus,
+            [
+                [
+                    [
+                        'qui',
+                        'quc',
+                        'quk',
+                        'qic',
+                        'qik',
+                        'qck',
+                        'uic',
+                        'uik',
+                        'uck',
+                        'ick',
+                    ]
                 ]
             ],
         )

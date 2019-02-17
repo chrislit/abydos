@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.corpus.test_ngram.
+"""abydos.tests.corpus.test_n_gram_corpus.
 
 This module contains unit tests for abydos.corpus._n_gram_corpus
 """
