@@ -277,9 +277,7 @@ are provided:
     - lzma (:py:class:`.NCDlzma`)
     - LZSS (:py:class:`.NCDlzss`)
     - arithmetic coding (:py:class:`.NCDarith`)
-    - PPMd (:py:class:`.NCDppmd`)
     - PAQ9A (:py:class:`.NCDpaq9a`)
-    - ZPAQ (:py:class:`.NCDzpaq`)
     - BWT plus RLE (:py:class:`.NCDbwtrle`)
     - RLE (:py:class:`.NCDrle`)
 
@@ -486,10 +484,8 @@ from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
 from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 from ._ncd_lzss import NCDlzss
 from ._ncd_paq9a import NCDpaq9a
-from ._ncd_ppmd import NCDppmd
 from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
 from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
-from ._ncd_zpaq import NCDzpaq
 from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
 from ._overlap import Overlap, dist_overlap, sim_overlap
 from ._ozbay import Ozbay
@@ -896,8 +892,6 @@ __all__ = [
     'sim_ncd_rle',
     'NCDpaq9a',
     'NCDlzss',
-    'NCDppmd',
-    'NCDzpaq',
     'FuzzyWuzzyPartialString',
     'FuzzyWuzzyTokenSort',
     'FuzzyWuzzyTokenSet',
