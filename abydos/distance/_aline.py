@@ -1452,10 +1452,6 @@ class ALINE(_Distance):
                     )
                     loc_out.pop()
 
-                if self._mode in {'local', 'half-local'} and s_mat[i, j] == 0:
-                    _record(score, out)
-                    return
-
         sg_max = 0.0
 
         src = list(src)
