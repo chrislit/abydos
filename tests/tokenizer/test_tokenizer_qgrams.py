@@ -39,7 +39,9 @@ class QGramsTestCases(unittest.TestCase):
     def test_qgrams(self):
         """Test abydos.tokenizer.QGrams."""
         self.assertEqual(sorted(QGrams().tokenize('').get_list()), [])
-        self.assertEqual(sorted(QGrams(2).tokenize('a').get_list()), [])
+        self.assertEqual(
+            sorted(QGrams(2).tokenize('a').get_list()), ['$a', 'a#']
+        )
         self.assertEqual(sorted(QGrams(-1).tokenize('NELSON').get_list()), [])
 
         self.assertEqual(
@@ -47,7 +49,23 @@ class QGramsTestCases(unittest.TestCase):
             sorted(['$$N', '$NE', 'NEL', 'ELS', 'LSO', 'SON', 'ON#', 'N##']),
         )
         self.assertEqual(
-            sorted(QGrams(7).tokenize('NELSON').get_list()), sorted([])
+            sorted(QGrams(7).tokenize('NELSON').get_list()),
+            sorted(
+                [
+                    '$$$$$$N',
+                    '$$$$$NE',
+                    '$$$$NEL',
+                    '$$$NELS',
+                    '$$NELSO',
+                    '$NELSON',
+                    'ELSON##',
+                    'LSON###',
+                    'N######',
+                    'NELSON#',
+                    'ON#####',
+                    'SON####',
+                ]
+            ),
         )
 
         # http://www.sound-ex.com/alternative_qgram.htm
