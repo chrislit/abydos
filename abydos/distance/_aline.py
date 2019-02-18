@@ -1336,10 +1336,6 @@ class ALINE(_Distance):
                 _record(score, out)
                 return
             else:
-                if i == 0 and j == 0:
-                    _record(score, out)
-                    return
-
                 if (
                     i > 0
                     and j > 0
