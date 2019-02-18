@@ -452,6 +452,14 @@ class ALINETestCases(unittest.TestCase):
             cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
             [(120.0, '‖ aH p a k o s iH s ‖', 'w ‖ aH p i k o n oH h ‖ a')],
         )
+        self.assertEqual(
+            cmp2.alignment('kan', 'kaABCDHn'),
+            [(84.0, '‖ k a      n ‖', '‖ k aABCDH n ‖')],
+        )
+        self.assertEqual(
+            cmp2.alignment('kaABCDHn', 'kan'),
+            [(84.0, '‖ k aABCDH n ‖', '‖ k a      n ‖')],
+        )
         cmp2 = ALINE(phones='ipa')
         self.assertEqual(
             cmp2.alignment('kɒgneit', 'kognaːtus'),
