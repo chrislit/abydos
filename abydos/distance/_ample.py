@@ -54,6 +54,14 @@ class AMPLE(_TokenDistance):
             sim_{AMPLE} =
             \big|\frac{a}{a+b}-\frac{c}{c+d}\big|
 
+    Notes
+    -----
+    This measure is asymmetric. The first ratio considers how similar the two
+    strings are, while the second considers how dissimilar the second string
+    is. As a result, both very similar and very dissimilar strings will score
+    high on this measure, provided the unique aspects are present chiefly
+    in the latter string.
+
     .. versionadded:: 0.4.0
     """
 
@@ -136,12 +144,23 @@ class AMPLE(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
+
+        # If the denominators are 0, set them to 1.
+        # This is a deviation from the formula, but prevents division by zero
+        # while retaining the contribution of the other ratio.
+        if a + b == 0:
+            b = 1
+        if c + d == 0:
+            d = 1
 
         return abs((a / (a + b)) - (c / (c + d)))
 
