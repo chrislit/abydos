@@ -446,6 +446,17 @@ class ALINETestCases(unittest.TestCase):
             cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
             [(106.5, '‖ aH  p a k o s iH s - ‖', '‖ waH p i k o n oH h a ‖')],
         )
+        # The following just confirms that unknown values of mode use 'local'
+        cmp2 = ALINE(mode='universal')
+        self.assertEqual(
+            cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
+            [(120.0, '‖ aH p a k o s iH s ‖', 'w ‖ aH p i k o n oH h ‖ a')],
+        )
+        cmp2 = ALINE(phones='ipa')
+        self.assertEqual(
+            cmp2.alignment('kɒgneit', 'kognaːtus'),
+            [(163.0, '‖ k ɒ g n ei t ‖', '‖ k o g n aː t ‖ us')]
+        )
 
     def test_aline_sim(self):
         """Test abydos.distance.ALINE.sim."""
