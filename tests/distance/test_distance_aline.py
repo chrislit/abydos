@@ -159,8 +159,8 @@ class ALINETestCases(unittest.TestCase):
             [(77.5, '‖ dS i s ‖', 'diH ‖ z  e s ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('dSet', 'das'),
-            [(60.0, '‖ dS e t ‖', '‖ d  a s ‖')],
+            self.cmp.alignment('dSaFt', 'das'),
+            [(62.5, '‖ dS aF t ‖', '‖ d  a  s ‖')],
         )
         # Different from paper:
         # TODO: Implement 'double' and see if it changes
@@ -180,8 +180,8 @@ class ALINETestCases(unittest.TestCase):
             [(75.0, '‖ l o gN ‖', '‖ l a gN ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('man', 'man'),
-            [(85.0, '‖ m a n ‖', '‖ m a n ‖')],
+            self.cmp.alignment('maFn', 'man'),
+            [(82.5, '‖ m aF n ‖', '‖ m a  n ‖')],
         )
         self.assertEqual(
             self.cmp.alignment('flesP', 'flaysP'),
@@ -196,8 +196,8 @@ class ALINETestCases(unittest.TestCase):
             [(124.0, '‖ f e  dS eC r ‖', '‖ f eH d  eC r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('har', 'haHr'),
-            [(84.0, '‖ h a  r ‖', '‖ h aH r ‖')],
+            self.cmp.alignment('haFr', 'haHr'),
+            [(81.5, '‖ h aF r ‖', '‖ h aH r ‖')],
         )
         self.assertEqual(
             self.cmp.alignment('ir', 'oHr'), [(41.5, '‖ i  r ‖', '‖ oH r ‖')]
@@ -227,8 +227,8 @@ class ALINETestCases(unittest.TestCase):
             [(53.0, '‖ n iy ‖', 'k ‖ n iH ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('hand', 'hant'),
-            [(110.0, '‖ h a n d ‖', '‖ h a n t ‖')],
+            self.cmp.alignment('haFnd', 'hant'),
+            [(107.5, '‖ h aF n d ‖', '‖ h a  n t ‖')],
         )
         self.assertEqual(
             self.cmp.alignment('hart', 'herts'),
@@ -242,11 +242,11 @@ class ALINETestCases(unittest.TestCase):
             [(109.5, '‖ l i  v eC r ‖', '‖ l eH b eC r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('and', 'ante'),
-            [(75.0, '‖ a n d ‖', '‖ a n t ‖ e')],
+            self.cmp.alignment('aFnd', 'ante'),
+            [(72.5, '‖ aF n d ‖', '‖ a  n t ‖ e')],
         )
         self.assertEqual(
-            self.cmp.alignment('at', 'ad'), [(40.0, '‖ a t ‖', '‖ a d ‖')]
+            self.cmp.alignment('aFt', 'ad'), [(37.5, '‖ aF t ‖', '‖ a  d ‖')]
         )
         self.assertEqual(
             self.cmp.alignment('blow', 'flaHre'),
@@ -278,8 +278,8 @@ class ALINETestCases(unittest.TestCase):
             [(48.0, '‖ f u l ‖', '‖ p - l ‖ eHnus')],
         )
         self.assertEqual(
-            self.cmp.alignment('gras', 'graHmen'),
-            [(84.0, '‖ g r a  ‖ s', '‖ g r aH ‖ men')],
+            self.cmp.alignment('graFs', 'graHmen'),
+            [(81.5, '‖ g r aF ‖ s', '‖ g r aH ‖ men')],
         )
         self.assertEqual(
             self.cmp.alignment('hart', 'kordis'),
@@ -424,6 +424,61 @@ class ALINETestCases(unittest.TestCase):
             ],
         )
 
+        # test cases from Downey, et al. (2008)
+        self.assertEqual(
+            self.cmp.alignment('api', 'api'),
+            [(65.0, '‖ a p i ‖', '‖ a p i ‖')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('apik', 'apik'),
+            [(100.0, '‖ a p i k ‖', '‖ a p i k ‖')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('apila', 'apila'),
+            [(115.0, '‖ a p i l a ‖', '‖ a p i l a ‖')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('api', 'apik'),
+            [(65.0, '‖ a p i ‖', '‖ a p i ‖ k')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('api', 'apila'),
+            [(65.0, '‖ a p i ‖', '‖ a p i ‖ la')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('apik', 'apila'),
+            [(65.0, '‖ a p i ‖ k', '‖ a p i ‖ la')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('kalarita', 'kalarita'),
+            [(200.0, '‖ k a l a r i t a ‖', '‖ k a l a r i t a ‖')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('kalara', 'kalara'),
+            [(150.0, '‖ k a l a r a ‖', '‖ k a l a r a ‖')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('makebela', 'makebela'),
+            [(200.0, '‖ m a k e b e l a ‖', '‖ m a k e b e l a ‖')],
+        )
+        # The following case has a different score, but the same alignment as
+        # in Downey, et. al (2008)
+        self.assertEqual(
+            self.cmp.alignment('kalarita', 'kalara'),
+            [(137.5, '‖ k a l a r i ‖ ta', '‖ k a l a r a ‖')],
+        )
+        self.assertEqual(
+            self.cmp.alignment('kalarita', 'makebela'),
+            [
+                (75.0, '‖ k - - a l a ‖ rita', 'ma ‖ k e b e l a ‖'),
+                (75.0, '‖ k a - - l a ‖ rita', 'ma ‖ k e b e l a ‖'),
+            ],
+        )
+        self.assertEqual(
+            self.cmp.alignment('kalara', 'makebela'),
+            [(82.0, '‖ k a l a r a ‖', 'ma ‖ k e b e l a ‖')],
+        )
+
         # other alignment styles:
         # TODO: verify that these are functioning correctly, since the don't match thesis
         cmp2 = ALINE(mode='local')
@@ -485,6 +540,20 @@ class ALINETestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT'.lower(), 'AACGATTAG'.lower()),
             0.732673267327,
         )
+
+        # test cases from Downey, et al. (2008)
+        self.assertAlmostEqual(self.cmp.sim('api', 'api'), 1.0)
+        self.assertAlmostEqual(self.cmp.sim('apik', 'apik'), 1.0)
+        self.assertAlmostEqual(self.cmp.sim('apila', 'apila'), 1.0)
+        self.assertAlmostEqual(self.cmp.sim('api', 'apik'), 0.7878787879)
+        self.assertAlmostEqual(self.cmp.sim('api', 'apila'), 0.7222222222)
+        self.assertAlmostEqual(self.cmp.sim('apik', 'apila'), 0.6046511628)
+        self.assertAlmostEqual(self.cmp.sim('kalarita', 'kalarita'), 1.0)
+        self.assertAlmostEqual(self.cmp.sim('kalara', 'kalara'), 1.0)
+        self.assertAlmostEqual(self.cmp.sim('makebela', 'makebela'), 1.0)
+        self.assertAlmostEqual(self.cmp.sim('kalarita', 'kalara'), 0.785714286)
+        self.assertAlmostEqual(self.cmp.sim('kalarita', 'makebela'), 0.375)
+        self.assertAlmostEqual(self.cmp.sim('kalara', 'makebela'), 0.468571429)
 
     def test_aline_sim_abs(self):
         """Test abydos.distance.ALINE.sim_abs."""

@@ -18,7 +18,7 @@
 
 """abydos.distance._aline.
 
-ALINE similarity
+ALINE alignment, similarity, and distance
 """
 
 from __future__ import (
@@ -40,10 +40,20 @@ __all__ = ['ALINE']
 
 
 class ALINE(_Distance):
-    r"""ALINE similarity.
+    r"""ALINE alignment, similarity, and distance.
 
-    ALINE similarity :cite:`Kondrak:2000,Kondrak:2002` and distance
-    :cite:`Downey:2008`
+    ALINE alignment was developed by :cite:`Kondrak:2000,Kondrak:2002`, and
+    establishes an alightment algorithm based on multivalued phonetic features
+    and feature salience weights. Along with the alignment itself, the
+    algorithm produces a term similarity score.
+
+    In :cite:`Downey:2008` ALINE's similarity score is developed into a
+    similarity measure & distance measure:
+
+        .. math::
+
+            sim_{ALINE} = \frac{2 \dot score_{ALINE}(src, tar)}
+            {score_{ALINE}(src, src) + score_{ALINE}(tar, tar)}
 
     .. versionadded:: 0.4.0
     """
