@@ -39,7 +39,8 @@ __all__ = ['BISIM']
 class BISIM(_Distance):
     r"""BI-SIM similarity.
 
-    BI-SIM similarity :cite:`Kondrak:2003`
+    BI-SIM similarity :cite:`Kondrak:2003` is an n-gram based, edit-distance
+    derived similarity measure.
 
     .. versionadded:: 0.4.0
     """
