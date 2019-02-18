@@ -455,7 +455,7 @@ class ALINETestCases(unittest.TestCase):
         cmp2 = ALINE(phones='ipa')
         self.assertEqual(
             cmp2.alignment('kɒgneit', 'kognaːtus'),
-            [(163.0, '‖ k ɒ g n ei t ‖', '‖ k o g n aː t ‖ us')]
+            [(163.0, '‖ k ɒ g n ei t ‖', '‖ k o g n aː t ‖ us')],
         )
 
     def test_aline_sim(self):
