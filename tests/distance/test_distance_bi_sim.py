@@ -73,6 +73,15 @@ class BISIMTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp3.sim('Zantac', 'Contac'), 0.5)
         self.assertAlmostEqual(self.cmp3.sim('Xanax', 'Contac'), 0.166666667)
 
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Tramadol'), 0.6875)
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Tobradex'), 0.6250)
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Torecan'), 0.57142857)
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Stadol'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Torsemide'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Theraflu'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Tegretol'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Toradol', 'Taxol'), 0.5)
+
 
 if __name__ == '__main__':
     unittest.main()
