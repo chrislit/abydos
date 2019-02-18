@@ -42,18 +42,31 @@ __all__ = ['ALINE']
 class ALINE(_Distance):
     r"""ALINE alignment, similarity, and distance.
 
-    ALINE alignment was developed by :cite:`Kondrak:2000,Kondrak:2002`, and
-    establishes an alightment algorithm based on multivalued phonetic features
-    and feature salience weights. Along with the alignment itself, the
-    algorithm produces a term similarity score.
+    ALINE alignment was developed by
+    :cite:`Kondrak:2000,Kondrak:2002,Downey:2008`, and establishes an
+    alignment algorithm based on multivalued phonetic features and feature
+    salience weights. Along with the alignment itself, the algorithm produces a
+    term similarity score.
 
-    In :cite:`Downey:2008` ALINE's similarity score is developed into a
-    similarity measure & distance measure:
+    :cite:`Downey:2008` develops ALINE's similarity score into a similarity
+    measure & distance measure:
 
         .. math::
 
             sim_{ALINE} = \frac{2 \dot score_{ALINE}(src, tar)}
             {score_{ALINE}(src, src) + score_{ALINE}(tar, tar)}
+
+    However, because the average of the two self-similarity scores is not
+    guaranteed to be greater than or equal to the similarity score between
+    the two strings, by default, this formula is not used here in order to
+    guarantee that the similarity measure is bounded to [0, 1]. Instead,
+    Kondrak's similarity measure is employed:
+
+        .. math::
+
+            sim_{ALINE} = \frac{score_{ALINE}(src, tar)}
+            {max(score_{ALINE}(src, src), score_{ALINE}(tar, tar))}
+
 
     .. versionadded:: 0.4.0
     """
@@ -1173,6 +1186,7 @@ class ALINE(_Distance):
         c_vwl=10,
         mode='local',
         phones='aline',
+        normalizer=max,
         **kwargs
     ):
         """Initialize ALINE instance.
@@ -1200,6 +1214,11 @@ class ALINE(_Distance):
             Phonetic symbol set, which can be:
                 - 'aline' selects Kondrak's original symbols set
                 - 'ipa' selects IPA symbols
+        normalizer : function
+            A function that takes an list and computes a normalization term
+            by which the edit distance is divided (max by default). For the
+            normalization proposed byDowney, et al. (2008), set this to:
+                lambda x: sum(x)/len(x)
         **kwargs
             Arbitrary keyword arguments
 
@@ -1220,6 +1239,7 @@ class ALINE(_Distance):
             self._phones = self.phones_ipa
         else:
             self._phones = self.phones_kondrak
+        self._normalizer = normalizer
 
     def alignment(self, src, tar, score_only=False):
         """Return the ALINE alignments of two strings.
@@ -1629,9 +1649,8 @@ class ALINE(_Distance):
 
         """
         return (
-            2
-            * self.sim_abs(src, tar)
-            / (self.sim_abs(src, src) + self.sim_abs(tar, tar))
+            self.sim_abs(src, tar)
+            / self._normalizer([self.sim_abs(src, src), self.sim_abs(tar, tar)])
         )
 
 
