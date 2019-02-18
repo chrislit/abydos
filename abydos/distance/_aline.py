@@ -1644,9 +1644,8 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return (
-            self.sim_abs(src, tar)
-            / self._normalizer([self.sim_abs(src, src), self.sim_abs(tar, tar)])
+        return self.sim_abs(src, tar) / self._normalizer(
+            [self.sim_abs(src, src), self.sim_abs(tar, tar)]
         )
 
 
