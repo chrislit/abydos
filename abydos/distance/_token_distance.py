@@ -192,6 +192,10 @@ class _TokenDistance(_Distance):
                     )
             if hasattr(self.params['alphabet'], '__len__'):
                 self.params['alphabet'] = len(self.params['alphabet'])
+            elif isinstance(self.params['tokenizer'], QGrams):
+                self.params['alphabet'] = (
+                    26 + len(set(self.params['tokenizer'].start_stop))
+                ) ** self.params['tokenizer'].qval
         else:
             if isinstance(self.params['tokenizer'], QGrams):
                 self.params['alphabet'] = (
