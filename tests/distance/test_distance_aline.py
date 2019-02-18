@@ -40,7 +40,7 @@ class ALINETestCases(unittest.TestCase):
     """
 
     cmp = ALINE()
-    cmp_downey = ALINE(normalizer=lambda x: sum(x)/len(x))
+    cmp_downey = ALINE(normalizer=lambda x: sum(x) / len(x))
 
     def test_aline_alignment(self):
         """Test abydos.distance.ALINE.alignment."""
@@ -546,15 +546,31 @@ class ALINETestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_downey.sim('api', 'api'), 1.0)
         self.assertAlmostEqual(self.cmp_downey.sim('apik', 'apik'), 1.0)
         self.assertAlmostEqual(self.cmp_downey.sim('apila', 'apila'), 1.0)
-        self.assertAlmostEqual(self.cmp_downey.sim('api', 'apik'), 0.7878787879)
-        self.assertAlmostEqual(self.cmp_downey.sim('api', 'apila'), 0.7222222222)
-        self.assertAlmostEqual(self.cmp_downey.sim('apik', 'apila'), 0.6046511628)
-        self.assertAlmostEqual(self.cmp_downey.sim('kalarita', 'kalarita'), 1.0)
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('api', 'apik'), 0.7878787879
+        )
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('api', 'apila'), 0.7222222222
+        )
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('apik', 'apila'), 0.6046511628
+        )
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('kalarita', 'kalarita'), 1.0
+        )
         self.assertAlmostEqual(self.cmp_downey.sim('kalara', 'kalara'), 1.0)
-        self.assertAlmostEqual(self.cmp_downey.sim('makebela', 'makebela'), 1.0)
-        self.assertAlmostEqual(self.cmp_downey.sim('kalarita', 'kalara'), 0.785714286)
-        self.assertAlmostEqual(self.cmp_downey.sim('kalarita', 'makebela'), 0.375)
-        self.assertAlmostEqual(self.cmp_downey.sim('kalara', 'makebela'), 0.468571429)
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('makebela', 'makebela'), 1.0
+        )
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('kalarita', 'kalara'), 0.785714286
+        )
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('kalarita', 'makebela'), 0.375
+        )
+        self.assertAlmostEqual(
+            self.cmp_downey.sim('kalara', 'makebela'), 0.468571429
+        )
 
     def test_aline_sim_abs(self):
         """Test abydos.distance.ALINE.sim_abs."""
