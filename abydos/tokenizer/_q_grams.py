@@ -141,7 +141,7 @@ class QGrams(_Tokenizer):
 
         for qval_i in self.qval:
             for skip_i in self.skip:
-                if len(self._string) < qval_i or qval_i < 1:
+                if qval_i < 1:
                     continue
 
                 if self.start_stop:
@@ -152,6 +152,9 @@ class QGrams(_Tokenizer):
                     )
                 else:
                     string = self._string
+
+                if len(string) <= qval_i:
+                    continue
 
                 # Having appended start & stop symbols (or not), save the
                 # result, but only for the longest valid qval_i
