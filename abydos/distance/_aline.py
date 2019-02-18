@@ -933,7 +933,7 @@ class ALINE(_Distance):
             'retroflex': 'minus',
             'lateral': 'minus',
             'high': 'mid',
-            'back': 'central',
+            'back': 'front',
             'round': 'minus',
         },
         'f': {
@@ -1323,8 +1323,8 @@ class ALINE(_Distance):
                             s_segment += ss
                             t_segment += ts
                         else:
-                            s_segment.append(ss)
-                            t_segment.append(ts)
+                            s_segment.append(ss + ' ' * (len(ts) - len(ss)))
+                            t_segment.append(ts + ' ' * (len(ss) - len(ts)))
 
                 src_alignment = ' ‖ '.join(src_alignment).strip()
                 tar_alignment = ' ‖ '.join(tar_alignment).strip()
@@ -1381,7 +1381,7 @@ class ALINE(_Distance):
                     loc_out = deepcopy(out)
                     loc_out.append(
                         (
-                            src[i - 1]['segment'] + ' ',
+                            src[i - 1]['segment'],
                             tar[j - 2]['segment'] + tar[j - 1]['segment'],
                         )
                     )
@@ -1415,7 +1415,7 @@ class ALINE(_Distance):
                     loc_out.append(
                         (
                             src[i - 2]['segment'] + src[i - 1]['segment'],
-                            tar[j - 1]['segment'] + ' ',
+                            tar[j - 1]['segment'],
                         )
                     )
                     _retrieve(
