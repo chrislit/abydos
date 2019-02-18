@@ -1447,7 +1447,8 @@ class ALINE(_Distance):
 
         for i in range(1, len(src)):
             if 'supplemental' in src[i]:
-                for j in range(i - 1, -1, -1):
+                j = i - 1
+                while j > -1:
                     if 'supplemental' not in src[j]:
                         for key, value in src[i].items():
                             if key != 'supplemental':
@@ -1455,12 +1456,14 @@ class ALINE(_Distance):
                                     src[j]['segment'] += value
                                 else:
                                     src[j][key] = value
-                        break
+                        j = 0
+                    j -= 1
         src = [fb for fb in src if 'supplemental' not in fb]
 
         for i in range(1, len(tar)):
             if 'supplemental' in tar[i]:
-                for j in range(i - 1, -1, -1):
+                j = i - 1
+                while j > -1:
                     if 'supplemental' not in tar[j]:
                         for key, value in tar[i].items():
                             if key != 'supplemental':
@@ -1468,7 +1471,8 @@ class ALINE(_Distance):
                                     tar[j]['segment'] += value
                                 else:
                                     tar[j][key] = value
-                        break
+                        j = 0
+                    j -= 1
         tar = [fb for fb in tar if 'supplemental' not in fb]
 
         for i in range(len(src)):
