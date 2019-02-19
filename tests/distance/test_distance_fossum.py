@@ -40,6 +40,7 @@ class FossumTestCases(unittest.TestCase):
     """
 
     cmp = Fossum()
+    cmp_no_d = Fossum(alphabet=1)
 
     def test_fossum_sim(self):
         """Test abydos.distance.Fossum.sim."""
@@ -58,6 +59,23 @@ class FossumTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 136.1111111111)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 301.1272727273
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 3.0625)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.1)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 1.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 1.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 1.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 1.5625)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 5.3772727273
         )
 
 

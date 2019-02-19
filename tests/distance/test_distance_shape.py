@@ -40,6 +40,7 @@ class ShapeTestCases(unittest.TestCase):
     """
 
     cmp = Shape()
+    cmp_no_d = Shape(alphabet=1)
 
     def test_shape_dist(self):
         """Test abydos.distance.Shape.dist."""
@@ -58,6 +59,31 @@ class ShapeTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0075944919)
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.008848852
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Nigel', 'Niall'), 0.2222222222
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Niall', 'Nigel'), 0.2222222222
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Colin', 'Coiln'), 0.2222222222
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Coiln', 'Colin'), 0.2222222222
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.25
         )
 
 

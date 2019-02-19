@@ -40,6 +40,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
     """
 
     cmp = PearsonChiSquared()
+    cmp_no_d = PearsonChiSquared(alphabet=1)
 
     def test_pearson_chi_squared_sim(self):
         """Test abydos.distance.PearsonChiSquared.sim."""
@@ -58,6 +59,23 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 192.9885210909)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 344.5438630111
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 10.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 2.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 2.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 2.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 2.25)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 1.5272727273
         )
 
 

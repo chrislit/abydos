@@ -40,6 +40,7 @@ class AndresMarzoDeltaTestCases(unittest.TestCase):
     """
 
     cmp = AndresMarzoDelta()
+    cmp_no_d = AndresMarzoDelta(alphabet=1)
 
     def test_andres_marzo_delta_sim(self):
         """Test abydos.distance.AndresMarzoDelta.sim."""
@@ -60,6 +61,31 @@ class AndresMarzoDeltaTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9911172173
         )
 
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.5025641703
+        )
+
     def test_andres_marzo_delta_corr(self):
         """Test abydos.distance.AndresMarzoDelta.corr."""
         # Base cases
@@ -77,6 +103,31 @@ class AndresMarzoDeltaTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.9846938776)
         self.assertAlmostEqual(
             self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.9822344347
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.corr('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Nigel', 'Niall'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Niall', 'Nigel'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Colin', 'Coiln'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Coiln', 'Colin'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), 0.0051283407
         )
 
 

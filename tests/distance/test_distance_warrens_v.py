@@ -40,6 +40,7 @@ class WarrensVTestCases(unittest.TestCase):
     """
 
     cmp = WarrensV()
+    cmp_no_d = WarrensV(alphabet=1)
 
     def test_warrens_v_sim(self):
         """Test abydos.distance.WarrensV.sim."""
@@ -58,6 +59,23 @@ class WarrensVTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 64.3333333333)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 48.8909090909
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -1.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -1.0
         )
 
 

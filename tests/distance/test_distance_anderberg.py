@@ -40,6 +40,7 @@ class AnderbergTestCases(unittest.TestCase):
     """
 
     cmp = Anderberg()
+    cmp_no_d = Anderberg(alphabet=1)
     cmp_1 = Anderberg(qval=1)
 
     def test_anderberg_sim(self):
@@ -67,6 +68,23 @@ class AnderbergTestCases(unittest.TestCase):
             self.cmp_1.sim('abcdefghijklm', 'nopqrstuvwxyz'), 1.0
         )
 
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
+        )
+
     def test_anderberg_sim_score(self):
         """Test abydos.distance.Anderberg.sim_score."""
         # Base cases
@@ -84,6 +102,23 @@ class AnderbergTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim_score('Coiln', 'Colin'), 0.0)
         self.assertAlmostEqual(
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.0044642857
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim_score('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim_score('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim_score('abcd', 'efgh'), 0.5)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim_score('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim_score('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim_score('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim_score('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
 
 

@@ -40,6 +40,7 @@ class StuartTauTestCases(unittest.TestCase):
     """
 
     cmp = StuartTau()
+    cmp_no_d = StuartTau(alphabet=1)
 
     def test_stuart_tau_sim(self):
         """Test abydos.distance.StuartTau.sim."""
@@ -58,6 +59,31 @@ class StuartTauTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0050239484)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0050109329
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 4.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), -2.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), -2.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -0.4)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), -0.1481481481
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), -0.1481481481
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), -0.1481481481
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), -0.1481481481
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
 
 

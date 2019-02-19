@@ -40,6 +40,7 @@ class ForbesITestCases(unittest.TestCase):
     """
 
     cmp = ForbesI()
+    cmp_no_d = ForbesI(alphabet=1)
 
     def test_forbes_i_sim(self):
         """Test abydos.distance.ForbesI.sim."""
@@ -58,6 +59,23 @@ class ForbesITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 65.3333333333)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 49.8909090909
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.75)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.75)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.75)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.75)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.8909090909
         )
 
 

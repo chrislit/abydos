@@ -40,6 +40,7 @@ class KuhnsVIIITestCases(unittest.TestCase):
     """
 
     cmp = KuhnsVIII()
+    cmp_no_d = KuhnsVIII(alphabet=1)
 
     def test_kuhns_viii_sim(self):
         """Test abydos.distance.KuhnsVIII.sim."""
@@ -58,6 +59,31 @@ class KuhnsVIIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4974489796)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6641156463
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), -0.5)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -0.5)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -0.2)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.2777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.2777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.2777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.2777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.5238095238
         )
 
 

@@ -40,6 +40,7 @@ class KuderRichardsonTestCases(unittest.TestCase):
     """
 
     cmp = KuderRichardson()
+    cmp_no_d = KuderRichardson(alphabet=1)
 
     def test_kuder_richardson_sim(self):
         """Test abydos.distance.KuderRichardson.sim."""
@@ -58,6 +59,23 @@ class KuderRichardsonTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6632302405)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7967702508
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), float('nan'))
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -2.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -2.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -2.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -2.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -0.9795918367
         )
 
 

@@ -40,6 +40,7 @@ class FaithTestCases(unittest.TestCase):
     """
 
     cmp = Faith()
+    cmp_no_d = Faith(alphabet=1)
 
     def test_faith_sim(self):
         """Test abydos.distance.Faith.sim."""
@@ -58,6 +59,23 @@ class FaithTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 3.4942602041)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.4910714286
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 4.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 3.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 3.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 3.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 3.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 7.0
         )
 
 

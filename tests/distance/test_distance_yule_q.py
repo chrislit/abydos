@@ -40,6 +40,7 @@ class YuleQTestCases(unittest.TestCase):
     """
 
     cmp = YuleQ()
+    cmp_no_d = YuleQ(alphabet=1)
 
     def test_yule_q_sim(self):
         """Test abydos.distance.YuleQ.sim."""
@@ -58,6 +59,23 @@ class YuleQTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9922879177)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.995557201
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -1.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -1.0
         )
 
 

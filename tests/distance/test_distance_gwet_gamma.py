@@ -40,6 +40,7 @@ class GwetGammaTestCases(unittest.TestCase):
     """
 
     cmp = GwetGamma()
+    cmp_no_d = GwetGamma(alphabet=1)
 
     def test_gwet_gamma_sim(self):
         """Test abydos.distance.GwetGamma.sim."""
@@ -58,6 +59,23 @@ class GwetGammaTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9922289037)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9908290686
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -0.2)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -0.2)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -0.2)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -0.2)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.2
         )
 
 

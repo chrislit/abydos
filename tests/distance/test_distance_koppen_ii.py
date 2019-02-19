@@ -40,6 +40,7 @@ class KoppenIITestCases(unittest.TestCase):
     """
 
     cmp = KoppenII()
+    cmp_no_d = KoppenII(alphabet=1)
 
     def test_koppen_ii_sim(self):
         """Test abydos.distance.KoppenII.sim."""
@@ -57,6 +58,23 @@ class KoppenIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 6.0)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 6.0)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 10.5)
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 2.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 2.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 4.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 5.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 6.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 6.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 6.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 6.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 10.5
+        )
 
 
 if __name__ == '__main__':

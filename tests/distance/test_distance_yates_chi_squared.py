@@ -40,6 +40,7 @@ class YatesChiSquaredTestCases(unittest.TestCase):
     """
 
     cmp = YatesChiSquared()
+    cmp_no_d = YatesChiSquared(alphabet=1)
 
     def test_yates_chi_squared_sim(self):
         """Test abydos.distance.YatesChiSquared.sim."""
@@ -58,6 +59,23 @@ class YatesChiSquaredTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 133.1878178031)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 296.1470911771
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 6.4)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.5625)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.2651515152
         )
 
 

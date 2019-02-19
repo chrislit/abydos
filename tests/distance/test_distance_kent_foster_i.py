@@ -40,6 +40,7 @@ class KentFosterITestCases(unittest.TestCase):
     """
 
     cmp = KentFosterI()
+    cmp_no_d = KentFosterI(alphabet=1)
 
     def test_kent_foster_i_sim(self):
         """Test abydos.distance.KentFosterI.sim."""
@@ -58,6 +59,25 @@ class KentFosterITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -0.2)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.1395348837
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(
+            self.cmp_no_d.sim('abcd', 'efgh'), -0.3333333333333333
+        )
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -0.2)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -0.2)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -0.2)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -0.2)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -0.1395348837
         )
 
 

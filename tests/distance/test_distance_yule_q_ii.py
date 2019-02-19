@@ -40,6 +40,7 @@ class YuleQIITestCases(unittest.TestCase):
     """
 
     cmp = YuleQII()
+    cmp_no_d = YuleQII(alphabet=1)
 
     def test_yule_q_ii_dist(self):
         """Test abydos.distance.YuleQII.dist."""
@@ -58,6 +59,23 @@ class YuleQIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0077120823)
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.004442799
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 2.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 2.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 2.0
         )
 
 
