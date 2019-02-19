@@ -106,7 +106,7 @@ class SAPS(_Distance):
         else:
             return self._g1
 
-    def sim_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the SAPS similarity between two strings.
 
         Parameters
@@ -124,15 +124,15 @@ class SAPS(_Distance):
         Examples
         --------
         >>> cmp = SAPS()
-        >>> cmp.sim_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         1
-        >>> cmp.sim_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         3
-        >>> cmp.sim_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         7
-        >>> cmp.sim_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         3
-        >>> cmp.sim_abs('Stevenson', 'Stinson')
+        >>> cmp.sim_score('Stevenson', 'Stinson')
         16
 
 
@@ -192,7 +192,7 @@ class SAPS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        dist = self.sim_abs(src, tar)
+        dist = self.sim_score(src, tar)
         src = self._tokenizer.tokenize(src).get_list()
         src_max = sum(5 + len(_) for _ in src)
         tar = self._tokenizer.tokenize(tar).get_list()

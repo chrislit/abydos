@@ -104,7 +104,7 @@ class JaccardNM(_TokenDistance):
             **kwargs
         )
 
-    def sim_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Jaccard-NM similarity of two strings.
 
         Parameters
@@ -122,13 +122,13 @@ class JaccardNM(_TokenDistance):
         Examples
         --------
         >>> cmp = JaccardNM()
-        >>> cmp.sim_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -162,20 +162,20 @@ class JaccardNM(_TokenDistance):
         Examples
         --------
         >>> cmp = JaccardNM()
-        >>> cmp.sim_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
-        return 2 * self.sim_abs(src, tar)
+        return 2 * self.sim_score(src, tar)
 
 
 if __name__ == '__main__':

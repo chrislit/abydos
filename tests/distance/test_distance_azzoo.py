@@ -60,23 +60,23 @@ class AZZOOTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
-    def test_azzoo_sim_abs(self):
-        """Test abydos.distance.AZZOO.sim_abs."""
+    def test_azzoo_sim_score(self):
+        """Test abydos.distance.AZZOO.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_abs('', ''), 392.0)
-        self.assertEqual(self.cmp.sim_abs('a', ''), 391.0)
-        self.assertEqual(self.cmp.sim_abs('', 'a'), 391.0)
-        self.assertEqual(self.cmp.sim_abs('abc', ''), 390.0)
-        self.assertEqual(self.cmp.sim_abs('', 'abc'), 390.0)
-        self.assertEqual(self.cmp.sim_abs('abc', 'abc'), 394.0)
-        self.assertEqual(self.cmp.sim_abs('abcd', 'efgh'), 387.0)
+        self.assertEqual(self.cmp.sim_score('', ''), 392.0)
+        self.assertEqual(self.cmp.sim_score('a', ''), 391.0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 391.0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 390.0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 390.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 394.0)
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 387.0)
 
-        self.assertAlmostEqual(self.cmp.sim_abs('Nigel', 'Niall'), 390.5)
-        self.assertAlmostEqual(self.cmp.sim_abs('Niall', 'Nigel'), 390.5)
-        self.assertAlmostEqual(self.cmp.sim_abs('Colin', 'Coiln'), 390.5)
-        self.assertAlmostEqual(self.cmp.sim_abs('Coiln', 'Colin'), 390.5)
+        self.assertAlmostEqual(self.cmp.sim_score('Nigel', 'Niall'), 390.5)
+        self.assertAlmostEqual(self.cmp.sim_score('Niall', 'Nigel'), 390.5)
+        self.assertAlmostEqual(self.cmp.sim_score('Colin', 'Coiln'), 390.5)
+        self.assertAlmostEqual(self.cmp.sim_score('Coiln', 'Colin'), 390.5)
         self.assertAlmostEqual(
-            self.cmp.sim_abs('ATCAACGAGT', 'AACGATTAG'), 392.0
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 392.0
         )
 
 

@@ -572,23 +572,24 @@ class ALINETestCases(unittest.TestCase):
             self.cmp_downey.sim('kalara', 'makebela'), 0.468571429
         )
 
-    def test_aline_sim_abs(self):
-        """Test abydos.distance.ALINE.sim_abs."""
+    def test_aline_sim_score(self):
+        """Test abydos.distance.ALINE.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_abs('', ''), 1.0)
-        self.assertEqual(self.cmp.sim_abs('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim_abs('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim_abs('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim_abs('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim_abs('abc', 'abc'), 85.0)
-        self.assertEqual(self.cmp.sim_abs('abcd', 'efgh'), 51.0)
+        self.assertEqual(self.cmp.sim_score('', ''), 1.0)
+        self.assertEqual(self.cmp.sim_score('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 85.0)
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 51.0)
 
-        self.assertAlmostEqual(self.cmp.sim_abs('nigel', 'niall'), 95.0)
-        self.assertAlmostEqual(self.cmp.sim_abs('niall', 'nigel'), 95.0)
-        self.assertAlmostEqual(self.cmp.sim_abs('colin', 'coiln'), 112.5)
-        self.assertAlmostEqual(self.cmp.sim_abs('coiln', 'colin'), 112.5)
+        self.assertAlmostEqual(self.cmp.sim_score('nigel', 'niall'), 95.0)
+        self.assertAlmostEqual(self.cmp.sim_score('niall', 'nigel'), 95.0)
+        self.assertAlmostEqual(self.cmp.sim_score('colin', 'coiln'), 112.5)
+        self.assertAlmostEqual(self.cmp.sim_score('coiln', 'colin'), 112.5)
         self.assertAlmostEqual(
-            self.cmp.sim_abs('ATCAACGAGT'.lower(), 'AACGATTAG'.lower()), 185.0
+            self.cmp.sim_score('ATCAACGAGT'.lower(), 'AACGATTAG'.lower()),
+            185.0,
         )
 
 

@@ -1578,7 +1578,7 @@ class ALINE(_Distance):
 
         return sorted(alignments, key=lambda _: _[0], reverse=True)
 
-    def sim_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the ALINE alignment score of two strings.
 
         Parameters
@@ -1596,13 +1596,13 @@ class ALINE(_Distance):
         Examples
         --------
         >>> cmp = ALINE()
-        >>> cmp.sim_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -1644,8 +1644,8 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return self.sim_abs(src, tar) / self._normalizer(
-            [self.sim_abs(src, src), self.sim_abs(tar, tar)]
+        return self.sim_score(src, tar) / self._normalizer(
+            [self.sim_score(src, src), self.sim_score(tar, tar)]
         )
 
 

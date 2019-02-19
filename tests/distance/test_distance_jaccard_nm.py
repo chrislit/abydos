@@ -60,31 +60,31 @@ class JaccardNMTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
-    def test_jaccard_nm_sim_abs(self):
-        """Test abydos.distance.JaccardNM.sim_abs."""
+    def test_jaccard_nm_sim_score(self):
+        """Test abydos.distance.JaccardNM.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_abs('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim_score('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim_score('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim_score('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim_score('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim_score('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), float('nan'))
 
         self.assertAlmostEqual(
-            self.cmp.sim_abs('Nigel', 'Niall'), float('nan')
+            self.cmp.sim_score('Nigel', 'Niall'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp.sim_abs('Niall', 'Nigel'), float('nan')
+            self.cmp.sim_score('Niall', 'Nigel'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp.sim_abs('Colin', 'Coiln'), float('nan')
+            self.cmp.sim_score('Colin', 'Coiln'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp.sim_abs('Coiln', 'Colin'), float('nan')
+            self.cmp.sim_score('Coiln', 'Colin'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp.sim_abs('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
 

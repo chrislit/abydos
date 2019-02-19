@@ -71,7 +71,7 @@ class BrainerdRobinson(_TokenDistance):
         """
         super(BrainerdRobinson, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def sim_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Brainerd-Robinson similarity of two strings.
 
         Parameters
@@ -89,13 +89,13 @@ class BrainerdRobinson(_TokenDistance):
         Examples
         --------
         >>> cmp = BrainerdRobinson()
-        >>> cmp.sim_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -147,7 +147,7 @@ class BrainerdRobinson(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.sim_abs(src, tar) / 200
+        return self.sim_score(src, tar) / 200
 
 
 if __name__ == '__main__':

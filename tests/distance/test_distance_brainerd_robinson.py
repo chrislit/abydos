@@ -60,25 +60,25 @@ class BrainerdRobinsonTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6363636364
         )
 
-    def test_brainerd_robinson_sim_abs(self):
-        """Test abydos.distance.BrainerdRobinson.sim_abs."""
+    def test_brainerd_robinson_sim_score(self):
+        """Test abydos.distance.BrainerdRobinson.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_abs('', ''), 200)
-        self.assertEqual(self.cmp.sim_abs('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim_abs('abc', 'abc'), 200.0)
+        self.assertEqual(self.cmp.sim_score('', ''), 200)
+        self.assertEqual(self.cmp.sim_score('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim_score('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim_score('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim_score('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 200.0)
         self.assertEqual(
-            self.cmp.sim_abs('abcd', 'efgh'), 2.842170943040401e-14
+            self.cmp.sim_score('abcd', 'efgh'), 2.842170943040401e-14
         )
 
-        self.assertAlmostEqual(self.cmp.sim_abs('Nigel', 'Niall'), 100.0)
-        self.assertAlmostEqual(self.cmp.sim_abs('Niall', 'Nigel'), 100.0)
-        self.assertAlmostEqual(self.cmp.sim_abs('Colin', 'Coiln'), 100.0)
-        self.assertAlmostEqual(self.cmp.sim_abs('Coiln', 'Colin'), 100.0)
+        self.assertAlmostEqual(self.cmp.sim_score('Nigel', 'Niall'), 100.0)
+        self.assertAlmostEqual(self.cmp.sim_score('Niall', 'Nigel'), 100.0)
+        self.assertAlmostEqual(self.cmp.sim_score('Colin', 'Coiln'), 100.0)
+        self.assertAlmostEqual(self.cmp.sim_score('Coiln', 'Colin'), 100.0)
         self.assertAlmostEqual(
-            self.cmp.sim_abs('ATCAACGAGT', 'AACGATTAG'), 127.2727272727
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 127.2727272727
         )
 
 
