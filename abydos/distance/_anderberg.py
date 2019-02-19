@@ -42,12 +42,12 @@ class Anderberg(_TokenDistance):
         .. math::
 
             t_1 = max(|X \cap Y|, |X \setminus Y|)+
-            max(|Y \setminus X|, |(N \setminus X) \setminus Y|)+
+            max(|Y \setminus X|, |(N \setminus X) \setminus Y|)+\\
             max(|X \cap Y|, |Y \setminus X|)+
-            max(|X \setminus Y|, |(N \setminus X) \setminus Y|)
-
-            t_2 = max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|)
-
+            max(|X \setminus Y|, |(N \setminus X) \setminus Y|)\\
+            \\
+            t_2 = max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|)\\
+            \\
             sim_{Anderberg}(X, Y) =
             \frac{t_1-t_2}{2|N|}
 
