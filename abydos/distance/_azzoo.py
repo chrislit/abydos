@@ -180,10 +180,9 @@ class AZZOO(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        similarity = self.sim_score(src, tar)
-        n = self._population_card()
-
-        return similarity / n
+        return self.sim_score(src, tar) / max(
+            self.sim_score(src, src), self.sim_score(tar, tar)
+        )
 
 
 if __name__ == '__main__':
