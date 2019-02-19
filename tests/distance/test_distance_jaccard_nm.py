@@ -49,15 +49,15 @@ class JaccardNMTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.010101010101010102)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.01015228426395939)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0075376884)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0075376884)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0075376884)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0075376884)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0075662043)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0075662043)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0075662043)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0075662043)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0173913043
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0175438596
         )
 
     def test_jaccard_nm_sim_score(self):
@@ -69,24 +69,24 @@ class JaccardNMTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
         self.assertEqual(
-            self.cmp.sim_score('abc', 'abc'), 0.005050505050505051
+            self.cmp.sim_score('abc', 'abc'), 0.005076142131979695
         )
         self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(
-            self.cmp.sim_score('Nigel', 'Niall'), 0.0037688442
+            self.cmp.sim_score('Nigel', 'Niall'), 0.0037831021
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Niall', 'Nigel'), 0.0037688442
+            self.cmp.sim_score('Niall', 'Nigel'), 0.0037831021
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Colin', 'Coiln'), 0.0037688442
+            self.cmp.sim_score('Colin', 'Coiln'), 0.0037831021
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Coiln', 'Colin'), 0.0037688442
+            self.cmp.sim_score('Coiln', 'Colin'), 0.0037831021
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.0086956522
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.0087719298
         )
 
 

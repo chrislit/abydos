@@ -52,12 +52,12 @@ class KuhnsIIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.0012795905310300703)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3329081633)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3329081633)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3329081633)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3329081633)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3329065301)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3329065301)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3329065301)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3329065301)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5014241561
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5014369573
         )
 
 

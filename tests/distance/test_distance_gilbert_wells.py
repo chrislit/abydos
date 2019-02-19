@@ -49,15 +49,15 @@ class GilbertWellsTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 102.36400989128576)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 49.00800898579118)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.6845961909440712)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 65.7070395317)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 65.7070395317)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 65.7070395317)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 65.7070395317)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 25.6938443303)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 25.6938443303)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 25.6938443303)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 25.6938443303)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 148.6081362458
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 55.2085412384
         )
 
 

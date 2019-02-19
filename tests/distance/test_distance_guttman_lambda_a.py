@@ -49,7 +49,7 @@ class GuttmanLambdaATestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
@@ -57,7 +57,7 @@ class GuttmanLambdaATestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.2222222222
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3636363636
         )
 
 

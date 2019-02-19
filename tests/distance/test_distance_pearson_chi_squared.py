@@ -49,15 +49,15 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 788.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 784.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.032298410951138765)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 193.7269975747)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 193.7269975747)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 193.7269975747)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 193.7269975747)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 192.9885210909)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 192.9885210909)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 192.9885210909)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 192.9885210909)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 347.6201475023
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 344.5438630111
         )
 
 

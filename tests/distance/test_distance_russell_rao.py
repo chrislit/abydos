@@ -49,15 +49,15 @@ class RussellRaoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.005076142131979695)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.00510204081632653)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0038119441)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0038119441)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0038119441)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0038119441)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0038265306)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0038265306)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0038265306)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0038265306)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0088495575
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0089285714
         )
 
 

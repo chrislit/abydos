@@ -49,15 +49,15 @@ class DispersionTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.005024607694091577)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.005076009995835068)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -4.06731570179092e-05)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0037392895)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0037392895)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0037392895)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0037392895)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0037679613)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0037679613)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0037679613)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0037679613)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0085954344
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0087496095
         )
 
 

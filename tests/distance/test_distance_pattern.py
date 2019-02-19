@@ -52,12 +52,12 @@ class PatternTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0001626926280716368)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 5.81237e-05)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 5.81237e-05)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 5.81237e-05)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 5.81237e-05)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 5.85693e-05)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 5.85693e-05)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 5.85693e-05)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 5.85693e-05)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.67164e-05
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.80925e-05
         )
 
 

@@ -52,12 +52,12 @@ class ShapeTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.01259240941274469)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0075657645)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0075657645)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0075657645)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0075657645)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0075944919)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0075944919)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0075944919)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0075944919)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0087712429
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.008848852
         )
 
 

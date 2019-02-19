@@ -49,15 +49,15 @@ class BaulieuIIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 1.0)
         self.assertEqual(self.cmp.sim('abc', ''), 1.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9799015692236337)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9796959600166597)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.0001626926280716)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.985042842)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.985042842)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.985042842)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.985042842)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9849281549)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9849281549)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9849281549)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9849281549)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9656182623
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9650015618
         )
 
 
