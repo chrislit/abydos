@@ -60,6 +60,25 @@ class HamannTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9867256637
         )
 
+    def test_hamann_corr(self):
+        """Test abydos.distance.Hamann.corr."""
+        # Base cases
+        self.assertEqual(self.cmp.corr('', ''), 1.0)
+        self.assertEqual(self.cmp.corr('a', ''), 0.9948979591836735)
+        self.assertEqual(self.cmp.corr('', 'a'), 0.9948979591836735)
+        self.assertEqual(self.cmp.corr('abc', ''), 0.9897959183673469)
+        self.assertEqual(self.cmp.corr('', 'abc'), 0.9897959183673469)
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 0.9949238578680203)
+        self.assertEqual(self.cmp.corr('abcd', 'efgh'), 0.9744897959183674)
+
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.9809402795)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.9809402795)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.9809402795)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.9809402795)
+        self.assertAlmostEqual(
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.9734513274
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
