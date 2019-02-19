@@ -51,7 +51,7 @@ class AndresMarzoDelta(_TokenDistance):
 
         .. math::
 
-            sim_{AndresMarzo_\Delta}(X, Y) = \Delta =
+            sim_{AndresMarzo_\Delta} = \Delta =
             \frac{a+d}{n}-\sqrt{\frac{b+c}{n}}
 
     .. versionadded:: 0.4.0
