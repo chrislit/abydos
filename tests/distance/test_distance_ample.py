@@ -40,6 +40,7 @@ class AMPLETestCases(unittest.TestCase):
     """
 
     cmp = AMPLE()
+    cmp_dna = AMPLE(qval=1, alphabet='CGAT')
 
     def test_ample_sim(self):
         """Test abydos.distance.AMPLE.sim."""
@@ -59,7 +60,9 @@ class AMPLETestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6324826532
         )
-
+        self.assertAlmostEqual(
+            self.cmp_dna.sim('CGAT', 'CGA'), 0.75
+        )
 
 if __name__ == '__main__':
     unittest.main()
