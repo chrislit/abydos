@@ -1208,17 +1208,17 @@ class ALINE(_Distance):
             The additional cost of a vowel substitution, expansion, or
             contraction
         mode : str
-            Alignment mode, which can be 'local' (default), 'global',
-            'half-local', or 'semi-global'
+            Alignment mode, which can be ``local`` (default), ``global``,
+            ``half-local``, or ``semi-global``
         phones : str
             Phonetic symbol set, which can be:
-                - 'aline' selects Kondrak's original symbols set
-                - 'ipa' selects IPA symbols
+                - ``aline`` selects Kondrak's original symbols set
+                - ``ipa`` selects IPA symbols
         normalizer : function
             A function that takes an list and computes a normalization term
             by which the edit distance is divided (max by default). For the
-            normalization proposed byDowney, et al. (2008), set this to:
-                lambda x: sum(x)/len(x)
+            normalization proposed by Downey, et al. (2008), set this to:
+            ``lambda x: sum(x)/len(x)``
         **kwargs
             Arbitrary keyword arguments
 
