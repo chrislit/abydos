@@ -44,20 +44,20 @@ class FaithTestCases(unittest.TestCase):
     def test_faith_sim(self):
         """Test abydos.distance.Faith.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 0.5)
+        self.assertEqual(self.cmp.sim('a', ''), 0.4987244897959184)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.4987244897959184)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.49744897959183676)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.49744897959183676)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 4.49492385786802)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.49362244897959184)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 3.4923761118)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 3.4923761118)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 3.4923761118)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 3.4923761118)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.4867256637
         )
 
 

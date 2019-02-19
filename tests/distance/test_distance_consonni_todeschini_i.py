@@ -44,20 +44,20 @@ class ConsonniTodeschiniITestCases(unittest.TestCase):
     def test_consonni_todeschini_i_sim(self):
         """Test abydos.distance.ConsonniTodeschiniI.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9996172903036489)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9996172903036489)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.9992336018090547)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.9992336018090547)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9992380780829359)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9980766131469967)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9982776749)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9982776749)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9982776749)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9982776749)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9973279341
         )
 
 

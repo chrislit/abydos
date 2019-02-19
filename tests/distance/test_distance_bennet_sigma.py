@@ -44,20 +44,20 @@ class BennetSigmaTestCases(unittest.TestCase):
     def test_bennet_sigma_sim(self):
         """Test abydos.distance.BennetSigma.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9948979591836735)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9948979591836735)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.989795918367347)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.989795918367347)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9898477157360406)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9744897959183674)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9771283355)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9771283355)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9771283355)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9771283355)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9646017699
         )
 
 

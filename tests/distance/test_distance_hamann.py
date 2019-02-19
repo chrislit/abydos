@@ -44,20 +44,20 @@ class HamannTestCases(unittest.TestCase):
     def test_hamann_sim(self):
         """Test abydos.distance.Hamann.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9974489795918368)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9974489795918368)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.9948979591836735)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.9948979591836735)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9974619289340101)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9872448979591837)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9904701398)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9904701398)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9904701398)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9904701398)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9867256637
         )
 
 

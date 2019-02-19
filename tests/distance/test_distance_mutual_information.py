@@ -49,15 +49,15 @@ class MutualInformationTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 7.622051819456376)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 6.0352573248)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 6.0352573248)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 6.0352573248)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 6.0352573248)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 5.653529093
         )
 
 

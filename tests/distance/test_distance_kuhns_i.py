@@ -44,20 +44,20 @@ class KuhnsITestCases(unittest.TestCase):
     def test_kuhns_i_sim(self):
         """Test abydos.distance.KuhnsI.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), -6.507705122865472e-06)
+        self.assertEqual(self.cmp.sim('', 'a'), -6.507705122865472e-06)
+        self.assertEqual(self.cmp.sim('abc', ''), -1.3015410245730944e-05)
+        self.assertEqual(self.cmp.sim('', 'abc'), -1.3015410245730944e-05)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.010126517045015332)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -3.2538525614327364e-05)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0075851391)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0075851391)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0075851391)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0075851391)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0176319882
         )
 
 

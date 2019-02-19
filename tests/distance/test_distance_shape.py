@@ -44,20 +44,20 @@ class ShapeTestCases(unittest.TestCase):
     def test_shape_dist(self):
         """Test abydos.distance.Shape.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0025445127030404)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0025445127030404)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.005076009995835068)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.005076009995835068)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.01259240941274469)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0075657645)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0075657645)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0075657645)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0075657645)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0087712429
         )
 
 
