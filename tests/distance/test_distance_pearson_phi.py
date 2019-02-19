@@ -60,6 +60,25 @@ class PearsonPhiTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8314623708
         )
 
+    def test_pearson_phi_corr(self):
+        """Test abydos.distance.PearsonPhi.corr."""
+        # Base cases
+        self.assertEqual(self.cmp.corr('', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('a', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.corr('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.corr('abcd', 'efgh'), -0.006418485237483954)
+
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.4961439589)
+        self.assertAlmostEqual(
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.6629247416
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

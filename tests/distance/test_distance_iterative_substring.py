@@ -60,6 +60,25 @@ class IterativeSubStringTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6618421053
         )
 
+    def test_iterative_substring_corr(self):
+        """Test abydos.distance.IterativeSubString.corr."""
+        # Base cases
+        self.assertEqual(self.cmp.corr('', ''), 1.0)
+        self.assertEqual(self.cmp.corr('a', ''), -1.0)
+        self.assertEqual(self.cmp.corr('', 'a'), -1.0)
+        self.assertEqual(self.cmp.corr('abc', ''), -1.0)
+        self.assertEqual(self.cmp.corr('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.corr('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), -0.8)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), -0.8)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), -0.8)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), -0.8)
+        self.assertAlmostEqual(
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.3236842105
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
