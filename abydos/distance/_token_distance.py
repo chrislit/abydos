@@ -193,7 +193,9 @@ class _TokenDistance(_Distance):
                     )
             if hasattr(self.params['alphabet'], '__len__'):
                 self.params['alphabet'] = len(self.params['alphabet'])
-            elif isinstance(self.params['tokenizer'], QGrams):
+            elif self.params['alphabet'] is None and isinstance(
+                self.params['tokenizer'], QGrams
+            ):
                 self.params['alphabet'] = (
                     28 ** self.params['tokenizer'].qval
                     if self.params['tokenizer'].qval > 1
