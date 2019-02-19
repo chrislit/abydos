@@ -141,7 +141,7 @@ class MutualInformation(_TokenDistance):
         a = self._intersection_card()
         ab = self._src_card()
         ac = self._tar_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return log(a * n / (ab * ac), 2)
 

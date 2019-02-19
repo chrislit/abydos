@@ -146,7 +146,7 @@ class Gilbert(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return (
             2 * (a * d - b * c) / (n ** 2 - a ** 2 + b ** 2 + c ** 2 - d ** 2)

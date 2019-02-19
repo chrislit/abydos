@@ -139,7 +139,7 @@ class ForbesII(_TokenDistance):
 
         ab = self._src_card()
         ac = self._tar_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return (n * self._intersection_card() - ab * ac) / (
             n * min(ab, ac) - ab * ac

@@ -152,7 +152,7 @@ class HarrisLahey(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return a / (a + b + c) * (2 * d + b + c) / (2 * n) + d / (
             d + b + c

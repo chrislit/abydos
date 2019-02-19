@@ -137,7 +137,7 @@ class Tarwid(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        nta = self._population_card() * self._intersection_card()
+        nta = self._population_unique_card()() * self._intersection_card()
         abtac = self._src_card() * self._tar_card()
 
         return (nta - abtac) / (nta + abtac)

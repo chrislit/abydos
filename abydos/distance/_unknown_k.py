@@ -138,7 +138,7 @@ class UnknownK(_TokenDistance):
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return a * (1 - a / n)
 

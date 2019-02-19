@@ -141,7 +141,7 @@ class Hamann(_TokenDistance):
             + self._total_complement_card()
             - self._src_only_card()
             - self._tar_only_card()
-        ) / self._population_card()
+        ) / self._population_unique_card()()
 
     def sim(self, src, tar):
         """Return the normalized Hamann similarity of two strings.

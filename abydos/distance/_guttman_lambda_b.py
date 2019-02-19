@@ -142,7 +142,7 @@ class GuttmanLambdaB(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return (max(a, b) + max(c, d) - max(a + c, b + d)) / (
             n - max(a + c, b + d)

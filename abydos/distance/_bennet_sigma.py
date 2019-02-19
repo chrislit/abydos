@@ -147,7 +147,7 @@ class BennetSigma(_TokenDistance):
 
         a = self._intersection_card()
         d = self._total_complement_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return 2 * (a + d) / n - 1
 

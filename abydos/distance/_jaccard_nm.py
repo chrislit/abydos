@@ -140,7 +140,7 @@ class JaccardNM(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return a / (a + b + c + n)
 

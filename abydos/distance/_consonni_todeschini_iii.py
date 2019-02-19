@@ -139,7 +139,7 @@ class ConsonniTodeschiniIII(_TokenDistance):
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return log(1 + a) / log(1 + n)
 
