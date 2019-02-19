@@ -399,6 +399,12 @@ class _TokenDistance(_Distance):
         """Return the cardinality of the population."""
         return self.normalizer(self._population_card_value, 4)
 
+    def _population_unique_card(self):
+        """Return the cardinality of the population, without double counting elements in the intersection."""
+        return self.normalizer(
+            self._population_card_value - self._intersection_card(), 4
+        )
+
     def _union(self):
         r"""Return the union of tokens from src and tar.
 
