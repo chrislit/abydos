@@ -40,6 +40,7 @@ class AnderbergTestCases(unittest.TestCase):
     """
 
     cmp = Anderberg()
+    cmp_1 = Anderberg(qval=1)
 
     def test_anderberg_sim(self):
         """Test abydos.distance.Anderberg.sim."""
@@ -58,6 +59,12 @@ class AnderbergTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0089285714
+        )
+        self.assertAlmostEqual(
+            self.cmp_1.sim('abcdefghijklm', 'abcdefghijklm'), 1.0
+        )
+        self.assertAlmostEqual(
+            self.cmp_1.sim('abcdefghijklm', 'nopqrstuvwxyz'), 1.0
         )
 
     def test_anderberg_sim_score(self):

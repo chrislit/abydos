@@ -74,7 +74,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Russell & Rao similarity (:py:class:`.RussellRao`)
     - AMPLE similarity (:py:class:`.AMPLE`)
     - AZZOO similarity (:py:class:`.AZZOO`)
-    - Anderberg similarity (:py:class:`.Anderberg`)
+    - Anderberg's D similarity (:py:class:`.Anderberg`)
     - Andres & Marzo's Delta similarity (:py:class:`.AndresMarzoDelta`)
     - Baroni-Urbani & Buser I similarity (:py:class:`.BaroniUrbaniBuserI`)
     - Baroni-Urbani & Buser II similarity (:py:class:`.BaroniUrbaniBuserII`)

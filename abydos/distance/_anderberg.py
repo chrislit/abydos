@@ -34,20 +34,22 @@ __all__ = ['Anderberg']
 
 
 class Anderberg(_TokenDistance):
-    r"""Anderberg's d.
+    r"""Anderberg's D.
 
-    For two sets X and Y and a population N, Anderberg's d
+    For two sets X and Y and a population N, Anderberg's D
     :cite:`Anderberg:1973` is
 
         .. math::
 
-            sim_{Anderberg}(X, Y) =
-            \frac{(max(|X \cap Y|, |X \setminus Y|)+
+            t_1 = max(|X \cap Y|, |X \setminus Y|)+
             max(|Y \setminus X|, |(N \setminus X) \setminus Y|)+
             max(|X \cap Y|, |Y \setminus X|)+
-            max(|X \setminus Y|, |(N \setminus X) \setminus Y|))-
-            (max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|))}
-            {2|N|}
+            max(|X \setminus Y|, |(N \setminus X) \setminus Y|)
+
+            t_2 = max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|)
+
+            sim_{Anderberg}(X, Y) =
+            \frac{t_1-t_2}{2|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -65,6 +67,18 @@ class Anderberg(_TokenDistance):
     the claim that this appears in :cite:`Anderberg:1973`. In any case,
     if you want to use this measure, you may instatiate
     :py:class:`WeightedJaccard` with `weight=8`.
+
+    Anderberg states that "[t]his quantity is the actual reduction in the
+    error probability (also the actual increase in the correct prediction) as
+    a consequence of using predictor information" :cite:`Anderberg:1973`. It
+    ranges [0, 0.5] so a ``sim`` method ranging [0, 1] is provided in addition
+    to ``sim_score``, which gives the value D itself.
+
+    It is difficult to term this measure a similarity score. Identical strings
+    often fail to gain high scores. Also, strings that would otherwise be
+    considered quite similar often earn lower scores than those that are less
+    similar.
+
 
     .. versionadded:: 0.4.0
 
@@ -119,7 +133,7 @@ class Anderberg(_TokenDistance):
         )
 
     def sim_score(self, src, tar):
-        """Return the Anderberg similarity of two strings.
+        """Return the Anderberg's D similarity of two strings.
 
         Parameters
         ----------
@@ -162,7 +176,7 @@ class Anderberg(_TokenDistance):
         ) / (2 * (a + b + c + d))
 
     def sim(self, src, tar):
-        """Return the normalized Anderberg similarity of two strings.
+        """Return the normalized Anderberg's D similarity of two strings.
 
         Parameters
         ----------
