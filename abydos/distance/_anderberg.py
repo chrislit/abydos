@@ -157,7 +157,7 @@ class Anderberg(_TokenDistance):
         d = self._total_complement_card()
 
         return (
-            (max(a, b) + max(c + d) + max(a, c) + max(b, d))
+            (max(a, b) + max(c, d) + max(a, c) + max(b, d))
             - (max(a + c, b + d) + max(a + b, c + d))
         ) / (2 * (a + b + c + d))
 
