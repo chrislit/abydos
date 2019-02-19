@@ -148,7 +148,7 @@ class SokalMichener(_TokenDistance):
 
         return (
             self._intersection_card() + self._total_complement_card()
-        ) / self._population_unique_card()()
+        ) / self._population_unique_card()
 
 
 if __name__ == '__main__':

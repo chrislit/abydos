@@ -140,7 +140,7 @@ class RogersTanimoto(_TokenDistance):
         return (self._intersection_card() + self._total_complement_card()) / (
             self._src_only_card()
             + self._tar_only_card()
-            + self._population_unique_card()()
+            + self._population_unique_card()
         )
 
 

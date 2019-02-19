@@ -148,7 +148,7 @@ class YatesChiSquared(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
-        n = self._population_unique_card()()
+        n = self._population_unique_card()
 
         return (
             n
