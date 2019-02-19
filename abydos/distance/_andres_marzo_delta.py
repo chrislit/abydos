@@ -36,14 +36,14 @@ __all__ = ['AndresMarzoDelta']
 class AndresMarzoDelta(_TokenDistance):
     r"""Andres & Marzo's Delta similarity.
 
-    For two sets X and Y and a population N, Andres & Marzo's \Delta similarity
+    For two sets X and Y and a population N, Andres & Marzo's \Delta
     :cite:`Andres:2004` is
 
         .. math::
 
             sim_{AndresMarzo_\Delta}(X, Y) = \Delta =
-            \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}-
-            \sqrt{\frac{|X \triangle Y|}{|N|}}
+            \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
+            2\sqrt{|X \setminus Y| \dot |Y \setminus X|}}{|N|}
 
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -52,7 +52,7 @@ class AndresMarzoDelta(_TokenDistance):
         .. math::
 
             sim_{AndresMarzo_\Delta} = \Delta =
-            \frac{a+d}{n}-\sqrt{\frac{b+c}{n}}
+            \frac{a+d-2\sqrt{b \dot c}}{n}}
 
     .. versionadded:: 0.4.0
     """
@@ -105,6 +105,47 @@ class AndresMarzoDelta(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Andres & Marzo's Delta of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Andres & Marzo's Delta
+
+        Examples
+        --------
+        >>> cmp = AndresMarzoDelta()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_card()
+
+        return (a + d - 2 * (b * c) ** 0.5) / n
+
     def sim(self, src, tar):
         """Return the Andres & Marzo's Delta similarity of two strings.
 
@@ -136,15 +177,7 @@ class AndresMarzoDelta(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_card()
-
-        return (a + d) / n - ((b + c) / n) ** 0.5
+        return (self.corr(src, tar) + 1) / 2
 
 
 if __name__ == '__main__':
