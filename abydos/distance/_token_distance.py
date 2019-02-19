@@ -377,15 +377,18 @@ class _TokenDistance(_Distance):
             return self.normalizer(0, 1)
         elif isinstance(self.params['alphabet'], Counter):
             return self.normalizer(
-                sum(
-                    abs(val)
-                    for val in (self.params['alphabet']).values()
-                    - self._total()
+                max(
+                    0,
+                    sum(
+                        abs(val)
+                        for val in (self.params['alphabet']).values()
+                        - self._total()
+                    ),
                 ),
                 1,
             )
         return self.normalizer(
-            self.params['alphabet'] - len(self._total().values()), 1
+            max(0, self.params['alphabet'] - len(self._total().values())), 1
         )
 
     def _calc_population_card(self):
