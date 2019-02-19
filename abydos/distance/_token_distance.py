@@ -509,7 +509,7 @@ class _TokenDistance(_Distance):
         in order to find the weight of the maximum weight bipartite matching.
         If the system has SciPy installed, we use it's linear_sum_assignment
         function to get the assignments. Otherwise, we use the Hungarian
-        algorithm of Munkres :cite:`Minkres:1957`, implemented in Python &
+        algorithm of Munkres :cite:`Munkres:1957`, implemented in Python &
         Numpy.
 
         .. versionadded:: 0.4.0
