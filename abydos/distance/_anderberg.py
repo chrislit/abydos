@@ -118,7 +118,7 @@ class Anderberg(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Anderberg similarity of two strings.
 
         Parameters
@@ -136,13 +136,13 @@ class Anderberg(_TokenDistance):
         Examples
         --------
         >>> cmp = Anderberg()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -160,6 +160,39 @@ class Anderberg(_TokenDistance):
             (max(a, b) + max(c, d) + max(a, c) + max(b, d))
             - (max(a + c, b + d) + max(a + b, c + d))
         ) / (2 * (a + b + c + d))
+
+    def sim(self, src, tar):
+        """Return the normalized Anderberg similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Anderberg similarity
+
+        Examples
+        --------
+        >>> cmp = Anderberg()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return 2 * self.sim_score(src, tar)
 
 
 if __name__ == '__main__':
