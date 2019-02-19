@@ -49,15 +49,15 @@ class KuhnsVITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0025510204081634)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.0025673940949935813)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5012804097)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5012804097)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5012804097)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5012804097)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7062740077
         )
 
 

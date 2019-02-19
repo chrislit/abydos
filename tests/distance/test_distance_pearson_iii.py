@@ -49,15 +49,18 @@ class PearsonIIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.03560094272544522)
+        self.assertEqual(
+            self.cmp.sim('abcd', 'efgh'),
+            (1.7520273272936104e-19 + 0.0028612777635371113j),
+        )
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0251003418)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0251003418)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0251003418)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0251003418)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0289375635
         )
 
 

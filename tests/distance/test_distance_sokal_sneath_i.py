@@ -44,20 +44,20 @@ class SokalSneathITestCases(unittest.TestCase):
     def test_sokal_sneath_i_sim(self):
         """Test abydos.distance.SokalSneathI.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9987228607918263)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9987228607918263)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.9974424552429667)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.9974424552429667)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9974554707379135)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.993581514762516)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9942492013)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9942492013)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9942492013)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9942492013)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9910714286
         )
 
 

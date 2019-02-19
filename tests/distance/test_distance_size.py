@@ -44,20 +44,20 @@ class SizeTestCases(unittest.TestCase):
     def test_size_dist(self):
         """Test abydos.distance.Size.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 6.507705122865473e-06)
+        self.assertEqual(self.cmp.dist('', 'a'), 6.507705122865473e-06)
+        self.assertEqual(self.cmp.dist('abc', ''), 2.6030820491461892e-05)
+        self.assertEqual(self.cmp.dist('', 'abc'), 2.6030820491461892e-05)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.0001626926280716368)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 5.81237e-05)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 5.81237e-05)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 5.81237e-05)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 5.81237e-05)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 7.83147e-05
         )
 
 
