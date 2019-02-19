@@ -40,6 +40,7 @@ class BaroniUrbaniBuserITestCases(unittest.TestCase):
     """
 
     cmp = BaroniUrbaniBuserI()
+    cmp_no_d = BaroniUrbaniBuserI(alphabet=1)
 
     def test_baroni_urbani_buser_i_sim(self):
         """Test abydos.distance.BaroniUrbaniBuserI.sim."""
@@ -58,6 +59,31 @@ class BaroniUrbaniBuserITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.8951383588)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9199236936
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.5
         )
 
 

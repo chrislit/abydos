@@ -40,6 +40,7 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
     """
 
     cmp = GoodmanKruskalLambdaR()
+    cmp_no_d = GoodmanKruskalLambdaR(alphabet=1)
 
     def test_goodman_kruskal_lambda_r_sim(self):
         """Test abydos.distance.GoodmanKruskalLambdaR.sim."""
@@ -58,6 +59,23 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -1.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -1.0
         )
 
 

@@ -40,6 +40,7 @@ class KuhnsXIITestCases(unittest.TestCase):
     """
 
     cmp = KuhnsXII()
+    cmp_no_d = KuhnsXII(alphabet=1)
 
     def test_kuhns_xii_sim(self):
         """Test abydos.distance.KuhnsXII.sim."""
@@ -57,6 +58,31 @@ class KuhnsXIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 65.0)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 65.0)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 49.7)
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -0.4)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.4166666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.4166666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.4166666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.4166666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.7
+        )
 
 
 if __name__ == '__main__':

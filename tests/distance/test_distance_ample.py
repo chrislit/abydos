@@ -40,6 +40,7 @@ class AMPLETestCases(unittest.TestCase):
     """
 
     cmp = AMPLE()
+    cmp_no_d = AMPLE(alphabet=1)
     cmp_dna = AMPLE(qval=1, alphabet='CGAT')
 
     def test_ample_sim(self):
@@ -61,6 +62,23 @@ class AMPLETestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6324826532
         )
         self.assertAlmostEqual(self.cmp_dna.sim('CGAT', 'CGA'), 0.75)
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.3636363636
+        )
 
 
 if __name__ == '__main__':

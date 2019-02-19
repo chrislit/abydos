@@ -40,6 +40,7 @@ class YJHHRTestCases(unittest.TestCase):
     """
 
     cmp = YJHHR()
+    cmp_no_d = YJHHR(alphabet=1)
 
     def test_yjhhr_dist(self):
         """Test abydos.distance.YJHHR.dist."""
@@ -58,6 +59,31 @@ class YJHHRTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6666666667)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5)
 
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Nigel', 'Niall'), 0.6666666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Niall', 'Nigel'), 0.6666666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Colin', 'Coiln'), 0.6666666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Coiln', 'Colin'), 0.6666666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.5
+        )
+
     def test_yjhhr_dist_abs(self):
         """Test abydos.distance.YJHHR.dist_abs."""
         # Base cases
@@ -75,6 +101,23 @@ class YJHHRTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 6.0)
         self.assertAlmostEqual(
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 7.0
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist_abs('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist_abs('a', ''), 2.0)
+        self.assertEqual(self.cmp_no_d.dist_abs('', 'a'), 2.0)
+        self.assertEqual(self.cmp_no_d.dist_abs('abc', ''), 4.0)
+        self.assertEqual(self.cmp_no_d.dist_abs('', 'abc'), 4.0)
+        self.assertEqual(self.cmp_no_d.dist_abs('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist_abs('abcd', 'efgh'), 10.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist_abs('Nigel', 'Niall'), 6.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist_abs('Niall', 'Nigel'), 6.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist_abs('Colin', 'Coiln'), 6.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist_abs('Coiln', 'Colin'), 6.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist_abs('ATCAACGAGT', 'AACGATTAG'), 7.0
         )
 
 

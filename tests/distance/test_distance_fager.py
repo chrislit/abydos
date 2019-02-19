@@ -40,6 +40,7 @@ class FagerTestCases(unittest.TestCase):
     """
 
     cmp = Fager()
+    cmp_no_d = Fager(alphabet=1)
 
     def test_fager_sim(self):
         """Test abydos.distance.Fager.sim."""
@@ -58,6 +59,31 @@ class FagerTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -0.7247448714)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.9137150176
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.118033988749895)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), -0.7247448714
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), -0.7247448714
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), -0.7247448714
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), -0.7247448714
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -0.9137150176
         )
 
 

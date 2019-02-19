@@ -40,6 +40,7 @@ class GoodmanKruskalTauATestCases(unittest.TestCase):
     """
 
     cmp = GoodmanKruskalTauA()
+    cmp_no_d = GoodmanKruskalTauA(alphabet=1)
 
     def test_goodman_kruskal_tau_a_sim(self):
         """Test abydos.distance.GoodmanKruskalTauA.sim."""
@@ -58,6 +59,31 @@ class GoodmanKruskalTauATestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), float('nan'))
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), float('nan')
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), float('nan')
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), float('nan')
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), float('nan')
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
 

@@ -40,6 +40,7 @@ class KendallTauTestCases(unittest.TestCase):
     """
 
     cmp = KendallTau()
+    cmp_no_d = KendallTau(alphabet=1)
 
     def test_kendall_tau_sim(self):
         """Test abydos.distance.KendallTau.sim."""
@@ -58,6 +59,33 @@ class KendallTauTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0025151823)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0025086663
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), -2.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), -2.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), -0.6666666666666666)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -0.6666666666666666)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.6666666666666666)
+        self.assertEqual(
+            self.cmp_no_d.sim('abcd', 'efgh'), -0.2222222222222222
+        )
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), -0.0833333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), -0.0833333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), -0.0833333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), -0.0833333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
 
 

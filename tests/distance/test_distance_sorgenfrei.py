@@ -40,6 +40,7 @@ class SorgenfreiTestCases(unittest.TestCase):
     """
 
     cmp = Sorgenfrei()
+    cmp_no_d = Sorgenfrei(alphabet=1)
 
     def test_sorgenfrei_sim(self):
         """Test abydos.distance.Sorgenfrei.sim."""
@@ -58,6 +59,23 @@ class SorgenfreiTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.25)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4454545455
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.25)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.4454545455
         )
 
 

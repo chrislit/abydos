@@ -40,6 +40,7 @@ class UnknownJTestCases(unittest.TestCase):
     """
 
     cmp = UnknownJ()
+    cmp_no_d = UnknownJ(alphabet=1)
 
     def test_unknown_j_sim(self):
         """Test abydos.distance.UnknownJ.sim."""
@@ -58,6 +59,23 @@ class UnknownJTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5038560411)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6454192638
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 1.5)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 1.5)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 1.5)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 1.5)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 2.9696969697
         )
 
 

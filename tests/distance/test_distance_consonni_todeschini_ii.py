@@ -40,6 +40,7 @@ class ConsonniTodeschiniIITestCases(unittest.TestCase):
     """
 
     cmp = ConsonniTodeschiniII()
+    cmp_no_d = ConsonniTodeschiniII(alphabet=1)
 
     def test_consonni_todeschini_ii_sim(self):
         """Test abydos.distance.ConsonniTodeschiniII.sim."""
@@ -58,6 +59,23 @@ class ConsonniTodeschiniIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7080704349)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6880377723
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.15490196)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.15490196)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.15490196)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.15490196)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.2321259256
         )
 
 

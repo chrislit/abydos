@@ -40,6 +40,7 @@ class UnknownKTestCases(unittest.TestCase):
     """
 
     cmp = UnknownK()
+    cmp_no_d = UnknownK(alphabet=1)
 
     def test_unknown_k_sim(self):
         """Test abydos.distance.UnknownK.sim."""
@@ -57,6 +58,23 @@ class UnknownKTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 2.9885204082)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 2.9885204082)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 6.9375)
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 2.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 3.5
+        )
 
 
 if __name__ == '__main__':
