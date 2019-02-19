@@ -149,8 +149,9 @@ class _TokenDistance(_Distance):
                   is inferred if QGram tokenization is used (i.e.
                   :math:`28^{QGrams.qval}` is used as the cardinality of the
                   full alphabet or :math:`26` if QGrams.qval is 1, which
-                  assumes the strings are English language strings). Otherwise,
-                  The cardinality of the complement of the total will be 0.
+                  assumes the strings are English language strings and only
+                  contain letters of a single case). Otherwise, the cardinality
+                  of the complement of the total will be 0.
         normalizer : str
             This represents the normalization applied to the values in the
             2x2 contingency table prior to any of the cardinality (\*_card)
@@ -194,13 +195,17 @@ class _TokenDistance(_Distance):
                 self.params['alphabet'] = len(self.params['alphabet'])
             elif isinstance(self.params['tokenizer'], QGrams):
                 self.params['alphabet'] = (
-                    26 + len(set(self.params['tokenizer'].start_stop))
-                ) ** self.params['tokenizer'].qval
+                    28 ** self.params['tokenizer'].qval
+                    if self.params['tokenizer'].qval > 1
+                    else 26
+                )
         else:
             if isinstance(self.params['tokenizer'], QGrams):
                 self.params['alphabet'] = (
-                    26 + len(set(self.params['tokenizer'].start_stop))
-                ) ** self.params['tokenizer'].qval
+                    28 ** self.params['tokenizer'].qval
+                    if self.params['tokenizer'].qval > 1
+                    else 26
+                )
             else:
                 self.params['alphabet'] = None
 
