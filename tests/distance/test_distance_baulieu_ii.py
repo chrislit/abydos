@@ -49,14 +49,16 @@ class BaulieuIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.2480756967)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.2480756967)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.2480756967)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.2480756967)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4414325876
+        )
 
 
 if __name__ == '__main__':

@@ -49,14 +49,16 @@ class YuleQIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
         self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
         self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 2.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 2.0)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 2.0)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 2.0)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 2.0)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 2.0)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0077120823)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0077120823)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0077120823)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0077120823)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.004442799
+        )
 
 
 if __name__ == '__main__':

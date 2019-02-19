@@ -45,8 +45,8 @@ class HellingerTestCases(unittest.TestCase):
         """Test abydos.distance.Hellinger.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 2.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 2.0)
         self.assertEqual(self.cmp.dist('abc', ''), 2.8284271247461903)
         self.assertEqual(self.cmp.dist('', 'abc'), 2.8284271247461903)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)

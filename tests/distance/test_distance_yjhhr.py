@@ -45,8 +45,8 @@ class YJHHRTestCases(unittest.TestCase):
         """Test abydos.distance.YJHHR.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
@@ -62,8 +62,8 @@ class YJHHRTestCases(unittest.TestCase):
         """Test abydos.distance.YJHHR.dist_abs."""
         # Base cases
         self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist_abs('a', ''), 2.0)
+        self.assertEqual(self.cmp.dist_abs('', 'a'), 2.0)
         self.assertEqual(self.cmp.dist_abs('abc', ''), 4.0)
         self.assertEqual(self.cmp.dist_abs('', 'abc'), 4.0)
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0.0)

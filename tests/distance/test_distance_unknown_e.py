@@ -45,18 +45,20 @@ class UnknownETestCases(unittest.TestCase):
         """Test abydos.distance.UnknownE.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), -1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
         self.assertEqual(self.cmp.sim('abc', ''), -1.0)
         self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -1.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
+        )
 
 
 if __name__ == '__main__':

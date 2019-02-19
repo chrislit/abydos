@@ -49,15 +49,15 @@ class EyraudTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.04)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), -1.2327416173570019e-06)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.6478781097519779e-06)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -0.1018518519)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -0.1018518519)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -0.1018518519)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -0.1018518519)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -1.5144e-06)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -1.5144e-06)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -1.5144e-06)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -1.5144e-06)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.078030303
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -1.565e-06
         )
 
 

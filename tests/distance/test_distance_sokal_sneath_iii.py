@@ -45,8 +45,8 @@ class SokalSneathIIITestCases(unittest.TestCase):
         """Test abydos.distance.SokalSneathIII.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), 391.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 391.0)
         self.assertEqual(self.cmp.sim('abc', ''), 195.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 195.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))

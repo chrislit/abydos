@@ -45,8 +45,8 @@ class PositionalQGramDiceTestCases(unittest.TestCase):
         """Test abydos.distance.PositionalQGramDice.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
         self.assertEqual(self.cmp.dist('abc', ''), 0.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)

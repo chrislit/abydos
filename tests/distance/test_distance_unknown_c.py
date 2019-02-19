@@ -49,15 +49,15 @@ class UnknownCTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.2512820512820513)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.1987163029525032)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.1666666667)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.1666666667)
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.1666666667)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.1666666667)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.1926686589
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.09577771
         )
 
 

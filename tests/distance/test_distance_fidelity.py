@@ -45,8 +45,8 @@ class FidelityTestCases(unittest.TestCase):
         """Test abydos.distance.Fidelity.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 0)
-        self.assertEqual(self.cmp.sim('a', ''), 0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 4.0)

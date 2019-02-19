@@ -49,14 +49,16 @@ class WarrensVTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 195.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -1.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 64.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 64.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 64.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 64.3333333333)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 48.8909090909
+        )
 
 
 if __name__ == '__main__':

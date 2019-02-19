@@ -45,8 +45,8 @@ class BrainerdRobinsonTestCases(unittest.TestCase):
         """Test abydos.distance.BrainerdRobinson.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
-        self.assertEqual(self.cmp.sim('a', ''), 1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
@@ -64,8 +64,8 @@ class BrainerdRobinsonTestCases(unittest.TestCase):
         """Test abydos.distance.BrainerdRobinson.sim_abs."""
         # Base cases
         self.assertEqual(self.cmp.sim_abs('', ''), 200)
-        self.assertEqual(self.cmp.sim_abs('a', ''), 200)
-        self.assertEqual(self.cmp.sim_abs('', 'a'), 200)
+        self.assertEqual(self.cmp.sim_abs('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim_abs('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim_abs('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim_abs('', 'abc'), float('nan'))
         self.assertEqual(self.cmp.sim_abs('abc', 'abc'), 200.0)

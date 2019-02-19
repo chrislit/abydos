@@ -45,8 +45,8 @@ class WarrensITestCases(unittest.TestCase):
         """Test abydos.distance.WarrensI.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), -1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
         self.assertEqual(self.cmp.sim('abc', ''), -1.0)
         self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
