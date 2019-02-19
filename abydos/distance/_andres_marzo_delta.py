@@ -43,7 +43,7 @@ class AndresMarzoDelta(_TokenDistance):
 
             sim_{AndresMarzo_\Delta}(X, Y) = \Delta =
             \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
-            2\sqrt{|X \setminus Y| \dot |Y \setminus X|}}{|N|}
+            2\sqrt{|X \setminus Y| \cdot |Y \setminus X|}}{|N|}
 
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -52,7 +52,7 @@ class AndresMarzoDelta(_TokenDistance):
         .. math::
 
             sim_{AndresMarzo_\Delta} = \Delta =
-            \frac{a+d-2\sqrt{b \dot c}}{n}}
+            \frac{a+d-2\sqrt{b \cdot c}}{n}
 
     .. versionadded:: 0.4.0
     """
