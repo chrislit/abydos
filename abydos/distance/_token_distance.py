@@ -233,7 +233,7 @@ class _TokenDistance(_Distance):
 
         self._src_tokens = Counter()
         self._tar_tokens = Counter()
-        self._population_card = 0
+        self._population_card_value = 0
 
         # Set up the normalizer, a function of two variables:
         # x is the value in the contingency table square(s)
@@ -241,7 +241,7 @@ class _TokenDistance(_Distance):
         self.normalizer = lambda x, n: x
         if 'normalizer' in self.params:
             if self.params['normalizer'] == 'proportional':
-                self.normalizer = lambda x, n: x / self._population_card
+                self.normalizer = lambda x, n: x / self._population_card_value
             elif self.params['normalizer'] == 'log':
                 self.normalizer = lambda x, n: log1p(x)
             elif self.params['normalizer'] == 'exp':
@@ -250,10 +250,10 @@ class _TokenDistance(_Distance):
                 self.normalizer = lambda x, n: x + n
             elif self.params['normalizer'] == 'inverse:':
                 self.normalizer = (
-                    lambda x, n: 1 / x if x else self._population_card
+                    lambda x, n: 1 / x if x else self._population_card_value
                 )
             elif self.params['normalizer'] == 'complement':
-                self.normalizer = lambda x, n: self._population_card - x
+                self.normalizer = lambda x, n: self._population_card_value - x
 
     def _tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
@@ -296,7 +296,7 @@ class _TokenDistance(_Distance):
                 self.params['tokenizer'].tokenize(tar).get_counter()
             )
 
-        self._population_card = self._calc_population_card()
+        self._population_card_value = self._calc_population_card()
 
         return self
 
@@ -397,7 +397,7 @@ class _TokenDistance(_Distance):
 
     def _population_card(self):
         """Return the cardinality of the population."""
-        return self.normalizer(self._population_card, 4)
+        return self.normalizer(self._population_card_value, 4)
 
     def _union(self):
         r"""Return the union of tokens from src and tar.
