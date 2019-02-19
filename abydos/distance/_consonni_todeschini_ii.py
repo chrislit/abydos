@@ -141,7 +141,7 @@ class ConsonniTodeschiniII(_TokenDistance):
 
         b = self._src_only_card()
         c = self._tar_only_card()
-        n = self._population_unique_card()()
+        n = self._population_unique_card()
 
         return (log(1 + n) - log(1 + b + c)) / log(1 + n)
 

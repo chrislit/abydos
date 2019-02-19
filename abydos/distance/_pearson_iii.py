@@ -145,7 +145,7 @@ class PearsonIII(PearsonPhi):
 
         """
         phi = super(PearsonIII, self).corr(src, tar)
-        return (phi / (self._population_unique_card()() + phi)) ** 0.5
+        return (phi / (self._population_unique_card() + phi)) ** 0.5
 
 
 if __name__ == '__main__':

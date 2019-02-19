@@ -143,7 +143,7 @@ class Goodall(_TokenDistance):
 
         a = self._intersection_card()
         d = self._total_complement_card()
-        n = self._population_unique_card()()
+        n = self._population_unique_card()
 
         return 2 / pi * asin(((a + d) / n) ** 0.5)
 

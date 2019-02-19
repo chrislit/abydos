@@ -144,7 +144,7 @@ class Size(_TokenDistance):
 
         return (
             self._symmetric_difference_card()
-        ) ** 2 / self._population_unique_card()() ** 2
+        ) ** 2 / self._population_unique_card() ** 2
 
 
 if __name__ == '__main__':

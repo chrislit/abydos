@@ -145,7 +145,7 @@ class PearsonChiSquared(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
-        n = self._population_unique_card()()
+        n = self._population_unique_card()
         ab = self._src_card()
         ac = self._tar_card()
 

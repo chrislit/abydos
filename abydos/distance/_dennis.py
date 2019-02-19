@@ -146,7 +146,7 @@ class Dennis(_TokenDistance):
         abacn = (
             self._src_card()
             * self._tar_card()
-            / self._population_unique_card()()
+            / self._population_unique_card()
         )
 
         return (a - abacn) / abacn ** 0.5
