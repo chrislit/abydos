@@ -49,15 +49,15 @@ class UnknownJTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0102564102564102)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.005128205128205)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5057840617)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5057840617)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5057840617)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5057840617)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5038560411)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5038560411)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5038560411)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5038560411)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6511819358
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6454192638
         )
 
 

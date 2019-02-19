@@ -49,15 +49,15 @@ class StuartTauTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.005076009995835068)
         self.assertEqual(self.cmp.sim('abc', ''), 0.005049979175343606)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.005049979175343606)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.005050374913035636)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.00510204081632653)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0049718867138692216)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0049857193)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0049857193)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0049857193)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0049857193)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0050239484)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0050239484)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0050239484)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0050239484)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0049226363
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0050109329
         )
 
 

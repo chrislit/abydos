@@ -49,15 +49,15 @@ class SokalSneathITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.9987228607918263)
         self.assertEqual(self.cmp.sim('abc', ''), 0.9974424552429667)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.9974424552429667)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9974554707379135)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.993581514762516)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9942492013)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9942492013)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9942492013)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9942492013)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9961587708)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9961587708)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9961587708)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9961587708)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9910714286
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9955156951
         )
 
 

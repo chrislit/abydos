@@ -49,15 +49,15 @@ class HamannTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.9974489795918368)
         self.assertEqual(self.cmp.sim('abc', ''), 0.9948979591836735)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.9948979591836735)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9974619289340101)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9872448979591837)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9904701398)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9904701398)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9904701398)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9904701398)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9923469388)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9867256637
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9910714286
         )
 
     def test_hamann_corr(self):
@@ -68,15 +68,15 @@ class HamannTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('', 'a'), 0.9948979591836735)
         self.assertEqual(self.cmp.corr('abc', ''), 0.9897959183673469)
         self.assertEqual(self.cmp.corr('', 'abc'), 0.9897959183673469)
-        self.assertEqual(self.cmp.corr('abc', 'abc'), 0.9949238578680203)
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.corr('abcd', 'efgh'), 0.9744897959183674)
 
-        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.9809402795)
-        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.9809402795)
-        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.9809402795)
-        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.9809402795)
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.9846938776)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.9846938776)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.9846938776)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.9846938776)
         self.assertAlmostEqual(
-            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.9734513274
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.9821428571
         )
 
 

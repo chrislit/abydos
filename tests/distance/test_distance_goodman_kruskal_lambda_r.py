@@ -49,14 +49,16 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), -1.0)
         self.assertEqual(self.cmp.sim('abc', ''), -1.0)
         self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.2)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
+        )
 
 
 if __name__ == '__main__':

@@ -49,16 +49,14 @@ class UnknownKTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 3.979695431472081)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 3.979591836734694)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 2.9885641677)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 2.9885641677)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 2.9885641677)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 2.9885641677)
-        self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 6.9380530973
-        )
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 2.9885204082)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 2.9885204082)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 2.9885204082)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 2.9885204082)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 6.9375)
 
 
 if __name__ == '__main__':

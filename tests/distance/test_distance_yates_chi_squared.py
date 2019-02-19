@@ -49,15 +49,15 @@ class YatesChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 601.5458464825773)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 599.3708349769888)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 6.960385076156687)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 133.4890783477)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 133.4890783477)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 133.4890783477)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 133.4890783477)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 133.1878178031)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 133.1878178031)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 133.1878178031)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 133.1878178031)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 298.3719265483
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 296.1470911771
         )
 
 

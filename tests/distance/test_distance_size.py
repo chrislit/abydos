@@ -52,12 +52,12 @@ class SizeTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.0001626926280716368)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 5.81237e-05)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 5.81237e-05)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 5.81237e-05)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 5.81237e-05)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 5.85693e-05)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 5.85693e-05)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 5.85693e-05)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 5.85693e-05)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 7.83147e-05
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 7.97194e-05
         )
 
 

@@ -49,15 +49,15 @@ class GilbertTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.49808429118773945)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.003198976327575176)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.2470004799)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.2470004799)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.2470004799)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.2470004799)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3299145299)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3299145299)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3299145299)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3299145299)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3283572977
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4949383398
         )
 
 

@@ -49,15 +49,15 @@ class FaithTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.4987244897959184)
         self.assertEqual(self.cmp.sim('abc', ''), 0.49744897959183676)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.49744897959183676)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 4.49492385786802)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 4.497448979591836)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.49362244897959184)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 3.4923761118)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 3.4923761118)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 3.4923761118)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 3.4923761118)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 3.4942602041)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 3.4942602041)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 3.4942602041)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 3.4942602041)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.4867256637
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.4910714286
         )
 
 

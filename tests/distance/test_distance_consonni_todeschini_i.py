@@ -49,15 +49,15 @@ class ConsonniTodeschiniITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.9996172903036489)
         self.assertEqual(self.cmp.sim('abc', ''), 0.9992336018090547)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.9992336018090547)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9992380780829359)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9980766131469967)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9982776749)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9982776749)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9982776749)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9982776749)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9988489295)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9988489295)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9988489295)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9988489295)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9973279341
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9986562228
         )
 
 

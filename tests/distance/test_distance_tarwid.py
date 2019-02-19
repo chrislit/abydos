@@ -49,15 +49,15 @@ class TarwidTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.98989898989899)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.9898477157360406)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9699624531)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9699624531)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9699624531)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9699624531)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9698492462)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9698492462)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9698492462)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9698492462)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9610412608
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9607002501
         )
 
 

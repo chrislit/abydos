@@ -52,12 +52,12 @@ class ConsonniTodeschiniIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.640262668568961)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7082373932)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7082373932)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.7082373932)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7082373932)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7080704349)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7080704349)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.7080704349)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7080704349)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6884527058
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6880377723
         )
 
 

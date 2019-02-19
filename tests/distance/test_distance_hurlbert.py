@@ -52,12 +52,12 @@ class HurlbertTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.4961439015)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.4961439015)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.4961439015)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4961439015)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.4961439012)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.4961439012)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.4961439012)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4961439012)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6316653917
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6316653908
         )
 
 
