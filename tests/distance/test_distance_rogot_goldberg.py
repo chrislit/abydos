@@ -45,19 +45,19 @@ class RogotGoldbergTestCases(unittest.TestCase):
         """Test abydos.distance.RogotGoldberg.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.49936143039591313)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.49936143039591313)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.49872122762148335)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.49872122762148335)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.496790757381258)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.25)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.25)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.25)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.25)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7480719794)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8310708899
         )
 
 

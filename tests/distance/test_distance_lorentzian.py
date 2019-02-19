@@ -45,8 +45,8 @@ class LorentzianTestCases(unittest.TestCase):
         """Test abydos.distance.Lorentzian.dist_abs."""
         # Base cases
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
-        self.assertEqual(self.cmp.dist_abs('a', ''), 0)
-        self.assertEqual(self.cmp.dist_abs('', 'a'), 0)
+        self.assertEqual(self.cmp.dist_abs('a', ''), 1.3862943611198906)
+        self.assertEqual(self.cmp.dist_abs('', 'a'), 1.3862943611198906)
         self.assertEqual(self.cmp.dist_abs('abc', ''), 2.772588722239781)
         self.assertEqual(self.cmp.dist_abs('', 'abc'), 2.772588722239781)
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0.0)

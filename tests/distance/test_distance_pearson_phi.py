@@ -49,15 +49,15 @@ class PearsonPhiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.496790757381258)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.25)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.25)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.25)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.25)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7480719794)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3348554352
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8314623708
         )
 
 

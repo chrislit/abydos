@@ -44,19 +44,21 @@ class GwetGammaTestCases(unittest.TestCase):
     def test_gwet_gamma_sim(self):
         """Test abydos.distance.GwetGamma.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9974424635860967)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9974424635860967)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.9948718619588964)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.9948718619588964)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9870811678360627)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -0.2)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -0.2)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -0.2)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -0.2)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.2)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9922289037)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9922289037)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9922289037)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9922289037)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9908290686
+        )
 
 
 if __name__ == '__main__':

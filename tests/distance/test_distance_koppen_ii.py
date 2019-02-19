@@ -45,8 +45,8 @@ class KoppenIITestCases(unittest.TestCase):
         """Test abydos.distance.KoppenII.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 0.0)
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
         self.assertEqual(self.cmp.sim('abc', ''), 2.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 2.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 4.0)

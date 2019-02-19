@@ -49,15 +49,15 @@ class FleissTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.006418485237483954)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -0.5)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -0.5)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -0.5)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -0.5)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4961439589)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.3318181818
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6636573473
         )
 
 

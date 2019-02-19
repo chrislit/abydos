@@ -44,19 +44,21 @@ class WarrensIIITestCases(unittest.TestCase):
     def test_warrens_iii_sim(self):
         """Test abydos.distance.WarrensIII.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9974457215836526)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9974457215836526)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.9948849104859335)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.9948849104859335)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9871630295250321)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -1.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -1.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9922879177)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9922879177)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9922879177)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9922879177)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9909502262
+        )
 
 
 if __name__ == '__main__':

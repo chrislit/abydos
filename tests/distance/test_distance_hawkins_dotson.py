@@ -45,18 +45,20 @@ class HawkinsDotsonTestCases(unittest.TestCase):
         """Test abydos.distance.HawkinsDotson.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.4987244897959184)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.4987244897959184)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.49744897959183676)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.49744897959183676)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.49362244897959184)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.1666666667)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.1666666667)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.1666666667)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.1666666667)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.25)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6628254375)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6628254375)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.6628254375)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6628254375)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7454954955
+        )
 
 
 if __name__ == '__main__':

@@ -45,8 +45,8 @@ class HassanatTestCases(unittest.TestCase):
         """Test abydos.distance.Hassanat.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 2.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 2.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)

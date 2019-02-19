@@ -46,18 +46,18 @@ class UnknownDTestCases(unittest.TestCase):
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
         self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.5)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.006377551020408163)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9923469388)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.2307692308
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 2.2870448772
         )
 
 

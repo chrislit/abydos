@@ -45,8 +45,8 @@ class MatusitaTestCases(unittest.TestCase):
         """Test abydos.distance.Matusita.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.4142135623730951)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.4142135623730951)
         self.assertEqual(self.cmp.dist('abc', ''), 2.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 2.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)

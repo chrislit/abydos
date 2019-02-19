@@ -49,15 +49,15 @@ class TarantulaTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9923469388)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9923469388)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3888888889
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9939382807
         )
 
 

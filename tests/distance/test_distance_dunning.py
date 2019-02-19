@@ -52,12 +52,12 @@ class DunningTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 16.4257251109)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 16.4257251109)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 16.4257251109)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 16.4257251109)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 38.5123402977
         )
 
 

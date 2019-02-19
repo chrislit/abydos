@@ -45,18 +45,20 @@ class BaroniUrbaniBuserIITestCases(unittest.TestCase):
         """Test abydos.distance.BaroniUrbaniBuserII.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), -1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
         self.assertEqual(self.cmp.sim('abc', ''), -1.0)
         self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -0.3333333333)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7902767176)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7902767176)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.7902767176)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7902767176)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8398473871
+        )
 
 
 if __name__ == '__main__':
