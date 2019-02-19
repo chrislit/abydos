@@ -149,7 +149,7 @@ class Shape(_TokenDistance):
 
         dist = sum(symdiff)
         dist_sq = sum(_ ** 2 for _ in symdiff)
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         return dist_sq / n - (dist / n) ** 2
 

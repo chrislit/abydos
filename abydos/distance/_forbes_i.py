@@ -136,9 +136,9 @@ class ForbesI(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        return (self._population_card() * self._intersection_card()) / (
-            self._src_card() * self._tar_card()
-        )
+        return (
+            self._population_unique_card()() * self._intersection_card()
+        ) / (self._src_card() * self._tar_card())
 
 
 if __name__ == '__main__':

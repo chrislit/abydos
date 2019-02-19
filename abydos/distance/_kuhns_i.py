@@ -152,7 +152,7 @@ class KuhnsI(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         delta_ab = a - (2 * a + b + c) / n
 

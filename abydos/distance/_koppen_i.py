@@ -168,7 +168,7 @@ class KoppenI(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        n = self._population_card()
+        n = self._population_unique_card()()
 
         abac_mean = (2 * a + b + c) / 2
 

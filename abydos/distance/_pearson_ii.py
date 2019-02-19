@@ -144,7 +144,7 @@ class PearsonII(PearsonChiSquared):
 
         """
         chi2 = super(PearsonII, self).sim(src, tar)
-        return (chi2 / (self._population_card() + chi2)) ** 0.5
+        return (chi2 / (self._population_unique_card()() + chi2)) ** 0.5
 
 
 if __name__ == '__main__':

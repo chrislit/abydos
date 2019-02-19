@@ -138,7 +138,9 @@ class Faith(_TokenDistance):
 
         return (
             self._intersection_card()
-            + 0.5 * self._total_complement_card() / self._population_card()
+            + 0.5
+            * self._total_complement_card()
+            / self._population_unique_card()()
         )
 
 

@@ -149,7 +149,7 @@ class SokalSneathI(_TokenDistance):
         ) / (
             self._intersection_card()
             + self._total_complement_card()
-            + self._population_card()
+            + self._population_unique_card()()
         )
 
 
