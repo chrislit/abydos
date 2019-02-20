@@ -400,7 +400,7 @@ class _TokenDistance(_Distance):
         return self.normalizer(self._population_card_value, 4)
 
     def _population_unique_card(self):
-        """Return the cardinality of the population, without double counting elements in the intersection."""
+        """Return the cardinality of the population minus the intersection."""
         return self.normalizer(
             self._population_card_value - self._intersection_card(), 4
         )

@@ -481,7 +481,8 @@ class ALINETestCases(unittest.TestCase):
         )
 
         # other alignment styles:
-        # TODO: verify that these are functioning correctly, since the don't match thesis
+        # TODO: verify that these are functioning correctly, since they don't
+        #  match thesis
         cmp2 = ALINE(mode='local')
         self.assertEqual(
             cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
