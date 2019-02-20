@@ -63,6 +63,7 @@ class AMPLE(_TokenDistance):
     in the latter string.
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(
