@@ -41,7 +41,7 @@ class BaroniUrbaniBuserI(_TokenDistance):
 
         .. math::
 
-            sim_{BaroniUrbaniI}(X, Y) =
+            sim_{BaroniUrbaniBuserI}(X, Y) =
             \frac{\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
             |X \cap Y|}
             {\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
@@ -55,7 +55,7 @@ class BaroniUrbaniBuserI(_TokenDistance):
 
         .. math::
 
-            sim_{BaroniUrbaniI} =
+            sim_{BaroniUrbaniBuserI} =
             \frac{\sqrt{ad}+a}{\sqrt{ad}+a+b+c}
 
     .. versionadded:: 0.4.0
