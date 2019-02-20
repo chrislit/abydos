@@ -139,33 +139,34 @@ class QGrams(_Tokenizer):
         if not isinstance(self.skip, Iterable):
             self.skip = (self.skip,)
 
-        for qval_i in self.qval:
-            for skip_i in self.skip:
-                if qval_i < 1:
-                    continue
+        if string:
+            for qval_i in self.qval:
+                for skip_i in self.skip:
+                    if qval_i < 1:
+                        continue
 
-                if self.start_stop:
-                    string = (
-                        self.start_stop[0] * (qval_i - 1)
-                        + self._string
-                        + self.start_stop[-1] * (qval_i - 1)
-                    )
-                else:
-                    string = self._string
+                    if self.start_stop:
+                        string = (
+                            self.start_stop[0] * (qval_i - 1)
+                            + self._string
+                            + self.start_stop[-1] * (qval_i - 1)
+                        )
+                    else:
+                        string = self._string
 
-                if qval_i > 1 and len(string) < qval_i:
-                    continue
+                    if qval_i > 1 and len(string) < qval_i:
+                        continue
 
-                # Having appended start & stop symbols (or not), save the
-                # result, but only for the longest valid qval_i
-                if len(string) > len(self._string_ss):
-                    self._string_ss = string
+                    # Having appended start & stop symbols (or not), save the
+                    # result, but only for the longest valid qval_i
+                    if len(string) > len(self._string_ss):
+                        self._string_ss = string
 
-                skip_i += 1
-                self._ordered_tokens += [
-                    string[i : i + (qval_i * skip_i) : skip_i]
-                    for i in range(len(string) - (qval_i - 1))
-                ]
+                    skip_i += 1
+                    self._ordered_tokens += [
+                        string[i : i + (qval_i * skip_i) : skip_i]
+                        for i in range(len(string) - (qval_i - 1))
+                    ]
 
         super(QGrams, self).tokenize()
         return self
