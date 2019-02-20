@@ -60,6 +60,25 @@ class QGramTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.4545454545
         )
 
+    def test_q_gram_sim(self):
+        """Test abydos.distance.QGram.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.1428571429)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.1428571429)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.1428571429)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.1428571429)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5454545455
+        )
+
     def test_q_gram_dist_abs(self):
         """Test abydos.distance.QGram.dist_abs."""
         # Base cases

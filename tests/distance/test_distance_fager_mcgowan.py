@@ -60,6 +60,25 @@ class FagerMcGowanTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.9908885827
         )
 
+    def test_fager_mcgowan_dist(self):
+        """Test abydos.distance.FagerMcGowan.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 2.118033988749895)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.7247448714)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.7247448714)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.7247448714)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.7247448714)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.9908885827
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

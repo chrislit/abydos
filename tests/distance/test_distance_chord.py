@@ -60,6 +60,25 @@ class ChordTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.8155687433
         )
 
+    def test_chord_sim(self):
+        """Test abydos.distance.Chord.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.41421356237309515)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.1844312567
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

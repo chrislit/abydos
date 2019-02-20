@@ -78,6 +78,42 @@ class WarrensIIITestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -1.0
         )
 
+    def test_warrens_iii_dist(self):
+        """Test abydos.distance.WarrensIII.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0025542784163473664)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0025542784163473664)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.005115089514066473)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.005115089514066473)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.012836970474967901)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0077120823)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0077120823)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0077120823)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0077120823)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0090497738
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 2.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 2.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 2.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 2.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 2.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 2.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 2.0
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

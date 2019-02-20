@@ -60,6 +60,25 @@ class BlockLevenshteinTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
+    def test_block_levenshtein_sim(self):
+        """Test abydos.distance.BlockLevenshtein.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+        )
+
     def test_block_levenshtein_dist_abs(self):
         """Test abydos.distance.BlockLevenshtein.dist_abs."""
         # Base cases

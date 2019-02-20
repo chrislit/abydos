@@ -60,6 +60,25 @@ class RougeLTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6009244992
         )
 
+    def test_rouge_l_dist(self):
+        """Test abydos.distance.RougeL.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), float('nan'))
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.2)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.2)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3990755008
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

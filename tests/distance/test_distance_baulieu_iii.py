@@ -86,6 +86,52 @@ class BaulieuIIITestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 1.2448979592
         )
 
+    def test_baulieu_iii_dist(self):
+        """Test abydos.distance.BaulieuIII.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.020304039983340294)
+        self.assertEqual(
+            self.cmp.dist('abcd', 'efgh'), -0.00016269262807155904
+        )
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0150718451)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0150718451)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0150718451)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0150718451)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0349984382
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Nigel', 'Niall'), -0.4444444444
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Niall', 'Nigel'), -0.4444444444
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Colin', 'Coiln'), -0.4444444444
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Coiln', 'Colin'), -0.4444444444
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -0.2448979592
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

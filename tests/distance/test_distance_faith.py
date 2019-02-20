@@ -78,6 +78,42 @@ class FaithTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 7.0
         )
 
+    def test_faith_dist(self):
+        """Test abydos.distance.Faith.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 0.5)
+        self.assertEqual(self.cmp.dist('a', ''), 0.5012755102040816)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.5012755102040816)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.5025510204081632)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.5025510204081632)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), -3.4974489795918364)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.5063775510204082)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), -2.4942602041)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), -2.4942602041)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), -2.4942602041)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), -2.4942602041)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -6.4910714286
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.5)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), -3.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), -2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), -2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), -2.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), -2.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -6.0
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -78,6 +78,50 @@ class ConsonniTodeschiniIITestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.2321259256
         )
 
+    def test_consonni_todeschini_ii_dist(self):
+        """Test abydos.distance.ConsonniTodeschiniII.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.16481614417697044)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.16481614417697044)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.24145128700608987)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.24145128700608987)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.35973733143103903)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.2919295651)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.2919295651)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.2919295651)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.2919295651)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3119622277
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Nigel', 'Niall'), 0.84509804
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Niall', 'Nigel'), 0.84509804
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Colin', 'Coiln'), 0.84509804
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('Coiln', 'Colin'), 0.84509804
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.7678740744
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

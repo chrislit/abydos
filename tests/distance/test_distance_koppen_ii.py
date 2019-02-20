@@ -76,6 +76,40 @@ class KoppenIITestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 10.5
         )
 
+    def test_koppen_ii_dist(self):
+        """Test abydos.distance.KoppenII.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', ''), -1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), -3.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), -4.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), -5.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), -5.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), -5.0)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), -5.0)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -9.5)
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), -1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), -3.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), -4.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), -5.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), -5.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), -5.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), -5.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -9.5
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -78,6 +78,42 @@ class GoodmanKruskalLambdaTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
 
+    def test_goodman_kruskal_lambda_dist(self):
+        """Test abydos.distance.GoodmanKruskalLambda.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.0)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.6666666667
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.0
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

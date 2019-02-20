@@ -60,6 +60,25 @@ class WhittakerTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3636363636
         )
 
+    def test_whittaker_dist(self):
+        """Test abydos.distance.Whittaker.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.1102230246251565e-16)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.6363636364
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

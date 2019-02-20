@@ -60,6 +60,25 @@ class JensenShannonTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.667088454
         )
 
+    def test_jensen_shannon_sim(self):
+        """Test abydos.distance.JensenShannon.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.332911546
+        )
+
     def test_jensen_shannon_dist_abs(self):
         """Test abydos.distance.JensenShannon.dist_abs."""
         # Base cases

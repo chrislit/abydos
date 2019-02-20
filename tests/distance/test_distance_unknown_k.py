@@ -76,6 +76,42 @@ class UnknownKTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 3.5
         )
 
+    def test_unknown_k_dist(self):
+        """Test abydos.distance.UnknownK.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), -2.979591836734694)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), -1.9885204082)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), -1.9885204082)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), -1.9885204082)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), -1.9885204082)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -5.9375
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), -1.0)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -2.5
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

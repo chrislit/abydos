@@ -58,6 +58,23 @@ class NCDlzssTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.8333333333)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5)
 
+    def test_ncd_lzss_sim(self):
+        """Test abydos.distance.NCDlzss.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.19999999999999996)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.1666666667)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.1666666667)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.1666666667)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.1666666667)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -60,6 +60,25 @@ class HellingerTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 3.7416573868
         )
 
+    def test_hellinger_sim(self):
+        """Test abydos.distance.Hellinger.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), -1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
+        self.assertEqual(self.cmp.sim('abc', ''), -1.8284271247461903)
+        self.assertEqual(self.cmp.sim('', 'abc'), -1.8284271247461903)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -3.4721359549995796)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -2.4641016151)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -2.4641016151)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -2.4641016151)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -2.4641016151)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -2.7416573868
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

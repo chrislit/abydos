@@ -60,6 +60,25 @@ class YujianBoTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.4166666667
         )
 
+    def test_yujian_bo_sim(self):
+        """Test abydos.distance.YujianBo.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.33333333333333337)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6666666667)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5833333333
+        )
+
     def test_yujian_bo_dist_abs(self):
         """Test abydos.distance.YujianBo.dist_abs."""
         # Base cases

@@ -60,6 +60,25 @@ class PositionalQGramJaccardTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.1052631579
         )
 
+    def test_positional_q_gram_jaccard_dist(self):
+        """Test abydos.distance.PositionalQGramJaccard.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6666666667)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.8947368421
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

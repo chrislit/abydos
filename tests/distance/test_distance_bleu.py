@@ -60,6 +60,25 @@ class BLEUTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5119598032
         )
 
+    def test_bleu_dist(self):
+        """Test abydos.distance.BLEU.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), float('nan'))
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), float('nan'))
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), float('nan'))
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), float('nan'))
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.4880401968
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

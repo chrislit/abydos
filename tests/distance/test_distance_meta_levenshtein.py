@@ -60,6 +60,25 @@ class MetaLevenshteinTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.2931752664
         )
 
+    def test_meta_levenshtein_sim(self):
+        """Test abydos.distance.MetaLevenshtein.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.15360463852869422)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6922198686)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6922198686)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.6922198686)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6922198686)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7068247336
+        )
+
     def test_meta_levenshtein_dist_abs(self):
         """Test abydos.distance.MetaLevenshtein.dist_abs."""
         # Base cases

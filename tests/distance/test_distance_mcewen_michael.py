@@ -78,6 +78,42 @@ class McEwenMichaelTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -0.4897959184
         )
 
+    def test_mcewen_michael_dist(self):
+        """Test abydos.distance.McEwenMichael.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.9796959600166597)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0001668958703285)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.9846956981)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.9846956981)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.9846956981)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.9846956981)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9643710105
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 2.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.8)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.8)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.8)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.8)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.4897959184
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

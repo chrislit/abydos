@@ -80,6 +80,44 @@ class GilbertTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -0.1395348837
         )
 
+    def test_gilbert_dist(self):
+        """Test abydos.distance.Gilbert.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0031989763275753)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6700854701)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6700854701)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6700854701)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6700854701)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5050616602
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(
+            self.cmp_no_d.dist('abcd', 'efgh'), 1.3333333333333333
+        )
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.2)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.2)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.2)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.2)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.1395348837
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

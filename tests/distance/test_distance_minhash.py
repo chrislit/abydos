@@ -58,6 +58,23 @@ class MinHashTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.0)
 
+    def test_minhash_dist(self):
+        """Test abydos.distance.MinHash.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.5)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.5)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.25)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.25)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.4)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -58,6 +58,23 @@ class FlexMetricTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.4)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.26)
 
+    def test_flexmetric_sim(self):
+        """Test abydos.distance.FlexMetric.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.20000000000000007)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.20000000000000007)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.07500000000000007)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.74)
+
     def test_flexmetric_dist_abs(self):
         """Test abydos.distance.FlexMetric.dist_abs."""
         # Base cases

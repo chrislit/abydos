@@ -58,6 +58,23 @@ class WeightedJaccardTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.75)
 
+    def test_weighted_jaccard_dist(self):
+        """Test abydos.distance.WeightedJaccard.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.25)
+
 
 if __name__ == '__main__':
     unittest.main()
