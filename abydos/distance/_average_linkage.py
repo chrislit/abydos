@@ -37,14 +37,13 @@ __all__ = ['AverageLinkage']
 class AverageLinkage(_TokenDistance):
     r"""Average linkage distance.
 
-    For two multisets X and Y, average linkage distance
+    For two lists of tokens X and Y, average linkage distance
     :cite:`Deza:2016` is
 
         .. math::
 
             dist_{AverageLinkage}(X, Y) =
-            \frac{\sum_{i \in X} \sum{j \in Y} dist(X_i, Y_j)
-            \cdot |X_i| \cdot |Y_j|}{|X| \cdot |Y|}
+            \frac{\sum_{i \in X} \sum_{j \in Y} dist(X_i, Y_j)}{|X| \cdot |Y|}
 
     .. versionadded:: 0.4.0
     """
@@ -79,7 +78,7 @@ class AverageLinkage(_TokenDistance):
         else:
             self._metric = metric
 
-    def sim(self, src, tar):
+    def dist(self, src, tar):
         """Return the average linkage distance of two strings.
 
         Parameters
@@ -97,29 +96,33 @@ class AverageLinkage(_TokenDistance):
         Examples
         --------
         >>> cmp = AverageLinkage()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
+        if not src and not tar:
+            return 0.0
+        if not src or not tar:
+            return 1.0
 
-        src, tar = self._get_tokens()
+        src = self.params['tokenizer'].tokenize(src).get_list()
+        tar = self.params['tokenizer'].tokenize(tar).get_list()
 
-        num = 0
-        den = sum(src.values()) * sum(src.values())
+        num = 0.0
+        den = len(src) * len(tar)
 
-        for term_src, wt_src in src.items():
-            for term_tar, wt_tar in tar.items():
-                num += self._metric.dist(term_src, term_tar) * wt_src * wt_tar
+        for term_src in src:
+            for term_tar in tar:
+                num += self._metric.dist(term_src, term_tar)
 
         return num / den
 
