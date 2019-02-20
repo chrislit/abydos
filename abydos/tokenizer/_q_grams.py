@@ -153,7 +153,7 @@ class QGrams(_Tokenizer):
                 else:
                     string = self._string
 
-                if qval_i > 1 and len(string) <= qval_i:
+                if qval_i > 1 and len(string) < qval_i:
                     continue
 
                 # Having appended start & stop symbols (or not), save the
