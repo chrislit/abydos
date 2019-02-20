@@ -121,6 +121,9 @@ class MinHash(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if not src and not tar:
+            return 1.0
+
         src_tokens = self.params['tokenizer'].tokenize(src).get_set()
         tar_tokens = self.params['tokenizer'].tokenize(tar).get_set()
 

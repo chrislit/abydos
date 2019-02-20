@@ -44,7 +44,7 @@ class MinHashTestCases(unittest.TestCase):
     def test_minhash_sim(self):
         """Test abydos.distance.MinHash.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.5)
         self.assertEqual(self.cmp.sim('', 'a'), 0.5)
         self.assertEqual(self.cmp.sim('abc', ''), 0.75)
