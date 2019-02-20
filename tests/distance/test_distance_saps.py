@@ -44,7 +44,7 @@ class SAPSTestCases(unittest.TestCase):
     def test_saps_sim(self):
         """Test abydos.distance.SAPS.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
         self.assertEqual(self.cmp.sim('a', ''), -0.5)
         self.assertEqual(self.cmp.sim('', 'a'), -0.5)
         self.assertEqual(self.cmp.sim('abc', ''), -0.5384615384615384)
