@@ -45,45 +45,89 @@ class BaroniUrbaniBuserIITestCases(unittest.TestCase):
     def test_baroni_urbani_buser_ii_sim(self):
         """Test abydos.distance.BaroniUrbaniBuserII.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
-        self.assertEqual(self.cmp.sim('abc', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7902767176)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7902767176)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.7902767176)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7902767176)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.8951383588)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.8951383588)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.8951383588)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.8951383588)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8398473871
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9199236936
         )
 
         # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), -1.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Nigel', 'Niall'), -0.3333333333
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.3333333333
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Niall', 'Nigel'), -0.3333333333
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.3333333333
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Colin', 'Coiln'), -0.3333333333
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.3333333333
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Coiln', 'Colin'), -0.3333333333
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.3333333333
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.5
+        )
+
+    def test_baroni_urbani_buser_ii_corr(self):
+        """Test abydos.distance.BaroniUrbaniBuserII.corr."""
+        # Base cases
+        self.assertEqual(self.cmp.corr('', ''), 1.0)
+        self.assertEqual(self.cmp.corr('a', ''), -1.0)
+        self.assertEqual(self.cmp.corr('', 'a'), -1.0)
+        self.assertEqual(self.cmp.corr('abc', ''), -1.0)
+        self.assertEqual(self.cmp.corr('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.corr('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.7902767176)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.7902767176)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.7902767176)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.7902767176)
+        self.assertAlmostEqual(
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.8398473871
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.corr('a', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'a'), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'abc'), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Nigel', 'Niall'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Niall', 'Nigel'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Colin', 'Coiln'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('Coiln', 'Colin'), -0.3333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
 
 
