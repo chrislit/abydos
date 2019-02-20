@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import AverageLinkage
+from abydos.distance import AverageLinkage, Prefix
 from abydos.tokenizer import QGrams
 
 
@@ -42,6 +42,7 @@ class AverageLinkageTestCases(unittest.TestCase):
 
     cmp = AverageLinkage()
     cmp1 = AverageLinkage(tokenizer=QGrams(1))
+    cmp_pfx = AverageLinkage(metric=Prefix())
 
     def test_average_linkage_dist(self):
         """Test abydos.distance.AverageLinkage.dist."""
@@ -63,6 +64,7 @@ class AverageLinkageTestCases(unittest.TestCase):
         )
 
         self.assertEqual(self.cmp1.dist('aaa', 'aaa'), 0.0)
+        self.assertAlmostEqual(self.cmp_pfx.dist('ababab', 'ab'), 0.714285714)
 
 
 if __name__ == '__main__':
