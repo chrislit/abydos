@@ -60,6 +60,25 @@ class UnknownITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -4.8325761875
         )
 
+    def test_unknown_i_dist(self):
+        """Test abydos.distance.UnknownI.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 2.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 3.5)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 3.5)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 3.5)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 3.5)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 3.5)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 5.8325761875
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

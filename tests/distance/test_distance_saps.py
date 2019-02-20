@@ -60,6 +60,25 @@ class SAPSTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4333333333
         )
 
+    def test_saps_dist(self):
+        """Test abydos.distance.SAPS.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.5)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.5)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.5384615384615383)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.5384615384615383)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.368421052631579)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.9333333333)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.9333333333)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.9333333333)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.9333333333)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5666666667
+        )
+
     def test_saps_sim_score(self):
         """Test abydos.distance.SAPS.sim_score."""
         # Base cases

@@ -60,6 +60,25 @@ class PositionalQGramDiceTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.1904761905
         )
 
+    def test_positional_q_gram_dice_sim(self):
+        """Test abydos.distance.PositionalQGramDice.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8095238095
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

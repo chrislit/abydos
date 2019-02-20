@@ -60,6 +60,25 @@ class ShapiraStorerTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
+    def test_shapira_storer_sim(self):
+        """Test abydos.distance.ShapiraStorer.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+        )
+
     def test_shapira_storer_dist_abs(self):
         """Test abydos.distance.ShapiraStorer.dist_abs."""
         # Base cases

@@ -60,6 +60,25 @@ class JohnsonTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.3363636364
         )
 
+    def test_johnson_dist(self):
+        """Test abydos.distance.Johnson.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), -1.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -0.3363636364
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

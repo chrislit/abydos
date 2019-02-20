@@ -60,6 +60,25 @@ class MatusitaTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 2.6457513111
         )
 
+    def test_matusita_sim(self):
+        """Test abydos.distance.Matusita.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), -0.41421356237309515)
+        self.assertEqual(self.cmp.sim('', 'a'), -0.41421356237309515)
+        self.assertEqual(self.cmp.sim('abc', ''), -1.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -2.1622776601683795)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -1.4494897428)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -1.4494897428)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -1.4494897428)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -1.4494897428)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -1.6457513111
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

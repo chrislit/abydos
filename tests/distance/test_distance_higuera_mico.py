@@ -58,6 +58,23 @@ class HigueraMicoTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.3333333333)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5)
 
+    def test_higuera_mico_sim(self):
+        """Test abydos.distance.HigueraMico.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5)
+
     def test_higuera_mico_dist_abs(self):
         """Test abydos.distance.HigueraMico.dist_abs."""
         # Base cases

@@ -60,6 +60,25 @@ class NCDpaq9aTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.6153846154
         )
 
+    def test_ncd_paq9a_sim(self):
+        """Test abydos.distance.NCDpaq9a.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.8)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.8)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.5714285714285714)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.5714285714285714)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.5)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.4444444444)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.4444444444)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.4444444444)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4444444444)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3846153846
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

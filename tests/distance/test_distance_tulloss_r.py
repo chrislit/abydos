@@ -60,6 +60,25 @@ class TullossRTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5439073716
         )
 
+    def test_tulloss_r_dist(self):
+        """Test abydos.distance.TullossR.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6578188728)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6578188728)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6578188728)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6578188728)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.4560926284
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

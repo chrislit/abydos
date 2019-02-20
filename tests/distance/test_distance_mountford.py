@@ -60,6 +60,25 @@ class MountfordTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.1917808219
         )
 
+    def test_mountford_dist(self):
+        """Test abydos.distance.Mountford.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.8333333333)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.8333333333)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.8333333333)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.8333333333)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.8082191781
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

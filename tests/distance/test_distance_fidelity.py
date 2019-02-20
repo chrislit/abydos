@@ -58,6 +58,23 @@ class FidelityTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 3.0)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.0)
 
+    def test_fidelity_dist(self):
+        """Test abydos.distance.Fidelity.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), -3.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), -2.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), -2.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), -2.0)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), -2.0)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -6.0)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -86,6 +86,50 @@ class ShapeTestCases(unittest.TestCase):
             self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.25
         )
 
+    def test_shape_sim(self):
+        """Test abydos.distance.Shape.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9974554872969597)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9974554872969597)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.994923990004165)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.994923990004165)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.9874075905872554)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9924055081)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9924055081)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9924055081)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9924055081)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.991151148
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.7777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.7777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.7777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.7777777778
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.75
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

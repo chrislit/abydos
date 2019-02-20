@@ -78,6 +78,42 @@ class UnknownJTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 2.9696969697
         )
 
+    def test_unknown_j_dist(self):
+        """Test abydos.distance.UnknownJ.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), -0.00512820512820511)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.4961439589)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3545807362
+        )
+
+        # Tests with alphabet=1 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), -0.5)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), -0.5)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), -0.5)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), -0.5)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -1.9696969697
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
