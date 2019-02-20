@@ -45,7 +45,7 @@ class BaroniUrbaniBuserITestCases(unittest.TestCase):
     def test_baroni_urbani_buser_i_sim(self):
         """Test abydos.distance.BaroniUrbaniBuserI.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -62,7 +62,7 @@ class BaroniUrbaniBuserITestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
