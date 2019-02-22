@@ -44,11 +44,11 @@ class SingleLinkageTestCases(unittest.TestCase):
     def test_single_linkage_dist(self):
         """Test abydos.distance.SingleLinkage.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), inf)
-        self.assertEqual(self.cmp.dist('a', ''), inf)
-        self.assertEqual(self.cmp.dist('', 'a'), inf)
-        self.assertEqual(self.cmp.dist('abc', ''), inf)
-        self.assertEqual(self.cmp.dist('', 'abc'), inf)
+        self.assertEqual(self.cmp.dist('', ''), float('inf'))
+        self.assertEqual(self.cmp.dist('a', ''), float('inf'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('inf'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('inf'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('inf'))
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.5)
 
@@ -78,11 +78,11 @@ class SingleLinkageTestCases(unittest.TestCase):
     def test_single_linkage_dist_abs(self):
         """Test abydos.distance.SingleLinkage.dist_abs."""
         # Base cases
-        self.assertEqual(self.cmp.dist_abs('', ''), inf)
-        self.assertEqual(self.cmp.dist_abs('a', ''), inf)
-        self.assertEqual(self.cmp.dist_abs('', 'a'), inf)
-        self.assertEqual(self.cmp.dist_abs('abc', ''), inf)
-        self.assertEqual(self.cmp.dist_abs('', 'abc'), inf)
+        self.assertEqual(self.cmp.dist_abs('', ''), float('inf'))
+        self.assertEqual(self.cmp.dist_abs('a', ''), float('inf'))
+        self.assertEqual(self.cmp.dist_abs('', 'a'), float('inf'))
+        self.assertEqual(self.cmp.dist_abs('abc', ''), float('inf'))
+        self.assertEqual(self.cmp.dist_abs('', 'abc'), float('inf'))
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0)
         self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 1)
 
