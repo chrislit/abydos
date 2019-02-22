@@ -45,7 +45,7 @@ class BatageljBrenTestCases(unittest.TestCase):
     def test_batagelj_bren_dist(self):
         """Test abydos.distance.BatageljBren.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
@@ -61,27 +61,10 @@ class BatageljBrenTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 2.8397e-06
         )
 
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.0
-        )
-
     def test_batagelj_bren_sim(self):
         """Test abydos.distance.BatageljBren.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -97,27 +80,10 @@ class BatageljBrenTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9999971603
         )
 
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
-        )
-
     def test_batagelj_bren_dist_abs(self):
         """Test abydos.distance.BatageljBren.dist_abs."""
         # Base cases
-        self.assertEqual(self.cmp.dist_abs('', ''), float('inf'))
+        self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
         self.assertEqual(self.cmp.dist_abs('a', ''), float('inf'))
         self.assertEqual(self.cmp.dist_abs('', 'a'), float('inf'))
         self.assertEqual(self.cmp.dist_abs('abc', ''), float('inf'))
@@ -139,31 +105,6 @@ class BatageljBrenTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0.0022263451
-        )
-
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist_abs('', ''), float('inf'))
-        self.assertEqual(self.cmp_no_d.dist_abs('a', ''), float('inf'))
-        self.assertEqual(self.cmp_no_d.dist_abs('', 'a'), float('inf'))
-        self.assertEqual(self.cmp_no_d.dist_abs('abc', ''), float('inf'))
-        self.assertEqual(self.cmp_no_d.dist_abs('', 'abc'), float('inf'))
-        self.assertEqual(self.cmp_no_d.dist_abs('abc', 'abc'), float('inf'))
-        self.assertEqual(self.cmp_no_d.dist_abs('abcd', 'efgh'), float('inf'))
-
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist_abs('Nigel', 'Niall'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist_abs('Niall', 'Nigel'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist_abs('Colin', 'Coiln'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist_abs('Coiln', 'Colin'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist_abs('ATCAACGAGT', 'AACGATTAG'), float('inf')
         )
 
 
