@@ -18,7 +18,7 @@
 
 """abydos.distance._batagelj_bren.
 
-Batagelj & Bren similarity
+Batagelj & Bren distance
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['BatageljBren']
 
 
 class BatageljBren(_TokenDistance):
-    r"""Batagelj & Bren similarity.
+    r"""Batagelj & Bren distance.
 
     For two sets X and Y and a population N, the Batagelj & Bren
-    similarity :cite:`Batagelj:1995`, Batagelj & Bren's :math:`Q_0`, is
+    distance :cite:`Batagelj:1995`, Batagelj & Bren's :math:`Q_0`, is
 
         .. math::
 
-            sim_{BatageljBren}(X, Y) =
+            dist_{BatageljBren}(X, Y) =
             \frac{|X \setminus Y| \cdot |Y \setminus X|}
             {|X \cap Y| \cdot |(N \setminus X) \setminus Y|}
 
@@ -50,7 +50,7 @@ class BatageljBren(_TokenDistance):
 
         .. math::
 
-            sim_{BatageljBren} =
+            dist_{BatageljBren} =
             \frac{bc}{ad}
 
     .. versionadded:: 0.4.0
@@ -104,8 +104,8 @@ class BatageljBren(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Batagelj & Bren similarity of two strings.
+    def dist_abs(self, src, tar):
+        """Return the Batagelj & Bren distance of two strings.
 
         Parameters
         ----------
@@ -117,18 +117,18 @@ class BatageljBren(_TokenDistance):
         Returns
         -------
         float
-            Batagelj & Bren similarity
+            Batagelj & Bren distance
 
         Examples
         --------
         >>> cmp = BatageljBren()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -142,7 +142,51 @@ class BatageljBren(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
+        if a == 0 or d == 0:
+            return float('inf')
         return b * c / (a * d)
+
+    def dist(self, src, tar):
+        """Return the normalized Batagelj & Bren distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Batagelj & Bren distance
+
+        Examples
+        --------
+        >>> cmp = BatageljBren()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        if a == 0 or d == 0:
+            return 1.0
+        return (b * c / (a * d)) / (a + b + c + d)
 
 
 if __name__ == '__main__':
