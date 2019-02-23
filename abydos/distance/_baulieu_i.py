@@ -142,7 +142,11 @@ class BaulieuI(_TokenDistance):
         ab = self._src_card()
         ac = self._tar_card()
 
-        return (ab * ac - a * a) / (ab * ac)
+        num = ab * ac - a * a
+
+        if num == 0:
+            return 0.0
+        return num / (ab * ac)
 
 
 if __name__ == '__main__':
