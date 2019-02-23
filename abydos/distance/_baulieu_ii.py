@@ -18,7 +18,7 @@
 
 """abydos.distance._baulieu_ii.
 
-Baulieu II distance
+Baulieu II similarity
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['BaulieuII']
 
 
 class BaulieuII(_TokenDistance):
-    r"""Baulieu II distance.
+    r"""Baulieu II similarity.
 
-    For two sets X and Y and a population N, Baulieu II distance
+    For two sets X and Y and a population N, Baulieu II similarity
     :cite:`Baulieu:1989` is
 
         .. math::
@@ -45,7 +45,7 @@ class BaulieuII(_TokenDistance):
             \frac{|X \cap Y|^2 \cdot |(N \setminus X) \setminus Y|^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 
-    This is Baulieu's 13th dissimilarity coefficient.
+    This is based on Baulieu's 13th dissimilarity coefficient.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -107,7 +107,7 @@ class BaulieuII(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Baulieu II distance of two strings.
+        """Return the Baulieu II similarity of two strings.
 
         Parameters
         ----------
@@ -119,7 +119,7 @@ class BaulieuII(_TokenDistance):
         Returns
         -------
         float
-            Baulieu II distance
+            Baulieu II similarity
 
         Examples
         --------
@@ -144,7 +144,11 @@ class BaulieuII(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a * a * d * d) / ((a + b) * (a + c) * (b + d) * (c + d))
+        num = a * a * d * d
+
+        if num == 0:
+            return 0.0
+        return num / ((a + b) * (a + c) * (b + d) * (c + d))
 
 
 if __name__ == '__main__':
