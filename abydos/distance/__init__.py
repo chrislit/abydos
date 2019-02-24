@@ -82,6 +82,18 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Baulieu I distance (:py:class:`.BaulieuI`)
     - Baulieu II distance (:py:class:`.BaulieuII`)
     - Baulieu III distance (:py:class:`.BaulieuIII`)
+    - BaulieuIV distance (:py:class:`.BaulieuIV`)
+    - BaulieuIX distance (:py:class:`.BaulieuIX`)
+    - BaulieuV distance (:py:class:`.BaulieuV`)
+    - BaulieuVI distance (:py:class:`.BaulieuVI`)
+    - BaulieuVII distance (:py:class:`.BaulieuVII`)
+    - BaulieuVIII distance (:py:class:`.BaulieuVIII`)
+    - BaulieuX distance (:py:class:`.BaulieuX`)
+    - BaulieuXI distance (:py:class:`.BaulieuXI`)
+    - BaulieuXII distance (:py:class:`.BaulieuXII`)
+    - BaulieuXIII distance (:py:class:`.BaulieuXIII`)
+    - BaulieuXIV distance (:py:class:`.BaulieuXIV`)
+    - BaulieuXV distance (:py:class:`.BaulieuXV`)
     - Benini similarity (:py:class:`.Benini`)
     - Bennet's Sigma similarity (:py:class:`.BennetSigma`)
     - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
@@ -344,6 +356,18 @@ from ._batagelj_bren import BatageljBren
 from ._baulieu_i import BaulieuI
 from ._baulieu_ii import BaulieuII
 from ._baulieu_iii import BaulieuIII
+from ._baulieuiv import BaulieuIV
+from ._baulieuix import BaulieuIX
+from ._baulieuv import BaulieuV
+from ._baulieuvi import BaulieuVI
+from ._baulieuvii import BaulieuVII
+from ._baulieuviii import BaulieuVIII
+from ._baulieux import BaulieuX
+from ._baulieuxi import BaulieuXI
+from ._baulieuxii import BaulieuXII
+from ._baulieuxiii import BaulieuXIII
+from ._baulieuxiv import BaulieuXIV
+from ._baulieuxv import BaulieuXV
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini import Benini
 from ._bennet_sigma import BennetSigma
@@ -672,6 +696,18 @@ __all__ = [
     'BaulieuI',
     'BaulieuII',
     'BaulieuIII',
+    'BaulieuIV',
+    'BaulieuIX',
+    'BaulieuV',
+    'BaulieuVI',
+    'BaulieuVII',
+    'BaulieuVIII',
+    'BaulieuX',
+    'BaulieuXI',
+    'BaulieuXII',
+    'BaulieuXIII',
+    'BaulieuXIV',
+    'BaulieuXV',
     'Benini',
     'BennetSigma',
     'BraunBlanquet',
