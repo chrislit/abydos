@@ -59,23 +59,6 @@ class KoppenIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 6.0)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 10.5)
 
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 2.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 2.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 4.0)
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 5.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 6.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 6.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 6.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 6.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 10.5
-        )
-
     def test_koppen_ii_dist(self):
         """Test abydos.distance.KoppenII.dist."""
         # Base cases
@@ -92,23 +75,6 @@ class KoppenIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), -5.0)
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), -5.0)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -9.5)
-
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), -1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), -1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), -3.0)
-        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), -4.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), -5.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), -5.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), -5.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), -5.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -9.5
-        )
 
 
 if __name__ == '__main__':

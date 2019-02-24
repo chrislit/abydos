@@ -61,25 +61,6 @@ class KentFosterITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.1395348837
         )
 
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(
-            self.cmp_no_d.sim('abcd', 'efgh'), -0.3333333333333333
-        )
-
-        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -0.2)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -0.2)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -0.2)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -0.2)
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -0.1395348837
-        )
-
     def test_kent_foster_i_dist(self):
         """Test abydos.distance.KentFosterI.dist."""
         # Base cases
@@ -97,25 +78,6 @@ class KentFosterITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.2)
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.1395348837
-        )
-
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(
-            self.cmp_no_d.dist('abcd', 'efgh'), 1.3333333333333333
-        )
-
-        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.2)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.2)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.2)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.2)
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.1395348837
         )
 
 
