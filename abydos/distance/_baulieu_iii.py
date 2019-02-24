@@ -43,9 +43,9 @@ class BaulieuIII(_TokenDistance):
 
             sim_{BaulieuIII}(X, Y) =
             \frac{|N|^2 - 4(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
-            |X \setminus Y| \cdot |Y \setminus X|)}{|N|^2}
+            |X \setminus Y| \cdot |Y \setminus X|)}{2 \cdot |N|^2}
 
-    This is Baulieu's 20th dissimilarity coefficient.
+    This is based on Baulieu's 20th dissimilarity coefficient.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -53,9 +53,20 @@ class BaulieuIII(_TokenDistance):
         .. math::
 
             sim_{BaulieuIII} =
-            \frac{n^2 - 4(ad-bc)}{n^2}
+            \frac{n^2 - 4(ad-bc)}{2n^2}
+
+    Notes
+    -----
+    It should be noted that this is *based on* Baulieu's 20th dissimilarity
+    coefficient. This distance is exactly half Baulieu's 20th dissimilarity.
+    According to :cite:`Baulieu:1989`, the 20th dissimilarity should be a
+    value in the range [0.0, 1.0], meeting the article's (P1) property, but the
+    formula given ranges [0.0, 2.0], so dividing by 2 corrects the formula to
+    meet the article's expectations.
+
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(
@@ -106,7 +117,7 @@ class BaulieuIII(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def dist(self, src, tar):
         """Return the Baulieu III distance of two strings.
 
         Parameters
@@ -124,13 +135,13 @@ class BaulieuIII(_TokenDistance):
         Examples
         --------
         >>> cmp = BaulieuIII()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
 
@@ -149,7 +160,7 @@ class BaulieuIII(_TokenDistance):
 
         if num == 0:
             return 0.0
-        return num / (n * n)
+        return num / (2 * n * n)
 
 
 if __name__ == '__main__':
