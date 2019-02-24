@@ -61,33 +61,6 @@ class KuhnsIIITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5014369573
         )
 
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), -0.5)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), -0.5)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), -0.25)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -0.25)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
-        self.assertEqual(
-            self.cmp_no_d.sim('abcd', 'efgh'), -0.13333333333333333
-        )
-
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Nigel', 'Niall'), 0.2777777778
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Niall', 'Nigel'), 0.2777777778
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Colin', 'Coiln'), 0.2777777778
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Coiln', 'Colin'), 0.2777777778
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.6277173913
-        )
-
     def test_kuhns_iii_dist(self):
         """Test abydos.distance.KuhnsIII.dist."""
         # Base cases
@@ -105,33 +78,6 @@ class KuhnsIIITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6670934699)
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.4985630427
-        )
-
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.5)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.5)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.25)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.25)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
-        self.assertEqual(
-            self.cmp_no_d.dist('abcd', 'efgh'), 1.1333333333333333
-        )
-
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Nigel', 'Niall'), 0.7222222222
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Niall', 'Nigel'), 0.7222222222
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Colin', 'Coiln'), 0.7222222222
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Coiln', 'Colin'), 0.7222222222
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.3722826087
         )
 
 

@@ -61,23 +61,6 @@ class MaarelTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
         )
 
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), -1.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -1.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
-        )
-
     def test_maarel_dist(self):
         """Test abydos.distance.Maarel.dist."""
         # Base cases
@@ -95,23 +78,6 @@ class MaarelTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.0)
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.6666666667
-        )
-
-        # Tests with alphabet=1 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 2.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 2.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), 2.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 2.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 2.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.6666666667
         )
 
 
