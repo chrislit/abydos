@@ -61,6 +61,7 @@ class SAPS(_Distance):
         ----------
         cost : tuple
             A 7-tuple representing the cost of the four possible matches:
+
                 - syllable-internal match
                 - syllable-internal mis-match
                 - syllable-initial match or mismatch with syllable-internal
