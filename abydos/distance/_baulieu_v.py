@@ -41,14 +41,15 @@ class BaulieuV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuV}(X, Y) =
+            sim_{BaulieuV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
+            1}{|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuV} =
+            sim_{BaulieuV} = \frac{b+c+1}{a+b+c+1}
 
     .. versionadded:: 0.4.0
     """

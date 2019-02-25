@@ -41,14 +41,16 @@ class BaulieuX(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuX}(X, Y) =
+            sim_{BaulieuX}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
+            max(|X \setminus Y|, |Y \setminus X|)}{|X \cap Y| + |X \setminus Y|
+            + |Y \setminus X| + max(|X \setminus Y|, |Y \setminus X|)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuX} =
+            sim_{BaulieuX} = \frac{b+c+max(b,c)}{a+b+c+max(b,c)}
 
     .. versionadded:: 0.4.0
     """
