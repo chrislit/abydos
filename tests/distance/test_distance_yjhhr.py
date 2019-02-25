@@ -40,7 +40,7 @@ class YJHHRTestCases(unittest.TestCase):
     """
 
     cmp = YJHHR()
-    cmp_no_d = YJHHR(alphabet=1)
+    cmp_no_d = YJHHR(alphabet=0)
 
     def test_yjhhr_dist(self):
         """Test abydos.distance.YJHHR.dist."""

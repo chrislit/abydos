@@ -40,7 +40,7 @@ class BraunBlanquetTestCases(unittest.TestCase):
     """
 
     cmp = BraunBlanquet()
-    cmp_no_d = BraunBlanquet(alphabet=1)
+    cmp_no_d = BraunBlanquet(alphabet=0)
 
     def test_braun_blanquet_sim(self):
         """Test abydos.distance.BraunBlanquet.sim."""

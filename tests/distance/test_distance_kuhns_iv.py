@@ -40,7 +40,7 @@ class KuhnsIVTestCases(unittest.TestCase):
     """
 
     cmp = KuhnsIV()
-    cmp_no_d = KuhnsIV(alphabet=1)
+    cmp_no_d = KuhnsIV(alphabet=0)
 
     def test_kuhns_iv_sim(self):
         """Test abydos.distance.KuhnsIV.sim."""

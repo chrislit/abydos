@@ -40,7 +40,7 @@ class BaulieuXITestCases(unittest.TestCase):
     """
 
     cmp = BaulieuXI()
-    cmp_no_d = BaulieuXI(alphabet=1)
+    cmp_no_d = BaulieuXI(alphabet=0)
 
     def test_baulieu_xi_dist(self):
         """Test abydos.distance.BaulieuXI.dist."""
@@ -61,7 +61,7 @@ class BaulieuXITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.009009009
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
@@ -97,7 +97,7 @@ class BaulieuXITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.990990991
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)

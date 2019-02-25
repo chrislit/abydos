@@ -40,7 +40,7 @@ class ShapeTestCases(unittest.TestCase):
     """
 
     cmp = Shape()
-    cmp_no_d = Shape(alphabet=1)
+    cmp_no_d = Shape(alphabet=0)
 
     def test_shape_dist(self):
         """Test abydos.distance.Shape.dist."""

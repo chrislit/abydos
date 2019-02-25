@@ -40,7 +40,7 @@ class BennetSigmaTestCases(unittest.TestCase):
     """
 
     cmp = BennetSigma()
-    cmp_no_d = BennetSigma(alphabet=1)
+    cmp_no_d = BennetSigma(alphabet=0)
 
     def test_bennet_sigma_sim(self):
         """Test abydos.distance.BennetSigma.sim."""
@@ -61,7 +61,7 @@ class BennetSigmaTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9821428571
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
@@ -105,7 +105,7 @@ class BennetSigmaTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0178571429
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 2.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 2.0)

@@ -40,7 +40,7 @@ class UpholtTestCases(unittest.TestCase):
     """
 
     cmp = Upholt()
-    cmp_no_d = Upholt(alphabet=1)
+    cmp_no_d = Upholt(alphabet=0)
 
     def test_upholt_sim(self):
         """Test abydos.distance.Upholt.sim."""

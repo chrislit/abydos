@@ -40,7 +40,7 @@ class BaroniUrbaniBuserIITestCases(unittest.TestCase):
     """
 
     cmp = BaroniUrbaniBuserII()
-    cmp_no_d = BaroniUrbaniBuserII(alphabet=1)
+    cmp_no_d = BaroniUrbaniBuserII(alphabet=0)
 
     def test_baroni_urbani_buser_ii_sim(self):
         """Test abydos.distance.BaroniUrbaniBuserII.sim."""
@@ -61,7 +61,7 @@ class BaroniUrbaniBuserIITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9199236936
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -105,7 +105,7 @@ class BaroniUrbaniBuserIITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0800763064
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
@@ -149,7 +149,7 @@ class BaroniUrbaniBuserIITestCases(unittest.TestCase):
             self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.8398473871
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.corr('a', ''), -1.0)
         self.assertEqual(self.cmp_no_d.corr('', 'a'), -1.0)

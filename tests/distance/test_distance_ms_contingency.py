@@ -40,7 +40,7 @@ class MSContingencyTestCases(unittest.TestCase):
     """
 
     cmp = MSContingency()
-    cmp_no_d = MSContingency(alphabet=1)
+    cmp_no_d = MSContingency(alphabet=0)
 
     def test_ms_contingency_sim(self):
         """Test abydos.distance.MSContingency.sim."""
@@ -61,7 +61,7 @@ class MSContingencyTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.781408328
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -105,7 +105,7 @@ class MSContingencyTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.218591672
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))

@@ -40,7 +40,7 @@ class JaccardNMTestCases(unittest.TestCase):
     """
 
     cmp = JaccardNM()
-    cmp_no_d = JaccardNM(alphabet=1)
+    cmp_no_d = JaccardNM(alphabet=0)
 
     def test_jaccard_nm_sim(self):
         """Test abydos.distance.JaccardNM.sim."""

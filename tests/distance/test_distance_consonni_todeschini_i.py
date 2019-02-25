@@ -40,7 +40,7 @@ class ConsonniTodeschiniITestCases(unittest.TestCase):
     """
 
     cmp = ConsonniTodeschiniI()
-    cmp_no_d = ConsonniTodeschiniI(alphabet=1)
+    cmp_no_d = ConsonniTodeschiniI(alphabet=0)
 
     def test_consonni_todeschini_i_sim(self):
         """Test abydos.distance.ConsonniTodeschiniI.sim."""
@@ -61,7 +61,7 @@ class ConsonniTodeschiniITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9986562228
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -105,7 +105,7 @@ class ConsonniTodeschiniITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0013437772
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

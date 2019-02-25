@@ -40,7 +40,7 @@ class BaulieuIIITestCases(unittest.TestCase):
     """
 
     cmp = BaulieuIII()
-    cmp_no_d = BaulieuIII(alphabet=1)
+    cmp_no_d = BaulieuIII(alphabet=0)
 
     def test_baulieu_iii_dist(self):
         """Test abydos.distance.BaulieuIII.dist."""
@@ -61,7 +61,7 @@ class BaulieuIIITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.4825007809
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.5)
@@ -105,7 +105,7 @@ class BaulieuIIITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5174992191
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.5)

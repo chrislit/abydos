@@ -40,7 +40,7 @@ class KoppenIITestCases(unittest.TestCase):
     """
 
     cmp = KoppenII()
-    cmp_no_d = KoppenII(alphabet=1)
+    cmp_no_d = KoppenII(alphabet=0)
 
     def test_koppen_ii_sim(self):
         """Test abydos.distance.KoppenII.sim."""

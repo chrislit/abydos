@@ -40,7 +40,7 @@ class FaithTestCases(unittest.TestCase):
     """
 
     cmp = Faith()
-    cmp_no_d = Faith(alphabet=1)
+    cmp_no_d = Faith(alphabet=0)
 
     def test_faith_sim(self):
         """Test abydos.distance.Faith.sim."""
@@ -61,7 +61,7 @@ class FaithTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.4910714286
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -97,7 +97,7 @@ class FaithTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -6.4910714286
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

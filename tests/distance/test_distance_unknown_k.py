@@ -40,7 +40,7 @@ class UnknownKTestCases(unittest.TestCase):
     """
 
     cmp = UnknownK()
-    cmp_no_d = UnknownK(alphabet=1)
+    cmp_no_d = UnknownK(alphabet=0)
 
     def test_unknown_k_sim(self):
         """Test abydos.distance.UnknownK.sim."""

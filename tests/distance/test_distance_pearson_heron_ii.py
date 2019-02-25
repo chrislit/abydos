@@ -40,7 +40,7 @@ class PearsonHeronIITestCases(unittest.TestCase):
     """
 
     cmp = PearsonHeronII()
-    cmp_no_d = PearsonHeronII(alphabet=1)
+    cmp_no_d = PearsonHeronII(alphabet=0)
 
     def test_pearson_heron_ii_sim(self):
         """Test abydos.distance.PearsonHeronII.sim."""
@@ -61,7 +61,7 @@ class PearsonHeronIITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9899979092
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -97,7 +97,7 @@ class PearsonHeronIITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0100020908
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))

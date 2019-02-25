@@ -40,7 +40,7 @@ class YuleYTestCases(unittest.TestCase):
     """
 
     cmp = YuleY()
-    cmp_no_d = YuleY(alphabet=1)
+    cmp_no_d = YuleY(alphabet=0)
 
     def test_yule_y_sim(self):
         """Test abydos.distance.YuleY.sim."""
@@ -61,7 +61,7 @@ class YuleYTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9098837375
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -97,7 +97,7 @@ class YuleYTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0901162625
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))

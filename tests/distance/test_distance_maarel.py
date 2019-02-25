@@ -40,7 +40,7 @@ class MaarelTestCases(unittest.TestCase):
     """
 
     cmp = Maarel()
-    cmp_no_d = Maarel(alphabet=1)
+    cmp_no_d = Maarel(alphabet=0)
 
     def test_maarel_sim(self):
         """Test abydos.distance.Maarel.sim."""

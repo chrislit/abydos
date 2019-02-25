@@ -40,7 +40,7 @@ class MutualInformationTestCases(unittest.TestCase):
     """
 
     cmp = MutualInformation()
-    cmp_no_d = MutualInformation(alphabet=1)
+    cmp_no_d = MutualInformation(alphabet=0)
 
     def test_mutual_information_sim(self):
         """Test abydos.distance.MutualInformation.sim."""

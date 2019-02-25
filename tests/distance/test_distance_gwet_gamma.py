@@ -40,7 +40,7 @@ class GwetGammaTestCases(unittest.TestCase):
     """
 
     cmp = GwetGamma()
-    cmp_no_d = GwetGamma(alphabet=1)
+    cmp_no_d = GwetGamma(alphabet=0)
 
     def test_gwet_gamma_sim(self):
         """Test abydos.distance.GwetGamma.sim."""
@@ -61,7 +61,7 @@ class GwetGammaTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9908290686
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
@@ -97,7 +97,7 @@ class GwetGammaTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0091709314
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 2.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 2.0)

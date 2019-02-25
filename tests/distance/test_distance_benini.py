@@ -40,7 +40,7 @@ class BeniniTestCases(unittest.TestCase):
     """
 
     cmp = Benini()
-    cmp_no_d = Benini(alphabet=1)
+    cmp_no_d = Benini(alphabet=0)
 
     def test_benini_sim(self):
         """Test abydos.distance.Benini.sim."""
@@ -61,7 +61,7 @@ class BeniniTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6957309185
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -97,7 +97,7 @@ class BeniniTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3042690815
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))

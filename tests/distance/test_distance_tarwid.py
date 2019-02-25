@@ -40,7 +40,7 @@ class TarwidTestCases(unittest.TestCase):
     """
 
     cmp = Tarwid()
-    cmp_no_d = Tarwid(alphabet=1)
+    cmp_no_d = Tarwid(alphabet=0)
 
     def test_tarwid_sim(self):
         """Test abydos.distance.Tarwid.sim."""

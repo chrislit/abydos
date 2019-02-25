@@ -40,7 +40,7 @@ class PatternTestCases(unittest.TestCase):
     """
 
     cmp = Pattern()
-    cmp_no_d = Pattern(alphabet=1)
+    cmp_no_d = Pattern(alphabet=0)
 
     def test_pattern_sim(self):
         """Test abydos.distance.Pattern.sim."""

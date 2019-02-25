@@ -40,7 +40,7 @@ class FagerTestCases(unittest.TestCase):
     """
 
     cmp = Fager()
-    cmp_no_d = Fager(alphabet=1)
+    cmp_no_d = Fager(alphabet=0)
 
     def test_fager_sim(self):
         """Test abydos.distance.Fager.sim."""

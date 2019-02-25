@@ -40,7 +40,7 @@ class ForbesITestCases(unittest.TestCase):
     """
 
     cmp = ForbesI()
-    cmp_no_d = ForbesI(alphabet=1)
+    cmp_no_d = ForbesI(alphabet=0)
 
     def test_forbes_i_sim(self):
         """Test abydos.distance.ForbesI.sim."""

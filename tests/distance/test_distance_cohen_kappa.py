@@ -40,7 +40,7 @@ class CohenKappaTestCases(unittest.TestCase):
     """
 
     cmp = CohenKappa()
-    cmp_no_d = CohenKappa(alphabet=1)
+    cmp_no_d = CohenKappa(alphabet=0)
 
     def test_cohen_kappa_sim(self):
         """Test abydos.distance.CohenKappa.sim."""
@@ -61,7 +61,7 @@ class CohenKappaTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6621521793
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -97,7 +97,7 @@ class CohenKappaTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3378478207
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

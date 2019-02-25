@@ -40,7 +40,7 @@ class GowerLegendreTestCases(unittest.TestCase):
     """
 
     cmp = GowerLegendre()
-    cmp_no_d = GowerLegendre(alphabet=1)
+    cmp_no_d = GowerLegendre(alphabet=0)
 
     def test_gower_legendre_sim(self):
         """Test abydos.distance.GowerLegendre.sim."""
@@ -61,7 +61,7 @@ class GowerLegendreTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9955156951
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -97,7 +97,7 @@ class GowerLegendreTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0044843049
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
