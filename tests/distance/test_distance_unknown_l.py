@@ -62,7 +62,7 @@ class UnknownLTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
@@ -106,7 +106,7 @@ class UnknownLTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
