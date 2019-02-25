@@ -44,6 +44,8 @@ class BaulieuIX(_TokenDistance):
             sim_{BaulieuIX}(X, Y) = \frac{|X \setminus Y| + 2 \cdot
             |Y \setminus X|}{|N| + |Y \setminus X|}
 
+    This is Baulieu's 27th dissimilarity coefficient.
+
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
