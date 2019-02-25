@@ -41,14 +41,15 @@ class BaulieuVI(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVI}(X, Y) =
+            sim_{BaulieuVI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            {|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuVI} =
+            sim_{BaulieuVI} = \frac{b+c}{a+b+c+1}
 
     .. versionadded:: 0.4.0
     """

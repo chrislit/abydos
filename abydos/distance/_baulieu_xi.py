@@ -41,14 +41,15 @@ class BaulieuXI(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXI}(X, Y) =
+            sim_{BaulieuXI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            {|X \setminus Y| + |Y \setminus X| + |(N \setminus X) \setminus Y|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuXI} =
+            sim_{BaulieuXI} = \frac{b+c}{b+c+d}
 
     .. versionadded:: 0.4.0
     """

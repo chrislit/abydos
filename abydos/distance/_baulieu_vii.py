@@ -41,14 +41,15 @@ class BaulieuVII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVII}(X, Y) =
+            sim_{BaulieuVII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            {|N| + |X \cap Y| \cdot (|X \cap Y| - 4)^2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuVII} =
+            sim_{BaulieuVII} = \frac{b+c}{n + a \cdot (a-4)^2}
 
     .. versionadded:: 0.4.0
     """

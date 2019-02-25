@@ -38,21 +38,31 @@ __all__ = ['BaulieuIV']
 class BaulieuIV(_TokenDistance):
     r"""Baulieu IV distance.
 
-    For two sets X and Y and a population N, Baulieu IV distance
-    :cite:`Baulieu:1997` is
+    For two sets X and Y, a population N, and a positive irractional number k,
+    Baulieu IV distance :cite:`Baulieu:1997` is
 
         .. math::
 
-            sim_{BaulieuIV}(X, Y) =
+            sim_{BaulieuIV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| -
+            (|X \cap Y| + \frac{1}{2}) \cdot (|(N \setminus X) \setminus Y| +
+            \frac{1}{2}) \cdot |(N \setminus X) \setminus Y| \cdot k}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuIV} =
+            sim_{BaulieuIV} = \frac{b+c-(a+\frac{1}{2})(d+\frac{1}{2})dk}{n}
+
+    Notes
+    -----
+    The default value of k is Euler's number :math:`e`, but other irrationals
+    such as :math:`\pi` or :math:`\sqrt{2}` could be substituted at
+    initialization.
+
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(

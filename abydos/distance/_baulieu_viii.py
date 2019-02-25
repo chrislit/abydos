@@ -41,14 +41,15 @@ class BaulieuVIII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVIII}(X, Y) =
+            sim_{BaulieuVIII}(X, Y) = \frac{(|X \setminus Y| -
+            |Y \setminus X|)^2}{|N|^2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuVIII} =
+            sim_{BaulieuVIII} = \frac{(b-c)^2}{n^2}
 
     .. versionadded:: 0.4.0
     """

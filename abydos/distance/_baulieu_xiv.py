@@ -41,14 +41,16 @@ class BaulieuXIV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXIV}(X, Y) =
+            sim_{BaulieuXIV}(X, Y) = \frac{|X \setminus Y| + 2 \cdot
+            |Y \setminus X|}{|X \cap Y| + |X \setminus Y| + 2 \cdot
+            |Y \setminus X|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuXIV} =
+            sim_{BaulieuXIV} = \frac{b+2c}{a+b+2c}
 
     .. versionadded:: 0.4.0
     """
