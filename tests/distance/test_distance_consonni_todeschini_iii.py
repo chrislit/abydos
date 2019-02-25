@@ -40,7 +40,7 @@ class ConsonniTodeschiniIIITestCases(unittest.TestCase):
     """
 
     cmp = ConsonniTodeschiniIII()
-    cmp_no_d = ConsonniTodeschiniIII(alphabet=1)
+    cmp_no_d = ConsonniTodeschiniIII(alphabet=0)
 
     def test_consonni_todeschini_iii_sim(self):
         """Test abydos.distance.ConsonniTodeschiniIII.sim."""

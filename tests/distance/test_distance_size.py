@@ -40,7 +40,7 @@ class SizeTestCases(unittest.TestCase):
     """
 
     cmp = Size()
-    cmp_no_d = Size(alphabet=1)
+    cmp_no_d = Size(alphabet=0)
 
     def test_size_dist(self):
         """Test abydos.distance.Size.dist."""

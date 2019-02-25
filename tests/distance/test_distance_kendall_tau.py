@@ -40,7 +40,7 @@ class KendallTauTestCases(unittest.TestCase):
     """
 
     cmp = KendallTau()
-    cmp_no_d = KendallTau(alphabet=1)
+    cmp_no_d = KendallTau(alphabet=0)
 
     def test_kendall_tau_sim(self):
         """Test abydos.distance.KendallTau.sim."""
@@ -61,7 +61,7 @@ class KendallTauTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0025086663
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), -2.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), -2.0)
@@ -107,7 +107,7 @@ class KendallTauTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9974913337
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), 3.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 3.0)

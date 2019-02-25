@@ -40,7 +40,7 @@ class DennisTestCases(unittest.TestCase):
     """
 
     cmp = Dennis()
-    cmp_no_d = Dennis(alphabet=1)
+    cmp_no_d = Dennis(alphabet=0)
 
     def test_dennis_sim(self):
         """Test abydos.distance.Dennis.sim."""

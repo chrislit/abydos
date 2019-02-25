@@ -40,7 +40,7 @@ class SteffensenTestCases(unittest.TestCase):
     """
 
     cmp = Steffensen()
-    cmp_no_d = Steffensen(alphabet=1)
+    cmp_no_d = Steffensen(alphabet=0)
 
     def test_steffensen_sim(self):
         """Test abydos.distance.Steffensen.sim."""

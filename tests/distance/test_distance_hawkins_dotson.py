@@ -40,7 +40,7 @@ class HawkinsDotsonTestCases(unittest.TestCase):
     """
 
     cmp = HawkinsDotson()
-    cmp_no_d = HawkinsDotson(alphabet=1)
+    cmp_no_d = HawkinsDotson(alphabet=0)
 
     def test_hawkins_dotson_sim(self):
         """Test abydos.distance.HawkinsDotson.sim."""
@@ -61,7 +61,7 @@ class HawkinsDotsonTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7454954955
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -105,7 +105,7 @@ class HawkinsDotsonTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.2545045045
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

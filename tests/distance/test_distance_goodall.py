@@ -40,7 +40,7 @@ class GoodallTestCases(unittest.TestCase):
     """
 
     cmp = Goodall()
-    cmp_no_d = Goodall(alphabet=1)
+    cmp_no_d = Goodall(alphabet=0)
 
     def test_goodall_sim(self):
         """Test abydos.distance.Goodall.sim."""
@@ -61,7 +61,7 @@ class GoodallTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.939755208
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -105,7 +105,7 @@ class GoodallTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.060244792
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

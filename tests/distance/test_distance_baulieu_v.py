@@ -40,7 +40,7 @@ class BaulieuVTestCases(unittest.TestCase):
     """
 
     cmp = BaulieuV()
-    cmp_no_d = BaulieuV(alphabet=1)
+    cmp_no_d = BaulieuV(alphabet=0)
 
     def test_baulieu_v_dist(self):
         """Test abydos.distance.BaulieuV.dist."""

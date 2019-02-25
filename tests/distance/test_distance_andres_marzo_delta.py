@@ -40,7 +40,7 @@ class AndresMarzoDeltaTestCases(unittest.TestCase):
     """
 
     cmp = AndresMarzoDelta()
-    cmp_no_d = AndresMarzoDelta(alphabet=1)
+    cmp_no_d = AndresMarzoDelta(alphabet=0)
 
     def test_andres_marzo_delta_sim(self):
         """Test abydos.distance.AndresMarzoDelta.sim."""
@@ -61,7 +61,7 @@ class AndresMarzoDeltaTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9911172173
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.5)
@@ -105,7 +105,7 @@ class AndresMarzoDeltaTestCases(unittest.TestCase):
             self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.9822344347
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.corr('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.0)

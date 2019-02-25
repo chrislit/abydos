@@ -40,7 +40,7 @@ class KentFosterIITestCases(unittest.TestCase):
     """
 
     cmp = KentFosterII()
-    cmp_no_d = KentFosterII(alphabet=1)
+    cmp_no_d = KentFosterII(alphabet=0)
 
     def test_kent_foster_ii_sim(self):
         """Test abydos.distance.KentFosterII.sim."""
@@ -61,7 +61,7 @@ class KentFosterIITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.0022111664
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -107,7 +107,7 @@ class KentFosterIITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.0022111664
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

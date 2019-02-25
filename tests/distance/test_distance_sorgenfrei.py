@@ -40,7 +40,7 @@ class SorgenfreiTestCases(unittest.TestCase):
     """
 
     cmp = Sorgenfrei()
-    cmp_no_d = Sorgenfrei(alphabet=1)
+    cmp_no_d = Sorgenfrei(alphabet=0)
 
     def test_sorgenfrei_sim(self):
         """Test abydos.distance.Sorgenfrei.sim."""

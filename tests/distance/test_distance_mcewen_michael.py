@@ -40,7 +40,7 @@ class McEwenMichaelTestCases(unittest.TestCase):
     """
 
     cmp = McEwenMichael()
-    cmp_no_d = McEwenMichael(alphabet=1)
+    cmp_no_d = McEwenMichael(alphabet=0)
 
     def test_mcewen_michael_sim(self):
         """Test abydos.distance.McEwenMichael.sim."""
@@ -61,7 +61,7 @@ class McEwenMichaelTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0356289895
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -97,7 +97,7 @@ class McEwenMichaelTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9643710105
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

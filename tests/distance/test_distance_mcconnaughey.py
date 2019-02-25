@@ -40,7 +40,7 @@ class McConnaugheyTestCases(unittest.TestCase):
     """
 
     cmp = McConnaughey()
-    cmp_no_d = McConnaughey(alphabet=1)
+    cmp_no_d = McConnaughey(alphabet=0)
 
     def test_mcconnaughey_sim(self):
         """Test abydos.distance.McConnaughey.sim."""

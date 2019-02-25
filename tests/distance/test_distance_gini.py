@@ -40,7 +40,7 @@ class GiniTestCases(unittest.TestCase):
     """
 
     cmp = Gini()
-    cmp_no_d = Gini(alphabet=1)
+    cmp_no_d = Gini(alphabet=0)
 
     def test_gini_sim(self):
         """Test abydos.distance.Gini.sim."""
@@ -61,7 +61,7 @@ class GiniTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -105,7 +105,7 @@ class GiniTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))

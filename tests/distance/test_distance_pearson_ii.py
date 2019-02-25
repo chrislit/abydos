@@ -40,7 +40,7 @@ class PearsonIITestCases(unittest.TestCase):
     """
 
     cmp = PearsonII()
-    cmp_no_d = PearsonII(alphabet=1)
+    cmp_no_d = PearsonII(alphabet=0)
 
     def test_pearson_ii_sim(self):
         """Test abydos.distance.PearsonII.sim."""

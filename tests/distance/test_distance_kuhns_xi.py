@@ -40,7 +40,7 @@ class KuhnsXITestCases(unittest.TestCase):
     """
 
     cmp = KuhnsXI()
-    cmp_no_d = KuhnsXI(alphabet=1)
+    cmp_no_d = KuhnsXI(alphabet=0)
 
     def test_kuhns_xi_sim(self):
         """Test abydos.distance.KuhnsXI.sim."""
@@ -61,7 +61,7 @@ class KuhnsXITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9249413152
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -105,7 +105,7 @@ class KuhnsXITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0750586848
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))

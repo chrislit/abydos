@@ -40,7 +40,7 @@ class ScottPiTestCases(unittest.TestCase):
     """
 
     cmp = ScottPi()
-    cmp_no_d = ScottPi(alphabet=1)
+    cmp_no_d = ScottPi(alphabet=0)
 
     def test_scott_pi_sim(self):
         """Test abydos.distance.ScottPi.sim."""
@@ -61,7 +61,7 @@ class ScottPiTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6621417798
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), -1.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), -1.0)
@@ -97,7 +97,7 @@ class ScottPiTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3378582202
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), 2.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 2.0)

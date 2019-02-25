@@ -40,7 +40,7 @@ class FleissLevinPaikTestCases(unittest.TestCase):
     """
 
     cmp = FleissLevinPaik()
-    cmp_no_d = FleissLevinPaik(alphabet=1)
+    cmp_no_d = FleissLevinPaik(alphabet=0)
 
     def test_fleiss_levin_paik_sim(self):
         """Test abydos.distance.FleissLevinPaik.sim."""
@@ -61,7 +61,7 @@ class FleissLevinPaikTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9954751131
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -97,7 +97,7 @@ class FleissLevinPaikTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0045248869
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

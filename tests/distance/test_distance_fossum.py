@@ -40,7 +40,7 @@ class FossumTestCases(unittest.TestCase):
     """
 
     cmp = Fossum()
-    cmp_no_d = Fossum(alphabet=1)
+    cmp_no_d = Fossum(alphabet=0)
 
     def test_fossum_sim(self):
         """Test abydos.distance.Fossum.sim."""

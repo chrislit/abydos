@@ -40,7 +40,7 @@ class GeneralizedFleissTestCases(unittest.TestCase):
     """
 
     cmp = GeneralizedFleiss()
-    cmp_no_d = GeneralizedFleiss(alphabet=1)
+    cmp_no_d = GeneralizedFleiss(alphabet=0)
 
     def test_generalized_fleiss_sim(self):
         """Test abydos.distance.GeneralizedFleiss.sim."""
@@ -61,7 +61,7 @@ class GeneralizedFleissTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6626008748
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -97,7 +97,7 @@ class GeneralizedFleissTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3373991252
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

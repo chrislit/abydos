@@ -40,7 +40,7 @@ class BatageljBrenTestCases(unittest.TestCase):
     """
 
     cmp = BatageljBren()
-    cmp_no_d = BatageljBren(alphabet=1)
+    cmp_no_d = BatageljBren(alphabet=0)
 
     def test_batagelj_bren_dist(self):
         """Test abydos.distance.BatageljBren.dist."""

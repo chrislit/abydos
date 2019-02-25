@@ -40,7 +40,7 @@ class DispersionTestCases(unittest.TestCase):
     """
 
     cmp = Dispersion()
-    cmp_no_d = Dispersion(alphabet=1)
+    cmp_no_d = Dispersion(alphabet=0)
 
     def test_dispersion_sim(self):
         """Test abydos.distance.Dispersion.sim."""
@@ -61,7 +61,7 @@ class DispersionTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0087496095
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -105,7 +105,7 @@ class DispersionTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9912503905
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)

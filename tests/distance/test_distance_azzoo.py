@@ -40,7 +40,7 @@ class AZZOOTestCases(unittest.TestCase):
     """
 
     cmp = AZZOO()
-    cmp_no_d = AZZOO(alphabet=1)
+    cmp_no_d = AZZOO(alphabet=0)
 
     def test_azzoo_sim(self):
         """Test abydos.distance.AZZOO.sim."""
@@ -61,7 +61,7 @@ class AZZOOTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.986163522
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -97,7 +97,7 @@ class AZZOOTestCases(unittest.TestCase):
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 392.0
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim_score('', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim_score('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 0.0)

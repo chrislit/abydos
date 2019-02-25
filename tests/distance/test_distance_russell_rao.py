@@ -40,7 +40,7 @@ class RussellRaoTestCases(unittest.TestCase):
     """
 
     cmp = RussellRao()
-    cmp_no_d = RussellRao(alphabet=1)
+    cmp_no_d = RussellRao(alphabet=0)
 
     def test_russell_rao_sim(self):
         """Test abydos.distance.RussellRao.sim."""

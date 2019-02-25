@@ -40,7 +40,7 @@ class HamannTestCases(unittest.TestCase):
     """
 
     cmp = Hamann()
-    cmp_no_d = Hamann(alphabet=1)
+    cmp_no_d = Hamann(alphabet=0)
 
     def test_hamann_sim(self):
         """Test abydos.distance.Hamann.sim."""
@@ -61,7 +61,7 @@ class HamannTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9910714286
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
@@ -105,7 +105,7 @@ class HamannTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0089285714
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
@@ -149,7 +149,7 @@ class HamannTestCases(unittest.TestCase):
             self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.9821428571
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.corr('a', ''), -1.0)
         self.assertEqual(self.cmp_no_d.corr('', 'a'), -1.0)

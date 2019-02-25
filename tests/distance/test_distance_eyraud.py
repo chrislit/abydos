@@ -40,7 +40,7 @@ class EyraudTestCases(unittest.TestCase):
     """
 
     cmp = Eyraud()
-    cmp_no_d = Eyraud(alphabet=1)
+    cmp_no_d = Eyraud(alphabet=0)
 
     def test_eyraud_sim(self):
         """Test abydos.distance.Eyraud.sim."""
@@ -61,7 +61,7 @@ class EyraudTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -1.565e-06
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -105,7 +105,7 @@ class EyraudTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.000001565
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))

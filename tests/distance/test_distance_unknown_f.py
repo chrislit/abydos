@@ -40,7 +40,7 @@ class UnknownFTestCases(unittest.TestCase):
     """
 
     cmp = UnknownF()
-    cmp_no_d = UnknownF(alphabet=1)
+    cmp_no_d = UnknownF(alphabet=0)
 
     def test_unknown_f_sim(self):
         """Test abydos.distance.UnknownF.sim."""

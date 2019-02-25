@@ -40,7 +40,7 @@ class PearsonIIITestCases(unittest.TestCase):
     """
 
     cmp = PearsonIII()
-    cmp_no_d = PearsonIII(alphabet=1)
+    cmp_no_d = PearsonIII(alphabet=0)
 
     def test_pearson_iii_sim(self):
         """Test abydos.distance.PearsonIII.sim."""

@@ -40,7 +40,7 @@ class StuartTauTestCases(unittest.TestCase):
     """
 
     cmp = StuartTau()
-    cmp_no_d = StuartTau(alphabet=1)
+    cmp_no_d = StuartTau(alphabet=0)
 
     def test_stuart_tau_sim(self):
         """Test abydos.distance.StuartTau.sim."""
@@ -61,7 +61,7 @@ class StuartTauTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0050109329
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 4.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), -2.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), -2.0)
@@ -105,7 +105,7 @@ class StuartTauTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9949890671
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), -3.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 3.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 3.0)

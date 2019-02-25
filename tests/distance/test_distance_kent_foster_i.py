@@ -40,7 +40,7 @@ class KentFosterITestCases(unittest.TestCase):
     """
 
     cmp = KentFosterI()
-    cmp_no_d = KentFosterI(alphabet=1)
+    cmp_no_d = KentFosterI(alphabet=0)
 
     def test_kent_foster_i_sim(self):
         """Test abydos.distance.KentFosterI.sim."""

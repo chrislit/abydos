@@ -40,7 +40,7 @@ class UnknownBTestCases(unittest.TestCase):
     """
 
     cmp = UnknownB()
-    cmp_no_d = UnknownB(alphabet=1)
+    cmp_no_d = UnknownB(alphabet=0)
 
     def test_unknown_b_sim(self):
         """Test abydos.distance.UnknownB.sim."""
@@ -61,7 +61,7 @@ class UnknownBTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.439469213
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
@@ -97,7 +97,7 @@ class UnknownBTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.560530787
         )
 
-        # Tests with alphabet=1 (no d factor)
+        # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
