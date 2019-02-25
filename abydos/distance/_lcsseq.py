@@ -62,6 +62,7 @@ class LCSseq(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
+
         .. versionadded:: 0.4.0
 
         """

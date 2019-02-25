@@ -61,13 +61,14 @@ class SAPS(_Distance):
         ----------
         cost : tuple
             A 7-tuple representing the cost of the four possible matches:
-              - syllable-internal match
-              - syllable-internal mis-match
-              - syllable-initial match or mismatch with syllable-internal
-              - syllable-initial match
-              - syllable-initial mis-match
-              - syllable-internal gap
-              - syllable-initial gap
+                - syllable-internal match
+                - syllable-internal mis-match
+                - syllable-initial match or mismatch with syllable-internal
+                - syllable-initial match
+                - syllable-initial mis-match
+                - syllable-internal gap
+                - syllable-initial gap
+
             (by default: (1, -1, -4, 6, -2, -1, -3))
         normalizer : function
             A function that takes an list and computes a normalization term
