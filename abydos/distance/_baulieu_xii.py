@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._baulieuviii.
+"""abydos.distance._baulieu_xii.
 
-BaulieuVIII distance
+Baulieu XII distance
 """
 
 from __future__ import (
@@ -30,25 +30,25 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['BaulieuVIII']
+__all__ = ['BaulieuXII']
 
 
-class BaulieuVIII(_TokenDistance):
-    r"""BaulieuVIII distance.
+class BaulieuXII(_TokenDistance):
+    r"""Baulieu XII distance.
 
-    For two sets X and Y and a population N, BaulieuVIII distance
+    For two sets X and Y and a population N, Baulieu XII distance
     :cite:`Baulieu:1997` is
 
         .. math::
 
-            sim_{BaulieuVIII}(X, Y) =
+            sim_{BaulieuXII}(X, Y) =
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuVIII} =
+            sim_{BaulieuXII} =
 
     .. versionadded:: 0.4.0
     """
@@ -60,7 +60,7 @@ class BaulieuVIII(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize BaulieuVIII instance.
+        """Initialize BaulieuXII instance.
 
         Parameters
         ----------
@@ -94,7 +94,7 @@ class BaulieuVIII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BaulieuVIII, self).__init__(
+        super(BaulieuXII, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -102,7 +102,7 @@ class BaulieuVIII(_TokenDistance):
         )
 
     def dist(self, src, tar):
-        """Return the BaulieuVIII distance of two strings.
+        """Return the Baulieu XII distance of two strings.
 
         Parameters
         ----------
@@ -114,11 +114,11 @@ class BaulieuVIII(_TokenDistance):
         Returns
         -------
         float
-            BaulieuVIII distance
+            Baulieu XII distance
 
         Examples
         --------
-        >>> cmp = BaulieuVIII()
+        >>> cmp = BaulieuXII()
         >>> cmp.dist('cat', 'hat')
         0.0
         >>> cmp.dist('Niall', 'Neil')
@@ -134,13 +134,11 @@ class BaulieuVIII(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self._intersection_card()
-        # b = self._src_only_card()
-        # c = self._tar_only_card()
-        # d = self._total_complement_card()
-        # n = self._population_unique_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
 
-        return 0.0
+        return (b + c) / (a + b + c - 1)
 
 
 if __name__ == '__main__':

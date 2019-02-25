@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._baulieuxv.
+"""abydos.distance._baulieu_xiv.
 
-BaulieuXV distance
+Baulieu XIV distance
 """
 
 from __future__ import (
@@ -30,25 +30,25 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['BaulieuXV']
+__all__ = ['BaulieuXIV']
 
 
-class BaulieuXV(_TokenDistance):
-    r"""BaulieuXV distance.
+class BaulieuXIV(_TokenDistance):
+    r"""Baulieu XIV distance.
 
-    For two sets X and Y and a population N, BaulieuXV distance
+    For two sets X and Y and a population N, Baulieu XIV distance
     :cite:`Baulieu:1997` is
 
         .. math::
 
-            sim_{BaulieuXV}(X, Y) =
+            sim_{BaulieuXIV}(X, Y) =
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuXV} =
+            sim_{BaulieuXIV} =
 
     .. versionadded:: 0.4.0
     """
@@ -60,7 +60,7 @@ class BaulieuXV(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize BaulieuXV instance.
+        """Initialize BaulieuXIV instance.
 
         Parameters
         ----------
@@ -94,7 +94,7 @@ class BaulieuXV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BaulieuXV, self).__init__(
+        super(BaulieuXIV, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -102,7 +102,7 @@ class BaulieuXV(_TokenDistance):
         )
 
     def dist(self, src, tar):
-        """Return the BaulieuXV distance of two strings.
+        """Return the Baulieu XIV distance of two strings.
 
         Parameters
         ----------
@@ -114,11 +114,11 @@ class BaulieuXV(_TokenDistance):
         Returns
         -------
         float
-            BaulieuXV distance
+            Baulieu XIV distance
 
         Examples
         --------
-        >>> cmp = BaulieuXV()
+        >>> cmp = BaulieuXIV()
         >>> cmp.dist('cat', 'hat')
         0.0
         >>> cmp.dist('Niall', 'Neil')
@@ -134,13 +134,11 @@ class BaulieuXV(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self._intersection_card()
-        # b = self._src_only_card()
-        # c = self._tar_only_card()
-        # d = self._total_complement_card()
-        # n = self._population_unique_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
 
-        return 0.0
+        return (b + 2 * c) / (a + b + 2 * c)
 
 
 if __name__ == '__main__':
