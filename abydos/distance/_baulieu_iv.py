@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._baulieuix.
+"""abydos.distance._baulieu_iv.
 
-BaulieuIX distance
+Baulieu IV distance
 """
 
 from __future__ import (
@@ -28,27 +28,29 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import e
+
 from ._token_distance import _TokenDistance
 
-__all__ = ['BaulieuIX']
+__all__ = ['BaulieuIV']
 
 
-class BaulieuIX(_TokenDistance):
-    r"""BaulieuIX distance.
+class BaulieuIV(_TokenDistance):
+    r"""Baulieu IV distance.
 
-    For two sets X and Y and a population N, BaulieuIX distance
+    For two sets X and Y and a population N, Baulieu IV distance
     :cite:`Baulieu:1997` is
 
         .. math::
 
-            sim_{BaulieuIX}(X, Y) =
+            sim_{BaulieuIV}(X, Y) =
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{BaulieuIX} =
+            sim_{BaulieuIV} =
 
     .. versionadded:: 0.4.0
     """
@@ -58,9 +60,10 @@ class BaulieuIX(_TokenDistance):
         alphabet=None,
         tokenizer=None,
         intersection_type='crisp',
+        positive_irrational=e,
         **kwargs
     ):
-        """Initialize BaulieuIX instance.
+        """Initialize BaulieuIV instance.
 
         Parameters
         ----------
@@ -94,15 +97,16 @@ class BaulieuIX(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BaulieuIX, self).__init__(
+        super(BaulieuIV, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
         )
+        self._positive_irrational = positive_irrational
 
     def dist(self, src, tar):
-        """Return the BaulieuIX distance of two strings.
+        """Return the Baulieu IV distance of two strings.
 
         Parameters
         ----------
@@ -114,11 +118,11 @@ class BaulieuIX(_TokenDistance):
         Returns
         -------
         float
-            BaulieuIX distance
+            Baulieu IV distance
 
         Examples
         --------
-        >>> cmp = BaulieuIX()
+        >>> cmp = BaulieuIV()
         >>> cmp.dist('cat', 'hat')
         0.0
         >>> cmp.dist('Niall', 'Neil')
@@ -134,13 +138,14 @@ class BaulieuIX(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        # a = self._intersection_card()
-        # b = self._src_only_card()
-        # c = self._tar_only_card()
-        # d = self._total_complement_card()
-        # n = self._population_unique_card()
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+        k = self._positive_irrational
 
-        return 0.0
+        return ((b + c) - (a + 0.5) * (d + 0.5) * d * k) / n
 
 
 if __name__ == '__main__':
