@@ -47,6 +47,8 @@ class BaulieuIV(_TokenDistance):
             (|X \cap Y| + \frac{1}{2}) \cdot (|(N \setminus X) \setminus Y| +
             \frac{1}{2}) \cdot |(N \setminus X) \setminus Y| \cdot k}{|N|}
 
+    This is Baulieu's 22nd dissimilarity coefficient.
+
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 

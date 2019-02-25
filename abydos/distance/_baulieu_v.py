@@ -44,6 +44,8 @@ class BaulieuV(_TokenDistance):
             sim_{BaulieuV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
             1}{|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
+    This is Baulieu's 23rd dissimilarity coefficient.
+
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 

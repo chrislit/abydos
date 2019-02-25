@@ -44,6 +44,8 @@ class BaulieuVI(_TokenDistance):
             sim_{BaulieuVI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
+    This is Baulieu's 24th dissimilarity coefficient.
+
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
