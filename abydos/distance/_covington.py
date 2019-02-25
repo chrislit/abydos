@@ -54,6 +54,7 @@ class Covington(_Distance):
         weights : tuple
             An 8-tuple of costs for each kind of match or mismatch described in
             Covington's paper:
+
                 - exact consonant or glide match
                 - exact vowel match
                 - vowel-vowel length mismatch or i and y or u and w
