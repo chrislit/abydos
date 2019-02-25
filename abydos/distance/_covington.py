@@ -62,6 +62,7 @@ class Covington(_Distance):
                 - consonant-vowel mismatch
                 - skip preceded by a skip
                 - skip not preceded by a skip
+
             The weights used in Covington's first approximation can be used
             by supplying the tuple (0.0, 0.0, 0.5, 0.5, 0.5, 1.0, 0.5, 0.5)
         **kwargs

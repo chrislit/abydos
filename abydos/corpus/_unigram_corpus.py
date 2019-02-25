@@ -101,6 +101,7 @@ class UnigramCorpus(object):
         doc : str
             A string, representing the document to be added.
 
+
         .. versionadded:: 0.4.0
 
         """
@@ -109,7 +110,10 @@ class UnigramCorpus(object):
         self.doc_count += 1
 
     def _update_doc_count(self):
-        """Update document count, if necessary."""
+        """Update document count, if necessary.
+
+        .. versionadded:: 0.4.0
+        """
         max_docs = max(self.corpus.values(), key=lambda _: _[1])[1]
         self.doc_count = max(max_docs, self.doc_count)
 
