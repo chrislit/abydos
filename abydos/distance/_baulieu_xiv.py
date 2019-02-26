@@ -41,7 +41,7 @@ class BaulieuXIV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXIV}(X, Y) = \frac{|X \setminus Y| + 2 \cdot
+            dist_{BaulieuXIV}(X, Y) = \frac{|X \setminus Y| + 2 \cdot
             |Y \setminus X|}{|X \cap Y| + |X \setminus Y| + 2 \cdot
             |Y \setminus X|}
 
@@ -52,7 +52,7 @@ class BaulieuXIV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXIV} = \frac{b+2c}{a+b+2c}
+            dist_{BaulieuXIV} = \frac{b+2c}{a+b+2c}
 
     .. versionadded:: 0.4.0
     """

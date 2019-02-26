@@ -41,7 +41,7 @@ class BaulieuVII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            dist_{BaulieuVII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|N| + |X \cap Y| \cdot (|X \cap Y| - 4)^2}
 
     This is Baulieu's 25th dissimilarity coefficient.
@@ -51,7 +51,7 @@ class BaulieuVII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVII} = \frac{b+c}{n + a \cdot (a-4)^2}
+            dist_{BaulieuVII} = \frac{b+c}{n + a \cdot (a-4)^2}
 
     .. versionadded:: 0.4.0
     """

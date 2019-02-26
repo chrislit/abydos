@@ -41,7 +41,7 @@ class BaulieuXV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
+            dist_{BaulieuXV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
             max(|X \setminus Y|, |Y \setminus X|)}{|X \cap Y| + |X \setminus Y|
             + |Y \setminus X| + max(|X \setminus Y|, |Y \setminus X|)}
 
@@ -52,7 +52,7 @@ class BaulieuXV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXV} = \frac{b+c+max(b, c)}{a+b+c+max(b, c)}
+            dist_{BaulieuXV} = \frac{b+c+max(b, c)}{a+b+c+max(b, c)}
 
     .. versionadded:: 0.4.0
     """

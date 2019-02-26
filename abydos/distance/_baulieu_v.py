@@ -41,7 +41,7 @@ class BaulieuV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
+            dist_{BaulieuV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
             1}{|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
     This is Baulieu's 23rd dissimilarity coefficient.
@@ -51,7 +51,7 @@ class BaulieuV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuV} = \frac{b+c+1}{a+b+c+1}
+            dist_{BaulieuV} = \frac{b+c+1}{a+b+c+1}
 
     .. versionadded:: 0.4.0
     """

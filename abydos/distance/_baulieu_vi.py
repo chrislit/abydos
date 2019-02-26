@@ -41,7 +41,7 @@ class BaulieuVI(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            dist_{BaulieuVI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
     This is Baulieu's 24th dissimilarity coefficient.
@@ -51,7 +51,7 @@ class BaulieuVI(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVI} = \frac{b+c}{a+b+c+1}
+            dist_{BaulieuVI} = \frac{b+c}{a+b+c+1}
 
     .. versionadded:: 0.4.0
     """

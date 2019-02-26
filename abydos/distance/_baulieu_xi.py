@@ -41,7 +41,7 @@ class BaulieuXI(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            dist_{BaulieuXI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \setminus Y| + |Y \setminus X| + |(N \setminus X) \setminus Y|}
 
     This is Baulieu's 29th dissimilarity coefficient.
@@ -51,7 +51,7 @@ class BaulieuXI(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXI} = \frac{b+c}{b+c+d}
+            dist_{BaulieuXI} = \frac{b+c}{b+c+d}
 
     .. versionadded:: 0.4.0
     """

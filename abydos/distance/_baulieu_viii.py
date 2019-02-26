@@ -41,7 +41,7 @@ class BaulieuVIII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVIII}(X, Y) = \frac{(|X \setminus Y| -
+            dist_{BaulieuVIII}(X, Y) = \frac{(|X \setminus Y| -
             |Y \setminus X|)^2}{|N|^2}
 
     This is Baulieu's 26th dissimilarity coefficient.
@@ -51,7 +51,7 @@ class BaulieuVIII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuVIII} = \frac{(b-c)^2}{n^2}
+            dist_{BaulieuVIII} = \frac{(b-c)^2}{n^2}
 
     .. versionadded:: 0.4.0
     """
