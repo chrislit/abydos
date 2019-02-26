@@ -44,7 +44,9 @@ class BaulieuVIII(_TokenDistance):
             dist_{BaulieuVIII}(X, Y) = \frac{(|X \setminus Y| -
             |Y \setminus X|)^2}{|N|^2}
 
-    This is Baulieu's 26th dissimilarity coefficient.
+    This is Baulieu's 26th dissimilarity coefficient. This coefficient fails
+    Baulieu's (P5) property, that :math:`D(a,b+1,c,d) \geq D(a,b,c,d)`,
+    with equality holding if :math:`D(a,b,c,d) = 1`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is

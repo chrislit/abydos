@@ -44,7 +44,9 @@ class BaulieuXI(_TokenDistance):
             dist_{BaulieuXI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \setminus Y| + |Y \setminus X| + |(N \setminus X) \setminus Y|}
 
-    This is Baulieu's 29th dissimilarity coefficient.
+    This is Baulieu's 29th dissimilarity coefficient. This coefficient fails
+    Baulieu's (P4) property, that :math:`D(a+1,b,c,d) \leq D(a,b,c,d) = 0`
+    with equality holding iff :math:`D(a,b,c,d) = 0`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is

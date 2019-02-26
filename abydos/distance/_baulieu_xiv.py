@@ -45,7 +45,8 @@ class BaulieuXIV(_TokenDistance):
             |Y \setminus X|}{|X \cap Y| + |X \setminus Y| + 2 \cdot
             |Y \setminus X|}
 
-    This is Baulieu's 32nd dissimilarity coefficient.
+    This is Baulieu's 32nd dissimilarity coefficient. This coefficient fails
+    Baulieu's (P7) property, that :math:`D(a,b,c,d) = D(a,c,b,d)`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is

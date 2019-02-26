@@ -44,7 +44,10 @@ class BaulieuVI(_TokenDistance):
             dist_{BaulieuVI}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
-    This is Baulieu's 24th dissimilarity coefficient.
+    This is Baulieu's 24th dissimilarity coefficient. This coefficient fails
+    Baulieu's (P3) property, that :math:`D(a,b,c,d) = 1` for some (a,b,c,d).
+    Rather, :math:`D(a,b,c,d) < 1`, but
+    :math:`\lim_{b \to \infty, c \to \infty} D(a,b,c,d) = 0` for :math:`a = 0`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
