@@ -42,8 +42,8 @@ class BaulieuX(_TokenDistance):
         .. math::
 
             sim_{BaulieuX}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
-            max(|X \setminus Y|, |Y \setminus X|)}{|X \cap Y| + |X \setminus Y|
-            + |Y \setminus X| + max(|X \setminus Y|, |Y \setminus X|)}
+            max(|X \setminus Y|, |Y \setminus X|)}{|N| +
+            max(|X \setminus Y|, |Y \setminus X|)}
 
     This is Baulieu's 28th dissimilarity coefficient.
 
@@ -52,7 +52,7 @@ class BaulieuX(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuX} = \frac{b+c+max(b,c)}{a+b+c+max(b,c)}
+            sim_{BaulieuX} = \frac{b+c+max(b,c)}{n+max(b,c)}
 
     .. versionadded:: 0.4.0
     """
