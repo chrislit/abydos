@@ -62,7 +62,7 @@ class BaulieuIVTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 0.5229924650732152)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.5229924650732152)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.5028740581341519)
@@ -108,7 +108,7 @@ class BaulieuIVTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.4770075349267848)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.4770075349267848)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.49712594186584813)
@@ -162,7 +162,7 @@ class BaulieuIVTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist_abs('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist_abs('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist_abs('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist_abs('', 'a'), 1.0)
         self.assertEqual(self.cmp_no_d.dist_abs('abc', ''), 1.0)

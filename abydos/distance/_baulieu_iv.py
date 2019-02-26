@@ -198,6 +198,10 @@ class BaulieuIV(_TokenDistance):
         n3 = self._population_unique_card() ** 3
         k = self._positive_irrational
 
+        num = distance + n3 * k
+
+        if num == 0.0:
+            return 0.0
         return (distance + n3 * k) / (2 * n3 * k)
 
 
