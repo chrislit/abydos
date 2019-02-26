@@ -117,7 +117,7 @@ class BaulieuIV(_TokenDistance):
         )
         self._positive_irrational = positive_irrational
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Baulieu IV distance of two strings.
 
         Parameters
@@ -135,13 +135,13 @@ class BaulieuIV(_TokenDistance):
         Examples
         --------
         >>> cmp = BaulieuIV()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -157,7 +157,48 @@ class BaulieuIV(_TokenDistance):
         n = self._population_unique_card()
         k = self._positive_irrational
 
-        return ((b + c) - (a + 0.5) * (d + 0.5) * d * k) / n
+        num = (b + c) - (a + 0.5) * (d + 0.5) * d * k
+
+        if num == 0.0:
+            return 0.0
+        return num / n
+
+    def dist(self, src, tar):
+        """Return the normalized Baulieu IV distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Baulieu IV distance
+
+        Examples
+        --------
+        >>> cmp = BaulieuIV()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        distance = self.dist_abs(src, tar)
+        n3 = self._population_unique_card() ** 3
+        k = self._positive_irrational
+
+        return (distance + n3 * k) / (2 * n3 * k)
 
 
 if __name__ == '__main__':
