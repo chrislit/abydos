@@ -41,7 +41,7 @@ class BaulieuX(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuX}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
+            dist_{BaulieuX}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
             max(|X \setminus Y|, |Y \setminus X|)}{|N| +
             max(|X \setminus Y|, |Y \setminus X|)}
 
@@ -52,7 +52,7 @@ class BaulieuX(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuX} = \frac{b+c+max(b,c)}{n+max(b,c)}
+            dist_{BaulieuX} = \frac{b+c+max(b,c)}{n+max(b,c)}
 
     .. versionadded:: 0.4.0
     """

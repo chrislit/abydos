@@ -43,7 +43,7 @@ class BaulieuIV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuIV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| -
+            dist_{BaulieuIV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| -
             (|X \cap Y| + \frac{1}{2}) \cdot (|(N \setminus X) \setminus Y| +
             \frac{1}{2}) \cdot |(N \setminus X) \setminus Y| \cdot k}{|N|}
 
@@ -54,7 +54,7 @@ class BaulieuIV(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuIV} = \frac{b+c-(a+\frac{1}{2})(d+\frac{1}{2})dk}{n}
+            dist_{BaulieuIV} = \frac{b+c-(a+\frac{1}{2})(d+\frac{1}{2})dk}{n}
 
     Notes
     -----

@@ -41,7 +41,7 @@ class BaulieuXIII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXIII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            dist_{BaulieuXIII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \cap Y| + |X \setminus Y| + |Y \setminus X| + |X \cap Y| \cdot
             (|X \cap Y| - 4)^2}
 
@@ -52,7 +52,7 @@ class BaulieuXIII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXIII} = \frac{b+c}{a+b+c+a \cdot (a-4)^2}
+            dist_{BaulieuXIII} = \frac{b+c}{a+b+c+a \cdot (a-4)^2}
 
     .. versionadded:: 0.4.0
     """

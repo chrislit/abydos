@@ -41,7 +41,7 @@ class BaulieuXII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
+            dist_{BaulieuXII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \cap Y| + |X \setminus Y| + |Y \setminus X| - 1}
 
     This is Baulieu's 30th dissimilarity coefficient.
@@ -51,7 +51,7 @@ class BaulieuXII(_TokenDistance):
 
         .. math::
 
-            sim_{BaulieuXII} = \frac{b+c}{a+b+c-1}
+            dist_{BaulieuXII} = \frac{b+c}{a+b+c-1}
 
     .. versionadded:: 0.4.0
     """
