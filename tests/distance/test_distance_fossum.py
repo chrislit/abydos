@@ -61,6 +61,23 @@ class FossumTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 301.1272727273
         )
 
+        # Tests with alphabet=0 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 3.0625)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.1)
+
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 1.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 1.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 1.5625)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 1.5625)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 5.3772727273
+        )
+
     def test_fossum_dist(self):
         """Test abydos.distance.Fossum.dist."""
         # Base cases
@@ -86,6 +103,23 @@ class FossumTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -300.1272727273
+        )
+
+        # Tests with alphabet=0 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), -2.0625)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 0.9)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), -0.5625)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), -0.5625)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), -0.5625)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), -0.5625)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -4.3772727273
         )
 
 
