@@ -45,7 +45,9 @@ class BaulieuXV(_TokenDistance):
             max(|X \setminus Y|, |Y \setminus X|)}{|X \cap Y| + |X \setminus Y|
             + |Y \setminus X| + max(|X \setminus Y|, |Y \setminus X|)}
 
-    This is Baulieu's 33rd dissimilarity coefficient.
+    This is Baulieu's 33rd dissimilarity coefficient. This coefficient fails
+    Baulieu's (P8) property, that :math:`D` is a rational function whose
+    numerator and denominator are both (total) linear.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is

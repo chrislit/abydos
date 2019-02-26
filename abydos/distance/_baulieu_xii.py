@@ -44,7 +44,9 @@ class BaulieuXII(_TokenDistance):
             dist_{BaulieuXII}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X|}
             {|X \cap Y| + |X \setminus Y| + |Y \setminus X| - 1}
 
-    This is Baulieu's 30th dissimilarity coefficient.
+    This is Baulieu's 30th dissimilarity coefficient. This coefficient fails
+    Baulieu's (P5) property, that :math:`D(a,b+1,c,d) \geq D(a,b,c,d)`,
+    with equality holding if :math:`D(a,b,c,d) = 1`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is

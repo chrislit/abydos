@@ -44,7 +44,10 @@ class BaulieuV(_TokenDistance):
             dist_{BaulieuV}(X, Y) = \frac{|X \setminus Y| + |Y \setminus X| +
             1}{|X \cap Y| + |X \setminus Y| + |Y \setminus X| + 1}
 
-    This is Baulieu's 23rd dissimilarity coefficient.
+    This is Baulieu's 23rd dissimilarity coefficient. This coefficient fails
+    Baulieu's (P2) property, that :math:`D(a,0,0,0) = 0`. Rather,
+    :math:`D(a,0,0,0) > 0`, but
+    :math:`\lim_{a \to \infty} D(a,0,0,0) = 0`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is

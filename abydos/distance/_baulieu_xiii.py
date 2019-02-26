@@ -45,7 +45,9 @@ class BaulieuXIII(_TokenDistance):
             {|X \cap Y| + |X \setminus Y| + |Y \setminus X| + |X \cap Y| \cdot
             (|X \cap Y| - 4)^2}
 
-    This is Baulieu's 31st dissimilarity coefficient.
+    This is Baulieu's 31st dissimilarity coefficient. This coefficient fails
+    Baulieu's (P4) property, that :math:`D(a+1,b,c,d) \leq D(a,b,c,d) = 0`
+    with equality holding iff :math:`D(a,b,c,d) = 0`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
