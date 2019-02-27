@@ -46,12 +46,12 @@ class BaulieuXIITestCases(unittest.TestCase):
         """Test abydos.distance.BaulieuXII.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 2.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 2.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 1.3333333333333333)
-        self.assertEqual(self.cmp.dist('', 'abc'), 1.3333333333333333)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.1111111111111112)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.75)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.75)
@@ -65,12 +65,12 @@ class BaulieuXIITestCases(unittest.TestCase):
         """Test abydos.distance.BaulieuXII.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
-        self.assertEqual(self.cmp.sim('a', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
-        self.assertEqual(self.cmp.sim('abc', ''), -0.33333333333333326)
-        self.assertEqual(self.cmp.sim('', 'abc'), -0.33333333333333326)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.11111111111111116)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.25)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.25)
