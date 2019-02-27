@@ -148,7 +148,7 @@ class BaulieuXII(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = max(1, self._intersection_card())
+        a = max(1.0, self._intersection_card())
         bpc = self._src_only_card() + self._tar_only_card()
 
         if bpc == 0.0:
