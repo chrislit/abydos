@@ -144,7 +144,11 @@ class BaulieuX(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_unique_card()
 
-        return (b + c + max(b, c)) / (n + max(b, c))
+        num = b + c + max(b, c)
+
+        if num == 0.0:
+            return 0.0
+        return num / (n + max(b, c))
 
 
 if __name__ == '__main__':
