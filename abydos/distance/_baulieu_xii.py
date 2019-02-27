@@ -55,7 +55,16 @@ class BaulieuXII(_TokenDistance):
 
             dist_{BaulieuXII} = \frac{b+c}{a+b+c-1}
 
+    Notes
+    -----
+    In the special case of comparisons where the intersection (a) contains 0
+    members, the size of the intersection is set to 1, resulting in a distance
+    of 1.0. This prevents the distance from exceeding 1.0 and similarity from
+    becoming negative.
+
+
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(
@@ -139,7 +148,7 @@ class BaulieuXII(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
+        a = max(1, self._intersection_card())
         bpc = self._src_only_card() + self._tar_only_card()
 
         if bpc == 0.0:
