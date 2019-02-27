@@ -137,6 +137,9 @@ class BaulieuXI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         b = self._src_only_card()
