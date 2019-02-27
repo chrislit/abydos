@@ -45,7 +45,7 @@ class BaulieuXIITestCases(unittest.TestCase):
     def test_baulieu_xii_dist(self):
         """Test abydos.distance.BaulieuXII.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), -0.0)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 2.0)
         self.assertEqual(self.cmp.dist('', 'a'), 2.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.3333333333333333)

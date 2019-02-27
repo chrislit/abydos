@@ -140,10 +140,11 @@ class BaulieuXII(_TokenDistance):
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
+        bpc = self._src_only_card() + self._tar_only_card()
 
-        return (b + c) / (a + b + c - 1)
+        if bpc == 0.0:
+            return 0.0
+        return (bpc) / (a + bpc - 1)
 
 
 if __name__ == '__main__':
