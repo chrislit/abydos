@@ -61,23 +61,6 @@ class BaulieuXITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.009009009
         )
 
-        # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.0
-        )
-
     def test_baulieu_xi_sim(self):
         """Test abydos.distance.BaulieuXI.sim."""
         # Base cases
@@ -95,23 +78,6 @@ class BaulieuXITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9923175416)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.990990991
-        )
-
-        # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
 
 
