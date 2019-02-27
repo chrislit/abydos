@@ -180,9 +180,11 @@ class AZZOO(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.sim_score(src, tar) / max(
-            self.sim_score(src, src), self.sim_score(tar, tar)
-        )
+        den = max(self.sim_score(src, src), self.sim_score(tar, tar))
+        if den == 0.0:
+            return 1.0
+
+        return self.sim_score(src, tar) / den
 
 
 if __name__ == '__main__':

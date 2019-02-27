@@ -98,7 +98,7 @@ class AZZOOTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim_score('', ''), 0.5)
+        self.assertEqual(self.cmp_no_d.sim_score('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 0.0)
