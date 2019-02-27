@@ -136,6 +136,9 @@ class AndresMarzoDelta(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -144,7 +147,11 @@ class AndresMarzoDelta(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return (a + d - 2 * (b * c) ** 0.5) / n
+        num = a + d - 2 * (b * c) ** 0.5
+
+        if num == 0.0:
+            return 0.0
+        return num / n
 
     def sim(self, src, tar):
         """Return the Andres & Marzo's Delta similarity of two strings.
