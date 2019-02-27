@@ -139,11 +139,12 @@ class BaulieuVIII(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        b = self._src_only_card()
-        c = self._tar_only_card()
+        bmc = self._src_only_card() - self._tar_only_card()
         n = self._population_unique_card()
 
-        return (b - c) ** 2 / n ** 2
+        if bmc == 0.0:
+            return 0.0
+        return bmc ** 2 / n ** 2
 
 
 if __name__ == '__main__':

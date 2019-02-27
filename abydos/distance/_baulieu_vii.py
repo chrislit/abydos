@@ -137,14 +137,16 @@ class BaulieuVII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
+        bpc = self._src_only_card() + self._tar_only_card()
         n = self._population_unique_card()
 
-        return (b + c) / (n + a * (a - 4) ** 2)
+        return bpc / (n + a * (a - 4) ** 2)
 
 
 if __name__ == '__main__':
