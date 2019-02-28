@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._benini.
+"""abydos.distance._benini_i.
 
-Benini similarity
+Benini I similarity
 """
 
 from __future__ import (
@@ -30,28 +30,28 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Benini']
+__all__ = ['BeniniI']
 
 
-class Benini(_TokenDistance):
-    r"""Benini similarity.
+class BeniniI(_TokenDistance):
+    r"""BeniniI similarity.
 
-    For two sets X and Y, Benini similarity, Benini's :math:`\beta`
-    :cite:`Benini:1901` is
+    For two sets X and Y and a population N, Benini I similarity, Benini's
+    Index of Attraction, :cite:`Benini:1901` is
 
         .. math::
 
-            sim_{Benini}(X, Y) =
+            sim_{BeniniI}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
-            |X \setminus Y| \cdot |Y \setminus X|}
-            {min(|X| \cdot |N \setminus X|, |Y| \cdot |N \setminus Y|)}
+            |X \setminus Y| \cdot |Y \setminus X|}{|Y| \cdot |N \setminus X|}
+
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{Benini} = \frac{ad-bc}{min((a+b)(b+d), (a+c)(c+d))}
+            sim_{BeniniI} = \frac{ad-bc}{(a+c)(c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -63,7 +63,7 @@ class Benini(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize Benini instance.
+        """Initialize BeniniI instance.
 
         Parameters
         ----------
@@ -97,7 +97,7 @@ class Benini(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Benini, self).__init__(
+        super(BeniniI, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -105,7 +105,7 @@ class Benini(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Benini similarity of two strings.
+        """Return the Benini I similarity of two strings.
 
         Parameters
         ----------
@@ -117,11 +117,11 @@ class Benini(_TokenDistance):
         Returns
         -------
         float
-            Benini similarity
+            Benini I similarity
 
         Examples
         --------
-        >>> cmp = Benini()
+        >>> cmp = BeniniI()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -142,7 +142,7 @@ class Benini(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a * d - b * c) / min((a + b) * (b + d), (a + c) * (c + d))
+        return (a * d - b * c) / ((a + c) * (c + d))
 
 
 if __name__ == '__main__':

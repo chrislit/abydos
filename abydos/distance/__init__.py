@@ -94,7 +94,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Baulieu XIII distance (:py:class:`.BaulieuXIII`)
     - Baulieu XIV distance (:py:class:`.BaulieuXIV`)
     - Baulieu XV distance (:py:class:`.BaulieuXV`)
-    - Benini similarity (:py:class:`.Benini`)
+    - Benini I similarity (:py:class:`.BeniniI`)
+    - Benini II similarity (:py:class:`.BeniniII`)
     - Bennet's Sigma similarity (:py:class:`.BennetSigma`)
     - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
@@ -369,7 +370,8 @@ from ._baulieu_xiii import BaulieuXIII
 from ._baulieu_xiv import BaulieuXIV
 from ._baulieu_xv import BaulieuXV
 from ._baystat import Baystat, dist_baystat, sim_baystat
-from ._benini import Benini
+from ._benini_i import BeniniI
+from ._benini_ii import BeniniII
 from ._bennet_sigma import BennetSigma
 from ._bhattacharyya import Bhattacharyya
 from ._bi_sim import BISIM
@@ -708,7 +710,8 @@ __all__ = [
     'BaulieuXIII',
     'BaulieuXIV',
     'BaulieuXV',
-    'Benini',
+    'BeniniI',
+    'BeniniII',
     'BennetSigma',
     'BraunBlanquet',
     'Canberra',
