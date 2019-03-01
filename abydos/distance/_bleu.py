@@ -104,7 +104,7 @@ class BLEU(_Distance):
             else tokenizers
         )
         self._weights = weights
-        if weights and len(weights) != len(self._tokenizers):
+        if not weights or len(weights) != len(self._tokenizers):
             self._weights = [
                 1.0 / len(self._tokenizers)
                 for _ in range(len(self._tokenizers))
