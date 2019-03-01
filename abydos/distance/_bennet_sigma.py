@@ -18,7 +18,7 @@
 
 """abydos.distance._bennet_sigma.
 
-Bennet's Sigma similarity
+Bennet's Sigma correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['BennetSigma']
 
 
 class BennetSigma(_TokenDistance):
-    r"""Bennet's Sigma similarity.
+    r"""Bennet's Sigma correlation.
 
-    For two sets X and Y and a population N, Bennet's \sigma similarity
-    :cite:`Bennet:1954` is
+    For two sets X and Y and a population N, Bennet's :math:`\sigma`
+    correlation :cite:`Bennet:1954` is
 
         .. math::
 
-            sim_{Bennet_\sigma}(X, Y) = \sigma =
+            corr_{Bennet_\sigma}(X, Y) = \sigma =
             \frac{p_o - p_e^\sigma}{1 - p_e^\sigma}
 
     where
@@ -112,6 +112,48 @@ class BennetSigma(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Bennet's Sigma correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Bennet's Sigma correlation
+
+        Examples
+        --------
+        >>> cmp = BennetSigma()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+
+        return 2 * (a + d) / n - 1
+
     def sim(self, src, tar):
         """Return the Bennet's Sigma similarity of two strings.
 
@@ -143,13 +185,7 @@ class BennetSigma(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        return 2 * (a + d) / n - 1
+        return (1 + self.corr(src, tar)) / 2
 
 
 if __name__ == '__main__':
