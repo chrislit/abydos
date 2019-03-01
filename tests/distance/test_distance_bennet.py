@@ -33,7 +33,7 @@ import unittest
 from abydos.distance import Bennet
 
 
-class BennetSigmaTestCases(unittest.TestCase):
+class BennetTestCases(unittest.TestCase):
     """Test Bennet functions.
 
     abydos.distance.Bennet
