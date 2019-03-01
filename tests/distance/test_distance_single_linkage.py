@@ -61,11 +61,11 @@ class SingleLinkageTestCases(unittest.TestCase):
     def test_single_linkage_sim(self):
         """Test abydos.distance.SingleLinkage.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), -inf)
-        self.assertEqual(self.cmp.sim('a', ''), -inf)
-        self.assertEqual(self.cmp.sim('', 'a'), -inf)
-        self.assertEqual(self.cmp.sim('abc', ''), -inf)
-        self.assertEqual(self.cmp.sim('', 'abc'), -inf)
+        self.assertEqual(self.cmp.sim('', ''), float('-inf'))
+        self.assertEqual(self.cmp.sim('a', ''), float('-inf'))
+        self.assertEqual(self.cmp.sim('', 'a'), float('-inf'))
+        self.assertEqual(self.cmp.sim('abc', ''), float('-inf'))
+        self.assertEqual(self.cmp.sim('', 'abc'), float('-inf'))
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.5)
 
