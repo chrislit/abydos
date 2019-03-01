@@ -37,7 +37,7 @@ class Bennet(_TokenDistance):
     r"""Bennet's S correlation.
 
     For two sets X and Y and a population N, Bennet's :math:`S`
-    correlation :cite:`Bennet:1954,Holley:1964` is
+    correlation :cite:`Bennet:1954` is
 
         .. math::
 
