@@ -45,10 +45,10 @@ class BeniniITestCases(unittest.TestCase):
     def test_benini_i_sim(self):
         """Test abydos.distance.BeniniI.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.5)
         self.assertEqual(self.cmp.sim('', 'a'), 0.5)
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.5)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.496790757381258)
@@ -62,12 +62,12 @@ class BeniniITestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.5)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.25)
@@ -81,10 +81,10 @@ class BeniniITestCases(unittest.TestCase):
     def test_benini_i_dist(self):
         """Test abydos.distance.BeniniI.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.5)
         self.assertEqual(self.cmp.dist('', 'a'), 0.5)
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp.dist('', 'abc'), 0.5)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.503209242618742)
@@ -98,12 +98,12 @@ class BeniniITestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.5)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 0.75)
@@ -117,10 +117,10 @@ class BeniniITestCases(unittest.TestCase):
     def test_benini_i_corr(self):
         """Test abydos.distance.BeniniI.corr."""
         # Base cases
-        self.assertEqual(self.cmp.corr('', ''), float('nan'))
-        self.assertEqual(self.cmp.corr('a', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('', ''), 1.0)
+        self.assertEqual(self.cmp.corr('a', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'a'), 0.0)
-        self.assertEqual(self.cmp.corr('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'abc'), 0.0)
         self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.corr('abcd', 'efgh'), -0.006418485237483954)
@@ -134,12 +134,12 @@ class BeniniITestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.corr('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.corr('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.corr('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.corr('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), -1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.corr('Nigel', 'Niall'), -0.5)
