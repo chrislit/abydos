@@ -135,6 +135,9 @@ class BeniniI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -142,7 +145,11 @@ class BeniniI(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a * d - b * c) / ((a + c) * (c + d))
+        num = a * d - b * c
+
+        if num == 0.0:
+            return 0.0
+        return num / ((a + c) * (c + d))
 
     def sim(self, src, tar):
         """Return the Benini I similarity of two strings.
