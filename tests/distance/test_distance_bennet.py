@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_bennet_sigma.
+"""abydos.tests.distance.test_distance_bennet.
 
-This module contains unit tests for abydos.distance.BennetSigma
+This module contains unit tests for abydos.distance.Bennet
 """
 
 from __future__ import (
@@ -30,20 +30,20 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import BennetSigma
+from abydos.distance import Bennet
 
 
 class BennetSigmaTestCases(unittest.TestCase):
-    """Test BennetSigma functions.
+    """Test Bennet functions.
 
-    abydos.distance.BennetSigma
+    abydos.distance.Bennet
     """
 
-    cmp = BennetSigma()
-    cmp_no_d = BennetSigma(alphabet=0)
+    cmp = Bennet()
+    cmp_no_d = Bennet(alphabet=0)
 
-    def test_bennet_sigma_sim(self):
-        """Test abydos.distance.BennetSigma.sim."""
+    def test_bennet_sim(self):
+        """Test abydos.distance.Bennet.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.9974489795918368)
@@ -86,8 +86,8 @@ class BennetSigmaTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.5
         )
 
-    def test_bennet_sigma_dist(self):
-        """Test abydos.distance.BennetSigma.dist."""
+    def test_bennet_dist(self):
+        """Test abydos.distance.Bennet.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 0.0025510204081632404)
@@ -130,8 +130,8 @@ class BennetSigmaTestCases(unittest.TestCase):
             self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.5
         )
 
-    def test_bennet_sigma_corr(self):
-        """Test abydos.distance.BennetSigma.corr."""
+    def test_bennet_corr(self):
+        """Test abydos.distance.Bennet.corr."""
         # Base cases
         self.assertEqual(self.cmp.corr('', ''), 1.0)
         self.assertEqual(self.cmp.corr('a', ''), 0.9948979591836735)
