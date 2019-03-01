@@ -103,13 +103,60 @@ class Bhattacharyya(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        bc = self.dist(src, tar)
+        if bc == 0:
+            return float('-inf')
+        elif bc == 1:
+            return 0.0
+        else:
+            return -log(bc)
+
+    def dist(self, src, tar):
+        """Return the Bhattacharyya coefficient of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Bhattacharyya distance
+
+        Examples
+        --------
+        >>> cmp = Bhattacharyya()
+        >>> cmp.dist_abs('cat', 'hat')
+        0.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
         self._tokenize(src, tar)
 
-        alphabet = self._total().keys()
+        alphabet = self._intersection().keys()
+        src_pop = sum(self._src_tokens.values())
+        tar_pop = sum(self._tar_tokens.values())
 
-        return -log(
+        return float(
             sum(
-                (self._src_tokens[tok] * self._tar_tokens[tok]) ** 0.5
+                (
+                    self._src_tokens[tok]
+                    / src_pop
+                    * self._tar_tokens[tok]
+                    / tar_pop
+                )
+                ** 0.5
                 for tok in alphabet
             )
         )
