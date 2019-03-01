@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._bennet_sigma.
+"""abydos.distance._bennet.
 
-Bennet's Sigma correlation
+Bennet's S correlation
 """
 
 from __future__ import (
@@ -30,19 +30,19 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['BennetSigma']
+__all__ = ['Bennet']
 
 
-class BennetSigma(_TokenDistance):
-    r"""Bennet's Sigma correlation.
+class Bennet(_TokenDistance):
+    r"""Bennet's S correlation.
 
-    For two sets X and Y and a population N, Bennet's :math:`\sigma`
-    correlation :cite:`Bennet:1954` is
+    For two sets X and Y and a population N, Bennet's :math:`S`
+    correlation :cite:`Bennet:1954,Holley:1964` is
 
         .. math::
 
-            corr_{Bennet_\sigma}(X, Y) = \sigma =
-            \frac{p_o - p_e^\sigma}{1 - p_e^\sigma}
+            corr_{Bennet}(X, Y) = S =
+            \frac{p_o - p_e^S}{1 - p_e^S}
 
     where
 
@@ -50,7 +50,7 @@ class BennetSigma(_TokenDistance):
 
             p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
 
-            p_e^\sigma = \frac{1}{2}
+            p_e^S = \frac{1}{2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -59,7 +59,7 @@ class BennetSigma(_TokenDistance):
 
             p_o = \frac{a+d}{n}
 
-            p_e^\sigma = \frac{1}{2}
+            p_e^S = \frac{1}{2}
 
     .. versionadded:: 0.4.0
     """
@@ -71,7 +71,7 @@ class BennetSigma(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize BennetSigma instance.
+        """Initialize Bennet instance.
 
         Parameters
         ----------
@@ -105,7 +105,7 @@ class BennetSigma(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BennetSigma, self).__init__(
+        super(Bennet, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -113,7 +113,7 @@ class BennetSigma(_TokenDistance):
         )
 
     def corr(self, src, tar):
-        """Return the Bennet's Sigma correlation of two strings.
+        """Return the Bennet's S correlation of two strings.
 
         Parameters
         ----------
@@ -125,11 +125,11 @@ class BennetSigma(_TokenDistance):
         Returns
         -------
         float
-            Bennet's Sigma correlation
+            Bennet's S correlation
 
         Examples
         --------
-        >>> cmp = BennetSigma()
+        >>> cmp = Bennet()
         >>> cmp.corr('cat', 'hat')
         0.0
         >>> cmp.corr('Niall', 'Neil')
@@ -155,7 +155,7 @@ class BennetSigma(_TokenDistance):
         return 2 * (a + d) / n - 1
 
     def sim(self, src, tar):
-        """Return the Bennet's Sigma similarity of two strings.
+        """Return the Bennet's S similarity of two strings.
 
         Parameters
         ----------
@@ -167,11 +167,11 @@ class BennetSigma(_TokenDistance):
         Returns
         -------
         float
-            Bennet's Sigma similarity
+            Bennet's S similarity
 
         Examples
         --------
-        >>> cmp = BennetSigma()
+        >>> cmp = Bennet()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

@@ -96,7 +96,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Baulieu XV distance (:py:class:`.BaulieuXV`)
     - Benini I correlation (:py:class:`.BeniniI`)
     - Benini II correlation (:py:class:`.BeniniII`)
-    - Bennet's Sigma correlation (:py:class:`.BennetSigma`)
+    - Bennet's S correlation (:py:class:`.Bennet`)
     - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
     - Chord distance (:py:class:`.Chord`)
@@ -372,7 +372,7 @@ from ._baulieu_xv import BaulieuXV
 from ._baystat import Baystat, dist_baystat, sim_baystat
 from ._benini_i import BeniniI
 from ._benini_ii import BeniniII
-from ._bennet_sigma import BennetSigma
+from ._bennet import Bennet
 from ._bhattacharyya import Bhattacharyya
 from ._bi_sim import BISIM
 from ._bleu import BLEU
@@ -712,7 +712,7 @@ __all__ = [
     'BaulieuXV',
     'BeniniI',
     'BeniniII',
-    'BennetSigma',
+    'Bennet',
     'BraunBlanquet',
     'Canberra',
     'Chord',
