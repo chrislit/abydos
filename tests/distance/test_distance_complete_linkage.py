@@ -63,19 +63,21 @@ class CompleteLinkageTestCases(unittest.TestCase):
     def test_complete_linkage_sim(self):
         """Test abydos.distance.CompleteLinkage.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), -inf)
-        self.assertEqual(self.cmp.sim('a', ''), -inf)
-        self.assertEqual(self.cmp.sim('', 'a'), -inf)
-        self.assertEqual(self.cmp.sim('abc', ''), -inf)
-        self.assertEqual(self.cmp.sim('', 'abc'), -inf)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), -inf)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -inf)
+        self.assertEqual(self.cmp.sim('', ''), float('-inf'))
+        self.assertEqual(self.cmp.sim('a', ''), float('-inf'))
+        self.assertEqual(self.cmp.sim('', 'a'), float('-inf'))
+        self.assertEqual(self.cmp.sim('abc', ''), float('-inf'))
+        self.assertEqual(self.cmp.sim('', 'abc'), float('-inf'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), float('-inf'))
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('-inf'))
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -inf)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -inf)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -inf)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -inf)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -inf)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('-inf'))
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('-inf'))
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('-inf'))
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('-inf'))
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('-inf')
+        )
 
     def test_complete_linkage_dist_abs(self):
         """Test abydos.distance.CompleteLinkage.dist_abs."""
