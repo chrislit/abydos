@@ -39,13 +39,42 @@ __all__ = ['BLEU']
 class BLEU(_Distance):
     r"""BLEU similarity.
 
-    BLEU similarity
-    :cite:`Papineni:2002`
+    BLEU similarity :cite:`Papineni:2002` compares two strings for similarity
+    using a set of tokenizers and a brevity penalty:
+
+        .. math::
+
+            \[
+            BP =
+            \left\{
+            \begin{array}{lrl}
+                1 & $$if$$ & c > r \\
+                e^{(1-\frac{r}{c})} & $$if$$ & c \leq r
+            \end{array}
+            \right.
+            \]
+
+    The BLEU score is then:
+
+        .. math::
+
+            B\textsc{leu} = BP \cdot e^{\sum_{n=1}^N w_n log p_n}
+
+    For tokenizers 1 to N, by default q-gram tokenizers for q=1 to N in
+    Abydos, weights :math:`w_n`, which are uniformly :math:`\frac{1}{N}`,
+    and :math:`p_n`:
+
+        .. math::
+
+            p_n = \frac{\sum_{token \in tar} min(Count(token \in tar),
+            Count(token \in src))}{|tar|}
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, n_min=1, n_max=4, tokenizers=None, **kwargs):
+    def __init__(
+        self, n_min=1, n_max=4, tokenizers=None, weights=None, **kwargs
+    ):
         """Initialize BLEU instance.
 
         Parameters
@@ -54,8 +83,13 @@ class BLEU(_Distance):
             The minimum q-gram value for BLEU score calculation (1 by default)
         n_max : int
             The maximum q-gram value for BLEU score calculation (4 by default)
-        tokenizers : list
+        tokenizers : list(_Tokenizer)
             A list of initialized tokenizers
+        weights : list(float)
+            A list of floats representing the weights of the tokenizers. If
+            tokenizers is set, this must have the same length. If n_min and
+            n_max are used to set tokenizers, this must have length equal to
+            n_max-n_min-1. Otherwise, uniform weights will be used.
         **kwargs
             Arbitrary keyword arguments
 
@@ -69,6 +103,12 @@ class BLEU(_Distance):
             if tokenizers is None
             else tokenizers
         )
+        self._weights = weights
+        if weights and len(weights) != len(self._tokenizers):
+            self._weights = [
+                1.0 / len(self._tokenizers)
+                for _ in range(len(self._tokenizers))
+            ]
 
     def sim(self, src, tar):
         """Return the BLEU similarity of two strings.
@@ -107,17 +147,21 @@ class BLEU(_Distance):
 
         bleu_sum = 0.0
 
-        for tokenizer in self._tokenizers:
-            src_tokens = tokenizer.tokenize(src).get_counter()
-            tar_tokens = tokenizer.tokenize(tar).get_counter()
+        for i in range(len(self._tokenizers)):
+            src_tokens = self._tokenizers[i].tokenize(src).get_counter()
+            tar_tokens = self._tokenizers[i].tokenize(tar).get_counter()
             tar_total = sum(tar_tokens.values())
 
-            bleu_sum += log(
-                sum(
-                    min(src_tokens[tok], tar_tokens[tok]) for tok in tar_tokens
+            bleu_sum += (
+                log(
+                    sum(
+                        min(src_tokens[tok], tar_tokens[tok])
+                        for tok in tar_tokens
+                    )
+                    / tar_total
                 )
-                / tar_total
-            ) / len(self._tokenizers)
+                * self._weights[i]
+            )
 
         return brevity_penalty * exp(bleu_sum)
 
