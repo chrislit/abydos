@@ -100,9 +100,9 @@ class BlockLevenshtein(Levenshtein):
             while chr(next_char) in alphabet:
                 next_char += 1
             p = self.lcs.lcsstr(src, tar)
-            src = src.replace(p, next_char)
-            tar = tar.replace(p, next_char)
-            alphabet |= next_char
+            src = src.replace(p, chr(next_char))
+            tar = tar.replace(p, chr(next_char))
+            alphabet.add(chr(next_char))
             lcs = self.lcs.lcsstr(src, tar)
         d = super(BlockLevenshtein, self).dist_abs(src, tar)
         return d
@@ -139,7 +139,7 @@ class BlockLevenshtein(Levenshtein):
 
         """
         if src == tar:
-            return 0
+            return 0.0
         ins_cost, del_cost = self._cost[:2]
         return self.dist_abs(src, tar) / (
             self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
