@@ -141,13 +141,15 @@ class BLEU(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if not src or not tar:
+            return 0.0
+
         brevity_penalty = (
-            1.0
-            if len(tar) >= len(src) and src
-            else exp(1 - len(src) / len(tar))
+            1.0 if len(tar) >= len(src) else exp(1 - len(src) / len(tar))
         )
 
         bleu_sum = 0.0
+        bleu_null = True
 
         for i in range(len(self._tokenizers)):
             tar_tokens = self._tokenizers[i].tokenize(tar).get_counter()
@@ -157,10 +159,14 @@ class BLEU(_Distance):
             tar_total = sum(tar_tokens.values())
 
             if tokens_int:
+                bleu_null = False
                 bleu_sum += (
                     log(sum(tokens_int.values()) / tar_total)
                     * self._weights[i]
                 )
+
+        if bleu_null:
+            return 0.0
 
         return brevity_penalty * exp(bleu_sum)
 
