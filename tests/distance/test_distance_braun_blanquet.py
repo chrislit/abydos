@@ -45,7 +45,7 @@ class BraunBlanquetTestCases(unittest.TestCase):
     def test_braun_blanquet_sim(self):
         """Test abydos.distance.BraunBlanquet.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -64,7 +64,7 @@ class BraunBlanquetTestCases(unittest.TestCase):
     def test_braun_blanquet_dist(self):
         """Test abydos.distance.BraunBlanquet.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
