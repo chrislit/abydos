@@ -44,7 +44,6 @@ class BLEU(_Distance):
 
         .. math::
 
-            \[
             BP =
             \left\{
             \begin{array}{lrl}
@@ -52,7 +51,6 @@ class BLEU(_Distance):
                 e^{(1-\frac{r}{c})} & $$if$$ & c \leq r
             \end{array}
             \right.
-            \]
 
     The BLEU score is then:
 
