@@ -105,16 +105,20 @@ class BrainerdRobinson(_TokenDistance):
         self._tokenize(src, tar)
 
         alphabet = self._total().keys()
-        src_card = self._src_card()
-        tar_card = self._tar_card()
+        src_card = max(1, self._src_card())
+        tar_card = max(1, self._tar_card())
 
-        return 200 - 100 * sum(
+        score = 200.0 - 100.0 * sum(
             abs(
                 self._src_tokens[tok] / src_card
                 - self._tar_tokens[tok] / tar_card
             )
             for tok in alphabet
         )
+        if score < 1e-13:
+            score = 0.0
+
+        return score
 
     def sim(self, src, tar):
         """Return the normalized Brainerd-Robinson similarity of two strings.
@@ -147,7 +151,7 @@ class BrainerdRobinson(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.sim_score(src, tar) / 200
+        return self.sim_score(src, tar) / 200.0
 
 
 if __name__ == '__main__':
