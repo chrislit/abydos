@@ -97,7 +97,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Benini I correlation (:py:class:`.BeniniI`)
     - Benini II correlation (:py:class:`.BeniniII`)
     - Bennet's S correlation (:py:class:`.Bennet`)
-    - Braun & Blanquet similarity (:py:class:`.BraunBlanquet`)
+    - Braun-Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
     - Chord distance (:py:class:`.Chord`)
     - Clement similarity (:py:class:`.Clement`)

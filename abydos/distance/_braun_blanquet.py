@@ -18,7 +18,7 @@
 
 """abydos.distance._braun_blanquet.
 
-Braun & Blanquet similarity
+Braun-Blanquet similarity
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['BraunBlanquet']
 
 
 class BraunBlanquet(_TokenDistance):
-    r"""Braun & Blanquet similarity.
+    r"""Braun-Blanquet similarity.
 
-    For two sets X and Y and a population N, the Braun & Blanquet
+    For two sets X and Y and a population N, the Braun-Blanquet
     similarity :cite:`BraunBlanquet:1932` is
 
         .. math::
@@ -103,7 +103,7 @@ class BraunBlanquet(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Braun & Blanquet similarity of two strings.
+        """Return the Braun-Blanquet similarity of two strings.
 
         Parameters
         ----------
@@ -115,7 +115,7 @@ class BraunBlanquet(_TokenDistance):
         Returns
         -------
         float
-            Braun & Blanquet similarity
+            Braun-Blanquet similarity
 
         Examples
         --------
