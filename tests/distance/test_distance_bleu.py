@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import BLEU
+from abydos.tokenizer import QSkipgrams, SAPSTokenizer
 
 
 class BLEUTestCases(unittest.TestCase):
@@ -40,6 +41,9 @@ class BLEUTestCases(unittest.TestCase):
     """
 
     cmp = BLEU()
+    cmp_skip_saps = BLEU(
+        tokenizers=[QSkipgrams(), SAPSTokenizer()], weights=[0.33, 0.67]
+    )
 
     def test_bleu_sim(self):
         """Test abydos.distance.BLEU.sim."""
@@ -58,6 +62,10 @@ class BLEUTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.7071067812)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5119598032
+        )
+
+        self.assertAlmostEqual(
+            self.cmp_skip_saps.sim('Nigel', 'Niall'), 0.7828303104
         )
 
     def test_bleu_dist(self):
