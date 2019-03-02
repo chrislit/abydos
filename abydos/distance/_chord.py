@@ -36,20 +36,14 @@ __all__ = ['Chord']
 class Chord(_TokenDistance):
     r"""Chord distance.
 
-    For two sets X and Y, the chord distance :cite:`Orloci:1967` is
+    For two sets X and Y drawn from an alphabet S, the chord distance
+    :cite:`Orloci:1967` is
 
         .. math::
 
             sim_{chord}(X, Y) =
-            \sqrt{2\Big(1-\frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}\Big)}
-
-    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
-    this is
-
-        .. math::
-
-            sim_{chord} =
-            \sqrt{2\Big(1-\frac{a}{\sqrt{(a+b)(a+c}}\Big)}
+            \sqrt{\sum_{i \in S}\Big(\frac{X_i}{\sqrt{\sum_{j \in X} X_j^2}} -
+            \frac{Y_i}{\sqrt{\sum_{j \in Y} Y_j^2}}\Big)^2}
 
     .. versionadded:: 0.4.0
     """
@@ -89,7 +83,7 @@ class Chord(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Chord distance of two strings.
 
         Parameters
@@ -107,6 +101,57 @@ class Chord(_TokenDistance):
         Examples
         --------
         >>> cmp = Chord()
+        >>> cmp.dist_abs('cat', 'hat')
+        0.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        alphabet = self._total().keys()
+
+        den1 = max(
+            1, sum(val * val for val in self._src_tokens.values()) ** 0.5
+        )
+        den2 = max(
+            1, sum(val * val for val in self._tar_tokens.values()) ** 0.5
+        )
+
+        return round(
+            sum(
+                (self._src_tokens[i] / den1 - self._tar_tokens[i] / den2) ** 2
+                for i in alphabet
+            )
+            ** 0.5,
+            15,
+        )
+
+    def dist(self, src, tar):
+        """Return the normalized Chord distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized chord distance
+
+        Examples
+        --------
+        >>> cmp = Chord()
         >>> cmp.dist('cat', 'hat')
         0.0
         >>> cmp.dist('Niall', 'Neil')
@@ -120,13 +165,7 @@ class Chord(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        ab = self._src_card()
-        ac = self._tar_card()
-
-        return (2 * (1 - (a / (ab * ac) ** 0.5))) ** 0.5
+        return round(self.dist_abs(src, tar) / (2 ** 0.5), 15)
 
 
 if __name__ == '__main__':
