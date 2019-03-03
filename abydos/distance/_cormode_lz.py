@@ -133,7 +133,10 @@ class CormodeLZ(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return (self.dist_abs(src, tar) - 1) / (len(src) - 1)
+        num = self.dist_abs(src, tar) - 1
+        if num == 0:
+            return 0.0
+        return num / len(src)
 
 
 if __name__ == '__main__':
