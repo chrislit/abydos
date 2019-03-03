@@ -146,7 +146,7 @@ class Covington(_Distance):
         normalizer = self._weights[5] * min(len(src), len(tar))
         if len(src) != len(tar):
             normalizer += self._weights[7]
-        normalizer += self._weights[6] * (abs(len(src) - len(tar)) - 1)
+        normalizer += self._weights[6] * abs(abs(len(src) - len(tar)) - 1)
 
         return self.dist_abs(src, tar) / normalizer
 
@@ -186,6 +186,8 @@ class Covington(_Distance):
 
         """
         if not src:
+            if not tar:
+                return [['', '', 0]]
             return [
                 [
                     '-' * len(tar),
