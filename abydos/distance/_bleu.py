@@ -47,8 +47,8 @@ class BLEU(_Distance):
             BP =
             \left\{
             \begin{array}{lrl}
-                1 & $$if$$ & c > r \\
-                e^{(1-\frac{r}{c})} & $$if$$ & c \leq r
+                1 & \textup{if} & c > r \\
+                e^{(1-\frac{r}{c})} & \textup{if} & c \leq r
             \end{array}
             \right.
 
@@ -56,7 +56,7 @@ class BLEU(_Distance):
 
         .. math::
 
-            B\textsc{leu} = BP \cdot e^{\sum_{n=1}^N w_n log p_n}
+            \textup{B\textsc{leu}} = BP \cdot e^{\sum_{n=1}^N w_n log p_n}
 
     For tokenizers 1 to N, by default q-gram tokenizers for q=1 to N in
     Abydos, weights :math:`w_n`, which are uniformly :math:`\frac{1}{N}`,

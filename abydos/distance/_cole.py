@@ -75,23 +75,18 @@ class Cole(_TokenDistance):
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
-    - If :math:`ad \geq bc`
-
         .. math::
 
-            sim_{Cole} = \frac{ad-bc}{(a+b)(b+d)}
-
-    - If :math:`d \geq a`
-
-        .. math::
-
-            sim_{Cole} = \frac{ad-bc}{(a+b)(a+c)}
-
-    - Otherwise
-
-        .. math::
-
-            sim_{Cole} = \frac{ad-bc}{(b+d)(c+d)}
+            sim_{Cole} =
+            \left\{
+            \begin{array}{ll}
+                \frac{ad-bc}{(a+b)(b+d)} & \textup{if} ~ad \geq bc \\
+                \\
+                \frac{ad-bc}{(a+b)(a+c)} & \textup{if} ~d \geq a \\
+                \\
+                \frac{ad-bc}{(b+d)(c+d)} & \textup{otherwise}
+            \end{array}
+            \right.
 
     .. versionadded:: 0.4.0
     """
