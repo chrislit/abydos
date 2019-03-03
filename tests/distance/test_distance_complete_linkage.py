@@ -30,7 +30,8 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import CompleteLinkage
+from abydos.distance import CompleteLinkage, JaroWinkler
+from abydos.tokenizer import QGrams
 
 
 class CompleteLinkageTestCases(unittest.TestCase):
@@ -40,71 +41,66 @@ class CompleteLinkageTestCases(unittest.TestCase):
     """
 
     cmp = CompleteLinkage()
+    cmp_q4 = CompleteLinkage(tokenizer=QGrams(qval=4, start_stop=''))
+    cmp_q4_jw = CompleteLinkage(
+        tokenizer=QGrams(qval=4, start_stop=''), metric=JaroWinkler()
+    )
 
     def test_complete_linkage_dist(self):
         """Test abydos.distance.CompleteLinkage.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('inf'))
-        self.assertEqual(self.cmp.dist('a', ''), float('inf'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('inf'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('inf'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('inf'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('inf'))
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), float('inf'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), float('inf'))
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), float('inf'))
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), float('inf'))
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), float('inf'))
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.0)
+
+        self.assertEqual(self.cmp_q4.dist('AAAT', 'AATT'), 0.25)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), float('inf')
+            self.cmp_q4_jw.dist('AAAT', 'AATT'), 0.133333333333
         )
 
     def test_complete_linkage_sim(self):
         """Test abydos.distance.CompleteLinkage.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('-inf'))
-        self.assertEqual(self.cmp.sim('a', ''), float('-inf'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('-inf'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('-inf'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('-inf'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('-inf'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('-inf'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('-inf'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('-inf'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('-inf'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('-inf'))
-        self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('-inf')
-        )
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0)
 
     def test_complete_linkage_dist_abs(self):
         """Test abydos.distance.CompleteLinkage.dist_abs."""
         # Base cases
-        self.assertEqual(self.cmp.dist_abs('', ''), float('inf'))
-        self.assertEqual(self.cmp.dist_abs('a', ''), float('inf'))
-        self.assertEqual(self.cmp.dist_abs('', 'a'), float('inf'))
-        self.assertEqual(self.cmp.dist_abs('abc', ''), float('inf'))
-        self.assertEqual(self.cmp.dist_abs('', 'abc'), float('inf'))
-        self.assertEqual(self.cmp.dist_abs('abc', 'abc'), float('inf'))
-        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), float('inf'))
+        self.assertEqual(self.cmp.dist_abs('', ''), float('-inf'))
+        self.assertEqual(self.cmp.dist_abs('a', ''), float('-inf'))
+        self.assertEqual(self.cmp.dist_abs('', 'a'), float('-inf'))
+        self.assertEqual(self.cmp.dist_abs('abc', ''), float('-inf'))
+        self.assertEqual(self.cmp.dist_abs('', 'abc'), float('-inf'))
+        self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 2)
+        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 2)
 
-        self.assertAlmostEqual(
-            self.cmp.dist_abs('Nigel', 'Niall'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist_abs('Niall', 'Nigel'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist_abs('Colin', 'Coiln'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist_abs('Coiln', 'Colin'), float('inf')
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), float('inf')
-        )
+        self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall'), 2)
+        self.assertAlmostEqual(self.cmp.dist_abs('Niall', 'Nigel'), 2)
+        self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 2)
+        self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 2)
+        self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 2)
 
 
 if __name__ == '__main__':

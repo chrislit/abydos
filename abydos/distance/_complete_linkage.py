@@ -113,7 +113,7 @@ class CompleteLinkage(_TokenDistance):
 
         src, tar = self._get_tokens()
 
-        max_val = float('inf')
+        max_val = float('-inf')
 
         for term_src in src.keys():
             for term_tar in tar.keys():
@@ -158,7 +158,7 @@ class CompleteLinkage(_TokenDistance):
 
         src, tar = self._get_tokens()
 
-        max_val = float('inf')
+        max_val = 0.0
 
         for term_src in src.keys():
             for term_tar in tar.keys():
