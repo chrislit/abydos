@@ -45,73 +45,39 @@ class CohenKappaTestCases(unittest.TestCase):
     def test_cohen_kappa_sim(self):
         """Test abydos.distance.CohenKappa.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.9987228607918263)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.9987228607918263)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.9974424552429667)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.9974424552429667)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.006418485237483954)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.993581514762516)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.4961439589)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.4961439589)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.4961439589)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4961439589)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9961439589)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9961439589)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9961439589)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9961439589)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6621521793
-        )
-
-        # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), -1.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), -0.5)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), -0.5)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), -0.5)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), -0.5)
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), -0.3243243243
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9954751131
         )
 
     def test_cohen_kappa_dist(self):
         """Test abydos.distance.CohenKappa.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0012771392081737387)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0012771392081737387)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.002557544757033292)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.002557544757033292)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.006418485237484)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.006418485237484006)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.5038560411)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.5038560411)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.5038560411)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.5038560411)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0038560411)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0038560411)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0038560411)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0038560411)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3378478207
-        )
-
-        # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 2.0)
-
-        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.5)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.5)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.5)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.5)
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.3243243243
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0045248869
         )
 
 
