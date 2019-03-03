@@ -18,7 +18,7 @@
 
 """abydos.distance._cole.
 
-Cole similarity
+Cole correlation
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['Cole']
 
 
 class Cole(_TokenDistance):
-    r"""Cole similarity.
+    r"""Cole correlation.
 
-    For two sets X and Y and a population N, the Cole similarity
+    For two sets X and Y and a population N, the Cole correlation
     :cite:`Cole:1949` has three formulae:
 
     - If :math:`|X \cap Y| \cdot |(N \setminus X) \setminus Y| \geq
@@ -139,8 +139,8 @@ class Cole(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Cole similarity of two strings.
+    def corr(self, src, tar):
+        """Return the Cole correlation of two strings.
 
         Parameters
         ----------
@@ -152,24 +152,27 @@ class Cole(_TokenDistance):
         Returns
         -------
         float
-            Cole similarity
+            Cole correlation
 
         Examples
         --------
         >>> cmp = Cole()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.corr('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.corr('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.corr('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.corr('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -177,11 +180,49 @@ class Cole(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
+        admbc = a * d - b * c
+
+        if admbc == 0.0:
+            return 0.0
+
         if a * d >= b * c:
-            return (a * d - b * c) / ((a + b) * (b + d))
+            return admbc / ((a + b) * (b + d))
         if d >= a:
-            return (a * d - b * c) / ((a + b) * (a + c))
-        return (a * d - b * c) / ((b + d) * (c + d))
+            return admbc / ((a + b) * (a + c))
+        return admbc / ((b + d) * (c + d))
+
+    def sim(self, src, tar):
+        """Return the Cole similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for similarity
+        tar : str
+            Target string (or QGrams/Counter objects) for similarity
+
+        Returns
+        -------
+        float
+            Cole similarity
+
+        Examples
+        --------
+        >>> cmp = Cole()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1 + self.corr(src, tar)) / 2
 
 
 if __name__ == '__main__':
