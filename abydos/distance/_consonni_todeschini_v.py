@@ -18,7 +18,7 @@
 
 """abydos.distance._consonni_todeschini_v.
 
-Consonni & Todeschini V similarity
+Consonni & Todeschini V correlation
 """
 
 from __future__ import (
@@ -36,14 +36,14 @@ __all__ = ['ConsonniTodeschiniV']
 
 
 class ConsonniTodeschiniV(_TokenDistance):
-    r"""Consonni & Todeschini V similarity.
+    r"""Consonni & Todeschini V correlation.
 
-    For two sets X and Y and a population N, Consonni & Todeschini V similarity
-    :cite:`Consonni:2012` is
+    For two sets X and Y and a population N, Consonni & Todeschini V
+    correlation :cite:`Consonni:2012` is
 
         .. math::
 
-            sim_{ConsonniTodeschiniV}(X, Y) =
+            corr_{ConsonniTodeschiniV}(X, Y) =
             \frac{log(1+|X \cap Y| \cdot |(N \setminus X) \setminus Y|)-
             log(1+|X \setminus Y| \cdot |Y \setminus X|)}
             {log(1+\frac{|N|^2}{4})}
@@ -53,7 +53,7 @@ class ConsonniTodeschiniV(_TokenDistance):
 
         .. math::
 
-            sim_{ConsonniTodeschiniV} =
+            corr_{ConsonniTodeschiniV} =
             \frac{log(1+ad)-log(1+bc)}{log(1+\frac{n^2}{4})}
 
     .. versionadded:: 0.4.0
@@ -107,6 +107,51 @@ class ConsonniTodeschiniV(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Consonni & Todeschini V correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Consonni & Todeschini V correlation
+
+        Examples
+        --------
+        >>> cmp = ConsonniTodeschiniV()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+
+        num = log1p(a * d) - log1p(b * c)
+        if num == 0.0:
+            return 0.0
+
+        return num / log1p(n ** 2 / 4)
+
     def sim(self, src, tar):
         """Return the Consonni & Todeschini V similarity of two strings.
 
@@ -138,15 +183,7 @@ class ConsonniTodeschiniV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        return (log1p(a * d) - log1p(b * c)) / log1p(n ** 2 / 4)
+        return (1 + self.corr(src, tar)) / 2
 
 
 if __name__ == '__main__':

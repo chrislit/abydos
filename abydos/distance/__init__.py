@@ -107,7 +107,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Consonni & Todeschini II similarity (:py:class:`.ConsonniTodeschiniII`)
     - Consonni & Todeschini III similarity (:py:class:`.ConsonniTodeschiniIII`)
     - Consonni & Todeschini IV similarity (:py:class:`.ConsonniTodeschiniIV`)
-    - Consonni & Todeschini V similarity (:py:class:`.ConsonniTodeschiniV`)
+    - Consonni & Todeschini V correlation (:py:class:`.ConsonniTodeschiniV`)
     - Dennis similarity (:py:class:`.Dennis`)
     - Dice's Asymmetric I similarity (:py:class:`.DiceAsymmetricI`)
     - Dice's Asymmetric II similarity (:py:class:`.DiceAsymmetricII`)
