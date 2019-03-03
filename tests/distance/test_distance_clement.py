@@ -45,7 +45,7 @@ class ClementTestCases(unittest.TestCase):
     def test_clement_sim(self):
         """Test abydos.distance.Clement.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0025510204081632404)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.005102040816326481)
@@ -62,9 +62,13 @@ class ClementTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(
             self.cmp_no_d.sim('Nigel', 'Niall'), 0.1666666667
@@ -85,7 +89,7 @@ class ClementTestCases(unittest.TestCase):
     def test_clement_dist(self):
         """Test abydos.distance.Clement.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 0.9974489795918368)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 0.9948979591836735)
@@ -102,9 +106,13 @@ class ClementTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(
             self.cmp_no_d.dist('Nigel', 'Niall'), 0.8333333333
