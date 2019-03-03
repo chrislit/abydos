@@ -60,6 +60,8 @@ class CovingtonTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3578947368
         )
 
+        self.assertEqual(self.cmp.dist('bcd', 'bcd'), 0.0)
+
     def test_covington_sim(self):
         """Test abydos.distance.Covington.sim."""
         # Base cases
@@ -78,6 +80,8 @@ class CovingtonTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6421052632
         )
+
+        self.assertEqual(self.cmp.sim('bcd', 'bcd'), 1.0)
 
     def test_covington_dist_abs(self):
         """Test abydos.distance.Covington.dist_abs."""
