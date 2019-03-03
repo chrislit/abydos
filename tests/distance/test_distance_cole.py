@@ -81,10 +81,10 @@ class ColeTestCases(unittest.TestCase):
 
         # cases b & c
         self.assertAlmostEqual(
-            self.cmp_a8.sim('ATCAACGAGT', 'AACGATTAG'), 0.5151515151515151
+            self.cmp_a16.sim('ATCAACGAGT', 'AACGATTAG'), 0.5151515151515151
         )
         self.assertAlmostEqual(
-            self.cmp_a8.sim('ATCAACGAGT', 'AACGAACGATTAGATTAG'),
+            self.cmp_a16.sim('ATCAACGAGT', 'AACGAACGATTAGATTAG'),
             0.2976190476190476,
         )
 
