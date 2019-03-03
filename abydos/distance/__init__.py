@@ -102,7 +102,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Chord distance (:py:class:`.Chord`)
     - Clement similarity (:py:class:`.Clement`)
     - Cohen's Kappa similarity (:py:class:`.CohenKappa`)
-    - Cole similarity (:py:class:`.Cole`)
+    - Cole correlation (:py:class:`.Cole`)
     - Consonni & Todeschini I similarity (:py:class:`.ConsonniTodeschiniI`)
     - Consonni & Todeschini II similarity (:py:class:`.ConsonniTodeschiniII`)
     - Consonni & Todeschini III similarity (:py:class:`.ConsonniTodeschiniIII`)
