@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log
+from math import log1p
 
 from ._token_distance import _TokenDistance
 
@@ -143,7 +143,7 @@ class ConsonniTodeschiniII(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_unique_card()
 
-        return (log(1 + n) - log(1 + b + c)) / log(1 + n)
+        return (log1p(n) - log1p(b + c)) / log1p(n)
 
 
 if __name__ == '__main__':
