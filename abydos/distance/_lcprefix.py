@@ -163,41 +163,6 @@ class LCPrefix(_Distance):
         maxlen = max(len(src), len(tar), *[len(arg) for arg in args])
         return dist / maxlen
 
-    def dist(self, src, tar, *args):
-        r"""Return the longest common prefix distance of two or more strings.
-
-        Parameters
-        ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
-        *args : strs
-            Additional strings for comparison
-
-        Returns
-        -------
-        float
-            LCPrefix distance
-
-        Examples
-        --------
-        >>> pfx = LCPrefix()
-        >>> pfx.dist('cat', 'hat')
-        1.0
-        >>> pfx.dist('Niall', 'Neil')
-        0.8
-        >>> pfx.dist('aluminum', 'Catalan')
-        1.0
-        >>> pfx.dist('ATCG', 'TAGC')
-        1.0
-
-
-        .. versionadded:: 0.4.0
-
-        """
-        return 1.0 - self.sim(src, tar, *args)
-
 
 if __name__ == '__main__':
     import doctest

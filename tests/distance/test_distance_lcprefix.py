@@ -75,40 +75,6 @@ class LCPrefixTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9)
 
-    def test_lcprefix_dist(self):
-        """Test abydos.distance.LCPrefix.dist."""
-        # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
-
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9)
-
-    def test_lcprefix_sim(self):
-        """Test abydos.distance.LCPrefix.sim."""
-        # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
-
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.4)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.4)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.4)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.1)
-
     def test_lcprefix_dist_abs(self):
         """Test abydos.distance.LCPrefix.dist_abs."""
         # Base cases
