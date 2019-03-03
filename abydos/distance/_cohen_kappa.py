@@ -48,20 +48,24 @@ class CohenKappa(_TokenDistance):
 
         .. math::
 
-            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
-
+            \begin{array}{l}
+            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}\\
+            \\
             p_e^\kappa = \frac{|X|}{|N|} \cdot \frac{|Y|}{|N|} +
             \frac{|N \setminus X|}{|N|} \cdot \frac{|N \setminus Y|}{|N|}
+            \end{array}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            p_o = \frac{a+d}{n}
-
+            \begin{array}{l}
+            p_o = \frac{a+d}{n}\\
+            \\
             p_e^\kappa = \frac{a+b}{n} \cdot \frac{a+c}{n} +
             \frac{c+d}{n} \cdot \frac{b+d}{n}
+            \end{array}
 
     .. versionadded:: 0.4.0
     """
@@ -145,14 +149,16 @@ class CohenKappa(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return 2 * (a * d - b * c) / ((a + b) * (b + d) + (a + c) * (c + d))
+        return 2 * d / (b + c + 2 * d)
 
 
 if __name__ == '__main__':
