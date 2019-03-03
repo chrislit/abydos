@@ -43,10 +43,10 @@ class SokalSneathIV(_TokenDistance):
 
             sim_{SokalSneathIV}(X, Y) =
             \frac{
-            \frac{|X \cap Y|}{|X|}
-            \frac{|X \cap Y|}{|Y|}
+            \frac{|X \cap Y|}{|X|}+
+            \frac{|X \cap Y|}{|Y|}+
             \frac{|(N \setminus X) \setminus Y|}
-            {|(N \setminus X) \setminus Y| + |X \setminus Y|}
+            {|(N \setminus X) \setminus Y| + |X \setminus Y|}+
             \frac{|(N \setminus X) \setminus Y|}
             {|(N \setminus X) \setminus Y| + |Y \setminus X|}
             }{4}
@@ -64,8 +64,8 @@ class SokalSneathIV(_TokenDistance):
         .. math::
 
             sim_{SokalSneathIV} =
-            \frac{1}{4}\Big(\frac{a}{a+b}\frac{a}{a+c}
-            \frac{d}{b+d}\frac{d}{c+d}\Big)
+            \frac{1}{4}\Big(\frac{a}{a+b}+\frac{a}{a+c}+
+            \frac{d}{b+d}+\frac{d}{c+d}\Big)
 
     .. versionadded:: 0.4.0
     """
