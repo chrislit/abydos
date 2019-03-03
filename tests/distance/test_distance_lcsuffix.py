@@ -41,6 +41,40 @@ class LCSuffixTestCases(unittest.TestCase):
 
     cmp = LCSuffix()
 
+    def test_lcsuffix_sim(self):
+        """Test abydos.distance.LCSuffix.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.2)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.2)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.2)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.2)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0)
+
+    def test_lcsuffix_dist(self):
+        """Test abydos.distance.LCSuffix.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.8)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.8)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.8)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.8)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.0)
+
     def test_lcsuffix_dist_abs(self):
         """Test abydos.distance.LCSuffix.dist_abs."""
         # Base cases

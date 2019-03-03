@@ -122,6 +122,48 @@ class LCSuffix(LCPrefix):
 
         return len(self.lcsuffix(strings))
 
+    def sim(self, src, tar, *args):
+        r"""Return the longest common suffix similarity of two or more strings.
+
+        Longest common prefix similarity (:math:`sim_{LCPrefix}`).
+
+        This employs the LCSuffix function to derive a similarity metric:
+        :math:`sim_{LCSuffix}(s,t) = \frac{|LCSuffix(s,t)|}{max(|s|, |t|)}`
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+        *args : strs
+            Additional strings for comparison
+
+        Returns
+        -------
+        float
+            LCSuffix similarity
+
+        Examples
+        --------
+        >>> pfx = LCPrefix()
+        >>> pfx.sim('cat', 'hat')
+        0.0
+        >>> pfx.sim('Niall', 'Neil')
+        0.2
+        >>> pfx.sim('aluminum', 'Catalan')
+        0.0
+        >>> pfx.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        dist = self.dist_abs(src, tar, *args)
+        maxlen = max(len(src), len(tar), *[len(arg) for arg in args])
+        return dist / maxlen
+
 
 if __name__ == '__main__':
     import doctest
