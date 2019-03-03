@@ -40,7 +40,7 @@ class Mountford(_TokenDistance):
 
         .. math::
 
-            sim_{FagerMcGowan}(X, Y) =
+            sim_{Mountford}(X, Y) =
             \frac{2|X \cap Y|}{2|X|\cdot|Y|-(|X|+|Y|)\cdot|X \cap Y|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -48,7 +48,7 @@ class Mountford(_TokenDistance):
 
         .. math::
 
-            sim_{FagerMcGowan} =
+            sim_{Mountford} =
             \frac{2a}{2(a+b)(a+c)-(2a+b+c)a}
 
     .. versionadded:: 0.4.0
