@@ -141,6 +141,9 @@ class ConsonniTodeschiniIII(_TokenDistance):
         a = self._intersection_card()
         n = self._population_unique_card()
 
+        if src == tar and n <= a:
+            return 1.0
+
         return log1p(a) / log1p(n)
 
 
