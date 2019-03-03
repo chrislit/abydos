@@ -79,7 +79,7 @@ class Cole(_TokenDistance):
 
         .. math::
 
-            sim_{Cole} = \frac{ad-bc}{(a+b)(a+d)}
+            sim_{Cole} = \frac{ad-bc}{(a+b)(b+d)}
 
     - If :math:`d \geq a`
 
