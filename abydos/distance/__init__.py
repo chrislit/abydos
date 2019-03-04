@@ -214,7 +214,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown E similarity (:py:class:`.UnknownE`)
     - Unknown F similarity (:py:class:`.UnknownF`)
     - Unknown G similarity (:py:class:`.UnknownG`)
-    - Unknown H similarity (:py:class:`.UnknownH`)
     - Unknown I similarity (:py:class:`.UnknownI`)
     - Unknown J similarity (:py:class:`.UnknownJ`)
     - Unknown K similarity (:py:class:`.UnknownK`)
@@ -590,7 +589,6 @@ from ._unknown_d import UnknownD
 from ._unknown_e import UnknownE
 from ._unknown_f import UnknownF
 from ._unknown_g import UnknownG
-from ._unknown_h import UnknownH
 from ._unknown_i import UnknownI
 from ._unknown_j import UnknownJ
 from ._unknown_k import UnknownK
@@ -832,7 +830,6 @@ __all__ = [
     'UnknownE',
     'UnknownF',
     'UnknownG',
-    'UnknownH',
     'UnknownI',
     'UnknownJ',
     'UnknownK',
