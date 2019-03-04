@@ -61,17 +61,6 @@ Distance metrics developed for the US Census or derived from them are included:
 
 A large set of multi-set token-based distance metrics are provided, including:
 
-    - Generalized Minkowski distance (:py:class:`.Minkowski`)
-    - Manhattan distance (:py:class:`.Manhattan`)
-    - Euclidean distance (:py:class:`.Euclidean`)
-    - Chebyshev distance (:py:class:`.Chebyshev`)
-    - Generalized Tversky distance (:py:class:`.Tversky`)
-    - Sørensen–Dice coefficient (:py:class:`.Dice`)
-    - Jaccard similarity (:py:class:`.Jaccard`)
-    - Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
-    - Overlap distance (:py:class:`.Overlap`)
-    - Cosine similarity (:py:class:`.Cosine`)
-    - Russell & Rao similarity (:py:class:`.RussellRao`)
     - AMPLE similarity (:py:class:`.AMPLE`)
     - AZZOO similarity (:py:class:`.AZZOO`)
     - Anderberg's D similarity (:py:class:`.Anderberg`)
@@ -99,6 +88,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Bennet's S correlation (:py:class:`.Bennet`)
     - Braun-Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
+    - Chebyshev distance (:py:class:`.Chebyshev`)
     - Chord distance (:py:class:`.Chord`)
     - Clement similarity (:py:class:`.Clement`)
     - Cohen's Kappa similarity (:py:class:`.CohenKappa`)
@@ -108,6 +98,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Consonni & Todeschini III similarity (:py:class:`.ConsonniTodeschiniIII`)
     - Consonni & Todeschini IV similarity (:py:class:`.ConsonniTodeschiniIV`)
     - Consonni & Todeschini V correlation (:py:class:`.ConsonniTodeschiniV`)
+    - Cosine similarity (:py:class:`.Cosine`)
     - Dennis similarity (:py:class:`.Dennis`)
     - Dice's Asymmetric I similarity (:py:class:`.DiceAsymmetricI`)
     - Dice's Asymmetric II similarity (:py:class:`.DiceAsymmetricII`)
@@ -115,6 +106,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Dispersion similarity (:py:class:`.Dispersion`)
     - Doolittle similarity (:py:class:`.Doolittle`)
     - Dunning similarity (:py:class:`.Dunning`)
+    - Euclidean distance (:py:class:`.Euclidean`)
     - Eyraud similarity (:py:class:`.Eyraud`)
     - Fager similarity (:py:class:`.Fager`)
     - Fager & McGowan similarity (:py:class:`.FagerMcGowan`)
@@ -145,6 +137,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hellinger distance (:py:class:`.Hellinger`)
     - Hurlbert similarity (:py:class:`.Hurlbert`)
+    - Jaccard similarity (:py:class:`.Jaccard`) &
+      Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
     - Jaccard-NM similarity (:py:class:`.JaccardNM`)
     - Johnson similarity (:py:class:`.Johnson`)
     - Kendall's Tau similarity (:py:class:`.KendallTau`)
@@ -169,14 +163,17 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
     - Lorentzian distance (:py:class:`.Lorentzian`)
     - Maarel similarity (:py:class:`.Maarel`)
+    - Manhattan distance (:py:class:`.Manhattan`)
     - marking distance (:py:class:`.Marking`)
     - MASI similarity (:py:class:`.MASI`)
     - Matusita distance (:py:class:`.Matusita`)
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
+    - Minkowski distance (:py:class:`.Minkowski`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Mutual Information similarity (:py:class:`.MutualInformation`)
+    - Overlap distance (:py:class:`.Overlap`)
     - Pattern difference (:py:class:`.Pattern`)
     - Pearson & Heron II similarity (:py:class:`.PearsonHeronII`)
     - Pearson II similarity (:py:class:`.PearsonII`)
@@ -187,6 +184,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - q-gram distance (:py:class:`.QGram`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
+    - Russell & Rao similarity (:py:class:`.RussellRao`)
     - Scott's Pi similarity (:py:class:`.ScottPi`)
     - Shape difference (:py:class:`.Shape`)
     - Size difference (:py:class:`.Size`)
@@ -196,6 +194,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Sokal & Sneath III similarity (:py:class:`.SokalSneathIII`)
     - Sokal & Sneath IV similarity (:py:class:`.SokalSneathIV`)
     - Sokal & Sneath V similarity (:py:class:`.SokalSneathV`)
+    - Sørensen–Dice coefficient (:py:class:`.Dice`)
     - Sorgenfrei similarity (:py:class:`.Sorgenfrei`)
     - Steffensen similarity (:py:class:`.Steffensen`)
     - Stiles similarity (:py:class:`.Stiles`)
@@ -206,6 +205,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Tulloss' S similarity (:py:class:`.TullossS`)
     - Tulloss' T similarity (:py:class:`.TullossT`)
     - Tulloss' U similarity (:py:class:`.TullossU`)
+    - Tversky distance (:py:class:`.Tversky`)
     - Weighted Jaccard similarity (:py:class:`.WeightedJaccard`)
     - Unknown A similarity (:py:class:`.UnknownA`)
     - Unknown B similarity (:py:class:`.UnknownB`)
@@ -657,37 +657,6 @@ __all__ = [
     'dist_strcmp95',
     'sim_strcmp95',
     'IterativeSubString',
-    'Minkowski',
-    'minkowski',
-    'dist_minkowski',
-    'sim_minkowski',
-    'Manhattan',
-    'manhattan',
-    'dist_manhattan',
-    'sim_manhattan',
-    'Euclidean',
-    'euclidean',
-    'dist_euclidean',
-    'sim_euclidean',
-    'Chebyshev',
-    'chebyshev',
-    'Tversky',
-    'dist_tversky',
-    'sim_tversky',
-    'Dice',
-    'dist_dice',
-    'sim_dice',
-    'Jaccard',
-    'dist_jaccard',
-    'sim_jaccard',
-    'tanimoto',
-    'Overlap',
-    'dist_overlap',
-    'sim_overlap',
-    'Cosine',
-    'dist_cosine',
-    'sim_cosine',
-    'RussellRao',
     'AMPLE',
     'AZZOO',
     'Anderberg',
@@ -715,22 +684,34 @@ __all__ = [
     'Bennet',
     'BraunBlanquet',
     'Canberra',
+    'Chebyshev',
+    'chebyshev',
     'Chord',
     'Clement',
+    'CohenKappa',
     'Cole',
     'ConsonniTodeschiniI',
     'ConsonniTodeschiniII',
     'ConsonniTodeschiniIII',
     'ConsonniTodeschiniIV',
     'ConsonniTodeschiniV',
-    'CohenKappa',
+    'Cosine',
+    'dist_cosine',
+    'sim_cosine',
     'Dennis',
+    'Dice',
+    'dist_dice',
+    'sim_dice',
     'DiceAsymmetricI',
     'DiceAsymmetricII',
     'Digby',
     'Dispersion',
     'Doolittle',
     'Dunning',
+    'Euclidean',
+    'euclidean',
+    'dist_euclidean',
+    'sim_euclidean',
     'Eyraud',
     'Fager',
     'FagerMcGowan',
@@ -760,6 +741,10 @@ __all__ = [
     'HawkinsDotson',
     'Hellinger',
     'Hurlbert',
+    'Jaccard',
+    'dist_jaccard',
+    'sim_jaccard',
+    'tanimoto',
     'JaccardNM',
     'Johnson',
     'KentFosterI',
@@ -786,6 +771,14 @@ __all__ = [
     'KulczynskiII',
     'Lorentzian',
     'Maarel',
+    'Manhattan',
+    'manhattan',
+    'dist_manhattan',
+    'sim_manhattan',
+    'Minkowski',
+    'minkowski',
+    'dist_minkowski',
+    'sim_minkowski',
     'MASI',
     'Matusita',
     'MaxwellPilliner',
@@ -794,6 +787,9 @@ __all__ = [
     'Mountford',
     'MutualInformation',
     'MSContingency',
+    'Overlap',
+    'dist_overlap',
+    'sim_overlap',
     'Pattern',
     'PearsonHeronII',
     'PearsonII',
@@ -805,6 +801,7 @@ __all__ = [
     'ReesLevenshtein',
     'RogersTanimoto',
     'RogotGoldberg',
+    'RussellRao',
     'ScottPi',
     'Shape',
     'Size',
@@ -825,6 +822,9 @@ __all__ = [
     'TullossS',
     'TullossT',
     'TullossU',
+    'Tversky',
+    'dist_tversky',
+    'sim_tversky',
     'UnknownA',
     'UnknownB',
     'UnknownC',
