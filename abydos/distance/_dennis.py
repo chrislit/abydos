@@ -46,9 +46,7 @@ class Dennis(_TokenDistance):
             {\sqrt{\frac{|X|\cdot|Y|}{|N|}}}
 
     This is the fourth of Dennis' association measures, and that which she
-    claims is the best of the four. This is not identical to the Dennis
-    similarity identified in :cite:`Choi:2010`, independent attestation of
-    which could not be found.
+    claims is the best of the four.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
