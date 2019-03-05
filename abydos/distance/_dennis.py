@@ -187,7 +187,10 @@ class Dennis(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.sim_score(src, tar) / self._population_unique_card() ** 0.5
+        score = self.sim_score(src, tar)
+        if score == 0.0:
+            return 0.0
+        return round(score / self._population_unique_card() ** 0.5, 15)
 
     def sim(self, src, tar):
         """Return the normalized Dennis similarity of two strings.
@@ -220,7 +223,7 @@ class Dennis(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return (1 + self.corr(src, tar)) / 2
+        return (0.5 + self.corr(src, tar)) / 1.5
 
 
 if __name__ == '__main__':
