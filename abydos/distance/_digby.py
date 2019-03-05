@@ -42,7 +42,7 @@ class Digby(_TokenDistance):
 
         .. math::
 
-            sim_{Digby}(X, Y) =
+            corr_{Digby}(X, Y) =
             \frac{(|X \cap Y| \cdot |(N \setminus X) \setminus Y|)^\frac{3}{4}-
             (|X \setminus Y| \cdot |Y \setminus X|)^\frac{3}{4}}
             {(|X \cap Y| \cdot |(N \setminus X) \setminus Y|)^\frac{3}{4} +
@@ -53,7 +53,7 @@ class Digby(_TokenDistance):
 
         .. math::
 
-            sim_{Digby} =
+            corr_{Digby} =
             \frac{ad^\frac{3}{4}-bc^\frac{3}{4}}{ad^\frac{3}{4}+bc^\frac{3}{4}}
 
     .. versionadded:: 0.4.0
