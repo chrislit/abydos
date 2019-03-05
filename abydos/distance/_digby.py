@@ -18,7 +18,7 @@
 
 """abydos.distance._digby.
 
-Digby similarity
+Digby correlation
 """
 
 from __future__ import (
@@ -34,7 +34,7 @@ __all__ = ['Digby']
 
 
 class Digby(_TokenDistance):
-    r"""Digby similarity.
+    r"""Digby correlation.
 
     For two sets X and Y and a population N, Digby's approximation of the
     tetrachoric correlation coefficient
@@ -47,10 +47,6 @@ class Digby(_TokenDistance):
             (|X \setminus Y| \cdot |Y \setminus X|)^\frac{3}{4}}
             {(|X \cap Y| \cdot |(N \setminus X) \setminus Y|)^\frac{3}{4} +
             (|X \setminus Y| \cdot |Y \setminus X|)^\frac{3}{4}}
-
-    In :cite:`Yule:1912`, this is labeled :math:`\omega`, so it is sometimes
-    referred to as Yule's :math:`\omega`. Yule himself terms this the
-    coefficient of colligation.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -111,6 +107,53 @@ class Digby(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Digby correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Digby correlation
+
+        Examples
+        --------
+        >>> cmp = Digby()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return -1.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        return ((a * d) ** 0.75 - (b * c) ** 0.75) / (
+            (a * d) ** 0.75 + (b * c) ** 0.75
+        )
+
     def sim(self, src, tar):
         """Return the Digby similarity of two strings.
 
@@ -142,16 +185,7 @@ class Digby(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return ((a * d) ** 0.75 - (b * c) ** 0.75) / (
-            (a * d) ** 0.75 + (b * c) ** 0.75
-        )
+        return (1 + self.corr(src, tar)) / 2
 
 
 if __name__ == '__main__':
