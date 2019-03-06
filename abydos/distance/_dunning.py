@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log
+from math import log1p
 
 from ._token_distance import _TokenDistance
 
@@ -44,13 +44,15 @@ class Dunning(_TokenDistance):
         .. math::
 
             sim_{Dunning}(X, Y) = \lambda =
-            |N| log_2(|N|) + |X \cap Y| log_2(|X \cap Y|) +
-            |X \setminus Y| log_2(|X \setminus Y|) +
-            |Y \setminus X| log_2(|Y \setminus X|) +
-            |(N \setminus X) \setminus Y| log_2(|(N \setminus X) \setminus Y|)
-            - (|X| log_2(|X|) + |Y| log_2(|Y|) +
-            |N \setminus Y| log_2(|N \setminus Y|) +
-            |N \setminus X| log_2(|N \setminus X|)) +
+            |N| \cdot log_2(|N|) + |X \cap Y| \cdot log_2(|X \cap Y|) +\\
+            |X \setminus Y| \cdot log_2(|X \setminus Y|) +
+            |Y \setminus X| \cdot log_2(|Y \setminus X|) +\\
+            |(N \setminus X) \setminus Y| \cdot
+            log_2(|(N \setminus X) \setminus Y|) -\\
+            (|X| \cdot log_2(|X|) +
+            |Y| \cdot log_2(|Y|) +\\
+            |N \setminus Y| \cdot log_2(|N \setminus Y|) +
+            |N \setminus X| \cdot log_2(|N \setminus X|))
 
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -59,9 +61,11 @@ class Dunning(_TokenDistance):
         .. math::
 
             sim_{Dunning} = \lambda =
-            n log_2(n) + a log_2(a) + b log_2(b) + c log_2(c) + d log_2(d) -
-            ((a+b) log_2(a+b) + (a+c) log_2(a+c) + (b+d) log_2(b+d) +
-            (c+d) log_2(c+d))
+            n \cdot log_2(n) + a \cdot log_2(a) +\\
+            b \cdot log_2(b) + c \cdot log_2(c) +
+            d \cdot log_2(d) - \\
+            ((a+b) \cdot log_2(a+b) + (a+c) \cdot log_2(a+c) +\\
+            (b+d) \cdot log_2(b+d) + (c+d) log_2(c+d))
 
     .. versionadded:: 0.4.0
     """
@@ -114,7 +118,7 @@ class Dunning(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Dunning similarity of two strings.
 
         Parameters
@@ -151,17 +155,21 @@ class Dunning(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = self._total_complement_card()
+        n = a + b + c + d
 
         return (
-            (a + b + c + d) * log(a + b + c + d)
-            + (a * log(a) + b * log(b) + c * log(c) + d * log(d))
+            n * log1p(n)
+            + (a * log1p(a) + b * log1p(b) + c * log1p(c) + d * log1p(d))
             - (
-                (a + b) * log(a + b)
-                + (a + c) * log(a + c)
-                + (b + d) * log(b + d)
-                + (c + d) * log(c + d)
+                (a + b) * log1p(a + b)
+                + (a + c) * log1p(a + c)
+                + (b + d) * log1p(b + d)
+                + (c + d) * log1p(c + d)
             )
-        ) / log(2)
+        ) / log1p(2)
+
+    def sim(self, src, tar):
+        raise NotImplementedError
 
 
 if __name__ == '__main__':
