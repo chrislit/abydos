@@ -145,14 +145,13 @@ class Eyraud(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
+        denom = max(1, a + b) * max(1, c + d) * max(1, a + c) * max(1, b + d)
         num = a - (a + b) * (a + c)
-        if num == 0.0:
-            return 0.0
 
-        return num / ((a + b) * (c + d) * (a + c) * (b + d))
+        return num / denom
 
-    def dist(self, src, tar):
-        """Return the normalized Eyraud distance of two strings.
+    def sim(self, src, tar):
+        """Return the normalized Eyraud similarity of two strings.
 
         Parameters
         ----------
@@ -164,7 +163,7 @@ class Eyraud(_TokenDistance):
         Returns
         -------
         float
-            Normalized Eyraud distance
+            Normalized Eyraud similarity
 
         Examples
         --------
@@ -182,7 +181,7 @@ class Eyraud(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return 1 + self.sim_score(src, tar)
+        return -self.sim_score(src, tar)
 
 
 if __name__ == '__main__':

@@ -42,6 +42,50 @@ class EyraudTestCases(unittest.TestCase):
     cmp = Eyraud()
     cmp_no_d = Eyraud(alphabet=0)
 
+    def test_eyraud_sim(self):
+        """Test abydos.distance.Eyraud.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), -0.0)
+        self.assertEqual(self.cmp.sim('a', ''), -0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), -0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), -0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), -0.0)
+        self.assertAlmostEqual(self.cmp.sim('abc', 'abc'), 1.2327416173570019e-06)
+        self.assertAlmostEqual(self.cmp.sim('abcd', 'efgh'), 1.6478781097519779e-06)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 1.5144e-06)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 1.5144e-06)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 1.5144e-06)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 1.5144e-06)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.565e-06
+        )
+
+        # Tests with alphabet=0 (no d factor)
+        self.assertEqual(self.cmp_no_d.sim('', ''), -0.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), -0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), -0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), -0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), -0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.75)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.04)
+
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.1018518519
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.1018518519
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.1018518519
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.1018518519
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.078030303
+        )
+
     def test_eyraud_dist(self):
         """Test abydos.distance.Eyraud.dist."""
         # Base cases
@@ -50,8 +94,8 @@ class EyraudTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.9999987672583827)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.9999983521218903)
+        self.assertAlmostEqual(self.cmp.dist('abc', 'abc'), 0.9999987672583827)
+        self.assertAlmostEqual(self.cmp.dist('abcd', 'efgh'), 0.9999983521218903)
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.9999984856)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.9999984856)
@@ -67,7 +111,7 @@ class EyraudTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.25)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 0.96)
 
         self.assertAlmostEqual(
@@ -86,52 +130,6 @@ class EyraudTestCases(unittest.TestCase):
             self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.921969697
         )
 
-    def test_eyraud_sim(self):
-        """Test abydos.distance.Eyraud.sim."""
-        # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0.0)
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.2327416173407713e-06)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.6478781097450934e-06)
-
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 1.5144e-06)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 1.5144e-06)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 1.5144e-06)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 1.5144e-06)
-        self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.565e-06
-        )
-
-        # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(
-            self.cmp_no_d.sim('abcd', 'efgh'), 0.040000000000000036
-        )
-
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Nigel', 'Niall'), 0.1018518519
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Niall', 'Nigel'), 0.1018518519
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Colin', 'Coiln'), 0.1018518519
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('Coiln', 'Colin'), 0.1018518519
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.078030303
-        )
-
     def test_eyraud_sim_score(self):
         """Test abydos.distance.Eyraud.sim_score."""
         # Base cases
@@ -140,10 +138,10 @@ class EyraudTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.cmp.sim_score('abc', 'abc'), -1.2327416173570019e-06
         )
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.cmp.sim_score('abcd', 'efgh'), -1.6478781097519779e-06
         )
 
@@ -169,7 +167,7 @@ class EyraudTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), -0.75)
         self.assertEqual(self.cmp_no_d.sim_score('abcd', 'efgh'), -0.04)
 
         self.assertAlmostEqual(
