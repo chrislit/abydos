@@ -107,7 +107,7 @@ class Eyraud(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Eyraud similarity of two strings.
 
         Parameters
@@ -125,13 +125,13 @@ class Eyraud(_TokenDistance):
         Examples
         --------
         >>> cmp = Eyraud()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -145,9 +145,44 @@ class Eyraud(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a - (a + b) * (a + c)) / (
-            (a + b) * (c + d) * (a + c) * (b + d)
-        )
+        num = a - (a + b) * (a + c)
+        if num == 0.0:
+            return 0.0
+
+        return num / ((a + b) * (c + d) * (a + c) * (b + d))
+
+    def dist(self, src, tar):
+        """Return the normalized Eyraud distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Eyraud distance
+
+        Examples
+        --------
+        >>> cmp = Eyraud()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return 1 + self.sim_score(src, tar)
 
 
 if __name__ == '__main__':
