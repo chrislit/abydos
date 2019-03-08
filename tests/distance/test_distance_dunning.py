@@ -98,6 +98,10 @@ class DunningTestCases(unittest.TestCase):
             self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG'), 1.05211615
         )
 
+    def test_dunning_sim(self):
+        """Test abydos.distance.Dunning.sim_score."""
+        self.assertRaises(self.cmp.sim('a', 'a'), NotImplementedError)
+
 
 if __name__ == '__main__':
     unittest.main()
