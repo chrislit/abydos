@@ -41,6 +41,7 @@ class EditexTestCases(unittest.TestCase):
 
     cmp = Editex()
     cmp_local = Editex(local=True)
+    cmp_taper = Editex(taper=True)
 
     def test_editex_dist_abs(self):
         """Test abydos.distance.Editex.dist_abs."""
@@ -57,6 +58,11 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('nihal', 'niall'), 2)
         self.assertEqual(self.cmp.dist_abs('neal', 'nihl'), 3)
         self.assertEqual(self.cmp.dist_abs('nihl', 'neal'), 3)
+
+        # Test tapering variant
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('nelson', 'neilsen'), 2.7142857143
+        )
 
         # Test wrapper
         self.assertEqual(editex('niall', 'neal'), 1)
@@ -104,6 +110,11 @@ class EditexTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('nelson', 'neilsen'), 2 / 14)
         self.assertAlmostEqual(self.cmp.dist('neilsen', 'nelson'), 2 / 14)
         self.assertEqual(self.cmp.dist('niall', 'neal'), 0.1)
+
+        # Test tapering variant
+        self.assertAlmostEqual(
+            self.cmp_taper.dist('nelson', 'neilsen'), 0.123376623
+        )
 
         # Test wrapper
         self.assertEqual(dist_editex('niall', 'neal'), 0.1)

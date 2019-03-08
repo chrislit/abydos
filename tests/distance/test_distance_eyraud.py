@@ -50,8 +50,12 @@ class EyraudTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), -0.0)
         self.assertEqual(self.cmp.sim('abc', ''), -0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), -0.0)
-        self.assertAlmostEqual(self.cmp.sim('abc', 'abc'), 1.2327416173570019e-06)
-        self.assertAlmostEqual(self.cmp.sim('abcd', 'efgh'), 1.6478781097519779e-06)
+        self.assertAlmostEqual(
+            self.cmp.sim('abc', 'abc'), 1.2327416173570019e-06
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim('abcd', 'efgh'), 1.6478781097519779e-06
+        )
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 1.5144e-06)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 1.5144e-06)
@@ -95,7 +99,9 @@ class EyraudTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertAlmostEqual(self.cmp.dist('abc', 'abc'), 0.9999987672583827)
-        self.assertAlmostEqual(self.cmp.dist('abcd', 'efgh'), 0.9999983521218903)
+        self.assertAlmostEqual(
+            self.cmp.dist('abcd', 'efgh'), 0.9999983521218903
+        )
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.9999984856)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.9999984856)
