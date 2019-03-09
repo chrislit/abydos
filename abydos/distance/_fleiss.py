@@ -18,7 +18,7 @@
 
 """abydos.distance._fleiss.
 
-Fleiss similarity
+Fleiss correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['Fleiss']
 
 
 class Fleiss(_TokenDistance):
-    r"""Fleiss similarity.
+    r"""Fleiss correlation.
 
-    For two sets X and Y and a population N, Fleiss similarity
+    For two sets X and Y and a population N, Fleiss correlation
     :cite:`Fleiss:1975` is
 
         .. math::
 
-            sim_{Fleiss}(X, Y) =
+            corr_{Fleiss}(X, Y) =
             \frac{(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|) \cdot
             (|X| \cdot |N \setminus X| + |Y| \cdot |N \setminus Y|)}
@@ -52,7 +52,7 @@ class Fleiss(_TokenDistance):
 
         .. math::
 
-            sim_{Fleiss} =
+            corr_{Fleiss} =
             \frac{(ad-bc)((a+b)(c+d)+(a+c)(b+d))}{2(a+b)(c+d)(a+c)(b+d)}
 
     This is Fleiss' :math:`M(A_1)`, :math:`ad-bc` divided by the harmonic mean
@@ -110,6 +110,50 @@ class Fleiss(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Fleiss correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Fleiss correlation
+
+        Examples
+        --------
+        >>> cmp = Fleiss()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        num = (a * d - b * c) * ((a + b) * (c + d) + (a + c) * (b + d))
+
+        if num == 0.0:
+            return 0.0
+        return num / (2.0 * (a + b) * (c + d) * (a + c) * (b + d))
+
     def sim(self, src, tar):
         """Return the Fleiss similarity of two strings.
 
@@ -141,18 +185,7 @@ class Fleiss(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        num = (a * d - b * c) * ((a + b) * (c + d) + (a + c) * (b + d))
-
-        if num == 0.0:
-            return 0.0
-        return num / (2 * (a + b) * (c + d) * (a + c) * (b + d))
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
