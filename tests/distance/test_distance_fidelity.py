@@ -45,35 +45,39 @@ class FidelityTestCases(unittest.TestCase):
         """Test abydos.distance.Fidelity.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 0)
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 4.0)
+        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 3.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 3.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 3.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 3.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.25)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.25)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.25)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.25)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4454545455
+        )
 
     def test_fidelity_dist(self):
         """Test abydos.distance.Fidelity.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 1.0)
-        self.assertEqual(self.cmp.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), -3.0)
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), -2.0)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), -2.0)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), -2.0)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), -2.0)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -6.0)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.75)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.75)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.75)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.75)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5545454545
+        )
 
 
 if __name__ == '__main__':
