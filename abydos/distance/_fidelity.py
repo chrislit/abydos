@@ -18,7 +18,7 @@
 
 """abydos.distance._fidelity.
 
-Fidelity similarity
+Fidelity
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['Fidelity']
 
 
 class Fidelity(_TokenDistance):
-    r"""Fidelity similarity.
+    r"""Fidelity.
 
-    For two multisets X and Y drawn from an alphabet S, Fidelity similarity
-    :cite:`CITATION` is
+    For two multisets X and Y drawn from an alphabet S, fidelity is
 
         .. math::
 
             sim_{Fidelity}(X, Y) =
-            \sum_{i \in S} \sqrt{|A_i \cdot B_i|}
+            \big( \sum_{i \in S} \sqrt{|\frac{A_i}{\sum_{j} A_j} \cdot
+            B_i{\sum_{j} B_j}|} \big)^2
 
     .. versionadded:: 0.4.0
     """
@@ -71,7 +71,7 @@ class Fidelity(_TokenDistance):
         super(Fidelity, self).__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src, tar):
-        """Return the Fidelity similarity of two strings.
+        """Return the fidelity of two strings.
 
         Parameters
         ----------
@@ -83,7 +83,7 @@ class Fidelity(_TokenDistance):
         Returns
         -------
         float
-            Fidelity similarity
+            fidelity
 
         Examples
         --------
@@ -104,10 +104,23 @@ class Fidelity(_TokenDistance):
         self._tokenize(src, tar)
 
         alphabet = self._total().keys()
+        src_mag = sum(self._src_tokens.values())
+        tar_mag = sum(self._tar_tokens.values())
 
-        return sum(
-            (abs(self._src_tokens[tok] * self._tar_tokens[tok])) ** 0.5
-            for tok in alphabet
+        return (
+            sum(
+                (
+                    abs(
+                        self._src_tokens[tok]
+                        / src_mag
+                        * self._tar_tokens[tok]
+                        / tar_mag
+                    )
+                )
+                ** 0.5
+                for tok in alphabet
+            )
+            ** 2
         )
 
 
