@@ -45,10 +45,10 @@ class FidelityTestCases(unittest.TestCase):
         """Test abydos.distance.Fidelity.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 0)
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
@@ -64,10 +64,10 @@ class FidelityTestCases(unittest.TestCase):
         """Test abydos.distance.Fidelity.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 1.0)
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
