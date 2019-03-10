@@ -54,7 +54,7 @@ class FleissLevinPaik(_TokenDistance):
         .. math::
 
             sim_{FleissLevinPaik} =
-            \frac{2d}{2a + b + c}
+            \frac{2d}{2d + b + c}
 
     .. versionadded:: 0.4.0
     """
