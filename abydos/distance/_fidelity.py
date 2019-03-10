@@ -104,8 +104,8 @@ class Fidelity(_TokenDistance):
         self._tokenize(src, tar)
 
         alphabet = self._total().keys()
-        src_mag = sum(self._src_tokens.values())
-        tar_mag = sum(self._tar_tokens.values())
+        src_mag = max(1, sum(self._src_tokens.values()))
+        tar_mag = max(1, sum(self._tar_tokens.values()))
 
         return (
             sum(
