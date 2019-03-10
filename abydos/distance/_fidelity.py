@@ -41,8 +41,8 @@ class Fidelity(_TokenDistance):
         .. math::
 
             sim_{Fidelity}(X, Y) =
-            \big( \sum_{i \in S} \sqrt{|\frac{A_i}{\sum_{j} A_j} \cdot
-            B_i{\sum_{j} B_j}|} \big)^2
+            \Bigg( \sum_{i \in S} \sqrt{|\frac{A_i}{|A|} \cdot
+            \frac{B_i}{|B|}|} \Bigg)^2
 
     .. versionadded:: 0.4.0
     """
