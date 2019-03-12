@@ -107,7 +107,7 @@ class UnknownP(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Unknown P similarity of two strings.
 
         Parameters
@@ -138,13 +138,55 @@ class UnknownP(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        ab = self._src_card()
-        ac = self._tar_card()
+        apb = self._src_card()
+        apc = self._tar_card()
 
-        return a / (ab * ac) ** 0.5 - 1 / (2 * (min(ab, ac) ** 0.5))
+        first = a / (apb * apc) ** 0.5 if a else 0.0
+        second = 1 / (2 * (min(apb, apc) ** 0.5))
+
+        return first - second
+
+    def sim(self, src, tar):
+        """Return the normalized Unknown P similarity of two strings.
+
+        As this similarity ranges from :math:`(-\inf, 1.0)`, this normalization
+        simply clamps the value to the range (0.0, 1.0).
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Unknown P similarity
+
+        Examples
+        --------
+        >>> cmp = UnknownP()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return max(0.0, self.sim_score(src, tar))
 
 
 if __name__ == '__main__':

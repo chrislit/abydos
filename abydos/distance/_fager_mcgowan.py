@@ -139,7 +139,8 @@ class FagerMcGowan(_TokenDistance):
     def sim(self, src, tar):
         """Return the normalized Fager & McGowan similarity of two strings.
 
-        As this similarity ranges from :math:`(-\inf, 1.0)`
+        As this similarity ranges from :math:`(-\inf, 1.0)`, this normalization
+        simply clamps the value to the range (0.0, 1.0).
 
         Parameters
         ----------
