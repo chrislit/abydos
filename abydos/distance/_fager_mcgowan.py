@@ -42,7 +42,7 @@ class FagerMcGowan(_TokenDistance):
 
             sim_{FagerMcGowan}(X, Y) =
             \frac{|X \cap Y|}{\sqrt{|X|\cdot|Y|}} -
-            \frac{\sqrt{max(|X|, |Y|)}}{2}
+            \frac{1}{2\sqrt{max(|X|, |Y|)}}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -50,7 +50,7 @@ class FagerMcGowan(_TokenDistance):
         .. math::
 
             sim_{FagerMcGowan} =
-            \frac{a}{\sqrt{(a+b)(a+c)}} - \frac{\sqrt{max(a+b, a+c)}}{2}
+            \frac{a}{\sqrt{(a+b)(a+c)}} - \frac{1}{2\sqrt{max(a+b, a+c)}}
 
     .. versionadded:: 0.4.0
     """
@@ -90,7 +90,7 @@ class FagerMcGowan(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Fager & McGowan similarity of two strings.
 
         Parameters
@@ -108,6 +108,53 @@ class FagerMcGowan(_TokenDistance):
         Examples
         --------
         >>> cmp = FagerMcGowan()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if not src or not tar:
+            return 0.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        apb = self._src_card()
+        apc = self._tar_card()
+
+        first = a / (apb * apc) ** 0.5 if a else 0.0
+        second = 1 / (2 * (max(apb, apc) ** 0.5))
+
+        return first - second
+
+    def sim(self, src, tar):
+        """Return the normalized Fager & McGowan similarity of two strings.
+
+        As this similarity ranges from :math:`(-\inf, 1.0)`
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Fager & McGowan similarity
+
+        Examples
+        --------
+        >>> cmp = FagerMcGowan()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -121,13 +168,7 @@ class FagerMcGowan(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        ab = self._src_card()
-        ac = self._tar_card()
-
-        return a / (ab * ac) ** 0.5 - 0.5 * (max(ab, ac) ** 0.5)
+        return max(0.0, self.sim_score(src, tar))
 
 
 if __name__ == '__main__':
