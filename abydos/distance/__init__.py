@@ -108,7 +108,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Dunning similarity (:py:class:`.Dunning`)
     - Euclidean distance (:py:class:`.Euclidean`)
     - Eyraud similarity (:py:class:`.Eyraud`)
-    - Fager similarity (:py:class:`.Fager`)
     - Fager & McGowan similarity (:py:class:`.FagerMcGowan`)
     - Faith similarity (:py:class:`.Faith`)
     - Fidelity similarity (:py:class:`.Fidelity`)
@@ -221,6 +220,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown M similarity (:py:class:`.UnknownM`)
     - Unknown N similarity (:py:class:`.UnknownN`)
     - Unknown O similarity (:py:class:`.UnknownO`)
+    - Unknown P similarity (:py:class:`.UnknownP`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Warrens I similarity (:py:class:`.WarrensI`)
     - Warrens II similarity (:py:class:`.WarrensII`)
@@ -412,7 +412,6 @@ from ._editex import Editex, dist_editex, editex, sim_editex
 from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
 from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
 from ._eyraud import Eyraud
-from ._fager import Fager
 from ._fager_mcgowan import FagerMcGowan
 from ._faith import Faith
 from ._fellegi_sunter import FellegiSunter
@@ -596,6 +595,7 @@ from ._unknown_l import UnknownL
 from ._unknown_m import UnknownM
 from ._unknown_n import UnknownN
 from ._unknown_o import UnknownO
+from ._unknown_p import UnknownP
 from ._upholt import Upholt
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
@@ -711,7 +711,6 @@ __all__ = [
     'dist_euclidean',
     'sim_euclidean',
     'Eyraud',
-    'Fager',
     'FagerMcGowan',
     'Faith',
     'Fidelity',
@@ -837,6 +836,7 @@ __all__ = [
     'UnknownM',
     'UnknownN',
     'UnknownO',
+    'UnknownP',
     'Upholt',
     'WarrensI',
     'WarrensII',

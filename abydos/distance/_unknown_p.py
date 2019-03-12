@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._fager.
+"""abydos.distance._unknown_p.
 
-Fager similarity
+Unknown P similarity
 """
 
 from __future__ import (
@@ -30,28 +30,31 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Fager']
+__all__ = ['UnknownP']
 
 
-class Fager(_TokenDistance):
-    r"""Fager similarity.
+class UnknownP(_TokenDistance):
+    r"""Unknown P similarity.
 
-    For two sets X and Y and a population N, Fager similarity
-    :cite:`Fager:1957` is
+    For two sets X and Y and a population N, Unknown P similarity is a variant
+    of Fager-McGowan index of affinity :cite:`Fager:1957,Fager:1963`. It uses
+    minimum rather than maximum in the denominator of the second term, and
+    sometimes identified as the Fager-McGown index of affinity
+    (cf. :cite:`Whittaker:1982`, for example).
 
         .. math::
 
-            sim_{Fager}(X, Y) =
+            sim_{UnknownP}(X, Y) =
             \frac{|X \cap Y|}{\sqrt{|X|\cdot|Y|}} -
-            \frac{\sqrt{min(|X|, |Y|)}}{2}
+            \frac{1}{2\sqrt{min(|X|, |Y|)}}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{Fager} =
-            \frac{a}{\sqrt{(a+b)(a+c)}} - \frac{\sqrt{min(a+b, a+c)}}{2}
+            sim_{UnknownP} =
+            \frac{a}{\sqrt{(a+b)(a+c)}} - \frac{1}{2\sqrt{min(a+b, a+c)}}
 
     .. versionadded:: 0.4.0
     """
@@ -63,7 +66,7 @@ class Fager(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize Fager instance.
+        """Initialize UnknownP instance.
 
         Parameters
         ----------
@@ -97,7 +100,7 @@ class Fager(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Fager, self).__init__(
+        super(UnknownP, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -105,7 +108,7 @@ class Fager(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Fager similarity of two strings.
+        """Return the Unknown P similarity of two strings.
 
         Parameters
         ----------
@@ -117,11 +120,11 @@ class Fager(_TokenDistance):
         Returns
         -------
         float
-            Fager similarity
+            Unknown P similarity
 
         Examples
         --------
-        >>> cmp = Fager()
+        >>> cmp = UnknownP()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -141,7 +144,7 @@ class Fager(_TokenDistance):
         ab = self._src_card()
         ac = self._tar_card()
 
-        return a / (ab * ac) ** 0.5 - 0.5 * (min(ab, ac) ** 0.5)
+        return a / (ab * ac) ** 0.5 - 1 / (2 * (min(ab, ac) ** 0.5))
 
 
 if __name__ == '__main__':
