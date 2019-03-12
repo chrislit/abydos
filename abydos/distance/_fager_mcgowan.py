@@ -36,7 +36,8 @@ __all__ = ['FagerMcGowan']
 class FagerMcGowan(_TokenDistance):
     r"""Fager & McGowan similarity.
 
-    For two sets X and Y, the Fager & McGowan similarity :cite:`Fager:1963` is
+    For two sets X and Y, the Fager & McGowan similarity
+    :cite:`Fager:1957,Fager:1963` is
 
         .. math::
 
