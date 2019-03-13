@@ -111,13 +111,13 @@ class FellegiSunter(_TokenDistance):
         Examples
         --------
         >>> cmp = FellegiSunter()
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.dist_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -155,7 +155,42 @@ class FellegiSunter(_TokenDistance):
         return similarity
 
     def sim(self, src, tar):
-        raise NotImplementedError
+        """Return the normalized Fellegi-Sunter similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Fellegi-Sunter similarity
+
+        Examples
+        --------
+        >>> cmp = FellegiSunter()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        score = self.sim_score(src, tar)
+        if score == 0.0:
+            return 0.0
+        if self._simplified:
+            return max(0.0, score / (len(src) + len(tar)))
+        return max(0.0, score / max(len(src), len(tar)))
 
 
 if __name__ == '__main__':
