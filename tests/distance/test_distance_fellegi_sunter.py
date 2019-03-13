@@ -40,10 +40,12 @@ class FellegiSunterTestCases(unittest.TestCase):
     """
 
     cmp = FellegiSunter()
+    cmp_simp = FellegiSunter(simplified=True)
 
     def test_fellegi_sunter_sim(self):
         """Test abydos.distance.FellegiSunter.sim."""
-        self.assertRaises(self.cmp.sim('a', 'a'), NotImplementedError)
+        with self.assertRaises(NotImplementedError):
+            self.cmp.sim('a', 'a')
 
     def test_fellegi_sunter_sim_score(self):
         """Test abydos.distance.FellegiSunter.sim_score."""
@@ -70,6 +72,38 @@ class FellegiSunterTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 2.8141447562
+        )
+
+        # Simplified variant cases
+        self.assertEqual(self.cmp_simp.sim_score('', ''), 0.0)
+        self.assertEqual(self.cmp_simp.sim_score('a', ''), -0.6931471805599453)
+        self.assertEqual(self.cmp_simp.sim_score('', 'a'), 0.0)
+        self.assertEqual(
+            self.cmp_simp.sim_score('abc', ''), -2.772588722239781
+        )
+        self.assertEqual(self.cmp_simp.sim_score('', 'abc'), 0.0)
+        self.assertEqual(
+            self.cmp_simp.sim_score('abc', 'abc'), 5.545177444479562
+        )
+        self.assertEqual(
+            self.cmp_simp.sim_score('abcd', 'efgh'), -4.023594781085251
+        )
+
+        self.assertAlmostEqual(
+            self.cmp_simp.sim_score('Nigel', 'Niall'), 2.6876392038420835
+        )
+        self.assertAlmostEqual(
+            self.cmp_simp.sim_score('Niall', 'Nigel'), 2.6876392038420835
+        )
+        self.assertAlmostEqual(
+            self.cmp_simp.sim_score('Colin', 'Coiln'), 2.6876392038420835
+        )
+        self.assertAlmostEqual(
+            self.cmp_simp.sim_score('Coiln', 'Colin'), 2.6876392038420835
+        )
+        self.assertAlmostEqual(
+            self.cmp_simp.sim_score('ATCAACGAGT', 'AACGATTAG'),
+            11.322305105361572,
         )
 
 
