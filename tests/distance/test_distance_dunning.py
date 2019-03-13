@@ -100,7 +100,8 @@ class DunningTestCases(unittest.TestCase):
 
     def test_dunning_sim(self):
         """Test abydos.distance.Dunning.sim."""
-        self.assertRaises(self.cmp.sim('a', 'a'), NotImplementedError)
+        with self.assertRaises(NotImplementedError):
+            self.cmp.sim('a', 'a')
 
 
 if __name__ == '__main__':
