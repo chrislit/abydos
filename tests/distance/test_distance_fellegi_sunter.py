@@ -41,31 +41,35 @@ class FellegiSunterTestCases(unittest.TestCase):
 
     cmp = FellegiSunter()
 
-    def test_fellegi_sunter_dist_abs(self):
-        """Test abydos.distance.FellegiSunter.dist_abs."""
+    def test_fellegi_sunter_sim(self):
+        """Test abydos.distance.FellegiSunter.sim."""
+        self.assertRaises(self.cmp.sim('a', 'a'), NotImplementedError)
+
+    def test_fellegi_sunter_sim_score(self):
+        """Test abydos.distance.FellegiSunter.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('', 'a'), 0.0)
-        self.assertEqual(self.cmp.dist_abs('abc', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 1.760686675602297)
-        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.sim_score('', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 1.760686675602297)
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Nigel', 'Niall'), 1.3515915598
+            self.cmp.sim_score('Nigel', 'Niall'), 1.3515915598
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Niall', 'Nigel'), 1.3515915598
+            self.cmp.sim_score('Niall', 'Nigel'), 1.3515915598
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Colin', 'Coiln'), 1.3515915598
+            self.cmp.sim_score('Colin', 'Coiln'), 1.3515915598
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Coiln', 'Colin'), 1.3515915598
+            self.cmp.sim_score('Coiln', 'Colin'), 1.3515915598
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 2.8141447562
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 2.8141447562
         )
 
 

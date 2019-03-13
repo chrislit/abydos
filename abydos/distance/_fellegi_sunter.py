@@ -18,7 +18,7 @@
 
 """abydos.distance._fellegi_sunter.
 
-Fellegi-Sunter distance
+Fellegi-Sunter similarity
 """
 
 from __future__ import (
@@ -37,9 +37,9 @@ __all__ = ['FellegiSunter']
 
 
 class FellegiSunter(_TokenDistance):
-    r"""Fellegi-Sunter distance.
+    r"""Fellegi-Sunter similarity.
 
-    Fellegi-Sunter distance is based on the description in
+    Fellegi-Sunter similarity is based on the description in
     :cite:`Cohen:2003` and implementation in :cite:`Cohen:2003b`.
 
     .. versionadded:: 0.4.0
@@ -93,8 +93,8 @@ class FellegiSunter(_TokenDistance):
         self._simplified = simplified
         self._mismatch_factor = mismatch_factor
 
-    def dist_abs(self, src, tar):
-        """Return the Fellegi-Sunter distance of two strings.
+    def sim_score(self, src, tar):
+        """Return the Fellegi-Sunter similarity of two strings.
 
         Parameters
         ----------
@@ -106,7 +106,7 @@ class FellegiSunter(_TokenDistance):
         Returns
         -------
         float
-            Fellegi-Sunter distance
+            Fellegi-Sunter similarity
 
         Examples
         --------
@@ -153,6 +153,9 @@ class FellegiSunter(_TokenDistance):
                 similarity -= -log(count / src_total) * self._mismatch_factor
 
         return similarity
+
+    def sim(self, src, tar):
+        raise NotImplementedError
 
 
 if __name__ == '__main__':
