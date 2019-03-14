@@ -227,7 +227,10 @@ class FlexMetric(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return self.dist_abs(src, tar) / self._normalizer([len(src), len(tar)])
+        score = self.dist_abs(src, tar)
+        if score:
+            return score / self._normalizer([len(src), len(tar)])
+        return 0.0
 
 
 if __name__ == '__main__':
