@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import FuzzyWuzzyTokenSort
+from abydos.tokenizer import QGrams
 
 
 class FuzzyWuzzyTokenSortTestCases(unittest.TestCase):
@@ -40,6 +41,7 @@ class FuzzyWuzzyTokenSortTestCases(unittest.TestCase):
     """
 
     cmp = FuzzyWuzzyTokenSort()
+    cmp_q2 = FuzzyWuzzyTokenSort(tokenizer=QGrams(qval=2))
 
     def test_fuzzywuzzy_token_sort_sim(self):
         """Test abydos.distance.FuzzyWuzzyTokenSort.sim."""
@@ -58,6 +60,34 @@ class FuzzyWuzzyTokenSortTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.8)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6315789474
+        )
+
+        # tests from blog
+        self.assertEqual(
+            self.cmp.sim(
+                'New York Mets vs Atlanta Braves',
+                'Atlanta Braves vs New York Mets',
+            ),
+            1.0,
+        )
+
+        # q2 tokenizer
+        self.assertAlmostEqual(
+            self.cmp_q2.sim('ATCAACGAGT', 'AACGATTAG'), 0.8524590163934426
+        )
+        self.assertAlmostEqual(
+            self.cmp_q2.sim('YANKEES', 'NEW YORK YANKEES'), 0.6027397260273972
+        )
+        self.assertAlmostEqual(
+            self.cmp_q2.sim('NEW YORK METS', 'NEW YORK YANKEES'),
+            0.7692307692307693,
+        )
+        self.assertAlmostEqual(
+            self.cmp_q2.sim(
+                'New York Mets vs Atlanta Braves',
+                'Atlanta Braves vs New York Mets',
+            ),
+            0.9578947368421052,
         )
 
     def test_fuzzywuzzy_token_sort_dist(self):
