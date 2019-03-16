@@ -60,6 +60,22 @@ class FuzzyWuzzyPartialStringTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6666666667
         )
 
+        # tests from blog
+        self.assertAlmostEqual(
+            self.cmp.sim('YANKEES', 'NEW YORK YANKEES'), 1.0
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim('NEW YORK METS', 'NEW YORK YANKEES'),
+            0.6923076923076923,
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim(
+                'New York Mets vs Atlanta Braves',
+                'Atlanta Braves vs New York Mets',
+            ),
+            0.45161290322580644,
+        )
+
     def test_fuzzywuzzy_partial_string_dist(self):
         """Test abydos.distance.FuzzyWuzzyPartialString.dist."""
         # Base cases
