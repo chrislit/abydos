@@ -88,7 +88,9 @@ class FlexMetricTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('abc', ''), 2.4)
         self.assertEqual(self.cmp.dist_abs('', 'abc'), 2.4)
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0)
-        self.assertAlmostEqual(self.cmp.dist_abs('abcd', 'efgh'), 3.6999999999999997)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('abcd', 'efgh'), 3.6999999999999997
+        )
 
         self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall'), 1.5)
         self.assertAlmostEqual(self.cmp.dist_abs('Niall', 'Nigel'), 1.5)
@@ -105,6 +107,7 @@ class FlexMetricTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_custom.dist_abs('ATCAACGAGT', 'AACGATTAG'), 3.7
         )
+
 
 if __name__ == '__main__':
     unittest.main()

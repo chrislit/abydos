@@ -103,7 +103,7 @@ class ForbesI(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Forbes I similarity of two strings.
 
         Parameters
@@ -121,6 +121,49 @@ class ForbesI(_TokenDistance):
         Examples
         --------
         >>> cmp = ForbesI()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        n = self._population_unique_card()
+        apb = self._src_card()
+        apc = self._tar_card()
+
+        num = n * a
+        if num:
+            return num / (apb * apc)
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the normalized Forbes I similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Forbes I similarity
+
+        Examples
+        --------
+        >>> cmp = ForbesI()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -134,10 +177,10 @@ class ForbesI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        return (self._population_unique_card() * self._intersection_card()) / (
-            self._src_card() * self._tar_card()
+        if src == tar:
+            return 1.0
+        return self.sim_score(src, tar) / max(
+            self.sim_score(src, src), self.sim_score(tar, tar)
         )
 
 
