@@ -18,7 +18,7 @@
 
 """abydos.distance._forbes_ii.
 
-Forbes II similarity
+Forbes II correlation
 """
 
 from __future__ import (
@@ -34,24 +34,25 @@ __all__ = ['ForbesII']
 
 
 class ForbesII(_TokenDistance):
-    r"""Forbes II similarity.
+    r"""Forbes II correlation.
 
     For two sets X and Y and a population N, the Forbes II similarity,
     as described in :cite:`Forbes:1925`, is
 
         .. math::
 
-            sim_{ForbesII}(X, Y) =
-            \frac{|N| \cdot |X \cap Y| - |X| \cdot |Y|}
-            {|N| \cdot min(|X|, |Y|) - |X| \cdot |Y|}
+            corr_{ForbesII}(X, Y) =
+            \frac{|X \setminus Y| \cdot |Y \setminus X| -
+            |X \cap Y| \cdot |(N \setminus X) \setminus Y|}
+            {|X| \cdot |Y| - |N| \cdot min(|X|, |Y|)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{ForbesII} =
-            \frac{na-(a+b)(a+c)}{n\cdot min(a+b, a+c)-(a+b)(a+c)}
+            corr_{ForbesII} =
+            \frac{bc-ad}{(a+b)(a+c) - n \cdot min(a+b, a+c)}
 
     .. versionadded:: 0.4.0
     """
@@ -104,6 +105,49 @@ class ForbesII(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Forbes II correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Forbes II correlation
+
+        Examples
+        --------
+        >>> cmp = ForbesII()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        apb = self._src_card()
+        apc = self._tar_card()
+        n = self._population_unique_card()
+
+        num = n * a - apb * apc
+        if num:
+            return num / (n * min(apb, apc) - apb * apc)
+        return 0.0
+
     def sim(self, src, tar):
         """Return the Forbes II similarity of two strings.
 
@@ -135,15 +179,7 @@ class ForbesII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        ab = self._src_card()
-        ac = self._tar_card()
-        n = self._population_unique_card()
-
-        return (n * self._intersection_card() - ab * ac) / (
-            n * min(ab, ac) - ab * ac
-        )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

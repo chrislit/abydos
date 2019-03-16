@@ -103,7 +103,7 @@ class Fossum(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Fossum similarity of two strings.
 
         Parameters
@@ -121,6 +121,49 @@ class Fossum(_TokenDistance):
         Examples
         --------
         >>> cmp = Fossum()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        n = self._population_unique_card()
+        a = self._intersection_card()
+        apb = max(1.0, self._src_card())
+        apc = max(1.0, self._tar_card())
+
+        num = n * (a - 0.5) ** 2
+        if num:
+            return num / (apb * apc)
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the normalized Fossum similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Fossum similarity
+
+        Examples
+        --------
+        >>> cmp = Fossum()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -134,12 +177,12 @@ class Fossum(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        return (
-            self._population_unique_card()
-            * (self._intersection_card() - 0.5) ** 2
-        ) / (self._src_card() * self._tar_card())
+        num = self.sim_score(src, tar)
+        if num:
+            return num / max(
+                self.sim_score(src, src), self.sim_score(tar, tar)
+            )
+        return 0.0
 
 
 if __name__ == '__main__':
