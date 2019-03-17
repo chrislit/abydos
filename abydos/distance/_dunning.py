@@ -67,6 +67,12 @@ class Dunning(_TokenDistance):
             ((a+b) \cdot log_2(a+b) + (a+c) \cdot log_2(a+c) +\\
             (b+d) \cdot log_2(b+d) + (c+d) log_2(c+d))
 
+    Notes
+    -----
+    To avoid NaNs, every logarithm is calculated as the logarithm of 1 greater
+    than the value in question. (Python's math.log1p function is used.)
+
+
     .. versionadded:: 0.4.0
     """
 
@@ -169,7 +175,43 @@ class Dunning(_TokenDistance):
         ) / log1p(2)
 
     def sim(self, src, tar):
-        raise NotImplementedError
+        """Return the normalized Dunning similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Dunning similarity
+
+        Examples
+        --------
+        >>> cmp = Dunning()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+        score = self.sim_score(src, tar)
+        if score == 0.0:
+            return 0.0
+        norm = max(self.sim_score(src, src), self.sim_score(tar, tar))
+        return score / norm
 
 
 if __name__ == '__main__':
