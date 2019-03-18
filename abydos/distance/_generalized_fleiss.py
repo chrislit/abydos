@@ -138,42 +138,42 @@ class GeneralizedFleiss(_TokenDistance):
             the following strings will select the specified mean function from
             :py:mod:`abydos.stats`:
 
-                - 'arithmetic' employs :py:func:`amean`, and this measure
+                - ``arithmetic`` employs :py:func:`amean`, and this measure
                   will be identical to :py:class:`MaxwellPilliner` with
                   otherwise default parameters
-                - 'geometric' employs :py:func:`gmean`, and this measure
+                - ``geometric`` employs :py:func:`gmean`, and this measure
                   will be identical to :py:class:`PearsonPhi` with otherwise
                   default parameters
-                - 'harmonic' employs :py:func:`hmean`, and this measure
+                - ``harmonic`` employs :py:func:`hmean`, and this measure
                   will be identical to :py:class:`Fleiss` with otherwise
                   default parameters
-                - 'ag' employs the arithmetic-geometric mean
+                - ``ag`` employs the arithmetic-geometric mean
                   :py:func:`agmean`
-                - 'gh' employs the geometric-harmonic mean
+                - ``gh`` employs the geometric-harmonic mean
                   :py:func:`ghmean`
-                - 'agh' employs the arithmetic-geometric-harmonic mean
+                - ``agh`` employs the arithmetic-geometric-harmonic mean
                   :py:func:`aghmean`
-                - 'contraharmonic' employs the contraharmonic mean
+                - ``contraharmonic`` employs the contraharmonic mean
                   :py:func:`cmean`
-                - 'identric' employs the identric mean :py:func:`imean`
-                - 'logarithmic' employs the logarithmic mean
+                - ``identric`` employs the identric mean :py:func:`imean`
+                - ``logarithmic`` employs the logarithmic mean
                   :py:func:`lmean`
-                - 'quadratic' employs the quadratic mean :py:func:`qmean`
-                - 'heronian' employs the Heronian mean
+                - ``quadratic`` employs the quadratic mean :py:func:`qmean`
+                - ``heronian`` employs the Heronian mean
                   :py:func:`heronian_mean`
-                - 'hoelder' employs the Hölder mean :py:func:`hoelder_mean`
-                - 'lehmer' employs the Lehmer mean :py:func:`lehmer_mean`
-                - 'seiffert' employs Seiffert's mean
+                - ``hoelder`` employs the Hölder mean :py:func:`hoelder_mean`
+                - ``lehmer`` employs the Lehmer mean :py:func:`lehmer_mean`
+                - ``seiffert`` employs Seiffert's mean
                   :py:func:`seiffert_mean`
         marginals : str
             Specifies the pairs of marginals to multiply and calculate the
             resulting mean of. Can be:
 
-                - 'a' : :math:`p_1q_1 = (a+b)(c+d)` &
+                - ``a`` : :math:`p_1q_1 = (a+b)(c+d)` &
                   :math:`p_2q_2 = (a+c)(b+d)`
-                - 'b' : :math:`p_1p_2 = (a+b)(a+c)` &
+                - ``b`` : :math:`p_1p_2 = (a+b)(a+c)` &
                   :math:`q_1q_2 = (c+d)(b+d)`
-                - 'c' : :math:`p_1q_2 = (a+b)(b+d)` &
+                - ``c`` : :math:`p_1q_2 = (a+b)(b+d)` &
                   :math:`p_2q_1 = (a+c)(c+d)`
         proportional : bool
             If true, each of the values, :math:`a, b, c, d` and the marginals
@@ -188,11 +188,11 @@ class GeneralizedFleiss(_TokenDistance):
             will cause the instance to use the QGram tokenizer with this
             q value.
         metric : _Distance
-            A string distance measure class for use in the 'soft' and 'fuzzy'
-            variants.
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
         threshold : float
             A threshold value, similarities above which are counted as
-            members of the intersection for the 'fuzzy' variant.
+            members of the intersection for the ``fuzzy`` variant.
 
 
         .. versionadded:: 0.4.0
