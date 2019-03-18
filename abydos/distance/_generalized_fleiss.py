@@ -18,7 +18,7 @@
 
 """abydos.distance._generalized_fleiss.
 
-Generalized Fleiss similarity
+Generalized Fleiss correlation
 """
 
 from __future__ import (
@@ -68,27 +68,27 @@ means = {
 
 
 class GeneralizedFleiss(_TokenDistance):
-    r"""Generalized Fleiss similarity.
+    r"""Generalized Fleiss correlation.
 
-    For two sets X and Y and a population N, Generalized Fleiss similarity
+    For two sets X and Y and a population N, Generalized Fleiss correlation
     is based on observations from :cite:`Fleiss:1975`.
 
         .. math::
 
-            sim_{GeneralizedFleiss}(X, Y) =
+            corr_{GeneralizedFleiss}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
-            {\mu{products of marginals}}
+            {\mu_{products~of~marginals}}
 
     The mean function :math:`\mu` may be any of the mean functions in
     :py:mod:`abydos.stats`. The products of marginals may be one of the
     following:
 
-        - 'a' : :math:`|X| \cdot |N \setminus X|` &
+        - ``a`` : :math:`|X| \cdot |N \setminus X|` &
           :math:`|Y| \cdot |N \setminus Y|`
-        - 'b' : :math:`|X| \cdot |Y|` &
+        - ``b`` : :math:`|X| \cdot |Y|` &
           :math:`|N \setminus X| \cdot |N \setminus Y|`
-        - 'c' : :math:`|X| \cdot |N |setminus Y|` &
+        - ``c`` : :math:`|X| \cdot |N |setminus Y|` &
           :math:`|Y| \cdot |N \setminus X|`
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -96,14 +96,14 @@ class GeneralizedFleiss(_TokenDistance):
 
         .. math::
 
-            sim_{GeneralizedFleiss} =
-            \frac{ad-bc}{\mu{product of marginals}}
+            corr_{GeneralizedFleiss} =
+            \frac{ad-bc}{\mu_{products~of~marginals}}
 
     And the products of marginals are:
 
-        - 'a' : :math:`p_1q_1 = (a+b)(c+d)` & :math:`p_2q_2 = (a+c)(b+d)`
-        - 'b' : :math:`p_1p_2 = (a+b)(a+c)` & :math:`q_1q_2 = (c+d)(b+d)`
-        - 'c' : :math:`p_1q_2 = (a+b)(b+d)` & :math:`p_2q_1 = (a+c)(c+d)`
+        - ``a`` : :math:`p_1q_1 = (a+b)(c+d)` & :math:`p_2q_2 = (a+c)(b+d)`
+        - ``b`` : :math:`p_1p_2 = (a+b)(a+c)` & :math:`q_1q_2 = (c+d)(b+d)`
+        - ``c`` : :math:`p_1q_2 = (a+b)(b+d)` & :math:`p_2q_1 = (a+c)(c+d)`
 
     .. versionadded:: 0.4.0
     """
@@ -209,6 +209,70 @@ class GeneralizedFleiss(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Generalized Fleiss correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Generalized Fleiss correlation
+
+        Examples
+        --------
+        >>> cmp = GeneralizedFleiss()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+
+        if self.proportional:
+            a /= n
+            b /= n
+            c /= n
+            d /= n
+
+        num = a * d - b * c
+        if not num:
+            return 0.0
+
+        if self.marginals == 'b':
+            mps = [(a + b) * (a + c), (c + d) * (b + d)]
+        elif self.marginals == 'c':
+            mps = [(a + b) * (b + d), (a + c) * (c + d)]
+        else:
+            mps = [(a + b) * (c + d), (a + c) * (b + d)]
+
+        mean_value = (
+            self.mean_func(mps)
+            if callable(self.mean_func)
+            else means[self.mean_func](mps)
+        )
+
+        return num / mean_value
+
     def sim(self, src, tar):
         """Return the Generalized Fleiss similarity of two strings.
 
@@ -240,34 +304,7 @@ class GeneralizedFleiss(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        if self.proportional:
-            a /= n
-            b /= n
-            c /= n
-            d /= n
-
-        if self.marginals == 'b':
-            mps = [(a + b) * (a + c), (c + d) * (b + d)]
-        elif self.marginals == 'c':
-            mps = [(a + b) * (b + d), (a + c) * (c + d)]
-        else:
-            mps = [(a + b) * (c + d), (a + c) * (c + d)]
-
-        mean_value = (
-            self.mean_func(mps)
-            if callable(self.mean_func)
-            else means[self.mean_func](mps)
-        )
-
-        return (a * d - b * c) / mean_value
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
