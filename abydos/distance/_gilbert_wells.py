@@ -29,10 +29,13 @@ from __future__ import (
 )
 
 from math import factorial, log, pi
+from sys import float_info
 
 from ._token_distance import _TokenDistance
 
 __all__ = ['GilbertWells']
+
+_epsilon = float_info.epsilon
 
 
 class GilbertWells(_TokenDistance):
@@ -59,12 +62,15 @@ class GilbertWells(_TokenDistance):
             ln \frac{n^3}{2\pi (a+b)(a+c)(b+d)(c+d)} +
             2ln \frac{n!a!b!c!d!}{(a+b)!(a+c)!(b+d)!(c+d)!}
 
+    Notes
+    -----
     Most lists of similarity & distance measures, including
     :cite:`Hubalek:1982,Choi:2010,Morris:2012` have a quite different formula,
     which would be :math:`ln a - ln b - ln \frac{a+b}{n} - ln \frac{a+c}{n} =
     ln\frac{an}{(a+b)(a+c)}`. However, neither this formula nor anything
     similar or equivalent to it appears anywhere within the cited work,
-    :cite:`Gilbert:1966`.
+    :cite:`Gilbert:1966`. See :class:``UnknownF`` for this, alternative,
+    measure.
 
     .. versionadded:: 0.4.0
     """
@@ -157,7 +163,18 @@ class GilbertWells(_TokenDistance):
         n = self._population_unique_card()
 
         return log(
-            n ** 3 / (2 * pi * (a + b) * (a + c) * (b + d) * (c + d))
+            max(
+                _epsilon,
+                n ** 3
+                / (
+                    2
+                    * pi
+                    * max(_epsilon, a + b)
+                    * max(_epsilon, a + c)
+                    * max(_epsilon, b + d)
+                    * max(_epsilon, c + d)
+                ),
+            )
         ) + 2 * (
             log(factorial(n))
             + log(factorial(a))
