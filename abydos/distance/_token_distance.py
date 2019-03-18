@@ -107,7 +107,7 @@ class _TokenDistance(_Distance):
                   wherein items can be partially members of the intersection
                   depending on their similarity. This also takes a `metric`
                   (by default :class:`DamerauLevenshtein()`) parameter.
-                - 'linkage': Group linkage, defined by :cite:`On:2007`. Like
+                - ``linkage``: Group linkage, defined by :cite:`On:2007`. Like
                   the soft intersection, items can be partially members of the
                   intersection, but the method of pairing similar members is
                   somewhat more complex. See the cited paper for details. This
@@ -158,13 +158,13 @@ class _TokenDistance(_Distance):
             methods returning a value. By default, no normalization is applied,
             but the following values are supported:
 
-                - 'proportional' : :math:`\frac{x}{n}`, where n is the total
+                - ``proportional`` : :math:`\frac{x}{n}`, where n is the total
                   population
-                - 'log' : :math:`log(1+x)`
-                - 'exp' : :math:`e^x`
-                - 'laplace' : :math:`x+1`
-                - 'inverse' : :math:`\frac{1}{x}`
-                - 'complement' : :math:`n-x`, where n is the total population
+                - ``log`` : :math:`log(1+x)`
+                - ``exp`` : :math:`e^x`
+                - ``laplace`` : :math:`x+1`
+                - ``inverse`` : :math:`\frac{1}{x}`
+                - ``complement`` : :math:`n-x`, where n is the total population
 
         .. versionadded:: 0.4.0
 
@@ -211,12 +211,12 @@ class _TokenDistance(_Distance):
             else:
                 self.params['alphabet'] = None
 
-        if intersection_type == ``soft``:
+        if intersection_type == 'soft':
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = DamerauLevenshtein()
             self._lcprefix = LCPrefix()
             self.intersection = self._soft_intersection
-        elif intersection_type == ``fuzzy``:
+        elif intersection_type == 'fuzzy':
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = Levenshtein()
             if 'threshold' not in self.params:
