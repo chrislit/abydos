@@ -95,11 +95,11 @@ class MSContingency(_TokenDistance):
             will cause the instance to use the QGram tokenizer with this
             q value.
         metric : _Distance
-            A string distance measure class for use in the 'soft' and 'fuzzy'
-            variants.
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
         threshold : float
             A threshold value, similarities above which are counted as
-            members of the intersection for the 'fuzzy' variant.
+            members of the intersection for the ``fuzzy`` variant.
 
 
         .. versionadded:: 0.4.0

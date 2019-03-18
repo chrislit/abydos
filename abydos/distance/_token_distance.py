@@ -98,12 +98,12 @@ class _TokenDistance(_Distance):
 
                 - 'crisp': Ordinary intersection, wherein items are entirely
                   members or non-members of the intersection. (Default)
-                - 'fuzzy': Fuzzy intersection, defined by :cite:`Wang:2014`,
+                - ``fuzzy``: Fuzzy intersection, defined by :cite:`Wang:2014`,
                   wherein items can be partially members of the intersection
                   if their similarity meets or exceeds a threshold value. This
                   also takes `metric` (by default :class:`Levenshtein()`) and
                   `threshold` (by default 0.8) parameters.
-                - 'soft': Soft intersection, defined by :cite:`Russ:2014`,
+                - ``soft``: Soft intersection, defined by :cite:`Russ:2014`,
                   wherein items can be partially members of the intersection
                   depending on their similarity. This also takes a `metric`
                   (by default :class:`DamerauLevenshtein()`) parameter.
@@ -127,11 +127,11 @@ class _TokenDistance(_Distance):
             will cause the instance to use the QGram tokenizer with this
             q value.
         metric : _Distance
-            A string distance measure class for use in the 'soft' and 'fuzzy'
-            variants.
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
         threshold : float
             A threshold value, similarities above which are counted as
-            members of the intersection for the 'fuzzy' variant.
+            members of the intersection for the ``fuzzy`` variant.
         alphabet : Counter, collection, int, or None
             This represents the alphabet of possible tokens.
 
@@ -211,12 +211,12 @@ class _TokenDistance(_Distance):
             else:
                 self.params['alphabet'] = None
 
-        if intersection_type == 'soft':
+        if intersection_type == ``soft``:
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = DamerauLevenshtein()
             self._lcprefix = LCPrefix()
             self.intersection = self._soft_intersection
-        elif intersection_type == 'fuzzy':
+        elif intersection_type == ``fuzzy``:
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = Levenshtein()
             if 'threshold' not in self.params:

@@ -56,8 +56,8 @@ class CompleteLinkage(_TokenDistance):
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         metric : _Distance
-            A string distance measure class for use in the 'soft' and 'fuzzy'
-            variants. (Defaults to Levenshtein distance)
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants. (Defaults to Levenshtein distance)
         **kwargs
             Arbitrary keyword arguments
 
