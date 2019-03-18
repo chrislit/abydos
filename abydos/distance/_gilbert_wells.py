@@ -66,7 +66,7 @@ class GilbertWells(_TokenDistance):
     -----
     Most lists of similarity & distance measures, including
     :cite:`Hubalek:1982,Choi:2010,Morris:2012` have a quite different formula,
-    which would be :math:`ln a - ln b - ln \frac{a+b}{n} - ln \frac{a+c}{n} =
+    which would be :math:`ln~a - ln~b - ln \frac{a+b}{n} - ln \frac{a+c}{n} =
     ln\frac{an}{(a+b)(a+c)}`. However, neither this formula nor anything
     similar or equivalent to it appears anywhere within the cited work,
     :cite:`Gilbert:1966`. See :class:``UnknownF`` for this, alternative,
