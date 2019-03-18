@@ -88,7 +88,7 @@ class GeneralizedFleiss(_TokenDistance):
           :math:`|Y| \cdot |N \setminus Y|`
         - ``b`` : :math:`|X| \cdot |Y|` &
           :math:`|N \setminus X| \cdot |N \setminus Y|`
-        - ``c`` : :math:`|X| \cdot |N |setminus Y|` &
+        - ``c`` : :math:`|X| \cdot |N| \setminus Y|` &
           :math:`|Y| \cdot |N \setminus X|`
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
