@@ -39,8 +39,13 @@ class GeneralizedFleissTestCases(unittest.TestCase):
     abydos.distance.GeneralizedFleiss
     """
 
-    cmp = GeneralizedFleiss()
+    cmp = GeneralizedFleiss(marginals='a')
     cmp_no_d = GeneralizedFleiss(alphabet=0)
+    cmp_b = GeneralizedFleiss(marginals='b')
+    cmp_c = GeneralizedFleiss(marginals='c')
+    cmp_prop = GeneralizedFleiss(proportional=True)
+    cmp_quad = GeneralizedFleiss(mean_func='quadratic')
+    cmp_hero = GeneralizedFleiss(mean_func='heronian')
 
     def test_generalized_fleiss_sim(self):
         """Test abydos.distance.GeneralizedFleiss.sim."""
@@ -76,6 +81,106 @@ class GeneralizedFleissTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.25)
         self.assertAlmostEqual(
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.3356164384
+        )
+
+        # marginals b
+        self.assertEqual(self.cmp_b.sim('abc', 'abc'), 0.5051280702677116)
+        self.assertEqual(self.cmp_b.sim('abcd', 'efgh'), 0.4999588047443752)
+
+        self.assertAlmostEqual(
+            self.cmp_b.sim('Nigel', 'Niall'), 0.5038260754642173
+        )
+        self.assertAlmostEqual(
+            self.cmp_b.sim('Niall', 'Nigel'), 0.5038260754642173
+        )
+        self.assertAlmostEqual(
+            self.cmp_b.sim('Colin', 'Coiln'), 0.5038260754642173
+        )
+        self.assertAlmostEqual(
+            self.cmp_b.sim('Coiln', 'Colin'), 0.5038260754642173
+        )
+        self.assertAlmostEqual(
+            self.cmp_b.sim('ATCAACGAGT', 'AACGATTAG'), 0.5089871192422611
+        )
+
+        # marginals c
+        self.assertEqual(self.cmp_c.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_c.sim('abcd', 'efgh'), 0.496790757381258)
+
+        self.assertAlmostEqual(
+            self.cmp_c.sim('Nigel', 'Niall'), 0.7480719794344473
+        )
+        self.assertAlmostEqual(
+            self.cmp_c.sim('Niall', 'Nigel'), 0.7480719794344473
+        )
+        self.assertAlmostEqual(
+            self.cmp_c.sim('Colin', 'Coiln'), 0.7480719794344473
+        )
+        self.assertAlmostEqual(
+            self.cmp_c.sim('Coiln', 'Colin'), 0.7480719794344473
+        )
+        self.assertAlmostEqual(
+            self.cmp_c.sim('ATCAACGAGT', 'AACGATTAG'), 0.8310760896330953
+        )
+
+        # proportional
+        self.assertEqual(self.cmp_prop.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_prop.sim('abcd', 'efgh'), 0.496790757381258)
+
+        self.assertAlmostEqual(
+            self.cmp_prop.sim('Nigel', 'Niall'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_prop.sim('Niall', 'Nigel'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_prop.sim('Colin', 'Coiln'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_prop.sim('Coiln', 'Colin'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_prop.sim('ATCAACGAGT', 'AACGATTAG'), 0.8310964723
+        )
+
+        # quadratic mean
+        self.assertEqual(self.cmp_quad.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_quad.sim('abcd', 'efgh'), 0.496790757381258)
+
+        self.assertAlmostEqual(
+            self.cmp_quad.sim('Nigel', 'Niall'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_quad.sim('Niall', 'Nigel'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_quad.sim('Colin', 'Coiln'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_quad.sim('Coiln', 'Colin'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_quad.sim('ATCAACGAGT', 'AACGATTAG'), 0.8307317829209393
+        )
+
+        # heronian mean
+        self.assertEqual(self.cmp_hero.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_hero.sim('abcd', 'efgh'), 0.496790757381258)
+
+        self.assertAlmostEqual(
+            self.cmp_hero.sim('Nigel', 'Niall'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_hero.sim('Niall', 'Nigel'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_hero.sim('Colin', 'Coiln'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_hero.sim('Coiln', 'Colin'), 0.7480719794
+        )
+        self.assertAlmostEqual(
+            self.cmp_hero.sim('ATCAACGAGT', 'AACGATTAG'), 0.8312183486929234
         )
 
     def test_generalized_fleiss_dist(self):
