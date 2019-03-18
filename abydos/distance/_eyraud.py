@@ -181,7 +181,7 @@ class Eyraud(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return -self.sim_score(src, tar)
+        return 0.0 - self.sim_score(src, tar)
 
 
 if __name__ == '__main__':
