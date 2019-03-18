@@ -68,22 +68,24 @@ class GilbertWellsTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(
+            self.cmp_no_d.sim('abcd', 'efgh'), 0.13486136169765683
+        )
 
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Nigel', 'Niall'), float('nan')
+            self.cmp_no_d.sim('Nigel', 'Niall'), 0.0255856715
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Niall', 'Nigel'), float('nan')
+            self.cmp_no_d.sim('Niall', 'Nigel'), 0.0255856715
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Colin', 'Coiln'), float('nan')
+            self.cmp_no_d.sim('Colin', 'Coiln'), 0.0255856715
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Coiln', 'Colin'), float('nan')
+            self.cmp_no_d.sim('Coiln', 'Colin'), 0.0255856715
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0153237873
         )
 
     def test_gilbert_wells_dist(self):
@@ -112,32 +114,34 @@ class GilbertWellsTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), float('nan'))
+        self.assertEqual(
+            self.cmp_no_d.dist('abcd', 'efgh'), 0.8651386383023432
+        )
 
         self.assertAlmostEqual(
-            self.cmp_no_d.dist('Nigel', 'Niall'), float('nan')
+            self.cmp_no_d.dist('Nigel', 'Niall'), 0.9744143285
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.dist('Niall', 'Nigel'), float('nan')
+            self.cmp_no_d.dist('Niall', 'Nigel'), 0.9744143285
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.dist('Colin', 'Coiln'), float('nan')
+            self.cmp_no_d.dist('Colin', 'Coiln'), 0.9744143285
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.dist('Coiln', 'Colin'), float('nan')
+            self.cmp_no_d.dist('Coiln', 'Colin'), 0.9744143285
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.9846762127
         )
 
     def test_gilbert_wells_sim_score(self):
         """Test abydos.distance.GilbertWells.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_score('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_score('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_score('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim_score('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim_score('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim_score('', ''), 76.91383873217538)
+        self.assertEqual(self.cmp.sim_score('a', ''), 40.179592442305186)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 40.179592442305186)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 39.4890060826051)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 39.4890060826051)
         self.assertEqual(self.cmp.sim_score('abc', 'abc'), 49.00800898579118)
         self.assertEqual(
             self.cmp.sim_score('abcd', 'efgh'), 1.6845961909440712
@@ -160,12 +164,14 @@ class GilbertWellsTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim_score('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim_score('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim_score('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim_score('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim_score('', ''), -36.04365338911715)
+        self.assertEqual(self.cmp_no_d.sim_score('a', ''), 70.9425768923849)
+        self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 70.9425768923849)
+        self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 71.63572407294485)
+        self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 71.63572407294485)
+        self.assertEqual(
+            self.cmp_no_d.sim_score('abc', 'abc'), 71.63572407294485
+        )
         self.assertEqual(
             self.cmp_no_d.sim_score('abcd', 'efgh'), 9.690984737859244
         )
