@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._gini.
+"""abydos.distance._gini_i.
 
-Gini distance
+Gini I distance
 """
 
 from __future__ import (
@@ -30,21 +30,21 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Gini']
+__all__ = ['GiniI']
 
 
-class Gini(_TokenDistance):
-    r"""Gini distance.
+class GiniI(_TokenDistance):
+    r"""Gini I distance.
 
-    For two sets X and Y and a population N, Gini distance
-    :cite:`Gini:1912` is
+    For two sets X and Y and a population N, Gini I distance
+    :cite:`Gini:1912`, using the formula from :cite:`Goodman:1959`, is
 
         .. math::
 
-            sim_{Gini}(X, Y) =
+            sim_{GiniI}(X, Y) =
             \frac{\frac{|X \cap Y|+|(N \setminus X) \setminus Y|}{|N|} -
-            \frac{|X|+|Y|}{|N|} \cdot
-            \frac{|N \setminus Y|+|N \setminus X|}{|N|}}
+            \frac{|X| \cdot |Y|}{|N|} +
+            \frac{|N \setminus Y| \cdot |N \setminus X|}{|N|}}
             {\sqrt{(1-(\frac{|X|}{|N|}^2+\frac{|Y|}{|N|}^2)) \cdot
             (1-(\frac{|N \setminus Y|}{|N|}^2 +
             \frac{|N \setminus X|}{|N|}^2))}}
@@ -55,8 +55,8 @@ class Gini(_TokenDistance):
 
         .. math::
 
-            sim_{Gini} =
-            \frac{(a+d)-((a+b)(a+c) + (b+d)(c+d))}
+            sim_{GiniI} =
+            \frac{(a+d)-(a+b)(a+c) + (b+d)(c+d)}
             {\sqrt{(1-((a+b)^2+(c+d)^2))\cdot(1-((a+c)^2+(b+d)^2))}}
 
     .. versionadded:: 0.4.0
@@ -70,7 +70,7 @@ class Gini(_TokenDistance):
         normalizer='proportional',
         **kwargs
     ):
-        """Initialize Gini instance.
+        """Initialize GiniI instance.
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class Gini(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Gini, self).__init__(
+        super(GiniI, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -116,7 +116,7 @@ class Gini(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Gini distance of two strings.
+        """Return the Gini I distance of two strings.
 
         Parameters
         ----------
@@ -132,7 +132,7 @@ class Gini(_TokenDistance):
 
         Examples
         --------
-        >>> cmp = Gini()
+        >>> cmp = GiniI()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

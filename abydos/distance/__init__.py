@@ -119,7 +119,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Generalized Fleiss correlation (:py:class:`.GeneralizedFleiss`)
     - Gilbert correlation (:py:class:`.Gilbert`)
     - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
-    - Gini distance (:py:class:`.Gini`)
+    - Gini I distance (:py:class:`.GiniI`)
+    - Gini II distance (:py:class:`.GiniII`)
     - Goodall similarity (:py:class:`.Goodall`)
     - Goodman & Kruskal's Lambda similarity (:py:class:`.GoodmanKruskalLambda`)
     - Goodman & Kruskal's Lambda R similarity
@@ -428,7 +429,8 @@ from ._fuzzywuzzy_token_sort import FuzzyWuzzyTokenSort
 from ._generalized_fleiss import GeneralizedFleiss
 from ._gilbert import Gilbert
 from ._gilbert_wells import GilbertWells
-from ._gini import Gini
+from ._gini_i import GiniI
+from ._gini_ii import GiniII
 from ._goodall import Goodall
 from ._goodman_kruskal_lambda import GoodmanKruskalLambda
 from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
@@ -722,7 +724,8 @@ __all__ = [
     'GeneralizedFleiss',
     'Gilbert',
     'GilbertWells',
-    'Gini',
+    'GiniI',
+    'GiniII',
     'Goodall',
     'GoodmanKruskalLambdaR',
     'GoodmanKruskalLambda',
