@@ -46,19 +46,19 @@ class GiniTestCases(unittest.TestCase):
         """Test abydos.distance.Gini.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), -0.9987228524699799)
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', ''), -0.9987129907476786)
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), -0.9987064918137779)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.9993186235767724)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -0.9987049082)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.4935594778)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -0.9987049082)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.4935594778)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.9986841456
         )
 
         # Tests with alphabet=0 (no d factor)
@@ -89,20 +89,20 @@ class GiniTestCases(unittest.TestCase):
     def test_gini_dist(self):
         """Test abydos.distance.Gini.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 1.503494447334495)
+        self.assertEqual(self.cmp.dist('a', ''), 1.9987049443880958)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.5561579994744212)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.9986950829610342)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.630228234667101)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.9986883078173205)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.756873141766396)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.9986867022)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.5041561302)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.9986867022)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.5041561302)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.9986656599
         )
 
         # Tests with alphabet=0 (no d factor)
