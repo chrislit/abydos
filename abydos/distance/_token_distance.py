@@ -279,7 +279,6 @@ class _TokenDistance(_Distance):
                 self.params['tokenizer'].tokenize(tar).get_counter()
             )
 
-        self.normalizer = lambda x, n: x
         self._population_card_value = self._calc_population_card()
 
         # Set up the normalizer, a function of two variables:
@@ -398,7 +397,11 @@ class _TokenDistance(_Distance):
 
     def _calc_population_card(self):
         """Return the cardinality of the population."""
-        return self._total_card() + self._total_complement_card()
+        save_normalizer = self.normalizer
+        self.normalizer = lambda x, n: x
+        pop = self._total_card() + self._total_complement_card()
+        self.normalizer = save_normalizer
+        return pop
 
     def _population_card(self):
         """Return the cardinality of the population."""
