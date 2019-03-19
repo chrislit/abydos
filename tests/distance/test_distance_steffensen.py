@@ -50,15 +50,15 @@ class SteffensenTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
         self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
         self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 3.9796954314720834)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.005076142131979694)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 3.60484656)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0009466644)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 3.60484656)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0009466644)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0009383997)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0009383997)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0009383997)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0009383997)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 7.4050318028
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0038895815
         )
 
     def test_steffensen_dist(self):
@@ -69,15 +69,15 @@ class SteffensenTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
         self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
         self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), -2.9244541625117986)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.9949238578680203)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), -2.5658924466)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.999040223)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), -2.5658924466)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.999040223)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.9990616003)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.9990616003)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.9990616003)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.9990616003)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -6.3101147699
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9961104185
         )
 
 
