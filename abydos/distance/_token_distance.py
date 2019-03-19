@@ -235,9 +235,7 @@ class _TokenDistance(_Distance):
         self._tar_tokens = Counter()
         self._population_card_value = 0
 
-        # Set up the normalizer, a function of two variables:
-        # x is the value in the contingency table square(s)
-        # n is the number of squares that x represents
+        # initialize normalizer
         self.normalizer = lambda x, n: x
 
     def _tokenize(self, src, tar):
@@ -283,6 +281,9 @@ class _TokenDistance(_Distance):
 
         self._population_card_value = self._calc_population_card()
 
+        # Set up the normalizer, a function of two variables:
+        # x is the value in the contingency table square(s)
+        # n is the number of squares that x represents
         if 'normalizer' in self.params:
             if self.params['normalizer'] == 'proportional':
                 self.normalizer = lambda x, n: x / self._population_card_value
