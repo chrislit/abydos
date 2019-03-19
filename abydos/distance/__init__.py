@@ -119,8 +119,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Generalized Fleiss correlation (:py:class:`.GeneralizedFleiss`)
     - Gilbert correlation (:py:class:`.Gilbert`)
     - Gilbert & Wells similarity (:py:class:`.GilbertWells`)
-    - Gini I distance (:py:class:`.GiniI`)
-    - Gini II distance (:py:class:`.GiniII`)
+    - Gini I correlation (:py:class:`.GiniI`)
+    - Gini II correlation (:py:class:`.GiniII`)
     - Goodall similarity (:py:class:`.Goodall`)
     - Goodman & Kruskal's Lambda similarity (:py:class:`.GoodmanKruskalLambda`)
     - Goodman & Kruskal's Lambda R similarity
