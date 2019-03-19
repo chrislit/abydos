@@ -18,7 +18,7 @@
 
 """abydos.distance._gini_i.
 
-Gini I distance
+Gini I correlation
 """
 
 from __future__ import (
@@ -30,18 +30,22 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
+from sys import float_info
+
 __all__ = ['GiniI']
+
+_epsilon = float_info.epsilon
 
 
 class GiniI(_TokenDistance):
-    r"""Gini I distance.
+    r"""Gini I correlation.
 
-    For two sets X and Y and a population N, Gini I distance
+    For two sets X and Y and a population N, Gini I correlation
     :cite:`Gini:1912`, using the formula from :cite:`Goodman:1959`, is
 
         .. math::
 
-            sim_{GiniI}(X, Y) =
+            corr_{GiniI}(X, Y) =
             \frac{\frac{|X \cap Y|+|(N \setminus X) \setminus Y|}{|N|} -
             \frac{|X| \cdot |Y|}{|N|} +
             \frac{|N \setminus Y| \cdot |N \setminus X|}{|N|}}
@@ -55,7 +59,7 @@ class GiniI(_TokenDistance):
 
         .. math::
 
-            sim_{GiniI} =
+            corr_{GiniI} =
             \frac{(a+d)-(a+b)(a+c) + (b+d)(c+d)}
             {\sqrt{(1-((a+b)^2+(c+d)^2))\cdot(1-((a+c)^2+(b+d)^2))}}
 
@@ -115,8 +119,8 @@ class GiniI(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Gini I distance of two strings.
+    def corr(self, src, tar):
+        """Return the Gini I correlation of two strings.
 
         Parameters
         ----------
@@ -128,7 +132,50 @@ class GiniI(_TokenDistance):
         Returns
         -------
         float
-            Gini distance
+            Gini I correlation
+
+        Examples
+        --------
+        >>> cmp = GiniI()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        return ((a + d) - ((a + b) * (a + c) + (c + d) * (b + d))) / (
+            (1 + _epsilon - ((a + b) ** 2 + (c + d) ** 2))
+            * (1 + _epsilon - ((a + c) ** 2 + (b + d) ** 2))
+        ) ** 0.5
+
+    def sim(self, src, tar):
+        """Return the normalized Gini I similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Gini I similarity
 
         Examples
         --------
@@ -146,17 +193,7 @@ class GiniI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return ((a + d) - ((a + b) * (a + c) + (c + d) * (b + d))) / (
-            (1 - ((a + b) ** 2 + (c + d) ** 2))
-            * (1 - ((a + c) ** 2 + (b + d) ** 2))
-        ) ** 0.5
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
