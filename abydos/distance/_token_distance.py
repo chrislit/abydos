@@ -279,6 +279,7 @@ class _TokenDistance(_Distance):
                 self.params['tokenizer'].tokenize(tar).get_counter()
             )
 
+        self.normalizer = lambda x, n: x
         self._population_card_value = self._calc_population_card()
 
         # Set up the normalizer, a function of two variables:
@@ -286,7 +287,9 @@ class _TokenDistance(_Distance):
         # n is the number of squares that x represents
         if 'normalizer' in self.params:
             if self.params['normalizer'] == 'proportional':
-                self.normalizer = lambda x, n: x / self._population_card_value
+                self.normalizer = lambda x, n: x / max(
+                    1, self._population_card_value
+                )
             elif self.params['normalizer'] == 'log':
                 self.normalizer = lambda x, n: log1p(x)
             elif self.params['normalizer'] == 'exp':
