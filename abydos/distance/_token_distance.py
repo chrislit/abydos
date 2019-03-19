@@ -239,21 +239,6 @@ class _TokenDistance(_Distance):
         # x is the value in the contingency table square(s)
         # n is the number of squares that x represents
         self.normalizer = lambda x, n: x
-        if 'normalizer' in self.params:
-            if self.params['normalizer'] == 'proportional':
-                self.normalizer = lambda x, n: x / self._population_card_value
-            elif self.params['normalizer'] == 'log':
-                self.normalizer = lambda x, n: log1p(x)
-            elif self.params['normalizer'] == 'exp':
-                self.normalizer = lambda x, n: exp(x)
-            elif self.params['normalizer'] == 'laplace':
-                self.normalizer = lambda x, n: x + n
-            elif self.params['normalizer'] == 'inverse:':
-                self.normalizer = (
-                    lambda x, n: 1 / x if x else self._population_card_value
-                )
-            elif self.params['normalizer'] == 'complement':
-                self.normalizer = lambda x, n: self._population_card_value - x
 
     def _tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
@@ -297,6 +282,22 @@ class _TokenDistance(_Distance):
             )
 
         self._population_card_value = self._calc_population_card()
+
+        if 'normalizer' in self.params:
+            if self.params['normalizer'] == 'proportional':
+                self.normalizer = lambda x, n: x / self._population_card_value
+            elif self.params['normalizer'] == 'log':
+                self.normalizer = lambda x, n: log1p(x)
+            elif self.params['normalizer'] == 'exp':
+                self.normalizer = lambda x, n: exp(x)
+            elif self.params['normalizer'] == 'laplace':
+                self.normalizer = lambda x, n: x + n
+            elif self.params['normalizer'] == 'inverse:':
+                self.normalizer = (
+                    lambda x, n: 1 / x if x else self._population_card_value
+                )
+            elif self.params['normalizer'] == 'complement':
+                self.normalizer = lambda x, n: self._population_card_value - x
 
         return self
 
