@@ -123,7 +123,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Gini II correlation (:py:class:`.GiniII`)
     - Goodall similarity (:py:class:`.Goodall`)
     - Goodman & Kruskal's Lambda similarity (:py:class:`.GoodmanKruskalLambda`)
-    - Goodman & Kruskal's Lambda R similarity
+    - Goodman & Kruskal's Lambda-r correlation
       (:py:class:`.GoodmanKruskalLambdaR`)
     - Goodman & Kruskal's Tau A similarity (:py:class:`.GoodmanKruskalTauA`)
     - Goodman & Kruskal's Tau B similarity (:py:class:`.GoodmanKruskalTauB`)

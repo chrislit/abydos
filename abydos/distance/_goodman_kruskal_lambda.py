@@ -42,13 +42,13 @@ class GoodmanKruskalLambda(_TokenDistance):
         .. math::
 
             sim_{GK_\lambda}(X, Y) =
-            \frac{(max(|X \cap Y|, |X \setminus Y|)+
+            \frac{\frac{1}{2}(max(|X \cap Y|, |X \setminus Y|)+
             max(|Y \setminus X|, |(N \setminus X) \setminus Y|)+
             max(|X \cap Y|, |Y \setminus X|)+
             max(|X \setminus Y|, |(N \setminus X) \setminus Y|))-
-            (max(|Y|, |N \setminus Y|)+max(|X|, |N \setminus X|))}
-            {|N|-\frac{1}{2}(max(|Y|, |N \setminus Y|)+
-            max(|X|, |N \setminus X|))}
+            (max(|X|, |N \setminus X|)+max(|Y|, |N \setminus Y|))}
+            {|N|-\frac{1}{2}(max(|X|, |N \setminus X|)+
+            max(|Y|, |N \setminus Y|))}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -56,8 +56,8 @@ class GoodmanKruskalLambda(_TokenDistance):
         .. math::
 
             sim_{GK_\lambda} =
-            \frac{(max(a,b)+max(c,d)+max(a,c)+max(b,d))-
-            (max(a+b,c+d)+max(a+c,b+d))}
+            \frac{\frac{1}{2}((max(a,b)+max(c,d)+max(a,c)+max(b,d))-
+            (max(a+b,c+d)+max(a+c,b+d)))}
             {n-\frac{1}{2}(max(a+b,c+d)+max(a+c,b+d))}
 
     .. versionadded:: 0.4.0
