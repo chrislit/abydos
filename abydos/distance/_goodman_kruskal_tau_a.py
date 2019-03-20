@@ -42,27 +42,26 @@ class GoodmanKruskalTauA(_TokenDistance):
         .. math::
 
             sim_{GK_{\tau_a}}(X, Y) =
-            \frac{\frac{(\frac{|X \cap Y|}{|N|})^2 +
-            (\frac{|Y \setminus X|}{|N|})^2}{\frac{|Y|}{|N|}}+
-            \frac{(\frac{|X \setminus Y|}{|N|})^2 +
-            (\frac{|(N \setminus X) \setminus Y|}{|N|})^2}
+            \frac{\frac{\frac{|X \cap Y|}{|N|}^2 +
+            \frac{|Y \setminus X|}{|N|}^2}{\frac{|Y|}{|N|}}+
+            \frac{\frac{|X \setminus Y|}{|N|}^2 +
+            \frac{|(N \setminus X) \setminus Y|}{|N|}^2}
             {\frac{|N \setminus X|}{|N|}} -
-            (\frac{|X|}{|N|})^2 - (\frac{|N \setminus X|}{|N|})^2}
-            {1 - (\frac{|X|}{|N|})^2 - (\frac{|N \setminus X|}{|N|})^2}
+            (\frac{|X|}{|N|}^2 + \frac{|N \setminus X|}{|N|}^2)}
+            {1 - (\frac{|X|}{|N|}^2 + \frac{|N \setminus X|}{|N|}^2)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
-    this is
+    after each term has been converted to a proportion by dividing by n, this
+    is
 
         .. math::
 
             sim_{GK_{\tau_a}} =
-            \frac{\frac{(\frac{a}{n})^2 +
-            (\frac{c}{n})^2}{\frac{a+c}{n}}+
-            \frac{(\frac{b}{n})^2 +
-            (\frac{d}{n})^2}
-            {\frac{b+d}{n}} -
-            (\frac{a+b}{n})^2 - (\frac{c+d}{n})^2}
-            {1 - (\frac{a+b}{n})^2 - (\frac{c+d}{n})^2}
+            \frac{
+            \frac{a^2 + c^2}{a+c} +
+            \frac{b^2 + d^2}{b+d} -
+            ((a+b)^2 + (c+d)^2)}
+            {1 - ((a+b)^2 + (c+d)^2)}
 
     .. versionadded:: 0.4.0
     """
