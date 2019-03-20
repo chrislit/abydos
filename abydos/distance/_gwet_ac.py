@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._gwet_gamma.
+"""abydos.distance._gwet_ac.
 
-Gwet's Gamma similarity
+Gwet's AC correlation
 """
 
 from __future__ import (
@@ -30,39 +30,43 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['GwetGamma']
+__all__ = ['GwetAC']
 
 
-class GwetGamma(_TokenDistance):
-    r"""Gwet's Gamma similarity.
+class GwetAC(_TokenDistance):
+    r"""Gwet's AC correlation.
 
-    For two sets X and Y and a population N, Gwet's \gamma similarity
+    For two sets X and Y and a population N, Gwet's AC correlation
     :cite:`Gwet:2008` is
 
         .. math::
 
-            sim_{Gwet_\gamma}(X, Y) = \gamma =
-            \frac{p_o - p_e^\gamma}{1 - p_e^\gamma}
+            corr_{Gwet_{AC}}(X, Y) = AC =
+            \frac{p_o - p_e^{AC}}{1 - p_e^{AC}}
 
     where
 
         .. math::
 
-            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
+            \begin{array}{lll}
+            p_o &=&\frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
 
-            p_e^\gamma = \Big(\frac{\frac{|X|}{|N|}+\frac{|Y|}{|N|}}{2}\Big)
-            \cdot \Big(\frac{\frac{|N \setminus Y|}{|N|}+
-            \frac{|N \setminus X|}{|N|}}{2}\Big)
+            p_e^{AC}&=&\frac{1}{2}\Big(\frac{|X|+|Y|}{|N|}\cdot
+            \frac{|X \setminus Y| + |Y \setminus X|}{|N|}\Big)
+            \end{array}
+
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            p_o = \frac{a+d}{n}
+            \begin{array}{lll}
+            p_o&=&\frac{a+d}{n}
 
-            p_e^\gamma = \Big(\frac{\frac{a+b}{n}+\frac{a+c}{n}}{2}\Big) \cdot
-            \Big(\frac{\frac{b+d}{n}+\frac{c+d}{n}}{2}\Big)
+            p_e^{AC}&=&\frac{1}{2}\Big(\frac{2a+b+c}{n}\cdot
+            \frac{2d+b+c}{n}\Big)
+            \end{array}
 
     .. versionadded:: 0.4.0
     """
@@ -74,7 +78,7 @@ class GwetGamma(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize GwetGamma instance.
+        """Initialize GwetAC instance.
 
         Parameters
         ----------
@@ -108,15 +112,15 @@ class GwetGamma(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(GwetGamma, self).__init__(
+        super(GwetAC, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Gwet's Gamma similarity of two strings.
+    def corr(self, src, tar):
+        """Return the Gwet's AC correlation of two strings.
 
         Parameters
         ----------
@@ -128,11 +132,59 @@ class GwetGamma(_TokenDistance):
         Returns
         -------
         float
-            Gwet's Gamma similarity
+            Gwet's AC correlation
 
         Examples
         --------
-        >>> cmp = GwetGamma()
+        >>> cmp = GwetAC()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = a + b + c + d
+
+        po = (a + d) / n
+        q = (2 * a + b + c) / (2 * n)
+        pe = 2 * q * (1 - q)
+
+        return (po - pe) / (1 - pe)
+
+    def sim(self, src, tar):
+        """Return the Gwet's AC similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Gwet's AC similarity
+
+        Examples
+        --------
+        >>> cmp = GwetAC()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -146,21 +198,7 @@ class GwetGamma(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return (2 * a ** 2 - b ** 2 - 2 * b * c - c ** 2 + 2 * d ** 2) / (
-            2 * a ** 2
-            + 2 * a * (b + c)
-            + b ** 2
-            + 2 * b * (c + d)
-            + c ** 2
-            + 2 * d * (c + d)
-        )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

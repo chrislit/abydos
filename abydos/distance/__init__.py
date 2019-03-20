@@ -130,7 +130,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
     - Guttman Lambda A similarity (:py:class:`.GuttmanLambdaA`)
     - Guttman Lambda B similarity (:py:class:`.GuttmanLambdaB`)
-    - Gwet's Gamma similarity (:py:class:`.GwetGamma`)
+    - Gwet's AC correlation (:py:class:`.GwetAC`)
     - Hamann similarity (:py:class:`.Hamann`)
     - Harris & Lahey similarity (:py:class:`.HarrisLahey`)
     - Hassanat distance (:py:class:`.Hassanat`)
@@ -440,7 +440,7 @@ from ._gotoh import Gotoh, gotoh
 from ._gower_legendre import GowerLegendre
 from ._guttman_lambda_a import GuttmanLambdaA
 from ._guttman_lambda_b import GuttmanLambdaB
-from ._gwet_gamma import GwetGamma
+from ._gwet_ac import GwetAC
 from ._hamann import Hamann
 from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
 from ._harris_lahey import HarrisLahey
@@ -734,7 +734,7 @@ __all__ = [
     'GowerLegendre',
     'GuttmanLambdaA',
     'GuttmanLambdaB',
-    'GwetGamma',
+    'GwetAC',
     'Hamann',
     'HarrisLahey',
     'Hassanat',
