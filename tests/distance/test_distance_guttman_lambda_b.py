@@ -45,10 +45,10 @@ class GuttmanLambdaBTestCases(unittest.TestCase):
     def test_guttman_lambda_b_sim(self):
         """Test abydos.distance.GuttmanLambdaB.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
@@ -60,12 +60,12 @@ class GuttmanLambdaBTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3)
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
@@ -79,10 +79,10 @@ class GuttmanLambdaBTestCases(unittest.TestCase):
     def test_guttman_lambda_b_dist(self):
         """Test abydos.distance.GuttmanLambdaB.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
@@ -94,12 +94,12 @@ class GuttmanLambdaBTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.7)
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)

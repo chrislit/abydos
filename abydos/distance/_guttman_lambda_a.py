@@ -52,7 +52,7 @@ class GuttmanLambdaA(_TokenDistance):
         .. math::
 
             sim_{Guttman_{\lambda_a}} =
-            \frac{max(a, c) + max(b, d) - max(a+b, c+d)}{n - max(a+d, c+d)}
+            \frac{max(a, c) + max(b, d) - max(a+b, c+d)}{n - max(a+b, c+d)}
 
     .. versionadded:: 0.4.0
     """
@@ -136,6 +136,9 @@ class GuttmanLambdaA(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -144,9 +147,10 @@ class GuttmanLambdaA(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return (max(a, c) + max(b, d) - max(a + b, c + d)) / (
-            n - max(a + b, c + d)
-        )
+        num = max(a, c) + max(b, d) - max(a + b, c + d)
+        if num:
+            return num / (n - max(a + b, c + d))
+        return 0.0
 
 
 if __name__ == '__main__':
