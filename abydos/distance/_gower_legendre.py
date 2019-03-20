@@ -140,12 +140,15 @@ class GowerLegendre(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
-        ad = self._intersection_card() + self._total_complement_card()
-        bc = self._src_only_card() + self._tar_only_card()
+        apd = self._intersection_card() + self._total_complement_card()
+        bpc = self._src_only_card() + self._tar_only_card()
 
-        return ad / (ad + self.theta * bc)
+        return apd / (apd + self.theta * bpc)
 
 
 if __name__ == '__main__':
