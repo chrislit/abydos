@@ -18,7 +18,7 @@
 
 """abydos.distance._goodman_kruskal_lambda_r.
 
-Goodman & Kruskal Lambda-r similarity.
+Goodman & Kruskal Lambda-r correlation.
 """
 
 from __future__ import (
@@ -34,19 +34,18 @@ __all__ = ['GoodmanKruskalLambdaR']
 
 
 class GoodmanKruskalLambdaR(_TokenDistance):
-    r"""Goodman & Kruskal Lambda-r similarity.
+    r"""Goodman & Kruskal Lambda-r correlation.
 
     For two sets X and Y and a population N, Goodman & Kruskal
-    :math:`\lambda_r` similarity :cite:`Goodman:1954` is
+    :math:`\lambda_r` correlation :cite:`Goodman:1954` is
 
         .. math::
 
             sim_{GK_{\lambda_r}}(X, Y) =
             \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
-            max(|X \cap Y|, |(N \setminus X) \setminus Y|) -
-            \frac{1}{2}(|X \setminus Y| + |Y \setminus X|)}
-            {|N| - max(|X \cap Y|, |(N \setminus X) \setminus Y|) -
-            \frac{1}{2}(|X \setminus Y| + |Y \setminus X|)}
+            \frac{1}{2}(max(|X|, |N \setminus X|) + max(|Y|, |N \setminus Y|))}
+            {|N| -
+            \frac{1}{2}(max(|X|, |N \setminus X|) + max(|Y|, |N \setminus Y|))}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -54,8 +53,8 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         .. math::
 
             sim_{GK_{\lambda_r}} =
-            \frac{a + d - max(a, d) - \frac{1}{2}(b + c)}
-            {n - max(a, d) - \frac{1}{2}(b + c)}
+            \frac{a + d - \frac{1}{2}(max(a+b,c+d)+max(a+c,b+d))}
+            {n - \frac{1}{2}(max(a+b,c+d)+max(a+c,b+d))}
 
     .. versionadded:: 0.4.0
     """
@@ -108,8 +107,8 @@ class GoodmanKruskalLambdaR(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return Goodman & Kruskal Max similarity of two strings.
+    def corr(self, src, tar):
+        """Return Goodman & Kruskal Lambda-r correlation of two strings.
 
         Parameters
         ----------
@@ -121,7 +120,50 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         Returns
         -------
         float
-            Goodman & Kruskal Max similarity
+            Goodman & Kruskal Lambda-r correlation
+
+        Examples
+        --------
+        >>> cmp = GoodmanKruskalLambdaR()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+
+        return (a + d - (max(a + b, c + d) + max(a + c, b + d)) / 2) / (
+            n - (max(a + b, c + d) + max(a + c, b + d)) / 2
+        )
+
+    def sim(self, src, tar):
+        """Return Goodman & Kruskal Lambda-r similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Goodman & Kruskal Lambda-r similarity
 
         Examples
         --------
@@ -139,17 +181,7 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        return (a + d - max(a, d) - 0.5 * (b + c)) / (
-            n - max(a, d) - 0.5 * (b + c)
-        )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
