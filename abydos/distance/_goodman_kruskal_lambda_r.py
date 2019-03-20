@@ -138,6 +138,11 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return -1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -146,9 +151,9 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return (a + d - (max(a + b, c + d) + max(a + c, b + d)) / 2) / (
-            n - (max(a + b, c + d) + max(a + c, b + d)) / 2
-        )
+        sigma_prime = max(a + b, c + d) + max(a + c, b + d)
+
+        return (2 * (a + d) - sigma_prime) / (2 * n - sigma_prime)
 
     def sim(self, src, tar):
         """Return Goodman & Kruskal Lambda-r similarity of two strings.

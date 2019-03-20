@@ -45,7 +45,7 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
     def test_goodman_kruskal_lambda_r_sim(self):
         """Test abydos.distance.GoodmanKruskalLambdaR.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -62,12 +62,12 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
@@ -81,7 +81,7 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
     def test_goodman_kruskal_lambda_r_dist(self):
         """Test abydos.distance.GoodmanKruskalLambdaR.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
@@ -98,12 +98,12 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)
@@ -117,7 +117,7 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
     def test_goodman_kruskal_lambda_r_corr(self):
         """Test abydos.distance.GoodmanKruskalLambdaR.corr."""
         # Base cases
-        self.assertEqual(self.cmp.corr('', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('', ''), 1.0)
         self.assertEqual(self.cmp.corr('a', ''), -1.0)
         self.assertEqual(self.cmp.corr('', 'a'), -1.0)
         self.assertEqual(self.cmp.corr('abc', ''), -1.0)
@@ -134,12 +134,12 @@ class GoodmanKruskalLambdaRTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.corr('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.corr('a', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'a'), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', ''), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'abc'), -1.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), -1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.corr('Nigel', 'Niall'), -1.0)
