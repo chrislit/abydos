@@ -136,6 +136,9 @@ class GuttmanLambdaB(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -144,9 +147,10 @@ class GuttmanLambdaB(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return (max(a, b) + max(c, d) - max(a + c, b + d)) / (
-            n - max(a + c, b + d)
-        )
+        num = max(a, b) + max(c, d) - max(a + c, b + d)
+        if num:
+            return num / (n - max(a + c, b + d))
+        return 0.0
 
 
 if __name__ == '__main__':
