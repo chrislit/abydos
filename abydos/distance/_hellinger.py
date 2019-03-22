@@ -70,7 +70,7 @@ class Hellinger(_TokenDistance):
         """
         super(Hellinger, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Hellinger distance of two strings.
 
         Parameters
@@ -88,13 +88,13 @@ class Hellinger(_TokenDistance):
         Examples
         --------
         >>> cmp = Hellinger()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -116,6 +116,50 @@ class Hellinger(_TokenDistance):
                 for tok in alphabet
             )
         ) ** 0.5
+
+    def dist(self, src, tar):
+        """Return the normalized Hellinger distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Hellinger distance
+
+        Examples
+        --------
+        >>> cmp = Hellinger()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 0.0
+
+        score = self.dist_abs(src, tar)
+        norm = (
+            2
+            * sum(
+                max(self._src_tokens[tok], self._tar_tokens[tok]) ** 2
+                for tok in self._total().keys()
+            )
+        ) ** 0.5
+        return score / norm
 
 
 if __name__ == '__main__':

@@ -45,38 +45,65 @@ class HellingerTestCases(unittest.TestCase):
         """Test abydos.distance.Hellinger.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 2.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 2.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 2.8284271247461903)
-        self.assertEqual(self.cmp.dist('', 'abc'), 2.8284271247461903)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 4.47213595499958)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 3.4641016151)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 3.4641016151)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 3.4641016151)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 3.4641016151)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.8164965809)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.8164965809)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.8164965809)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.8164965809)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 3.7416573868
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.7071067812
         )
 
     def test_hellinger_sim(self):
         """Test abydos.distance.Hellinger.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
-        self.assertEqual(self.cmp.sim('a', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
-        self.assertEqual(self.cmp.sim('abc', ''), -1.8284271247461903)
-        self.assertEqual(self.cmp.sim('', 'abc'), -1.8284271247461903)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -3.4721359549995796)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -2.4641016151)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -2.4641016151)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -2.4641016151)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -2.4641016151)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.1835034191)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.1835034191)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.1835034191)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.1835034191)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -2.7416573868
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.2928932188
+        )
+
+    def test_hellinger_dist_abs(self):
+        """Test abydos.distance.Hellinger.dist_abs."""
+        # Base cases
+        self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
+        self.assertEqual(self.cmp.dist_abs('a', ''), 2.0)
+        self.assertEqual(self.cmp.dist_abs('', 'a'), 2.0)
+        self.assertEqual(self.cmp.dist_abs('abc', ''), 2.8284271247461903)
+        self.assertEqual(self.cmp.dist_abs('', 'abc'), 2.8284271247461903)
+        self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 4.47213595499958)
+
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Nigel', 'Niall'), 3.4641016151
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Niall', 'Nigel'), 3.4641016151
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Colin', 'Coiln'), 3.4641016151
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Coiln', 'Colin'), 3.4641016151
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 3.7416573868
         )
 
 
