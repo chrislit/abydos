@@ -50,10 +50,12 @@ class Hassanat(_TokenDistance):
             D(X_i, Y_i) =
             \left\{\begin{array}{ll}
                 1-\frac{1+min(X_i, Y_i)}{1+max(X_i, Y_i)}&,
-                min(X_i, Y_i) \geq 0\\
+                min(X_i, Y_i) \geq 0
+                \\
+                \\
                 1-\frac{1+min(X_i, Y_i)+|min(X_i, Y_i)|}
                 {1+max(X_i, Y_i)+|min(X_i, Y_i)|}&,
-                min(X_i, Y_i) < 0\\
+                min(X_i, Y_i) < 0
             \end{array}\right.
 
     .. versionadded:: 0.4.0
