@@ -45,35 +45,54 @@ class HassanatTestCases(unittest.TestCase):
         """Test abydos.distance.Hassanat.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 2.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 2.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.5)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.5)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.5)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.5)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 5.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.5)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 3.0)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 3.0)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 3.0)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 3.0)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 3.5)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.25)
 
     def test_hassanat_sim(self):
         """Test abydos.distance.Hassanat.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.5)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.5)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.5)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.5)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -4.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.5)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -2.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -2.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -2.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -2.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -2.5)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.75)
+
+    def test_hassanat_dist_abs(self):
+        """Test abydos.distance.Hassanat.dist_abs."""
+        # Base cases
+        self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
+        self.assertEqual(self.cmp.dist_abs('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist_abs('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist_abs('abc', ''), 2.0)
+        self.assertEqual(self.cmp.dist_abs('', 'abc'), 2.0)
+        self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 5.0)
+
+        self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall'), 3.0)
+        self.assertAlmostEqual(self.cmp.dist_abs('Niall', 'Nigel'), 3.0)
+        self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 3.0)
+        self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 3.0)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 3.5
+        )
 
 
 if __name__ == '__main__':
