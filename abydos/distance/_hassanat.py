@@ -47,11 +47,12 @@ class Hassanat(_TokenDistance):
 
         .. math::
 
-            D(X_i, Y_i) = \left\{ \begin{array}{ll}
-                1-\frac{1+min(X_i, Y_i)}{max(X_i, Y_i)},
+            D(X_i, Y_i) =
+            \left\{\begin{array}{ll}
+                1-\frac{1+min(X_i, Y_i)}{1+max(X_i, Y_i)}&,
                 min(X_i, Y_i) \geq 0\\
                 1-\frac{1+min(X_i, Y_i)+|min(X_i, Y_i)|}
-                {max(X_i, Y_i)+|min(X_i, Y_i)|},
+                {1+max(X_i, Y_i)+|min(X_i, Y_i)|}&,
                 min(X_i, Y_i) < 0\\
             \end{array}\right.
 
@@ -81,7 +82,7 @@ class Hassanat(_TokenDistance):
         """
         super(Hassanat, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Hassanat distance of two strings.
 
         Parameters
@@ -99,13 +100,13 @@ class Hassanat(_TokenDistance):
         Examples
         --------
         >>> cmp = Hassanat()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -127,6 +128,41 @@ class Hassanat(_TokenDistance):
                 distance += 1 - 1 / (1 + max(x, y) - min_val)
 
         return distance
+
+    def dist(self, src, tar):
+        """Return the normalized Hassanat distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Hassanat distance
+
+        Examples
+        --------
+        >>> cmp = Hassanat()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 0.0
+        return self.dist_abs(src, tar) / len(self._total().keys())
 
 
 if __name__ == '__main__':
