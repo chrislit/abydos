@@ -45,7 +45,7 @@ class HawkinsDotsonTestCases(unittest.TestCase):
     def test_hawkins_dotson_sim(self):
         """Test abydos.distance.HawkinsDotson.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.4987244897959184)
         self.assertEqual(self.cmp.sim('', 'a'), 0.4987244897959184)
         self.assertEqual(self.cmp.sim('abc', ''), 0.49744897959183676)
@@ -62,12 +62,12 @@ class HawkinsDotsonTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(
@@ -89,7 +89,7 @@ class HawkinsDotsonTestCases(unittest.TestCase):
     def test_hawkins_dotson_dist(self):
         """Test abydos.distance.HawkinsDotson.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 0.5012755102040816)
         self.assertEqual(self.cmp.dist('', 'a'), 0.5012755102040816)
         self.assertEqual(self.cmp.dist('abc', ''), 0.5025510204081632)
@@ -106,12 +106,12 @@ class HawkinsDotsonTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(
