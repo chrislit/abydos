@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from collections import Counter
+
 import unittest
 
 from abydos.distance import Hassanat
@@ -92,6 +94,13 @@ class HassanatTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 3.0)
         self.assertAlmostEqual(
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 3.5
+        )
+
+        self.assertAlmostEqual(
+            self.cmp.dist_abs(
+                Counter({'a': -4, 'b': -2}), Counter({'a': -2, 'b': 4})
+            ),
+            0.8571428571428572,
         )
 
 
