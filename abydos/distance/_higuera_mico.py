@@ -104,6 +104,9 @@ class HigueraMico(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         mx = np_full(
             (len(src) + 1, len(tar) + 1, len(src) + len(tar) + 1),
             fill_value=float('-inf'),
