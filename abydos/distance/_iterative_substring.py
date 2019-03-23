@@ -144,7 +144,7 @@ class IterativeSubString(_Distance):
                     while j < lt and src[k] != tar[j]:
                         j += 1
 
-                    if j != tar:
+                    if j != lt:
                         p = j
                         j += 1
                         k += 1
