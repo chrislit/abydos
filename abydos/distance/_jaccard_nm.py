@@ -135,6 +135,9 @@ class JaccardNM(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
