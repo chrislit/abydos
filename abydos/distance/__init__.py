@@ -57,7 +57,7 @@ Distance metrics developed for the US Census or derived from them are included:
     - Jaro-Winkler distance (:py:class:`.JaroWinkler`)
     - Strcmp95 distance (:py:class:`.Strcmp95`)
     - Iterative-SubString (I-Sub) similarity
-      (:py:class:`.StoilosStamouKollias`)
+      (:py:class:`.IterativeSubString`)
 
 A large set of multi-set token-based distance metrics are provided, including:
 
