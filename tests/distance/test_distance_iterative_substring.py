@@ -40,6 +40,7 @@ class IterativeSubStringTestCases(unittest.TestCase):
     """
 
     cmp = IterativeSubString()
+    cmp_norm = IterativeSubString(normalize_strings=True)
 
     def test_iterative_substring_sim(self):
         """Test abydos.distance.IterativeSubString.sim."""
@@ -96,6 +97,12 @@ class IterativeSubStringTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), -0.8)
         self.assertAlmostEqual(
             self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.3236842105
+        )
+        self.assertAlmostEqual(
+            self.cmp_norm.corr('ATCAACGAGT', 'AACGATTAG'), 0.3236842105
+        )
+        self.assertAlmostEqual(
+            self.cmp_norm.corr('ATC..AACGAGT', 'AA_CGAT_TAG'), 0.3236842105
         )
 
 
