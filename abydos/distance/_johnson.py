@@ -90,7 +90,7 @@ class Johnson(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Johnson similarity of two strings.
 
         Parameters
@@ -108,6 +108,50 @@ class Johnson(_TokenDistance):
         Examples
         --------
         >>> cmp = Johnson()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 2.0
+        if not src or not tar:
+            return 0.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        ab = self._src_card()
+        ac = self._tar_card()
+
+        return a / ab + a / ac
+
+    def sim(self, src, tar):
+        """Return the normalized Johnson similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Johnson similarity
+
+        Examples
+        --------
+        >>> cmp = Johnson()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -121,13 +165,7 @@ class Johnson(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        ab = self._src_card()
-        ac = self._tar_card()
-
-        return a / ab + a / ac
+        return self.sim_score(src, tar) / 2
 
 
 if __name__ == '__main__':
