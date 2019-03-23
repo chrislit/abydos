@@ -136,7 +136,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hassanat distance (:py:class:`.Hassanat`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hellinger distance (:py:class:`.Hellinger`)
-    - Hurlbert similarity (:py:class:`.Hurlbert`)
+    - Hurlbert correlation (:py:class:`.Hurlbert`)
     - Jaccard similarity (:py:class:`.Jaccard`) &
       Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
     - Jaccard-NM similarity (:py:class:`.JaccardNM`)
