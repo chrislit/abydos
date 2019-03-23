@@ -250,7 +250,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Monge-Elkan distance (:py:class:`.MongeElkan`)
     - TF-IDF similarity (:py:class:`.TFIDF`)
     - SoftTF-IDF similarity (:py:class:`.SoftTFIDF`)
-    - Jensen-Shannon distance (:py:class:`.JensenShannon`)
+    - Jensen-Shannon divergence (:py:class:`.JensenShannon`)
     - Simplified Fellegi-Sunter distance (:py:class:`.FellegiSunter`)
     - MinHash similarity (:py:class:`.MinHash`)
 

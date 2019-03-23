@@ -18,7 +18,7 @@
 
 """abydos.distance._jensen_shannon.
 
-Jensen-Shannon distance
+Jensen-Shannon divergence
 """
 
 from __future__ import (
@@ -36,9 +36,20 @@ __all__ = ['JensenShannon']
 
 
 class JensenShannon(_TokenDistance):
-    r"""Jensen-Shannon distance.
+    r"""Jensen-Shannon divergence.
 
-    Jensen-Shannon distance :cite:`Dagan:1999`
+    Jensen-Shannon divergence :cite:`Dagan:1999` of two multi-sets X and Y is
+
+        .. math::
+
+            \begin{array}{rl}
+            dist_{JS}(X, Y) &= log 2 + \frac{1}{2} \sum_{i \in X \cap Y}
+            h(p(X_i) + p(Y_i)) - h(p(X_i)) - h(p(Y_i))
+
+            h(x) &= -x log x
+
+            p(X_i \in X) &= \frac{|X_i|}{|X|}
+            \end{array}
 
     .. versionadded:: 0.4.0
     """
@@ -58,7 +69,7 @@ class JensenShannon(_TokenDistance):
         super(JensenShannon, self).__init__(**kwargs)
 
     def dist_abs(self, src, tar):
-        """Return the Jensen-Shannon distance of two strings.
+        """Return the Jensen-Shannon divergence of two strings.
 
         Parameters
         ----------
@@ -70,7 +81,7 @@ class JensenShannon(_TokenDistance):
         Returns
         -------
         float
-            Jensen-Shannon distance
+            Jensen-Shannon divergence
 
         Examples
         --------
@@ -88,6 +99,9 @@ class JensenShannon(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         def entropy(prob):
@@ -97,12 +111,14 @@ class JensenShannon(_TokenDistance):
         src_total = sum(self._src_tokens.values())
         tar_total = sum(self._tar_tokens.values())
 
-        diverg = 0.0
+        diverg = log(2)
         for key in self._intersection().keys():
             p_src = self._src_tokens[key] / src_total
             p_tar = self._tar_tokens[key] / tar_total
 
-            diverg -= entropy(p_src + p_tar) - entropy(p_src) - entropy(p_tar)
+            diverg += (
+                entropy(p_src + p_tar) - entropy(p_src) - entropy(p_tar)
+            ) / 2
 
         return diverg
 
@@ -137,7 +153,7 @@ class JensenShannon(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.dist_abs(src, tar) / log(4)
+        return self.dist_abs(src, tar) / log(2)
 
 
 if __name__ == '__main__':
