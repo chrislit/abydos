@@ -64,9 +64,9 @@ class KoppenI(_TokenDistance):
         .. math::
 
             sim_{KoppenI} =
-            \frac{\frac{2a+b+c}{2} \cdot (n-\frac{2a+b+c}{2})-
+            \frac{\frac{2a+b+c}{2} \cdot \frac{2d+b+c}{2}-
             \frac{b+c}{2}}
-            {\frac{2a+b+c}{2} \cdot (n-\frac{2a+b+c}{2}}
+            {\frac{2a+b+c}{2} \cdot \frac{2d+b+c}{2}}
 
     Notes
     -----
@@ -132,6 +132,51 @@ class KoppenI(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Köppen I correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Köppen I correlation
+
+        Examples
+        --------
+        >>> cmp = KoppenI()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        abac_mean = (2 * a + b + c) / 2
+        dbdc_mean = (2 * d + b + c) / 2
+
+        return (abac_mean * dbdc_mean - (b + c) / 2) / (abac_mean * dbdc_mean)
+
     def sim(self, src, tar):
         """Return the Köppen I similarity of two strings.
 
@@ -163,18 +208,7 @@ class KoppenI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        n = self._population_unique_card()
-
-        abac_mean = (2 * a + b + c) / 2
-
-        return (abac_mean * (n - abac_mean) - (b + c) / 2) / (
-            abac_mean * (n - abac_mean)
-        )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
