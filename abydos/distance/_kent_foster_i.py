@@ -109,7 +109,7 @@ class KentFosterI(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Kent & Foster I similarity of two strings.
 
         Parameters
@@ -146,9 +146,48 @@ class KentFosterI(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
 
-        bigterm = a - ((a + b) * (a + c) / (a + b + c))
+        num = (a + b) * (a + c)
+        if not num:
+            bigterm = a
+        else:
+            bigterm = a - (num / (a + b + c))
 
-        return bigterm / (bigterm + b + c)
+        if bigterm:
+            return bigterm / (bigterm + b + c)
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the normalized Kent & Foster I similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Kent & Foster I similarity
+
+        Examples
+        --------
+        >>> cmp = KentFosterI()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return 1.0 + self.sim_score(src, tar)
 
 
 if __name__ == '__main__':
