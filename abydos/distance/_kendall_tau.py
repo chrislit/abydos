@@ -18,7 +18,7 @@
 
 """abydos.distance._kendall_tau.
 
-Kendall's Tau similarity
+Kendall's Tau correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['KendallTau']
 
 
 class KendallTau(_TokenDistance):
-    r"""Kendall's Tau similarity.
+    r"""Kendall's Tau correlation.
 
-    For two sets X and Y and a population N, Kendall's Tau similarity
+    For two sets X and Y and a population N, Kendall's Tau correlation
     :cite:`Kendall:1938` is
 
         .. math::
 
-            sim_{KendallTau}(X, Y) =
+            corr_{KendallTau}(X, Y) =
             \frac{2 \cdot (|X \cap Y| + |(N \setminus X) \setminus Y| -
             |X \triangle Y|)}{|N| \cdot (|N|-1)}
 
@@ -50,7 +50,7 @@ class KendallTau(_TokenDistance):
 
         .. math::
 
-            sim_{KendallTau} =
+            corr_{KendallTau} =
             \frac{2 \cdot (a+d-b-c)}{n \cdot (n-1)}
 
     .. versionadded:: 0.4.0
@@ -104,8 +104,61 @@ class KendallTau(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Kendall's Tau correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Kendall's Tau correlation
+
+        Examples
+        --------
+        >>> cmp = KendallTau()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+        Notes
+        -----
+        This correlation is not necessarily bounded to [-1.0, 1.0], but will
+        typically be within these bounds for real data.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+
+        num = a + d - b - c
+        if num:
+            return 2 * num / (n * (n - 1))
+        return 0.0
+
     def sim(self, src, tar):
         """Return the Kendall's Tau similarity of two strings.
+
+        The Tau correlation is first clamped to the range [-1.0, 1.0] before
+        being converted to a similarity value to ensure that the similarity
+        is in the range [0.0, 1.0].
 
         Parameters
         ----------
@@ -135,15 +188,8 @@ class KendallTau(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        return 2 * (a + d - b - c) / (n * (n - 1))
+        score = max(-1.0, min(1.0, self.corr(src, tar)))
+        return (1.0 + score) / 2.0
 
 
 if __name__ == '__main__':
