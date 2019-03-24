@@ -45,39 +45,60 @@ class KentFosterITestCases(unittest.TestCase):
     def test_kent_foster_i_sim(self):
         """Test abydos.distance.KentFosterI.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -0.3333333333333333)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.6666666666666667)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), -0.2)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), -0.2)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), -0.2)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), -0.2)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.8)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.8)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.8)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.8)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), -0.1395348837
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8604651163
         )
 
     def test_kent_foster_i_dist(self):
         """Test abydos.distance.KentFosterI.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.3333333333333333)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.33333333333333326)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.2)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.2)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.2)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.2)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.2)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.2)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.2)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.2)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.1395348837
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.1395348837
+        )
+
+    def test_kent_foster_i_sim_score(self):
+        """Test abydos.distance.KentFosterI.sim_score."""
+        # Base cases
+        self.assertEqual(self.cmp.sim_score('', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 0.0)
+        self.assertEqual(
+            self.cmp.sim_score('abcd', 'efgh'), -0.3333333333333333
+        )
+
+        self.assertAlmostEqual(self.cmp.sim_score('Nigel', 'Niall'), -0.2)
+        self.assertAlmostEqual(self.cmp.sim_score('Niall', 'Nigel'), -0.2)
+        self.assertAlmostEqual(self.cmp.sim_score('Colin', 'Coiln'), -0.2)
+        self.assertAlmostEqual(self.cmp.sim_score('Coiln', 'Colin'), -0.2)
+        self.assertAlmostEqual(
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), -0.1395348837
         )
 
 

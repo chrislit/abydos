@@ -113,7 +113,7 @@ class KentFosterII(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Kent & Foster II similarity of two strings.
 
         Parameters
@@ -131,6 +131,53 @@ class KentFosterII(_TokenDistance):
         Examples
         --------
         >>> cmp = KentFosterII()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        num = (b + d) * (c + d)
+        if not num:
+            bigterm = d
+        else:
+            bigterm = d - (num / (b + c + d))
+
+        if bigterm:
+            return bigterm / (bigterm + b + c)
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the normalized Kent & Foster II similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Kent & Foster II similarity
+
+        Examples
+        --------
+        >>> cmp = KentFosterII()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -144,15 +191,7 @@ class KentFosterII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        bigterm = d - ((b + d) * (c + d) / (b + c + d))
-
-        return bigterm / (bigterm + b + c)
+        return 1.0 + self.sim_score(src, tar)
 
 
 if __name__ == '__main__':
