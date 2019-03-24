@@ -141,7 +141,7 @@ A large set of multi-set token-based distance metrics are provided, including:
       Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
     - Jaccard-NM similarity (:py:class:`.JaccardNM`)
     - Johnson similarity (:py:class:`.Johnson`)
-    - Kendall's Tau similarity (:py:class:`.KendallTau`)
+    - Kendall's Tau correlation (:py:class:`.KendallTau`)
     - Kent & Foster I similarity (:py:class:`.KentFosterI`)
     - Kent & Foster II similarity (:py:class:`.KentFosterII`)
     - Köppen I similarity (:py:class:`.KoppenI`)
