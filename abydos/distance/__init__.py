@@ -747,8 +747,6 @@ __all__ = [
     'tanimoto',
     'JaccardNM',
     'Johnson',
-    'KentFosterI',
-    'KentFosterII',
     'KendallTau',
     'KentFosterI',
     'KentFosterII',
