@@ -103,7 +103,7 @@ class KoppenII(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Köppen II similarity of two strings.
 
         Parameters
@@ -121,13 +121,13 @@ class KoppenII(_TokenDistance):
         Examples
         --------
         >>> cmp = KoppenII()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -141,6 +141,42 @@ class KoppenII(_TokenDistance):
         c = self._tar_only_card()
 
         return a + (b + c) / 2
+
+    def sim(self, src, tar):
+        """Return the normalized Köppen II similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Köppen II similarity
+
+        Examples
+        --------
+        >>> cmp = KoppenII()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+        score = self.sim_score(src, tar)
+        return score / self._union_card()
 
 
 if __name__ == '__main__':

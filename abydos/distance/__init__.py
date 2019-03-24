@@ -144,7 +144,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kendall's Tau correlation (:py:class:`.KendallTau`)
     - Kent & Foster I similarity (:py:class:`.KentFosterI`)
     - Kent & Foster II similarity (:py:class:`.KentFosterII`)
-    - Köppen I similarity (:py:class:`.KoppenI`)
+    - Köppen I correlation (:py:class:`.KoppenI`)
     - Köppen II similarity (:py:class:`.KoppenII`)
     - Kuder & Richardson similarity (:py:class:`.KuderRichardson`)
     - Kuhns I similarity (:py:class:`.KuhnsI`)
