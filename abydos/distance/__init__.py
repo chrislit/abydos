@@ -146,7 +146,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kent & Foster II similarity (:py:class:`.KentFosterII`)
     - Köppen I correlation (:py:class:`.KoppenI`)
     - Köppen II similarity (:py:class:`.KoppenII`)
-    - Kuder & Richardson similarity (:py:class:`.KuderRichardson`)
+    - Kuder & Richardson correlation (:py:class:`.KuderRichardson`)
     - Kuhns I similarity (:py:class:`.KuhnsI`)
     - Kuhns II similarity (:py:class:`.KuhnsII`)
     - Kuhns III similarity (:py:class:`.KuhnsIII`)
