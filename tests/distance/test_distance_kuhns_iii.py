@@ -45,7 +45,7 @@ class KuhnsIIITestCases(unittest.TestCase):
     def test_kuhns_iii_sim(self):
         """Test abydos.distance.KuhnsIII.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -62,7 +62,7 @@ class KuhnsIIITestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
@@ -91,7 +91,7 @@ class KuhnsIIITestCases(unittest.TestCase):
     def test_kuhns_iii_dist(self):
         """Test abydos.distance.KuhnsIII.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
@@ -108,7 +108,7 @@ class KuhnsIIITestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)

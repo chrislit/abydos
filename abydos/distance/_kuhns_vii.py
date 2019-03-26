@@ -154,9 +154,15 @@ class KuhnsVII(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_unique_card()
 
-        delta_ab = a - (a + b) * (a + c) / n
-
-        return delta_ab / ((a + b) * (a + c)) ** 0.5
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            return delta_ab / ((a + b) * (a + c)) ** 0.5
 
 
 if __name__ == '__main__':
