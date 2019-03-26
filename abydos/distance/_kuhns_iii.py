@@ -50,7 +50,7 @@ class KuhnsIII(_TokenDistance):
 
         .. math::
 
-            \delta(X, Y) = |X \cap Y| - \frac{|X|+|Y|}{|N|}
+            \delta(X, Y) = |X \cap Y| - \frac{|X| \cdot |Y|}{|N|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -65,7 +65,7 @@ class KuhnsIII(_TokenDistance):
 
         .. math::
 
-            \delta(a+b, a+c) = a - \frac{2a+b+c}{n}
+            \delta(a+b, a+c) = a - \frac{(a+b)(a+c)}{n}
 
     Notes
     -----
@@ -163,7 +163,7 @@ class KuhnsIII(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_unique_card()
 
-        delta_ab = a - (2 * a + b + c) / n
+        delta_ab = a - (a + b) * (a + c) / n
 
         return delta_ab / (
             (1 - a / (2 * a + b + c))
