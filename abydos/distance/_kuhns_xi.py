@@ -157,9 +157,15 @@ class KuhnsXI(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        delta_ab = a - (a + b) * (a + c) / n
-
-        return (n * delta_ab) / ((a * d) ** 0.5 + (b * c) ** 0.5) ** 2
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            return (n * delta_ab) / ((a * d) ** 0.5 + (b * c) ** 0.5) ** 2
 
 
 if __name__ == '__main__':
