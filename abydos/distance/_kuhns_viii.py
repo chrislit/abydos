@@ -38,7 +38,7 @@ class KuhnsVIII(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns VIII similarity
     :cite:`Kuhns:1965`, the excess of coefficient by the arithmetic mean over
-    its independence value, is
+    its independence value (E), is
 
         .. math::
 

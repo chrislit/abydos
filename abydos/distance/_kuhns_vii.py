@@ -38,7 +38,7 @@ class KuhnsVII(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns VII similarity
     :cite:`Kuhns:1965`, the excess of angle between vector over its
-    independence value, is
+    independence value (G), is
 
         .. math::
 

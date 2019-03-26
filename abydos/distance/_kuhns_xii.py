@@ -38,7 +38,7 @@ class KuhnsXII(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns XII similarity
     :cite:`Kuhns:1965`, the excess of index of independence over its
-    independence value, is
+    independence value (I), is
 
         .. math::
 

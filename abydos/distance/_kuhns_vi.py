@@ -38,13 +38,13 @@ class KuhnsVI(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns VI similarity
     :cite:`Kuhns:1965`, the excess of probability differences V over its
-    independence value, is
+    independence value (V), is
 
         .. math::
 
             sim_{KuhnsVI}(X, Y) =
             \frac{\delta(X, Y)}
-            {min\big(|X|\cdot(1-\frac{|X|}{|N|}, |Y|(1-\frac{|Y|}{|N|})\big)}
+            {min\big(|X|\cdot(1-\frac{|X|}{|N|}), |Y|(1-\frac{|Y|}{|N|})\big)}
 
     where
 
@@ -59,7 +59,7 @@ class KuhnsVI(_TokenDistance):
 
             sim_{KuhnsVI} =
             \frac{\delta(a+b, a+c)}
-            {min\big((a+b)(1-\frac{a+b}{n}, (a+c)(1-\frac{a+c}{n})\big)}
+            {min\big((a+b)(1-\frac{a+b}{n}), (a+c)(1-\frac{a+c}{n})\big)}
 
     where
 
