@@ -38,7 +38,7 @@ class KuhnsIII(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns III similarity
     :cite:`Kuhns:1965`, the excess of proportion of overlap over its
-    independence value, is
+    independence value (P), is
 
         .. math::
 
@@ -59,7 +59,7 @@ class KuhnsIII(_TokenDistance):
 
             sim_{KuhnsIII} =
             \frac{\delta(a+b, a+c)}{\big(1-\frac{a}{2a+b+c}\big)
-            \big(2a+b+c-\frac{2a+b+c}{n}\big)}
+            \big(2a+b+c-\frac{(a+b)(a+c)}{n}\big)}
 
     where
 

@@ -38,13 +38,13 @@ class KuhnsIX(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns IX similarity
     :cite:`Kuhns:1965`, the excess of coefficient of linear correlation over
-    its independence value, is
+    its independence value (L), is
 
         .. math::
 
             sim_{KuhnsIX}(X, Y) =
             \frac{\delta(X, Y)}{\sqrt{|X|\cdot|Y|\cdot(1-\frac{|X|}{|N|})
-            \cdot(1-\frac{|Y|}{|N|}}}
+            \cdot(1-\frac{|Y|}{|N|})}}
 
     where
 

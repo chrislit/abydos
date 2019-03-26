@@ -37,8 +37,8 @@ class KuhnsI(_TokenDistance):
     r"""Kuhns I similarity.
 
     For two sets X and Y and a population N, Kuhns I similarity
-    :cite:`Kuhns:1965`, the excess of separation over its independence value,
-    is
+    :cite:`Kuhns:1965`, the excess of separation over its independence value
+    (S), is
 
         .. math::
 

@@ -38,7 +38,7 @@ class KuhnsV(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns V similarity
     :cite:`Kuhns:1965`, the excess of probability differences U over its
-    independence value, is
+    independence value (U), is
 
         .. math::
 
@@ -60,7 +60,7 @@ class KuhnsV(_TokenDistance):
 
             sim_{KuhnsV} =
             \frac{\delta(a+b, a+c)}
-            {max\big((a+b)(1-\frac{a+b}{n}, (a+c)(1-\frac{a+c}{n})\big)}
+            {max\big((a+b)(1-\frac{a+b}{n}), (a+c)(1-\frac{a+c}{n})\big)}
 
     where
 

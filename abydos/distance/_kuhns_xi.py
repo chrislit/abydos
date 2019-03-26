@@ -37,7 +37,8 @@ class KuhnsXI(_TokenDistance):
     r"""Kuhns XI similarity.
 
     For two sets X and Y and a population N, Kuhns XI similarity
-    :cite:`Kuhns:1965`, the excess of Yule's Y over its independence value, is
+    :cite:`Kuhns:1965`, the excess of Yule's Y over its independence value (Y),
+    is
 
         .. math::
 

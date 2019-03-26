@@ -38,7 +38,7 @@ class KuhnsIV(_TokenDistance):
 
     For two sets X and Y and a population N, Kuhns IV similarity
     :cite:`Kuhns:1965`, the excess of conditional probabilities over its
-    independence value, is
+    independence value (W), is
 
         .. math::
 
@@ -63,7 +63,7 @@ class KuhnsIV(_TokenDistance):
 
         .. math::
 
-            \delta(a+b, a+c) = a - \frac{(a+b)(a+c}{n}
+            \delta(a+b, a+c) = a - \frac{(a+b)(a+c)}{n}
 
     .. versionadded:: 0.4.0
     """
