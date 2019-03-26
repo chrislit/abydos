@@ -151,11 +151,11 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kuhns II similarity (:py:class:`.KuhnsII`)
     - Kuhns III similarity (:py:class:`.KuhnsIII`)
     - Kuhns IV similarity (:py:class:`.KuhnsIV`)
-    - Kuhns IX similarity (:py:class:`.KuhnsIX`)
     - Kuhns V similarity (:py:class:`.KuhnsV`)
     - Kuhns VI similarity (:py:class:`.KuhnsVI`)
     - Kuhns VII similarity (:py:class:`.KuhnsVII`)
     - Kuhns VIII similarity (:py:class:`.KuhnsVIII`)
+    - Kuhns IX similarity (:py:class:`.KuhnsIX`)
     - Kuhns X similarity (:py:class:`.KuhnsX`)
     - Kuhns XI similarity (:py:class:`.KuhnsXI`)
     - Kuhns XII similarity (:py:class:`.KuhnsXII`)
@@ -757,11 +757,11 @@ __all__ = [
     'KuhnsII',
     'KuhnsIII',
     'KuhnsIV',
-    'KuhnsIX',
     'KuhnsV',
     'KuhnsVI',
     'KuhnsVII',
     'KuhnsVIII',
+    'KuhnsIX',
     'KuhnsX',
     'KuhnsXI',
     'KuhnsXII',
