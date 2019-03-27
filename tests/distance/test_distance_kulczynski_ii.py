@@ -44,11 +44,11 @@ class KulczynskiIITestCases(unittest.TestCase):
     def test_kulczynski_ii_sim(self):
         """Test abydos.distance.KulczynskiII.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
@@ -63,11 +63,11 @@ class KulczynskiIITestCases(unittest.TestCase):
     def test_kulczynski_ii_dist(self):
         """Test abydos.distance.KulczynskiII.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 

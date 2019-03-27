@@ -90,7 +90,7 @@ class KulczynskiI(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Kulczynski I similarity of two strings.
 
         Parameters
@@ -108,13 +108,13 @@ class KulczynskiI(_TokenDistance):
         Examples
         --------
         >>> cmp = KulczynskiI()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -123,9 +123,15 @@ class KulczynskiI(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        return self._intersection_card() / (
-            self._src_only_card() + self._tar_only_card()
-        )
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+
+        if not a:
+            return 0.0
+        if not b + c:
+            return float('inf')
+        return a / (b + c)
 
 
 if __name__ == '__main__':

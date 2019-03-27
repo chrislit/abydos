@@ -41,39 +41,24 @@ class KulczynskiITestCases(unittest.TestCase):
 
     cmp = KulczynskiI()
 
-    def test_kulczynski_i_sim(self):
-        """Test abydos.distance.KulczynskiI.sim."""
+    def test_kulczynski_i_sim_score(self):
+        """Test abydos.distance.KulczynskiI.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.sim_score('', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), float('inf'))
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.0)
-
-    def test_kulczynski_i_dist(self):
-        """Test abydos.distance.KulczynskiI.dist."""
-        # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
-
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.5)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.5)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.5)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.5)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim_score('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim_score('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim_score('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim_score('Coiln', 'Colin'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 1.0
+        )
 
 
 if __name__ == '__main__':
