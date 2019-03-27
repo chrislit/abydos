@@ -18,7 +18,7 @@
 
 """abydos.distance._mcconnaughey.
 
-McConnaughey similarity
+McConnaughey correlation
 """
 
 from __future__ import (
@@ -34,13 +34,13 @@ __all__ = ['McConnaughey']
 
 
 class McConnaughey(_TokenDistance):
-    r"""McConnaughey similarity.
+    r"""McConnaughey correlation.
 
-    For two sets X and Y, McConnaughey similarity :cite:`McConnaughey:1964` is
+    For two sets X and Y, McConnaughey correlation :cite:`McConnaughey:1964` is
 
         .. math::
 
-            sim_{McConnaughey}(X, Y) =
+            corr_{McConnaughey}(X, Y) =
             \frac{|X \cap Y|^2 - |X \setminus Y| \cdot |Y \setminus X|}
             {|X| \cdot |Y|}
 
@@ -49,7 +49,7 @@ class McConnaughey(_TokenDistance):
 
         .. math::
 
-            sim_{McConnaughey} =
+            corr_{McConnaughey} =
             \frac{a^2-bc}{(a+b)(a+c)}
 
     .. versionadded:: 0.4.0
@@ -99,6 +99,51 @@ class McConnaughey(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the McConnaughey correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            McConnaughey correlation
+
+        Examples
+        --------
+        >>> cmp = McConnaughey()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        self._tokenize(src, tar)
+
+        num = (
+            self._intersection_card() ** 2
+            - self._src_only_card() * self._tar_only_card()
+        )
+
+        if num:
+            return num / (self._src_card() * self._tar_card())
+        return 0.0
+
     def sim(self, src, tar):
         """Return the McConnaughey similarity of two strings.
 
@@ -130,12 +175,7 @@ class McConnaughey(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        return (
-            self._intersection_card() ** 2
-            - self._src_only_card() * self._tar_only_card()
-        ) / (self._src_card() * self._tar_card())
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
