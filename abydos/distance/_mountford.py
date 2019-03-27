@@ -126,7 +126,14 @@ class Mountford(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
 
-        return 2 * a / (c * (a + 2 * b) + a * b)
+        if not b:
+            b = 1
+        if not c:
+            c = 1
+
+        if a:
+            return 2.0 * a / (c * (a + 2.0 * b) + a * b)
+        return 0.0
 
 
 if __name__ == '__main__':
