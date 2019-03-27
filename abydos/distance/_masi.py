@@ -46,8 +46,8 @@ class MASI(_TokenDistance):
 
     This Jaccard similarity is scaled by a value M, which is:
         - 1 if :math:`X = Y`
-        - \frac{2}{3} if :math:`X \subset Y` or :math`Y \subset X`
-        - \frac{1}{3} if :math:`X \cap Y \neq \emptyset`,
+        - :math:`\frac{2}{3}` if :math:`X \subset Y` or :math:`Y \subset X`
+        - :math:`\frac{1}{3}` if :math:`X \cap Y \neq \emptyset`,
           :math:`X \setminus Y \neq \emptyset`, and
           :math:`Y \setminus X \neq \emptyset`
         - 0 if :math:`X \cap Y = \emptyset`
@@ -101,6 +101,9 @@ class MASI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -109,9 +112,7 @@ class MASI(_TokenDistance):
         abc = self._union_card()
 
         jaccard = a / abc
-        if b == 0 and c == 0:
-            monotonicity = 1.0
-        elif b == 0 or c == 0:
+        if b == 0 or c == 0:
             monotonicity = 2 / 3
         elif a != 0:
             monotonicity = 1 / 3
