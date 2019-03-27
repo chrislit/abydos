@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import MetaLevenshtein
+from abydos.distance import Jaccard, MetaLevenshtein
 
 
 class MetaLevenshteinTestCases(unittest.TestCase):
@@ -40,6 +40,7 @@ class MetaLevenshteinTestCases(unittest.TestCase):
     """
 
     cmp = MetaLevenshtein()
+    cmp_jac1 = MetaLevenshtein(metric=Jaccard(qval=1))
 
     def test_meta_levenshtein_dist(self):
         """Test abydos.distance.MetaLevenshtein.dist."""
@@ -77,6 +78,22 @@ class MetaLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.6922198686)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7068247336
+        )
+
+        self.assertAlmostEqual(
+            self.cmp_jac1.sim('Nigel', 'Niall'), 0.569107816
+        )
+        self.assertAlmostEqual(
+            self.cmp_jac1.sim('Niall', 'Nigel'), 0.569107816
+        )
+        self.assertAlmostEqual(
+            self.cmp_jac1.sim('Colin', 'Coiln'), 0.753775895
+        )
+        self.assertAlmostEqual(
+            self.cmp_jac1.sim('Coiln', 'Colin'), 0.753775895
+        )
+        self.assertAlmostEqual(
+            self.cmp_jac1.sim('ATCAACGAGT', 'AACGATTAG'), 0.5746789477
         )
 
     def test_meta_levenshtein_dist_abs(self):
