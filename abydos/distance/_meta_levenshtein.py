@@ -45,7 +45,8 @@ __all__ = ['MetaLevenshtein']
 class MetaLevenshtein(_Distance):
     r"""Meta-Levenshtein distance.
 
-    Meta-Levenshtein distance :cite:`Moreau:2008`
+    Meta-Levenshtein distance :cite:`Moreau:2008` combines Soft-TFIDF with
+    Levenshtein alignment.
 
     .. versionadded:: 0.4.0
     """
@@ -139,9 +140,9 @@ class MetaLevenshtein(_Distance):
         if src == tar:
             return 0.0
         if not src:
-            return len(src)
+            return float(len(tar))
         if not tar:
-            return len(tar)
+            return float(len(src))
 
         src_tok = self.params['tokenizer'].tokenize(src)
         src_ordered = src_tok.get_list()
@@ -237,7 +238,7 @@ class MetaLevenshtein(_Distance):
 
         """
         if src == tar:
-            return 0
+            return 0.0
 
         return self.dist_abs(src, tar) / self._normalizer([len(src), len(tar)])
 
