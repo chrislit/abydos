@@ -41,7 +41,7 @@ class MSContingency(_TokenDistance):
 
         .. math::
 
-            sim_{MSContingency}(X, Y) =
+            corr_{MSContingency}(X, Y) =
             \frac{\sqrt{2}(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)}
             {\sqrt{(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
@@ -58,7 +58,7 @@ class MSContingency(_TokenDistance):
 
         .. math::
 
-            sim_{MSContingency} =
+            corr_{MSContingency} =
             \frac{\sqrt{2}(ad-bc)}{\sqrt{(ad-bc)^2+(a+b)(a+c)(b+d)(c+d)}}
 
     .. versionadded:: 0.4.0
@@ -112,7 +112,7 @@ class MSContingency(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def corr(self, src, tar):
         """Return the normalized mean squared contingency corr. of two strings.
 
         Parameters
@@ -125,7 +125,7 @@ class MSContingency(_TokenDistance):
         Returns
         -------
         float
-            Mean squared contingency correlation similarity
+            Mean squared contingency correlation
 
         Examples
         --------
@@ -143,6 +143,11 @@ class MSContingency(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return -1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -153,11 +158,46 @@ class MSContingency(_TokenDistance):
         ac = self._tar_card()
         admbc = a * d - b * c
 
-        return (
-            2 ** 0.5
-            * admbc
-            / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
-        )
+        if admbc:
+            return (
+                2 ** 0.5
+                * admbc
+                / (admbc ** 2 + ab * ac * (b + d) * (c + d)) ** 0.5
+            )
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the normalized ms contingency similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Mean squared contingency similarity
+
+        Examples
+        --------
+        >>> cmp = MSContingency()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
