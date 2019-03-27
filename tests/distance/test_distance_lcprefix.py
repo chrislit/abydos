@@ -92,6 +92,10 @@ class LCPrefixTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 2)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 1)
 
+        self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall', 'Niel'), 2)
+        with self.assertRaises(TypeError):
+            self.cmp.dist_abs('Nigel', 'Niall', 5)
+
 
 if __name__ == '__main__':
     unittest.main()

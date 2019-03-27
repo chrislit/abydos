@@ -92,6 +92,10 @@ class LCSuffixTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 1)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0)
 
+        self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall', 'Niel'), 1)
+        with self.assertRaises(TypeError):
+            self.cmp.dist_abs('Nigel', 'Niall', 5)
+
 
 if __name__ == '__main__':
     unittest.main()
