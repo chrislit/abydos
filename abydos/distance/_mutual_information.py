@@ -105,7 +105,7 @@ class MutualInformation(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Mutual Information similarity of two strings.
 
         Parameters
@@ -123,6 +123,46 @@ class MutualInformation(_TokenDistance):
         Examples
         --------
         >>> cmp = MutualInformation()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        apb = self._src_card()
+        apc = self._tar_card()
+        n = self._population_unique_card()
+
+        return log((1 + a * n) / (1 + apb * apc), 2)
+
+    def sim(self, src, tar):
+        """Return the normalized Mutual Information similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Mutual Information similarity
+
+        Examples
+        --------
+        >>> cmp = MutualInformation()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -136,14 +176,16 @@ class MutualInformation(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
+        score = self.sim_score(src, tar)
+        if score:
+            norm = [
+                _
+                for _ in [self.sim_score(src, src), self.sim_score(tar, tar)]
+                if _ != 0.0
+            ]
 
-        a = self._intersection_card()
-        ab = self._src_card()
-        ac = self._tar_card()
-        n = self._population_unique_card()
-
-        return log(a * n / (ab * ac), 2)
+            return (1.0 + score / max(norm)) / 2.0
+        return 0.0
 
 
 if __name__ == '__main__':
