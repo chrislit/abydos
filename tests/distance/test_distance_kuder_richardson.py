@@ -45,7 +45,7 @@ class KuderRichardsonTestCases(unittest.TestCase):
     def test_kuder_richardson_sim(self):
         """Test abydos.distance.KuderRichardson.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0.5)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.5)
         self.assertEqual(self.cmp.sim('', 'a'), 0.5)
         self.assertEqual(self.cmp.sim('abc', ''), 0.5)
@@ -62,12 +62,12 @@ class KuderRichardsonTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.5)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
@@ -81,7 +81,7 @@ class KuderRichardsonTestCases(unittest.TestCase):
     def test_kuder_richardson_dist(self):
         """Test abydos.distance.KuderRichardson.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), 0.5)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 0.5)
         self.assertEqual(self.cmp.dist('', 'a'), 0.5)
         self.assertEqual(self.cmp.dist('abc', ''), 0.5)
@@ -98,12 +98,12 @@ class KuderRichardsonTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), 0.5)
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.5)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)
@@ -117,7 +117,7 @@ class KuderRichardsonTestCases(unittest.TestCase):
     def test_kuder_richardson_corr(self):
         """Test abydos.distance.KuderRichardson.corr."""
         # Base cases
-        self.assertEqual(self.cmp.corr('', ''), 0.0)
+        self.assertEqual(self.cmp.corr('', ''), 1.0)
         self.assertEqual(self.cmp.corr('a', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'a'), 0.0)
         self.assertEqual(self.cmp.corr('abc', ''), 0.0)
@@ -134,12 +134,12 @@ class KuderRichardsonTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.corr('', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.corr('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.corr('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), float('-inf'))
 
         self.assertAlmostEqual(self.cmp_no_d.corr('Nigel', 'Niall'), -2.0)
