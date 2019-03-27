@@ -118,7 +118,7 @@ class LCSuffix(LCPrefix):
             if isinstance(arg, str):
                 strings.append(arg)
             else:
-                raise ValueError('All arguments must be of type str')
+                raise TypeError('All arguments must be of type str')
 
         return len(self.lcsuffix(strings))
 
