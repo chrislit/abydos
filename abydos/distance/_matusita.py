@@ -109,7 +109,7 @@ class Matusita(_TokenDistance):
         src_card = self._src_card()
         if src_card == 0:
             src_card = 1.0
-        tar_card = max(1, self._tar_card())
+        tar_card = self._tar_card()
         if tar_card == 0:
             tar_card = 1.0
 
