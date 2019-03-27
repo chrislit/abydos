@@ -42,7 +42,7 @@ class Maarel(_TokenDistance):
         .. math::
 
             corr_{Maarel}(X, Y) =
-            \frac{2|X \cap Y| - |X \setminux Y| - |Y \setminus X|}{|X| + |Y|}
+            \frac{2|X \cap Y| - |X \setminus Y| - |Y \setminus X|}{|X| + |Y|}
 
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
