@@ -45,38 +45,38 @@ class MatusitaTestCases(unittest.TestCase):
         """Test abydos.distance.Matusita.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
-        self.assertEqual(self.cmp.dist('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.707106781186547)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.707106781186547)
+        self.assertEqual(self.cmp.dist('abc', ''), 0.707106781186547)
+        self.assertEqual(self.cmp.dist('', 'abc'), 0.707106781186547)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.8164965809)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.8164965809)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.8164965809)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.8164965809)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.7071067812)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.7071067812)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.7071067812)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.7071067812)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.6984113461
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5766941889
         )
 
     def test_matusita_sim(self):
         """Test abydos.distance.Matusita.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.292893218813453)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.292893218813453)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.292893218813453)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.292893218813453)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.1835034191)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.1835034191)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.1835034191)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.1835034191)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.2928932188)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.2928932188)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.2928932188)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.2928932188)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3015886539
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4233058111
         )
 
     def test_matusita_dist_abs(self):
