@@ -40,7 +40,7 @@ class Marking(_TokenDistance):
     characters in one word that must be masked in order for that word to
     consist entirely of substrings of another word.
 
-    It is normalized by the left of the first word.
+    It is normalized by the length of the first word.
 
     .. versionadded:: 0.4.0
     """
