@@ -41,6 +41,40 @@ class LorentzianTestCases(unittest.TestCase):
 
     cmp = Lorentzian()
 
+    def test_lorentzian_dist(self):
+        """Test abydos.distance.Lorentzian.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5)
+
+    def test_lorentzian_sim(self):
+        """Test abydos.distance.Lorentzian.sim."""
+        # Base cases
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3333333333)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5)
+
     def test_lorentzian_dist_abs(self):
         """Test abydos.distance.Lorentzian.dist_abs."""
         # Base cases

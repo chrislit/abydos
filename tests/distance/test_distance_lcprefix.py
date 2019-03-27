@@ -44,7 +44,7 @@ class LCPrefixTestCases(unittest.TestCase):
     def test_lcprefix_sim(self):
         """Test abydos.distance.LCPrefix.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -61,7 +61,7 @@ class LCPrefixTestCases(unittest.TestCase):
     def test_lcprefix_dist(self):
         """Test abydos.distance.LCPrefix.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
