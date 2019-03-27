@@ -42,8 +42,8 @@ class Matusita(_TokenDistance):
         .. math::
 
             dist_{Matusita}(X, Y) =
-            \sqrt{\sum_{i \in S} (\sqrt{\frac{|A_i|}{|A|}} -
-             \sqrt{\frac{|B_i|}{|B|}})^2}
+            \sqrt{\sum_{i \in S} \Bigg(\sqrt{\frac{|A_i|}{|A|}} -
+             \sqrt{\frac{|B_i|}{|B|}}\Bigg)^2}
 
     .. versionadded:: 0.4.0
     """
