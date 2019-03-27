@@ -18,7 +18,7 @@
 
 """abydos.distance._kuhns_vi.
 
-Kuhns VI similarity
+Kuhns VI correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['KuhnsVI']
 
 
 class KuhnsVI(_TokenDistance):
-    r"""Kuhns VI similarity.
+    r"""Kuhns VI correlation.
 
-    For two sets X and Y and a population N, Kuhns VI similarity
+    For two sets X and Y and a population N, Kuhns VI correlation
     :cite:`Kuhns:1965`, the excess of probability differences V over its
     independence value (V), is
 
         .. math::
 
-            sim_{KuhnsVI}(X, Y) =
+            corr_{KuhnsVI}(X, Y) =
             \frac{\delta(X, Y)}
             {min\big(|X|\cdot(1-\frac{|X|}{|N|}), |Y|(1-\frac{|Y|}{|N|})\big)}
 
@@ -57,7 +57,7 @@ class KuhnsVI(_TokenDistance):
 
         .. math::
 
-            sim_{KuhnsVI} =
+            corr_{KuhnsVI} =
             \frac{\delta(a+b, a+c)}
             {min\big((a+b)(1-\frac{a+b}{n}), (a+c)(1-\frac{a+c}{n})\big)}
 
@@ -118,6 +118,66 @@ class KuhnsVI(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Kuhns VI correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Kuhns VI correlation
+
+        Examples
+        --------
+        >>> cmp = KuhnsVI()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        n = self._population_unique_card()
+
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            # clamp to [-1.0, 1.0], strictly due to floating point precision
+            # issues
+            return min(
+                -1.0,
+                max(
+                    1.0,
+                    delta_ab
+                    / min(
+                        (a + b) * (1 - (a + b) / n),
+                        (a + c) * (1 - (a + c) / n),
+                    ),
+                ),
+            )
+
     def sim(self, src, tar):
         """Return the Kuhns VI similarity of two strings.
 
@@ -149,24 +209,7 @@ class KuhnsVI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        n = self._population_unique_card()
-
-        apbmapc = (a + b) * (a + c)
-        if not apbmapc:
-            delta_ab = a
-        else:
-            delta_ab = a - apbmapc / n
-        if not delta_ab:
-            return 0.0
-        else:
-            return delta_ab / min(
-                (a + b) * (1 - (a + b) / n), (a + c) * (1 - (a + c) / n)
-            )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

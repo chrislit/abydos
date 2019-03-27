@@ -18,7 +18,7 @@
 
 """abydos.distance._kuhns_v.
 
-Kuhns V similarity
+Kuhns V correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['KuhnsV']
 
 
 class KuhnsV(_TokenDistance):
-    r"""Kuhns V similarity.
+    r"""Kuhns V correlation.
 
-    For two sets X and Y and a population N, Kuhns V similarity
+    For two sets X and Y and a population N, Kuhns V correlation
     :cite:`Kuhns:1965`, the excess of probability differences U over its
     independence value (U), is
 
         .. math::
 
-            sim_{KuhnsV}(X, Y) =
+            corr_{KuhnsV}(X, Y) =
             \frac{\delta(X, Y)}
             {max\big(|X|\cdot(1-\frac{|X|}{|N|}),
             |Y|\cdot(1-\frac{|Y|}{|N|})\big)}
@@ -58,7 +58,7 @@ class KuhnsV(_TokenDistance):
 
         .. math::
 
-            sim_{KuhnsV} =
+            corr_{KuhnsV} =
             \frac{\delta(a+b, a+c)}
             {max\big((a+b)(1-\frac{a+b}{n}), (a+c)(1-\frac{a+c}{n})\big)}
 
@@ -119,6 +119,66 @@ class KuhnsV(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Kuhns V correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Kuhns V correlation
+
+        Examples
+        --------
+        >>> cmp = KuhnsV()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        n = self._population_unique_card()
+
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            # clamp to [-1.0, 1.0], strictly due to floating point precision
+            # issues
+            return min(
+                -1.0,
+                max(
+                    1.0,
+                    delta_ab
+                    / max(
+                        (a + b) * (1 - (a + b) / n),
+                        (a + c) * (1 - (a + c) / n),
+                    ),
+                ),
+            )
+
     def sim(self, src, tar):
         """Return the Kuhns V similarity of two strings.
 
@@ -150,24 +210,7 @@ class KuhnsV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        n = self._population_unique_card()
-
-        apbmapc = (a + b) * (a + c)
-        if not apbmapc:
-            delta_ab = a
-        else:
-            delta_ab = a - apbmapc / n
-        if not delta_ab:
-            return 0.0
-        else:
-            return delta_ab / max(
-                (a + b) * (1 - (a + b) / n), (a + c) * (1 - (a + c) / n)
-            )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

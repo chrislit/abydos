@@ -18,7 +18,7 @@
 
 """abydos.distance._kuhns_xi.
 
-Kuhns XI similarity
+Kuhns XI correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['KuhnsXI']
 
 
 class KuhnsXI(_TokenDistance):
-    r"""Kuhns XI similarity.
+    r"""Kuhns XI correlation.
 
-    For two sets X and Y and a population N, Kuhns XI similarity
+    For two sets X and Y and a population N, Kuhns XI correlation
     :cite:`Kuhns:1965`, the excess of Yule's Y over its independence value (Y),
     is
 
         .. math::
 
-            sim_{KuhnsXI}(X, Y) =
+            corr_{KuhnsXI}(X, Y) =
             \frac{|N| \cdot \delta(X, Y)}{(\sqrt{|X \cap Y| \cdot
             |(N \setminus X) \setminus Y|} +
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|})^2}
@@ -58,7 +58,7 @@ class KuhnsXI(_TokenDistance):
 
         .. math::
 
-            sim_{KuhnsXI} =
+            corr_{KuhnsXI} =
             \frac{n \cdot \delta(a+b, a+c)}{(\sqrt{ad}+\sqrt{bc})^2}
 
     where
@@ -118,6 +118,63 @@ class KuhnsXI(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Kuhns XI correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Kuhns XI correlation
+
+        Examples
+        --------
+        >>> cmp = KuhnsXI()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            # clamp to [-1.0, 1.0], strictly due to floating point precision
+            # issues
+            return min(
+                -1.0,
+                max(
+                    1.0,
+                    (n * delta_ab) / ((a * d) ** 0.5 + (b * c) ** 0.5) ** 2,
+                ),
+            )
+
     def sim(self, src, tar):
         """Return the Kuhns XI similarity of two strings.
 
@@ -149,23 +206,7 @@ class KuhnsXI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        apbmapc = (a + b) * (a + c)
-        if not apbmapc:
-            delta_ab = a
-        else:
-            delta_ab = a - apbmapc / n
-        if not delta_ab:
-            return 0.0
-        else:
-            return (n * delta_ab) / ((a * d) ** 0.5 + (b * c) ** 0.5) ** 2
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

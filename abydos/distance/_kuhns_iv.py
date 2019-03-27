@@ -18,7 +18,7 @@
 
 """abydos.distance._kuhns_iv.
 
-Kuhns IV similarity
+Kuhns IV correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['KuhnsIV']
 
 
 class KuhnsIV(_TokenDistance):
-    r"""Kuhns IV similarity.
+    r"""Kuhns IV correlation.
 
-    For two sets X and Y and a population N, Kuhns IV similarity
+    For two sets X and Y and a population N, Kuhns IV correlation
     :cite:`Kuhns:1965`, the excess of conditional probabilities over its
     independence value (W), is
 
         .. math::
 
-            sim_{KuhnsIV}(X, Y) =
+            corr_{KuhnsIV}(X, Y) =
             \frac{\delta(X, Y)}{min(|X|, |Y|)}
 
     where
@@ -56,7 +56,7 @@ class KuhnsIV(_TokenDistance):
 
         .. math::
 
-            sim_{KuhnsIV} =
+            corr_{KuhnsIV} =
             \frac{\delta(a+b, a+c)}{min(a+b, a+c)}
 
     where
@@ -116,6 +116,54 @@ class KuhnsIV(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Kuhns IV correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Kuhns IV correlation
+
+        Examples
+        --------
+        >>> cmp = KuhnsIV()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        n = self._population_unique_card()
+
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            return delta_ab / (min(a + b, a + c))
+
     def sim(self, src, tar):
         """Return the Kuhns IV similarity of two strings.
 
@@ -147,22 +195,7 @@ class KuhnsIV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        n = self._population_unique_card()
-
-        apbmapc = (a + b) * (a + c)
-        if not apbmapc:
-            delta_ab = a
-        else:
-            delta_ab = a - apbmapc / n
-        if not delta_ab:
-            return 0.0
-        else:
-            return delta_ab / (min(a + b, a + c))
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
