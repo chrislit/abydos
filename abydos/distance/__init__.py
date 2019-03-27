@@ -165,6 +165,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Maarel correlation (:py:class:`.Maarel`)
     - Manhattan distance (:py:class:`.Manhattan`)
     - marking distance (:py:class:`.Marking`)
+    - marking metric (:py:class:`.MarkingMetric`)
     - MASI similarity (:py:class:`.MASI`)
     - Matusita distance (:py:class:`.Matusita`)
     - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
@@ -492,6 +493,7 @@ from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
 from ._marking import Marking
+from ._marking_metric import MarkingMetric
 from ._masi import MASI
 from ._matusita import Matusita
 from ._maxwell_pilliner import MaxwellPilliner
@@ -628,6 +630,7 @@ __all__ = [
     'sim_damerau',
     'ShapiraStorer',
     'Marking',
+    'MarkingMetric',
     'YujianBo',
     'HigueraMico',
     'Indel',
