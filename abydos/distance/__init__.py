@@ -168,7 +168,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - marking metric (:py:class:`.MarkingMetric`)
     - MASI similarity (:py:class:`.MASI`)
     - Matusita distance (:py:class:`.Matusita`)
-    - Maxwell & Pilliner similarity (:py:class:`.MaxwellPilliner`)
+    - Maxwell & Pilliner correlation (:py:class:`.MaxwellPilliner`)
     - McConnaughey similarity (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
     - Minkowski distance (:py:class:`.Minkowski`)
