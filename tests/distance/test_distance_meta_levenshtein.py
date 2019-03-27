@@ -44,12 +44,12 @@ class MetaLevenshteinTestCases(unittest.TestCase):
     def test_meta_levenshtein_dist(self):
         """Test abydos.distance.MetaLevenshtein.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), 0)
-        self.assertEqual(self.cmp.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 0)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.8463953614713058)
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.3077801314)
@@ -64,10 +64,10 @@ class MetaLevenshteinTestCases(unittest.TestCase):
         """Test abydos.distance.MetaLevenshtein.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
-        self.assertEqual(self.cmp.sim('a', ''), 1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.15360463852869422)
 
@@ -83,10 +83,10 @@ class MetaLevenshteinTestCases(unittest.TestCase):
         """Test abydos.distance.MetaLevenshtein.dist_abs."""
         # Base cases
         self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('a', ''), 0)
-        self.assertEqual(self.cmp.dist_abs('', 'a'), 0)
-        self.assertEqual(self.cmp.dist_abs('abc', ''), 0)
-        self.assertEqual(self.cmp.dist_abs('', 'abc'), 0)
+        self.assertEqual(self.cmp.dist_abs('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist_abs('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist_abs('abc', ''), 3.0)
+        self.assertEqual(self.cmp.dist_abs('', 'abc'), 3.0)
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 3.385581445885223)
 
