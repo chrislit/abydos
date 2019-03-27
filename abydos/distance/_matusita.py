@@ -158,30 +158,7 @@ class Matusita(_TokenDistance):
         if src == tar:
             return 0.0
 
-        score = self.dist_abs(src, tar)
-
-        alphabet = self._total().keys()
-
-        src_card = self._src_card()
-        if src_card == 0:
-            src_card = 1.0
-        tar_card = max(1, self._tar_card())
-        if tar_card == 0:
-            tar_card = 1.0
-
-        return (
-            score
-            / (
-                sum(
-                    max(
-                        abs(self._src_tokens[tok]) / src_card,
-                        abs(self._tar_tokens[tok]) / tar_card,
-                    )
-                    for tok in alphabet
-                )
-            )
-            ** 0.5
-        )
+        return round(self.dist_abs(src, tar) / 2 ** 0.5, 15)
 
 
 if __name__ == '__main__':
