@@ -159,6 +159,10 @@ class LCPrefix(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        elif not src or not tar:
+            return 0.0
         dist = self.dist_abs(src, tar, *args)
         maxlen = max(len(src), len(tar), *[len(arg) for arg in args])
         return dist / maxlen
