@@ -167,9 +167,9 @@ class KuhnsV(_TokenDistance):
         else:
             # clamp to [-1.0, 1.0], strictly due to floating point precision
             # issues
-            return min(
+            return max(
                 -1.0,
-                max(
+                min(
                     1.0,
                     delta_ab
                     / max(
