@@ -42,7 +42,8 @@ class Matusita(_TokenDistance):
         .. math::
 
             dist_{Matusita}(X, Y) =
-            \sqrt{\sum_{i \in S} (\sqrt{|A_i|} - \sqrt{|B_i|})^2}
+            \sqrt{\sum_{i \in S} (\sqrt{\frac{|A_i|}{|A|}} -
+             \sqrt{\frac{|B_i|}{|B|}})^2}
 
     .. versionadded:: 0.4.0
     """
@@ -70,7 +71,7 @@ class Matusita(_TokenDistance):
         """
         super(Matusita, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return the Matusita distance of two strings.
 
         Parameters
@@ -88,6 +89,59 @@ class Matusita(_TokenDistance):
         Examples
         --------
         >>> cmp = Matusita()
+        >>> cmp.dist_abs('cat', 'hat')
+        0.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        alphabet = self._total().keys()
+
+        src_card = self._src_card()
+        if src_card == 0:
+            src_card = 1.0
+        tar_card = max(1, self._tar_card())
+        if tar_card == 0:
+            tar_card = 1.0
+
+        return (
+            sum(
+                (
+                    (abs(self._src_tokens[tok]) / src_card) ** 0.5
+                    - (abs(self._tar_tokens[tok]) / tar_card) ** 0.5
+                )
+                ** 2
+                for tok in alphabet
+            )
+        ) ** 0.5
+
+    def dist(self, src, tar):
+        """Return the normalized Matusita distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Matusita distance
+
+        Examples
+        --------
+        >>> cmp = Matusita()
         >>> cmp.dist('cat', 'hat')
         0.0
         >>> cmp.dist('Niall', 'Neil')
@@ -101,20 +155,33 @@ class Matusita(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
+        if src == tar:
+            return 0.0
+
+        score = self.dist_abs(src, tar)
 
         alphabet = self._total().keys()
 
+        src_card = self._src_card()
+        if src_card == 0:
+            src_card = 1.0
+        tar_card = max(1, self._tar_card())
+        if tar_card == 0:
+            tar_card = 1.0
+
         return (
-            sum(
-                (
-                    (abs(self._src_tokens[tok])) ** 0.5
-                    - (abs(self._tar_tokens[tok])) ** 0.5
+            score
+            / (
+                sum(
+                    max(
+                        abs(self._src_tokens[tok]) / src_card,
+                        abs(self._tar_tokens[tok]) / tar_card,
+                    )
+                    for tok in alphabet
                 )
-                ** 2
-                for tok in alphabet
             )
-        ) ** 0.5
+            ** 0.5
+        )
 
 
 if __name__ == '__main__':
