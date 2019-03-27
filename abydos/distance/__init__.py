@@ -162,7 +162,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Kulczynski I similarity (:py:class:`.KulczynskiI`)
     - Kulczynski II similarity (:py:class:`.KulczynskiII`)
     - Lorentzian distance (:py:class:`.Lorentzian`)
-    - Maarel similarity (:py:class:`.Maarel`)
+    - Maarel correlation (:py:class:`.Maarel`)
     - Manhattan distance (:py:class:`.Manhattan`)
     - marking distance (:py:class:`.Marking`)
     - MASI similarity (:py:class:`.MASI`)
