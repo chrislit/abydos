@@ -18,7 +18,7 @@
 
 """abydos.distance._maarel.
 
-Maarel similarity
+Maarel correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['Maarel']
 
 
 class Maarel(_TokenDistance):
-    r"""Maarel similarity.
+    r"""Maarel correlation.
 
-    For two sets X and Y and a population N, Maarel similarity
+    For two sets X and Y and a population N, Maarel correlation
     :cite:`Maarel:1969` is
 
         .. math::
 
-            sim_{Maarel}(X, Y) =
-            \frac{2|X \cap Y| - (|X| + |Y| - 2|X \cap Y|)}{|X| + |Y|}
+            corr_{Maarel}(X, Y) =
+            \frac{2|X \cap Y| - |X \setminux Y| - |Y \setminus X|}{|X| + |Y|}
 
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -50,8 +50,8 @@ class Maarel(_TokenDistance):
 
         .. math::
 
-            sim_{Maarel} =
-            \frac{2a - (b + c)}{2a + b + c}
+            corr_{Maarel} =
+            \frac{2a - b - c}{2a + b + c}
 
     .. versionadded:: 0.4.0
     """
@@ -104,6 +104,50 @@ class Maarel(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Maarel correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Maarel correlation
+
+        Examples
+        --------
+        >>> cmp = Maarel()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return -1.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+
+        return (2 * a - b - c) / (2 * a + b + c)
+
     def sim(self, src, tar):
         """Return the Maarel similarity of two strings.
 
@@ -135,13 +179,7 @@ class Maarel(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-
-        return (2 * a - b - c) / (2 * a + b + c)
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

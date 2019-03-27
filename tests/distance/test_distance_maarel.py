@@ -45,39 +45,58 @@ class MaarelTestCases(unittest.TestCase):
     def test_maarel_sim(self):
         """Test abydos.distance.Maarel.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), -1.0)
-        self.assertEqual(self.cmp.sim('abc', ''), -1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6666666667
         )
 
     def test_maarel_dist(self):
         """Test abydos.distance.Maarel.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), 2.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 2.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 2.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 2.0)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 2.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.0)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.0)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.0)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.5)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.6666666667
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
+        )
+
+    def test_maarel_corr(self):
+        """Test abydos.distance.Maarel.corr."""
+        # Base cases
+        self.assertEqual(self.cmp.corr('', ''), 1.0)
+        self.assertEqual(self.cmp.corr('a', ''), -1.0)
+        self.assertEqual(self.cmp.corr('', 'a'), -1.0)
+        self.assertEqual(self.cmp.corr('abc', ''), -1.0)
+        self.assertEqual(self.cmp.corr('', 'abc'), -1.0)
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.corr('abcd', 'efgh'), -1.0)
+
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.3333333333
         )
 
 
