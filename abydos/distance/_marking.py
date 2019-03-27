@@ -134,7 +134,10 @@ class Marking(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.dist_abs(src, tar) / len(src)
+        score = self.dist_abs(src, tar)
+        if score:
+            return score / len(src)
+        return 0.0
 
 
 if __name__ == '__main__':
