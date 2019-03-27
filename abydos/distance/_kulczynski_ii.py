@@ -43,7 +43,7 @@ class KulczynskiII(_TokenDistance):
 
             sim_{KulczynskiII}(X, Y) =
             \frac{1}{2}
-            \big(\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}\big)
+            \Bigg(\frac{|X \cap Y|}{|X|} + \frac{|X \cap Y|}{|Y|}\Bigg)
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -51,7 +51,7 @@ class KulczynskiII(_TokenDistance):
         .. math::
 
             sim_{KulczynskiII} =
-            \frac{1}{2}\big(\frac{a}{a+b}+\frac{a}{a+c}\big)
+            \frac{1}{2}\Bigg(\frac{a}{a+b}+\frac{a}{a+c}\Bigg)
 
     .. versionadded:: 0.4.0
     """
@@ -122,13 +122,18 @@ class KulczynskiII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        ab = self._src_card()
-        ac = self._tar_card()
+        apb = self._src_card()
+        apc = self._tar_card()
 
-        return 0.5 * (a / ab + a / ac)
+        return 0.5 * (a / apb + a / apc)
 
 
 if __name__ == '__main__':
