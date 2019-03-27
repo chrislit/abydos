@@ -43,7 +43,7 @@ class Lorentzian(_TokenDistance):
         .. math::
 
             dist_{Lorentzian}(X, Y) =
-            \sum_{i \in S} log(1 + |A_i + B_i|)
+            \sum_{i \in S} log(1 + |A_i - B_i|)
 
     Notes
     -----
@@ -114,6 +114,51 @@ class Lorentzian(_TokenDistance):
 
         return sum(
             log1p(abs(self._src_tokens[tok] - self._tar_tokens[tok]))
+            for tok in alphabet
+        )
+
+    def dist(self, src, tar):
+        """Return the normalized Lorentzian distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Lorentzian distance
+
+        Examples
+        --------
+        >>> cmp = Lorentzian()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 0.0
+        elif not src or not tar:
+            return 1.0
+
+        score = self.dist_abs(src, tar)
+
+        alphabet = self._total().keys()
+
+        return score / sum(
+            log1p(max(self._src_tokens[tok], self._tar_tokens[tok]))
             for tok in alphabet
         )
 
