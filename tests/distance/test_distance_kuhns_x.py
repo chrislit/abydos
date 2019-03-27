@@ -50,14 +50,16 @@ class KuhnsXTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.5)
         self.assertEqual(self.cmp.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.5)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9961439589)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9961439589)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9961439589)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9961439589)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9977786005
+        )
 
         # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 0.5)
@@ -84,14 +86,16 @@ class KuhnsXTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'a'), 0.5)
         self.assertEqual(self.cmp.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp.dist('', 'abc'), 0.5)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.0)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.0)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.0)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.0)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0038560411)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0038560411)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0038560411)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0038560411)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0022213995
+        )
 
         # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.5)
@@ -118,14 +122,16 @@ class KuhnsXTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('', 'a'), 0.0)
         self.assertEqual(self.cmp.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.corr('abc', 'abc'), -1.0)
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.corr('abcd', 'efgh'), -1.0)
 
-        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), -1.0)
-        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), -1.0)
-        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), -1.0)
-        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), -1.0)
-        self.assertAlmostEqual(self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), -1.0)
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.9922879177)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.9922879177)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.9922879177)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.9922879177)
+        self.assertAlmostEqual(
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.995557201
+        )
 
         # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.corr('', ''), 0.0)
