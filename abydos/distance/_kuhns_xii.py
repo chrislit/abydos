@@ -116,7 +116,7 @@ class KuhnsXII(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Kuhns XII similarity of two strings.
 
         Parameters
@@ -162,7 +162,49 @@ class KuhnsXII(_TokenDistance):
         if not delta_ab:
             return 0.0
         else:
-            return n * delta_ab / ((a + b) * (a + c))
+            return max(-1.0, n * delta_ab / ((a + b) * (a + c)))
+
+    def sim(self, src, tar):
+        """Return the normalized Kuhns XII similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Kuhns XII similarity
+
+        Examples
+        --------
+        >>> cmp = KuhnsXII()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        score = self.sim_score(src, tar)
+        minval, maxval = sorted(
+            [self._intersection_card(), self._total_complement_card()]
+        )
+        if score < 0.0:
+            return min(1.0, (1.0 + score) / 2.0)
+        norm = 1.0
+        if minval and maxval:
+            norm = maxval / minval
+        return min(1.0, score / norm)
 
 
 if __name__ == '__main__':

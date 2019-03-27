@@ -18,7 +18,7 @@
 
 """abydos.distance._kuhns_vii.
 
-Kuhns VII similarity
+Kuhns VII correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['KuhnsVII']
 
 
 class KuhnsVII(_TokenDistance):
-    r"""Kuhns VII similarity.
+    r"""Kuhns VII correlation.
 
-    For two sets X and Y and a population N, Kuhns VII similarity
+    For two sets X and Y and a population N, Kuhns VII correlation
     :cite:`Kuhns:1965`, the excess of angle between vector over its
     independence value (G), is
 
         .. math::
 
-            sim_{KuhnsVII}(X, Y) =
+            corr_{KuhnsVII}(X, Y) =
             \frac{\delta(X, Y)}{\sqrt{|X|\cdot|Y|}}
 
     where
@@ -56,7 +56,7 @@ class KuhnsVII(_TokenDistance):
 
         .. math::
 
-            sim_{KuhnsVII} =
+            corr_{KuhnsVII} =
             \frac{\delta(a+b, a+c)}{\sqrt{(a+b)(a+c)}}
 
     where
@@ -116,6 +116,54 @@ class KuhnsVII(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Kuhns VII correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Kuhns VII correlation
+
+        Examples
+        --------
+        >>> cmp = KuhnsVII()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        n = self._population_unique_card()
+
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            return delta_ab / ((a + b) * (a + c)) ** 0.5
+
     def sim(self, src, tar):
         """Return the Kuhns VII similarity of two strings.
 
@@ -147,22 +195,7 @@ class KuhnsVII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        n = self._population_unique_card()
-
-        apbmapc = (a + b) * (a + c)
-        if not apbmapc:
-            delta_ab = a
-        else:
-            delta_ab = a - apbmapc / n
-        if not delta_ab:
-            return 0.0
-        else:
-            return delta_ab / ((a + b) * (a + c)) ** 0.5
+        return (0.5 + self.corr(src, tar)) / 1.5
 
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@
 
 """abydos.distance._kuhns_iii.
 
-Kuhns III similarity
+Kuhns III correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['KuhnsIII']
 
 
 class KuhnsIII(_TokenDistance):
-    r"""Kuhns III similarity.
+    r"""Kuhns III correlation.
 
-    For two sets X and Y and a population N, Kuhns III similarity
+    For two sets X and Y and a population N, Kuhns III correlation
     :cite:`Kuhns:1965`, the excess of proportion of overlap over its
     independence value (P), is
 
         .. math::
 
-            sim_{KuhnsIII}(X, Y) =
+            corr_{KuhnsIII}(X, Y) =
             \frac{\delta(X, Y)}{\big(1-\frac{|X \cap Y|}{|X|+|Y|}\big)
             \big(|X|+|Y|-\frac{|X|\cdot|Y|}{|N|}\big)}
 
@@ -57,7 +57,7 @@ class KuhnsIII(_TokenDistance):
 
         .. math::
 
-            sim_{KuhnsIII} =
+            corr_{KuhnsIII} =
             \frac{\delta(a+b, a+c)}{\big(1-\frac{a}{2a+b+c}\big)
             \big(2a+b+c-\frac{(a+b)(a+c)}{n}\big)}
 
@@ -125,6 +125,57 @@ class KuhnsIII(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Kuhns III correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Kuhns III correlation
+
+        Examples
+        --------
+        >>> cmp = KuhnsIII()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        n = self._population_unique_card()
+
+        apbmapc = (a + b) * (a + c)
+        if not apbmapc:
+            delta_ab = a
+        else:
+            delta_ab = a - apbmapc / n
+        if not delta_ab:
+            return 0.0
+        else:
+            return delta_ab / (
+                (1 - a / (2 * a + b + c))
+                * (2 * a + b + c - ((a + b) * (a + c) / n))
+            )
+
     def sim(self, src, tar):
         """Return the Kuhns III similarity of two strings.
 
@@ -156,25 +207,7 @@ class KuhnsIII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        n = self._population_unique_card()
-
-        apbmapc = (a + b) * (a + c)
-        if not apbmapc:
-            delta_ab = a
-        else:
-            delta_ab = a - apbmapc / n
-        if not delta_ab:
-            return 0.0
-        else:
-            return delta_ab / (
-                (1 - a / (2 * a + b + c))
-                * (2 * a + b + c - ((a + b) * (a + c) / n))
-            )
+        return (1 / 3 + self.corr(src, tar)) / (4 / 3)
 
 
 if __name__ == '__main__':
