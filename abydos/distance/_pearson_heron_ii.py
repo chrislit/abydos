@@ -18,7 +18,7 @@
 
 """abydos.distance._pearson_heron_ii.
 
-Pearson & Heron II similarity
+Pearson & Heron II correlation
 """
 
 from __future__ import (
@@ -36,14 +36,14 @@ __all__ = ['PearsonHeronII']
 
 
 class PearsonHeronII(_TokenDistance):
-    r"""Pearson & Heron II similarity.
+    r"""Pearson & Heron II correlation.
 
-    For two sets X and Y and a population N, Pearson & Heron II similarity
+    For two sets X and Y and a population N, Pearson & Heron II correlation
     :cite:`Pearson:1913` is
 
         .. math::
 
-            sim_{PearsonHeronII}(X, Y) =
+            corr_{PearsonHeronII}(X, Y) =
             \cos \Big(\frac{\pi\sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
             {\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}\Big)
@@ -53,7 +53,7 @@ class PearsonHeronII(_TokenDistance):
 
         .. math::
 
-            sim_{PearsonHeronII} =
+            corr_{PearsonHeronII} =
             \cos \Big(\frac{\pi\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}\Big)
 
     .. versionadded:: 0.4.0
@@ -107,6 +107,51 @@ class PearsonHeronII(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Pearson & Heron II correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Pearson & Heron II correlation
+
+        Examples
+        --------
+        >>> cmp = PearsonHeronII()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return -1.0
+
+        self._tokenize(src, tar)
+
+        root_ad = (
+            self._intersection_card() * self._total_complement_card()
+        ) ** 0.5
+        root_bc = (self._src_only_card() * self._tar_only_card()) ** 0.5
+
+        return cos(pi * root_bc / (root_ad + root_bc))
+
     def sim(self, src, tar):
         """Return the Pearson & Heron II similarity of two strings.
 
@@ -138,14 +183,7 @@ class PearsonHeronII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        root_ad = (
-            self._intersection_card() * self._total_complement_card()
-        ) ** 0.5
-        root_bc = (self._src_only_card() * self._tar_only_card()) ** 0.5
-
-        return cos(pi * root_bc / (root_ad + root_bc))
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
