@@ -107,7 +107,7 @@ class Pattern(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def dist(self, src, tar):
         """Return the Pattern difference of two strings.
 
         Parameters
@@ -125,13 +125,13 @@ class Pattern(_TokenDistance):
         Examples
         --------
         >>> cmp = Pattern()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
 
@@ -144,7 +144,10 @@ class Pattern(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_unique_card()
 
-        return 4 * b * c / n ** 2
+        num = b * c
+        if num:
+            return 4 * b * c / n ** 2
+        return 0.0
 
 
 if __name__ == '__main__':
