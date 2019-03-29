@@ -60,6 +60,11 @@ class RougeSTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7578875171
         )
 
+        # Examples from paper
+        self.assertEqual(round(self.cmp.sim('pktg', 'pitg', beta=1), 3), 0.5)
+        self.assertEqual(round(self.cmp.sim('pktg', 'tgip', beta=1), 3), 0.167)
+        self.assertEqual(round(self.cmp.sim('pktg', 'tgpk', beta=1), 3), 0.333)
+
     def test_rouge_s_dist(self):
         """Test abydos.distance.RougeS.dist."""
         # Base cases
