@@ -67,7 +67,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.5)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.375)
@@ -103,7 +103,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.5)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 0.625)
@@ -149,7 +149,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), 4.0)
         self.assertEqual(self.cmp_no_d.sim_score('abcd', 'efgh'), 10.0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim_score('Nigel', 'Niall'), 2.25)
@@ -187,7 +187,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.corr('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), -1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.corr('Nigel', 'Niall'), -0.25)
