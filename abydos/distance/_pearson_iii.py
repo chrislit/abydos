@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import copysign
+
 from ._pearson_phi import PearsonPhi
 
 __all__ = ['PearsonIII']
@@ -58,7 +60,7 @@ class PearsonIII(PearsonPhi):
 
         .. math::
 
-            \phi = cor_{PearsonPhi} =
+            \phi = corr_{PearsonPhi} =
             \frac{ad-bc}
             {\sqrt{(a+b)(a+c)(b+c)(b+d)}}
 
@@ -145,7 +147,42 @@ class PearsonIII(PearsonPhi):
 
         """
         phi = super(PearsonIII, self).corr(src, tar)
-        return (phi / (self._population_unique_card() + phi)) ** 0.5
+        return copysign(
+            (abs(phi) / (self._population_unique_card() + phi)) ** 0.5, phi
+        )
+
+    def sim(self, src, tar):
+        """Return the Pearson III similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Pearson III similarity
+
+        Examples
+        --------
+        >>> cmp = PearsonIII()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

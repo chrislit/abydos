@@ -145,6 +145,9 @@ class PearsonPhi(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -154,7 +157,10 @@ class PearsonPhi(_TokenDistance):
         ab = self._src_card()
         ac = self._tar_card()
 
-        return (a * d - b * c) / (ab * ac * (b + d) * (c + d)) ** 0.5
+        num = a * d - b * c
+        if num:
+            return num / (ab * ac * (b + d) * (c + d)) ** 0.5
+        return 0.0
 
     def sim(self, src, tar):
         """Return the normalized Pearson's Phi similarity of two strings.
