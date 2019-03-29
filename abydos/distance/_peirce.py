@@ -141,6 +141,9 @@ class Peirce(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -148,7 +151,43 @@ class Peirce(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a * d - b * c) / ((a + b) * (c + d))
+        num = a * d - b * c
+        if num:
+            return num / ((a + b) * (c + d))
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the Peirce similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Peirce similarity
+
+        Examples
+        --------
+        >>> cmp = Peirce()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
