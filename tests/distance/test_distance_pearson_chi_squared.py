@@ -50,7 +50,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'a'), 0.5)
         self.assertEqual(self.cmp.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.5)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.4999794015236281)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.623079414)
@@ -86,7 +86,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'a'), 0.5)
         self.assertEqual(self.cmp.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp.dist('', 'abc'), 0.5)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.5000205984763719)
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.376920586)
@@ -122,7 +122,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 784.0)
         self.assertEqual(
             self.cmp.sim_score('abcd', 'efgh'), 0.032298410951138765
         )
@@ -168,7 +168,7 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('', 'a'), 0.0)
         self.assertEqual(self.cmp.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.corr('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
         self.assertEqual(
             self.cmp.corr('abcd', 'efgh'), -4.1196952743799446e-05
         )

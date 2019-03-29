@@ -50,7 +50,7 @@ class PearsonIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('', 'a'), float('nan'))
         self.assertEqual(self.cmp.corr('abc', ''), float('nan'))
         self.assertEqual(self.cmp.corr('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.corr('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 0.7071067811865476)
         self.assertEqual(self.cmp.corr('abcd', 'efgh'), 0.006418353030552324)
 
         self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.4444480535)
@@ -67,7 +67,7 @@ class PearsonIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.corr('', 'a'), float('nan'))
         self.assertEqual(self.cmp_no_d.corr('abc', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.corr('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 0.0)
         self.assertEqual(
             self.cmp_no_d.corr('abcd', 'efgh'), 0.7071067811865476
         )

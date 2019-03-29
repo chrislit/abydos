@@ -140,7 +140,7 @@ class PearsonChiSquared(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        if src == tar or not src or not tar:
+        if not src or not tar:
             return 0.0
 
         self._tokenize(src, tar)
@@ -189,7 +189,7 @@ class PearsonChiSquared(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        if src == tar or not src or not tar:
+        if not src or not tar:
             return 0.0
 
         score = self.sim_score(src, tar)
