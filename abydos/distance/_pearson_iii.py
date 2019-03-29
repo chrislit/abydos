@@ -42,7 +42,7 @@ class PearsonIII(PearsonPhi):
 
         .. math::
 
-            \corr_{PearsonIII} = \sqrt{\frac{\phi}{|N|+\phi}}
+            corr_{PearsonIII} = \sqrt{\frac{\phi}{|N|+\phi}}
 
     where
 
