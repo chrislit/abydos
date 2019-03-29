@@ -42,102 +42,54 @@ class PearsonIIITestCases(unittest.TestCase):
     cmp = PearsonIII()
     cmp_no_d = PearsonIII(alphabet=0)
 
-    def test_pearson_iii_sim(self):
-        """Test abydos.distance.PearsonIII.sim."""
+    def test_pearson_iii_corr(self):
+        """Test abydos.distance.PearsonIII.corr."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.03569153051241248)
+        self.assertEqual(self.cmp.corr('', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('a', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.corr('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.corr('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 0.03569153051241248)
         self.assertEqual(
-            self.cmp.sim('abcd', 'efgh'),
+            self.cmp.corr('abcd', 'efgh'),
             (1.7520273272936104e-19 + 0.0028612777635371113j),
         )
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0251482893)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0251482893)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0251482893)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0251482893)
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.0251482893)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.0251482893)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.0251482893)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.0251482893)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0290663533
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.0290663533
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), float('nan'))
         self.assertEqual(
-            self.cmp_no_d.sim('abcd', 'efgh'),
+            self.cmp_no_d.corr('abcd', 'efgh'),
             (2.041077998578922e-17 + 0.3333333333333333j),
         )
 
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Nigel', 'Niall'), float('nan')
+            self.cmp_no_d.corr('Nigel', 'Niall'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Niall', 'Nigel'), float('nan')
+            self.cmp_no_d.corr('Niall', 'Nigel'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Colin', 'Coiln'), float('nan')
+            self.cmp_no_d.corr('Colin', 'Coiln'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('Coiln', 'Colin'), float('nan')
+            self.cmp_no_d.corr('Coiln', 'Colin'), float('nan')
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
-        )
-
-    def test_pearson_iii_dist(self):
-        """Test abydos.distance.PearsonIII.dist."""
-        # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.9643084694875875)
-        self.assertEqual(
-            self.cmp.dist('abcd', 'efgh'), (1 - 0.0028612777635371113j)
-        )
-
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.9748517107)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.9748517107)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.9748517107)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.9748517107)
-        self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.9709336467
-        )
-
-        # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(
-            self.cmp_no_d.dist('abcd', 'efgh'), (1 - 0.3333333333333333j)
-        )
-
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Nigel', 'Niall'), float('nan')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Niall', 'Nigel'), float('nan')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Colin', 'Coiln'), float('nan')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('Coiln', 'Colin'), float('nan')
-        )
-        self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
 
