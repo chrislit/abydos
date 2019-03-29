@@ -90,7 +90,7 @@ class RougeSU(RougeS):
 
         """
         return super(RougeSU, self).sim(
-            '$' * (self._qval - 1) + src, '$' * (self._qval - 1) + tar
+            '$' * (self._qval - 1) + src, '$' * (self._qval - 1) + tar, beta
         )
 
 

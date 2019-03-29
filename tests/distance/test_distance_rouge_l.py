@@ -44,13 +44,13 @@ class RougeLTestCases(unittest.TestCase):
     def test_rouge_l_sim(self):
         """Test abydos.distance.RougeL.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6)
@@ -63,13 +63,13 @@ class RougeLTestCases(unittest.TestCase):
     def test_rouge_l_dist(self):
         """Test abydos.distance.RougeL.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.4)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.4)

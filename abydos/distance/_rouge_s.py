@@ -92,12 +92,19 @@ class RougeS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        qsg_src = self._tokenizer.tokenize(src)
-        qsg_tar = self._tokenizer.tokenize(tar)
-        intersection = qsg_src & qsg_tar
+        if src == tar:
+            return 1.0
 
-        r_skip = intersection / _ncr(len(src), self._qval)
-        p_skip = intersection / _ncr(len(tar), self._qval)
+        qsg_src = self._tokenizer.tokenize(src).get_counter()
+        qsg_tar = self._tokenizer.tokenize(tar).get_counter()
+        intersection = sum((qsg_src & qsg_tar).values())
+
+        if intersection:
+            r_skip = intersection / _ncr(len(src), self._qval)
+            p_skip = intersection / _ncr(len(tar), self._qval)
+        else:
+            return 0.0
+
         beta_sq = beta * beta
 
         return (1 + beta_sq) * r_skip * p_skip / (r_skip + beta_sq * p_skip)
