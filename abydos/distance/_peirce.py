@@ -18,7 +18,7 @@
 
 """abydos.distance._peirce.
 
-Peirce similarity
+Peirce correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['Peirce']
 
 
 class Peirce(_TokenDistance):
-    r"""Peirce similarity.
+    r"""Peirce correlation.
 
-    For two sets X and Y and a population N, the Peirce similarity
+    For two sets X and Y and a population N, the Peirce correlation
     :cite:`Peirce:1884` is
 
         .. math::
 
-            sim_{Peirce}(X, Y) = \frac{|X \cap Y| \cdot
+            corr_{Peirce}(X, Y) = \frac{|X \cap Y| \cdot
             |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus Y|}
             {|X| \cdot |N \setminus X|}
@@ -56,7 +56,7 @@ class Peirce(_TokenDistance):
 
         .. math::
 
-            sim_{Peirce} =
+            corr_{Peirce} =
             \frac{ad-bc}{(a+b)(c+d)}
 
     .. versionadded:: 0.4.0
@@ -110,8 +110,8 @@ class Peirce(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Peirce similarity of two strings.
+    def corr(self, src, tar):
+        """Return the Peirce correlation of two strings.
 
         Parameters
         ----------
@@ -123,18 +123,18 @@ class Peirce(_TokenDistance):
         Returns
         -------
         float
-            Peirce similarity
+            Peirce correlation
 
         Examples
         --------
         >>> cmp = Peirce()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.corr('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.corr('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.corr('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.corr('ATCG', 'TAGC')
         0.0
 
 

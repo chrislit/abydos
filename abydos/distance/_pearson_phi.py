@@ -18,7 +18,7 @@
 
 """abydos.distance._pearson_phi.
 
-Pearson's Phi
+Pearson's Phi correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['PearsonPhi']
 
 
 class PearsonPhi(_TokenDistance):
-    r"""Pearson's Phi.
+    r"""Pearson's Phi correlation.
 
     For two sets X and Y and a population N, the Pearson's :math:`\phi`
-    similarity :cite:`Pearson:1900,Pearson:1913,Guilford:1956` is
+    correlation :cite:`Pearson:1900,Pearson:1913,Guilford:1956` is
 
         .. math::
 
-            sim_{PearsonPhi}(X, Y) =
+            corr_{PearsonPhi}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {\sqrt{|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}
@@ -53,7 +53,7 @@ class PearsonPhi(_TokenDistance):
 
         .. math::
 
-            sim_{PearsonPhi} =
+            corr_{PearsonPhi} =
             \frac{ad-bc}
             {\sqrt{(a+b)(a+c)(b+d)(c+d)}}
 
@@ -115,7 +115,7 @@ class PearsonPhi(_TokenDistance):
         )
 
     def corr(self, src, tar):
-        """Return Pearson's Phi of two strings.
+        """Return Pearson's Phi correlation of two strings.
 
         Parameters
         ----------
@@ -127,7 +127,7 @@ class PearsonPhi(_TokenDistance):
         Returns
         -------
         float
-            Pearson's Phi
+            Pearson's Phi correlation
 
         Examples
         --------
