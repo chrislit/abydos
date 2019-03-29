@@ -140,9 +140,6 @@ class PearsonChiSquared(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        if not src or not tar:
-            return 0.0
-
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -155,6 +152,8 @@ class PearsonChiSquared(_TokenDistance):
 
         if src == tar:
             return float(n)
+        if not src or not tar:
+            return 0.0
 
         num = n * (a * d - b * c) ** 2
         if num:
@@ -192,8 +191,8 @@ class PearsonChiSquared(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        if not src or not tar:
-            return 0.0
+        if src == tar:
+            return 1.0
 
         score = self.sim_score(src, tar)
 
