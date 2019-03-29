@@ -82,7 +82,7 @@ class PositionalQGramDice(_Distance):
             else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         )
 
-    def dist(self, src, tar):
+    def sim(self, src, tar):
         """Return the Positional Q-Gram Dice coefficient of two strings.
 
         Parameters
@@ -100,19 +100,22 @@ class PositionalQGramDice(_Distance):
         Examples
         --------
         >>> cmp = PositionalQGramDice()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp.sim('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.sim('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.sim('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         src_list = self.params['tokenizer'].tokenize(src).get_list()
         tar_list = self.params['tokenizer'].tokenize(tar).get_list()
 
