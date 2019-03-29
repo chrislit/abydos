@@ -41,42 +41,42 @@ class PositionalQGramDiceTestCases(unittest.TestCase):
 
     cmp = PositionalQGramDice()
 
-    def test_positional_q_gram_dice_dist(self):
-        """Test abydos.distance.PositionalQGramDice.dist."""
-        # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.0)
-
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.5)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.5)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.5)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.5)
-        self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.1904761905
-        )
-
     def test_positional_q_gram_dice_sim(self):
         """Test abydos.distance.PositionalQGramDice.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), 1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5)
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.8095238095
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.1904761905
+        )
+
+    def test_positional_q_gram_dice_dist(self):
+        """Test abydos.distance.PositionalQGramDice.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.5)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.8095238095
         )
 
 

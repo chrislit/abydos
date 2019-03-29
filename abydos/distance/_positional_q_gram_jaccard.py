@@ -113,6 +113,9 @@ class PositionalQGramJaccard(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         src_list = self.params['tokenizer'].tokenize(src).get_list()
         tar_list = self.params['tokenizer'].tokenize(tar).get_list()
 
