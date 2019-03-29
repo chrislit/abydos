@@ -60,6 +60,10 @@ def _ncr(n, r):
     .. versionadded:: 0.4.0
 
     """
+    if not r:
+        return 1
+    if r > n:
+        return 0
     return factorial(n) / (factorial(r) * factorial(n - r))
 
 
