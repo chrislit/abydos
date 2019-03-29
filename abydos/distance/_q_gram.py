@@ -59,8 +59,8 @@ class QGram(_TokenDistance):
     vectors of q-gram occurrences. But this norm is simply the symmetric
     difference of the two multisets.
 
-    There aren't any limits on which tokenizer is used with this class, but,
-    as the name would imply, q-grams are expected.
+    There aren't any limitations on which tokenizer is used with this class,
+    but, as the name would imply, q-grams are expected and the default.
 
     The normalized form uses the union of X and Y, making it equivalent to the
     Jaccard distance :py:class:`.Jaccard`, but the Jaccard class, by default
@@ -183,7 +183,10 @@ class QGram(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return self.dist_abs(src, tar) / self._union_card()
+        num = self.dist_abs(src, tar)
+        if num:
+            return num / self._union_card()
+        return 0.0
 
 
 if __name__ == '__main__':
