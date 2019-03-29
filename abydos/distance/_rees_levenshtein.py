@@ -114,16 +114,13 @@ class ReesLevenshtein(_Distance):
         if v_str1_length == 1 and v_str2_length == 1:
             return 1
 
-        def _substr(string, start, length=None):
+        def _substr(string, start, length):
             if start > 0:
                 start -= 1
             else:
                 start += len(string) - 1
 
-            if length is None:
-                end = len(string)
-            else:
-                end = start + length
+            end = start + length
 
             return string[start:end]
 
