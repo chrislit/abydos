@@ -177,7 +177,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Overlap distance (:py:class:`.Overlap`)
     - Pattern difference (:py:class:`.Pattern`)
     - Pearson & Heron II correlation (:py:class:`.PearsonHeronII`)
-    - Pearson II correlation (:py:class:`.PearsonII`)
+    - Pearson II similarity (:py:class:`.PearsonII`)
     - Pearson III correlation (:py:class:`.PearsonIII`)
     - Pearson's Chi-Squared similarity (:py:class:`.PearsonChiSquared`)
     - Pearson's Phi correlation (:py:class:`.PearsonPhi`)
