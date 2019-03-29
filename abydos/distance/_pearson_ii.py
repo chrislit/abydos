@@ -18,7 +18,7 @@
 
 """abydos.distance._pearson_ii.
 
-Pearson II correlation
+Pearson II similarity
 """
 
 from __future__ import (
@@ -34,10 +34,10 @@ __all__ = ['PearsonII']
 
 
 class PearsonII(PearsonChiSquared):
-    r"""Pearson II correlation.
+    r"""Pearson II similarity.
 
     For two sets X and Y and a population N, the Pearson II
-    correlation :cite:`Pearson:1913`, Pearson's coefficient of mean square
+    similarity :cite:`Pearson:1913`, Pearson's coefficient of mean square
     contingency, is
 
         .. math::
