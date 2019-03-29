@@ -153,6 +153,9 @@ class PearsonChiSquared(_TokenDistance):
         ab = self._src_card()
         ac = self._tar_card()
 
+        if src == tar:
+            return float(n)
+
         num = n * (a * d - b * c) ** 2
         if num:
             return num / (ab * ac * (b + d) * (c + d))
