@@ -89,6 +89,8 @@ class SAPS(_Distance):
         self._normalizer = normalizer
         if tokenizer is None:
             self._tokenizer = SAPSTokenizer()
+        else:
+            self._tokenizer = tokenizer
 
     def _s(self, src, tar):
         if src.isupper():
@@ -194,8 +196,8 @@ class SAPS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        dist = self.sim_score(src, tar)
-        if dist == 0:
+        score = self.sim_score(src, tar)
+        if score == 0:
             return 0.0
 
         src = self._tokenizer.tokenize(src).get_list()
@@ -203,7 +205,7 @@ class SAPS(_Distance):
         tar = self._tokenizer.tokenize(tar).get_list()
         tar_max = sum(5 + len(_) for _ in tar)
 
-        return dist / max(src_max, tar_max)
+        return score / max(src_max, tar_max)
 
 
 if __name__ == '__main__':

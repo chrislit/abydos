@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import SAPS
+from abydos.tokenizer import QGrams
 
 
 class SAPSTestCases(unittest.TestCase):
@@ -40,6 +41,7 @@ class SAPSTestCases(unittest.TestCase):
     """
 
     cmp = SAPS()
+    cmp_q2 = SAPS(tokenizer=QGrams(2))
 
     def test_saps_sim(self):
         """Test abydos.distance.SAPS.sim."""
@@ -97,6 +99,12 @@ class SAPSTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 13
         )
+
+        # Coverage
+        self.assertEqual(self.cmp_q2.sim_score('Stevenson', 'Stinson'), 27)
+
+        # Examples from paper
+        self.assertEqual(self.cmp.sim_score('Stevenson', 'Stinson'), 16)
 
 
 if __name__ == '__main__':
