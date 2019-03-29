@@ -45,11 +45,11 @@ class PearsonIITestCases(unittest.TestCase):
     def test_pearson_ii_corr(self):
         """Test abydos.distance.PearsonII.corr."""
         # Base cases
-        self.assertEqual(self.cmp.corr('', ''), float('nan'))
-        self.assertEqual(self.cmp.corr('a', ''), float('nan'))
-        self.assertEqual(self.cmp.corr('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.corr('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.corr('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.corr('', ''), 0.7071067811865476)
+        self.assertEqual(self.cmp.corr('a', ''), 0.0)
+        self.assertEqual(self.cmp.corr('', 'a'), 0.0)
+        self.assertEqual(self.cmp.corr('abc', ''), 0.0)
+        self.assertEqual(self.cmp.corr('', 'abc'), 0.0)
         self.assertEqual(self.cmp.corr('abc', 'abc'), 0.7071067811865476)
         self.assertEqual(self.cmp.corr('abcd', 'efgh'), 0.006418353030552324)
 
@@ -63,10 +63,10 @@ class PearsonIITestCases(unittest.TestCase):
 
         # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.corr('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.corr('a', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', ''), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 0.7071067811865476)
         self.assertEqual(
             self.cmp_no_d.corr('abcd', 'efgh'), 0.7071067811865476
