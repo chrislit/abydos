@@ -45,7 +45,7 @@ class RogotGoldbergTestCases(unittest.TestCase):
     def test_rogot_goldberg_sim(self):
         """Test abydos.distance.RogotGoldberg.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.49936143039591313)
         self.assertEqual(self.cmp.sim('', 'a'), 0.49936143039591313)
         self.assertEqual(self.cmp.sim('abc', ''), 0.49872122762148335)
@@ -62,13 +62,13 @@ class RogotGoldbergTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('a', ''), 0)
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0)
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0)
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.25)
         self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.25)
@@ -81,7 +81,7 @@ class RogotGoldbergTestCases(unittest.TestCase):
     def test_rogot_goldberg_dist(self):
         """Test abydos.distance.RogotGoldberg.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 0.5006385696040869)
         self.assertEqual(self.cmp.dist('', 'a'), 0.5006385696040869)
         self.assertEqual(self.cmp.dist('abc', ''), 0.5012787723785166)
@@ -98,12 +98,12 @@ class RogotGoldbergTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 0.75)
