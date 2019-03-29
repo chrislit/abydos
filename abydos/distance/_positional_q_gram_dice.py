@@ -114,7 +114,7 @@ class PositionalQGramDice(_Distance):
 
         """
         if src == tar:
-            return 0.0
+            return 1.0
 
         src_list = self.params['tokenizer'].tokenize(src).get_list()
         tar_list = self.params['tokenizer'].tokenize(tar).get_list()
