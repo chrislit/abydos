@@ -66,7 +66,7 @@ class PearsonIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)        if src
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 1.0)
 
