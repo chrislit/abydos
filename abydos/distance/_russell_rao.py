@@ -135,7 +135,12 @@ class RussellRao(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        return self._intersection_card() / self._population_unique_card()
+        a = self._intersection_card()
+        n = self._population_unique_card()
+
+        if a:
+            return a / n
+        return 0.0
 
 
 if __name__ == '__main__':
