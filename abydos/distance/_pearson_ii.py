@@ -112,8 +112,8 @@ class PearsonII(PearsonChiSquared):
             **kwargs
         )
 
-    def corr(self, src, tar):
-        """Return the Pearson II correlation of two strings.
+    def sim_score(self, src, tar):
+        """Return the Pearson II similarity of two strings.
 
         Parameters
         ----------
@@ -125,26 +125,61 @@ class PearsonII(PearsonChiSquared):
         Returns
         -------
         float
-            Pearson II correlation
+            Pearson II similarity
 
         Examples
         --------
         >>> cmp = PearsonII()
-        >>> cmp.corr('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.corr('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.corr('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.corr('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 2 ** 0.5 / 2
         chi2 = super(PearsonII, self).sim_score(src, tar)
         return (chi2 / (self._population_unique_card() + chi2)) ** 0.5
+
+    def sim(self, src, tar):
+        """Return the normalized Pearson II similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Pearson II similarity
+
+        Examples
+        --------
+        >>> cmp = PearsonII()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.sim_score(src, tar) * 2 / 2 ** 0.5
 
 
 if __name__ == '__main__':
