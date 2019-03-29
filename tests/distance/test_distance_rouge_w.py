@@ -40,6 +40,7 @@ class RougeWTestCases(unittest.TestCase):
     """
 
     cmp = RougeW()
+    cmp_cubed = RougeW(f_func=lambda x: x ** 3, f_inv=lambda x: x ** (1 / 3))
 
     def test_rouge_w_sim(self):
         """Test abydos.distance.RougeW.sim."""
@@ -64,6 +65,17 @@ class RougeWTestCases(unittest.TestCase):
         self.assertEqual(round(self.cmp.sim('ABCDEFG', 'ABCDHIK'), 3), 0.571)
         self.assertEqual(round(self.cmp.sim('ABCDEFG', 'AHBKCID'), 3), 0.286)
 
+        # Coverage
+        self.assertAlmostEqual(
+            self.cmp_cubed.sim('Nigel', 'Niall'), 0.4160167646
+        )
+        self.assertAlmostEqual(
+            self.cmp_cubed.sim('Colin', 'Coiln'), 0.4308869380
+        )
+        self.assertAlmostEqual(
+            self.cmp_cubed.sim('ATCAACGAGT', 'AACGATTAG'), 0.5125114739
+        )
+
     def test_rouge_w_dist(self):
         """Test abydos.distance.RougeW.dist."""
         # Base cases
@@ -82,6 +94,15 @@ class RougeWTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.451433494
         )
+
+    def test_rouge_w_wlcs(self):
+        """Test abydos.distance.RougeW.wlcs."""
+        self.assertEqual(self.cmp.wlcs('', ''), 0)
+        self.assertEqual(self.cmp.wlcs('a', ''), 0)
+        self.assertEqual(self.cmp.wlcs('', 'a'), 0)
+        self.assertEqual(self.cmp.wlcs('abc', ''), 0)
+        self.assertEqual(self.cmp.wlcs('', 'abc'), 0)
+        self.assertEqual(self.cmp.wlcs('abc', 'abc'), 9)
 
 
 if __name__ == '__main__':
