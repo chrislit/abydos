@@ -71,7 +71,7 @@ class RougeW(_Distance):
             self._f_inv = lambda x: x ** 0.5
 
     def wlcs(self, src, tar):
-        """Return the Rouge-W distance between two strings.
+        """Return the Rouge-W weighted longest common sub-sequence length.
 
         Parameters
         ----------
@@ -88,13 +88,13 @@ class RougeW(_Distance):
         Examples
         --------
         >>> cmp = RougeW()
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.wlcs('cat', 'hat')
         1
-        >>> cmp.dist_abs('Niall', 'Neil')
+        >>> cmp.wlcs('Niall', 'Neil')
         3
-        >>> cmp.dist_abs('aluminum', 'Catalan')
+        >>> cmp.wlcs('aluminum', 'Catalan')
         7
-        >>> cmp.dist_abs('ATCG', 'TAGC')
+        >>> cmp.wlcs('ATCG', 'TAGC')
         3
 
         .. versionadded:: 0.4.0
@@ -110,11 +110,11 @@ class RougeW(_Distance):
         if not tar:
             return src_len
 
-        c_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_int)
-        w_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_int)
+        c_mat = np_zeros((src_len, tar_len), dtype=np_int)
+        w_mat = np_zeros((src_len, tar_len), dtype=np_int)
 
-        for i in range(src_len + 1):
-            for j in range(tar_len + 1):
+        for i in range(src_len):
+            for j in range(tar_len):
                 if src[i] == tar[j]:
                     k = w_mat[i - 1, j - 1]
                     c_mat[i, j] = (
@@ -131,7 +131,7 @@ class RougeW(_Distance):
                         c_mat[i, j] = c_mat[i, j - 1]
                         w_mat[i, j] = 0
 
-        return c_mat[src_len + 1, tar_len + 1]
+        return c_mat[src_len - 1, tar_len - 1]
 
     def sim(self, src, tar, beta=8):
         """Return the Rouge-W similarity of two strings.
@@ -166,12 +166,21 @@ class RougeW(_Distance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+
         wlcs = self.wlcs(src, tar)
         r_wlcs = self._f_inv(wlcs / self._f_func(len(src)))
         p_wlcs = self._f_inv(wlcs / self._f_func(len(tar)))
         beta_sq = beta * beta
 
-        return (1 + beta_sq) * r_wlcs * p_wlcs / (r_wlcs + beta_sq * p_wlcs)
+        if r_wlcs and p_wlcs:
+            return (
+                (1 + beta_sq) * r_wlcs * p_wlcs / (r_wlcs + beta_sq * p_wlcs)
+            )
+        return 0.0
 
 
 if __name__ == '__main__':
