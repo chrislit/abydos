@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import QGram
+from abydos.tokenizer import WhitespaceTokenizer
 
 
 class QGramTestCases(unittest.TestCase):
@@ -40,13 +41,15 @@ class QGramTestCases(unittest.TestCase):
     """
 
     cmp = QGram()
+    cmp_q1 = QGram(qval=1)
+    cmp_ws = QGram(tokenizer=WhitespaceTokenizer())
 
     def test_q_gram_dist(self):
         """Test abydos.distance.QGram.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 0.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
@@ -63,9 +66,9 @@ class QGramTestCases(unittest.TestCase):
     def test_q_gram_sim(self):
         """Test abydos.distance.QGram.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
@@ -95,6 +98,13 @@ class QGramTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 6)
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 6)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 5)
+
+        # Example from paper
+        self.assertEqual(self.cmp.dist_abs('01000', '001111'), 5)
+
+        # Coverage
+        self.assertEqual(self.cmp_q1.dist_abs('01000', '001111'), 5)
+        self.assertEqual(self.cmp_ws.dist_abs('a a b b c', 'a b b b c d'), 3)
 
 
 if __name__ == '__main__':
