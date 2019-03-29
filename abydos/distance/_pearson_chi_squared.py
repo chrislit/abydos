@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import copysign
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['PearsonChiSquared']
@@ -107,7 +109,7 @@ class PearsonChiSquared(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return Pearson's Chi-Squared similarity of two strings.
 
         Parameters
@@ -138,6 +140,9 @@ class PearsonChiSquared(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar or not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -148,7 +153,88 @@ class PearsonChiSquared(_TokenDistance):
         ab = self._src_card()
         ac = self._tar_card()
 
-        return n * (a * d - b * c) ** 2 / (ab * ac * (b + d) * (c + d))
+        num = n * (a * d - b * c) ** 2
+        if num:
+            return num / (ab * ac * (b + d) * (c + d))
+        return 0.0
+
+    def corr(self, src, tar):
+        """Return Pearson's Chi-Squared correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Pearson's Chi-Squared correlation
+
+        Examples
+        --------
+        >>> cmp = PearsonChiSquared()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar or not src or not tar:
+            return 0.0
+
+        score = self.sim_score(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        score /= a + b + c + d
+
+        return copysign(score, a * d - b * c)
+
+    def sim(self, src, tar):
+        """Return Pearson's normalized Chi-Squared similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Pearson's Chi-Squared similarity
+
+        Examples
+        --------
+        >>> cmp = PearsonChiSquared()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
