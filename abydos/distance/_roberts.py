@@ -42,8 +42,9 @@ class Roberts(_TokenDistance):
         .. math::
 
             sim_{Roberts}(X, Y) =
-            \frac{\sum_{i \in S} (X_i + Y_i)
-            \frac{min(X_i, Y_i)}{max(X_i, Y_i)}}{\sum_{i \in S} (X_i + Y_i)}
+            \frac{\Big[\sum_{i \in S} (X_i + Y_i) \cdot
+            \frac{min(X_i, Y_i)}{max(X_i, Y_i)}\Big]}
+            {\sum_{i \in S} (X_i + Y_i)}
 
     .. versionadded:: 0.4.0
     """
@@ -102,6 +103,9 @@ class Roberts(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         alphabet = self._total().keys()
