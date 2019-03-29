@@ -18,7 +18,7 @@
 
 """abydos.distance._pearson_chi_squared.
 
-Pearson's Chi-Squared similarity
+Pearson's Chi-Squared correlation
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['PearsonChiSquared']
 
 
 class PearsonChiSquared(_TokenDistance):
-    r"""Pearson's Chi-Squared similarity.
+    r"""Pearson's Chi-Squared correlation.
 
     For two sets X and Y and a population N, the Pearson's :math:`\chi^2`
-    similarity :cite:`Pearson:1913` is
+    correlation :cite:`Pearson:1913` is
 
 
         .. math::
 
-            sim_{PearsonChiSquared}(X, Y) =
+            corr_{PearsonChiSquared}(X, Y) =
             \frac{|N| \cdot (|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
@@ -54,7 +54,7 @@ class PearsonChiSquared(_TokenDistance):
 
         .. math::
 
-            sim_{PearsonChiSquared} =
+            corr_{PearsonChiSquared} =
             \frac{n(ad-bc)^2}{(a+b)(a+c)(b+d)(c+d)}
 
     .. versionadded:: 0.4.0
@@ -108,8 +108,8 @@ class PearsonChiSquared(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return Pearson's Chi-Squared similarity of two strings.
+    def corr(self, src, tar):
+        """Return Pearson's Chi-Squared correlation of two strings.
 
         Parameters
         ----------
@@ -121,18 +121,18 @@ class PearsonChiSquared(_TokenDistance):
         Returns
         -------
         float
-            Pearson's Chi-Squared similarity
+            Pearson's Chi-Squared correlation
 
         Examples
         --------
         >>> cmp = PearsonChiSquared()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.corr('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.corr('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.corr('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.corr('ATCG', 'TAGC')
         0.0
 
 

@@ -18,7 +18,7 @@
 
 """abydos.distance._pearson_ii.
 
-Pearson II similarity
+Pearson II correlation
 """
 
 from __future__ import (
@@ -34,21 +34,21 @@ __all__ = ['PearsonII']
 
 
 class PearsonII(PearsonChiSquared):
-    r"""Pearson II similarity.
+    r"""Pearson II correlation.
 
     For two sets X and Y and a population N, the Pearson II
-    similarity :cite:`Pearson:1913`, Pearson's coefficient of mean square
+    correlation :cite:`Pearson:1913`, Pearson's coefficient of mean square
     contingency, is
 
         .. math::
 
-            \Big(\frac{\chi^2}{|N|+\chi^2}\big)^\frac{1}{2}
+            \corr_{PearsonII} = \sqrt{\frac{\chi^2}{|N|+\chi^2}}
 
     where
 
         .. math::
 
-            \chi^2 = sim_{PearsonChiSquared}(X, Y) =
+            \chi^2 = corr_{PearsonChiSquared}(X, Y) =
             \frac{|N| \cdot (|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
@@ -58,7 +58,7 @@ class PearsonII(PearsonChiSquared):
 
         .. math::
 
-            \chi^2 = sim_{PearsonChiSquared} =
+            \chi^2 = corr_{PearsonChiSquared} =
             \frac{n \cdot (ad-bc)^2}{(a+b)(a+c)(b+d)(c+d)}
 
     .. versionadded:: 0.4.0
@@ -112,8 +112,8 @@ class PearsonII(PearsonChiSquared):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Pearson II similarity of two strings.
+    def corr(self, src, tar):
+        """Return the Pearson II correlation of two strings.
 
         Parameters
         ----------
@@ -125,18 +125,18 @@ class PearsonII(PearsonChiSquared):
         Returns
         -------
         float
-            Pearson II similarity
+            Pearson II correlation
 
         Examples
         --------
         >>> cmp = PearsonII()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.corr('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.corr('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.corr('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.corr('ATCG', 'TAGC')
         0.0
 
 

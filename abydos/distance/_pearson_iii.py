@@ -18,7 +18,7 @@
 
 """abydos.distance._pearson_iii.
 
-Pearson III similarity
+Pearson III correlation
 """
 
 from __future__ import (
@@ -34,21 +34,21 @@ __all__ = ['PearsonIII']
 
 
 class PearsonIII(PearsonPhi):
-    r"""Pearson III similarity.
+    r"""Pearson III correlation.
 
     For two sets X and Y and a population N, the Pearson III
-    similarity :cite:`Pearson:1913`, Pearson's coefficient of racial likeness,
+    correlation :cite:`Pearson:1913`, Pearson's coefficient of racial likeness,
     is
 
         .. math::
 
-            \Big(\frac{\phi}{|N|+\phi}\big)^\frac{1}{2}
+            \corr_{PearsonIII} = \sqrt{\frac{\phi}{|N|+\phi}}
 
     where
 
         .. math::
 
-            \phi = sim_{PearsonPhi}(X, Y) =
+            \phi = corr_{PearsonPhi}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {\sqrt{|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}}
@@ -58,7 +58,7 @@ class PearsonIII(PearsonPhi):
 
         .. math::
 
-            \phi = sim_{PearsonPhi} =
+            \phi = cor_{PearsonPhi} =
             \frac{ad-bc}
             {\sqrt{(a+b)(a+c)(b+c)(b+d)}}
 
@@ -113,8 +113,8 @@ class PearsonIII(PearsonPhi):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Pearson III similarity of two strings.
+    def corr(self, src, tar):
+        """Return the Pearson III correlation of two strings.
 
         Parameters
         ----------
@@ -126,18 +126,18 @@ class PearsonIII(PearsonPhi):
         Returns
         -------
         float
-            Pearson III similarity
+            Pearson III correlation
 
         Examples
         --------
         >>> cmp = PearsonIII()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.corr('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.corr('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.corr('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.corr('ATCG', 'TAGC')
         0.0
 
 
