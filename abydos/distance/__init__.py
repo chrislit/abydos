@@ -179,7 +179,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Pearson & Heron II correlation (:py:class:`.PearsonHeronII`)
     - Pearson II correlation (:py:class:`.PearsonII`)
     - Pearson III correlation (:py:class:`.PearsonIII`)
-    - Pearson's Chi-Squared correlation (:py:class:`.PearsonChiSquared`)
+    - Pearson's Chi-Squared similarity (:py:class:`.PearsonChiSquared`)
     - Pearson's Phi correlation (:py:class:`.PearsonPhi`)
     - Peirce correlation (:py:class:`.Peirce`)
     - q-gram distance (:py:class:`.QGram`)
