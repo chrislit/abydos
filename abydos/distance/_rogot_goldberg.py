@@ -42,11 +42,11 @@ class RogotGoldberg(_TokenDistance):
         .. math::
 
             sim_{RogotGoldberg}(X, Y) =
-            \frac{1}{2}\Big(
+            \frac{1}{2}\Bigg(
             \frac{2|X \cap Y|}{|X|+|Y|} +
             \frac{2|(N \setminus X) \setminus Y|}
             {|N \setminus X|+|N \setminus Y|}
-            \Big)
+            \Bigg)
 
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -55,10 +55,10 @@ class RogotGoldberg(_TokenDistance):
         .. math::
 
             sim_{RogotGoldberg} =
-            \frac{1}{2}\Big(
+            \frac{1}{2}\Bigg(
             \frac{2a}{2a+b+c} +
             \frac{2d}{2d+b+c}
-            \Big)
+            \Bigg)
 
     .. versionadded:: 0.4.0
     """
@@ -142,6 +142,9 @@ class RogotGoldberg(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -149,7 +152,10 @@ class RogotGoldberg(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return a / (2 * a + b + c) + d / (2 * d + b + c)
+        p1 = a / (2 * a + b + c) if a else 0
+        p2 = d / (2 * d + b + c) if d else 0
+
+        return p1 + p2
 
 
 if __name__ == '__main__':
