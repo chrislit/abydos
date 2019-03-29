@@ -42,40 +42,84 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
     cmp = PearsonChiSquared()
     cmp_no_d = PearsonChiSquared(alphabet=0)
 
-    def test_pearson_chi_squared_corr(self):
-        """Test abydos.distance.PearsonChiSquared.corr."""
+    def test_pearson_chi_squared_sim(self):
+        """Test abydos.distance.PearsonChiSquared.sim."""
         # Base cases
-        self.assertEqual(self.cmp.corr('', ''), float('nan'))
-        self.assertEqual(self.cmp.corr('a', ''), float('nan'))
-        self.assertEqual(self.cmp.corr('', 'a'), float('nan'))
-        self.assertEqual(self.cmp.corr('abc', ''), float('nan'))
-        self.assertEqual(self.cmp.corr('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.corr('abc', 'abc'), 784.0)
-        self.assertEqual(self.cmp.corr('abcd', 'efgh'), 0.032298410951138765)
+        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 784.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.032298410951138765)
 
-        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 192.9885210909)
-        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 192.9885210909)
-        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 192.9885210909)
-        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 192.9885210909)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 192.9885210909)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 192.9885210909)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 192.9885210909)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 192.9885210909)
         self.assertAlmostEqual(
-            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 344.5438630111
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 344.5438630111
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.corr('', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('a', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('', 'a'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abc', ''), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), 10.0)
+        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 10.0)
 
-        self.assertAlmostEqual(self.cmp_no_d.corr('Nigel', 'Niall'), 2.25)
-        self.assertAlmostEqual(self.cmp_no_d.corr('Niall', 'Nigel'), 2.25)
-        self.assertAlmostEqual(self.cmp_no_d.corr('Colin', 'Coiln'), 2.25)
-        self.assertAlmostEqual(self.cmp_no_d.corr('Coiln', 'Colin'), 2.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 2.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 2.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 2.25)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 2.25)
         self.assertAlmostEqual(
-            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), 1.5272727273
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 1.5272727273
+        )
+
+    def test_pearson_chi_squared_dist(self):
+        """Test abydos.distance.PearsonChiSquared.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp.dist('abc', 'abc'), -783.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.9677015890488613)
+
+        self.assertAlmostEqual(
+            self.cmp.dist('Nigel', 'Niall'), -191.9885210909
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist('Niall', 'Nigel'), -191.9885210909
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist('Colin', 'Coiln'), -191.9885210909
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist('Coiln', 'Colin'), -191.9885210909
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -343.5438630111
+        )
+
+        # Tests with alphabet=0 (no d factor)
+        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('a', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'a'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), -9.0)
+
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), -1.25)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), -1.25)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), -1.25)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), -1.25)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), -0.5272727273
         )
 
 
