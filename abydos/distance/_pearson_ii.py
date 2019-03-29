@@ -48,7 +48,7 @@ class PearsonII(PearsonChiSquared):
 
         .. math::
 
-            \chi^2 = corr_{PearsonChiSquared}(X, Y) =
+            \chi^2 = sim_{PearsonChiSquared}(X, Y) =
             \frac{|N| \cdot (|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
@@ -58,7 +58,7 @@ class PearsonII(PearsonChiSquared):
 
         .. math::
 
-            \chi^2 = corr_{PearsonChiSquared} =
+            \chi^2 = sim_{PearsonChiSquared} =
             \frac{n \cdot (ad-bc)^2}{(a+b)(a+c)(b+d)(c+d)}
 
     .. versionadded:: 0.4.0
@@ -143,7 +143,7 @@ class PearsonII(PearsonChiSquared):
         .. versionadded:: 0.4.0
 
         """
-        chi2 = super(PearsonII, self).sim(src, tar)
+        chi2 = super(PearsonII, self).sim_score(src, tar)
         return (chi2 / (self._population_unique_card() + chi2)) ** 0.5
 
 
