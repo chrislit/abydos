@@ -50,15 +50,15 @@ class PearsonIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('', 'a'), float('nan'))
         self.assertEqual(self.cmp.corr('abc', ''), float('nan'))
         self.assertEqual(self.cmp.corr('', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.corr('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.corr('abcd', 'efgh'), float('nan'))
+        self.assertEqual(self.cmp.corr('abc', 'abc'), 0.7071067811865476)
+        self.assertEqual(self.cmp.corr('abcd', 'efgh'), 0.006418353030552324)
 
-        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), float('nan'))
-        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), float('nan'))
-        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), float('nan'))
-        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), float('nan'))
+        self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.4444480535)
+        self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.4444480535)
+        self.assertAlmostEqual(self.cmp.corr('Colin', 'Coiln'), 0.4444480535)
+        self.assertAlmostEqual(self.cmp.corr('Coiln', 'Colin'), 0.4444480535)
         self.assertAlmostEqual(
-            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp.corr('ATCAACGAGT', 'AACGATTAG'), 0.5525391276
         )
 
         # Tests with alphabet=0 (no d factor)
@@ -68,22 +68,24 @@ class PearsonIITestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.corr('abc', ''), float('nan'))
         self.assertEqual(self.cmp_no_d.corr('', 'abc'), float('nan'))
         self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), float('nan'))
+        self.assertEqual(
+            self.cmp_no_d.corr('abcd', 'efgh'), 0.7071067811865476
+        )
 
         self.assertAlmostEqual(
-            self.cmp_no_d.corr('Nigel', 'Niall'), float('nan')
+            self.cmp_no_d.corr('Nigel', 'Niall'), 0.4472135955
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.corr('Niall', 'Nigel'), float('nan')
+            self.cmp_no_d.corr('Niall', 'Nigel'), 0.4472135955
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.corr('Colin', 'Coiln'), float('nan')
+            self.cmp_no_d.corr('Colin', 'Coiln'), 0.4472135955
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.corr('Coiln', 'Colin'), float('nan')
+            self.cmp_no_d.corr('Coiln', 'Colin'), 0.4472135955
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), float('nan')
+            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), 0.3136250241
         )
 
 
