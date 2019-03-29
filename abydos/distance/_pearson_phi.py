@@ -189,7 +189,7 @@ class PearsonPhi(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return (self.corr(src, tar) + 1) / 2
+        return (self.corr(src, tar) + 1.0) / 2.0
 
 
 if __name__ == '__main__':
