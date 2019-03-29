@@ -92,6 +92,14 @@ class ReesLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 1)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 5)
 
+        # Example from paper
+        self.assertEqual(self.cmp.dist_abs('Panulirus', 'Palinurus'), 2)
+
+        # Coverage
+        self.assertEqual(self.cmp.dist_abs('a', 'b'), 1)
+        self.assertEqual(self.cmp.dist_abs('aaa', 'aaab'), 1)
+        self.assertEqual(self.cmp.dist_abs('aaa', 'baa'), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
