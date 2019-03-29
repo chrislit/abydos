@@ -104,11 +104,11 @@ class RougeW(_Distance):
         tar_len = len(tar)
 
         if src == tar:
-            return 0
+            return self._f_func(len(src))
         if not src:
-            return tar_len
+            return 0
         if not tar:
-            return src_len
+            return 0
 
         c_mat = np_zeros((src_len, tar_len), dtype=np_int)
         w_mat = np_zeros((src_len, tar_len), dtype=np_int)
