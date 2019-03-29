@@ -42,7 +42,7 @@ class PearsonII(PearsonChiSquared):
 
         .. math::
 
-            \corr_{PearsonII} = \sqrt{\frac{\chi^2}{|N|+\chi^2}}
+            corr_{PearsonII} = \sqrt{\frac{\chi^2}{|N|+\chi^2}}
 
     where
 
