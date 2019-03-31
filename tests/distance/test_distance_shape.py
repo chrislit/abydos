@@ -62,7 +62,7 @@ class ShapeTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('a', ''), 0.0)
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.0)
@@ -106,7 +106,7 @@ class ShapeTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('a', ''), 1.0)
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 1.0)
