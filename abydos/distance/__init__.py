@@ -26,7 +26,6 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Optimal String Alignment distance (:py:class:`.Levenshtein` with
       ``mode='osa'``)
     - Damerau-Levenshtein distance (:py:class:`.DamerauLevenshtein`)
-    - Shapira-Storer edit distance with moves (:py:class:`.ShapiraStorer`)
     - Yujian-Bo normalized edit distance (:py:class:`.YujianBo`)
     - Higuera-Micó contextual normalized edit distance
       (:py:class:`.HigueraMico`)
@@ -50,6 +49,8 @@ Block edit distances:
       (:py:class:`.BlockLevenshtein`)
     - Rees-Levenshtein distance (:py:class:`.ReesLevenshtein`)
     - Cormode's LZ distance (:py:class:`.CormodeLZ`)
+    - Shapira-Storer I edit distance with block moves, greedy algorithm
+      (:py:class:`.ShapiraStorerI`)
 
 Distance metrics developed for the US Census or derived from them are included:
 
@@ -552,7 +553,7 @@ from ._russell_rao import RussellRao
 from ._saps import SAPS
 from ._scott_pi import ScottPi
 from ._shape import Shape
-from ._shapira_storer import ShapiraStorer
+from ._shapira_storer_i import ShapiraStorerI
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_extended import Sift4Extended
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
@@ -630,7 +631,7 @@ __all__ = [
     'damerau_levenshtein',
     'dist_damerau',
     'sim_damerau',
-    'ShapiraStorer',
+    'ShapiraStorerI',
     'Marking',
     'MarkingMetric',
     'YujianBo',

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._shapira_storer.
+"""abydos.distance._shapira_storer_i.
 
-Shapira & Storer edit distance with moves
+Shapira & Storer I edit distance with block moves, greedy algorithm
 """
 
 from __future__ import (
@@ -38,11 +38,11 @@ from six.moves import range
 from ._lcsstr import LCSstr
 from ._levenshtein import Levenshtein
 
-__all__ = ['ShapiraStorer']
+__all__ = ['ShapiraStorerI']
 
 
-class ShapiraStorer(Levenshtein):
-    """Shapira & Storer edit distance with moves.
+class ShapiraStorerI(Levenshtein):
+    """Shapira & Storer I edit distance with block moves, greedy algorithm.
 
     Shapira & Storer's edit distance :cite:`Shapira:2007` is similar to
     Levenshtein edit distance, but with two important distinctions:
@@ -61,7 +61,7 @@ class ShapiraStorer(Levenshtein):
     """
 
     def __init__(self, **kwargs):
-        """Initialize ShapiraStorer instance.
+        """Initialize ShapiraStorerI instance.
 
         Parameters
         ----------
@@ -72,11 +72,12 @@ class ShapiraStorer(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
-        super(ShapiraStorer, self).__init__(**kwargs)
+        super(ShapiraStorerI, self).__init__(**kwargs)
         self.lcs = LCSstr()
+        self.ins_cost, self.del_cost = (1, 1)
 
     def dist_abs(self, src, tar):
-        """Return the Shapira & Storer edit distance between two strings.
+        """Return the Shapira & Storer I edit distance between two strings.
 
         Parameters
         ----------
@@ -88,11 +89,11 @@ class ShapiraStorer(Levenshtein):
         Returns
         -------
         int
-            The Shapira & Storer edit distance between src & tar
+            The Shapira & Storer I edit distance between src & tar
 
         Examples
         --------
-        >>> cmp = ShapiraStorer()
+        >>> cmp = ShapiraStorerI()
         >>> cmp.dist_abs('cat', 'hat')
         1
         >>> cmp.dist_abs('Niall', 'Neil')
@@ -107,16 +108,17 @@ class ShapiraStorer(Levenshtein):
 
         """
         alphabet = set(src) | set(tar)
-        next_char = ord('A')
+        next_char = 'A'
         lcs = self.lcs.lcsstr(src, tar)
         while len(lcs) > 1:
-            while chr(next_char) in alphabet:
-                next_char += 1
+            while next_char in alphabet:
+                next_char = chr(ord(next_char) + 1)
             p = self.lcs.lcsstr(src, tar)
             src = src.replace(p, next_char)
             tar = tar.replace(p, next_char)
-            alphabet |= next_char
+            alphabet |= {next_char}
             lcs = self.lcs.lcsstr(src, tar)
+        print(src, tar)
         d = self._edit_with_moves(src, tar)
         return d
 
@@ -139,26 +141,24 @@ class ShapiraStorer(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
-        ins_cost, del_cost = (1, 1)
-
         if src == tar:
             return 0
         if not src:
-            return len(tar) * ins_cost
+            return len(tar) * self.ins_cost
         if not tar:
-            return len(src) * del_cost
+            return len(src) * self.del_cost
 
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         for i in range(len(src) + 1):
-            d_mat[i, 0] = i * del_cost
+            d_mat[i, 0] = i * self.del_cost
         for j in range(len(tar) + 1):
-            d_mat[0, j] = j * ins_cost
+            d_mat[0, j] = j * self.ins_cost
 
         for i in range(len(src)):
             for j in range(len(tar)):
                 d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + ins_cost,  # ins
-                    d_mat[i, j + 1] + del_cost,  # del
+                    d_mat[i + 1, j] + self.ins_cost,  # ins
+                    d_mat[i, j + 1] + self.del_cost,  # del
                     d_mat[i, j]
                     + (float('inf') if src[i] != tar[j] else 0),  # sub/==
                 )
@@ -203,7 +203,7 @@ class ShapiraStorer(Levenshtein):
         return distance - moves
 
     def dist(self, src, tar):
-        """Return the normalized Shapira & Storer distance between two strings.
+        """Return the normalized Shapira & Storer I distance.
 
         Parameters
         ----------
@@ -215,11 +215,11 @@ class ShapiraStorer(Levenshtein):
         Returns
         -------
         float
-            The normalized Levenshtein distance between src & tar
+            The normalized Shapira & Storer I distance between src & tar
 
         Examples
         --------
-        >>> cmp = ShapiraStorer()
+        >>> cmp = ShapiraStorerI()
         >>> round(cmp.dist('cat', 'hat'), 12)
         0.333333333333
         >>> round(cmp.dist('Niall', 'Neil'), 12)
@@ -234,7 +234,7 @@ class ShapiraStorer(Levenshtein):
 
         """
         if src == tar:
-            return 0
+            return 0.0
         ins_cost, del_cost = self._cost[:2]
         return self.dist_abs(src, tar) / (
             self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
