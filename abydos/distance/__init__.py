@@ -186,7 +186,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
     - Russell & Rao similarity (:py:class:`.RussellRao`)
-    - Scott's Pi similarity (:py:class:`.ScottPi`)
+    - Scott's Pi correlation (:py:class:`.ScottPi`)
     - Shape difference (:py:class:`.Shape`)
     - Size difference (:py:class:`.Size`)
     - Sokal & Michener similarity (:py:class:`.SokalMichener`)
