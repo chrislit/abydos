@@ -197,7 +197,7 @@ class SAPS(_Distance):
 
         """
         score = self.sim_score(src, tar)
-        if score == 0:
+        if score <= 0:
             return 0.0
 
         src = self._tokenizer.tokenize(src).get_list()
