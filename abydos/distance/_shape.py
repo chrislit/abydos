@@ -42,7 +42,7 @@ class Shape(_TokenDistance):
         .. math::
 
             dist_{Shape}(X, Y) =
-            \frac{1}{|N|}\cdot\sum_{x \in (X \triangle Y)} x^2 -
+            \frac{1}{|N|}\cdot\Big(\sum_{x \in (X \triangle Y)} x^2\Big) -
             \Big(\frac{|X \triangle Y|}{|N|}\Big)^2
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -57,7 +57,7 @@ class Shape(_TokenDistance):
     In :cite:`IBM:2017`, the formula is instead
     :math:`\frac{n(b+c)-(b-c)^2}{n^2}`, but it is clear from
     :cite:`Penrose:1952` that this should not be an assymmetric value with
-    respect two the ordering of the two sets, among other errors in this
+    respect to the ordering of the two sets, among other errors in this
     formula. Meanwhile, :cite:`Deza:2016` gives the formula
     :math:`\sqrt{\sum((x_i-\bar{x})-(y_i-\bar{y}))^2}`.
 
@@ -143,6 +143,9 @@ class Shape(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         symdiff = self._symmetric_difference().values()
