@@ -48,11 +48,12 @@ class ScottPi(_TokenDistance):
 
         .. math::
 
-            p_o = \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
+            \begin{array}{ll}
+            p_o &= \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}{|N|}
 
-            p_e^\pi = \Big(\frac{\frac{|X|}{|N|} + \frac{|Y|}{|N|}}{2}\Big)^2 +
-            \Big(\frac{\frac{|N \setminus X|}{|N|} +
-            \frac{|N \setminus Y|}{|N|}}{2}\Big)^2
+            p_e^\pi &= \Big(\frac{|X| + |Y|}{2 \cdot |N|}\Big)^2 +
+            \Big(\frac{|N \setminus X| + |N \setminus Y|}{2 \cdot |N|}\Big)^2
+            \end{array}
 
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -60,10 +61,12 @@ class ScottPi(_TokenDistance):
 
         .. math::
 
-            p_o = \frac{a+d}{n}
+            \begin{array}{ll}
+            p_o &= \frac{a+d}{n}
 
-            p_e^\pi = \Big(\frac{\frac{a+b}{n} + \frac{a+c}{n}}{2}\Big)^2 +
-            \Big(\frac{\frac{b+d}{n} + \frac{c+d}{n}}{2}\Big)^2
+            p_e^\pi &= \Big(\frac{2a+b+c}{2n}\Big)^2 +
+            \Big(\frac{2d+b+c}{2n}\Big)^2
+            \end{array}
 
 
     .. versionadded:: 0.4.0
@@ -117,6 +120,55 @@ class ScottPi(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Scott's Pi similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Scott's Pi similarity
+
+        Examples
+        --------
+        >>> cmp = ScottPi()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = a + b + c + d
+
+        po = (a + d) / n
+        pe = ((2 * a + b + c) / (2 * n)) ** 2 + (
+            (2 * d + b + c) / (2 * n)
+        ) ** 2
+
+        return (po - pe) / (1 - pe)
+
     def sim(self, src, tar):
         """Return the Scott's Pi similarity of two strings.
 
@@ -148,16 +200,7 @@ class ScottPi(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return (4 * a * d - b * b - 2 * b * c - c * c) / (
-            (2 * a + b + c) * (2 * d + b + c)
-        )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
