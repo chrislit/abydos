@@ -74,7 +74,6 @@ class ShapiraStorerI(Levenshtein):
         """
         super(ShapiraStorerI, self).__init__(**kwargs)
         self.lcs = LCSstr()
-        self.ins_cost, self.del_cost = (1, 1)
 
     def dist_abs(self, src, tar):
         """Return the Shapira & Storer I edit distance between two strings.
@@ -118,6 +117,7 @@ class ShapiraStorerI(Levenshtein):
             tar = tar.replace(p, next_char)
             alphabet |= {next_char}
             lcs = self.lcs.lcsstr(src, tar)
+        print(src, tar)
         d = self._edit_with_moves(src, tar)
         return d
 
@@ -140,24 +140,26 @@ class ShapiraStorerI(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
+        ins_cost, del_cost = self._cost[:2]
+
         if src == tar:
             return 0
         if not src:
-            return len(tar) * self.ins_cost
+            return len(tar) * ins_cost
         if not tar:
-            return len(src) * self.del_cost
+            return len(src) * del_cost
 
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         for i in range(len(src) + 1):
-            d_mat[i, 0] = i * self.del_cost
+            d_mat[i, 0] = i * del_cost
         for j in range(len(tar) + 1):
-            d_mat[0, j] = j * self.ins_cost
+            d_mat[0, j] = j * ins_cost
 
         for i in range(len(src)):
             for j in range(len(tar)):
                 d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + self.ins_cost,  # ins
-                    d_mat[i, j + 1] + self.del_cost,  # del
+                    d_mat[i + 1, j] + ins_cost,  # ins
+                    d_mat[i, j + 1] + del_cost,  # del
                     d_mat[i, j]
                     + (float('inf') if src[i] != tar[j] else 0),  # sub/==
                 )
@@ -235,8 +237,10 @@ class ShapiraStorerI(Levenshtein):
         if src == tar:
             return 0.0
         ins_cost, del_cost = self._cost[:2]
+        src_len = len(src)
+        tar_len = len(tar)
         return self.dist_abs(src, tar) / (
-            self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
+            sum([src_len * del_cost, tar_len * ins_cost])
         )
 
 

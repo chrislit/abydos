@@ -50,13 +50,15 @@ class ShapiraStorerITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 2.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.8)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.8)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.2)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.2)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.4)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.1)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.1)
+        self.assertAlmostEqual(
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.2105263158
+        )
 
     def test_shapira_storer_i_sim(self):
         """Test abydos.distance.ShapiraStorerI.sim."""
@@ -67,13 +69,15 @@ class ShapiraStorerITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), -1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.2)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.2)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.8)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.8)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9)
+        self.assertAlmostEqual(
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7894736842
+        )
 
     def test_shapira_storer_i_dist_abs(self):
         """Test abydos.distance.ShapiraStorerI.dist_abs."""
