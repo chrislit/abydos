@@ -97,7 +97,7 @@ class SokalSneathIII(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Sokal & Sneath III similarity of two strings.
 
         Parameters
@@ -127,6 +127,9 @@ class SokalSneathIII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return float('inf')
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
