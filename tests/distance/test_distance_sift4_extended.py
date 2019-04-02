@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Sift4Extended
+from abydos.tokenizer import QGrams
 
 
 class Sift4ExtendedTestCases(unittest.TestCase):
@@ -39,7 +40,20 @@ class Sift4ExtendedTestCases(unittest.TestCase):
     abydos.distance.Sift4Extended
     """
 
+    ltamc = Sift4Extended.longer_transpositions_are_more_costly
+
     cmp = Sift4Extended()
+    cmp_kwargs = Sift4Extended(
+        tokenizer=QGrams(qval=2),
+        token_matcher=Sift4Extended.sift4_token_matcher,
+        matching_evaluator=Sift4Extended.sift4_matching_evaluator,
+        local_length_evaluator=Sift4Extended.reward_length_evaluator,
+        transposition_cost_evaluator=ltamc,
+        transpositions_evaluator=lambda lcss, trans: lcss - trans,
+    )
+    cmp_kwargs2 = Sift4Extended(
+        local_length_evaluator=Sift4Extended.reward_length_evaluator_exp
+    )
 
     def test_sift4_extended_dist_abs(self):
         """Test abydos.distance.Sift4Extended.dist_abs."""
@@ -57,6 +71,33 @@ class Sift4ExtendedTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 1)
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 1)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 4)
+
+        self.assertEqual(self.cmp_kwargs.dist_abs('', ''), 0)
+        self.assertEqual(self.cmp_kwargs.dist_abs('a', ''), 2)
+        self.assertEqual(self.cmp_kwargs.dist_abs('', 'a'), 2)
+        self.assertEqual(self.cmp_kwargs.dist_abs('abc', ''), 4)
+        self.assertEqual(self.cmp_kwargs.dist_abs('', 'abc'), 4)
+        self.assertEqual(self.cmp_kwargs.dist_abs('abc', 'abc'), -1)
+        self.assertEqual(self.cmp_kwargs.dist_abs('abcd', 'efgh'), -2)
+
+        self.assertAlmostEqual(self.cmp_kwargs.dist_abs('Nigel', 'Niall'), 1)
+        self.assertAlmostEqual(self.cmp_kwargs.dist_abs('Niall', 'Nigel'), 1)
+        self.assertAlmostEqual(self.cmp_kwargs.dist_abs('Colin', 'Coiln'), 1)
+        self.assertAlmostEqual(self.cmp_kwargs.dist_abs('Coiln', 'Colin'), 1)
+        self.assertAlmostEqual(
+            self.cmp_kwargs.dist_abs('ATCAACGAGT', 'AACGATTAG'), 2
+        )
+
+        self.assertEqual(self.cmp_kwargs2.dist_abs('abc', 'abc'), 0)
+        self.assertEqual(self.cmp_kwargs2.dist_abs('abcd', 'efgh'), 8)
+
+        self.assertAlmostEqual(self.cmp_kwargs2.dist_abs('Nigel', 'Niall'), 7)
+        self.assertAlmostEqual(self.cmp_kwargs2.dist_abs('Niall', 'Nigel'), 7)
+        self.assertAlmostEqual(self.cmp_kwargs2.dist_abs('Colin', 'Coiln'), 6)
+        self.assertAlmostEqual(self.cmp_kwargs2.dist_abs('Coiln', 'Colin'), 6)
+        self.assertAlmostEqual(
+            self.cmp_kwargs2.dist_abs('ATCAACGAGT', 'AACGATTAG'), 25
+        )
 
 
 if __name__ == '__main__':
