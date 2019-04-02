@@ -177,16 +177,18 @@ class SoftTFIDF(_TokenDistance):
         vws_rss = sum(score ** 2 for score in vws_dict.values()) ** 0.5
         vwt_rss = sum(score ** 2 for score in vwt_dict.values()) ** 0.5
 
-        return round(
-            sum(
-                vws_dict[s_tok]
-                / vws_rss
-                * vwt_dict[t_tok]
-                / vwt_rss
-                * matches[(s_tok, t_tok)]
-                for s_tok, t_tok in matches.keys()
-            ),
-            14,
+        return float(
+            round(
+                sum(
+                    vws_dict[s_tok]
+                    / vws_rss
+                    * vwt_dict[t_tok]
+                    / vwt_rss
+                    * matches[(s_tok, t_tok)]
+                    for s_tok, t_tok in matches.keys()
+                ),
+                14,
+            )
         )
 
 
