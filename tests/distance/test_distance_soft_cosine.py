@@ -128,7 +128,9 @@ class SoftCosineTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertAlmostEqual(self.cmp.dist('abcd', 'efgh'), 0.25714285714285734)
+        self.assertAlmostEqual(
+            self.cmp.dist('abcd', 'efgh'), 0.25714285714285734
+        )
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.101853761)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.101853761)
