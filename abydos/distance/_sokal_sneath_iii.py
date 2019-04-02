@@ -129,9 +129,12 @@ class SokalSneathIII(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        return (self._intersection_card() + self._total_complement_card()) / (
-            self._src_only_card() + self._tar_only_card()
-        )
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        return (a + d) / (b + c)
 
 
 if __name__ == '__main__':
