@@ -93,7 +93,7 @@ class SingleLinkageTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 0)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0)
 
-        self.assertAlmostEqual(self.cmp_jw.dist_abs('abcd', 'dj'), 1/3)
+        self.assertAlmostEqual(self.cmp_jw.dist_abs('abcd', 'dj'), 1 / 3)
 
 
 if __name__ == '__main__':
