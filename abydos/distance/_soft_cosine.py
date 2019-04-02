@@ -37,13 +37,14 @@ __all__ = ['SoftCosine']
 class SoftCosine(_TokenDistance):
     r"""Soft Cosine similarity.
 
-    As described in :cite:`Sidorov:2014`, soft cosine similarity is
+    As described in :cite:`Sidorov:2014`, soft cosine similarity of two
+    multi-sets X and Y, drawn from an alphabet S, is
 
         .. math::
 
-            sim_{soft cosine}(X, Y) = \frac{\sum_{i}\sum_{j} s_{ij} X_i Y_j}
-            {\sqrt{\sum_{i}\sum_{j} s_{ij} X_i X_j}
-            \sqrt{\sum_{i}\sum_{j} s_{ij} Y_i Y_j}}
+            sim_{soft cosine}(X, Y) = \frac{\sum_{i \in S}\sum_{j \in S} s_{ij} X_i Y_j}
+            {\sqrt{\sum_{i \in S}\sum_{j \in S} s_{ij} X_i X_j}
+            \sqrt{\sum_{i \in S}\sum_{j \in S} s_{ij} Y_i Y_j}}
 
     where :math:`s_{ij}` is the similarity of two tokens, by default a function
     of Levenshtein distance: :math:`\frac{1}{1+Levenshtein\_distance(i, j)}`.
@@ -78,10 +79,10 @@ class SoftCosine(_TokenDistance):
             Selects the similarity method from the four given in
             :cite:`Sidorov:2014`:
 
-                - a. :math:`\frac{1}{1+d}`
-                - b. :math:`1-\frac{d}{m}`
-                - c. :math:`\sqrt{1-\frac{d}{m}}`
-                - d. :math:`\Big(1-\frac{d}{m}\Big)`
+                - ``a`` : :math:`\frac{1}{1+d}`
+                - ``b`` : :math:`1-\frac{d}{m}`
+                - ``c`` : :math:`\sqrt{1-\frac{d}{m}}`
+                - ``d`` : :math:`\Big(1-\frac{d}{m}\Big)^2`
 
             Where :math:`d` is the distance (Levenshtein by default) and
             :math:`m` is the maximum length of the two tokens. Option `a` is
