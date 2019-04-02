@@ -41,48 +41,31 @@ class SokalSneathIIITestCases(unittest.TestCase):
 
     cmp = SokalSneathIII()
 
-    def test_sokal_sneath_iii_sim(self):
-        """Test abydos.distance.SokalSneathIII.sim."""
+    def test_sokal_sneath_iii_sim_score(self):
+        """Test abydos.distance.SokalSneathIII.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
-        self.assertEqual(self.cmp.sim('a', ''), 391.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 391.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 195.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 195.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 77.4)
-
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 129.6666666667)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 129.6666666667)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 129.6666666667)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 129.6666666667)
-        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 111.0)
-
-    def test_sokal_sneath_iii_dist(self):
-        """Test abydos.distance.SokalSneathIII.dist."""
-        # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
-        self.assertEqual(self.cmp.dist('a', ''), -390.0)
-        self.assertEqual(self.cmp.dist('', 'a'), -390.0)
-        self.assertEqual(self.cmp.dist('abc', ''), -194.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), -194.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), float('nan'))
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), -76.4)
+        self.assertEqual(self.cmp.sim_score('', ''), float('inf'))
+        self.assertEqual(self.cmp.sim_score('a', ''), 391.0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 391.0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 195.0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 195.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), float('inf'))
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 77.4)
 
         self.assertAlmostEqual(
-            self.cmp.dist('Nigel', 'Niall'), -128.6666666667
+            self.cmp.sim_score('Nigel', 'Niall'), 129.6666666667
         )
         self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Nigel'), -128.6666666667
+            self.cmp.sim_score('Niall', 'Nigel'), 129.6666666667
         )
         self.assertAlmostEqual(
-            self.cmp.dist('Colin', 'Coiln'), -128.6666666667
+            self.cmp.sim_score('Colin', 'Coiln'), 129.6666666667
         )
         self.assertAlmostEqual(
-            self.cmp.dist('Coiln', 'Colin'), -128.6666666667
+            self.cmp.sim_score('Coiln', 'Colin'), 129.6666666667
         )
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), -110.0
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 111.0
         )
 
 
