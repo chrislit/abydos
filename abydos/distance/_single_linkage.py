@@ -158,13 +158,13 @@ class SingleLinkage(_TokenDistance):
 
         src, tar = self._get_tokens()
 
-        min_val = float('inf')
+        min_val = 1.0
 
         for term_src in src.keys():
             for term_tar in tar.keys():
                 min_val = min(min_val, self._metric.dist(term_src, term_tar))
 
-        return min_val
+        return float(min_val)
 
 
 if __name__ == '__main__':

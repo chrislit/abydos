@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import SingleLinkage
+from abydos.distance import JaroWinkler, SingleLinkage
 
 
 class SingleLinkageTestCases(unittest.TestCase):
@@ -40,32 +40,33 @@ class SingleLinkageTestCases(unittest.TestCase):
     """
 
     cmp = SingleLinkage()
+    cmp_jw = SingleLinkage(metric=JaroWinkler())
 
     def test_single_linkage_dist(self):
         """Test abydos.distance.SingleLinkage.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('inf'))
-        self.assertEqual(self.cmp.dist('a', ''), float('inf'))
-        self.assertEqual(self.cmp.dist('', 'a'), float('inf'))
-        self.assertEqual(self.cmp.dist('abc', ''), float('inf'))
-        self.assertEqual(self.cmp.dist('', 'abc'), float('inf'))
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 0)
+        self.assertEqual(self.cmp.dist('', ''), 1.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.5)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0)
-        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0)
 
     def test_single_linkage_sim(self):
         """Test abydos.distance.SingleLinkage.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('-inf'))
-        self.assertEqual(self.cmp.sim('a', ''), float('-inf'))
-        self.assertEqual(self.cmp.sim('', 'a'), float('-inf'))
-        self.assertEqual(self.cmp.sim('abc', ''), float('-inf'))
-        self.assertEqual(self.cmp.sim('', 'abc'), float('-inf'))
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.5)
 
@@ -91,6 +92,8 @@ class SingleLinkageTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 0)
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 0)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0)
+
+        self.assertAlmostEqual(self.cmp_jw.dist_abs('abcd', 'dj'), 1/3)
 
 
 if __name__ == '__main__':
