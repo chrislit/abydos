@@ -133,13 +133,16 @@ class Sorgenfrei(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
         apb = self._src_card()
         apc = self._tar_card()
 
-        return a ** 2 / (apb * apc)
+        return a ** 2 / (apb * apc) if a else 0.0
 
 
 if __name__ == '__main__':
