@@ -144,11 +144,16 @@ class SokalMichener(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
-        return (
-            self._intersection_card() + self._total_complement_card()
-        ) / self._population_unique_card()
+        a = self._intersection_card()
+        d = self._total_complement_card()
+        n = self._population_unique_card()
+
+        return (a + d) / n
 
 
 if __name__ == '__main__':
