@@ -43,7 +43,7 @@ class SokalSneathIII(_TokenDistance):
 
             sim_{SokalSneathIII}(X, Y) =
             \frac{|X \cap Y| + |(N \setminus X) \setminus Y|}
-            {|X \setminus Y| + |Y \setminus X|}
+            {|X \triangle Y|}
 
     This is the third of five "Unnamed coefficients" presented in
     :cite:`Sokal:1963`. It corresponds to the "Unmatched pairs only in the
