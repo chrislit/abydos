@@ -46,12 +46,16 @@ class SoftTFIDF(_TokenDistance):
 
         .. math::
 
-            sim_{SoftTF-IDF}(X, Y) = \sum_{w \in \{sim_{metric}(x, y) \ge
-            \theta | x \in X, y \in Y \}} V(w, X) \cdot V(w, Y)
-
-            V(w, S) = \frac{V'(w, S)}{\sqrt{\sum_{w \in S} V'(w, S)^2}}
-
-            V'(w, S) = log(1+TF_{w,S}) \cdot log(1+IDF_w)
+            \begin{array}{ll}
+            sim_{SoftTF-IDF}(X, Y) &= \sum_{w \in \{sim_{metric}(x, y) \ge
+            \theta | x \in X, y \in Y \}} V(w, S) \cdot V(w, X) \cdot V(w, Y)
+            \\
+            \\
+            V(w, S) &= \frac{V'(w, S)}{\sqrt{\sum_{w \in S} V'(w, S)^2}}
+            \\
+            \\
+            V'(w, S) &= log(1+TF_{w,S}) \cdot log(1+IDF_w)
+            \end{array}
 
     Notes
     -----
