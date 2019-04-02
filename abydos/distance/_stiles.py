@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log10
+from math import copysign, log10
 
 from ._token_distance import _TokenDistance
 
@@ -43,16 +43,14 @@ class Stiles(_TokenDistance):
 
         .. math::
 
-            sim_{Stiles}(X, Y) = log_10
-            \frac{card(N) \Big(|card(X \cap Y) \cdot
-            card(N \setminus X \setminus Y) -
-            card(X \setminus Y) \cdot card(Y \setminus X) -
-            \frac{card(N)}{2}\Big)^2}
-            {card(X) \cdot card(Y) \cdot card(N \setminus X) \cdot
-            card(N \setminus Y)}
-
-    In contrast to other uses, here, :math:`card(X)` represents the cardinality
-    of X and :math:`|n|` represents absolute value.
+            sim_{Stiles}(X, Y) = log_{10}
+            \frac{|N| \Big(||X \cap Y| \cdot
+            |N| -
+            |X \setminus Y| \cdot |Y \setminus X|| -
+            \frac{|N|}{2}\Big)^2}
+            {|X \setminus Y| \cdot |Y \setminus X| \cdot
+            (|N| - |X \setminus Y|) \cdot
+            (|N| - |Y \setminus X|)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -60,7 +58,7 @@ class Stiles(_TokenDistance):
         .. math::
 
             sim_{Stiles} =
-            log_10 \frac{n(|ad-bc|-\frac{1}{2}n)^2}{(a+b)(a+c)(b+d)(c+d)}
+            log_{10} \frac{n(|an-bc|-\frac{1}{2}n)^2}{bc(n-b)(n-c)}
 
     .. versionadded:: 0.4.0
     """
@@ -113,7 +111,7 @@ class Stiles(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Stiles similarity of two strings.
 
         Parameters
@@ -131,6 +129,86 @@ class Stiles(_TokenDistance):
         Examples
         --------
         >>> cmp = Stiles()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = max(self._intersection_card(), 0.0000001)
+        b = max(self._src_only_card(), 0.0000001)
+        c = max(self._tar_only_card(), 0.0000001)
+        n = self._total_complement_card() + a + b + c
+
+        anmbc = a * n - b * c
+
+        return copysign(
+            log10(n * (abs(anmbc) - n / 2) ** 2 / (b * (n - b) * c * (n - c))),
+            anmbc,
+        )
+
+    def corr(self, src, tar):
+        """Return the Stiles correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Stiles correlation
+
+        Examples
+        --------
+        >>> cmp = Stiles()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.sim_score(src, tar) / max(
+            self.sim_score(src, src), self.sim_score(tar, tar)
+        )
+
+    def sim(self, src, tar):
+        """Return the normalized Stiles similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Stiles similarity
+
+        Examples
+        --------
+        >>> cmp = Stiles()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -144,19 +222,7 @@ class Stiles(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        return log10(
-            n
-            * (abs(a * d - b * c) - n / 2) ** 2
-            / ((a + b) * (a + c) * (b + d) * (c + d))
-        )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
