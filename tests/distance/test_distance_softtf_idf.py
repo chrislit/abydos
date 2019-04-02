@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import SoftTFIDF
+from abydos.distance import Levenshtein, SoftTFIDF
 
 
 class SoftTFIDFTestCases(unittest.TestCase):
@@ -40,17 +40,18 @@ class SoftTFIDFTestCases(unittest.TestCase):
     """
 
     cmp = SoftTFIDF()
+    cmp_lev = SoftTFIDF(metric=Levenshtein())
 
     def test_softtf_idf_sim(self):
         """Test abydos.distance.SoftTFIDF.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0)
-        self.assertEqual(self.cmp.sim('a', ''), 0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0)
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.304044497)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.304044497)
@@ -58,6 +59,14 @@ class SoftTFIDFTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.304044497)
         self.assertAlmostEqual(
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4676712137
+        )
+
+        self.assertAlmostEqual(self.cmp_lev.sim('Nigel', 'Niall'), 0.304044497)
+        self.assertAlmostEqual(self.cmp_lev.sim('Niall', 'Nigel'), 0.304044497)
+        self.assertAlmostEqual(self.cmp_lev.sim('Colin', 'Coiln'), 0.304044497)
+        self.assertAlmostEqual(self.cmp_lev.sim('Coiln', 'Colin'), 0.304044497)
+        self.assertAlmostEqual(
+            self.cmp_lev.sim('ATCAACGAGT', 'AACGATTAG'), 0.4676712137
         )
 
     def test_softtf_idf_dist(self):
