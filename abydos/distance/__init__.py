@@ -200,7 +200,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Sorgenfrei similarity (:py:class:`.Sorgenfrei`)
     - Steffensen similarity (:py:class:`.Steffensen`)
     - Stiles similarity (:py:class:`.Stiles`)
-    - Stuart's Tau similarity (:py:class:`.StuartTau`)
+    - Stuart's Tau correlation (:py:class:`.StuartTau`)
     - Tarantula similarity (:py:class:`.Tarantula`)
     - Tarwid similarity (:py:class:`.Tarwid`)
     - Tulloss' R similarity (:py:class:`.TullossR`)
