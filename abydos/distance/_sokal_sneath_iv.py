@@ -42,14 +42,14 @@ class SokalSneathIV(_TokenDistance):
         .. math::
 
             sim_{SokalSneathIV}(X, Y) =
-            \frac{
+            \frac{1}{4}\Bigg(
             \frac{|X \cap Y|}{|X|}+
             \frac{|X \cap Y|}{|Y|}+
             \frac{|(N \setminus X) \setminus Y|}
-            {|(N \setminus X) \setminus Y| + |X \setminus Y|}+
+            {|N \setminus Y|}+
             \frac{|(N \setminus X) \setminus Y|}
-            {|(N \setminus X) \setminus Y| + |Y \setminus X|}
-            }{4}
+            {|N \setminus X|}
+            \Bigg)
 
     This is the fourth of five "Unnamed coefficients" presented in
     :cite:`Sokal:1963`. It corresponds to the first "Marginal totals in the

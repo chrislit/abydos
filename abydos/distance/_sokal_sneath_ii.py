@@ -42,7 +42,7 @@ class SokalSneathII(_TokenDistance):
 
             sim_{SokalSneathII}(X, Y) =
             \frac{|X \cap Y|}
-            {|X \cap Y| + 2(|X \setminus Y| + |Y \setminus X|)}
+            {|X \cap Y| + 2|X \triangle Y|}
 
     This is the second of five "Unnamed coefficients" presented in
     :cite:`Sokal:1963`. It corresponds to the "Unmatched pairs carry twice the
