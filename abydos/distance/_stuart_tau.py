@@ -36,12 +36,12 @@ __all__ = ['StuartTau']
 class StuartTau(_TokenDistance):
     r"""Stuart's Tau correlation.
 
-    For two sets X and Y and a population N, Stuart's Tau correlation
+    For two sets X and Y and a population N, Stuart's Tau-C correlation
     :cite:`Stuart:1953` is
 
         .. math::
 
-            sim_{StuartTau}(X, Y) =
+            sim_{Stuart_{\tau_c}}(X, Y) =
             \frac{4 \cdot (|X \cap Y| + |(N \setminus X) \setminus Y| -
             |X \triangle Y|)}{|N|^2}
 
@@ -50,8 +50,8 @@ class StuartTau(_TokenDistance):
 
         .. math::
 
-            sim_{StuartTau} =
-            \frac{4 \cdot (a+d-b-c)}{n^2}
+            sim_{Stuart_{\tau_c}} =
+            \frac{4 \cdot ((a+d)-(b+c))}{n^2}
 
     .. versionadded:: 0.4.0
     """
@@ -143,7 +143,9 @@ class StuartTau(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return 4 * (a + d - b - c) / (n ** 2)
+        if not n:
+            return 1.0
+        return max(-1.0, min(1.0, 4 * (a + d - b - c) / (n ** 2)))
 
     def sim(self, src, tar):
         """Return the Stuart's Tau similarity of two strings.
@@ -176,7 +178,8 @@ class StuartTau(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        return (1.0+self.corr(src, tar))/2.0
+        return (1.0 + self.corr(src, tar)) / 2.0
+
 
 if __name__ == '__main__':
     import doctest
