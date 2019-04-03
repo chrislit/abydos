@@ -120,7 +120,7 @@ class Tetrachoric(_TokenDistance):
         Returns
         -------
         float
-            TITLE
+            Tetrachoric correlation coefficient
 
         Examples
         --------
