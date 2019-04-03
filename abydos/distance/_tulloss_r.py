@@ -44,7 +44,7 @@ class TullossR(_TokenDistance):
         .. math::
 
             sim_{Tulloss_R}(X, Y) =
-            \frac{log(1+\frac{|X \cap Y|}{|Y|}) \cdot log(1+\frac{|X \cap Y|}
+            \frac{log(1+\frac{|X \cap Y|}{|X|}) \cdot log(1+\frac{|X \cap Y|}
             {|Y|})}{log^2(2)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
