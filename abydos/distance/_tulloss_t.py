@@ -31,6 +31,9 @@ from __future__ import (
 from math import log
 
 from ._token_distance import _TokenDistance
+from ._tulloss_r import TullossR
+from ._tulloss_s import TullossS
+from ._tulloss_u import TullossU
 
 __all__ = ['TullossT']
 
@@ -103,6 +106,9 @@ class TullossT(_TokenDistance):
         super(TullossT, self).__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
+        self._r = TullossR()
+        self._s = TullossS()
+        self._u = TullossU()
 
     def sim(self, src, tar):
         """Return Tulloss' T similarity of two strings.
@@ -135,17 +141,11 @@ class TullossT(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
+        r = self._r.sim(src, tar)
+        s = self._s.sim(src, tar)
+        u = self._u.sim(src, tar)
 
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-
-        r = log(1 + (min(b, c) + a) / (max(b, c) + a), 2)
-        s = 1 / (log(2 + min(b, c) / (a + 1), 2)) ** 0.5
-        t = (log(1 + a / (a + b)) * log(1 + a / (a + c))) / log(2) ** 2
-
-        return (r * s * t) ** 0.5
+        return (r * s * u) ** 0.5
 
 
 if __name__ == '__main__':
