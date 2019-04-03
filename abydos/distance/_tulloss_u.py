@@ -44,8 +44,8 @@ class TullossU(_TokenDistance):
         .. math::
 
             sim_{Tulloss_U}(X, Y) =
-            log_2(1+\frac{min(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}
-            {max(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|})
+            log_2\Big(1+\frac{min(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}
+            {max(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}\Big)
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -53,7 +53,7 @@ class TullossU(_TokenDistance):
         .. math::
 
             sim_{Tulloss_U} =
-            log_2(1+\frac{min(b, c)+a}{max(b, c)+a}
+            log_2\Big(1+\frac{min(b, c)+a}{max(b, c)+a}\Big)
 
     .. versionadded:: 0.4.0
     """

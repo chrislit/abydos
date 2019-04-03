@@ -43,6 +43,7 @@ class TullossT(_TokenDistance):
 
         .. math::
 
+            \begin{array}{l}
             sim_{Tulloss_T}(X, Y) = \sqrt{sim_{Tulloss_U}(X, Y) \cdot
             sim_{Tulloss_S}(X, Y) \cdot sim_{Tulloss_R}(X, Y)}
 
@@ -51,8 +52,9 @@ class TullossT(_TokenDistance):
             {max(|X \setminus Y|, |Y \setminus X|)+|X \cap Y|}) \cdot
             \frac{1}{\sqrt{log_2(2+\frac{min(|X \setminus Y|, |Y \setminus X|)}
             {|X \cap Y|+1})}} \cdot
-            \frac{log(1+\frac{|X \cap Y|}{|Y|}) \cdot log(1+\frac{|X \cap Y|}
+            \frac{log(1+\frac{|X \cap Y|}{|X|}) \cdot log(1+\frac{|X \cap Y|}
             {|Y|})}{log^2(2)}}
+            \end{array}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -60,7 +62,7 @@ class TullossT(_TokenDistance):
         .. math::
 
             sim_{Tulloss_T} = \sqrt{
-            log_2(1+\frac{min(b, c)+a}{max(b, c)+a} \cdot
+            log_2\Big(1+\frac{min(b, c)+a}{max(b, c)+a}\Big) \cdot
             \frac{1}{\sqrt{log_2(2+\frac{min(b,c)}{a+1})}} \cdot
             \frac{log(1+\frac{a}{a+b}) \cdot log(1+\frac{a}{a+c})}{log^2(2)}}
 
@@ -139,11 +141,11 @@ class TullossT(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
 
-        return (
-            (log(1 + (min(b, c) + a) / (max(b, c) + a), 2))
-            * (1 / (log(2 + min(b, c) / (a + 1), 2)) ** 0.5)
-            * (log(1 + a / (a + b)) * log(1 + a / (a + c)) / log(2) ** 2)
-        ) ** 0.5
+        r = log(1 + (min(b, c) + a) / (max(b, c) + a), 2)
+        s = 1 / (log(2 + min(b, c) / (a + 1), 2)) ** 0.5
+        t = (log(1 + a / (a + b)) * log(1 + a / (a + c))) / log(2) ** 2
+
+        return (r * s * t) ** 0.5
 
 
 if __name__ == '__main__':
