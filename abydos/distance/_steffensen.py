@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from numpy import array as np_array
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Steffensen']
@@ -37,24 +39,42 @@ class Steffensen(_TokenDistance):
     r"""Steffensen similarity.
 
     For two sets X and Y and a population N, Steffensen similarity
-    :cite:`Steffensen:1934` is
+    :math:`\psi^2` :cite:`Steffensen:1934` is
 
         .. math::
 
-            sim_{Steffensen}(X, Y) =
-            \frac{\frac{|X \cap Y|}{|N|} \cdot (\frac{|X \cap Y|}{|N|}-
-            \frac{|X|}{|N|} \cdot \frac{|Y|}{|N|})^2}
-            {\frac{|X|}{|N|} \cdot (1-\frac{|X|}{|N|}) \cdot \frac{|Y|}{|N|}
-            \cdot (1-\frac{|Y|}{|N|})}
+            \begin{array}{ll}
+            sim_{Steffensen_{\psi}}(X, Y) = \psi^2 &=
+            \sum_{i \in X}\sum_{j \in Y} p_{ij} \phi_{ij}^2
+            \\
+            \phi_{ij}^2 &= \frac{(p_{ij} - p_{i*}p_{*i})^2}
+            {p_{i*}(1-p_{i*})p_{*j}(1-p_{*j})}
+            \end{array}
 
-    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
-    after each term has been converted to a proportion by dividing by n, this
-    is
+    Where each value :math:`p_{ij}` is drawn from the 2x2 contingency table:
 
-        .. math::
+    +----------------+--------------+-----------------+-------+
+    |                | |in| ``tar`` | |notin| ``tar`` |       |
+    +----------------+--------------+-----------------+-------+
+    | |in| ``src``   | |a|          | |b|             | |a+b| |
+    +----------------+--------------+-----------------+-------+
+    | |notin| ``src``| |c|          | |d|             | |c+d| |
+    +----------------+--------------+-----------------+-------+
+    |                | |a+c|        | |b+d|           | |n|   |
+    +----------------+--------------+-----------------+-------+
 
-            sim_{Steffensen} =
-            \frac{a(a-(a+b)(a+c))^2}{(a+b)(1-(a+b))(a+c)(1-(a+c))}
+    .. |in| replace:: :math:`x \in`
+    .. |notin| replace:: :math:`x \notin`
+
+    .. |a| replace:: :math:`p_{11} = a`
+    .. |b| replace:: :math:`p_{10} = b`
+    .. |c| replace:: :math:`p_{01} = c`
+    .. |d| replace:: :math:`p_{00} = d`
+    .. |n| replace:: :math:`1`
+    .. |a+b| replace:: :math:`p_{1*} = a+b`
+    .. |a+c| replace:: :math:`p_{*1} = a+c`
+    .. |c+d| replace:: :math:`p_{0*} = c+d`
+    .. |b+d| replace:: :math:`p_{*0} = b+d`
 
     .. versionadded:: 0.4.0
     """
@@ -143,17 +163,34 @@ class Steffensen(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
+        d = self._total_complement_card()
+        n = a + b + c + d
 
-        return (
-            a
-            * (a - (a + b) * (a + c)) ** 2
-            / ((a + b) * (1 - (a + b)) * (a + c) * (1 - (a + c)))
-        )
+        p = np_array([[a, b], [c, d]]) / n
+
+        psisq = 0.0
+
+        for i in range(len(p)):
+            pi_star = p[i, :].sum()
+            for j in range(len(p[i])):
+                pj_star = p[:, j].sum()
+                psisq += (
+                    p[i, j]
+                    * (p[i, j] - pi_star * pj_star) ** 2
+                    / (pi_star * (1 - pi_star) * pj_star * (1 - pj_star))
+                )
+
+        return psisq
 
 
 if __name__ == '__main__':
