@@ -40,13 +40,32 @@ class UnknownF(_TokenDistance):
 
     For two sets X and Y and a population N, Unknown F similarity, which
     :cite:`Choi:2010` attributes to :cite:`Gilbert:1966` but could not be
-    located in that source, is
+    located in that source, is given as
+
+        .. math::
+
+            sim(X, Y) =
+            log(|X \cap Y|) - log(|N|) - log\Big(\frac{|X|}{|N|}\Big) -
+            log\Big(\frac{|Y|}{|N|}\Big)
+
+    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
+    this is
+
+        .. math::
+
+            sim =
+            log(a) - log(n) - log\Big(\frac{a+b}{n}\Big) -
+            log\Big(\frac{a+c}{n}\Big)
+
+    This formula is not very normalizable, so the following formula is used
+    instead:
 
         .. math::
 
             sim_{UnknownF}(X, Y) =
-            log(|X \cap Y|) - log(|N|) - log(\frac{|X|}{|N|}) -
-            log(\frac{|Y|}{|N|})
+            min\Bigg(1, 1+log\Big(\frac{|X \cap Y|}{|N|}\Big) -
+            \frac{1}{2}\Bigg(log\Big(\frac{|X|}{|N|}\Big) +
+            log\Big(\frac{|Y|}{|N|}\Big)\Bigg)\Bigg)
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -54,7 +73,10 @@ class UnknownF(_TokenDistance):
         .. math::
 
             sim_{UnknownF} =
-            log(a) - log(n) - log(\frac{a+b}{m}) - log(\frac{a+c}{n})
+            min\Bigg(1, 1+log\Big(\frac{a}{n}\Big) -
+            \frac{1}{2}\Bigg(log\Big(\frac{a+b}{n}\Big) +
+            log\Big(\frac{a+c}{n}\Big)\Bigg)\Bigg)
+
 
     .. versionadded:: 0.4.0
     """
@@ -107,8 +129,8 @@ class UnknownF(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Unknown F similarity of two strings.
+    def sim_score(self, src, tar):
+        """Return the Unknown F similarity between two strings.
 
         Parameters
         ----------
@@ -125,19 +147,24 @@ class UnknownF(_TokenDistance):
         Examples
         --------
         >>> cmp = UnknownF()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -145,7 +172,17 @@ class UnknownF(_TokenDistance):
         c = self._tar_only_card()
         n = self._population_unique_card()
 
-        return log(a / n) - log((a + b) / n) - log((a + c) / n)
+        part1 = a / n
+        if part1 == 0:
+            part1 = 1
+        part2 = (a + b) / n
+        if part2 == 0:
+            part2 = 1
+        part3 = (a + c) / n
+        if part3 == 0:
+            part3 = 1
+
+        return min(1.0, 1 + log(part1) - (log(part2) + log(part3)) / 2)
 
 
 if __name__ == '__main__':
