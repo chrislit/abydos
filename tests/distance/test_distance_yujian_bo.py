@@ -44,7 +44,7 @@ class YujianBoTestCases(unittest.TestCase):
     def test_yujian_bo_dist(self):
         """Test abydos.distance.YujianBo.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
@@ -63,7 +63,7 @@ class YujianBoTestCases(unittest.TestCase):
     def test_yujian_bo_sim(self):
         """Test abydos.distance.YujianBo.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), float('nan'))
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -82,7 +82,7 @@ class YujianBoTestCases(unittest.TestCase):
     def test_yujian_bo_dist_abs(self):
         """Test abydos.distance.YujianBo.dist_abs."""
         # Base cases
-        self.assertEqual(self.cmp.dist_abs('', ''), float('nan'))
+        self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
         self.assertEqual(self.cmp.dist_abs('a', ''), 1.0)
         self.assertEqual(self.cmp.dist_abs('', 'a'), 1.0)
         self.assertEqual(self.cmp.dist_abs('abc', ''), 1.0)
