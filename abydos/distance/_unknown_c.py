@@ -136,6 +136,11 @@ class UnknownC(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -143,7 +148,10 @@ class UnknownC(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a + d) / ((a + b) * (a + c) * (b + d) * (c + d)) ** 0.5
+        num = a + d
+        if num:
+            return num / ((a + b) * (a + c) * (b + d) * (c + d)) ** 0.5
+        return 0.0
 
 
 if __name__ == '__main__':
