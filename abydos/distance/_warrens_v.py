@@ -105,7 +105,7 @@ class WarrensV(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Warrens V similarity of two strings.
 
         Parameters
@@ -123,13 +123,13 @@ class WarrensV(_TokenDistance):
         Examples
         --------
         >>> cmp = WarrensV()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -143,7 +143,52 @@ class WarrensV(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a * d - b * c) / min((a + b) * (a + c), (b + d) * (c + d))
+        num = a * d - b * c
+        if num:
+            return num / min((a + b) * (a + c), (b + d) * (c + d))
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the normalized Warrens V similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Warrens V similarity
+
+        Examples
+        --------
+        >>> cmp = WarrensV()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        score = self.sim_score(src, tar)
+        if not score:
+            return 0.0
+
+        norm = max(self.sim_score(src, src), self.sim_score(tar, tar))
+
+        return (1.0 + score) / (1.0 + norm)
 
 
 if __name__ == '__main__':
