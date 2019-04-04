@@ -148,7 +148,9 @@ class YatesChiSquaredTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_no_d.sim_score('abcd', 'efgh', signed=True), -6.4)
+        self.assertEqual(
+            self.cmp_no_d.sim_score('abcd', 'efgh', signed=True), -6.4
+        )
 
         self.assertAlmostEqual(
             self.cmp_no_d.sim_score('Nigel', 'Niall', signed=True), -0.5625
@@ -163,7 +165,8 @@ class YatesChiSquaredTestCases(unittest.TestCase):
             self.cmp_no_d.sim_score('Coiln', 'Colin', signed=True), -0.5625
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG', signed=True), -0.2651515152
+            self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG', signed=True),
+            -0.2651515152,
         )
 
 
