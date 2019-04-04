@@ -234,9 +234,9 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Warrens V similarity (:py:class:`.WarrensV`)
     - Whittaker distance (:py:class:`.Whittaker`)
     - Yates' Chi-Squared similarity (:py:class:`.YatesChiSquared`)
-    - Yule's Q similarity (:py:class:`.YuleQ`)
+    - Yule's Q correlation (:py:class:`.YuleQ`)
     - Yule's Q II distance (:py:class:`.YuleQII`)
-    - Yule's Y similarity (:py:class:`.YuleY`)
+    - Yule's Y correlation (:py:class:`.YuleY`)
     - YJHHR distance (:py:class:`.YJHHR`)
 
     - Bhattacharyya distance (:py:class:`.Bhattacharyya`)

@@ -18,7 +18,7 @@
 
 """abydos.distance._yule_q.
 
-Yule's Q similarity
+Yule's Q correlation
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['YuleQ']
 
 
 class YuleQ(_TokenDistance):
-    r"""Yule's Q similarity.
+    r"""Yule's Q correlation.
 
-    For two sets X and Y and a population N, Yule's Q similarity
+    For two sets X and Y and a population N, Yule's Q correlation
     :cite:`Yule:1912` is
 
         .. math::
@@ -108,6 +108,49 @@ class YuleQ(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return Yule's Q correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Yule's Q correlation
+
+        Examples
+        --------
+        >>> cmp = YuleQ()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        admbc = a * d - b * c
+        if admbc:
+            return admbc / (a * d + b * c)
+        return 0.0
+
     def sim(self, src, tar):
         """Return Yule's Q similarity of two strings.
 
@@ -139,14 +182,7 @@ class YuleQ(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return (a * d - b * c) / (a * d + b * c)
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

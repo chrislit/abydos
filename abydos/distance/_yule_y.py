@@ -18,7 +18,7 @@
 
 """abydos.distance._yule_y.
 
-Yule's Y similarity
+Yule's Y correlation
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['YuleY']
 
 
 class YuleY(_TokenDistance):
-    r"""Yule's Y similarity.
+    r"""Yule's Y correlation.
 
-    For two sets X and Y and a population N, Yule's Y similarity
+    For two sets X and Y and a population N, Yule's Y correlation
     :cite:`Yule:1912` is
 
         .. math::
@@ -110,6 +110,49 @@ class YuleY(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return Yule's Y correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Yule's Y correlation
+
+        Examples
+        --------
+        >>> cmp = YuleY()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        admbc = (a * d) ** 0.5 - (b * c) ** 0.5
+        if admbc:
+            return admbc / ((a * d) ** 0.5 + (b * c) ** 0.5)
+        return 0.0
+
     def sim(self, src, tar):
         """Return Yule's Y similarity of two strings.
 
@@ -141,16 +184,7 @@ class YuleY(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return ((a * d) ** 0.5 - (b * c) ** 0.5) / (
-            (a * d) ** 0.5 + (b * c) ** 0.5
-        )
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
