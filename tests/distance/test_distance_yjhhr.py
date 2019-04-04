@@ -40,7 +40,7 @@ class YJHHRTestCases(unittest.TestCase):
     """
 
     cmp = YJHHR()
-    cmp_no_d = YJHHR(alphabet=0)
+    cmp_p3 = YJHHR(pval=3)
 
     def test_yjhhr_dist(self):
         """Test abydos.distance.YJHHR.dist."""
@@ -53,11 +53,26 @@ class YJHHRTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6666666667)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6666666667)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6666666667)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6666666667)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6666666666)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6666666666)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6666666666)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6666666666)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5)
+
+        # Base cases
+        self.assertEqual(self.cmp_p3.dist('', ''), 0.0)
+        self.assertEqual(self.cmp_p3.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp_p3.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp_p3.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp_p3.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp_p3.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_p3.dist('abcd', 'efgh'), 0.6299605249474369)
+
+        self.assertAlmostEqual(self.cmp_p3.dist('Nigel', 'Niall'), 0.4199736833)
+        self.assertAlmostEqual(self.cmp_p3.dist('Niall', 'Nigel'), 0.4199736833)
+        self.assertAlmostEqual(self.cmp_p3.dist('Colin', 'Coiln'), 0.4199736833)
+        self.assertAlmostEqual(self.cmp_p3.dist('Coiln', 'Colin'), 0.4199736833)
+        self.assertAlmostEqual(self.cmp_p3.dist('ATCAACGAGT', 'AACGATTAG'), 0.32128153180538643)
 
     def test_yjhhr_sim(self):
         """Test abydos.distance.YJHHR.sim."""
@@ -75,6 +90,21 @@ class YJHHRTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3333333333)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3333333333)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5)
+
+        # Base cases
+        self.assertEqual(self.cmp_p3.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_p3.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_p3.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_p3.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_p3.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_p3.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_p3.sim('abcd', 'efgh'), 0.37003947505256307)
+
+        self.assertAlmostEqual(self.cmp_p3.sim('Nigel', 'Niall'), 0.5800263167)
+        self.assertAlmostEqual(self.cmp_p3.sim('Niall', 'Nigel'), 0.5800263167)
+        self.assertAlmostEqual(self.cmp_p3.sim('Colin', 'Coiln'), 0.5800263167)
+        self.assertAlmostEqual(self.cmp_p3.sim('Coiln', 'Colin'), 0.5800263167)
+        self.assertAlmostEqual(self.cmp_p3.sim('ATCAACGAGT', 'AACGATTAG'), 0.6787184681946136)
 
     def test_yjhhr_dist_abs(self):
         """Test abydos.distance.YJHHR.dist_abs."""
@@ -95,6 +125,22 @@ class YJHHRTestCases(unittest.TestCase):
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 7.0
         )
 
+        # Base cases
+        self.assertEqual(self.cmp_p3.dist_abs('', ''), 0.0)
+        self.assertEqual(self.cmp_p3.dist_abs('a', ''), 2.0)
+        self.assertEqual(self.cmp_p3.dist_abs('', 'a'), 2.0)
+        self.assertEqual(self.cmp_p3.dist_abs('abc', ''), 4.0)
+        self.assertEqual(self.cmp_p3.dist_abs('', 'abc'), 4.0)
+        self.assertEqual(self.cmp_p3.dist_abs('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_p3.dist_abs('abcd', 'efgh'), 6.29960524947437)
+
+        self.assertAlmostEqual(self.cmp_p3.dist_abs('Nigel', 'Niall'), 3.77976314968462)
+        self.assertAlmostEqual(self.cmp_p3.dist_abs('Niall', 'Nigel'), 3.77976314968462)
+        self.assertAlmostEqual(self.cmp_p3.dist_abs('Colin', 'Coiln'), 3.77976314968462)
+        self.assertAlmostEqual(self.cmp_p3.dist_abs('Coiln', 'Colin'), 3.77976314968462)
+        self.assertAlmostEqual(
+            self.cmp_p3.dist_abs('ATCAACGAGT', 'AACGATTAG'), 4.49794144527541
+        )
 
 if __name__ == '__main__':
     unittest.main()

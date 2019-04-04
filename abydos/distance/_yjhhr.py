@@ -138,12 +138,15 @@ class YJHHR(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         b = self._src_only_card() ** self.params['pval']
         c = self._tar_only_card() ** self.params['pval']
 
-        return (b + c) ** (1 / self.params['pval'])
+        return float(round((b + c) ** (1 / self.params['pval']), 14))
 
     def dist(self, src, tar):
         """Return the normalized YJHHR distance of two strings.
