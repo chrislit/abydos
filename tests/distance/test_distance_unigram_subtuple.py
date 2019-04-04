@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_unknown_o.
+"""abydos.tests.distance.test_distance_unigram_subtuple.
 
-This module contains unit tests for abydos.distance.UnknownO
+This module contains unit tests for abydos.distance.UnigramSubtuple
 """
 
 from __future__ import (
@@ -30,20 +30,20 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import UnknownO
+from abydos.distance import UnigramSubtuple
 
 
-class UnknownOTestCases(unittest.TestCase):
-    """Test UnknownO functions.
+class UnigramSubtupleTestCases(unittest.TestCase):
+    """Test UnigramSubtuple functions.
 
-    abydos.distance.UnknownO
+    abydos.distance.UnigramSubtuple
     """
 
-    cmp = UnknownO()
-    cmp_no_d = UnknownO(alphabet=0)
+    cmp = UnigramSubtuple()
+    cmp_no_d = UnigramSubtuple(alphabet=0)
 
-    def test_unknown_o_sim(self):
-        """Test abydos.distance.UnknownO.sim."""
+    def test_unigram_subtuple_sim(self):
+        """Test abydos.distance.UnigramSubtuple.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), float('nan'))
         self.assertEqual(self.cmp.sim('a', ''), float('nan'))
@@ -86,8 +86,8 @@ class UnknownOTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), float('nan')
         )
 
-    def test_unknown_o_dist(self):
-        """Test abydos.distance.UnknownO.dist."""
+    def test_unigram_subtuple_dist(self):
+        """Test abydos.distance.UnigramSubtuple.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), float('nan'))
         self.assertEqual(self.cmp.dist('a', ''), float('nan'))
