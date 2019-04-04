@@ -90,11 +90,20 @@ class TichyTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0)
         self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 4)
 
-        self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall'), 4)
-        self.assertAlmostEqual(self.cmp.dist_abs('Niall', 'Nigel'), 4)
-        self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 4)
-        self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 4)
-        self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 4)
+        self.assertEqual(self.cmp.dist_abs('Nigel', 'Niall'), 4)
+        self.assertEqual(self.cmp.dist_abs('Niall', 'Nigel'), 4)
+        self.assertEqual(self.cmp.dist_abs('Colin', 'Coiln'), 4)
+        self.assertEqual(self.cmp.dist_abs('Coiln', 'Colin'), 4)
+        self.assertEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 4)
+
+        # Examples from paper
+
+        self.assertEqual(self.cmp.dist_abs('abda', 'abcab'), 3)
+        self.assertEqual(self.cmp.dist_abs('shanghai', 'sakhalin'), 7)
+        self.assertEqual(self.cmp.dist_abs('abcde', 'deabc'), 2)
+        self.assertEqual(self.cmp.dist_abs('abc', 'abcabc'), 2)
+        self.assertEqual(self.cmp.dist_abs('abcdea', 'cdab'), 2)
+        self.assertEqual(self.cmp.dist_abs('abcdefdeab', 'cdeabc'), 2)
 
 
 if __name__ == '__main__':
