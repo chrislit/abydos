@@ -42,9 +42,9 @@ class Upholt(_TokenDistance):
         .. math::
 
             sim_{Upholt}(X, Y) =
-            \frac{1}{2}(-\frac{2 \cdot |X \cap Y|}{|X| + |Y|} +
-            \sqrt{(\frac{2 \cdot |X \cap Y|}{|X| + |Y|})^2 +
-            8\frac{2 \cdot |X \cap Y|}{|X| + |Y|}})
+            \frac{1}{2}\Bigg(-\frac{2 \cdot |X \cap Y|}{|X| + |Y|} +
+            \sqrt{\Big(\frac{2 \cdot |X \cap Y|}{|X| + |Y|}\Big)^2 +
+            8\frac{2 \cdot |X \cap Y|}{|X| + |Y|}}\Bigg)
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -52,9 +52,9 @@ class Upholt(_TokenDistance):
         .. math::
 
             sim_{Upholt}(X, Y) =
-            \frac{1}{2}(-\frac{2a}{2a+b+c} +
-            \sqrt{(\frac{2a}{2a+b+c})^2 +
-            8\frac{2a}{2a+b+c}})
+            \frac{1}{2}\Bigg(-\frac{2a}{2a+b+c} +
+            \sqrt{\Big(\frac{2a}{2a+b+c}\Big)^2 +
+            8\frac{2a}{2a+b+c}}\Bigg)
 
     .. versionadded:: 0.4.0
     """
@@ -138,6 +138,9 @@ class Upholt(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
