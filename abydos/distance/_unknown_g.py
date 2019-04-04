@@ -129,7 +129,10 @@ class UnknownG(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
 
-        return (0.5 * a * (2 * a + b + c)) / ((a + b) * (a + c))
+        num = 0.5 * a * (2 * a + b + c)
+        if num:
+            return num / ((a + b) * (a + c))
+        return 0.0
 
 
 if __name__ == '__main__':
