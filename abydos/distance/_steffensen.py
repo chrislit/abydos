@@ -53,28 +53,28 @@ class Steffensen(_TokenDistance):
 
     Where each value :math:`p_{ij}` is drawn from the 2x2 contingency table:
 
-    +----------------+--------------+-----------------+-------+
-    |                | |in| ``tar`` | |notin| ``tar`` |       |
-    +----------------+--------------+-----------------+-------+
-    | |in| ``src``   | |a|          | |b|             | |a+b| |
-    +----------------+--------------+-----------------+-------+
-    | |notin| ``src``| |c|          | |d|             | |c+d| |
-    +----------------+--------------+-----------------+-------+
-    |                | |a+c|        | |b+d|           | |n|   |
-    +----------------+--------------+-----------------+-------+
+    +----------------+------------------+-------------------+---------+
+    |                | |s_in| ``tar``   | |s_notin| ``tar`` |         |
+    +----------------+------------------+-------------------+---------+
+    | |s_in| ``src``   | |s_a|          | |s_b|             | |s_a+b| |
+    +----------------+------------------+-------------------+---------+
+    | |s_notin| ``src``| |s_c|          | |s_d|             | |s_c+d| |
+    +----------------+------------------+-------------------+---------+
+    |                | |s_a+c|          | |s_b+d|           | |s_n|   |
+    +----------------+------------------+-------------------+---------+
 
-    .. |in| replace:: :math:`x \in`
-    .. |notin| replace:: :math:`x \notin`
+    .. |s_in| replace:: :math:`x \in`
+    .. |s_notin| replace:: :math:`x \notin`
 
-    .. |a| replace:: :math:`p_{11} = a`
-    .. |b| replace:: :math:`p_{10} = b`
-    .. |c| replace:: :math:`p_{01} = c`
-    .. |d| replace:: :math:`p_{00} = d`
-    .. |n| replace:: :math:`1`
-    .. |a+b| replace:: :math:`p_{1*} = a+b`
-    .. |a+c| replace:: :math:`p_{*1} = a+c`
-    .. |c+d| replace:: :math:`p_{0*} = c+d`
-    .. |b+d| replace:: :math:`p_{*0} = b+d`
+    .. |s_a| replace:: :math:`p_{11} = a`
+    .. |s_b| replace:: :math:`p_{10} = b`
+    .. |s_c| replace:: :math:`p_{01} = c`
+    .. |s_d| replace:: :math:`p_{00} = d`
+    .. |s_n| replace:: :math:`1`
+    .. |s_a+b| replace:: :math:`p_{1*} = a+b`
+    .. |s_a+c| replace:: :math:`p_{*1} = a+c`
+    .. |s_c+d| replace:: :math:`p_{0*} = c+d`
+    .. |s_b+d| replace:: :math:`p_{*0} = b+d`
 
     .. versionadded:: 0.4.0
     """
