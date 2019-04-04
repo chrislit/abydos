@@ -18,7 +18,7 @@
 
 """abydos.distance._warrens_iii.
 
-Warrens III similarity
+Warrens III correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['WarrensIII']
 
 
 class WarrensIII(_TokenDistance):
-    r"""Warrens III similarity.
+    r"""Warrens III correlation.
 
-    For two sets X and Y and a population N, Warrens III similarity
+    For two sets X and Y and a population N, Warrens III correlation
     :math:`S_{NS3}` :cite:`Warrens:2008` is
 
         .. math::
 
-            sim_{WarrensIII}(X, Y) =
+            corr_{WarrensIII}(X, Y) =
             \frac{2|(N \setminus X) \setminus Y| - |X \setminus Y| -
             |Y \setminus X|}{|N \setminus X| + |N \setminus Y|}
 
@@ -50,7 +50,7 @@ class WarrensIII(_TokenDistance):
 
         .. math::
 
-            sim_{WarrensIII} =
+            corr_{WarrensIII} =
             \frac{2d-b-c}{2d+b+c}
 
     .. versionadded:: 0.4.0
@@ -104,6 +104,48 @@ class WarrensIII(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Warrens III correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Warrens III correlation
+
+        Examples
+        --------
+        >>> cmp = WarrensIII()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        self._tokenize(src, tar)
+
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        return (2 * d - b - c) / (2 * d + b + c)
+
     def sim(self, src, tar):
         """Return the Warrens III similarity of two strings.
 
@@ -135,13 +177,7 @@ class WarrensIII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return (2 * d - b - c) / (2 * d + b + c)
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
