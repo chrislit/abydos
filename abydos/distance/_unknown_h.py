@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._unknown_h.
+"""abydos.distance._unknown_p.
 
 Unknown H similarity
 """
@@ -36,15 +36,17 @@ __all__ = ['UnknownH']
 class UnknownH(_TokenDistance):
     r"""Unknown H similarity.
 
-    For two sets X and Y, Unknown H similarity, which
-    :cite:`Choi:2010` attributes to :cite:`Fager:1963` but could not be
-    located in that source, is
+    For two sets X and Y and a population N, Unknown H similarity is a variant
+    of Fager-McGowan index of affinity :cite:`Fager:1957,Fager:1963`. It uses
+    minimum rather than maximum in the denominator of the second term, and
+    sometimes identified as the Fager-McGown index of affinity
+    (cf. :cite:`Whittaker:1982`, for example).
 
         .. math::
 
             sim_{UnknownH}(X, Y) =
-            \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}-
-            \frac{max(|X|, |Y|)}{2}
+            \frac{|X \cap Y|}{\sqrt{|X|\cdot|Y|}} -
+            \frac{1}{2\sqrt{min(|X|, |Y|)}}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -52,16 +54,26 @@ class UnknownH(_TokenDistance):
         .. math::
 
             sim_{UnknownH} =
-            \frac{a}{\sqrt{(a+b)(a+c)}}-\frac{max(a+b, a+c)}{2}
+            \frac{a}{\sqrt{(a+b)(a+c)}} - \frac{1}{2\sqrt{min(a+b, a+c)}}
 
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        alphabet=None,
+        tokenizer=None,
+        intersection_type='crisp',
+        **kwargs
+    ):
         """Initialize UnknownH instance.
 
         Parameters
         ----------
+        alphabet : Counter, collection, int, or None
+            This represents the alphabet of possible tokens.
+            See :ref:`alphabet <alphabet>` description in
+            :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         intersection_type : str
@@ -89,10 +101,13 @@ class UnknownH(_TokenDistance):
 
         """
         super(UnknownH, self).__init__(
-            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
+            alphabet=alphabet,
+            tokenizer=tokenizer,
+            intersection_type=intersection_type,
+            **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Unknown H similarity of two strings.
 
         Parameters
@@ -123,13 +138,55 @@ class UnknownH(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
+        apb = self._src_card()
+        apc = self._tar_card()
 
-        return a / ((a + b) * (a + c)) ** 0.5 - max(a + b, a + c) / 2
+        first = a / (apb * apc) ** 0.5 if a else 0.0
+        second = 1 / (2 * (min(apb, apc) ** 0.5))
+
+        return first - second
+
+    def sim(self, src, tar):
+        """Return the normalized Unknown H similarity of two strings.
+
+        As this similarity ranges from :math:`(-\inf, 1.0)`, this normalization
+        simply clamps the value to the range (0.0, 1.0).
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Unknown H similarity
+
+        Examples
+        --------
+        >>> cmp = UnknownH()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return max(0.0, self.sim_score(src, tar))
 
 
 if __name__ == '__main__':
