@@ -38,8 +38,8 @@ class UnknownH(_TokenDistance):
 
     For two sets X and Y and a population N, Unknown H similarity is a variant
     of Fager-McGowan index of affinity :cite:`Fager:1957,Fager:1963`. It uses
-    minimum rather than maximum in the denominator of the second term, and
-    sometimes identified as the Fager-McGown index of affinity
+    minimum rather than maximum in the denominator of the second term, and is
+    sometimes misidentified as the Fager-McGown index of affinity
     (cf. :cite:`Whittaker:1982`, for example).
 
         .. math::
