@@ -44,13 +44,13 @@ class TFIDFTestCases(unittest.TestCase):
     def test_tf_idf_sim(self):
         """Test abydos.distance.TFIDF.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0)
-        self.assertEqual(self.cmp.sim('a', ''), 0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0)
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.304044497)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.304044497)
