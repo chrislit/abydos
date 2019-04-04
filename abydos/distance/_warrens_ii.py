@@ -135,6 +135,9 @@ class WarrensII(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         b = self._src_only_card()

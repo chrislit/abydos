@@ -137,6 +137,9 @@ class WarrensIV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -144,7 +147,10 @@ class WarrensIV(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (4 * a * d) / (4 * a * d + (a + d) * (b + c))
+        atd = a * d
+        if atd:
+            return (4 * atd) / (4 * atd + (a + d) * (b + c))
+        return 0.0
 
 
 if __name__ == '__main__':
