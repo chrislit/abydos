@@ -111,6 +111,49 @@ class UnigramSubtuple(_TokenDistance):
             **kwargs
         )
 
+    def sim_score(self, src, tar):
+        """Return the unigram subtuple similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Unigram subtuple similarity
+
+        Examples
+        --------
+        >>> cmp = UnigramSubtuple()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = max(1, self._intersection_card())
+        b = max(1, self._src_only_card())
+        c = max(1, self._tar_only_card())
+        d = max(1, self._total_complement_card())
+
+        return (
+            log(a * d / (b * c))
+            - 3.29 * (1 / a + 1 / b + 1 / c + 1 / d) ** 0.5
+        )
+
     def sim(self, src, tar):
         """Return the unigram subtuple similarity of two strings.
 
@@ -129,30 +172,23 @@ class UnigramSubtuple(_TokenDistance):
         Examples
         --------
         >>> cmp = UnigramSubtuple()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return (
-            log(a * d / (b * d))
-            - 3.29 * (1 / a + 1 / b + 1 / c + 1 / d) ** 0.5
-        )
+        score = self.sim_score(src, tar)
+        if score < 0:
+            return 0.0
+        return score / max(self.sim_score(src, src), self.sim_score(tar, tar))
 
 
 if __name__ == '__main__':
