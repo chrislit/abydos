@@ -105,7 +105,7 @@ class YuleQII(_TokenDistance):
             **kwargs
         )
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return Yule's Q dissimilarity of two strings.
 
         Parameters
@@ -123,13 +123,13 @@ class YuleQII(_TokenDistance):
         Examples
         --------
         >>> cmp = YuleQII()
-        >>> cmp.dist('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.dist('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -143,7 +143,42 @@ class YuleQII(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
+        if not b or not c:
+            return 0.0
         return (2 * b * c) / (a * d + b * c)
+
+    def dist(self, src, tar):
+        """Return normalized Yule's Q dissimilarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Yule's Q II distance
+
+        Examples
+        --------
+        >>> cmp = YuleQII()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.dist_abs(src, tar) / 2.0
 
 
 if __name__ == '__main__':
