@@ -107,7 +107,7 @@ class Tetrachoric(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def corr(self, src, tar):
         """Return the Tetrachoric correlation coefficient of two strings.
 
         Parameters
@@ -145,7 +145,42 @@ class Tetrachoric(_TokenDistance):
         ) ** 0.5
         rbc = (self._src_only_card() * self._tar_only_card()) ** 0.5
 
-        return cos(pi * rbc / (rad + rbc))
+        if rbc:
+            return cos(pi * rbc / (rad + rbc))
+        return 1.0
+
+    def sim(self, src, tar):
+        """Return the Tetrachoric correlation coefficient of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Tetrachoric correlation coefficient
+
+        Examples
+        --------
+        >>> cmp = Tetrachoric()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

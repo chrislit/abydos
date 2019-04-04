@@ -18,7 +18,7 @@
 
 """abydos.distance._tarwid.
 
-Tarwid similarity
+Tarwid correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['Tarwid']
 
 
 class Tarwid(_TokenDistance):
-    r"""Tarwid similarity.
+    r"""Tarwid correlation.
 
-    For two sets X and Y and a population N, the Tarwid similarity
+    For two sets X and Y and a population N, the Tarwid correlation
     :cite:`Tarwid:1960` is
 
         .. math::
 
-            sim_{Tarwid}(X, Y) =
+            corr_{Tarwid}(X, Y) =
             \frac{|N| \cdot |X \cap Y| - |X| \cdot |Y|}
             {|N| \cdot |X \cap Y| + |X| \cdot |Y|}
 
@@ -50,7 +50,7 @@ class Tarwid(_TokenDistance):
 
         .. math::
 
-            sim_{Tarwid} =
+            corr_{Tarwid} =
             \frac{na-(a+b)(a+c)}{na+(a+b)(a+c)}
 
     .. versionadded:: 0.4.0
@@ -104,6 +104,46 @@ class Tarwid(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Tarwid correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Tarwid correlation
+
+        Examples
+        --------
+        >>> cmp = Tarwid()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        nta = self._population_unique_card() * self._intersection_card()
+        abtac = self._src_card() * self._tar_card()
+
+        if nta == abtac:
+            return 0.0
+        return (nta - abtac) / (nta + abtac)
+
     def sim(self, src, tar):
         """Return the Tarwid similarity of two strings.
 
@@ -135,12 +175,7 @@ class Tarwid(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        nta = self._population_unique_card() * self._intersection_card()
-        abtac = self._src_card() * self._tar_card()
-
-        return (nta - abtac) / (nta + abtac)
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

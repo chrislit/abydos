@@ -137,14 +137,20 @@ class Tarantula(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        ab = self._src_card()
+        b = self._src_only_card()
         c = self._tar_only_card()
-        cd = c + self._total_complement_card()
+        d = self._total_complement_card()
 
-        return (a / ab) / (a / ab + c / cd)
+        num = a * (c + d)
+        if num:
+            return num / (a * (2 * c + d) + b * c)
+        return 0.0
 
 
 if __name__ == '__main__':
