@@ -43,7 +43,7 @@ class UnknownD(_TokenDistance):
         .. math::
 
             sim_{UnknownD}(X, Y) =
-            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| +
+            \frac{|X \cap Y| \cdot |X \setminus Y| +
             |X \setminus Y| \cdot |Y \setminus X|}
             {|X \cap Y| \cdot |X \setminus Y| +
             2 \cdot |X \setminus Y| \cdot |Y \setminus X| +
@@ -55,7 +55,7 @@ class UnknownD(_TokenDistance):
         .. math::
 
             sim_{UnknownD} =
-            \frac{ad+bc}{ab+2bc+cd}
+            \frac{ab+bc}{ab+2bc+cd}
 
     .. versionadded:: 0.4.0
     """
@@ -146,7 +146,7 @@ class UnknownD(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (a * d + b * c) / (a * b + 2 * b * c + c * d)
+        return (a * b + b * c) / (a * b + 2 * b * c + c * d)
 
 
 if __name__ == '__main__':
