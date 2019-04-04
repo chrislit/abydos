@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -36,15 +36,14 @@ __all__ = ['UnknownI']
 class UnknownI(_TokenDistance):
     r"""Unknown I similarity.
 
-    For two sets X and Y, Unknown I similarity, which
-    :cite:`Choi:2010` attributes to :cite:`Fager:1963` but could not be
-    located in that source, is
+    For two sets X and Y, the Unknown I similarity is based on
+    Mountford similarity :cite:`Mountford:1962` :class:`Mountford`.
 
         .. math::
 
             sim_{UnknownI}(X, Y) =
-            \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}-
-            \frac{max(|X|, |Y|)}{2}
+            \frac{2(|X \cap Y|+1)}{2((|X|+2)\cdot(|Y|+2))-
+            (|X|+|Y|+4)\cdot(|X \cap Y|+1)}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -52,7 +51,7 @@ class UnknownI(_TokenDistance):
         .. math::
 
             sim_{UnknownI} =
-            \frac{a}{\sqrt{(a+b)(a+c)}}-\frac{max(a+b, a+c)}{2}
+            \frac{2(a+1)}{2(a+b+2)(a+c+2)-(2a+b+c+4)(a+1)}
 
     .. versionadded:: 0.4.0
     """
@@ -125,11 +124,11 @@ class UnknownI(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
+        a = self._intersection_card() + 1
+        b = self._src_only_card() + 1
+        c = self._tar_only_card() + 1
 
-        return a / ((a + b) * (a + c)) ** 0.5 - max(a + b, a + c) / 2
+        return 2.0 * a / (c * (a + 2.0 * b) + a * b)
 
 
 if __name__ == '__main__':

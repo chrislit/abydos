@@ -217,6 +217,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown E correlation (:py:class:`.UnknownE`)
     - Unknown F similarity (:py:class:`.UnknownF`)
     - Unknown G similarity (:py:class:`.UnknownG`)
+    - Unknown H similarity (:py:class:`.UnknownH`)
     - Unknown I similarity (:py:class:`.UnknownI`)
     - Unknown J similarity (:py:class:`.UnknownJ`)
     - Unknown K similarity (:py:class:`.UnknownK`)
@@ -225,7 +226,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown N similarity (:py:class:`.UnknownN`)
     - Unknown O similarity (:py:class:`.UnknownO`)
     - Unknown P similarity (:py:class:`.UnknownP`)
-    - Unknown Q similarity (:py:class:`.UnknownQ`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Warrens I correlation (:py:class:`.WarrensI`)
     - Warrens II similarity (:py:class:`.WarrensII`)
@@ -595,6 +595,7 @@ from ._unknown_d import UnknownD
 from ._unknown_e import UnknownE
 from ._unknown_f import UnknownF
 from ._unknown_g import UnknownG
+from ._unknown_h import UnknownH
 from ._unknown_i import UnknownI
 from ._unknown_j import UnknownJ
 from ._unknown_k import UnknownK
@@ -603,7 +604,6 @@ from ._unknown_m import UnknownM
 from ._unknown_n import UnknownN
 from ._unknown_o import UnknownO
 from ._unknown_p import UnknownP
-from ._unknown_q import UnknownQ
 from ._upholt import Upholt
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
@@ -837,6 +837,7 @@ __all__ = [
     'UnknownE',
     'UnknownF',
     'UnknownG',
+    'UnknownH',
     'UnknownI',
     'UnknownJ',
     'UnknownK',
@@ -845,7 +846,6 @@ __all__ = [
     'UnknownN',
     'UnknownO',
     'UnknownP',
-    'UnknownQ',
     'Upholt',
     'WarrensI',
     'WarrensII',

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018-2019 by Christopher C. Little.
+# Copyright 2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._unknown_q.
+"""abydos.distance._unknown_h.
 
-Unknown Q similarity
+Unknown H similarity
 """
 
 from __future__ import (
@@ -30,34 +30,35 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['UnknownQ']
+__all__ = ['UnknownH']
 
 
-class UnknownQ(_TokenDistance):
-    r"""Unknown Q similarity.
+class UnknownH(_TokenDistance):
+    r"""Unknown H similarity.
 
-    For two sets X and Y, the Unknown Q similarity is based on
-    Mountford similarity :cite:`Mountford:1962` :class:`Mountford`.
+    For two sets X and Y, Unknown H similarity, which
+    :cite:`Choi:2010` attributes to :cite:`Fager:1963` but could not be
+    located in that source, is
 
         .. math::
 
-            sim_{UnknownQ}(X, Y) =
-            \frac{2(|X \cap Y|+1)}{2((|X|+2)\cdot(|Y|+2))-
-            (|X|+|Y|+4)\cdot(|X \cap Y|+1)}
+            sim_{UnknownH}(X, Y) =
+            \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}-
+            \frac{max(|X|, |Y|)}{2}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{UnknownQ} =
-            \frac{2(a+1)}{2(a+b+2)(a+c+2)-(2a+b+c+4)(a+1)}
+            sim_{UnknownH} =
+            \frac{a}{\sqrt{(a+b)(a+c)}}-\frac{max(a+b, a+c)}{2}
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
-        """Initialize UnknownQ instance.
+        """Initialize UnknownH instance.
 
         Parameters
         ----------
@@ -87,12 +88,12 @@ class UnknownQ(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(UnknownQ, self).__init__(
+        super(UnknownH, self).__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
-        """Return the Unknown Q similarity of two strings.
+        """Return the Unknown H similarity of two strings.
 
         Parameters
         ----------
@@ -104,11 +105,11 @@ class UnknownQ(_TokenDistance):
         Returns
         -------
         float
-            Unknown Q similarity
+            Unknown H similarity
 
         Examples
         --------
-        >>> cmp = UnknownQ()
+        >>> cmp = UnknownH()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -124,11 +125,11 @@ class UnknownQ(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = self._intersection_card() + 1
-        b = self._src_only_card() + 1
-        c = self._tar_only_card() + 1
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
 
-        return 2.0 * a / (c * (a + 2.0 * b) + a * b)
+        return a / ((a + b) * (a + c)) ** 0.5 - max(a + b, a + c) / 2
 
 
 if __name__ == '__main__':
