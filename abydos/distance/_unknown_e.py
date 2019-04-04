@@ -18,7 +18,7 @@
 
 """abydos.distance._unknown_e.
 
-Unknown E similarity
+Unknown E correlation
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['UnknownE']
 
 
 class UnknownE(_TokenDistance):
-    r"""Unknown E similarity.
+    r"""Unknown E correlation.
 
-    For two sets X and Y and a population N, Unknown E similarity, which
+    For two sets X and Y and a population N, Unknown E correlation, which
     :cite:`Morris:2012` attributes to :cite:`Goodman:1954` but could not be
     located in that source, is
 
@@ -107,6 +107,52 @@ class UnknownE(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Unknown E correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Unknown E correlation
+
+        Examples
+        --------
+        >>> cmp = UnknownE()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        num = 2 * min(a, d) - b - c
+        if num:
+            return num / (2 * min(a, d) + b + c)
+        return 0.0
+
     def sim(self, src, tar):
         """Return the Unknown E similarity of two strings.
 
@@ -138,14 +184,7 @@ class UnknownE(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return (2 * min(a, d) - b - c) / (2 * min(a, d) + b + c)
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
