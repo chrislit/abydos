@@ -41,9 +41,9 @@ class Whittaker(_TokenDistance):
 
         .. math::
 
-            sim_{Whittaker}(X, Y) =
-            \frac{1}{2}\sum_{i \in S} \big| \frac{X_i}{\sum_{i \in S} X_i} -
-            \frac{Y_i}{\sum_{i \in S} Y_i} \big|
+            sim_{Whittaker}(X, Y) = 1 -
+            \frac{1}{2}\sum_{i \in S} \Bigg| \frac{|X_i|}{|X|} -
+            \frac{|Y_i|}{|Y|} \Bigg|
 
     .. versionadded:: 0.4.0
     """
@@ -109,12 +109,23 @@ class Whittaker(_TokenDistance):
         src_card = self._src_card()
         tar_card = self._tar_card()
 
-        return 0.5 * sum(
-            abs(
-                self._src_tokens[tok] / src_card
-                - self._tar_tokens[tok] / tar_card
+        return float(
+            round(
+                1
+                - 0.5
+                * sum(
+                    abs(
+                        (self._src_tokens[tok] / src_card if src_card else 0.0)
+                        - (
+                            self._tar_tokens[tok] / tar_card
+                            if tar_card
+                            else 0.0
+                        )
+                    )
+                    for tok in alphabet
+                ),
+                14,
             )
-            for tok in alphabet
         )
 
 
