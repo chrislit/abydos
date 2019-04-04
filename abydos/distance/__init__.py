@@ -225,7 +225,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown M similarity (:py:class:`.UnknownM`)
     - Unknown N similarity (:py:class:`.UnknownN`)
     - Unknown O similarity (:py:class:`.UnknownO`)
-    - Unknown P similarity (:py:class:`.UnknownP`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Warrens I correlation (:py:class:`.WarrensI`)
     - Warrens II similarity (:py:class:`.WarrensII`)
@@ -603,7 +602,6 @@ from ._unknown_l import UnknownL
 from ._unknown_m import UnknownM
 from ._unknown_n import UnknownN
 from ._unknown_o import UnknownO
-from ._unknown_p import UnknownP
 from ._upholt import Upholt
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
@@ -845,7 +843,6 @@ __all__ = [
     'UnknownM',
     'UnknownN',
     'UnknownO',
-    'UnknownP',
     'Upholt',
     'WarrensI',
     'WarrensII',
