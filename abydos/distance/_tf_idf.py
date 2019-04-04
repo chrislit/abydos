@@ -139,12 +139,14 @@ class TFIDF(_TokenDistance):
         vws_rss = sum(score ** 2 for score in vws_dict.values()) ** 0.5
         vwt_rss = sum(score ** 2 for score in vwt_dict.values()) ** 0.5
 
-        return round(
-            sum(
-                vws_dict[token] / vws_rss * vwt_dict[token] / vwt_rss
-                for token in self._intersection().keys()
-            ),
-            14,
+        return float(
+            round(
+                sum(
+                    vws_dict[token] / vws_rss * vwt_dict[token] / vwt_rss
+                    for token in self._intersection().keys()
+                ),
+                14,
+            )
         )
 
 
