@@ -214,7 +214,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown B similarity (:py:class:`.UnknownB`)
     - Unknown C similarity (:py:class:`.UnknownC`)
     - Unknown D similarity (:py:class:`.UnknownD`)
-    - Unknown E similarity (:py:class:`.UnknownE`)
+    - Unknown E correlation (:py:class:`.UnknownE`)
     - Unknown F similarity (:py:class:`.UnknownF`)
     - Unknown G similarity (:py:class:`.UnknownG`)
     - Unknown I similarity (:py:class:`.UnknownI`)
