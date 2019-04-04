@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._unknown_o.
+"""abydos.distance._unigram_subtuple.
 
-Unknown O similarity
+Unigram subtuple similarity
 """
 
 from __future__ import (
@@ -32,19 +32,18 @@ from math import log
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['UnknownO']
+__all__ = ['UnigramSubtuple']
 
 
-class UnknownO(_TokenDistance):
-    r"""Unknown O similarity.
+class UnigramSubtuple(_TokenDistance):
+    r"""Unigram subtuple similarity.
 
-    For two sets X and Y and a population N, Unknown O similarity, which
-    :cite:`SequentiX:2018` attributes terms "Unigram subtuples" but could not
-    be located, is
+    For two sets X and Y and a population N, unigram subtuple similarity
+    :cite:`Pecina:2010` is
 
         .. math::
 
-            sim_{UnknownO}(X, Y) =
+            sim_{unigram~subtuple}(X, Y) =
             log(\frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y|}
             {|X \setminus Y| \cdot |Y \setminus Y|}) - 3.29 \cdot
             \sqrt{\frac{1}{|X \cap Y|} + \frac{1}{|X \setminus Y|} +
@@ -56,9 +55,10 @@ class UnknownO(_TokenDistance):
 
         .. math::
 
-            sim_{UnknownO} =
+            sim_{unigram~subtuple} =
             log(\frac{ad}{bc}) - 3.29 \cdot
             \sqrt{\frac{1}{a} + \frac{1}{b} + \frac{1}{c} + \frac{1}{d}}
+
 
     .. versionadded:: 0.4.0
     """
@@ -70,7 +70,7 @@ class UnknownO(_TokenDistance):
         intersection_type='crisp',
         **kwargs
     ):
-        """Initialize UnknownO instance.
+        """Initialize UnigramSubtuple instance.
 
         Parameters
         ----------
@@ -104,7 +104,7 @@ class UnknownO(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(UnknownO, self).__init__(
+        super(UnigramSubtuple, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -112,7 +112,7 @@ class UnknownO(_TokenDistance):
         )
 
     def sim(self, src, tar):
-        """Return the Unknown O similarity of two strings.
+        """Return the unigram subtuple similarity of two strings.
 
         Parameters
         ----------
@@ -124,11 +124,11 @@ class UnknownO(_TokenDistance):
         Returns
         -------
         float
-            Unknown O similarity
+            Unigram subtuple similarity
 
         Examples
         --------
-        >>> cmp = UnknownO()
+        >>> cmp = UnigramSubtuple()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

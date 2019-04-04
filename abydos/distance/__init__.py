@@ -210,6 +210,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Tulloss' U similarity (:py:class:`.TullossU`)
     - Tversky distance (:py:class:`.Tversky`)
     - Weighted Jaccard similarity (:py:class:`.WeightedJaccard`)
+    - Unigram subtuple similarity (:py:class:`.UnigramSubtuple`)
     - Unknown A correlation (:py:class:`.UnknownA`)
     - Unknown B similarity (:py:class:`.UnknownB`)
     - Unknown C similarity (:py:class:`.UnknownC`)
@@ -224,7 +225,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown L similarity (:py:class:`.UnknownL`)
     - Unknown M similarity (:py:class:`.UnknownM`)
     - Unknown N similarity (:py:class:`.UnknownN`)
-    - Unknown O similarity (:py:class:`.UnknownO`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Warrens I correlation (:py:class:`.WarrensI`)
     - Warrens II similarity (:py:class:`.WarrensII`)
@@ -587,6 +587,7 @@ from ._tulloss_t import TullossT
 from ._tulloss_u import TullossU
 from ._tversky import Tversky, dist_tversky, sim_tversky
 from ._typo import Typo, dist_typo, sim_typo, typo
+from ._unigram_subtuple import UnigramSubtuple
 from ._unknown_a import UnknownA
 from ._unknown_b import UnknownB
 from ._unknown_c import UnknownC
@@ -601,7 +602,6 @@ from ._unknown_k import UnknownK
 from ._unknown_l import UnknownL
 from ._unknown_m import UnknownM
 from ._unknown_n import UnknownN
-from ._unknown_o import UnknownO
 from ._upholt import Upholt
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
@@ -828,6 +828,7 @@ __all__ = [
     'Tversky',
     'dist_tversky',
     'sim_tversky',
+    'UnigramSubtuple',
     'UnknownA',
     'UnknownB',
     'UnknownC',
@@ -842,7 +843,6 @@ __all__ = [
     'UnknownL',
     'UnknownM',
     'UnknownN',
-    'UnknownO',
     'Upholt',
     'WarrensI',
     'WarrensII',
