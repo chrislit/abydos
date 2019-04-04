@@ -18,7 +18,7 @@
 
 """abydos.distance._unknown_a.
 
-Unknown A similarity
+Unknown A correlation
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['UnknownA']
 
 
 class UnknownA(_TokenDistance):
-    r"""Unknown A similarity.
+    r"""Unknown A correlation.
 
-    For two sets X and Y and a population N, Unknown A similarity
+    For two sets X and Y and a population N, Unknown A correlation
     is sometimes attributed to :cite:`Peirce:1884`. It differs from
     :py:class:`Peirce` in that the numerator is the product of the opposite
     pair of marginals:
@@ -107,6 +107,52 @@ class UnknownA(_TokenDistance):
             **kwargs
         )
 
+    def corr(self, src, tar):
+        """Return the Unknown A correlation of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Unknown A correlation
+
+        Examples
+        --------
+        >>> cmp = UnknownA()
+        >>> cmp.corr('cat', 'hat')
+        0.0
+        >>> cmp.corr('Niall', 'Neil')
+        0.0
+        >>> cmp.corr('aluminum', 'Catalan')
+        0.0
+        >>> cmp.corr('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = self._total_complement_card()
+
+        num = a * d - b * c
+        if num:
+            return num / ((a + c) * (b + d))
+        return 0.0
+
     def sim(self, src, tar):
         """Return the Unknown A similarity of two strings.
 
@@ -138,14 +184,7 @@ class UnknownA(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-
-        return (a * d - b * c) / ((a + b) * (c + d))
+        return (1.0 + self.corr(src, tar)) / 2.0
 
 
 if __name__ == '__main__':

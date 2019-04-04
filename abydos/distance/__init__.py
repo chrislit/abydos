@@ -210,7 +210,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Tulloss' U similarity (:py:class:`.TullossU`)
     - Tversky distance (:py:class:`.Tversky`)
     - Weighted Jaccard similarity (:py:class:`.WeightedJaccard`)
-    - Unknown A similarity (:py:class:`.UnknownA`)
+    - Unknown A correlation (:py:class:`.UnknownA`)
     - Unknown B similarity (:py:class:`.UnknownB`)
     - Unknown C similarity (:py:class:`.UnknownC`)
     - Unknown D similarity (:py:class:`.UnknownD`)
