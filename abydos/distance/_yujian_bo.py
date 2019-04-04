@@ -126,6 +126,9 @@ class YujianBo(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 0.0
+
         ins_cost, del_cost = self._cost[:2]
         gld = super(YujianBo, self).dist_abs(src, tar)
         return 2 * gld / (len(src) * del_cost + len(tar) * ins_cost + gld)
