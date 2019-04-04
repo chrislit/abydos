@@ -43,8 +43,8 @@ class UnknownB(_TokenDistance):
         .. math::
 
             sim_{UnknownB}(X, Y) =
-            \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
-            |X \setminus Y| \cdot |Y \setminus X|}
+            \frac{(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|)^2}
             {|X| \cdot |Y| \cdot |N \setminus X| \cdot |N \setminus Y|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
