@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import copysign
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['YatesChiSquared']
@@ -42,15 +44,12 @@ class YatesChiSquared(_TokenDistance):
         .. math::
 
             sim_{Yates_{\chi^2}}(X, Y) =
-            \frac{card(N) \cdot (|card(X \cap Y) \cdot
-            card((N \setminus X) \setminus Y) -
-            card(X \setminus Y) \cdot card(Y \setminus X)| -
-            \frac{card(N)}{2})^2}
-            {card(X) \cdot card(N \setminus X) \cdot card(Y) \cdot
-            card(N \setminus Y)}
-
-    Above, :math:`card` is used to signify cardinality and :math:`| |` is used
-    to signify absolute value.
+            \frac{|N| \cdot (||X \cap Y| \cdot
+            |(N \setminus X) \setminus Y| -
+            |X \setminus Y| \cdot |Y \setminus X|| -
+            \frac{|N|}{2})^2}
+            {|X| \cdot |N \setminus X| \cdot |Y| \cdot
+            |N \setminus Y|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
@@ -111,7 +110,7 @@ class YatesChiSquared(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar, signed=False):
         """Return Yates's Chi-Squared similarity of two strings.
 
         Parameters
@@ -120,6 +119,8 @@ class YatesChiSquared(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
+        signed : bool
+            If True, negative correlations will carry a negative sign
 
         Returns
         -------
@@ -142,6 +143,9 @@ class YatesChiSquared(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
@@ -150,11 +154,61 @@ class YatesChiSquared(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return (
-            n
-            * (abs(a * d - b * c) - n / 2) ** 2
-            / ((a + b) * (c + d) * (a + c) * (b + d))
+        admbc = a * d - b * c
+        num = n * (abs(admbc) - n / 2) ** 2
+        denom = (
+            max(1, (a + b))
+            * max(1, (c + d))
+            * max(1, (a + c))
+            * max(1, (b + d))
         )
+        if num:
+            score = num / denom
+            if signed:
+                score = copysign(score, admbc)
+            return score
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return Yates's normalized Chi-Squared similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Yates's Chi-Squared similarity
+
+        Examples
+        --------
+        >>> cmp = YatesChiSquared()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+        score = self.sim_score(src, tar, signed=True)
+        if score < 0:
+            return 0.0
+        norm = max(self.sim_score(src, src), self.sim_score(tar, tar))
+        return score / norm
 
 
 if __name__ == '__main__':
