@@ -18,7 +18,7 @@
 
 """abydos.distance._unknown_k.
 
-Unknown K similarity
+Unknown K distance
 """
 
 from __future__ import (
@@ -34,15 +34,15 @@ __all__ = ['UnknownK']
 
 
 class UnknownK(_TokenDistance):
-    r"""Unknown K similarity.
+    r"""Unknown K distance.
 
-    For two sets X and Y and a population N, Unknown K similarity, which
+    For two sets X and Y and a population N, Unknown K distance, which
     :cite:`SequentiX:2018` attributes to "Excoffier" but could not be
     located, is
 
         .. math::
 
-            sim_{UnknownK}(X, Y) =
+            dist_{UnknownK}(X, Y) =
             |N| \cdot (1 - \frac{|X \cap Y|}{|N|})
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
@@ -50,7 +50,7 @@ class UnknownK(_TokenDistance):
 
         .. math::
 
-            sim_{UnknownK} =
+            dist_{UnknownK} =
             n \cdot (1 - \frac{a}{n})
 
     .. versionadded:: 0.4.0
@@ -104,8 +104,8 @@ class UnknownK(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
-        """Return the Unknown K similarity of two strings.
+    def dist_abs(self, src, tar):
+        """Return the Unknown K distance of two strings.
 
         Parameters
         ----------
@@ -117,18 +117,18 @@ class UnknownK(_TokenDistance):
         Returns
         -------
         float
-            Unknown K similarity
+            Unknown K distance
 
         Examples
         --------
         >>> cmp = UnknownK()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.dist_abs('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.dist_abs('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         0.0
 
 
@@ -140,7 +140,46 @@ class UnknownK(_TokenDistance):
         a = self._intersection_card()
         n = self._population_unique_card()
 
+        if not n:
+            return 0.0
         return n * (1 - a / n)
+
+    def dist(self, src, tar):
+        """Return the normalized Unknown K distance of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Unknown K distance
+
+        Examples
+        --------
+        >>> cmp = UnknownK()
+        >>> cmp.dist('cat', 'hat')
+        0.0
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        score = self.dist_abs(src, tar)
+        norm = self._population_unique_card()
+        if score:
+            return score / norm
+        return 0.0
 
 
 if __name__ == '__main__':
