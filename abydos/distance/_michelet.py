@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._unknown_n.
+"""abydos.distance._michelet.
 
-Unknown N similarity
+Michelet similarity
 """
 
 from __future__ import (
@@ -30,34 +30,37 @@ from __future__ import (
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['UnknownN']
+__all__ = ['Michelet']
 
 
-class UnknownN(_TokenDistance):
-    r"""Unknown N similarity.
+class Michelet(_TokenDistance):
+    r"""Michelet similarity.
 
-    For two sets X and Y and a population N, Unknown N similarity, which
-    :cite:`SequentiX:2018` attributes to "Michelet" but could not be
-    located, is
+    For two sets X and Y and a population N, Michelet similarity
+    :cite:`Turner:1988` is
 
         .. math::
 
-            sim_{UnknownN}(X, Y) =
-            \frac{|X \cap Y|^2}{|X \setminus Y| \cdot |Y \setminus X|}
+            sim_{Michelet}(X, Y) =
+            \frac{|X \cap Y|^2}{|X| \cdot |Y|}
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
 
         .. math::
 
-            sim_{UnknownN} =
-            \frac{a^2}{bc}
+            sim_{Michelet} =
+            \frac{a^2}{(a+b)(a+c)}
+
+    Following :cite:`SequentiX:2018`, this is termed "Michelet", though
+    Turner is most often listed as the first author in papers presenting this
+    measure.
 
     .. versionadded:: 0.4.0
     """
 
     def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
-        """Initialize UnknownN instance.
+        """Initialize Michelet instance.
 
         Parameters
         ----------
@@ -87,12 +90,12 @@ class UnknownN(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(UnknownN, self).__init__(
+        super(Michelet, self).__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
-        """Return the Unknown N similarity of two strings.
+        """Return the Michelet similarity of two strings.
 
         Parameters
         ----------
@@ -104,11 +107,11 @@ class UnknownN(_TokenDistance):
         Returns
         -------
         float
-            Unknown N similarity
+            Michelet similarity
 
         Examples
         --------
-        >>> cmp = UnknownN()
+        >>> cmp = Michelet()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -122,13 +125,18 @@ class UnknownN(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
+        apb = self._src_card()
+        apc = self._tar_card()
 
-        return a * a / (b * c)
+        if not a:
+            return 0.0
+        return a * a / (apb * apc)
 
 
 if __name__ == '__main__':

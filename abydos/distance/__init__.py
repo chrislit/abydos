@@ -172,6 +172,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Maxwell & Pilliner correlation (:py:class:`.MaxwellPilliner`)
     - McConnaughey correlation (:py:class:`.McConnaughey`)
     - Michael similarity (:py:class:`.Michael`)
+    - Michelet similarity (:py:class:`.Michelet`)
     - Minkowski distance (:py:class:`.Minkowski`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Mutual Information similarity (:py:class:`.MutualInformation`)
@@ -224,7 +225,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown K similarity (:py:class:`.UnknownK`)
     - Unknown L similarity (:py:class:`.UnknownL`)
     - Unknown M similarity (:py:class:`.UnknownM`)
-    - Unknown N similarity (:py:class:`.UnknownN`)
     - Upholt similarity (:py:class:`.Upholt`)
     - Warrens I correlation (:py:class:`.WarrensI`)
     - Warrens II similarity (:py:class:`.WarrensII`)
@@ -502,6 +502,7 @@ from ._maxwell_pilliner import MaxwellPilliner
 from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
 from ._meta_levenshtein import MetaLevenshtein
+from ._michelet import Michelet
 from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
@@ -601,7 +602,6 @@ from ._unknown_j import UnknownJ
 from ._unknown_k import UnknownK
 from ._unknown_l import UnknownL
 from ._unknown_m import UnknownM
-from ._unknown_n import UnknownN
 from ._upholt import Upholt
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
@@ -778,6 +778,7 @@ __all__ = [
     'manhattan',
     'dist_manhattan',
     'sim_manhattan',
+    'Michelet',
     'Minkowski',
     'minkowski',
     'dist_minkowski',
@@ -842,7 +843,6 @@ __all__ = [
     'UnknownK',
     'UnknownL',
     'UnknownM',
-    'UnknownN',
     'Upholt',
     'WarrensI',
     'WarrensII',
