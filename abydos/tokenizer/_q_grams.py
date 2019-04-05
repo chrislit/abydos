@@ -171,38 +171,6 @@ class QGrams(_Tokenizer):
         super(QGrams, self).tokenize()
         return self
 
-    def __repr__(self):
-        """Return representation of QGrams object.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return 'QGrams{}'.format(str(self._tokens)[7:])
-
-    def __and__(self, other):
-        """Return intersection with other QGrams.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return self.get_counter() & other.get_counter()
-
-    def __add__(self, other):
-        """Return union with other QGrams.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return self.get_counter() + other.get_counter()
-
-    def __sub__(self, other):
-        """Return difference from other QGrams.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return self.get_counter() - other.get_counter()
-
 
 if __name__ == '__main__':
     import doctest

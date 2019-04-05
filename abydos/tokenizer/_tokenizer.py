@@ -203,6 +203,38 @@ class _Tokenizer(object):
         """
         return self._ordered_tokens
 
+    def __repr__(self):
+        """Return representation of tokens object.
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.__class__.__name__+'{}'.format(str(self._tokens)[7:])
+
+    def __and__(self, other):
+        """Return intersection with other tokens.
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.get_counter() & other.get_counter()
+
+    def __add__(self, other):
+        """Return union with other tokens.
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.get_counter() + other.get_counter()
+
+    def __sub__(self, other):
+        """Return difference from other tokens.
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.get_counter() - other.get_counter()
+
 
 if __name__ == '__main__':
     import doctest
