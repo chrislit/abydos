@@ -104,7 +104,7 @@ class UnknownJ(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Unknown J similarity of two strings.
 
         Parameters
@@ -122,6 +122,50 @@ class UnknownJ(_TokenDistance):
         Examples
         --------
         >>> cmp = UnknownJ()
+        >>> cmp.sim_score('cat', 'hat')
+        0.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._tokenize(src, tar)
+
+        a = self._intersection_card()
+        b = self._src_only_card()
+        c = self._tar_only_card()
+        d = max(1.0, self._total_complement_card())
+        n = a + b + c + d
+
+        an = a * n
+        if an:
+            return a * n / ((a + b) * (c + d))
+        return 0.0
+
+    def sim(self, src, tar):
+        """Return the normalized Unknown J similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Unknown J similarity
+
+        Examples
+        --------
+        >>> cmp = UnknownJ()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
@@ -135,15 +179,12 @@ class UnknownJ(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self._tokenize(src, tar)
-
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
-
-        return a * n / ((a + b) * (c + d))
+        score = self.sim_score(src, tar)
+        if score:
+            return score / max(
+                self.sim_score(src, src), self.sim_score(tar, tar)
+            )
+        return 0.0
 
 
 if __name__ == '__main__':
