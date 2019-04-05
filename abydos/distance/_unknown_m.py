@@ -105,7 +105,7 @@ class UnknownM(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Unknown M similarity of two strings.
 
         Parameters
@@ -123,13 +123,13 @@ class UnknownM(_TokenDistance):
         Examples
         --------
         >>> cmp = UnknownM()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -144,7 +144,45 @@ class UnknownM(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return (n - a * d) / ((a + b) * (c + d) * (a + c) * (b + d)) ** 0.5
+        return (n - a * d) / (
+            max(1.0, a + b)
+            * max(1.0, c + d)
+            * max(1.0, a + c)
+            * max(1.0, b + d)
+        ) ** 0.5
+
+    def sim(self, src, tar):
+        """Return the normalized Unknown M similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string (or QGrams/Counter objects) for comparison
+        tar : str
+            Target string (or QGrams/Counter objects) for comparison
+
+        Returns
+        -------
+        float
+            Normalized Unknown M similarity
+
+        Examples
+        --------
+        >>> cmp = UnknownM()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1.0 - self.sim_score(src, tar)) / 2.0
 
 
 if __name__ == '__main__':
