@@ -222,7 +222,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Unknown H similarity (:py:class:`.UnknownH`)
     - Unknown I similarity (:py:class:`.UnknownI`)
     - Unknown J similarity (:py:class:`.UnknownJ`)
-    - Unknown K similarity (:py:class:`.UnknownK`)
+    - Unknown K distance (:py:class:`.UnknownK`)
     - Unknown L similarity (:py:class:`.UnknownL`)
     - Unknown M similarity (:py:class:`.UnknownM`)
     - Upholt similarity (:py:class:`.Upholt`)
