@@ -224,8 +224,12 @@ class Eudex(_Distance):
             weights = Eudex.gen_exponential()
         elif self._weights == 'fibonacci':
             weights = Eudex.gen_fibonacci()
-        elif hasattr(self._weights, '__iter__'):
+        elif hasattr(self._weights, '__iter__') and not isinstance(
+            self._weights, str
+        ):
             weights = self._weights[::-1]
+        else:
+            raise ValueError('Unrecognized weights value or type.')
 
         if isinstance(weights, GeneratorType):
             weights = [next(weights) for _ in range(self._max_length)][::-1]
