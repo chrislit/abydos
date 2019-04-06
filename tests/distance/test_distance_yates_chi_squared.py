@@ -41,6 +41,7 @@ class YatesChiSquaredTestCases(unittest.TestCase):
 
     cmp = YatesChiSquared()
     cmp_no_d = YatesChiSquared(alphabet=0)
+    cmp_4q1 = YatesChiSquared(qval=1, alphabet=6)
 
     def test_yates_chi_squared_sim(self):
         """Test abydos.distance.YatesChiSquared.sim."""
@@ -168,6 +169,8 @@ class YatesChiSquaredTestCases(unittest.TestCase):
             self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG', signed=True),
             -0.2651515152,
         )
+
+        self.assertEqual(self.cmp_4q1.sim_score('tab', 'tac'), 0.0)
 
 
 if __name__ == '__main__':

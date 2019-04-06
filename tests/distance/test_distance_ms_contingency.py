@@ -41,6 +41,7 @@ class MSContingencyTestCases(unittest.TestCase):
 
     cmp = MSContingency()
     cmp_no_d = MSContingency(alphabet=0)
+    cmp_4q1 = MSContingency(qval=1, alphabet=4)
 
     def test_ms_contingency_sim(self):
         """Test abydos.distance.MSContingency.sim."""
@@ -173,6 +174,8 @@ class MSContingencyTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -0.4435327626
         )
+
+        self.assertEqual(self.cmp_4q1.corr('ab', 'ac'), 0.0)
 
 
 if __name__ == '__main__':
