@@ -109,6 +109,9 @@ class EudexTestCases(unittest.TestCase):
             Eudex('fibonacci').dist('Niall', 'Colin'), 0.20977011
         )
 
+        with self.assertRaises(ValueError):
+            Eudex('veryLarge').dist_abs('Niall', 'Colin')
+
         # Test wrapper
         self.assertAlmostEqual(
             dist_eudex('Niall', 'Neil', 'fibonacci'), 0.00287356
