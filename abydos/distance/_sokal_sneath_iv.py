@@ -156,8 +156,8 @@ class SokalSneathIV(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        a_part = 0 if a is 0 else (a / (a + b) + a / (a + c))
-        d_part = 0 if d is 0 else (d / (b + d) + d / (c + d))
+        a_part = 0 if a == 0 else (a / (a + b) + a / (a + c))
+        d_part = 0 if d == 0 else (d / (b + d) + d / (c + d))
 
         return 0.25 * (a_part + d_part)
 

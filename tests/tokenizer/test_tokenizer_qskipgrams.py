@@ -28,8 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Counter
 import unittest
+from collections import Counter
 
 from abydos.tokenizer import QSkipgrams
 

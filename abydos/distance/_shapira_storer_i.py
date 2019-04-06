@@ -117,7 +117,7 @@ class ShapiraStorerI(Levenshtein):
             tar = tar.replace(p, next_char)
             alphabet |= {next_char}
             lcs = self.lcs.lcsstr(src, tar)
-        print(src, tar)
+
         d = self._edit_with_moves(src, tar)
         return d
 

@@ -28,9 +28,9 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._token_distance import _TokenDistance
-
 from sys import float_info
+
+from ._token_distance import _TokenDistance
 
 __all__ = ['GiniI']
 

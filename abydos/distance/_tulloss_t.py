@@ -28,8 +28,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log
-
 from ._token_distance import _TokenDistance
 from ._tulloss_r import TullossR
 from ._tulloss_s import TullossS

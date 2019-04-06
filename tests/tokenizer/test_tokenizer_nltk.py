@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.tokenizer import NLTKTokenizer
+
 from nltk import TweetTokenizer
 
 
