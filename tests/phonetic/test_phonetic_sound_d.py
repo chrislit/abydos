@@ -63,6 +63,12 @@ class SoundDTestCases(unittest.TestCase):
         )
         self.assertEqual(SoundD(max_length=-1).encode('rough'), '6')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('pox'), 'PK')
+        self.assertEqual(self.pa.encode_alpha('anywhere'), 'NR')
+        self.assertEqual(self.pa.encode_alpha('adenosine'), 'TNKN')
+        self.assertEqual(self.pa.encode_alpha('judge'), 'KK')
+
         # Test wrapper
         self.assertEqual(sound_d('knight'), '5300')
 

@@ -117,6 +117,12 @@ class LeinTestCases(unittest.TestCase):
         self.assertEqual(self.pa_n0.encode('Lüdenscheidt'), 'L125')
         self.assertEqual(self.pa_n0.encode('Smith'), 'S21')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Deveaux'), 'DPK')
+        self.assertEqual(self.pa.encode_alpha('Devies'), 'DPK')
+        self.assertEqual(self.pa.encode_alpha('Sand'), 'SNT')
+        self.assertEqual(self.pa.encode_alpha('Sandau'), 'SNT')
+
         # Test wrapper
         self.assertEqual(lein('Dubose'), 'D450')
 

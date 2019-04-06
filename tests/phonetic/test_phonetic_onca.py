@@ -52,6 +52,11 @@ class ONCATestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('HORTON'), 'H635')
         self.assertEqual(self.pa.encode('HOUGHTON'), 'H235')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('HALL'), 'HL')
+        self.assertEqual(self.pa.encode_alpha('SMITH'), 'SNT')
+        self.assertEqual(self.pa.encode_alpha('HOUGHTON'), 'HKTN')
+
         # Test wrapper
         self.assertEqual(onca('HALL'), 'H400')
 

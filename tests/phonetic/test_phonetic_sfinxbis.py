@@ -288,6 +288,20 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(SfinxBis(max_length=-1).encode('Niall'), ('N4',))
         self.assertEqual(SfinxBis(max_length=0).encode('Niall'), ('N4',))
 
+        # encode_alpha
+        self.assertEqual(
+            self.pa.encode_alpha('Stael von Holstein'), ('STL', 'HLSTKN')
+        )
+        self.assertEqual(
+            self.pa.encode_alpha('de Oliveira e Silva'), ('$LFKR', 'SLF')
+        )
+        self.assertEqual(
+            self.pa.encode_alpha('de Alfaro y Gómez'), ('$LFR', 'GNS')
+        )
+        self.assertEqual(
+            self.pa.encode_alpha('Arjaliès-de la Lande'), ('$RKLS', 'LNT')
+        )
+
         # Test wrapper
         self.assertEqual(sfinxbis('af Sandeberg'), ('S53162',))
 

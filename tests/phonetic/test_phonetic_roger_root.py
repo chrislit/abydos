@@ -147,6 +147,12 @@ class RogerRootTestCases(unittest.TestCase):
         self.assertEqual(nzp.encode('LEE'), '05')
         self.assertEqual(nzp.encode('THOMAS'), '0130')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('BROWNER'), 'PRNR')
+        self.assertEqual(self.pa.encode_alpha('STANLEY'), 'STNL')
+        self.assertEqual(self.pa.encode_alpha('CHALMAN'), 'JLMN')
+        self.assertEqual(self.pa.encode_alpha('CHING'), 'JNK')
+
         # Test wrapper
         self.assertEqual(roger_root('BROWNER'), '09424')
 

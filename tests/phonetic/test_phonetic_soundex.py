@@ -129,6 +129,12 @@ class SoundexTestCases(unittest.TestCase):
             Soundex(max_length=4, zero_pad=True).encode(''), '0000'
         )
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Euler'), 'ELR')
+        self.assertEqual(self.pa.encode_alpha('Gauss'), 'GK')
+        self.assertEqual(self.pa.encode_alpha('Hilbert'), 'HLPR')
+        self.assertEqual(self.pa.encode_alpha('Knuth'), 'KNT')
+
         # Test wrapper
         self.assertEqual(soundex('Euler'), 'E460')
 
