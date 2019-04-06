@@ -48,10 +48,12 @@ class CVClusterTokenizerTestCases(unittest.TestCase):
         tok = CVClusterTokenizer()
 
         self.assertEqual(
-            sorted(tok.tokenize('nelson').get_list()), sorted(['ne', 'lso', 'n'])
+            sorted(tok.tokenize('nelson').get_list()),
+            sorted(['ne', 'lso', 'n']),
         )
         self.assertEqual(
-            sorted(tok.tokenize('neilson').get_list()), sorted(['nei', 'lso', 'n'])
+            sorted(tok.tokenize('neilson').get_list()),
+            sorted(['nei', 'lso', 'n']),
         )
         self.assertEqual(
             sorted(tok.tokenize('peninsular').get_list()),

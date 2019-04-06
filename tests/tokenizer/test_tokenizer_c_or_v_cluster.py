@@ -48,10 +48,12 @@ class COrVClusterTokenizerTestCases(unittest.TestCase):
         tok = COrVClusterTokenizer()
 
         self.assertEqual(
-            sorted(tok.tokenize('nelson').get_list()), sorted(['n', 'e', 'ls', 'o', 'n'])
+            sorted(tok.tokenize('nelson').get_list()),
+            sorted(['n', 'e', 'ls', 'o', 'n']),
         )
         self.assertEqual(
-            sorted(tok.tokenize('neilson').get_list()), sorted(['n', 'ei', 'ls', 'o', 'n'])
+            sorted(tok.tokenize('neilson').get_list()),
+            sorted(['n', 'ei', 'ls', 'o', 'n']),
         )
         self.assertEqual(
             sorted(tok.tokenize('peninsular').get_list()),
@@ -75,7 +77,9 @@ class COrVClusterTokenizerTestCases(unittest.TestCase):
         )
         self.assertEqual(
             sorted(tok.tokenize('Götterdämmerung').get_list()),
-            sorted(['G', 'ö', 'tt', 'e', 'rd', 'ä', 'mm', 'e', 'r', 'u', 'ng']),
+            sorted(
+                ['G', 'ö', 'tt', 'e', 'rd', 'ä', 'mm', 'e', 'r', 'u', 'ng']
+            ),
         )
 
         tok = COrVClusterTokenizer(consonants='ptkbdgmn', vowels='aeiouwy')

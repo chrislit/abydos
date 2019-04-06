@@ -48,10 +48,12 @@ class VCClusterTokenizerTestCases(unittest.TestCase):
         tok = VCClusterTokenizer()
 
         self.assertEqual(
-            sorted(tok.tokenize('nelson').get_list()), sorted(['n', 'els', 'on'])
+            sorted(tok.tokenize('nelson').get_list()),
+            sorted(['n', 'els', 'on']),
         )
         self.assertEqual(
-            sorted(tok.tokenize('neilson').get_list()), sorted(['n', 'eils', 'on'])
+            sorted(tok.tokenize('neilson').get_list()),
+            sorted(['n', 'eils', 'on']),
         )
         self.assertEqual(
             sorted(tok.tokenize('peninsular').get_list()),
