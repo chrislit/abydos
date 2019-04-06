@@ -42,7 +42,7 @@ class RougeL(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    _lcs = LCSseq(normalizer=lambda x: sum(x) / 2.0)
+    _lcs = LCSseq()
 
     def __init__(self, **kwargs):
         """Initialize RougeL instance.
