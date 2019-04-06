@@ -46,11 +46,7 @@ class Manhattan(Minkowski):
     """
 
     def __init__(
-        self,
-        alphabet=0,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
+        self, alphabet=0, tokenizer=None, intersection_type='crisp', **kwargs
     ):
         """Initialize Manhattan instance.
 
