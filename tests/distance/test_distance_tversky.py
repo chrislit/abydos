@@ -71,7 +71,10 @@ class TverskyIndexTestCases(unittest.TestCase):
 
         # test empty QGrams
         self.assertAlmostEqual(
-            Tversky(tokenizer=QGrams(7)).sim('nelson', 'neilsen'), 0.0
+            Tversky(tokenizer=QGrams(7, start_stop='')).sim(
+                'nelson', 'neilsen'
+            ),
+            0.0,
         )
 
         # test unequal alpha & beta
@@ -185,7 +188,10 @@ class TverskyIndexTestCases(unittest.TestCase):
 
         # test empty QGrams
         self.assertAlmostEqual(
-            Tversky(tokenizer=QGrams(7)).dist('nelson', 'neilsen'), 1.0
+            Tversky(tokenizer=QGrams(7, start_stop='')).dist(
+                'nelson', 'neilsen'
+            ),
+            1.0,
         )
 
         # test unequal alpha & beta
