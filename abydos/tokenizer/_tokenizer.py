@@ -209,7 +209,7 @@ class _Tokenizer(object):
         .. versionadded:: 0.4.0
 
         """
-        return self.__class__.__name__+'{}'.format(str(self._tokens)[7:])
+        return self.__class__.__name__ + '{}'.format(str(self._tokens)[7:])
 
     def __and__(self, other):
         """Return intersection with other tokens.

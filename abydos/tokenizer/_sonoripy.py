@@ -64,7 +64,7 @@ class SonoriPyTokenizer(_Tokenizer):
 
         """
         if SonoriPy is None:
-            raise TypeError(
+            raise TypeError(  # pragma: no cover
                 'SonoriPy tokenizer requires installation of SyllabiPy'
                 + ' package.'
             )
