@@ -67,6 +67,15 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa_unl.encode('Asdaananndsjsjasd'), 'A23553223')
         self.assertEqual(self.pa.encode('Asdaananndsjsjasd'), 'A235')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('JAMES'), 'JN')
+        self.assertEqual(self.pa.encode_alpha('JOHN'), 'JN')
+        self.assertEqual(self.pa.encode_alpha('PAT'), 'PT')
+        self.assertEqual(self.pa.encode_alpha('PETER'), 'PT')
+        self.assertEqual(self.pa.encode_alpha('Knabe'), 'NP')
+        self.assertEqual(self.pa.encode_alpha('Phil'), 'FL')
+        self.assertEqual(self.pa.encode_alpha('Wieland'), 'VL')
+
         # Test wrapper
         self.assertEqual(pshp_soundex_first('Giles'), 'J400')
 

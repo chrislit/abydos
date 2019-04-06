@@ -121,6 +121,12 @@ class PhonixTestCases(unittest.TestCase):
             Phonix(max_length=4, zero_pad=True).encode(''), '0000'
         )
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Müller'), 'ML')
+        self.assertEqual(self.pa.encode_alpha('schneider'), 'SNT')
+        self.assertEqual(self.pa.encode_alpha('fischer'), 'FS')
+        self.assertEqual(self.pa.encode_alpha('weber'), 'WP')
+
         # Test wrapper
         self.assertEqual(phonix('Müller'), 'M400')
 

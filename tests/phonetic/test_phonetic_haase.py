@@ -78,6 +78,12 @@ class HaaseTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('kickx'), ('4948',))
         self.assertEqual(self.pa.encode('sanctionen'), ('896829696',))
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Niveau'), ('NAFA',))
+        self.assertEqual(self.pa.encode_alpha('Korb'), ('KARP', 'KARF'))
+        self.assertEqual(self.pa.encode_alpha('Heino'), ('ANA', 'ANAF'))
+        self.assertEqual(self.pa.encode_alpha('Nekka'), ('NAKA', 'NAKAR'))
+
         # Test wrapper
         self.assertEqual(haase_phonetik('Häschen'), ('9896', '9496'))
 

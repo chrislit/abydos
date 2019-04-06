@@ -81,6 +81,14 @@ class PSHPSoundexLastTestCases(unittest.TestCase):
         self.assertEqual(self.pa_unl.encode('Alte'), 'A43')
         self.assertEqual(self.pa_unl.encode('Altemaier'), 'A4355')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Simpson'), 'SNKN')
+        self.assertEqual(self.pa.encode_alpha('Samson'), 'SKN')
+        self.assertEqual(self.pa.encode_alpha('Lang'), 'LN')
+        self.assertEqual(self.pa.encode_alpha('Hagan'), 'HN')
+        self.assertEqual(self.pa_german.encode_alpha('Cartes'), 'KN')
+        self.assertEqual(self.pa_german.encode_alpha('Kats'), 'K')
+
         # Test wrapper
         self.assertEqual(pshp_soundex_last('Smith'), 'S530')
 
