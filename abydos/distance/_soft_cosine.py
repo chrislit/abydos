@@ -42,7 +42,8 @@ class SoftCosine(_TokenDistance):
 
         .. math::
 
-            sim_{soft cosine}(X, Y) = \frac{\sum_{i \in S}\sum_{j \in S} s_{ij} X_i Y_j}
+            sim_{soft cosine}(X, Y) =
+            \frac{\sum_{i \in S}\sum_{j \in S} s_{ij} X_i Y_j}
             {\sqrt{\sum_{i \in S}\sum_{j \in S} s_{ij} X_i X_j}
             \sqrt{\sum_{i \in S}\sum_{j \in S} s_{ij} Y_i Y_j}}
 
