@@ -32,13 +32,11 @@ import unittest
 
 from abydos.tokenizer import SonoriPyTokenizer
 
-from .. import _corpus_file
-
 
 class SonoriPyTokenizerTestCases(unittest.TestCase):
     """Test abydos.tokenizer.SonoriPyTokenizer."""
 
-    def test_sonoriPy_tokenizer(self):
+    def test_sonoripy_tokenizer(self):
         """Test abydos.tokenizer.SonoriPyTokenizer."""
         self.assertEqual(
             sorted(SonoriPyTokenizer().tokenize('').get_list()), []

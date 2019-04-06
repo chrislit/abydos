@@ -28,9 +28,9 @@ from __future__ import (
     unicode_literals,
 )
 
+import unittest
 from collections import Counter
 from math import log1p
-import unittest
 
 from abydos.tokenizer import QGrams
 
