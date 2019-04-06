@@ -55,6 +55,8 @@ from __future__ import (
 )
 
 from ._character import CharacterTokenizer
+from ._c_or_v_cluster import COrVClusterTokenizer
+from ._cv_cluster import CVClusterTokenizer
 from ._legalipy import LegaliPyTokenizer
 from ._nltk import NLTKTokenizer
 from ._q_grams import QGrams
@@ -63,6 +65,7 @@ from ._regexp import RegexpTokenizer
 from ._saps import SAPSTokenizer
 from ._sonoripy import SonoriPyTokenizer
 from ._tokenizer import _Tokenizer
+from ._vc_cluster import VCClusterTokenizer
 from ._whitespace import WhitespaceTokenizer
 from ._wordpunct import WordpunctTokenizer
 
@@ -74,6 +77,9 @@ __all__ = [
     'RegexpTokenizer',
     'WhitespaceTokenizer',
     'WordpunctTokenizer',
+    'COrVClusterTokenizer',
+    'CVClusterTokenizer',
+    'VCClusterTokenizer',
     'NLTKTokenizer',
     'SonoriPyTokenizer',
     'LegaliPyTokenizer',

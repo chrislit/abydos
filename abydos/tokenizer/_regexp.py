@@ -63,7 +63,7 @@ class RegexpTokenizer(_Tokenizer):
         super(RegexpTokenizer, self).__init__(scaler)
 
         # Save parameters
-        self.regexp = re.compile(regexp, flags)
+        self._regexp = re.compile(regexp, flags)
 
         self._string = ''
         self._ordered_tokens = []
@@ -84,7 +84,7 @@ class RegexpTokenizer(_Tokenizer):
 
         """
         self._string = string
-        self._ordered_tokens = self.regexp.findall(self._string)
+        self._ordered_tokens = self._regexp.findall(self._string)
         super(RegexpTokenizer, self).tokenize()
         return self
 
