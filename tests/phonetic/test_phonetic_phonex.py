@@ -99,6 +99,12 @@ class PhonexTestCases(unittest.TestCase):
             Phonex(max_length=4, zero_pad=True).encode(''), '0000'
         )
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Ewell'), 'AL')
+        self.assertEqual(self.pa.encode_alpha('Filp'), 'FP')
+        self.assertEqual(self.pa.encode_alpha('Heames'), 'AN')
+        self.assertEqual(self.pa.encode_alpha('Kneves'), 'NP')
+
         # Test wrapper
         self.assertEqual(phonex('Ewell'), 'A400')
 

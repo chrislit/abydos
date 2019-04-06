@@ -49,7 +49,7 @@ class Phonex(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PSTLNR'))
+    _alphabetic = dict(zip((ord(_) for _ in '123456'), 'PSTLNR'))
 
     def __init__(self, max_length=4, zero_pad=True):
         """Initialize Phonex instance.
