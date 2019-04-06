@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from collections import Counter
+from math import log1p
 import unittest
 
 from abydos.tokenizer import QGrams
@@ -235,6 +237,22 @@ class QGramsTestCases(unittest.TestCase):
             ),
         )
         self.assertEqual(QGrams(skip=(0, 1, 2)).tokenize('NELSON').count(), 21)
+        self.assertEqual(
+            QGrams(qval=1).tokenize('COLIN').get_counter(),
+            Counter({'C': 1, 'O': 1, 'L': 1, 'I': 1, 'N': 1}),
+        )
+        self.assertEqual(
+            QGrams(qval=10, start_stop='').tokenize('COLIN').get_counter(),
+            Counter({}),
+        )
+        self.assertEqual(
+            repr(QGrams(qval=1).tokenize('COLIN')),
+            "QGrams({'C': 1, 'O': 1, 'L': 1, 'I': 1, 'N': 1})",
+        )
+        self.assertEqual(
+            QGrams(qval=1).tokenize('COLIN').get_set(),
+            {'C', 'O', 'L', 'I', 'N'},
+        )
 
         # Test exception
         self.assertRaises(ValueError, QGrams, 0)
@@ -298,6 +316,69 @@ class QGramsTestCases(unittest.TestCase):
         )
         self.assertEqual(
             len(QGrams(start_stop='').tokenize('NELSON').get_list()), 5
+        )
+
+        self.assertEqual(
+            QGrams(scaler='set').tokenize('ACAACACCTAG').get_counter(),
+            Counter(
+                {
+                    '$A': 1,
+                    'AC': 1,
+                    'CA': 1,
+                    'AA': 1,
+                    'CC': 1,
+                    'CT': 1,
+                    'TA': 1,
+                    'AG': 1,
+                    'G#': 1,
+                }
+            ),
+        )
+        self.assertEqual(
+            QGrams(scaler=log1p).tokenize('ACAACACCTAG').get_counter(),
+            Counter(
+                {
+                    '$A': 0.6931471805599453,
+                    'AC': 1.3862943611198906,
+                    'CA': 1.0986122886681096,
+                    'AA': 0.6931471805599453,
+                    'CC': 0.6931471805599453,
+                    'CT': 0.6931471805599453,
+                    'TA': 0.6931471805599453,
+                    'AG': 0.6931471805599453,
+                    'G#': 0.6931471805599453,
+                }
+            ),
+        )
+        self.assertEqual(
+            QGrams(scaler=log1p).tokenize('ACAACACCTAG').count_unique(), 9
+        )
+
+        tokens1 = QGrams().tokenize('ACAACACCTAG')
+        tokens2 = QGrams().tokenize('GAAGATAC')
+        self.assertEqual(
+            tokens1 - tokens2,
+            Counter({'$A': 1, 'AC': 2, 'CA': 2, 'CC': 1, 'CT': 1, 'G#': 1}),
+        )
+        self.assertEqual(
+            tokens1 + tokens2,
+            Counter(
+                {
+                    '$A': 1,
+                    'AC': 4,
+                    'CA': 2,
+                    'AA': 2,
+                    'CC': 1,
+                    'CT': 1,
+                    'TA': 2,
+                    'AG': 2,
+                    'G#': 1,
+                    '$G': 1,
+                    'GA': 2,
+                    'AT': 1,
+                    'C#': 1,
+                }
+            ),
         )
 
 

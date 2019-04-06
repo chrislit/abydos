@@ -167,38 +167,6 @@ class QSkipgrams(_Tokenizer):
         super(QSkipgrams, self).tokenize()
         return self
 
-    def __repr__(self):
-        """Return representation of QSkipgrams object.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return 'QSkipgrams{}'.format(str(self._tokens)[7:])
-
-    def __and__(self, other):
-        """Return intersection with other QSkipgrams.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return self.get_counter() & other.get_counter()
-
-    def __add__(self, other):
-        """Return union with other QSkipgrams.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return self.get_counter() + other.get_counter()
-
-    def __sub__(self, other):
-        """Return difference from other QSkipgrams.
-
-        .. versionadded:: 0.4.0
-
-        """
-        return self.get_counter() - other.get_counter()
-
 
 if __name__ == '__main__':
     import doctest
