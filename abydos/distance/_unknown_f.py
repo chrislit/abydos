@@ -175,14 +175,10 @@ class UnknownF(_TokenDistance):
         part1 = a / n
         if part1 == 0:
             part1 = 1
-        part2 = (a + b) / n
-        if part2 == 0:
-            part2 = 1
-        part3 = (a + c) / n
-        if part3 == 0:
-            part3 = 1
 
-        return min(1.0, 1 + log(part1) - (log(part2) + log(part3)) / 2)
+        return min(
+            1.0, 1 + log(part1) - (log((a + b) / n) + log((a + c) / n)) / 2
+        )
 
 
 if __name__ == '__main__':
