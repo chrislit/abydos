@@ -72,7 +72,9 @@ class GilbertWells(_TokenDistance):
     :cite:`Gilbert:1966`. See :class:``UnknownF`` for this, alternative,
     measure.
 
+
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(

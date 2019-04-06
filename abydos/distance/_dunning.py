@@ -74,6 +74,7 @@ class Dunning(_TokenDistance):
 
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(
