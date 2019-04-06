@@ -45,6 +45,7 @@ class LevenshteinTestCases(unittest.TestCase):
     """
 
     cmp = Levenshtein()
+    cmp_taper = Levenshtein(taper=True)
 
     def test_levenshtein_dist_abs(self):
         """Test abydos.distance.Levenshtein.dist_abs."""
@@ -164,6 +165,22 @@ class LevenshteinTestCases(unittest.TestCase):
             5,
         )
 
+        # tapered variant
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('abc', 'ac'), 1.33333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('xabxcdxxefxgx', 'abcdefg'),
+            8.615384615384617,
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('levenshtein', 'frankenstein'), 10
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('distance', 'difference'),
+            7.499999999999999,
+        )
+
         # Test wrapper
         self.assertEqual(
             levenshtein('ab', 'ba', 'lev', cost=(10, 10, 10, 5)), 20
@@ -185,6 +202,17 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('abc', 'ac'), 1 / 3)
         self.assertAlmostEqual(self.cmp.dist('abbc', 'ac'), 1 / 2)
         self.assertAlmostEqual(self.cmp.dist('abbc', 'abc'), 1 / 4)
+
+        # tapered variant
+        self.assertAlmostEqual(
+            self.cmp_taper.dist('abc', 'ac'), 0.2666666666666666
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist('abbc', 'ac'), 0.4230769230769231
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist('abbc', 'abc'), 0.19230769230769232
+        )
 
         # Test wrapper
         self.assertAlmostEqual(dist_levenshtein('abbc', 'abc'), 1 / 4)
