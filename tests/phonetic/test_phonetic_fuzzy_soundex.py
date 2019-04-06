@@ -102,6 +102,12 @@ class FuzzySoundexTestCases(unittest.TestCase):
             FuzzySoundex(max_length=4, zero_pad=True).encode(''), '0000'
         )
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('pete'), 'PT')
+        self.assertEqual(self.pa.encode_alpha('pedro'), 'PTR')
+        self.assertEqual(self.pa.encode_alpha('stephen'), 'STPN')
+        self.assertEqual(self.pa.encode_alpha('steve'), 'STP')
+
         # Test wrapper
         self.assertEqual(fuzzy_soundex('Kristen'), 'K6935')
 

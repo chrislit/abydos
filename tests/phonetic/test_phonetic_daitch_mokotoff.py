@@ -147,6 +147,17 @@ class DaitchMokotoffTestCases(unittest.TestCase):
             DaitchMokotoff(max_length=6, zero_pad=True).encode(''), {'000000'}
         )
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Augsburg'), {'AKSPRK'})
+        self.assertEqual(self.pa.encode_alpha('Breuer'), {'PRAR'})
+        self.assertEqual(
+            self.pa.encode_alpha('Halberstadt'), {'KLPRST', 'KLPSTT'}
+        )
+        self.assertEqual(self.pa.encode_alpha('Mannheim'), {'NNKN'})
+        self.assertEqual(
+            self.pa.encode_alpha('Chernowitz'), {'KRNPS', 'SRNPS'}
+        )
+
         # Test wrapper
         self.assertEqual(dm_soundex('Augsburg'), {'054795'})
 

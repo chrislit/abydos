@@ -68,6 +68,12 @@ class AlphaSISTestCases(unittest.TestCase):
         )
         self.assertEqual(AlphaSIS(max_length=0).encode('Niall')[0], '0250')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Rogers')[0], 'RKR')
+        self.assertEqual(self.pa.encode_alpha('Kant')[0], 'KNT')
+        self.assertEqual(self.pa.encode_alpha('Knuth')[0], 'NT')
+        self.assertEqual(self.pa.encode_alpha('Harper')[0], 'HRPR')
+
         # Test wrapper
         self.assertEqual(alpha_sis('Livingston')[0], '05827012000000')
 

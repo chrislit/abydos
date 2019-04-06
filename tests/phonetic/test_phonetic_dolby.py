@@ -750,6 +750,13 @@ class DolbyTestCases(unittest.TestCase):
         )
         self.assertEqual(self.pa.encode('Wassermanns'), 'W*SRMNS')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Rune'), 'RAN')
+        self.assertEqual(self.pa.encode_alpha('Weissman'), 'WASMN')
+        self.assertEqual(self.pa.encode_alpha('Pederson'), 'PADRSN')
+        self.assertEqual(self.pa.encode_alpha('Frederiksen'), 'FRADRKSN')
+        self.assertEqual(self.pa.encode_alpha('Bare'), 'BAR')
+
         # Test wrapper
         self.assertEqual(dolby('Wassermanns'), 'W*SRMNS')
 

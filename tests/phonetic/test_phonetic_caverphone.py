@@ -306,6 +306,13 @@ class CaverphoneTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('trough'), 'TRF1111111')
         self.assertEqual(self.pa.encode('gnu'), 'NA11111111')
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Henrichsen'), 'ANRKSN')
+        self.assertEqual(self.pa.encode_alpha('Dierdre'), 'TTA')
+        self.assertEqual(self.pa.encode_alpha('Mcclifferty'), 'MKLFTA')
+        self.assertEqual(self.pa.encode_alpha('Killen'), 'KLN')
+        self.assertEqual(self.pa.encode_alpha('Whittle'), 'WTA')
+
         # Test wrapper
         self.assertEqual(caverphone('Maclaverty'), 'MKLFTA1111')
 

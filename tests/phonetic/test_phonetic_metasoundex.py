@@ -96,6 +96,12 @@ class MetaSoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa_es.encode('Gómez'), '864')
         self.assertEqual(self.pa_es.encode('Flores'), '2594')
 
+        # encode_alpha
+        self.assertEqual(self.pa_en.encode_alpha('Smith'), 'SN')
+        self.assertEqual(self.pa_en.encode_alpha('Johnson'), 'JNKN')
+        self.assertEqual(self.pa_es.encode_alpha('Hernández'), 'RNNTS')
+        self.assertEqual(self.pa_es.encode_alpha('García'), 'GRS')
+
         # Test wrapper
         self.assertEqual(metasoundex('Smith', lang='en'), '4500')
         self.assertEqual(metasoundex('Hernández', lang='es'), '96634')

@@ -286,6 +286,14 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
             DoubleMetaphone(max_length=0).encode('Niall'), ('NL', '')
         )
 
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('maurice'), ('MRS', ''))
+        self.assertEqual(self.pa.encode_alpha('auto'), ('AT', ''))
+        self.assertEqual(self.pa.encode_alpha('maisey'), ('MS', ''))
+        self.assertEqual(self.pa.encode_alpha('catherine'), ('KÞRN', 'KTRN'))
+        self.assertEqual(self.pa.encode_alpha('geoff'), ('JF', 'KF'))
+        self.assertEqual(self.pa.encode_alpha('Bosworth'), ('PSRÞ', 'PSRT'))
+
         # Test wrapper
         self.assertEqual(double_metaphone('cambrillo'), ('KMPRL', 'KMPR'))
 
