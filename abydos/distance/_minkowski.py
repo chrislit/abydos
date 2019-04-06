@@ -48,7 +48,7 @@ class Minkowski(_TokenDistance):
     def __init__(
         self,
         pval=1,
-        alphabet=None,
+        alphabet=0,
         tokenizer=None,
         intersection_type='crisp',
         **kwargs
@@ -136,7 +136,7 @@ class Minkowski(_TokenDistance):
         normalizer = 1
         if normalized:
             totals = self._total().values()
-            if self.params['alphabet'] is not None:
+            if self.params['alphabet']:
                 normalizer = self.params['alphabet']
             elif self.params['pval'] == 0:
                 normalizer = len(totals)
@@ -204,7 +204,7 @@ class Minkowski(_TokenDistance):
     current_version=__version__,
     details='Use the Minkowski.dist_abs method instead.',
 )
-def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
+def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=0):
     """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist_abs`.
@@ -254,7 +254,7 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     current_version=__version__,
     details='Use the Minkowski.dist method instead.',
 )
-def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
+def dist_minkowski(src, tar, qval=2, pval=1, alphabet=0):
     """Return normalized Minkowski distance of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist`.
@@ -302,7 +302,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     current_version=__version__,
     details='Use the Minkowski.sim method instead.',
 )
-def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
+def sim_minkowski(src, tar, qval=2, pval=1, alphabet=0):
     """Return normalized Minkowski similarity of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.sim`.

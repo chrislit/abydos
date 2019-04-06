@@ -47,7 +47,7 @@ class Euclidean(Minkowski):
 
     def __init__(
         self,
-        alphabet=None,
+        alphabet=0,
         tokenizer=None,
         intersection_type='crisp',
         **kwargs
@@ -175,7 +175,7 @@ class Euclidean(Minkowski):
     current_version=__version__,
     details='Use the Euclidean.dist_abs method instead.',
 )
-def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
+def euclidean(src, tar, qval=2, normalized=False, alphabet=0):
     """Return the Euclidean distance between two strings.
 
     This is a wrapper for :py:meth:`Euclidean.dist_abs`.
@@ -222,7 +222,7 @@ def euclidean(src, tar, qval=2, normalized=False, alphabet=None):
     current_version=__version__,
     details='Use the Euclidean.dist method instead.',
 )
-def dist_euclidean(src, tar, qval=2, alphabet=None):
+def dist_euclidean(src, tar, qval=2, alphabet=0):
     """Return the normalized Euclidean distance between two strings.
 
     This is a wrapper for :py:meth:`Euclidean.dist`.
@@ -266,7 +266,7 @@ def dist_euclidean(src, tar, qval=2, alphabet=None):
     current_version=__version__,
     details='Use the Euclidean.sim method instead.',
 )
-def sim_euclidean(src, tar, qval=2, alphabet=None):
+def sim_euclidean(src, tar, qval=2, alphabet=0):
     """Return the normalized Euclidean similarity of two strings.
 
     This is a wrapper for :py:meth:`Euclidean.sim`.

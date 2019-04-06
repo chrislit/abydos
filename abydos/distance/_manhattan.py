@@ -47,7 +47,7 @@ class Manhattan(Minkowski):
 
     def __init__(
         self,
-        alphabet=None,
+        alphabet=0,
         tokenizer=None,
         intersection_type='crisp',
         **kwargs
@@ -224,7 +224,7 @@ def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
     current_version=__version__,
     details='Use the Manhattan.dist method instead.',
 )
-def dist_manhattan(src, tar, qval=2, alphabet=None):
+def dist_manhattan(src, tar, qval=2, alphabet=0):
     """Return the normalized Manhattan distance between two strings.
 
     This is a wrapper for :py:meth:`Manhattan.dist`.
@@ -268,7 +268,7 @@ def dist_manhattan(src, tar, qval=2, alphabet=None):
     current_version=__version__,
     details='Use the Manhattan.sim method instead.',
 )
-def sim_manhattan(src, tar, qval=2, alphabet=None):
+def sim_manhattan(src, tar, qval=2, alphabet=0):
     """Return the normalized Manhattan similarity of two strings.
 
     This is a wrapper for :py:meth:`Manhattan.sim`.
