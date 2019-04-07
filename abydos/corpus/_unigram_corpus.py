@@ -31,6 +31,7 @@ from __future__ import (
 from codecs import open as c_open
 from collections import Counter, defaultdict
 from math import log1p
+import pickle
 
 __all__ = ['UnigramCorpus']
 
@@ -108,6 +109,45 @@ class UnigramCorpus(object):
         for word, count in Counter(doc.split()).items():
             self._add_word(word, count, 1)
         self.doc_count += 1
+
+    def save_corpus(self, filename):
+        """Save the corpus to a file.
+
+        This employs pickle to save the corpus (a defaultdict). Other
+        parameters of the corpus, such as its word_tokenizer, will not be
+        affected and should be set during initialization.
+
+        Parameters
+        ----------
+        filename : str
+            The filename to save the corpus to.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        with open(filename, mode='wb') as pkl:
+            pickle.dump(self.corpus, pkl)
+
+    def load_corpus(self, filename):
+        """Load the corpus from a file.
+
+        This employs pickle to load the corpus (a defaultdict). Other
+        parameters of the corpus, such as its word_tokenizer, will not be
+        affected and should be set during initialization.
+
+        Parameters
+        ----------
+        filename : str
+            The filename to load the corpus from.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        with open(filename, mode='rb') as pkl:
+            self.corpus = pickle.load(pkl)
+        self._update_doc_count()
 
     def _update_doc_count(self):
         """Update document count, if necessary.
