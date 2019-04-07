@@ -161,6 +161,10 @@ Alignment(src='sit-', tar='s-ed', score=200), Alignment(src='--sit', tar='sed--'
 tar='--sed', score=240), Alignment(src='-sit', tar='se-d', score=260), Alignment(src='si-t', tar='-sed', score=260), \
 Alignment(src='-sit', tar='sed-', score=300), Alignment(src='sit-', tar='-sed', score=300)]",
         )
+        self.assertEqual(
+            repr(self.cmp.alignments('sit', 'sīt', top_n=1)[0]),
+            "Alignment(src='sit', tar='sīt', score=10)",
+        )
 
 
 if __name__ == '__main__':
