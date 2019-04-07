@@ -54,6 +54,7 @@ class Sift4ExtendedTestCases(unittest.TestCase):
     cmp_kwargs2 = Sift4Extended(
         local_length_evaluator=Sift4Extended.reward_length_evaluator_exp
     )
+    cmp_md = Sift4Extended(max_distance=3)
 
     def test_sift4_extended_dist_abs(self):
         """Test abydos.distance.Sift4Extended.dist_abs."""
@@ -97,6 +98,17 @@ class Sift4ExtendedTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_kwargs2.dist_abs('Coiln', 'Colin'), 6)
         self.assertAlmostEqual(
             self.cmp_kwargs2.dist_abs('ATCAACGAGT', 'AACGATTAG'), 25
+        )
+
+        # coverage completion
+        self.assertAlmostEqual(
+            self.cmp_kwargs.dist_abs('beaurocracy', 'bureaucracy'), 3
+        )
+        self.assertAlmostEqual(
+            self.cmp_md.dist_abs('beaurocratically', 'bureaucracy'), 3
+        )
+        self.assertAlmostEqual(
+            self.cmp_md.dist_abs('bureaucracy', 'bureaucracy'), 3
         )
 
 
