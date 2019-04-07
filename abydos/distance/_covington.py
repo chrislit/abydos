@@ -233,7 +233,7 @@ class Covington(_Distance):
             sd = unicode_normalize('NFKD', s)
             td = unicode_normalize('NFKD', t)
 
-            if sd[0] == td[0] and s in self._consonants:
+            if sd[0] == td[0] and s in self._vowels:
                 return self._weights[2]
 
             if sd[0] in self._vowels and td[0] in self._vowels:
