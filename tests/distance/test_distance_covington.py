@@ -102,6 +102,66 @@ class CovingtonTestCases(unittest.TestCase):
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 340
         )
 
+    def test_covington_alignments(self):
+        """Test abydos.distance.Covington.alignments."""
+        self.assertEqual(
+            repr(self.cmp.alignments('yo', 'ze', top_n=1)[0]),
+            "Alignment(src='yo', tar='ze', score=130)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('tres', 'trwa', top_n=1)[0]),
+            "Alignment(src='tr-es', tar='trwa-', score=130)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('detir', 'dir', top_n=1)[0]),
+            "Alignment(src='detir', tar='d--ir', score=95)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('niy', 'kni', top_n=1)[0]),
+            "Alignment(src='-niy', tar='kni-', score=105)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('hart', 'kordis', top_n=1)[0]),
+            "Alignment(src='hart--', tar='kordis', score=240)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('niy', 'genu', top_n=1)[0]),
+            "Alignment(src='--niy', tar='genu-', score=170)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('namesa', 'namiqs', top_n=1)[0]),
+            "Alignment(src='name-sa', tar='namiqs-', score=135)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('kentum', 'satem', top_n=1)[0]),
+            "Alignment(src='kentum', tar='sa-tem', score=170)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('kentum', 'hekaton', top_n=1)[0]),
+            "Alignment(src='--kentum', tar='heka-ton', score=260)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('doter', 'tugatir', top_n=2)[1]),
+            "Alignment(src='do--ter', tar='tugatir', score=210)",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('sit', 'sedere', top_n=1)[0]),
+            "Alignment(src='sit---', tar='sedere', score=220)",
+        )
+
+        self.assertEqual(
+            repr(self.cmp.alignments('doter', 'tugatir', top_n=0)),
+            "[Alignment(src='--doter', tar='tugatir', score=210), Alignment(src='do--ter', tar='tugatir', score=210), \
+Alignment(src='d--oter', tar='tugatir', score=210)]",
+        )
+        self.assertEqual(
+            repr(self.cmp.alignments('sit', 'sed')),
+            "[Alignment(src='sit', tar='sed', score=90), Alignment(src='s-it', tar='sed-', score=200), \
+Alignment(src='sit-', tar='s-ed', score=200), Alignment(src='--sit', tar='sed--', score=240), Alignment(src='sit--', \
+tar='--sed', score=240), Alignment(src='-sit', tar='se-d', score=260), Alignment(src='si-t', tar='-sed', score=260), \
+Alignment(src='-sit', tar='sed-', score=300), Alignment(src='sit-', tar='-sed', score=300)]",
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
