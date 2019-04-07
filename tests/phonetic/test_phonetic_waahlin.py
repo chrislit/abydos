@@ -57,6 +57,18 @@ class WaahlinTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('denna'), 'DENNA')
         self.assertEqual(self.pa.encode('djur'), 'JUR')
         self.assertEqual(self.pa.encode('hjärta'), 'JERTA')
+        self.assertEqual(self.pa.encode('STIEN'), '*EN')
+        self.assertEqual(self.pa.encode('SKJERN'), '*ERN')
+        self.assertEqual(self.pa.encode('HIELPA'), 'JELPA')
+        self.assertEqual(self.pa.encode('CEILA'), 'SEILA')
+        self.assertEqual(self.pa.encode('GELD'), 'JELD')
+        self.assertEqual(self.pa.encode('IERN'), 'JERN')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('kjol'), 'ÇOL')
+        self.assertEqual(self.pa.encode_alpha('stråken'), 'STRÅÇEN')
+        self.assertEqual(self.pa.encode_alpha('skytten'), 'ŠYTTEN')
+        self.assertEqual(self.pa.encode_alpha('ljuden'), 'JUDEN')
 
     def test_waahlin_soundex(self):
         """Test abydos.phonetic.Waahlin with Soundex."""
