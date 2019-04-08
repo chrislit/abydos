@@ -44,7 +44,7 @@ __all__ = ['ShapiraStorerI']
 class ShapiraStorerI(Levenshtein):
     """Shapira & Storer I edit distance with block moves, greedy algorithm.
 
-    Shapira & Storer's edit distance :cite:`Shapira:2007` is similar to
+    Shapira & Storer's greedy edit distance :cite:`Shapira:2007` is similar to
     Levenshtein edit distance, but with two important distinctions:
 
         - It considers blocks of characters, if they occur in both the source
@@ -60,6 +60,8 @@ class ShapiraStorerI(Levenshtein):
     .. versionadded:: 0.4.0
     """
 
+    _lcs = LCSstr()
+
     def __init__(self, **kwargs):
         """Initialize ShapiraStorerI instance.
 
@@ -73,7 +75,6 @@ class ShapiraStorerI(Levenshtein):
 
         """
         super(ShapiraStorerI, self).__init__(**kwargs)
-        self.lcs = LCSstr()
 
     def dist_abs(self, src, tar):
         """Return the Shapira & Storer I edit distance between two strings.
@@ -108,15 +109,15 @@ class ShapiraStorerI(Levenshtein):
         """
         alphabet = set(src) | set(tar)
         next_char = 'A'
-        lcs = self.lcs.lcsstr(src, tar)
+        lcs = self._lcs.lcsstr(src, tar)
         while len(lcs) > 1:
             while next_char in alphabet:
                 next_char = chr(ord(next_char) + 1)
-            p = self.lcs.lcsstr(src, tar)
+            p = self._lcs.lcsstr(src, tar)
             src = src.replace(p, next_char)
             tar = tar.replace(p, next_char)
             alphabet |= {next_char}
-            lcs = self.lcs.lcsstr(src, tar)
+            lcs = self._lcs.lcsstr(src, tar)
 
         d = self._edit_with_moves(src, tar)
         return d
