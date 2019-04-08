@@ -227,7 +227,7 @@ class _TokenDistance(_Distance):
                 self.params['metric'] = DamerauLevenshtein()
             if 'threshold' not in self.params:
                 self.params['threshold'] = 0.1
-            self.intersection = self._fuzzy_intersection
+            self.intersection = self._group_linkage_intersection
         else:
             self.intersection = self._crisp_intersection
 
