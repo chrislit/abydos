@@ -41,7 +41,7 @@ import sys
 
 try:
     import urllib.request as urllib
-except ImportError:
+except ImportError:  # pragma: no cover
     import urllib
 import zipfile
 
@@ -69,12 +69,14 @@ data_path = []
    (e.g., in their home directory under ~/abydos_data)."""
 
 # User-specified locations:
-_paths_from_env = os.environ.get('ABYDOS_DATA', str('')).split(os.pathsep)
+_paths_from_env = os.environ.get('ABYDOS_DATA', str('')).split(
+    os.pathsep
+)  # pragma: no cover
 data_path += [d for d in _paths_from_env if d]
 if 'APPENGINE_RUNTIME' not in os.environ and os.path.expanduser('~/') != '~/':
     data_path.append(os.path.expanduser(str('~/abydos_data')))
 
-if sys.platform.startswith('win'):
+if sys.platform.startswith('win'):  # pragma: no cover
     # Common locations on Windows:
     data_path += [
         os.path.join(sys.prefix, str('abydos_data')),
@@ -111,10 +113,14 @@ def package_path(resource_name):
     raise FileNotFoundError(msg)
 
 
-def list_installed_packages():
+def list_installed_packages(path=None):
     """List all installed data packages."""
+    if path:
+        paths = [path]
+    else:
+        paths = data_path
     packages = []
-    for path in data_path:
+    for path in paths:
         for subdir in DATA_SUBDIRS:
             check_path = os.path.join(path, subdir)
             if os.path.isdir(check_path):
@@ -136,10 +142,12 @@ def list_installed_packages():
 def list_available_packages(url=None):
     """List all data packages available for install."""
     installed_packages = {_[0]: _[2] for _ in list_installed_packages()}
+
     if url is None:
         url = INDEX_URL
     with urllib.urlopen(url) as ix:
         xml = ElementTree.fromstring(ix.read())
+
     packages = [
         (
             _.attrib['id'],
@@ -177,27 +185,29 @@ def _default_download_dir():
 
     """
     # Check if we are on GAE where we cannot write into filesystem.
-    if 'APPENGINE_RUNTIME' in os.environ:
+    if 'APPENGINE_RUNTIME' in os.environ:  # pragma: no cover
         return
 
     # Check if we have sufficient permissions to install in a
     # variety of system-wide locations.
     for abydos_data in data_path:
-        if os.path.exists(abydos_data) and os.access(abydos_data, os.W_OK):
+        if os.path.exists(abydos_data) and os.access(
+            abydos_data, os.W_OK
+        ):  # pragma: no cover
             return abydos_data
 
     # On Windows, use %APPDATA%
-    if sys.platform == 'win32' and 'APPDATA' in os.environ:
+    if sys.platform == 'win32' and 'APPDATA' in os.environ:  # pragma: no cover
         homedir = os.environ['APPDATA']
 
     # Otherwise, install in the user's home directory.
-    else:
+    else:  # pragma: no cover
         homedir = os.path.expanduser('~/')
         if homedir == '~/':
             raise ValueError("Could not find a default download directory")
 
     # append "abydos_data" to the home directory
-    return os.path.join(homedir, 'abydos_data')
+    return os.path.join(homedir, 'abydos_data')  # pragma: no cover
 
 
 def download_package(
@@ -205,14 +215,14 @@ def download_package(
 ):
     """Download and install a package or collection."""
     packages, collections = list_available_packages(url)
-    installed = list_installed_packages()
+    installed = list_installed_packages(data_path)
     if data_path is None:
         data_path = _default_download_dir()
     os.makedirs(data_path, mode=0o775, exist_ok=True)
 
     for coll in collections:
         if resource_name == coll[0]:
-            if not silent:
+            if not silent:  # pragma: no branch
                 print('Installing {} collection'.format(coll[1]))
             for resource_name in coll[2]:
                 download_package(resource_name, url, data_path)
@@ -221,16 +231,16 @@ def download_package(
         for pack in packages:
             if resource_name == pack[0]:
                 if not force:
-                    for inst in installed:
+                    for inst in installed:  # pragma: no branch
                         if pack[0] == inst[0] and pack[2] <= inst[2]:
-                            if not silent:
-                                print(
+                            if not silent:  # pragma: no branch
+                                print(  # pragma: no cover
                                     '{} package already up-to-date'.format(
                                         pack[1]
                                     )
                                 )
                             return
-                if not silent:
+                if not silent:  # pragma: no branch
                     print('Installing {} package'.format(pack[1]))
                 zip_fn = os.path.join(data_path, pack[4], pack[0] + '.zip')
                 os.makedirs(
