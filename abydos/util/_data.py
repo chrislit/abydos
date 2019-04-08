@@ -101,15 +101,12 @@ else:
 
 
 def package_path(resource_name):
-    """Given a resource name, returns the path to its package contents."""
+    """Given a resource name, returns the path to the package."""
     for path in data_path:
         for subdir in DATA_SUBDIRS:
             check_path = os.path.join(path, subdir, resource_name)
             if os.path.isdir(check_path):
-                return [
-                    os.path.join(check_path, filename)
-                    for filename in os.listdir(check_path)
-                ]
+                return check_path
     msg = 'Data package not found. You may need to install or re-install it.'
     raise FileNotFoundError(msg)
 
