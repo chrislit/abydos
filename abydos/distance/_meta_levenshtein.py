@@ -240,7 +240,16 @@ class MetaLevenshtein(_Distance):
         if src == tar:
             return 0.0
 
-        return self.dist_abs(src, tar) / self._normalizer([len(src), len(tar)])
+        return self.dist_abs(src, tar) / (
+            self._normalizer(
+                [
+                    self.dist_abs(src, ' ' * len(tar)),
+                    self.dist_abs(src, ' ' * len(src)),
+                ]
+            )
+            if self._corpus
+            else self._normalizer([len(src), len(tar)])
+        )
 
 
 if __name__ == '__main__':
