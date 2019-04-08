@@ -45,7 +45,7 @@ except ImportError:  # pragma: no cover
     import urllib
 import zipfile
 
-from xml.etree import ElementTree
+from xml.etree import ElementTree  # noqa: S405
 
 __all__ = [
     'data_path',
@@ -145,8 +145,9 @@ def list_available_packages(url=None):
 
     if url is None:
         url = INDEX_URL
-    with urllib.urlopen(url) as ix:
-        xml = ElementTree.fromstring(ix.read())
+    if url[:4] == 'http':
+        with urllib.urlopen(url) as ix:  # noqa: S310
+            xml = ElementTree.fromstring(ix.read())  # noqa: S314
 
     packages = [
         (
@@ -204,7 +205,7 @@ def _default_download_dir():
     else:  # pragma: no cover
         homedir = os.path.expanduser('~/')
         if homedir == '~/':
-            raise ValueError("Could not find a default download directory")
+            raise ValueError('Could not find a default download directory')
 
     # append "abydos_data" to the home directory
     return os.path.join(homedir, 'abydos_data')  # pragma: no cover
@@ -223,7 +224,7 @@ def download_package(
     for coll in collections:
         if resource_name == coll[0]:
             if not silent:  # pragma: no branch
-                print('Installing {} collection'.format(coll[1]))
+                print('Installing {} collection'.format(coll[1]))  # noqa: T001
             for resource_name in coll[2]:
                 download_package(resource_name, url, data_path)
             return
@@ -234,20 +235,24 @@ def download_package(
                     for inst in installed:  # pragma: no branch
                         if pack[0] == inst[0] and pack[2] <= inst[2]:
                             if not silent:  # pragma: no branch
-                                print(  # pragma: no cover
+                                print(  # pragma: no cover  # noqa: T001
                                     '{} package already up-to-date'.format(
                                         pack[1]
                                     )
                                 )
                             return
                 if not silent:  # pragma: no branch
-                    print('Installing {} package'.format(pack[1]))
+                    print(  # noqa: T001
+                        'Installing {} package'.format(pack[1])
+                    )
                 zip_fn = os.path.join(data_path, pack[4], pack[0] + '.zip')
                 os.makedirs(
                     os.path.join(data_path, pack[4]), mode=0o775, exist_ok=True
                 )
-                urllib.urlretrieve(pack[3][:-3] + 'xml', zip_fn[:-3] + 'xml')
-                urllib.urlretrieve(pack[3], zip_fn)
+                urllib.urlretrieve(  # noqa: S310
+                    pack[3][:-3] + 'xml', zip_fn[:-3] + 'xml'
+                )
+                urllib.urlretrieve(pack[3], zip_fn)  # noqa: S310
                 zip_pkg = zipfile.ZipFile(zip_fn)
                 zip_pkg.extractall(os.path.join(data_path, pack[4]))
                 zip_pkg.close()

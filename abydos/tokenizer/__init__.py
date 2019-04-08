@@ -54,8 +54,8 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._character import CharacterTokenizer
 from ._c_or_v_cluster import COrVClusterTokenizer
+from ._character import CharacterTokenizer
 from ._cv_cluster import CVClusterTokenizer
 from ._legalipy import LegaliPyTokenizer
 from ._nltk import NLTKTokenizer

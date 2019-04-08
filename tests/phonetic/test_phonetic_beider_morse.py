@@ -941,7 +941,9 @@ class BeiderMorseTestCases(unittest.TestCase):
             'abc',
         )
 
-        self.assertEqual(self.pa._language_index_from_code(0, 'gen'), L_ANY)
+        self.assertEqual(
+            self.pa._language_index_from_code(0, 'gen'), L_ANY  # noqa: SF01
+        )
 
 
 if __name__ == '__main__':

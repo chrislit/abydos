@@ -28,14 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+import pickle  # noqa: S403
 from codecs import open as c_open
 from collections import Counter, defaultdict
 from math import log1p
-
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
 
 __all__ = ['UnigramCorpus']
 
@@ -150,7 +146,7 @@ class UnigramCorpus(object):
 
         """
         with open(filename, mode='rb') as pkl:
-            self.corpus = pickle.load(pkl)
+            self.corpus = pickle.load(pkl)  # noqa: S301
         self._update_doc_count()
 
     def _update_doc_count(self):
