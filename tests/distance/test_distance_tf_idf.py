@@ -28,9 +28,13 @@ from __future__ import (
     unicode_literals,
 )
 
+import os
 import unittest
 
+from abydos.corpus import UnigramCorpus
 from abydos.distance import TFIDF
+from abydos.tokenizer import QGrams
+from abydos.util import download_package, package_path
 
 
 class TFIDFTestCases(unittest.TestCase):
@@ -40,6 +44,11 @@ class TFIDFTestCases(unittest.TestCase):
     """
 
     cmp = TFIDF()
+
+    q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))
+    download_package('en_qgram', silent=True)
+    q3_corpus.load_corpus(os.path.join(package_path('en_qgram'), 'q3_en.dat'))
+    cmp_q3 = TFIDF(tokenizer=QGrams(qval=3), corpus=q3_corpus)
 
     def test_tf_idf_sim(self):
         """Test abydos.distance.TFIDF.sim."""
@@ -60,6 +69,11 @@ class TFIDFTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4676712137
         )
 
+        self.assertAlmostEqual(self.cmp_q3.sim('Nigel', 'Niall'), 0.259985047)
+        self.assertAlmostEqual(self.cmp_q3.sim('Niall', 'Nigel'), 0.259985047)
+        self.assertAlmostEqual(self.cmp_q3.sim('Colin', 'Coiln'), 0.114867563)
+        self.assertAlmostEqual(self.cmp_q3.sim('Coiln', 'Colin'), 0.114867563)
+
     def test_tf_idf_dist(self):
         """Test abydos.distance.TFIDF.dist."""
         # Base cases
@@ -78,6 +92,11 @@ class TFIDFTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5323287863
         )
+
+        self.assertAlmostEqual(self.cmp_q3.dist('Nigel', 'Niall'), 0.740014953)
+        self.assertAlmostEqual(self.cmp_q3.dist('Niall', 'Nigel'), 0.740014953)
+        self.assertAlmostEqual(self.cmp_q3.dist('Colin', 'Coiln'), 0.885132437)
+        self.assertAlmostEqual(self.cmp_q3.dist('Coiln', 'Colin'), 0.885132437)
 
 
 if __name__ == '__main__':
