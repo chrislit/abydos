@@ -148,12 +148,8 @@ class MetaLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_q3.dist_abs('Niall', 'Nigel'), 7.378939370
         )
-        self.assertAlmostEqual(
-            self.cmp_q3.dist_abs('Colin', 'Coiln'), 8.0
-        )
-        self.assertAlmostEqual(
-            self.cmp_q3.dist_abs('Coiln', 'Colin'), 8.0
-        )
+        self.assertAlmostEqual(self.cmp_q3.dist_abs('Colin', 'Coiln'), 8.0)
+        self.assertAlmostEqual(self.cmp_q3.dist_abs('Coiln', 'Colin'), 8.0)
 
 
 if __name__ == '__main__':
