@@ -130,14 +130,14 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_j_linkage.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_j_linkage.sim('abcd', 'efgh'), 0.1)
 
-        self.assertAlmostEqual(self.cmp_j_linkage.sim('Nigel', 'Niall'), 0.4444444444444444)
-        self.assertAlmostEqual(self.cmp_j_linkage.sim('Niall', 'Nigel'), 0.4444444444444444)
         self.assertAlmostEqual(
-            self.cmp_j_linkage.sim('Colin', 'Coiln'), 0.5
+            self.cmp_j_linkage.sim('Nigel', 'Niall'), 0.4444444444444444
         )
         self.assertAlmostEqual(
-            self.cmp_j_linkage.sim('Coiln', 'Colin'), 0.5
+            self.cmp_j_linkage.sim('Niall', 'Nigel'), 0.4444444444444444
         )
+        self.assertAlmostEqual(self.cmp_j_linkage.sim('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_linkage.sim('Coiln', 'Colin'), 0.5)
         self.assertAlmostEqual(
             self.cmp_j_linkage.sim('ATCAACGAGT', 'AACGATTAG'),
             0.6071428571428571,
