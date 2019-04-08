@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+import os
+import tempfile
 import unittest
 from collections import defaultdict
 
@@ -152,6 +154,15 @@ class UnigramCorpusTestCases(unittest.TestCase):
 
         for term, _ in self.pos_corpus.corpus.items():
             self.assertTrue('_' not in term)
+
+    def test_unigram_corpus_save_load_corpus(self):
+        """Test abydos.corpus.UnigramCorpus.save_corpus & .load_corpus."""
+        fn = tempfile.mkstemp('.dat')[1]
+        self.sotu2015_corpus.save_corpus(fn)
+        self.sotu2015_corpus.load_corpus(fn)
+        statinfo = os.stat(fn)
+        self.assertGreater(statinfo.st_size, 0)
+        os.remove(fn)
 
     def test_unigram_corpus_idf(self):
         """Test abydos.corpus.UnigramCorpus.idf."""
