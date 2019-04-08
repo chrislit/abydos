@@ -96,12 +96,12 @@ class UnigramCorpusTestCases(unittest.TestCase):
     pos_corpus = UnigramCorpus()
     pos_corpus.gng_importer(_corpus_file('simple-ngrams-pos.txt'))
 
-    def test_init(self):
+    def test_unigram_corpus_init(self):
         """Test abydos.corpus.UnigramCorpus.__init__."""
         self.assertIsInstance(UnigramCorpus(), UnigramCorpus)
         self.assertIsInstance(self.sotu2015_corpus, UnigramCorpus)
 
-    def test_gng_importer(self):
+    def test_unigram_corpus_gng_importer(self):
         """Test abydos.corpus.UnigramCorpus.gng_importer."""
         self.assertIsInstance(self.simple_corpus, UnigramCorpus)
         self.assertIsInstance(self.simple_corpus.corpus, defaultdict)
@@ -153,8 +153,8 @@ class UnigramCorpusTestCases(unittest.TestCase):
         for term, _ in self.pos_corpus.corpus.items():
             self.assertTrue('_' not in term)
 
-    def test_idf(self):
-        """Test abydos.corpus.NGramCorpus.idf."""
+    def test_unigram_corpus_idf(self):
+        """Test abydos.corpus.UnigramCorpus.idf."""
         # string-style tests
         self.assertAlmostEqual(self.simple_corpus.idf('the'), 0.69314718056)
         self.assertAlmostEqual(self.simple_corpus.idf('quick'), 2.3978952728)
