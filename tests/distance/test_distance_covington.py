@@ -151,15 +151,21 @@ class CovingtonTestCases(unittest.TestCase):
 
         self.assertEqual(
             repr(self.cmp.alignments('doter', 'tugatir', top_n=0)),
-            "[Alignment(src='--doter', tar='tugatir', score=210), Alignment(src='do--ter', tar='tugatir', score=210), \
+            "[Alignment(src='--doter', tar='tugatir', score=210), \
+Alignment(src='do--ter', tar='tugatir', score=210), \
 Alignment(src='d--oter', tar='tugatir', score=210)]",
         )
         self.assertEqual(
             repr(self.cmp.alignments('sit', 'sed')),
-            "[Alignment(src='sit', tar='sed', score=90), Alignment(src='s-it', tar='sed-', score=200), \
-Alignment(src='sit-', tar='s-ed', score=200), Alignment(src='--sit', tar='sed--', score=240), Alignment(src='sit--', \
-tar='--sed', score=240), Alignment(src='-sit', tar='se-d', score=260), Alignment(src='si-t', tar='-sed', score=260), \
-Alignment(src='-sit', tar='sed-', score=300), Alignment(src='sit-', tar='-sed', score=300)]",
+            "[Alignment(src='sit', tar='sed', score=90), \
+Alignment(src='s-it', tar='sed-', score=200), \
+Alignment(src='sit-', tar='s-ed', score=200), \
+Alignment(src='--sit', tar='sed--', score=240), \
+Alignment(src='sit--', tar='--sed', score=240), \
+Alignment(src='-sit', tar='se-d', score=260), \
+Alignment(src='si-t', tar='-sed', score=260), \
+Alignment(src='-sit', tar='sed-', score=300), \
+Alignment(src='sit-', tar='-sed', score=300)]",
         )
         self.assertEqual(
             repr(self.cmp.alignments('sit', 'sīt', top_n=1)[0]),

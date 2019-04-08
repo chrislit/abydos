@@ -30,7 +30,7 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import Jaccard, DamerauLevenshtein
+from abydos.distance import DamerauLevenshtein, Jaccard
 
 
 class TokenDistanceTestCases(unittest.TestCase):
