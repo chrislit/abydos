@@ -203,7 +203,9 @@ def _default_download_dir():
     return os.path.join(homedir, 'abydos_data')
 
 
-def download_package(resource_name, url=None, data_path=None, force=False):
+def download_package(
+    resource_name, url=None, data_path=None, force=False, silent=False
+):
     """Download and install a package or collection."""
     packages, collections = list_available_packages(url)
     installed = list_installed_packages()
@@ -213,7 +215,8 @@ def download_package(resource_name, url=None, data_path=None, force=False):
 
     for coll in collections:
         if resource_name == coll[0]:
-            print('Installing {} collection'.format(coll[1]))
+            if not silent:
+                print('Installing {} collection'.format(coll[1]))
             for resource_name in coll[2]:
                 download_package(resource_name, url, data_path)
             return
@@ -223,11 +226,15 @@ def download_package(resource_name, url=None, data_path=None, force=False):
                 if not force:
                     for inst in installed:
                         if pack[0] == inst[0] and pack[2] <= inst[2]:
-                            print(
-                                '{} package already up-to-date'.format(pack[1])
-                            )
+                            if not silent:
+                                print(
+                                    '{} package already up-to-date'.format(
+                                        pack[1]
+                                    )
+                                )
                             return
-                print('Installing {} package'.format(pack[1]))
+                if not silent:
+                    print('Installing {} package'.format(pack[1]))
                 zip_fn = os.path.join(data_path, pack[4], pack[0] + '.zip')
                 os.makedirs(
                     os.path.join(data_path, pack[4]), mode=0o775, exist_ok=True
