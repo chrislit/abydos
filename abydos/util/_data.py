@@ -145,9 +145,10 @@ def list_available_packages(url=None):
 
     if url is None:
         url = INDEX_URL
-    if url[:4] == 'http':
-        with urllib.urlopen(url) as ix:  # noqa: S310
-            xml = ElementTree.fromstring(ix.read())  # noqa: S314
+    if url[:8] != 'https://':
+        raise ValueError('url should begin with "https://"')
+    with urllib.urlopen(url) as ix:  # noqa: S310
+        xml = ElementTree.fromstring(ix.read())  # noqa: S314
 
     packages = [
         (
@@ -234,7 +235,7 @@ def download_package(
                 if not force:
                     for inst in installed:  # pragma: no branch
                         if pack[0] == inst[0] and pack[2] <= inst[2]:
-                            if not silent:  # pragma: no branch
+                            if not silent:
                                 print(  # pragma: no cover  # noqa: T001
                                     '{} package already up-to-date'.format(
                                         pack[1]

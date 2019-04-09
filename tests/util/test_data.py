@@ -63,8 +63,11 @@ class DataTestCases(unittest.TestCase):
 
         temppath = tempfile.mkdtemp()
         download_package('wikitext_qgram', data_path=temppath, force=True)
+        download_package('wikitext_qgram', data_path=temppath)
         shutil.rmtree(temppath)
 
+        with self.assertRaises(ValueError):
+            list_available_packages(url='file:///etc/passwd')
 
 if __name__ == '__main__':
     unittest.main()
