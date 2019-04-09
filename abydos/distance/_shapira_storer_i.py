@@ -56,17 +56,22 @@ class ShapiraStorerI(Levenshtein):
           because the block 'abc' can be moved in 1 move operation, rather than
           being deleted and inserted in 2 separate operations.
 
+    If prime is set to True at initialization, this employs the greedy'
+    algorithm, which limits replacements of blocks in the two strings to
+    matching occurrences of the LCS.
 
     .. versionadded:: 0.4.0
     """
 
     _lcs = LCSstr()
 
-    def __init__(self, **kwargs):
+    def __init__(self, prime=False, **kwargs):
         """Initialize ShapiraStorerI instance.
 
         Parameters
         ----------
+        prime : bool
+            If True, employs the greedy' algorithm rather than greedy
         **kwargs
             Arbitrary keyword arguments
 
@@ -74,6 +79,7 @@ class ShapiraStorerI(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
+        self._prime = prime
         super(ShapiraStorerI, self).__init__(**kwargs)
 
     def dist_abs(self, src, tar):
@@ -113,9 +119,13 @@ class ShapiraStorerI(Levenshtein):
         while len(lcs) > 1:
             while next_char in alphabet:
                 next_char = chr(ord(next_char) + 1)
-            p = self._lcs.lcsstr(src, tar)
-            src = src.replace(p, next_char)
-            tar = tar.replace(p, next_char)
+            if self._prime:
+                count = min(src.count(lcs), tar.count(lcs))
+                src = src.replace(lcs, next_char, count)
+                tar = tar.replace(lcs, next_char, count)
+            else:
+                src = src.replace(lcs, next_char)
+                tar = tar.replace(lcs, next_char)
             alphabet |= {next_char}
             lcs = self._lcs.lcsstr(src, tar)
 

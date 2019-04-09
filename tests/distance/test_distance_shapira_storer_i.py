@@ -40,6 +40,7 @@ class ShapiraStorerITestCases(unittest.TestCase):
     """
 
     cmp = ShapiraStorerI()
+    cmp_prime = ShapiraStorerI(prime=True)
 
     def test_shapira_storer_i_dist(self):
         """Test abydos.distance.ShapiraStorerI.dist."""
@@ -58,6 +59,27 @@ class ShapiraStorerITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.1)
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.2105263158
+        )
+
+        self.assertAlmostEqual(
+            self.cmp.dist('AABAACADAB', 'AABAABAACADABADABAABAABAACADABADAB'),
+            0.3409090909090909,
+        )
+        self.assertAlmostEqual(
+            self.cmp_prime.dist(
+                'AABAACADAB', 'AABAABAACADABADABAABAABAACADABADAB'
+            ),
+            0.5454545454545454,
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist('AABAABAACADABADABAABAABAACADABADAB', 'AABAACADAB'),
+            0.3409090909090909,
+        )
+        self.assertAlmostEqual(
+            self.cmp_prime.dist(
+                'AABAABAACADABADABAABAABAACADABADAB', 'AABAACADAB'
+            ),
+            0.5454545454545454,
         )
 
     def test_shapira_storer_i_sim(self):
@@ -79,6 +101,27 @@ class ShapiraStorerITestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.7894736842
         )
 
+        self.assertAlmostEqual(
+            self.cmp.sim('AABAACADAB', 'AABAABAACADABADABAABAABAACADABADAB'),
+            0.6590909090909092,
+        )
+        self.assertAlmostEqual(
+            self.cmp_prime.sim(
+                'AABAACADAB', 'AABAABAACADABADABAABAABAACADABADAB'
+            ),
+            0.4545454545454546,
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim('AABAABAACADABADABAABAABAACADABADAB', 'AABAACADAB'),
+            0.6590909090909092,
+        )
+        self.assertAlmostEqual(
+            self.cmp_prime.sim(
+                'AABAABAACADABADABAABAABAACADABADAB', 'AABAACADAB'
+            ),
+            0.4545454545454546,
+        )
+
     def test_shapira_storer_i_dist_abs(self):
         """Test abydos.distance.ShapiraStorerI.dist_abs."""
         # Base cases
@@ -95,6 +138,31 @@ class ShapiraStorerITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 1)
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 1)
         self.assertAlmostEqual(self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 4)
+
+        self.assertAlmostEqual(
+            self.cmp.dist_abs(
+                'AABAACADAB', 'AABAABAACADABADABAABAABAACADABADAB'
+            ),
+            15,
+        )
+        self.assertAlmostEqual(
+            self.cmp_prime.dist_abs(
+                'AABAACADAB', 'AABAABAACADABADABAABAABAACADABADAB'
+            ),
+            24,
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs(
+                'AABAABAACADABADABAABAABAACADABADAB', 'AABAACADAB'
+            ),
+            15,
+        )
+        self.assertAlmostEqual(
+            self.cmp_prime.dist_abs(
+                'AABAABAACADABADABAABAABAACADABADAB', 'AABAACADAB'
+            ),
+            24,
+        )
 
 
 if __name__ == '__main__':
