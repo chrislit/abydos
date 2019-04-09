@@ -51,8 +51,6 @@ Block edit distances:
     - Cormode's LZ distance (:py:class:`.CormodeLZ`)
     - Shapira-Storer I edit distance with block moves, greedy algorithm
       (:py:class:`.ShapiraStorerI`)
-    - Shapira-Storer II edit distance with block moves, greedy' algorithm
-      (:py:class:`.ShapiraStorerII`)
 
 Distance metrics developed for the US Census or derived from them are included:
 
@@ -557,7 +555,6 @@ from ._saps import SAPS
 from ._scott_pi import ScottPi
 from ._shape import Shape
 from ._shapira_storer_i import ShapiraStorerI
-from ._shapira_storer_ii import ShapiraStorerII
 from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
 from ._sift4_extended import Sift4Extended
 from ._sift4_simplest import Sift4Simplest, sift4_simplest
@@ -634,7 +631,6 @@ __all__ = [
     'dist_damerau',
     'sim_damerau',
     'ShapiraStorerI',
-    'ShapiraStorerII',
     'Marking',
     'MarkingMetric',
     'YujianBo',
