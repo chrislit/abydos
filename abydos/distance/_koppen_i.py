@@ -18,7 +18,7 @@
 
 """abydos.distance._koppen_i.
 
-Köppen I similarity
+Köppen I correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['KoppenI']
 
 
 class KoppenI(_TokenDistance):
-    r"""Köppen I similarity.
+    r"""Köppen I correlation.
 
     For two sets X and Y and an alphabet N, provided that :math:`|X| = |Y|`,
-    Köppen I similarity :cite:`Koppen:1870,Goodman:1959` is
+    Köppen I correlation :cite:`Koppen:1870,Goodman:1959` is
 
         .. math::
 
-            sim_{KoppenI}(X, Y) =
+            corr_{KoppenI}(X, Y) =
             \frac{|X| \cdot |N \setminus X| - |X \setminus Y|}
             {|X| \cdot |N \setminus X|}
 
@@ -51,7 +51,7 @@ class KoppenI(_TokenDistance):
 
         .. math::
 
-            sim_{KoppenI}(X, Y) =
+            corr_{KoppenI}(X, Y) =
             \frac{\frac{|X|+|Y|}{2} \cdot
             \frac{|N \setminus X|+|N \setminus Y|}{2}-
             \frac{|X \triangle Y|}{2}}

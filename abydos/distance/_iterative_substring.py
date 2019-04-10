@@ -18,7 +18,7 @@
 
 """abydos.distance._iterative_substring.
 
-Iterative-SubString (I-Sub) similarity
+Iterative-SubString (I-Sub) correlation
 """
 
 from __future__ import (
@@ -34,9 +34,9 @@ __all__ = ['IterativeSubString']
 
 
 class IterativeSubString(_Distance):
-    r"""Iterative-SubString similarity.
+    r"""Iterative-SubString correlation.
 
-    Iterative-SubString (I-Sub) similarity :cite:`Stoilos:2005`
+    Iterative-SubString (I-Sub) correlation :cite:`Stoilos:2005`
 
     This is a straightforward port of the primary author's Java implementation:
     http://www.image.ece.ntua.gr/~gstoil/software/I_Sub.java

@@ -18,7 +18,7 @@
 
 """abydos.distance._andres_marzo_delta.
 
-Andres & Marzo's Delta similarity
+Andres & Marzo's Delta correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['AndresMarzoDelta']
 
 
 class AndresMarzoDelta(_TokenDistance):
-    r"""Andres & Marzo's Delta similarity.
+    r"""Andres & Marzo's Delta correlation.
 
-    For two sets X and Y and a population N, Andres & Marzo's \Delta
-    :cite:`Andres:2004` is
+    For two sets X and Y and a population N, Andres & Marzo's :math:`\Delta`
+    correlation :cite:`Andres:2004` is
 
         .. math::
 
-            sim_{AndresMarzo_\Delta}(X, Y) = \Delta =
+            corr_{AndresMarzo_\Delta}(X, Y) = \Delta =
             \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
             2\sqrt{|X \setminus Y| \cdot |Y \setminus X|}}{|N|}
 
@@ -51,7 +51,7 @@ class AndresMarzoDelta(_TokenDistance):
 
         .. math::
 
-            sim_{AndresMarzo_\Delta} = \Delta =
+            corr_{AndresMarzo_\Delta} = \Delta =
             \frac{a+d-2\sqrt{b \cdot c}}{n}
 
     .. versionadded:: 0.4.0
@@ -106,7 +106,7 @@ class AndresMarzoDelta(_TokenDistance):
         )
 
     def corr(self, src, tar):
-        """Return the Andres & Marzo's Delta of two strings.
+        """Return the Andres & Marzo's Delta correlation of two strings.
 
         Parameters
         ----------
@@ -118,18 +118,18 @@ class AndresMarzoDelta(_TokenDistance):
         Returns
         -------
         float
-            Andres & Marzo's Delta
+            Andres & Marzo's Delta correlation
 
         Examples
         --------
         >>> cmp = AndresMarzoDelta()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.corr('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.corr('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.corr('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.corr('ATCG', 'TAGC')
         0.0
 
 

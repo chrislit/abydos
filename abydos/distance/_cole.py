@@ -44,7 +44,7 @@ class Cole(_TokenDistance):
 
         .. math::
 
-            sim_{Cole}(X, Y) =
+            corr_{Cole}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {(|X \cap Y| + |X \setminus Y|) \cdot
@@ -54,7 +54,7 @@ class Cole(_TokenDistance):
 
         .. math::
 
-            sim_{Cole}(X, Y) =
+            corr_{Cole}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {(|X \cap Y| + |X \setminus Y|) \cdot
@@ -64,7 +64,7 @@ class Cole(_TokenDistance):
 
         .. math::
 
-            sim_{Cole}(X, Y) =
+            corr_{Cole}(X, Y) =
             \frac{|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|}
             {(|X \setminus Y| + |(N \setminus X) \setminus Y|) \cdot
@@ -77,7 +77,7 @@ class Cole(_TokenDistance):
 
         .. math::
 
-            sim_{Cole} =
+            corr_{Cole} =
             \left\{
             \begin{array}{ll}
                 \frac{ad-bc}{(a+b)(b+d)} & \textup{if} ~ad \geq bc \\

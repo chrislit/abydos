@@ -18,7 +18,7 @@
 
 """abydos.distance._kuder_richardson.
 
-Kuder & Richardson similarity
+Kuder & Richardson correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['KuderRichardson']
 
 
 class KuderRichardson(_TokenDistance):
-    r"""Kuder & Richardson similarity.
+    r"""Kuder & Richardson correlation.
 
     For two sets X and Y and a population N, Kuder & Richardson similarity
     :cite:`Kuder:1937,Cronbach:1951` is
 
         .. math::
 
-            sim_{KuderRichardson}(X, Y) =
+            corr_{KuderRichardson}(X, Y) =
             \frac{4(|X \cap Y| \cdot |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus X|)}
             {|X| \cdot |N \setminus X| +
@@ -54,7 +54,7 @@ class KuderRichardson(_TokenDistance):
 
         .. math::
 
-            sim_{KuderRichardson} =
+            corr_{KuderRichardson} =
             \frac{4(ad-bc)}{(a+b)(c+d) + (a+c)(b+d) +2(ad-bc)}
 
     .. versionadded:: 0.4.0
