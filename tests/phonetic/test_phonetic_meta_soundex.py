@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.phonetic.test_phonetic_metasoundex.
+"""abydos.tests.phonetic.test_phonetic_meta_soundex.
 
 This module contains unit tests for abydos.phonetic.MetaSoundex
 """
@@ -43,7 +43,7 @@ class MetaSoundexTestCases(unittest.TestCase):
     pa_en = MetaSoundex(lang='en')
     pa_es = MetaSoundex(lang='es')
 
-    def test_metasoundex(self):
+    def test_meta_soundex(self):
         """Test abydos.phonetic.MetaSoundex."""
         # Base cases
         self.assertEqual(self.pa.encode(''), '0000')
