@@ -52,12 +52,12 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
         self.assertEqual(self.cmp.dist_abs('nelson', ''), 7)
         self.assertEqual(self.cmp.dist_abs('', 'neilsen'), 8)
-        self.assertAlmostEqual(self.cmp.dist_abs('nelson', 'neilsen'), 7)
+        self.assertEqual(self.cmp.dist_abs('nelson', 'neilsen'), 7)
 
         self.assertEqual(self.cmp_q2.dist_abs('', ''), 0)
         self.assertEqual(self.cmp_q2.dist_abs('nelson', ''), 7)
         self.assertEqual(self.cmp_q2.dist_abs('', 'neilsen'), 8)
-        self.assertAlmostEqual(self.cmp_q2.dist_abs('nelson', 'neilsen'), 7)
+        self.assertEqual(self.cmp_q2.dist_abs('nelson', 'neilsen'), 7)
 
         # supplied q-gram tests
         self.assertEqual(
@@ -81,7 +81,7 @@ class MinkowskiTestCases(unittest.TestCase):
             ),
             8,
         )
-        self.assertAlmostEqual(
+        self.assertEqual(
             self.cmp.dist_abs(
                 QGrams().tokenize('nelson').get_counter(),
                 QGrams().tokenize('neilsen').get_counter(),
@@ -93,8 +93,8 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist_abs('', ''), 0)
         self.assertEqual(self.cmp_ws.dist_abs('the quick', ''), 2)
         self.assertEqual(self.cmp_ws.dist_abs('', 'the quick'), 2)
-        self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_FROM, NONQ_TO), 8)
-        self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_TO, NONQ_FROM), 8)
+        self.assertEqual(self.cmp_ws.dist_abs(NONQ_FROM, NONQ_TO), 8)
+        self.assertEqual(self.cmp_ws.dist_abs(NONQ_TO, NONQ_FROM), 8)
 
         # test l_0 "norm"
         self.assertEqual(self.cmp_q1p0.dist_abs('', ''), 0)
@@ -133,6 +133,10 @@ class MinkowskiTestCases(unittest.TestCase):
                 tokenizer=QGrams(1), alphabet='abcdefghijklmnopqrstuvwxyz'
             ).dist_abs('ab', 'b', normalized=True),
             1 / 26,
+        )
+
+        self.assertEqual(
+            Minkowski(pval=float('inf')).dist_abs('nelsonian', 'neilsen'), 1.0
         )
 
         # Test wrapper
