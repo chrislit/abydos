@@ -29,8 +29,16 @@ from __future__ import (
 )
 
 import unittest
+from collections import Counter
 
-from abydos.distance import DamerauLevenshtein, Jaccard
+from abydos.distance import (
+    DamerauLevenshtein,
+    Jaccard,
+    JaroWinkler,
+    SokalMichener,
+)
+from abydos.stats import ConfusionTable
+from abydos.tokenizer import QSkipgrams
 
 
 class TokenDistanceTestCases(unittest.TestCase):
@@ -45,6 +53,9 @@ class TokenDistanceTestCases(unittest.TestCase):
         intersection_type='fuzzy', metric=DamerauLevenshtein(), threshold=0.4
     )
     cmp_j_linkage = Jaccard(intersection_type='linkage')
+    cmp_j_linkage_int = Jaccard(
+        intersection_type='linkage', internal_assignment_problem=True
+    )
 
     def test_crisp_jaccard_sim(self):
         """Test abydos.distance.Jaccard.sim (crisp)."""
@@ -96,6 +107,13 @@ class TokenDistanceTestCases(unittest.TestCase):
             self.cmp_j_soft.sim('ATCAACGAGT', 'AACGATTAG'), 0.6071428571428571
         )
 
+        self.assertAlmostEqual(
+            Jaccard(intersection_type='soft', metric=JaroWinkler()).sim(
+                'synonym', 'antonym'
+            ),
+            0.5833333333333,
+        )
+
     def test_fuzzy_jaccard_sim(self):
         """Test abydos.distance.Jaccard.sim (fuzzy)."""
         # Base cases
@@ -119,6 +137,11 @@ class TokenDistanceTestCases(unittest.TestCase):
             self.cmp_j_fuzzy.sim('ATCAACGAGT', 'AACGATTAG'), 0.7857142857142857
         )
 
+        self.assertAlmostEqual(
+            Jaccard(intersection_type='fuzzy').sim('synonym', 'antonym'),
+            0.3333333333333333,
+        )
+
     def test_linkage_jaccard_sim(self):
         """Test abydos.distance.Jaccard.sim (group linkage)."""
         # Base cases
@@ -134,18 +157,218 @@ class TokenDistanceTestCases(unittest.TestCase):
             self.cmp_j_linkage.sim('Nigel', 'Niall'), 0.4444444444444444
         )
         self.assertAlmostEqual(
-            self.cmp_j_linkage.sim('Niall', 'Nigel'), 0.5
+            self.cmp_j_linkage.sim('Niall', 'Nigel'), 0.4444444444444444
         )
         self.assertAlmostEqual(self.cmp_j_linkage.sim('Colin', 'Coiln'), 0.5)
         self.assertAlmostEqual(self.cmp_j_linkage.sim('Coiln', 'Colin'), 0.5)
         self.assertAlmostEqual(
             self.cmp_j_linkage.sim('ATCAACGAGT', 'AACGATTAG'),
+            0.6071428571428571,
+        )
+
+        # Base cases
+        self.assertEqual(self.cmp_j_linkage_int.sim('', ''), 1.0)
+        self.assertEqual(self.cmp_j_linkage_int.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp_j_linkage_int.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp_j_linkage_int.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp_j_linkage_int.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp_j_linkage_int.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp_j_linkage_int.sim('abcd', 'efgh'), 0.1)
+
+        self.assertAlmostEqual(
+            self.cmp_j_linkage_int.sim('Nigel', 'Niall'), 0.4444444444444444
+        )
+        self.assertAlmostEqual(
+            self.cmp_j_linkage_int.sim('Niall', 'Nigel'), 0.5
+        )
+        self.assertAlmostEqual(
+            self.cmp_j_linkage_int.sim('Colin', 'Coiln'), 0.5
+        )
+        self.assertAlmostEqual(
+            self.cmp_j_linkage_int.sim('Coiln', 'Colin'), 0.5
+        )
+        self.assertAlmostEqual(
+            self.cmp_j_linkage_int.sim('ATCAACGAGT', 'AACGATTAG'),
             0.6428571428571429,
+        )
+
+        self.assertAlmostEqual(
+            Jaccard(
+                intersection_type='linkage',
+                metric=JaroWinkler(),
+                threshold=0.2,
+            ).sim('synonym', 'antonym'),
+            0.5,
         )
 
     def test_token_distance(self):
         """Test abydos.distance._TokenDistance members."""
-        pass
+        self.assertAlmostEqual(
+            Jaccard(intersection_type='soft', alphabet=24).sim(
+                'ATCAACGAGT', 'AACGATTAG'
+            ),
+            0.6071428571428571,
+        )
+        self.assertAlmostEqual(
+            Jaccard(qval=1, alphabet='CGAT').sim('ATCAACGAGT', 'AACGATTAG'),
+            0.9,
+        )
+        self.assertAlmostEqual(
+            Jaccard(tokenizer=QSkipgrams(qval=3), alphabet='CGAT').sim(
+                'ATCAACGAGT', 'AACGATTAG'
+            ),
+            0.6372795969773299,
+        )
+        self.assertAlmostEqual(
+            Jaccard(alphabet=None).sim('synonym', 'antonym'),
+            0.3333333333333333,
+        )
+        self.assertAlmostEqual(
+            Jaccard(tokenizer=QSkipgrams(qval=3)).sim('synonym', 'antonym'),
+            0.34146341463414637,
+        )
+
+        src_ctr = Counter({'a': 5, 'b': 2, 'c': 10})
+        tar_ctr = Counter({'a': 2, 'c': 1, 'd': 3, 'e': 12})
+        self.assertAlmostEqual(Jaccard().sim(src_ctr, tar_ctr), 0.09375)
+
+        self.assertAlmostEqual(
+            SokalMichener(normalizer='proportional').sim('synonym', 'antonym'),
+            0.984777917351113,
+        )
+        self.assertAlmostEqual(
+            SokalMichener(normalizer='log').sim('synonym', 'antonym'),
+            1.2385752469545532,
+        )
+        self.assertAlmostEqual(
+            SokalMichener(normalizer='exp', alphabet=0).sim(
+                'synonym', 'antonym'
+            ),
+            3.221246147982545e18,
+        )
+        self.assertAlmostEqual(
+            SokalMichener(normalizer='laplace').sim('synonym', 'antonym'),
+            0.98856416772554,
+        )
+        self.assertAlmostEqual(
+            SokalMichener(normalizer='inverse').sim('synonym', 'antonym'),
+            197.95790155440417,
+        )
+        self.assertAlmostEqual(
+            SokalMichener(normalizer='complement').sim('synonym', 'antonym'),
+            1.0204081632653061,
+        )
+        self.assertAlmostEqual(
+            SokalMichener(normalizer='base case').sim('synonym', 'antonym'),
+            0.9897959183673469,
+        )
+        self.assertAlmostEqual(
+            SokalMichener().sim('synonym', 'antonym'), 0.9897959183673469
+        )
+
+        sm = SokalMichener()
+        sm._tokenize('synonym', 'antonym')
+
+        self.assertEqual(
+            sm._get_tokens(),
+            (
+                Counter(
+                    {
+                        '$s': 1,
+                        'sy': 1,
+                        'yn': 1,
+                        'no': 1,
+                        'on': 1,
+                        'ny': 1,
+                        'ym': 1,
+                        'm#': 1,
+                    }
+                ),
+                Counter(
+                    {
+                        '$a': 1,
+                        'an': 1,
+                        'nt': 1,
+                        'to': 1,
+                        'on': 1,
+                        'ny': 1,
+                        'ym': 1,
+                        'm#': 1,
+                    }
+                ),
+            ),
+        )
+        self.assertEqual(sm._src_card(), 8)
+        self.assertEqual(sm._tar_card(), 8)
+        self.assertEqual(
+            sm._symmetric_difference(),
+            Counter(
+                {
+                    '$s': 1,
+                    'sy': 1,
+                    'yn': 1,
+                    'no': 1,
+                    '$a': 1,
+                    'an': 1,
+                    'nt': 1,
+                    'to': 1,
+                }
+            ),
+        )
+        self.assertEqual(sm._symmetric_difference_card(), 8)
+        self.assertEqual(sm._total_complement_card(), 772)
+        self.assertEqual(sm._population_card(), 788)
+        self.assertEqual(
+            sm._union(),
+            Counter(
+                {
+                    '$s': 1,
+                    'sy': 1,
+                    'yn': 1,
+                    'no': 1,
+                    'on': 1,
+                    'ny': 1,
+                    'ym': 1,
+                    'm#': 1,
+                    '$a': 1,
+                    'an': 1,
+                    'nt': 1,
+                    'to': 1,
+                }
+            ),
+        )
+        self.assertEqual(sm._union_card(), 12)
+        self.assertEqual(
+            sm._difference(),
+            Counter(
+                {
+                    '$s': 1,
+                    'sy': 1,
+                    'yn': 1,
+                    'no': 1,
+                    'on': 0,
+                    'ny': 0,
+                    'ym': 0,
+                    'm#': 0,
+                    '$a': -1,
+                    'an': -1,
+                    'nt': -1,
+                    'to': -1,
+                }
+            ),
+        )
+        self.assertEqual(
+            sm._intersection(), Counter({'on': 1, 'ny': 1, 'ym': 1, 'm#': 1})
+        )
+        self.assertEqual(
+            sm._get_confusion_table(), ConfusionTable(tp=4, tn=772, fp=4, fn=4)
+        )
+
+        sm = SokalMichener(
+            alphabet=Counter({'C': 20, 'G': 20, 'A': 20, 'T': 20}), qval=1
+        )
+        sm._tokenize('ATCAACGAGT', 'AACGATTAG')
+        self.assertEqual(sm._total_complement_card(), 61)
 
 
 if __name__ == '__main__':
