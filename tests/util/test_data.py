@@ -69,5 +69,6 @@ class DataTestCases(unittest.TestCase):
         with self.assertRaises(ValueError):
             list_available_packages(url='file:///etc/passwd')
 
+
 if __name__ == '__main__':
     unittest.main()
