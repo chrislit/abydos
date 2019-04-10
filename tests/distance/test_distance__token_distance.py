@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_token_distance.
+"""abydos.tests.distance.test_distance__token_distance.
 
 This module contains unit tests for abydos.distance._TokenDistance
 """
