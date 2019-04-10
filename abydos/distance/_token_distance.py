@@ -272,6 +272,9 @@ class _TokenDistance(_Distance):
             Encapsulated in class
 
         """
+        self._src_orig = src
+        self._tar_orig = tar
+
         if isinstance(src, Counter):
             self._src_tokens = src
         else:
