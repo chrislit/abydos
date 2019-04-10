@@ -165,6 +165,10 @@ class _TokenDistance(_Distance):
                 - ``laplace`` : :math:`x+1`
                 - ``inverse`` : :math:`\frac{1}{x}`
                 - ``complement`` : :math:`n-x`, where n is the total population
+        internal_assignment_problem : bool
+            When using ``linkage`` as the intersection type (i.e. group
+            linkage), this forces use of the internal implementation to solve
+            the assignment problem, rather than scipy's linear_sum_assignment.
 
         .. versionadded:: 0.4.0
 
@@ -191,7 +195,9 @@ class _TokenDistance(_Distance):
                         len(self.params['alphabet'])
                         ** self.params['tokenizer'].qval
                     )
-            if hasattr(self.params['alphabet'], '__len__'):
+            if hasattr(self.params['alphabet'], '__len__') and not isinstance(
+                self.params['alphabet'], Counter
+            ):
                 self.params['alphabet'] = len(self.params['alphabet'])
             elif self.params['alphabet'] is None and isinstance(
                 self.params['tokenizer'], QGrams
@@ -295,7 +301,7 @@ class _TokenDistance(_Distance):
                 self.normalizer = lambda x, n: exp(x)
             elif self.params['normalizer'] == 'laplace':
                 self.normalizer = lambda x, n: x + n
-            elif self.params['normalizer'] == 'inverse:':
+            elif self.params['normalizer'] == 'inverse':
                 self.normalizer = (
                     lambda x, n: 1 / x if x else self._population_card_value
                 )
@@ -385,8 +391,9 @@ class _TokenDistance(_Distance):
                     0,
                     sum(
                         abs(val)
-                        for val in (self.params['alphabet']).values()
-                        - self._total()
+                        for val in (
+                            self.params['alphabet'] - self._total()
+                        ).values()
                     ),
                 ),
                 1,
@@ -533,7 +540,10 @@ class _TokenDistance(_Distance):
         src_only = sorted(self._src_tokens - self._tar_tokens)
         tar_only = sorted(self._tar_tokens - self._src_tokens)
 
-        if linear_sum_assignment:
+        if linear_sum_assignment and not (
+            'internal_assignment_problem' in self.params
+            and self.params['internal_assignment_problem']
+        ):
             arr = np_ones((len(tar_only), len(src_only)))
 
             for col in range(len(src_only)):
@@ -605,7 +615,7 @@ class _TokenDistance(_Distance):
 
                 marked_rows = {_ for _ in range(n) if _ not in assigned_rows}
                 marked_cols = set()
-                for row in set(marked_rows):
+                for row in sorted(set(marked_rows)):
                     for col, mark in enumerate(arr[row, :] == 0.0):
                         if mark:
                             marked_cols.add(col)
@@ -622,7 +632,7 @@ class _TokenDistance(_Distance):
 
                 # Step 4
                 min_val = arr[tuple(marked_rows), :][
-                    :, tuple(set(range(n)) - marked_cols)
+                    :, sorted(set(range(n)) - marked_cols)
                 ].min()
                 for row in range(n):
                     for col in range(n):
