@@ -43,7 +43,7 @@ class UnknownA(_TokenDistance):
 
         .. math::
 
-            sim_{UnknownA}(X, Y) = \frac{|X \cap Y| \cdot
+            corr_{UnknownA}(X, Y) = \frac{|X \cap Y| \cdot
             |(N \setminus X) \setminus Y| -
             |X \setminus Y| \cdot |Y \setminus Y|}
             {|Y| \cdot |N \setminus Y|}
@@ -53,7 +53,7 @@ class UnknownA(_TokenDistance):
 
         .. math::
 
-            sim_{UnknownA} =
+            corr_{UnknownA} =
             \frac{ad-bc}{(a+c)(b+d)}
 
     .. versionadded:: 0.4.0

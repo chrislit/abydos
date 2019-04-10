@@ -36,7 +36,7 @@ __all__ = ['ForbesII']
 class ForbesII(_TokenDistance):
     r"""Forbes II correlation.
 
-    For two sets X and Y and a population N, the Forbes II similarity,
+    For two sets X and Y and a population N, the Forbes II correlation,
     as described in :cite:`Forbes:1925`, is
 
         .. math::

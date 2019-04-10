@@ -18,7 +18,7 @@
 
 """abydos.distance._scott_pi.
 
-Scott's Pi similarity
+Scott's Pi correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['ScottPi']
 
 
 class ScottPi(_TokenDistance):
-    r"""Scott's Pi similarity.
+    r"""Scott's Pi correlation.
 
-    For two sets X and Y and a population N, Scott's \pi similarity
+    For two sets X and Y and a population N, Scott's :math:`\pi` correlation
     :cite:`Scott:1955` is
 
         .. math::
 
-            sim_{Scott_\pi}(X, Y) = \pi =
+            corr_{Scott_\pi}(X, Y) = \pi =
             \frac{p_o - p_e^\pi}{1 - p_e^\pi}
 
     where
@@ -121,7 +121,7 @@ class ScottPi(_TokenDistance):
         )
 
     def corr(self, src, tar):
-        """Return the Scott's Pi similarity of two strings.
+        """Return the Scott's Pi correlation of two strings.
 
         Parameters
         ----------
@@ -133,7 +133,7 @@ class ScottPi(_TokenDistance):
         Returns
         -------
         float
-            Scott's Pi similarity
+            Scott's Pi correlation
 
         Examples
         --------

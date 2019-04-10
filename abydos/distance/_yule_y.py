@@ -41,7 +41,7 @@ class YuleY(_TokenDistance):
 
         .. math::
 
-            sim_{Yule_Y}(X, Y) =
+            corr_{Yule_Y}(X, Y) =
             \frac{\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} -
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
             {\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
@@ -56,7 +56,7 @@ class YuleY(_TokenDistance):
 
         .. math::
 
-            sim_{Yule_Y} =
+            corr_{Yule_Y} =
             \frac{\sqrt{ad}-\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}
 
     .. versionadded:: 0.4.0

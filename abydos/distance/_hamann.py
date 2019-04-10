@@ -18,7 +18,7 @@
 
 """abydos.distance._hamann.
 
-Hamann similarity
+Hamann correlation
 """
 
 from __future__ import (
@@ -34,14 +34,14 @@ __all__ = ['Hamann']
 
 
 class Hamann(_TokenDistance):
-    r"""Hamann similarity.
+    r"""Hamann correlation.
 
-    For two sets X and Y and a population N, the Hamann similarity
+    For two sets X and Y and a population N, the Hamann correlation
     :cite:`Hamann:1961` is
 
         .. math::
 
-            sim_{Hamann}(X, Y) =
+            corr_{Hamann}(X, Y) =
             \frac{|X \cap Y| + |(N \setminus X) \setminus Y| -
             |X \setminus Y| - |Y \setminus X|}{|N|}
 
@@ -50,7 +50,7 @@ class Hamann(_TokenDistance):
 
         .. math::
 
-            sim_{Hamann} =
+            corr_{Hamann} =
             \frac{a+d-b-c}{n}
 
     .. versionadded:: 0.4.0
@@ -105,7 +105,7 @@ class Hamann(_TokenDistance):
         )
 
     def corr(self, src, tar):
-        """Return the Hamann similarity (correlation) of two strings.
+        """Return the Hamann correlation of two strings.
 
         Parameters
         ----------
@@ -117,7 +117,7 @@ class Hamann(_TokenDistance):
         Returns
         -------
         float
-            Hamann similarity
+            Hamann correlation
 
         Examples
         --------

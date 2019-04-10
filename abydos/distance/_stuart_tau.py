@@ -41,7 +41,7 @@ class StuartTau(_TokenDistance):
 
         .. math::
 
-            sim_{Stuart_{\tau_c}}(X, Y) =
+            corr_{Stuart_{\tau_c}}(X, Y) =
             \frac{4 \cdot (|X \cap Y| + |(N \setminus X) \setminus Y| -
             |X \triangle Y|)}{|N|^2}
 
@@ -50,7 +50,7 @@ class StuartTau(_TokenDistance):
 
         .. math::
 
-            sim_{Stuart_{\tau_c}} =
+            corr_{Stuart_{\tau_c}} =
             \frac{4 \cdot ((a+d)-(b+c))}{n^2}
 
     .. versionadded:: 0.4.0

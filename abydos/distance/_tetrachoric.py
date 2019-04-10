@@ -43,7 +43,7 @@ class Tetrachoric(_TokenDistance):
 
         .. math::
 
-            sim_{Tetrachoric}(X, Y) = \cos \Big(\frac{\pi
+            corr_{Tetrachoric}(X, Y) = \cos \Big(\frac{\pi
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}
             {\sqrt{|X \cap Y| \cdot |(N \setminus X) \setminus Y|} +
             \sqrt{|X \setminus Y| \cdot |Y \setminus X|}}\Big)
@@ -53,7 +53,7 @@ class Tetrachoric(_TokenDistance):
 
         .. math::
 
-            sim_{Tetrachoric} =
+            corr_{Tetrachoric} =
             \cos \frac{\pi\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}
 
     .. versionadded:: 0.4.0
@@ -125,13 +125,13 @@ class Tetrachoric(_TokenDistance):
         Examples
         --------
         >>> cmp = Tetrachoric()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.corr('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.corr('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.corr('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.corr('ATCG', 'TAGC')
         0.0
 
 

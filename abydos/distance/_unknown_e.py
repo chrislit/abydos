@@ -42,7 +42,7 @@ class UnknownE(_TokenDistance):
 
         .. math::
 
-            sim_{UnknownE}(X, Y) =
+            corr_{UnknownE}(X, Y) =
             \frac{2 \cdot min(|X \cap Y|, |(N \setminus X) \setminus Y|) -
             |X \setminus Y| - |Y \setminus X|}
             {2 \cdot min(|X \cap Y|, |(N \setminus X) \setminus Y|) +
@@ -53,7 +53,7 @@ class UnknownE(_TokenDistance):
 
         .. math::
 
-            sim_{UnknownE} =
+            corr_{UnknownE} =
             \frac{2 \cdot min(a, d) - b - c}{2 \cdot min(a, d) + b + c}
 
     .. versionadded:: 0.4.0
