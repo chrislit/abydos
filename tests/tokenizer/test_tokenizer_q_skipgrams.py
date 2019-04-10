@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.tokenizer.test_tokenizer_qgrams.
+"""abydos.tests.tokenizer.test_tokenizer_q_skipgrams.
 
 This module contains unit tests for abydos.tokenizer.QGrams
 """
