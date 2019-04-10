@@ -370,6 +370,16 @@ class TokenDistanceTestCases(unittest.TestCase):
         sm._tokenize('ATCAACGAGT', 'AACGATTAG')
         self.assertEqual(sm._total_complement_card(), 61)
 
+        jac = Jaccard(
+            intersection_type='linkage', internal_assignment_problem=True
+        )
+        self.assertAlmostEqual(
+            jac.sim('abandonned', 'abandoned'), 0.954545454545
+        )
+        self.assertAlmostEqual(
+            jac.sim('abundacies', 'abundances'), 0.607142857143
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
