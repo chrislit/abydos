@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tokenizer.
+r"""abydos.tokenizer.
 
 The tokenizer package collects classes whose purpose is to tokenize
 text or individual words. Each tokenizer also supports a scaler attribute when
