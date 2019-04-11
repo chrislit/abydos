@@ -32,7 +32,7 @@ import unittest
 from collections import Counter
 from math import log1p
 
-from abydos.tokenizer import _Tokenizer, QGrams, QSkipgrams
+from abydos.tokenizer import QGrams, QSkipgrams, _Tokenizer
 
 
 class TokenizerTestCases(unittest.TestCase):
@@ -74,7 +74,8 @@ class TokenizerTestCases(unittest.TestCase):
         )
         self.assertEqual(
             repr(nelson),
-            "QGrams({'$N': 1, 'NE': 1, 'EL': 1, 'LS': 1, 'SO': 1, 'ON': 1, 'N#': 1})",
+            "QGrams({'$N': 1, 'NE': 1, 'EL': 1, 'LS': 1, 'SO': 1, 'ON': 1, \
+'N#': 1})",
         )
         self.assertEqual(
             nelson & neilsen, Counter({'$N': 1, 'NE': 1, 'LS': 1, 'N#': 1})

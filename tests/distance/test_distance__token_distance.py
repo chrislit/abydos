@@ -267,10 +267,10 @@ class TokenDistanceTestCases(unittest.TestCase):
         )
 
         sm = SokalMichener()
-        sm._tokenize('synonym', 'antonym')
+        sm._tokenize('synonym', 'antonym')  # noqa: SF01
 
         self.assertEqual(
-            sm._get_tokens(),
+            sm._get_tokens(),  # noqa: SF01
             (
                 Counter(
                     {
@@ -298,10 +298,10 @@ class TokenDistanceTestCases(unittest.TestCase):
                 ),
             ),
         )
-        self.assertEqual(sm._src_card(), 8)
-        self.assertEqual(sm._tar_card(), 8)
+        self.assertEqual(sm._src_card(), 8)  # noqa: SF01
+        self.assertEqual(sm._tar_card(), 8)  # noqa: SF01
         self.assertEqual(
-            sm._symmetric_difference(),
+            sm._symmetric_difference(),  # noqa: SF01
             Counter(
                 {
                     '$s': 1,
@@ -315,11 +315,11 @@ class TokenDistanceTestCases(unittest.TestCase):
                 }
             ),
         )
-        self.assertEqual(sm._symmetric_difference_card(), 8)
-        self.assertEqual(sm._total_complement_card(), 772)
-        self.assertEqual(sm._population_card(), 788)
+        self.assertEqual(sm._symmetric_difference_card(), 8)  # noqa: SF01
+        self.assertEqual(sm._total_complement_card(), 772)  # noqa: SF01
+        self.assertEqual(sm._population_card(), 788)  # noqa: SF01
         self.assertEqual(
-            sm._union(),
+            sm._union(),  # noqa: SF01
             Counter(
                 {
                     '$s': 1,
@@ -337,9 +337,9 @@ class TokenDistanceTestCases(unittest.TestCase):
                 }
             ),
         )
-        self.assertEqual(sm._union_card(), 12)
+        self.assertEqual(sm._union_card(), 12)  # noqa: SF01
         self.assertEqual(
-            sm._difference(),
+            sm._difference(),  # noqa: SF01
             Counter(
                 {
                     '$s': 1,
@@ -358,17 +358,19 @@ class TokenDistanceTestCases(unittest.TestCase):
             ),
         )
         self.assertEqual(
-            sm._intersection(), Counter({'on': 1, 'ny': 1, 'ym': 1, 'm#': 1})
+            sm._intersection(),  # noqa: SF01
+            Counter({'on': 1, 'ny': 1, 'ym': 1, 'm#': 1}),
         )
         self.assertEqual(
-            sm._get_confusion_table(), ConfusionTable(tp=4, tn=772, fp=4, fn=4)
+            sm._get_confusion_table(),  # noqa: SF01
+            ConfusionTable(tp=4, tn=772, fp=4, fn=4),
         )
 
         sm = SokalMichener(
             alphabet=Counter({'C': 20, 'G': 20, 'A': 20, 'T': 20}), qval=1
         )
-        sm._tokenize('ATCAACGAGT', 'AACGATTAG')
-        self.assertEqual(sm._total_complement_card(), 61)
+        sm._tokenize('ATCAACGAGT', 'AACGATTAG')  # noqa: SF01
+        self.assertEqual(sm._total_complement_card(), 61)  # noqa: SF01
 
         jac = Jaccard(
             intersection_type='linkage', internal_assignment_problem=True
