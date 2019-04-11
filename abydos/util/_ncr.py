@@ -40,30 +40,30 @@ def _ncr(n, r):
 
     Parameters
     ----------
-    n : int
+    n : numeric
         The number of elements in the set/multiset
-    r : int
+    r : numeric
         The number of elements to choose
 
     Returns
     -------
-    numeric
+    float
         n Choose r
 
     Examples
     --------
     >>> _ncr(4, 2)
-    6
+    6.0
     >>> _ncr(10, 3)
-    120
+    120.0
 
     .. versionadded:: 0.4.0
 
     """
     if not r:
-        return 1
+        return 1.0
     if r > n:
-        return 0
+        return 0.0
     return factorial(n) / (factorial(r) * factorial(n - r))
 
 
