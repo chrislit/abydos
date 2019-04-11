@@ -37,7 +37,7 @@ class NLTKTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None, nltk_tokenizer=None):
+    def __init__(self, nltk_tokenizer=None, scaler=None):
         """Initialize Tokenizer.
 
         Parameters
@@ -51,6 +51,8 @@ class NLTKTokenizer(_Tokenizer):
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
+        nltk_tokenizer : Object
+            An instantiated tokenizer from NLTK.
 
 
         .. versionadded:: 0.4.0
