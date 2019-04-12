@@ -71,6 +71,10 @@ class CharacterTokenizer(_Tokenizer):
         string : str
             The string to tokenize
 
+        Examples
+        --------
+        >>> CharacterTokenizer().tokenize('AACTAGAAC')
+        CharacterTokenizer({'A': 5, 'C': 2, 'T': 1, 'G': 1})
 
         .. versionadded:: 0.4.0
 
