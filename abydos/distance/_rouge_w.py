@@ -89,11 +89,11 @@ class RougeW(_Distance):
         --------
         >>> cmp = RougeW()
         >>> cmp.wlcs('cat', 'hat')
-        1
+        4
         >>> cmp.wlcs('Niall', 'Neil')
         3
         >>> cmp.wlcs('aluminum', 'Catalan')
-        7
+        5
         >>> cmp.wlcs('ATCG', 'TAGC')
         3
 
@@ -154,13 +154,13 @@ class RougeW(_Distance):
         --------
         >>> cmp = RougeW()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6666666666666666
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.34747932867894143
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.280047049205176
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.43301270189221935
 
 
         .. versionadded:: 0.4.0

@@ -79,13 +79,13 @@ class RougeL(_Distance):
         --------
         >>> cmp = RougeL()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6666666666666666
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6018518518518519
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.3757225433526012
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.5
 
 
         .. versionadded:: 0.4.0

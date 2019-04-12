@@ -80,13 +80,13 @@ class RougeS(_Distance):
         --------
         >>> cmp = RougeS()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.3333333333333333
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.30185758513931893
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.10755653612796467
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.6666666666666666
 
 
         .. versionadded:: 0.4.0

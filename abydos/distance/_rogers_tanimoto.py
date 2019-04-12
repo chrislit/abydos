@@ -123,13 +123,13 @@ class RogersTanimoto(_TokenDistance):
         --------
         >>> cmp = RogersTanimoto()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9898477157360406
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9823008849557522
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9625
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9748110831234257
 
 
         .. versionadded:: 0.4.0
