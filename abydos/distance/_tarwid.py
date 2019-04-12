@@ -123,13 +123,13 @@ class Tarwid(_TokenDistance):
         --------
         >>> cmp = Tarwid()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9797979797979798
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.9624530663329162
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.8319719953325554
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -163,11 +163,11 @@ class Tarwid(_TokenDistance):
         --------
         >>> cmp = Tarwid()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9898989898989898
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.981226533166458
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9159859976662776
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

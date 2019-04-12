@@ -130,13 +130,13 @@ class UnigramSubtuple(_TokenDistance):
         --------
         >>> cmp = UnigramSubtuple()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        1.9324426894059226
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        1.4347242883606355
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        -1.0866724701675263
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        -0.461880260111438
 
 
         .. versionadded:: 0.4.0
@@ -172,13 +172,13 @@ class UnigramSubtuple(_TokenDistance):
         Examples
         --------
         >>> cmp = UnigramSubtuple()
-        >>> cmp.sim_score('cat', 'hat')
+        >>> cmp.sim('cat', 'hat')
+        0.6215275850074894
+        >>> cmp.sim('Niall', 'Neil')
+        0.39805896767519555
+        >>> cmp.sim('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim_score('Niall', 'Neil')
-        0.0
-        >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim_score('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
 

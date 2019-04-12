@@ -125,13 +125,13 @@ class UnknownL(_TokenDistance):
         --------
         >>> cmp = UnknownL()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9948979591836735
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9923371647509579
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9821428571428571
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9872448979591837
 
 
         .. versionadded:: 0.4.0

@@ -126,13 +126,13 @@ class UnknownA(_TokenDistance):
         --------
         >>> cmp = UnknownA()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49743589743589745
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.39486521181001283
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.1147039897039897
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237483954
 
 
         .. versionadded:: 0.4.0
@@ -172,13 +172,13 @@ class UnknownA(_TokenDistance):
         --------
         >>> cmp = UnknownA()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6974326059050064
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5573519948519948
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.496790757381258
 
 
         .. versionadded:: 0.4.0

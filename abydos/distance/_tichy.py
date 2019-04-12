@@ -96,13 +96,13 @@ class Tichy(_Distance):
         --------
         >>> cmp = Tichy()
         >>> cmp.dist_abs('cat', 'hat')
-        1
+        2
         >>> cmp.dist_abs('Niall', 'Neil')
-        3
+        4
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        7
+        6
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3
+        4
 
 
         .. versionadded:: 0.4.0
@@ -168,13 +168,13 @@ class Tichy(_Distance):
         --------
         >>> cmp = Tichy()
         >>> round(cmp.dist('cat', 'hat'), 12)
-        0.333333333333
+        0.666666666667
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.6
+        1.0
         >>> cmp.dist('aluminum', 'Catalan')
-        0.875
+        0.8571428571428571
         >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        1.0
 
 
         .. versionadded:: 0.4.0

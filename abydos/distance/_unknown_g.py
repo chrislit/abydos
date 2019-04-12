@@ -111,11 +111,11 @@ class UnknownG(_TokenDistance):
         --------
         >>> cmp = UnknownG()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.36666666666666664
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11805555555555555
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

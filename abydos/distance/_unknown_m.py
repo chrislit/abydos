@@ -124,13 +124,13 @@ class UnknownM(_TokenDistance):
         --------
         >>> cmp = UnknownM()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        -0.24743589743589745
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        -0.17964271701223158
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.0024283560516135103
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        0.2012836970474968
 
 
         .. versionadded:: 0.4.0
@@ -170,13 +170,13 @@ class UnknownM(_TokenDistance):
         --------
         >>> cmp = UnknownM()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6237179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5898213585061158
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.49878582197419324
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.3993581514762516
 
 
         .. versionadded:: 0.4.0

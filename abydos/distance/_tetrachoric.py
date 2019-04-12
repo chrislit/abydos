@@ -126,13 +126,13 @@ class Tetrachoric(_TokenDistance):
         --------
         >>> cmp = Tetrachoric()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9885309061036239
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.9678978997263907
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.7853000893691571
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -168,11 +168,11 @@ class Tetrachoric(_TokenDistance):
         --------
         >>> cmp = Tetrachoric()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.994265453051812
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9839489498631954
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.8926500446845785
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
