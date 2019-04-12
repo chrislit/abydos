@@ -134,13 +134,13 @@ class PearsonIII(PearsonPhi):
         --------
         >>> cmp = PearsonIII()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.025180989806958435
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.021444241017487504
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.011740218922356615
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.0028612777635371113
 
 
         .. versionadded:: 0.4.0
@@ -170,13 +170,13 @@ class PearsonIII(PearsonPhi):
         --------
         >>> cmp = PearsonIII()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5125904949034792
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5107221205087438
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5058701094611783
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.49856936111823147
 
 
         .. versionadded:: 0.4.0

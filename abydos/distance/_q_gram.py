@@ -131,13 +131,13 @@ class QGram(_TokenDistance):
         --------
         >>> cmp = QGram()
         >>> cmp.dist_abs('cat', 'hat')
-        0
+        2
         >>> cmp.dist_abs('Niall', 'Neil')
-        0
+        7
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0
+        11
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0
+        6
         >>> cmp.dist_abs('01000', '001111')
         5
 
@@ -171,11 +171,11 @@ class QGram(_TokenDistance):
         --------
         >>> cmp = QGram()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.33333333333333337
         >>> cmp.sim('Niall', 'Neil')
         0.0
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.08333333333333337
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

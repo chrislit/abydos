@@ -74,13 +74,13 @@ class NCDpaq9a(_Distance):
         --------
         >>> cmp = NCDpaq9a()
         >>> cmp.dist('cat', 'hat')
-        0.08695652173913043
+        0.42857142857142855
         >>> cmp.dist('Niall', 'Neil')
-        0.16
+        0.5555555555555556
         >>> cmp.dist('aluminum', 'Catalan')
-        0.16
+        0.5833333333333334
         >>> cmp.dist('ATCG', 'TAGC')
-        0.08695652173913043
+        0.5
 
 
         .. versionadded:: 0.4.0

@@ -125,11 +125,11 @@ class Maarel(_TokenDistance):
         >>> cmp.corr('cat', 'hat')
         0.0
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        -0.2727272727272727
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        -0.7647058823529411
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -167,11 +167,11 @@ class Maarel(_TokenDistance):
         --------
         >>> cmp = Maarel()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.36363636363636365
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11764705882352944
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

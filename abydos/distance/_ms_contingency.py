@@ -131,13 +131,13 @@ class MSContingency(_TokenDistance):
         --------
         >>> cmp = MSContingency()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.6298568508557214
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.4798371954796814
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.15214891090821628
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.009076921903905553
 
 
         .. versionadded:: 0.4.0
@@ -185,13 +185,13 @@ class MSContingency(_TokenDistance):
         --------
         >>> cmp = MSContingency()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.8149284254278607
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.7399185977398407
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5760744554541082
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.49546153904804724
 
 
         .. versionadded:: 0.4.0

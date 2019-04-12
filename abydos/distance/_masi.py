@@ -89,11 +89,11 @@ class MASI(_TokenDistance):
         --------
         >>> cmp = MASI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.1111111111111111
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.07407407407407407
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.020833333333333332
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

@@ -109,13 +109,13 @@ class MinHash(_Distance):
         --------
         >>> cmp = MinHash()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.75
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        1.0
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.6
 
 
         .. versionadded:: 0.4.0

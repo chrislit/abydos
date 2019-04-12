@@ -101,9 +101,9 @@ class PositionalQGramOverlap(_Distance):
         --------
         >>> cmp = PositionalQGramOverlap()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.4
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')

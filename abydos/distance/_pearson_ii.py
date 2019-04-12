@@ -131,13 +131,13 @@ class PearsonII(PearsonChiSquared):
         --------
         >>> cmp = PearsonII()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.44537605041688455
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.3392961347892176
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.10758552665334761
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        0.006418353030552324
 
 
         .. versionadded:: 0.4.0
@@ -167,13 +167,13 @@ class PearsonII(PearsonChiSquared):
         --------
         >>> cmp = PearsonII()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6298568508557214
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.47983719547968123
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.15214891090821628
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.009076921903905551
 
 
         .. versionadded:: 0.4.0

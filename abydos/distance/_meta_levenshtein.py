@@ -125,13 +125,13 @@ class MetaLevenshtein(_Distance):
         --------
         >>> cmp = MetaLevenshtein()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        0.6155602628882225
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        2.538900657220556
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        6.940747163450747
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        3.2311205257764453
 
 
         .. versionadded:: 0.4.0
@@ -223,13 +223,13 @@ class MetaLevenshtein(_Distance):
         --------
         >>> cmp = MetaLevenshtein()
         >>> round(cmp.dist('cat', 'hat'), 12)
-        0.333333333333
+        0.205186754296
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.6
+        0.507780131444
         >>> cmp.dist('aluminum', 'Catalan')
-        0.875
+        0.8675933954313434
         >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        0.8077801314441113
 
 
         .. versionadded:: 0.1.0

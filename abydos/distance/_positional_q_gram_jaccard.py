@@ -101,9 +101,9 @@ class PositionalQGramJaccard(_Distance):
         --------
         >>> cmp = PositionalQGramJaccard()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.3333333333333333
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.2222222222222222
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')

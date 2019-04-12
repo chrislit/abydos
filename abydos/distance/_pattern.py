@@ -126,13 +126,13 @@ class Pattern(_TokenDistance):
         --------
         >>> cmp = Pattern()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        2.6030820491461892e-05
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        7.809246147438568e-05
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.0003635035904093472
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.0001626926280716368
 
 
         .. versionadded:: 0.4.0

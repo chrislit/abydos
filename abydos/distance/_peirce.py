@@ -129,13 +129,13 @@ class Peirce(_TokenDistance):
         --------
         >>> cmp = Peirce()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49743589743589745
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.32947729220222793
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.10209049255441008
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237483954
 
 
         .. versionadded:: 0.4.0
@@ -175,13 +175,13 @@ class Peirce(_TokenDistance):
         --------
         >>> cmp = Peirce()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.664738646101114
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5510452462772051
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.496790757381258
 
 
         .. versionadded:: 0.4.0
