@@ -126,11 +126,11 @@ class Upholt(_TokenDistance):
         --------
         >>> cmp = Upholt()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7807764064044151
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6901511860568581
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.42980140370106323
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

@@ -125,11 +125,11 @@ class WarrensIV(_TokenDistance):
         --------
         >>> cmp = WarrensIV()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.666095890410959
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5326918120113412
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.21031040612607685
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

@@ -81,13 +81,13 @@ class YujianBo(Levenshtein):
         --------
         >>> cmp = YujianBo()
         >>> cmp.dist_abs('cat', 'hat')
-        1
+        0.2857142857142857
         >>> cmp.dist_abs('Niall', 'Neil')
-        3
+        0.5
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        7
+        0.6363636363636364
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3
+        0.5454545454545454
 
 
         .. versionadded:: 0.4.0
@@ -114,13 +114,13 @@ class YujianBo(Levenshtein):
         --------
         >>> cmp = YujianBo()
         >>> round(cmp.dist('cat', 'hat'), 12)
-        0.333333333333
+        0.285714285714
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.6
+        0.5
         >>> cmp.dist('aluminum', 'Catalan')
-        0.875
+        0.6363636363636364
         >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        0.5454545454545454
 
 
         .. versionadded:: 0.4.0

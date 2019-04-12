@@ -130,14 +130,14 @@ class YatesChiSquared(_TokenDistance):
         Examples
         --------
         >>> cmp = YatesChiSquared()
-        >>> cmp.sim('cat', 'hat')
-        0.0
-        >>> cmp.sim('Niall', 'Neil')
-        0.0
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        >>> cmp.sim_score('cat', 'hat')
+        108.37343852728468
+        >>> cmp.sim_score('Niall', 'Neil')
+        56.630055670871954
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        1.8574215841854373
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        6.960385076156687
 
 
         .. versionadded:: 0.4.0
@@ -188,11 +188,11 @@ class YatesChiSquared(_TokenDistance):
         --------
         >>> cmp = YatesChiSquared()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.18081199852082455
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.08608296705052738
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.0026563223707532654
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

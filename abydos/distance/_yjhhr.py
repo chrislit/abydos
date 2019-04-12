@@ -126,13 +126,13 @@ class YJHHR(_TokenDistance):
         --------
         >>> cmp = YJHHR()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        4.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        7.0
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        15.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        10.0
 
 
         .. versionadded:: 0.4.0
@@ -167,13 +167,13 @@ class YJHHR(_TokenDistance):
         --------
         >>> cmp = YJHHR()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.6666666666666666
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.7777777777777778
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.9375
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

@@ -124,13 +124,13 @@ class WarrensV(_TokenDistance):
         --------
         >>> cmp = WarrensV()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        97.0
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        51.266666666666666
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        9.902777777777779
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -167,11 +167,11 @@ class WarrensV(_TokenDistance):
         --------
         >>> cmp = WarrensV()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3333333333333333
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11125283446712018
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

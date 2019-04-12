@@ -90,11 +90,11 @@ class Whittaker(_TokenDistance):
         --------
         >>> cmp = Whittaker()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.33333333333333
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11111111111111
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

@@ -127,13 +127,13 @@ class YuleQ(_TokenDistance):
         --------
         >>> cmp = YuleQ()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9948717948717949
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.9846350832266325
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.8642424242424243
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -170,11 +170,11 @@ class YuleQ(_TokenDistance):
         --------
         >>> cmp = YuleQ()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9974358974358974
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9923175416133163
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9321212121212121
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
