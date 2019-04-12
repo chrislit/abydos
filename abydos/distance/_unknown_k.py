@@ -123,13 +123,13 @@ class UnknownK(_TokenDistance):
         --------
         >>> cmp = UnknownK()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        782.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        782.0
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        784.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        784.0
 
 
         .. versionadded:: 0.4.0
@@ -163,13 +163,13 @@ class UnknownK(_TokenDistance):
         --------
         >>> cmp = UnknownK()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.9974489795918368
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.9974489795918368
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.9987261146496815
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

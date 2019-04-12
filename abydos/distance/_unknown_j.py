@@ -123,11 +123,11 @@ class UnknownJ(_TokenDistance):
         --------
         >>> cmp = UnknownJ()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.5025641025641026
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.33590402742073694
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.11239977090492555
         >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
@@ -167,11 +167,11 @@ class UnknownJ(_TokenDistance):
         --------
         >>> cmp = UnknownJ()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.33333333333333337
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11111111111111112
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

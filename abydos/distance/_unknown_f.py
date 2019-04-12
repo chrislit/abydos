@@ -148,13 +148,13 @@ class UnknownF(_TokenDistance):
         --------
         >>> cmp = UnknownF()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.3068528194400555
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        -0.007451510271132555
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        -1.1383330595080272
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

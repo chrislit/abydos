@@ -125,11 +125,11 @@ class Tarantula(_TokenDistance):
         --------
         >>> cmp = Tarantula()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9948979591836735
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.98856416772554
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9249106078665077
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

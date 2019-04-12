@@ -126,9 +126,9 @@ class UnknownH(_TokenDistance):
         --------
         >>> cmp = UnknownH()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.25
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.14154157392013175
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')
@@ -174,9 +174,9 @@ class UnknownH(_TokenDistance):
         --------
         >>> cmp = UnknownH()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.25
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.14154157392013175
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')
