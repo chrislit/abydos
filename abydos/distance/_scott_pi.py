@@ -139,13 +139,13 @@ class ScottPi(_TokenDistance):
         --------
         >>> cmp = ScottPi()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49743589743589733
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.35914053833129245
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.10798833377524023
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237489689
 
 
         .. versionadded:: 0.4.0
@@ -188,13 +188,13 @@ class ScottPi(_TokenDistance):
         --------
         >>> cmp = ScottPi()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6795702691656462
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5539941668876202
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.49679075738125517
 
 
         .. versionadded:: 0.4.0

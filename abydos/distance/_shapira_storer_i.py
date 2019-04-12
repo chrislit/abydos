@@ -101,13 +101,13 @@ class ShapiraStorerI(Levenshtein):
         --------
         >>> cmp = ShapiraStorerI()
         >>> cmp.dist_abs('cat', 'hat')
-        1
+        2
         >>> cmp.dist_abs('Niall', 'Neil')
         3
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        7
+        9
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3
+        2
 
 
         .. versionadded:: 0.4.0
@@ -235,11 +235,11 @@ class ShapiraStorerI(Levenshtein):
         >>> round(cmp.dist('cat', 'hat'), 12)
         0.333333333333
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.6
+        0.333333333333
         >>> cmp.dist('aluminum', 'Catalan')
-        0.875
+        0.6
         >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        0.25
 
 
         .. versionadded:: 0.4.0

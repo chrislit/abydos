@@ -123,13 +123,13 @@ class StuartTau(_TokenDistance):
         --------
         >>> cmp = StuartTau()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.005049979175343606
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.005010932944606414
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.004900807334983164
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        0.0049718867138692216
 
 
         .. versionadded:: 0.4.0
@@ -166,13 +166,13 @@ class StuartTau(_TokenDistance):
         --------
         >>> cmp = StuartTau()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5025249895876718
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5025054664723032
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5024504036674916
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.5024859433569346
 
 
         .. versionadded:: 0.4.0

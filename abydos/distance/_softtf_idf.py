@@ -129,11 +129,11 @@ class SoftTFIDF(_TokenDistance):
         --------
         >>> cmp = SoftTFIDF()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.30404449697373
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.20108911303601
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.05355175631194
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

@@ -128,13 +128,13 @@ class Size(_TokenDistance):
         --------
         >>> cmp = Size()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9999739691795085
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9999202806122449
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9996348736257049
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9998373073719283
 
 
         .. versionadded:: 0.4.0

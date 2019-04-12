@@ -129,13 +129,13 @@ class SAPS(_Distance):
         --------
         >>> cmp = SAPS()
         >>> cmp.sim_score('cat', 'hat')
-        1
+        0
         >>> cmp.sim_score('Niall', 'Neil')
         3
         >>> cmp.sim_score('aluminum', 'Catalan')
-        7
+        -11
         >>> cmp.sim_score('ATCG', 'TAGC')
-        3
+        -1
         >>> cmp.sim_score('Stevenson', 'Stinson')
         16
 
@@ -184,13 +184,13 @@ class SAPS(_Distance):
         --------
         >>> cmp = SAPS()
         >>> round(cmp.sim('cat', 'hat'), 12)
-        0.333333333333
+        0.0
         >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.6
+        0.2
         >>> cmp.sim('aluminum', 'Catalan')
-        0.875
+        0.0
         >>> cmp.sim('ATCG', 'TAGC')
-        0.75
+        0.0
 
 
         .. versionadded:: 0.4.0

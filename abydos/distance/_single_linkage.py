@@ -103,7 +103,7 @@ class SingleLinkage(_TokenDistance):
         >>> cmp.dist_abs('aluminum', 'Catalan')
         0.0
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0
@@ -121,7 +121,7 @@ class SingleLinkage(_TokenDistance):
                     min_val, self._metric.dist_abs(term_src, term_tar)
                 )
 
-        return min_val
+        return float(min_val)
 
     def dist(self, src, tar):
         """Return the normalized single linkage distance of two strings.
@@ -148,7 +148,7 @@ class SingleLinkage(_TokenDistance):
         >>> cmp.dist('aluminum', 'Catalan')
         0.0
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.5
 
 
         .. versionadded:: 0.4.0
