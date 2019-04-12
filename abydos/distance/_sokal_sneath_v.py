@@ -130,11 +130,11 @@ class SokalSneathV(_TokenDistance):
         --------
         >>> cmp = SokalSneathV()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.4987179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3635068033537323
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11671286273067434
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

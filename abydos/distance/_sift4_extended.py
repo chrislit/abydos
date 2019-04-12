@@ -142,7 +142,7 @@ class Sift4Extended(_Distance):
         >>> cmp.dist_abs('Niall', 'Neil')
         2
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        3
+        5
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
 

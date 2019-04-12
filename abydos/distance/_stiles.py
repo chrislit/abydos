@@ -130,13 +130,13 @@ class Stiles(_TokenDistance):
         --------
         >>> cmp = Stiles()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        2.6436977886009236
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        2.1622951406967723
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.41925115106844024
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        -0.8426334527850912
 
 
         .. versionadded:: 0.4.0
@@ -175,13 +175,13 @@ class Stiles(_TokenDistance):
         --------
         >>> cmp = Stiles()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.14701542182970487
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.11767566062554877
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.022355640924908403
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.046296656196428934
 
 
         .. versionadded:: 0.4.0
@@ -210,13 +210,13 @@ class Stiles(_TokenDistance):
         --------
         >>> cmp = Stiles()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5735077109148524
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5588378303127743
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5111778204624542
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.4768516719017855
 
 
         .. versionadded:: 0.4.0

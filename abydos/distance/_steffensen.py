@@ -151,13 +151,13 @@ class Steffensen(_TokenDistance):
         --------
         >>> cmp = Steffensen()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.24744247205786737
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.1300991207720166
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.011710186806836031
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        4.1196952743871653e-05
 
 
         .. versionadded:: 0.4.0

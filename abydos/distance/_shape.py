@@ -131,13 +131,13 @@ class Shape(_TokenDistance):
         --------
         >>> cmp = Shape()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.994923990004165
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9911511479591837
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9787090754188811
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9874075905872554
 
 
         .. versionadded:: 0.4.0

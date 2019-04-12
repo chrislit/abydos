@@ -115,14 +115,14 @@ class SokalSneathIII(_TokenDistance):
         Examples
         --------
         >>> cmp = SokalSneathIII()
-        >>> cmp.sim('cat', 'hat')
-        0.0
-        >>> cmp.sim('Niall', 'Neil')
-        0.0
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        >>> cmp.sim_score('cat', 'hat')
+        195.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        111.0
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        51.333333333333336
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        77.4
 
         .. versionadded:: 0.4.0
 
@@ -138,6 +138,52 @@ class SokalSneathIII(_TokenDistance):
         d = self._total_complement_card()
 
         return (a + d) / (b + c)
+
+    def sim(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Chebyshev distance
+
+
+        .. versionadded:: 0.3.6
+
+        """
+        raise NotImplementedError(
+            'Method disabled for Sokal & Sneath III similarity.'
+        )
+
+    def dist(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Chebyshev distance
+
+
+        .. versionadded:: 0.3.6
+
+        """
+        raise NotImplementedError(
+            'Method disabled for Sokal & Sneath III similarity.'
+        )
 
 
 if __name__ == '__main__':
