@@ -124,13 +124,13 @@ class YuleQII(_TokenDistance):
         --------
         >>> cmp = YuleQII()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        0.005128205128205128
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        0.015364916773367477
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        0.13575757575757577
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        2.0
 
 
         .. versionadded:: 0.4.0
@@ -166,13 +166,13 @@ class YuleQII(_TokenDistance):
         --------
         >>> cmp = YuleQII()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.002564102564102564
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.0076824583866837385
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.06787878787878789
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

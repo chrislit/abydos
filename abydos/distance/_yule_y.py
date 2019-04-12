@@ -129,13 +129,13 @@ class YuleY(_TokenDistance):
         --------
         >>> cmp = YuleY()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9034892632818762
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.8382551144735259
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.5749826820237787
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -172,11 +172,11 @@ class YuleY(_TokenDistance):
         --------
         >>> cmp = YuleY()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9517446316409381
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.919127557236763
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.7874913410118893
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

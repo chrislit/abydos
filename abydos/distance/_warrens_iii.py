@@ -123,13 +123,13 @@ class WarrensIII(_TokenDistance):
         --------
         >>> cmp = WarrensIII()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9948717948717949
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.9910083493898523
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.9806825499034127
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        0.9871630295250321
 
 
         .. versionadded:: 0.4.0
@@ -165,13 +165,13 @@ class WarrensIII(_TokenDistance):
         --------
         >>> cmp = WarrensIII()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9974358974358974
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9955041746949261
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9903412749517064
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.993581514762516
 
 
         .. versionadded:: 0.4.0

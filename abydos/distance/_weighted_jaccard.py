@@ -120,11 +120,11 @@ class WeightedJaccard(_TokenDistance):
         --------
         >>> cmp = WeightedJaccard()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.46153846153846156
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.16666666666666666
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
