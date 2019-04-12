@@ -82,6 +82,14 @@ class SonoriPyTokenizer(_Tokenizer):
         string : str
             The string to tokenize
 
+        Examples
+        --------
+        >>> SonoriPyTokenizer().tokenize('seven-twelfths')
+        SonoriPyTokenizer({'se': 1, 'ven-': 1, 'twelfths': 1})
+
+        >>> SonoriPyTokenizer().tokenize('character')
+        SonoriPyTokenizer({'cha': 1, 'rac': 1, 'ter': 1})
+
 
         .. versionadded:: 0.4.0
 

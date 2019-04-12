@@ -112,6 +112,13 @@ class LegaliPyTokenizer(_Tokenizer):
         ipa : bool
             If True, indicates that the string is in IPA
 
+        Examples
+        --------
+        >>> LegaliPyTokenizer().tokenize('seven-twelfths')
+        LegaliPyTokenizer({'s': 1, 'ev': 1, 'en-tw': 1, 'elfths': 1})
+
+        >>> LegaliPyTokenizer().tokenize('character')
+        LegaliPyTokenizer({'ch': 1, 'ar': 1, 'act': 1, 'er': 1})
 
         .. versionadded:: 0.4.0
 

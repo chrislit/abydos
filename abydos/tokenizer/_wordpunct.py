@@ -36,6 +36,13 @@ __all__ = ['WordpunctTokenizer']
 class WordpunctTokenizer(RegexpTokenizer):
     """A wordpunct tokenizer.
 
+
+    Examples
+    --------
+    >>> WordpunctTokenizer().tokenize("Can't stop the feelin'!")
+    WordpunctTokenizer({'Can': 1, "'": 1, 't': 1, 'stop': 1, 'the': 1, \
+'feelin': 1, "'!": 1})
+
     .. versionadded:: 0.4.0
     """
 

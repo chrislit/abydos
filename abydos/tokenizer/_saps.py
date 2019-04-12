@@ -71,6 +71,15 @@ class SAPSTokenizer(_Tokenizer):
         string : str
             The string to tokenize
 
+        Examples
+        --------
+        >>> SAPSTokenizer().tokenize('seven-twelfths')
+        SAPSTokenizer({'t': 2, 'se': 1, 'ven': 1, '-': 1, 'wel': 1, 'f': 1, \
+'h': 1, 's': 1})
+
+        >>> SAPSTokenizer().tokenize('character')
+        SAPSTokenizer({'c': 1, 'ha': 1, 'rac': 1, 'ter': 1})
+
 
         .. versionadded:: 0.4.0
 

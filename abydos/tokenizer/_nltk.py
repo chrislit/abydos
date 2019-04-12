@@ -81,6 +81,14 @@ class NLTKTokenizer(_Tokenizer):
         string : str
             The string to tokenize
 
+        Examples
+        --------
+        >>> from nltk.tokenize.casual import TweetTokenizer
+        >>> nltk_tok = TweetTokenizer()
+        >>> NLTKTokenizer(nltk_tokenizer=nltk_tok).\
+tokenize('.@Twitter Today is #lit!')
+        NLTKTokenizer({'.': 1, '@Twitter': 1, 'Today': 1, 'is': 1, '#lit': 1, \
+'!': 1})
 
         .. versionadded:: 0.4.0
 

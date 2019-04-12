@@ -89,6 +89,15 @@ class CVClusterTokenizer(_Tokenizer):
         string : str
             The string to tokenize
 
+        Examples
+        --------
+        >>> CVClusterTokenizer().tokenize('seven-twelfths')
+        CVClusterTokenizer({'se': 1, 've': 1, 'n': 1, '-': 1, 'twe': 1, \
+'lfths': 1})
+
+        >>> CVClusterTokenizer().tokenize('character')
+        CVClusterTokenizer({'cha': 1, 'ra': 1, 'cte': 1, 'r': 1})
+
 
         .. versionadded:: 0.4.0
 

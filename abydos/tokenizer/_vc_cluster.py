@@ -89,6 +89,15 @@ class VCClusterTokenizer(_Tokenizer):
         string : str
             The string to tokenize
 
+        Examples
+        --------
+        >>> VCClusterTokenizer().tokenize('seven-twelfths')
+        VCClusterTokenizer({'s': 1, 'ev': 1, 'en': 1, '-': 1, 'tw': 1, \
+'elfths': 1})
+
+        >>> VCClusterTokenizer().tokenize('character')
+        VCClusterTokenizer({'ch': 1, 'ar': 1, 'act': 1, 'er': 1})
+
 
         .. versionadded:: 0.4.0
 

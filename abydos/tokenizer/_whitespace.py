@@ -36,6 +36,11 @@ __all__ = ['WhitespaceTokenizer']
 class WhitespaceTokenizer(RegexpTokenizer):
     """A whitespace tokenizer.
 
+    Examples
+    --------
+    >>> WhitespaceTokenizer().tokenize('a b c f a c g e a b')
+    WhitespaceTokenizer({'a': 3, 'b': 2, 'c': 2, 'f': 1, 'g': 1, 'e': 1})
+
     .. versionadded:: 0.4.0
     """
 

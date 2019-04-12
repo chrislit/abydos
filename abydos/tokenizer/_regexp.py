@@ -79,6 +79,10 @@ class RegexpTokenizer(_Tokenizer):
         string : str
             The string to tokenize
 
+        Examples
+        --------
+        >>> RegexpTokenizer(regexp=r'[^-]+').tokenize('AA-CT-AG-AA-CD')
+        RegexpTokenizer({'AA': 2, 'CT': 1, 'AG': 1, 'CD': 1})
 
         .. versionadded:: 0.4.0
 
