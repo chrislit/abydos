@@ -91,11 +91,11 @@ class Roberts(_TokenDistance):
         --------
         >>> cmp = Roberts()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.36363636363636365
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11764705882352941
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

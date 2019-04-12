@@ -90,13 +90,13 @@ class ReesLevenshtein(_Distance):
         --------
         >>> cmp = ReesLevenshtein()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        1
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        3
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        7
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        2
 
 
         .. versionadded:: 0.4.0
@@ -244,13 +244,13 @@ class ReesLevenshtein(_Distance):
         --------
         >>> cmp = ReesLevenshtein()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.3333333333333333
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.6
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.875
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.5
 
 
         .. versionadded:: 0.4.0

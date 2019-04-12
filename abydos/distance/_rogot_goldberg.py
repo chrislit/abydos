@@ -130,13 +130,13 @@ class RogotGoldberg(_TokenDistance):
         --------
         >>> cmp = RogotGoldberg()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6795702691656449
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5539941668876179
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.496790757381258
 
 
         .. versionadded:: 0.4.0

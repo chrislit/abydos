@@ -77,13 +77,13 @@ class RougeSU(RougeS):
         --------
         >>> cmp = RougeSU()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.4020618556701031
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.1672384219554031
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.8
 
 
         .. versionadded:: 0.4.0
