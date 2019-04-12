@@ -127,14 +127,14 @@ class PearsonChiSquared(_TokenDistance):
         Examples
         --------
         >>> cmp = PearsonChiSquared()
-        >>> cmp.sim('cat', 'hat')
-        0.0
-        >>> cmp.sim('Niall', 'Neil')
-        0.0
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        >>> cmp.sim_score('cat', 'hat')
+        193.99489809335964
+        >>> cmp.sim_score('Niall', 'Neil')
+        101.99771068526542
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        9.19249664336649
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        0.032298410951138765
 
 
         .. versionadded:: 0.4.0
@@ -176,13 +176,13 @@ class PearsonChiSquared(_TokenDistance):
         --------
         >>> cmp = PearsonChiSquared()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.2474424720578567
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.1300991207720222
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.011710186806836291
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -4.1196952743799446e-05
 
 
         .. versionadded:: 0.4.0
@@ -221,13 +221,13 @@ class PearsonChiSquared(_TokenDistance):
         --------
         >>> cmp = PearsonChiSquared()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.2474424720578567
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.1300991207720222
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.011710186806836291
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -4.1196952743799446e-05
 
 
         .. versionadded:: 0.4.0

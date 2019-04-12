@@ -90,11 +90,11 @@ class QuantitativeCosine(_TokenDistance):
         --------
         >>> cmp = QuantitativeCosine()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3651483716701107
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.10660035817780521
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

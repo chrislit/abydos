@@ -90,11 +90,11 @@ class QuantitativeDice(_TokenDistance):
         --------
         >>> cmp = QuantitativeDice()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.36363636363636365
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.10526315789473684
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

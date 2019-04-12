@@ -74,13 +74,13 @@ class NCDlzss(_Distance):
         --------
         >>> cmp = NCDlzss()
         >>> cmp.dist('cat', 'hat')
-        0.08695652173913043
+        0.75
         >>> cmp.dist('Niall', 'Neil')
-        0.16
+        1.0
         >>> cmp.dist('aluminum', 'Catalan')
-        0.16
+        1.0
         >>> cmp.dist('ATCG', 'TAGC')
-        0.08695652173913043
+        0.8
 
 
         .. versionadded:: 0.4.0

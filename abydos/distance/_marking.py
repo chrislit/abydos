@@ -78,13 +78,13 @@ class Marking(_TokenDistance):
         --------
         >>> cmp = Marking()
         >>> cmp.dist_abs('cat', 'hat')
-        0
+        1
         >>> cmp.dist_abs('Niall', 'Neil')
-        0
+        3
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0
+        5
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0
+        2
         >>> cmp.dist_abs('cbaabdcb', 'abcba')
         2
 
@@ -119,15 +119,15 @@ class Marking(_TokenDistance):
         Examples
         --------
         >>> cmp = Marking()
-        >>> cmp.dist_abs('cat', 'hat')
-        0.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
-        >>> cmp.dist_abs('cbaabdcb', 'abcba')
+        >>> cmp.dist('cat', 'hat')
+        0.3333333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.6
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.625
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.5
+        >>> cmp.dist('cbaabdcb', 'abcba')
         0.25
 
 

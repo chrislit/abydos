@@ -101,9 +101,9 @@ class PositionalQGramDice(_Distance):
         --------
         >>> cmp = PositionalQGramDice()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.36363636363636365
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')

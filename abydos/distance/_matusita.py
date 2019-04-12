@@ -90,13 +90,13 @@ class Matusita(_TokenDistance):
         --------
         >>> cmp = Matusita()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        1.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        1.126811100699571
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        1.3282687000770907
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        1.414213562373095
 
 
         .. versionadded:: 0.4.0
@@ -143,13 +143,13 @@ class Matusita(_TokenDistance):
         --------
         >>> cmp = Matusita()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.707106781186547
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.796775770420944
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.939227805062351
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

@@ -120,11 +120,11 @@ class McConnaughey(_TokenDistance):
         >>> cmp.corr('cat', 'hat')
         0.0
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        -0.26666666666666666
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        -0.7638888888888888
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -163,11 +163,11 @@ class McConnaughey(_TokenDistance):
         --------
         >>> cmp = McConnaughey()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3666666666666667
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11805555555555558
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

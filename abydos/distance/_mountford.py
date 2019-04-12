@@ -108,11 +108,11 @@ class Mountford(_TokenDistance):
         --------
         >>> cmp = Mountford()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.25
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.10526315789473684
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.015748031496062992
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

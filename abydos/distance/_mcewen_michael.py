@@ -125,13 +125,13 @@ class McEwenMichael(_TokenDistance):
         --------
         >>> cmp = McEwenMichael()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.010203544942933782
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.010189175491654217
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.0048084299262381456
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.00016689587032858459
 
 
         .. versionadded:: 0.4.0
@@ -169,13 +169,13 @@ class McEwenMichael(_TokenDistance):
         --------
         >>> cmp = McEwenMichael()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5051017724714669
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5050945877458272
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.502404214963119
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.4999165520648357
 
 
         .. versionadded:: 0.4.0

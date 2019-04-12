@@ -86,15 +86,15 @@ class MarkingMetric(Marking):
         --------
         >>> cmp = MarkingMetric()
         >>> cmp.dist_abs('cat', 'hat')
-        0
+        2.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        0
+        3.5849625007211565
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0
+        4.584962500721157
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0
+        3.1699250014423126
         >>> cmp.dist_abs('cbaabdcb', 'abcba')
-        2
+        2.584962500721156
 
 
         .. versionadded:: 0.4.0
@@ -122,15 +122,15 @@ class MarkingMetric(Marking):
         Examples
         --------
         >>> cmp = Marking()
-        >>> cmp.dist_abs('cat', 'hat')
-        0.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
-        >>> cmp.dist_abs('cbaabdcb', 'abcba')
+        >>> cmp.dist('cat', 'hat')
+        0.3333333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.6
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.625
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.5
+        >>> cmp.dist('cbaabdcb', 'abcba')
         0.25
 
 
