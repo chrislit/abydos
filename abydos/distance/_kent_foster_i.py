@@ -127,14 +127,14 @@ class KentFosterI(_TokenDistance):
         Examples
         --------
         >>> cmp = KentFosterI()
-        >>> cmp.sim('cat', 'hat')
-        0.0
-        >>> cmp.sim('Niall', 'Neil')
-        0.0
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        >>> cmp.sim_score('cat', 'hat')
+        -0.19999999999999996
+        >>> cmp.sim_score('Niall', 'Neil')
+        -0.23529411764705888
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        -0.30434782608695654
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        -0.3333333333333333
 
 
         .. versionadded:: 0.4.0
@@ -175,13 +175,13 @@ class KentFosterI(_TokenDistance):
         --------
         >>> cmp = KentFosterI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.8
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.7647058823529411
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.6956521739130435
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.6666666666666667
 
 
         .. versionadded:: 0.4.0

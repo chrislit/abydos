@@ -144,13 +144,13 @@ class GilbertWells(_TokenDistance):
         --------
         >>> cmp = GilbertWells()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        20.17617447734673
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        16.717742356982733
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        5.495096667524002
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        1.6845961909440712
 
 
         .. versionadded:: 0.4.0
@@ -208,13 +208,13 @@ class GilbertWells(_TokenDistance):
         --------
         >>> cmp = GilbertWells()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.4116913723876516
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.2457247406857589
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.05800001636414742
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.028716013247135602
 
 
         .. versionadded:: 0.4.0

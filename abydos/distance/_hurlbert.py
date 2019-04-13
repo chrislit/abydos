@@ -145,13 +145,13 @@ class Hurlbert(_TokenDistance):
         --------
         >>> cmp = Hurlbert()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.497416003373807
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.32899851514665707
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.10144329225459262
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -210,11 +210,11 @@ class Hurlbert(_TokenDistance):
         --------
         >>> cmp = Hurlbert()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487080016869034
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6644992575733285
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5507216461272963
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

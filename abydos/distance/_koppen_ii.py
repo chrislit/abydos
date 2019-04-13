@@ -122,13 +122,13 @@ class KoppenII(_TokenDistance):
         --------
         >>> cmp = KoppenII()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        4.0
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        5.5
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        8.5
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        5.0
 
 
         .. versionadded:: 0.4.0
@@ -161,13 +161,13 @@ class KoppenII(_TokenDistance):
         --------
         >>> cmp = KoppenII()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6666666666666666
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6111111111111112
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.53125
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.5
 
 
         .. versionadded:: 0.4.0

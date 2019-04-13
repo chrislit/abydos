@@ -134,13 +134,13 @@ class HarrisLahey(_TokenDistance):
         --------
         >>> cmp = HarrisLahey()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.3367085964820711
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.22761577457069784
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.07244410503054725
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.006296204706372345
 
 
         .. versionadded:: 0.4.0

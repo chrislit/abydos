@@ -126,13 +126,13 @@ class HawkinsDotson(_TokenDistance):
         --------
         >>> cmp = HawkinsDotson()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6641091219096334
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.606635407786303
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5216836734693877
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.49362244897959184
 
 
         .. versionadded:: 0.4.0

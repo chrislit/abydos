@@ -109,11 +109,11 @@ class KulczynskiI(_TokenDistance):
         --------
         >>> cmp = KulczynskiI()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.2857142857142857
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.06666666666666667
         >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 

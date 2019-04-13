@@ -89,13 +89,13 @@ class Hellinger(_TokenDistance):
         --------
         >>> cmp = Hellinger()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        2.8284271247461903
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        3.7416573867739413
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        5.477225575051661
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        4.47213595499958
 
 
         .. versionadded:: 0.4.0
@@ -136,13 +136,13 @@ class Hellinger(_TokenDistance):
         --------
         >>> cmp = Hellinger()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.8164965809277261
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.881917103688197
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.9128709291752769
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

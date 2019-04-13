@@ -127,13 +127,13 @@ class KuderRichardson(_TokenDistance):
         --------
         >>> cmp = KuderRichardson()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.6643835616438356
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.5285677463699631
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.19499521400246136
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.012919896640826873
 
 
         .. versionadded:: 0.4.0
@@ -181,13 +181,13 @@ class KuderRichardson(_TokenDistance):
         --------
         >>> cmp = KuderRichardson()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.8321917808219178
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.7642838731849815
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5974976070012307
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.4935400516795866
 
 
         .. versionadded:: 0.4.0

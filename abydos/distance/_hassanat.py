@@ -103,13 +103,13 @@ class Hassanat(_TokenDistance):
         --------
         >>> cmp = Hassanat()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        2.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        3.5
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        7.166666666666667
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        5.0
 
 
         .. versionadded:: 0.4.0
@@ -150,13 +150,13 @@ class Hassanat(_TokenDistance):
         --------
         >>> cmp = Hassanat()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.3333333333333333
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.3888888888888889
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.4777777777777778
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.5
 
 
         .. versionadded:: 0.4.0

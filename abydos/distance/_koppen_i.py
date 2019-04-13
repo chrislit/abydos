@@ -151,13 +151,13 @@ class KoppenI(_TokenDistance):
         --------
         >>> cmp = KoppenI()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49615384615384617
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.3575056927658083
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.1068520131813188
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237483896
 
 
         .. versionadded:: 0.4.0
@@ -196,13 +196,13 @@ class KoppenI(_TokenDistance):
         --------
         >>> cmp = KoppenI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7480769230769231
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6787528463829041
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5534260065906594
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.49679075738125805
 
 
         .. versionadded:: 0.4.0

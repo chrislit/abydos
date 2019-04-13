@@ -138,13 +138,13 @@ class GoodmanKruskalTauB(_TokenDistance):
         --------
         >>> cmp = GoodmanKruskalTauB()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.3304969657208484
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.2346006486710202
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.06533810992392582
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        4.119695274745721e-05
 
 
         .. versionadded:: 0.4.0
