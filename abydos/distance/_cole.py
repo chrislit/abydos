@@ -158,13 +158,13 @@ class Cole(_TokenDistance):
         --------
         >>> cmp = Cole()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49743589743589745
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.3290543431750107
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.10195910195910196
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -209,13 +209,13 @@ class Cole(_TokenDistance):
         Examples
         --------
         >>> cmp = Cole()
-        >>> cmp.corr('cat', 'hat')
-        0.0
-        >>> cmp.corr('Niall', 'Neil')
-        0.0
-        >>> cmp.corr('aluminum', 'Catalan')
-        0.0
-        >>> cmp.corr('ATCG', 'TAGC')
+        >>> cmp.sim('cat', 'hat')
+        0.7487179487179487
+        >>> cmp.sim('Niall', 'Neil')
+        0.6645271715875054
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.550979550979551
+        >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
 

@@ -74,13 +74,13 @@ class CormodeLZ(_Distance):
         --------
         >>> cmp = CormodeLZ()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        2
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        5
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        6
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        4
 
 
         .. versionadded:: 0.4.0
@@ -121,13 +121,13 @@ class CormodeLZ(_Distance):
         --------
         >>> cmp = CormodeLZ()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.3333333333333333
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.8
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.625
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.75
 
 
         .. versionadded:: 0.4.0

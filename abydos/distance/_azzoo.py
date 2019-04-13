@@ -130,13 +130,13 @@ class AZZOO(_TokenDistance):
         --------
         >>> cmp = AZZOO()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        391.0
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        389.5
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        385.5
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        387.0
 
 
         .. versionadded:: 0.4.0
@@ -168,13 +168,13 @@ class AZZOO(_TokenDistance):
         --------
         >>> cmp = AZZOO()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9923857868020305
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9860759493670886
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9710327455919395
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9809885931558935
 
 
         .. versionadded:: 0.4.0

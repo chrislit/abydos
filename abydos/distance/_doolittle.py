@@ -123,13 +123,13 @@ class Doolittle(_TokenDistance):
         --------
         >>> cmp = Doolittle()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.24744247205785666
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.13009912077202224
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.011710186806836291
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        4.1196952743799446e-05
 
 
         .. versionadded:: 0.4.0

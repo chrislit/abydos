@@ -98,13 +98,13 @@ class Covington(_Distance):
         --------
         >>> cmp = Covington()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        65
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        115
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        325
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        200
 
 
         .. versionadded:: 0.4.0
@@ -131,13 +131,13 @@ class Covington(_Distance):
         --------
         >>> cmp = Covington()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.19117647058823528
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.25555555555555554
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.43333333333333335
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.45454545454545453
 
 
         .. versionadded:: 0.4.0
@@ -172,14 +172,10 @@ class Covington(_Distance):
         Examples
         --------
         >>> cmp = Covington()
-        >>> cmp.dist_abs('cat', 'hat')
-        0.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        >>> cmp.alignments('hart', 'kordis', top_n=1)[0]
+        Alignment(src='hart--', tar='kordis', score=240)
+        >>> cmp.alignments('niy', 'genu', top_n=1)[0]
+        Alignment(src='--niy', tar='genu-', score=170)
 
 
         .. versionadded:: 0.4.0

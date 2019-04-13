@@ -124,13 +124,13 @@ class Dispersion(_TokenDistance):
         --------
         >>> cmp = Dispersion()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.002524989587671803
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.002502212619741774
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.0011570449105440383
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -4.06731570179092e-05
 
 
         .. versionadded:: 0.4.0
@@ -168,13 +168,13 @@ class Dispersion(_TokenDistance):
         --------
         >>> cmp = Dispersion()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5012624947938359
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5012511063098709
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.500578522455272
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.499979663421491
 
 
         .. versionadded:: 0.4.0

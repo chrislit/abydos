@@ -144,13 +144,13 @@ class Dunning(_TokenDistance):
         --------
         >>> cmp = Dunning()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.37371705295252383
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.21877292851439875
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.04693740752237803
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.0010935459910939103
 
 
         .. versionadded:: 0.4.0
@@ -194,13 +194,13 @@ class Dunning(_TokenDistance):
         --------
         >>> cmp = Dunning()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.37371705295252383
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.21877292851439875
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.04693740752237803
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.0010935459910939103
 
 
         .. versionadded:: 0.4.0

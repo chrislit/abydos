@@ -1262,13 +1262,14 @@ class ALINE(_Distance):
         --------
         >>> cmp = ALINE()
         >>> cmp.alignment('cat', 'hat')
-        0.0
+        [(50.0, 'c ‖ a t ‖', 'h ‖ a t ‖')]
         >>> cmp.alignment('niall', 'neil')
-        0.0
+        [(90.0, '‖ n i a ll ‖', '‖ n e i l  ‖')]
         >>> cmp.alignment('aluminum', 'catalan')
-        0.0
+        [(81.5, '‖ a l u m ‖ inum', 'cat ‖ a l a n ‖')]
         >>> cmp.alignment('atcg', 'tagc')
-        0.0
+        [(65.0, '‖ a t c ‖ g', 't ‖ a g c ‖'), (65.0, 'a ‖ tc - g ‖', \
+'‖ t  a g ‖ c')]
 
 
         .. versionadded:: 0.4.0
@@ -1599,11 +1600,11 @@ class ALINE(_Distance):
         >>> cmp.sim_score('cat', 'hat')
         50.0
         >>> cmp.sim_score('niall', 'neil')
-        57.5
+        90.0
         >>> cmp.sim_score('aluminum', 'catalan')
         81.5
         >>> cmp.sim_score('atcg', 'tagc')
-        0.0
+        65.0
 
 
         .. versionadded:: 0.4.0
@@ -1634,11 +1635,11 @@ class ALINE(_Distance):
         >>> cmp.dist('cat', 'hat')
         0.4117647058823529
         >>> cmp.dist('niall', 'neil')
-        0.42500000000000004
+        0.33333333333333337
         >>> cmp.dist('aluminum', 'catalan')
         0.5925
         >>> cmp.dist('atcg', 'tagc')
-        0.0
+        0.45833333333333337
 
 
         .. versionadded:: 0.4.0

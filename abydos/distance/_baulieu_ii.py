@@ -125,11 +125,11 @@ class BaulieuII(_TokenDistance):
         --------
         >>> cmp = BaulieuII()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.24871959237343852
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.13213719608444902
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.013621892326789235
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

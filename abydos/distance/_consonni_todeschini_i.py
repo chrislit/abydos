@@ -125,13 +125,13 @@ class ConsonniTodeschiniI(_TokenDistance):
         --------
         >>> cmp = ConsonniTodeschiniI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9992336018090547
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.998656222829757
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9971098629456009
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9980766131469967
 
 
         .. versionadded:: 0.4.0

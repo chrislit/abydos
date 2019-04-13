@@ -128,13 +128,13 @@ class BaroniUrbaniBuserII(_TokenDistance):
         --------
         >>> cmp = BaroniUrbaniBuserII()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.8239675481756209
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.7105646350028408
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.31398542410970204
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -171,11 +171,11 @@ class BaroniUrbaniBuserII(_TokenDistance):
         --------
         >>> cmp = BaroniUrbaniBuserII()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9119837740878105
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.8552823175014204
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.656992712054851
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

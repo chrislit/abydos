@@ -127,13 +127,13 @@ class BLEU(_Distance):
         --------
         >>> cmp = BLEU()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7598356856515925
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.7247557929987696
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.44815260192961937
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

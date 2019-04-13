@@ -126,13 +126,13 @@ class Digby(_TokenDistance):
         --------
         >>> cmp = Digby()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9774244829419212
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.9491281473458171
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.7541039303781305
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -173,11 +173,11 @@ class Digby(_TokenDistance):
         --------
         >>> cmp = Digby()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9887122414709606
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9745640736729085
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.8770519651890653
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

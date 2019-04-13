@@ -124,13 +124,13 @@ class AndresMarzoDelta(_TokenDistance):
         --------
         >>> cmp = AndresMarzoDelta()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9897959183673469
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.9822344346552608
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.9618259496215341
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        0.9744897959183674
 
 
         .. versionadded:: 0.4.0
@@ -172,13 +172,13 @@ class AndresMarzoDelta(_TokenDistance):
         --------
         >>> cmp = AndresMarzoDelta()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9948979591836735
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9911172173276304
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.980912974810767
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9872448979591837
 
 
         .. versionadded:: 0.4.0

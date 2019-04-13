@@ -97,13 +97,13 @@ class CompleteLinkage(_TokenDistance):
         --------
         >>> cmp = CompleteLinkage()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        2
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        2
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        2
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        2
 
 
         .. versionadded:: 0.4.0
@@ -142,13 +142,13 @@ class CompleteLinkage(_TokenDistance):
         --------
         >>> cmp = CompleteLinkage()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        1.0
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        1.0
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        1.0
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

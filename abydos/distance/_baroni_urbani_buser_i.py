@@ -128,11 +128,11 @@ class BaroniUrbaniBuserI(_TokenDistance):
         --------
         >>> cmp = BaroniUrbaniBuserI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9119837740878104
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.8552823175014205
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.656992712054851
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

@@ -131,13 +131,13 @@ class Bennet(_TokenDistance):
         --------
         >>> cmp = Bennet()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.989795918367347
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.9821428571428572
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.9617834394904459
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        0.9744897959183674
 
 
         .. versionadded:: 0.4.0
@@ -173,13 +173,13 @@ class Bennet(_TokenDistance):
         --------
         >>> cmp = Bennet()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9948979591836735
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9910714285714286
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9808917197452229
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9872448979591837
 
 
         .. versionadded:: 0.4.0

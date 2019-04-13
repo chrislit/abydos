@@ -126,13 +126,13 @@ class Dennis(_TokenDistance):
         --------
         >>> cmp = Dennis()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        13.857142857142858
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        10.028539207654113
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        2.9990827802847835
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        -0.17857142857142858
 
 
         .. versionadded:: 0.4.0
@@ -175,13 +175,13 @@ class Dennis(_TokenDistance):
         --------
         >>> cmp = Dennis()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.494897959183673
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.358162114559075
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.107041854561785
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006377551020408
 
 
         .. versionadded:: 0.4.0
@@ -211,13 +211,13 @@ class Dennis(_TokenDistance):
         --------
         >>> cmp = Dennis()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6632653061224487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5721080763727167
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.4046945697078567
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.32908163265306134
 
 
         .. versionadded:: 0.4.0

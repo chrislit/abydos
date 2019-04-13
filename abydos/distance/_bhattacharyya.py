@@ -91,13 +91,13 @@ class Bhattacharyya(_TokenDistance):
         --------
         >>> cmp = Bhattacharyya()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        0.6931471805599453
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        1.0074515102711326
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        2.1383330595080277
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        -inf
 
 
         .. versionadded:: 0.4.0
@@ -129,13 +129,13 @@ class Bhattacharyya(_TokenDistance):
         Examples
         --------
         >>> cmp = Bhattacharyya()
-        >>> cmp.dist_abs('cat', 'hat')
-        0.0
-        >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
+        >>> cmp.dist('cat', 'hat')
+        0.5
+        >>> cmp.dist('Niall', 'Neil')
+        0.3651483716701107
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.11785113019775792
+        >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
 
