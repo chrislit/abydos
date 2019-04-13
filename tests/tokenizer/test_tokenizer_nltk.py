@@ -34,12 +34,17 @@ from abydos.tokenizer import NLTKTokenizer
 
 from nltk import TweetTokenizer
 
+from six import PY2
+
 
 class NLTKTokenizerTestCases(unittest.TestCase):
     """Test abydos.tokenizer.NLTKTokenizer."""
 
     def test_nltk_tokenizer(self):
         """Test abydos.tokenizer.NLTKTokenizer."""
+        if PY2:  # skip tests of NLTK on Python 2.7
+            return
+
         tok = NLTKTokenizer(nltk_tokenizer=TweetTokenizer())
 
         self.assertEqual(sorted(tok.tokenize('').get_list()), [])

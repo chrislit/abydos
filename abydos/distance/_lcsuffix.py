@@ -30,6 +30,8 @@ from __future__ import (
 
 from os.path import commonprefix
 
+from six import text_type
+
 from ._lcprefix import LCPrefix
 
 __all__ = ['LCSuffix']
@@ -113,10 +115,10 @@ class LCSuffix(LCPrefix):
         .. versionadded:: 0.4.0
 
         """
-        strings = [src, tar]
+        strings = [text_type(src), text_type(tar)]
         for arg in args:
-            if isinstance(arg, str):
-                strings.append(arg)
+            if isinstance(arg, (str, text_type)):
+                strings.append(text_type(arg))
             else:
                 raise TypeError('All arguments must be of type str')
 

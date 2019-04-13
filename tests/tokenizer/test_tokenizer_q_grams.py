@@ -32,6 +32,8 @@ import unittest
 from collections import Counter
 from math import log1p
 
+from six import PY2
+
 from abydos.tokenizer import QGrams
 
 
@@ -245,10 +247,11 @@ class QGramsTestCases(unittest.TestCase):
             QGrams(qval=10, start_stop='').tokenize('COLIN').get_counter(),
             Counter({}),
         )
-        self.assertEqual(
-            repr(QGrams(qval=1).tokenize('COLIN')),
-            "QGrams({'C': 1, 'O': 1, 'L': 1, 'I': 1, 'N': 1})",
-        )
+        if not PY2:
+            self.assertEqual(
+                repr(QGrams(qval=1).tokenize('COLIN')),
+                "QGrams({'C': 1, 'O': 1, 'L': 1, 'I': 1, 'N': 1})",
+            )
         self.assertEqual(
             QGrams(qval=1).tokenize('COLIN').get_set(),
             {'C', 'O', 'L', 'I', 'N'},

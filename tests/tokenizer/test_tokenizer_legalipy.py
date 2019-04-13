@@ -32,6 +32,8 @@ import unittest
 
 from abydos.tokenizer import LegaliPyTokenizer
 
+from six import PY2
+
 from .. import _corpus_file
 
 
@@ -40,6 +42,9 @@ class LegaliPyTokenizerTestCases(unittest.TestCase):
 
     def test_legalipy_tokenizer(self):
         """Test abydos.tokenizer.LegaliPyTokenizer."""
+        if PY2:  # skip tests of SyllabiPy on Python 2.7
+            return
+
         self.assertEqual(
             sorted(LegaliPyTokenizer().tokenize('').get_list()), []
         )
