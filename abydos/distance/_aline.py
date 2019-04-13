@@ -1263,11 +1263,11 @@ class ALINE(_Distance):
         >>> cmp = ALINE()
         >>> cmp.alignment('cat', 'hat')
         0.0
-        >>> cmp.alignment('Niall', 'Neil')
+        >>> cmp.alignment('niall', 'neil')
         0.0
-        >>> cmp.alignment('aluminum', 'Catalan')
+        >>> cmp.alignment('aluminum', 'catalan')
         0.0
-        >>> cmp.alignment('ATCG', 'TAGC')
+        >>> cmp.alignment('atcg', 'tagc')
         0.0
 
 
@@ -1597,12 +1597,12 @@ class ALINE(_Distance):
         --------
         >>> cmp = ALINE()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
-        >>> cmp.sim_score('Niall', 'Neil')
-        0.0
-        >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim_score('ATCG', 'TAGC')
+        50.0
+        >>> cmp.sim_score('niall', 'neil')
+        57.5
+        >>> cmp.sim_score('aluminum', 'catalan')
+        81.5
+        >>> cmp.sim_score('atcg', 'tagc')
         0.0
 
 
@@ -1632,21 +1632,24 @@ class ALINE(_Distance):
         --------
         >>> cmp = ALINE()
         >>> cmp.dist('cat', 'hat')
-        0.0
-        >>> cmp.dist('Niall', 'Neil')
-        0.0
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        0.4117647058823529
+        >>> cmp.dist('niall', 'neil')
+        0.42500000000000004
+        >>> cmp.dist('aluminum', 'catalan')
+        0.5925
+        >>> cmp.dist('atcg', 'tagc')
         0.0
 
 
         .. versionadded:: 0.4.0
 
         """
-        return self.sim_score(src, tar) / self._normalizer(
-            [self.sim_score(src, src), self.sim_score(tar, tar)]
-        )
+        num = self.sim_score(src, tar)
+        if num:
+            return num / self._normalizer(
+                [self.sim_score(src, src), self.sim_score(tar, tar)]
+            )
+        return 0.0
 
 
 if __name__ == '__main__':
