@@ -60,6 +60,14 @@ class KulczynskiITestCases(unittest.TestCase):
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 1.0
         )
 
+    def test_kulczynski_i_dist(self):
+        """Test abydos.distance.KulczynskiI.dist."""
+        self.assertRaises(NotImplementedError, self.cmp.dist)
+
+    def test_kulczynski_i_sim(self):
+        """Test abydos.distance.KulczynskiI.sim."""
+        self.assertRaises(NotImplementedError, self.cmp.sim)
+
 
 if __name__ == '__main__':
     unittest.main()

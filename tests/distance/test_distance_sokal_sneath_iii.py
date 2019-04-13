@@ -68,6 +68,14 @@ class SokalSneathIIITestCases(unittest.TestCase):
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 111.0
         )
 
+    def test_sokal_sneath_iii_dist(self):
+        """Test abydos.distance.SokalSneathIII.dist."""
+        self.assertRaises(NotImplementedError, self.cmp.dist)
+
+    def test_sokal_sneath_iii_sim(self):
+        """Test abydos.distance.SokalSneathIII.sim."""
+        self.assertRaises(NotImplementedError, self.cmp.sim)
+
 
 if __name__ == '__main__':
     unittest.main()

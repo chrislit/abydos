@@ -133,6 +133,52 @@ class KulczynskiI(_TokenDistance):
             return float('inf')
         return a / (b + c)
 
+    def sim(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Kulczynski I similarity.
+
+
+        .. versionadded:: 0.3.6
+
+        """
+        raise NotImplementedError(
+            'Method disabled for Kulczynski I similarity.'
+        )
+
+    def dist(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Kulczynski I similarity.
+
+
+        .. versionadded:: 0.3.6
+
+        """
+        raise NotImplementedError(
+            'Method disabled for Kulczynski I similarity.'
+        )
+
 
 if __name__ == '__main__':
     import doctest
