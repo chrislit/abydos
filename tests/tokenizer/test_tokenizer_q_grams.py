@@ -32,9 +32,9 @@ import unittest
 from collections import Counter
 from math import log1p
 
-from six import PY2
-
 from abydos.tokenizer import QGrams
+
+from six import PY2
 
 
 class QGramsTestCases(unittest.TestCase):

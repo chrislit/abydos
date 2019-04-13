@@ -32,14 +32,14 @@ import shutil
 import tempfile
 import unittest
 
-from six import PY2
-
 from abydos.util._data import (
     download_package,
     list_available_packages,
     list_installed_packages,
     package_path,
 )
+
+from six import PY2
 
 
 class DataTestCases(unittest.TestCase):

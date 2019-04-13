@@ -30,9 +30,9 @@ from __future__ import (
 
 import unittest
 
-from six import PY2
-
 from abydos.tokenizer import VCClusterTokenizer
+
+from six import PY2
 
 
 class VCClusterTokenizerTestCases(unittest.TestCase):

@@ -30,9 +30,9 @@ from __future__ import (
 
 import unittest
 
-from six import PY2
-
 from abydos.tokenizer import COrVClusterTokenizer
+
+from six import PY2
 
 
 class COrVClusterTokenizerTestCases(unittest.TestCase):
