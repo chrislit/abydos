@@ -74,8 +74,8 @@ class SAPSTokenizer(_Tokenizer):
         Examples
         --------
         >>> SAPSTokenizer().tokenize('seven-twelfths')
-        SAPSTokenizer({'t': 2, 'se': 1, 'ven': 1, '-': 1, 'wel': 1, 'f': 1, \
-'h': 1, 's': 1})
+        SAPSTokenizer({'t': 2, 'se': 1, 'ven': 1, '-': 1, 'wel': 1, 'f': 1,
+        'h': 1, 's': 1})
 
         >>> SAPSTokenizer().tokenize('character')
         SAPSTokenizer({'c': 1, 'ha': 1, 'rac': 1, 'ter': 1})
@@ -119,4 +119,4 @@ class SAPSTokenizer(_Tokenizer):
 if __name__ == '__main__':
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

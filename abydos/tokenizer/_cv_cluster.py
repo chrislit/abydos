@@ -92,8 +92,8 @@ class CVClusterTokenizer(_Tokenizer):
         Examples
         --------
         >>> CVClusterTokenizer().tokenize('seven-twelfths')
-        CVClusterTokenizer({'se': 1, 've': 1, 'n': 1, '-': 1, 'twe': 1, \
-'lfths': 1})
+        CVClusterTokenizer({'se': 1, 've': 1, 'n': 1, '-': 1, 'twe': 1,
+        'lfths': 1})
 
         >>> CVClusterTokenizer().tokenize('character')
         CVClusterTokenizer({'cha': 1, 'ra': 1, 'cte': 1, 'r': 1})
@@ -142,4 +142,4 @@ class CVClusterTokenizer(_Tokenizer):
 if __name__ == '__main__':
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

@@ -91,8 +91,8 @@ class COrVClusterTokenizer(_Tokenizer):
         Examples
         --------
         >>> COrVClusterTokenizer().tokenize('seven-twelfths')
-        COrVClusterTokenizer({'e': 3, 's': 1, 'v': 1, 'n': 1, '-': 1, \
-'tw': 1, 'lfths': 1})
+        COrVClusterTokenizer({'e': 3, 's': 1, 'v': 1, 'n': 1, '-': 1,
+        'tw': 1, 'lfths': 1})
 
         >>> COrVClusterTokenizer().tokenize('character')
         COrVClusterTokenizer({'a': 2, 'r': 2, 'ch': 1, 'ct': 1, 'e': 1})
@@ -145,4 +145,4 @@ class COrVClusterTokenizer(_Tokenizer):
 if __name__ == '__main__':
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

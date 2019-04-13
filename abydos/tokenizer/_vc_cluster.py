@@ -92,8 +92,8 @@ class VCClusterTokenizer(_Tokenizer):
         Examples
         --------
         >>> VCClusterTokenizer().tokenize('seven-twelfths')
-        VCClusterTokenizer({'s': 1, 'ev': 1, 'en': 1, '-': 1, 'tw': 1, \
-'elfths': 1})
+        VCClusterTokenizer({'s': 1, 'ev': 1, 'en': 1, '-': 1, 'tw': 1,
+        'elfths': 1})
 
         >>> VCClusterTokenizer().tokenize('character')
         VCClusterTokenizer({'ch': 1, 'ar': 1, 'act': 1, 'er': 1})
@@ -142,4 +142,4 @@ class VCClusterTokenizer(_Tokenizer):
 if __name__ == '__main__':
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
