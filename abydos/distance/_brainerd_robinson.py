@@ -90,11 +90,11 @@ class BrainerdRobinson(_TokenDistance):
         --------
         >>> cmp = BrainerdRobinson()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        100.0
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        66.66666666666669
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        22.2222222222222
         >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
@@ -139,11 +139,11 @@ class BrainerdRobinson(_TokenDistance):
         --------
         >>> cmp = BrainerdRobinson()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3333333333333334
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.111111111111111
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

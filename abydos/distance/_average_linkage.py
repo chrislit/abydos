@@ -97,13 +97,13 @@ class AverageLinkage(_TokenDistance):
         --------
         >>> cmp = AverageLinkage()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.8125
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.8333333333333334
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.9166666666666666
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.8
 
 
         .. versionadded:: 0.4.0

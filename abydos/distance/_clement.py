@@ -125,13 +125,13 @@ class Clement(_TokenDistance):
         --------
         >>> cmp = Clement()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5025379382522239
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.33840586363079933
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.12119877280918714
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.006336616803332366
 
 
         .. versionadded:: 0.4.0

@@ -133,13 +133,13 @@ class AMPLE(_TokenDistance):
         --------
         >>> cmp = AMPLE()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.49743589743589745
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.32947729220222793
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.10209049255441008
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.006418485237483954
 
 
         .. versionadded:: 0.4.0

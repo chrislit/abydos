@@ -108,13 +108,13 @@ class Canberra(_TokenDistance):
         --------
         >>> cmp = Canberra()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.6363636363636364
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.8823529411764706
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

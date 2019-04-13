@@ -123,13 +123,13 @@ class BatageljBren(_TokenDistance):
         --------
         >>> cmp = BatageljBren()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        0.002570694087403599
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        0.007741935483870968
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        0.07282184655396619
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        inf
 
 
         .. versionadded:: 0.4.0
@@ -168,13 +168,13 @@ class BatageljBren(_TokenDistance):
         --------
         >>> cmp = BatageljBren()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        3.2789465400556106e-06
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        9.874917709019092e-06
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        9.276668350823718e-05
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

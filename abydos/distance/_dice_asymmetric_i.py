@@ -115,11 +115,11 @@ class DiceAsymmetricI(_TokenDistance):
         --------
         >>> cmp = DiceAsymmetricI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3333333333333333
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.1111111111111111
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

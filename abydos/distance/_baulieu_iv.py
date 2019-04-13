@@ -136,13 +136,13 @@ class BaulieuIV(_TokenDistance):
         --------
         >>> cmp = BaulieuIV()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        -5249.96272285802
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        -5209.561726488335
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        -3073.6070822721244
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        -1039.2151656463932
 
 
         .. versionadded:: 0.4.0
@@ -182,13 +182,13 @@ class BaulieuIV(_TokenDistance):
         --------
         >>> cmp = BaulieuIV()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.49999799606535283
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.49999801148659684
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.49999883126809364
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.4999996033268451
 
 
         .. versionadded:: 0.4.0

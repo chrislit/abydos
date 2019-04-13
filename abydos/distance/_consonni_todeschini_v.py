@@ -126,13 +126,13 @@ class ConsonniTodeschiniV(_TokenDistance):
         --------
         >>> cmp = ConsonniTodeschiniV()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.48072545510682463
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.4003930264973547
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.21794239483504532
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.2728145951429799
 
 
         .. versionadded:: 0.4.0
@@ -171,13 +171,13 @@ class ConsonniTodeschiniV(_TokenDistance):
         --------
         >>> cmp = ConsonniTodeschiniV()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7403627275534124
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.7001965132486774
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.6089711974175227
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.36359270242851005
 
 
         .. versionadded:: 0.4.0

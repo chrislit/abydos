@@ -169,13 +169,13 @@ class Eyraud(_TokenDistance):
         --------
         >>> cmp = Eyraud()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        1.438198553583169e-06
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        1.5399964580081465e-06
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        1.6354719962967386e-06
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        1.6478781097519779e-06
 
 
         .. versionadded:: 0.4.0

@@ -126,13 +126,13 @@ class BaulieuV(_TokenDistance):
         --------
         >>> cmp = BaulieuV()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.7142857142857143
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.8
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.9411764705882353
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

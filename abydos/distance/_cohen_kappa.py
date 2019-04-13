@@ -137,13 +137,13 @@ class CohenKappa(_TokenDistance):
         --------
         >>> cmp = CohenKappa()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9974358974358974
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9955041746949261
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9903412749517064
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.993581514762516
 
 
         .. versionadded:: 0.4.0

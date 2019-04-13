@@ -123,13 +123,13 @@ class BeniniI(_TokenDistance):
         --------
         >>> cmp = BeniniI()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49743589743589745
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.3953727506426735
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.11485180412371133
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237483954
 
 
         .. versionadded:: 0.4.0
@@ -170,13 +170,13 @@ class BeniniI(_TokenDistance):
         --------
         >>> cmp = BeniniI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6976863753213367
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5574259020618557
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.496790757381258
 
 
         .. versionadded:: 0.4.0
