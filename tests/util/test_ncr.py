@@ -38,24 +38,22 @@ class ProdTestCases(unittest.TestCase):
 
     def test_ncr(self):
         """Test abydos.util._ncr."""
-        self.assertEqual(_ncr(1, 0), 1.0)
-        self.assertEqual(_ncr(5, 0), 1.0)
+        self.assertEqual(_ncr(1, 0), 1)
+        self.assertEqual(_ncr(5, 0), 1)
 
-        self.assertEqual(_ncr(1, 2), 0.0)
-        self.assertEqual(_ncr(1, 2), 0.0)
+        self.assertEqual(_ncr(1, 2), 0)
+        self.assertEqual(_ncr(1, 2), 0)
 
-        self.assertEqual(_ncr(2, 2), 1.0)
-        self.assertEqual(_ncr(10, 10), 1.0)
+        self.assertEqual(_ncr(2, 2), 1)
+        self.assertEqual(_ncr(10, 10), 1)
 
-        self.assertEqual(_ncr(7, 2), 21.0)
-        self.assertEqual(_ncr(7, 3), 35.0)
-        self.assertEqual(_ncr(4, 3), 4.0)
-        self.assertEqual(_ncr(5, 3), 10.0)
-        self.assertEqual(_ncr(10, 2), 45.0)
-        self.assertEqual(_ncr(100, 3), 161700.0)
-        self.assertEqual(_ncr(80, 5), 24040016.0)
-
-        self.assertEqual(_ncr(5.5, 3.25), 13.63040830080171)
+        self.assertEqual(_ncr(7, 2), 21)
+        self.assertEqual(_ncr(7, 3), 35)
+        self.assertEqual(_ncr(4, 3), 4)
+        self.assertEqual(_ncr(5, 3), 10)
+        self.assertEqual(_ncr(10, 2), 45)
+        self.assertEqual(_ncr(100, 3), 161700)
+        self.assertEqual(_ncr(80, 5), 24040016)
 
 
 if __name__ == '__main__':
