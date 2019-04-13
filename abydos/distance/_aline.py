@@ -1268,8 +1268,8 @@ class ALINE(_Distance):
         >>> cmp.alignment('aluminum', 'catalan')
         [(81.5, '‖ a l u m ‖ inum', 'cat ‖ a l a n ‖')]
         >>> cmp.alignment('atcg', 'tagc')
-        [(65.0, '‖ a t c ‖ g', 't ‖ a g c ‖'), (65.0, 'a ‖ tc - g ‖', \
-'‖ t  a g ‖ c')]
+        [(65.0, '‖ a t c ‖ g', 't ‖ a g c ‖'), (65.0, 'a ‖ tc - g ‖',
+        '‖ t  a g ‖ c')]
 
 
         .. versionadded:: 0.4.0
@@ -1656,4 +1656,4 @@ class ALINE(_Distance):
 if __name__ == '__main__':
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

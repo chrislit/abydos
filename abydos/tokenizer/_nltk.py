@@ -85,10 +85,10 @@ class NLTKTokenizer(_Tokenizer):
         --------
         >>> from nltk.tokenize.casual import TweetTokenizer
         >>> nltk_tok = TweetTokenizer()
-        >>> NLTKTokenizer(nltk_tokenizer=nltk_tok).\
-tokenize('.@Twitter Today is #lit!')
-        NLTKTokenizer({'.': 1, '@Twitter': 1, 'Today': 1, 'is': 1, '#lit': 1, \
-'!': 1})
+        >>> NLTKTokenizer(nltk_tokenizer=nltk_tok).tokenize(
+        ... '.@Twitter Today is #lit!')
+        NLTKTokenizer({'.': 1, '@Twitter': 1, 'Today': 1, 'is': 1, '#lit': 1,
+        '!': 1})
 
         .. versionadded:: 0.4.0
 
@@ -102,4 +102,4 @@ tokenize('.@Twitter Today is #lit!')
 if __name__ == '__main__':
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)

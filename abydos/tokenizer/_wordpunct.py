@@ -36,14 +36,15 @@ __all__ = ['WordpunctTokenizer']
 class WordpunctTokenizer(RegexpTokenizer):
     """A wordpunct tokenizer.
 
-
     Examples
     --------
     >>> WordpunctTokenizer().tokenize("Can't stop the feelin'!")
-    WordpunctTokenizer({'Can': 1, "'": 1, 't': 1, 'stop': 1, 'the': 1, \
-'feelin': 1, "'!": 1})
+    WordpunctTokenizer({'Can': 1, "'": 1, 't': 1, 'stop': 1, 'the': 1,
+    'feelin': 1, "'!": 1})
+
 
     .. versionadded:: 0.4.0
+
     """
 
     def __init__(self, scaler=None, flags=0):
@@ -73,4 +74,4 @@ class WordpunctTokenizer(RegexpTokenizer):
 if __name__ == '__main__':
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
