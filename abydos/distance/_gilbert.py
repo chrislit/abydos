@@ -128,13 +128,13 @@ class Gilbert(_TokenDistance):
         --------
         >>> cmp = Gilbert()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.3310580204778157
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.21890122402504983
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.057094811018577836
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.003198976327575176
 
 
         .. versionadded:: 0.4.0
@@ -174,13 +174,13 @@ class Gilbert(_TokenDistance):
         --------
         >>> cmp = Gilbert()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.6655290102389079
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6094506120125249
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5285474055092889
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.4984005118362124
 
 
         .. versionadded:: 0.4.0

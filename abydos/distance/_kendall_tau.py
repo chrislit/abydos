@@ -123,13 +123,13 @@ class KendallTau(_TokenDistance):
         --------
         >>> cmp = KendallTau()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.0025282143508744493
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.00250866630176975
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.0024535291823735866
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        0.0024891182526650506
 
         Notes
         -----
@@ -176,13 +176,13 @@ class KendallTau(_TokenDistance):
         --------
         >>> cmp = KendallTau()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5012641071754372
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.5012543331508849
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5012267645911868
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.5012445591263325
 
 
         .. versionadded:: 0.4.0

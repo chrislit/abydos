@@ -123,11 +123,11 @@ class JaccardNM(_TokenDistance):
         --------
         >>> cmp = JaccardNM()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.002531645569620253
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.0025220680958385876
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.0012484394506866417
         >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
@@ -165,13 +165,13 @@ class JaccardNM(_TokenDistance):
         Examples
         --------
         >>> cmp = JaccardNM()
-        >>> cmp.sim_score('cat', 'hat')
-        0.0
-        >>> cmp.sim_score('Niall', 'Neil')
-        0.0
-        >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim_score('ATCG', 'TAGC')
+        >>> cmp.sim('cat', 'hat')
+        0.005063291139240506
+        >>> cmp.sim('Niall', 'Neil')
+        0.005044136191677175
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0024968789013732834
+        >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
 

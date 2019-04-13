@@ -87,13 +87,13 @@ class JensenShannon(_TokenDistance):
         --------
         >>> cmp = JensenShannon()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        0.3465735902799726
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        0.44051045978517045
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        0.6115216713968132
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        0.6931471805599453
 
 
         .. versionadded:: 0.4.0
@@ -141,13 +141,13 @@ class JensenShannon(_TokenDistance):
         --------
         >>> cmp = JensenShannon()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.49999999999999994
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.6355222557917826
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.8822392827203127
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.0

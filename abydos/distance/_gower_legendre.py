@@ -128,13 +128,13 @@ class GowerLegendre(_TokenDistance):
         --------
         >>> cmp = GowerLegendre()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9974424552429667
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9955156950672646
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9903536977491961
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.993581514762516
 
 
         .. versionadded:: 0.4.0

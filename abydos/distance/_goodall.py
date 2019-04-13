@@ -127,13 +127,13 @@ class Goodall(_TokenDistance):
         --------
         >>> cmp = Goodall()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9544884026871964
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.9397552079794624
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9117156301536503
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9279473952929225
 
 
         .. versionadded:: 0.4.0

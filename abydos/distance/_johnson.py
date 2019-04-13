@@ -109,11 +109,11 @@ class Johnson(_TokenDistance):
         --------
         >>> cmp = Johnson()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        1.0
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.7333333333333334
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.2361111111111111
         >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
@@ -153,11 +153,11 @@ class Johnson(_TokenDistance):
         --------
         >>> cmp = Johnson()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3666666666666667
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11805555555555555
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

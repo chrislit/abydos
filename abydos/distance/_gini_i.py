@@ -138,13 +138,13 @@ class GiniI(_TokenDistance):
         --------
         >>> cmp = GiniI()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49722814498933254
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.39649090262533215
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.14887105223941113
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237489576
 
 
         .. versionadded:: 0.4.0
@@ -181,13 +181,13 @@ class GiniI(_TokenDistance):
         --------
         >>> cmp = GiniI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7486140724946663
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6982454513126661
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5744355261197056
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.4967907573812552
 
 
         .. versionadded:: 0.4.0

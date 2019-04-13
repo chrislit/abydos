@@ -84,13 +84,13 @@ class IterativeSubString(_Distance):
         --------
         >>> cmp = IterativeSubString()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        -1.0
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        -0.9
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        -1.0
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -205,7 +205,7 @@ class IterativeSubString(_Distance):
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.04999999999999999
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')

@@ -93,13 +93,13 @@ class HigueraMico(_Distance):
         --------
         >>> cmp = HigueraMico()
         >>> cmp.dist_abs('cat', 'hat')
-        1
+        0.3333333333333333
         >>> cmp.dist_abs('Niall', 'Neil')
-        3
+        0.5333333333333333
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        7
+        0.7916666666666667
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3
+        0.6000000000000001
 
         .. versionadded:: 0.4.0
 
@@ -169,14 +169,14 @@ class HigueraMico(_Distance):
         Examples
         --------
         >>> cmp = HigueraMico()
-        >>> cmp.dist_abs('cat', 'hat')
-        1
-        >>> cmp.dist_abs('Niall', 'Neil')
-        3
-        >>> cmp.dist_abs('aluminum', 'Catalan')
-        7
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        3
+        >>> cmp.dist('cat', 'hat')
+        0.3333333333333333
+        >>> cmp.dist('Niall', 'Neil')
+        0.5333333333333333
+        >>> cmp.dist('aluminum', 'Catalan')
+        0.7916666666666667
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.6000000000000001
 
         .. versionadded:: 0.4.0
 

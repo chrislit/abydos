@@ -228,13 +228,13 @@ class GeneralizedFleiss(_TokenDistance):
         --------
         >>> cmp = GeneralizedFleiss()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49743589743589745
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.35921989956790845
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.10803030303030303
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237483954
 
 
         .. versionadded:: 0.4.0
@@ -292,13 +292,13 @@ class GeneralizedFleiss(_TokenDistance):
         --------
         >>> cmp = GeneralizedFleiss()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6796099497839543
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5540151515151515
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.496790757381258
 
 
         .. versionadded:: 0.4.0

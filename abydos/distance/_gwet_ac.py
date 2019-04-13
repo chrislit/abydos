@@ -138,13 +138,13 @@ class GwetAC(_TokenDistance):
         --------
         >>> cmp = GwetAC()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.9948456319360438
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.990945276504824
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.9804734301840141
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        0.9870811678360627
 
 
         .. versionadded:: 0.4.0
@@ -186,13 +186,13 @@ class GwetAC(_TokenDistance):
         --------
         >>> cmp = GwetAC()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.9974228159680218
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.995472638252412
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.9902367150920071
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.9935405839180314
 
 
         .. versionadded:: 0.4.0

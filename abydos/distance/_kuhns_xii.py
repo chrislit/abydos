@@ -134,14 +134,14 @@ class KuhnsXII(_TokenDistance):
         Examples
         --------
         >>> cmp = KuhnsXII()
-        >>> cmp.sim('cat', 'hat')
-        0.0
-        >>> cmp.sim('Niall', 'Neil')
-        0.0
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        >>> cmp.sim_score('cat', 'hat')
+        97.0
+        >>> cmp.sim_score('Niall', 'Neil')
+        51.266666666666666
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        9.902777777777779
+        >>> cmp.sim_score('ATCG', 'TAGC')
+        -1.0
 
 
         .. versionadded:: 0.4.0
@@ -183,11 +183,11 @@ class KuhnsXII(_TokenDistance):
         --------
         >>> cmp = KuhnsXII()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.2493573264781491
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.1323010752688172
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.012877474353417137
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
