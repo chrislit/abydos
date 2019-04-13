@@ -30,6 +30,8 @@ from __future__ import (
 
 import unittest
 
+from six import PY2
+
 from abydos.distance import NCDpaq9a
 
 
@@ -43,6 +45,9 @@ class NCDpaq9aTestCases(unittest.TestCase):
 
     def test_ncd_paq9a_dist(self):
         """Test abydos.distance.NCDpaq9a.dist."""
+        if PY2:  # skip tests since paq9a isn't supported on Python 2.7
+            return
+
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 0.2)
@@ -62,6 +67,9 @@ class NCDpaq9aTestCases(unittest.TestCase):
 
     def test_ncd_paq9a_sim(self):
         """Test abydos.distance.NCDpaq9a.sim."""
+        if PY2:  # skip tests since paq9a isn't supported on Python 2.7
+            return
+
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.8)

@@ -37,6 +37,8 @@ from abydos.corpus import UnigramCorpus
 from abydos.phonetic import Soundex
 from abydos.tokenizer import QSkipgrams
 
+from six import PY2
+
 from .. import _corpus_file
 
 
@@ -107,6 +109,9 @@ class UnigramCorpusTestCases(unittest.TestCase):
         """Test abydos.corpus.UnigramCorpus.gng_importer."""
         self.assertIsInstance(self.simple_corpus, UnigramCorpus)
         self.assertIsInstance(self.simple_corpus.corpus, defaultdict)
+
+        if PY2:  # skip tests of UnigramCorpus on Python 2.7
+            return
 
         self.sdx_corpus.gng_importer('tests/corpora/simple-ngrams.txt')
         self.assertEqual(
