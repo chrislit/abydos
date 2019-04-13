@@ -31,12 +31,12 @@ from __future__ import (
 import os
 import unittest
 
-from six import PY2
-
 from abydos.corpus import UnigramCorpus
 from abydos.distance import TFIDF
 from abydos.tokenizer import QGrams
 from abydos.util import download_package, package_path
+
+from six import PY2
 
 
 class TFIDFTestCases(unittest.TestCase):

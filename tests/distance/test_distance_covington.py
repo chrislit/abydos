@@ -30,9 +30,9 @@ from __future__ import (
 
 import unittest
 
-from six import PY2
-
 from abydos.distance import Covington
+
+from six import PY2
 
 
 class CovingtonTestCases(unittest.TestCase):

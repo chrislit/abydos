@@ -30,9 +30,9 @@ from __future__ import (
 
 import unittest
 
-from six import PY2
-
 from abydos.distance import NCDpaq9a
+
+from six import PY2
 
 
 class NCDpaq9aTestCases(unittest.TestCase):
