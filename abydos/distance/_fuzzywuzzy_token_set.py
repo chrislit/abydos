@@ -94,13 +94,13 @@ class FuzzyWuzzyTokenSet(_TokenDistance):
         --------
         >>> cmp = FuzzyWuzzyTokenSet()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.75
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.7272727272727273
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.47058823529411764
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.6
 
 
         .. versionadded:: 0.4.0

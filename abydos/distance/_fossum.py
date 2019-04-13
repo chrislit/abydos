@@ -122,13 +122,13 @@ class Fossum(_TokenDistance):
         --------
         >>> cmp = Fossum()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        110.25
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        58.8
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        2.7256944444444446
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        7.84
 
 
         .. versionadded:: 0.4.0
@@ -165,13 +165,13 @@ class Fossum(_TokenDistance):
         --------
         >>> cmp = Fossum()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.1836734693877551
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.08925619834710742
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.0038927335640138415
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.01234567901234568
 
 
         .. versionadded:: 0.4.0

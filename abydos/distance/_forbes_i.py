@@ -122,11 +122,11 @@ class ForbesI(_TokenDistance):
         --------
         >>> cmp = ForbesI()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        98.0
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        52.266666666666666
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        10.902777777777779
         >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
@@ -165,11 +165,11 @@ class ForbesI(_TokenDistance):
         --------
         >>> cmp = ForbesI()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3333333333333333
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.11125283446712018
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

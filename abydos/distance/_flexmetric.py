@@ -150,13 +150,13 @@ class FlexMetric(_Distance):
         --------
         >>> cmp = FlexMetric()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        0.8
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        1.5
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        6.7
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        2.1999999999999997
 
 
         .. versionadded:: 0.4.0
@@ -215,13 +215,13 @@ class FlexMetric(_Distance):
         --------
         >>> cmp = FlexMetric()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.26666666666666666
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.3
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.8375
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.5499999999999999
 
 
         .. versionadded:: 0.4.0

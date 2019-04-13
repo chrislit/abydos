@@ -67,9 +67,9 @@ class FuzzyWuzzyPartialString(_Distance):
         >>> round(cmp.sim('cat', 'hat'), 12)
         0.666666666667
         >>> round(cmp.sim('Niall', 'Neil'), 12)
-        0.666666666667
+        0.75
         >>> round(cmp.sim('aluminum', 'Catalan'), 12)
-        0.4
+        0.428571428571
         >>> cmp.sim('ATCG', 'TAGC')
         0.5
 
