@@ -32,6 +32,8 @@ import shutil
 import tempfile
 import unittest
 
+from six import PY2
+
 from abydos.util._data import (
     download_package,
     list_available_packages,
@@ -48,6 +50,9 @@ class DataTestCases(unittest.TestCase):
 
     def test_data(self):
         """Test abydos.util._data."""
+        if PY2:  # disable testing in Py2.7; the pickled data isn't supported
+            return
+
         self.assertTrue(isinstance(list_installed_packages(), list))
         self.assertTrue(isinstance(list_available_packages(), tuple))
         self.assertTrue(
