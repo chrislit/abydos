@@ -166,8 +166,8 @@ class Covington(_Distance):
 
         Returns
         -------
-        float
-            Covington distance
+        list
+            Covington alignments
 
         Examples
         --------
