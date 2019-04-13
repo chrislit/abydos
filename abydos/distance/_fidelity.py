@@ -89,11 +89,11 @@ class Fidelity(_TokenDistance):
         --------
         >>> cmp = Fidelity()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.25
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.1333333333333333
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.013888888888888888
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

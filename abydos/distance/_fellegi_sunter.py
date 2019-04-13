@@ -112,11 +112,11 @@ class FellegiSunter(_TokenDistance):
         --------
         >>> cmp = FellegiSunter()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.8803433378011485
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.6958768466635681
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        0.45410905865149187
         >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
@@ -173,11 +173,11 @@ class FellegiSunter(_TokenDistance):
         --------
         >>> cmp = FellegiSunter()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.2934477792670495
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.13917536933271363
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.056763632331436484
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

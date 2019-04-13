@@ -110,13 +110,13 @@ class FagerMcGowan(_TokenDistance):
         --------
         >>> cmp = FagerMcGowan()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.25
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.16102422643817918
         >>> cmp.sim_score('aluminum', 'Catalan')
-        0.0
+        -0.048815536468908724
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        -0.22360679774997896
 
 
         .. versionadded:: 0.4.0
@@ -158,9 +158,9 @@ class FagerMcGowan(_TokenDistance):
         --------
         >>> cmp = FagerMcGowan()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.25
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.16102422643817918
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')

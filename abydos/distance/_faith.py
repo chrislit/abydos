@@ -122,13 +122,13 @@ class Faith(_TokenDistance):
         --------
         >>> cmp = Faith()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.4987244897959184
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.4968112244897959
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.4910828025477707
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.49362244897959184
 
 
         .. versionadded:: 0.4.0

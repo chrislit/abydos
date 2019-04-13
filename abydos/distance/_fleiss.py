@@ -129,13 +129,13 @@ class Fleiss(_TokenDistance):
         --------
         >>> cmp = Fleiss()
         >>> cmp.corr('cat', 'hat')
-        0.0
+        0.49743589743589745
         >>> cmp.corr('Niall', 'Neil')
-        0.0
+        0.3621712520061204
         >>> cmp.corr('aluminum', 'Catalan')
-        0.0
+        0.10839724112919989
         >>> cmp.corr('ATCG', 'TAGC')
-        0.0
+        -0.006418485237483954
 
 
         .. versionadded:: 0.4.0
@@ -173,13 +173,13 @@ class Fleiss(_TokenDistance):
         --------
         >>> cmp = Fleiss()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.6810856260030602
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.5541986205645999
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.496790757381258
 
 
         .. versionadded:: 0.4.0
