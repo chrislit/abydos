@@ -152,7 +152,7 @@ class SokalSneathIII(_TokenDistance):
         Raises
         ------
         NotImplementedError
-            Method disabled for Chebyshev distance
+            Method disabled for Sokal & Sneath III similarity.
 
 
         .. versionadded:: 0.3.6
@@ -175,7 +175,7 @@ class SokalSneathIII(_TokenDistance):
         Raises
         ------
         NotImplementedError
-            Method disabled for Chebyshev distance
+            Method disabled for Sokal & Sneath III similarity.
 
 
         .. versionadded:: 0.3.6
