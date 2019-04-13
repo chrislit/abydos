@@ -78,7 +78,7 @@ class TokenizerTestCases(unittest.TestCase):
             self.assertEqual(
                 repr(nelson),
                 "QGrams({'$N': 1, 'NE': 1, 'EL': 1, 'LS': 1, 'SO': 1, 'ON': 1, \
-    'N#': 1})",
+'N#': 1})",
             )
         self.assertEqual(
             nelson & neilsen, Counter({'$N': 1, 'NE': 1, 'LS': 1, 'N#': 1})
