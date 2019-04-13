@@ -34,9 +34,9 @@ As a quick example of :py:class:`.Corpus`:
 [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.']],
 [['And', 'then', 'it', 'slept.']], [['And', 'the', 'dog', 'ran', 'off.']]]
 >>> round(corp.idf('dog'), 10)
-0.4771212547
+1.0986122887
 >>> round(corp.idf('the'), 10)
-0.1760912591
+0.4054651081
 
 Here, each sentence is a separate "document". We can retrieve IDF values from
 the :py:class:`.Corpus`. The same :py:class:`.Corpus` can be used to initialize
@@ -47,10 +47,7 @@ an :py:class:`.NGramCorpus` and calculate TF values:
 2
 >>> ngcorp.get_count('fox')
 1
->>> ngcorp.tf('the')
-1.3010299956639813
->>> ngcorp.tf('fox')
-1.0
+
 
 ----
 
