@@ -31,6 +31,8 @@ from __future__ import (
 import os
 import unittest
 
+from six import PY2
+
 from abydos.corpus import UnigramCorpus
 from abydos.distance import Jaccard, MetaLevenshtein
 from abydos.tokenizer import QGrams
@@ -45,11 +47,6 @@ class MetaLevenshteinTestCases(unittest.TestCase):
 
     cmp = MetaLevenshtein()
     cmp_jac1 = MetaLevenshtein(metric=Jaccard(qval=1))
-
-    q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))
-    download_package('en_qgram', silent=True)
-    q3_corpus.load_corpus(os.path.join(package_path('en_qgram'), 'q3_en.dat'))
-    cmp_q3 = MetaLevenshtein(tokenizer=QGrams(qval=3), corpus=q3_corpus)
 
     def test_meta_levenshtein_dist(self):
         """Test abydos.distance.MetaLevenshtein.dist."""
@@ -69,11 +66,6 @@ class MetaLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.2931752664
         )
-
-        self.assertAlmostEqual(self.cmp_q3.dist('Nigel', 'Niall'), 0.527067098)
-        self.assertAlmostEqual(self.cmp_q3.dist('Niall', 'Nigel'), 0.527067098)
-        self.assertAlmostEqual(self.cmp_q3.dist('Colin', 'Coiln'), 0.571428571)
-        self.assertAlmostEqual(self.cmp_q3.dist('Coiln', 'Colin'), 0.571428571)
 
     def test_meta_levenshtein_sim(self):
         """Test abydos.distance.MetaLevenshtein.sim."""
@@ -110,11 +102,6 @@ class MetaLevenshteinTestCases(unittest.TestCase):
             self.cmp_jac1.sim('ATCAACGAGT', 'AACGATTAG'), 0.5746789477
         )
 
-        self.assertAlmostEqual(self.cmp_q3.sim('Nigel', 'Niall'), 0.472932902)
-        self.assertAlmostEqual(self.cmp_q3.sim('Niall', 'Nigel'), 0.472932902)
-        self.assertAlmostEqual(self.cmp_q3.sim('Colin', 'Coiln'), 0.428571429)
-        self.assertAlmostEqual(self.cmp_q3.sim('Coiln', 'Colin'), 0.428571429)
-
     def test_meta_levenshtein_dist_abs(self):
         """Test abydos.distance.MetaLevenshtein.dist_abs."""
         # Base cases
@@ -142,14 +129,32 @@ class MetaLevenshteinTestCases(unittest.TestCase):
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 2.9317526638
         )
 
-        self.assertAlmostEqual(
-            self.cmp_q3.dist_abs('Nigel', 'Niall'), 7.378939370
+    def test_meta_levenshtein_corpus(self):
+        """Test abydos.distance.MetaLevenshtein with corpus."""
+        if PY2:  # disable testing in Py2.7; the pickled data isn't supported
+            return
+
+        q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))
+        download_package('en_qgram', silent=True)
+        q3_corpus.load_corpus(
+            os.path.join(package_path('en_qgram'), 'q3_en.dat')
         )
-        self.assertAlmostEqual(
-            self.cmp_q3.dist_abs('Niall', 'Nigel'), 7.378939370
-        )
-        self.assertAlmostEqual(self.cmp_q3.dist_abs('Colin', 'Coiln'), 8.0)
-        self.assertAlmostEqual(self.cmp_q3.dist_abs('Coiln', 'Colin'), 8.0)
+        cmp_q3 = MetaLevenshtein(tokenizer=QGrams(qval=3), corpus=q3_corpus)
+
+        self.assertAlmostEqual(cmp_q3.dist_abs('Nigel', 'Niall'), 7.378939370)
+        self.assertAlmostEqual(cmp_q3.dist_abs('Niall', 'Nigel'), 7.378939370)
+        self.assertAlmostEqual(cmp_q3.dist_abs('Colin', 'Coiln'), 8.0)
+        self.assertAlmostEqual(cmp_q3.dist_abs('Coiln', 'Colin'), 8.0)
+
+        self.assertAlmostEqual(cmp_q3.dist('Nigel', 'Niall'), 0.527067098)
+        self.assertAlmostEqual(cmp_q3.dist('Niall', 'Nigel'), 0.527067098)
+        self.assertAlmostEqual(cmp_q3.dist('Colin', 'Coiln'), 0.571428571)
+        self.assertAlmostEqual(cmp_q3.dist('Coiln', 'Colin'), 0.571428571)
+
+        self.assertAlmostEqual(cmp_q3.sim('Nigel', 'Niall'), 0.472932902)
+        self.assertAlmostEqual(cmp_q3.sim('Niall', 'Nigel'), 0.472932902)
+        self.assertAlmostEqual(cmp_q3.sim('Colin', 'Coiln'), 0.428571429)
+        self.assertAlmostEqual(cmp_q3.sim('Coiln', 'Colin'), 0.428571429)
 
 
 if __name__ == '__main__':

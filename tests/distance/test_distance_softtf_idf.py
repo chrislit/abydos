@@ -31,6 +31,8 @@ from __future__ import (
 import os
 import unittest
 
+from six import PY2
+
 from abydos.corpus import UnigramCorpus
 from abydos.distance import Levenshtein, SoftTFIDF
 from abydos.tokenizer import QGrams
@@ -45,17 +47,6 @@ class SoftTFIDFTestCases(unittest.TestCase):
 
     cmp = SoftTFIDF()
     cmp_lev = SoftTFIDF(metric=Levenshtein())
-
-    download_package('en_qgram', silent=True)
-
-    q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))
-    q3_corpus.load_corpus(os.path.join(package_path('en_qgram'), 'q3_en.dat'))
-    cmp_q3_08 = SoftTFIDF(
-        tokenizer=QGrams(qval=3), corpus=q3_corpus, threshold=0.8
-    )
-    cmp_q3_03 = SoftTFIDF(
-        tokenizer=QGrams(qval=3), corpus=q3_corpus, threshold=0.3
-    )
 
     def test_softtf_idf_sim(self):
         """Test abydos.distance.SoftTFIDF.sim."""
@@ -84,25 +75,6 @@ class SoftTFIDFTestCases(unittest.TestCase):
             self.cmp_lev.sim('ATCAACGAGT', 'AACGATTAG'), 0.4676712137
         )
 
-        self.assertAlmostEqual(
-            self.cmp_q3_08.sim('Nigel', 'Niall'), 0.608842672
-        )
-        self.assertAlmostEqual(
-            self.cmp_q3_08.sim('Niall', 'Nigel'), 0.608842672
-        )
-        self.assertAlmostEqual(
-            self.cmp_q3_08.sim('Colin', 'Coiln'), 0.383052250
-        )
-        self.assertAlmostEqual(
-            self.cmp_q3_08.sim('Coiln', 'Colin'), 0.383052250
-        )
-
-        # These values won't be stable, so we just use Greater/Less
-        self.assertGreater(self.cmp_q3_03.sim('Nigel', 'Niall'), 0.5)
-        self.assertGreater(self.cmp_q3_03.sim('Niall', 'Nigel'), 0.5)
-        self.assertGreater(self.cmp_q3_03.sim('Colin', 'Coiln'), 0.5)
-        self.assertGreater(self.cmp_q3_03.sim('Coiln', 'Colin'), 0.5)
-
     def test_softtf_idf_dist(self):
         """Test abydos.distance.SoftTFIDF.dist."""
         # Base cases
@@ -122,24 +94,45 @@ class SoftTFIDFTestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5323287863
         )
 
-        self.assertAlmostEqual(
-            self.cmp_q3_08.dist('Nigel', 'Niall'), 0.391157328
+    def test_softtf_idf_corpus(self):
+        """Test abydos.distance.SoftTFIDF.sim & .dist with corpus."""
+        if PY2:  # disable testing in Py2.7; the pickled data isn't supported
+            return
+
+        download_package('en_qgram', silent=True)
+
+        q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))
+        q3_corpus.load_corpus(
+            os.path.join(package_path('en_qgram'), 'q3_en.dat')
         )
-        self.assertAlmostEqual(
-            self.cmp_q3_08.dist('Niall', 'Nigel'), 0.391157328
+        cmp_q3_08 = SoftTFIDF(
+            tokenizer=QGrams(qval=3), corpus=q3_corpus, threshold=0.8
         )
-        self.assertAlmostEqual(
-            self.cmp_q3_08.dist('Colin', 'Coiln'), 0.616947750
-        )
-        self.assertAlmostEqual(
-            self.cmp_q3_08.dist('Coiln', 'Colin'), 0.616947750
+        cmp_q3_03 = SoftTFIDF(
+            tokenizer=QGrams(qval=3), corpus=q3_corpus, threshold=0.3
         )
 
+        self.assertAlmostEqual(cmp_q3_08.sim('Nigel', 'Niall'), 0.608842672)
+        self.assertAlmostEqual(cmp_q3_08.sim('Niall', 'Nigel'), 0.608842672)
+        self.assertAlmostEqual(cmp_q3_08.sim('Colin', 'Coiln'), 0.383052250)
+        self.assertAlmostEqual(cmp_q3_08.sim('Coiln', 'Colin'), 0.383052250)
+
         # These values won't be stable, so we just use Greater/Less
-        self.assertLess(self.cmp_q3_03.dist('Nigel', 'Niall'), 0.5)
-        self.assertLess(self.cmp_q3_03.dist('Niall', 'Nigel'), 0.5)
-        self.assertLess(self.cmp_q3_03.dist('Colin', 'Coiln'), 0.5)
-        self.assertLess(self.cmp_q3_03.dist('Coiln', 'Colin'), 0.5)
+        self.assertGreater(cmp_q3_03.sim('Nigel', 'Niall'), 0.5)
+        self.assertGreater(cmp_q3_03.sim('Niall', 'Nigel'), 0.5)
+        self.assertGreater(cmp_q3_03.sim('Colin', 'Coiln'), 0.5)
+        self.assertGreater(cmp_q3_03.sim('Coiln', 'Colin'), 0.5)
+
+        self.assertAlmostEqual(cmp_q3_08.dist('Nigel', 'Niall'), 0.391157328)
+        self.assertAlmostEqual(cmp_q3_08.dist('Niall', 'Nigel'), 0.391157328)
+        self.assertAlmostEqual(cmp_q3_08.dist('Colin', 'Coiln'), 0.616947750)
+        self.assertAlmostEqual(cmp_q3_08.dist('Coiln', 'Colin'), 0.616947750)
+
+        # These values won't be stable, so we just use Greater/Less
+        self.assertLess(cmp_q3_03.dist('Nigel', 'Niall'), 0.5)
+        self.assertLess(cmp_q3_03.dist('Niall', 'Nigel'), 0.5)
+        self.assertLess(cmp_q3_03.dist('Colin', 'Coiln'), 0.5)
+        self.assertLess(cmp_q3_03.dist('Coiln', 'Colin'), 0.5)
 
 
 if __name__ == '__main__':
