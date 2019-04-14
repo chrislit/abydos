@@ -2,10 +2,15 @@ Release History
 ---------------
 
 
-0.4.0 (2018-12-31) *dietrich*
+0.4.0 (2018-04-30) *dietrich*
 +++++++++++++++++++++++++++++
 
 doi:
+
+Version 0.4.0 focuses on distance measures, adding 211 new measures. Attempts
+were made to provide normalized version for measure that did not inherently
+range from 0 to 1. The other major focus was the addition of 12 tokenizers, in
+service of expanding distance measure options.
 
 Changes:
 
@@ -31,6 +36,232 @@ Changes:
 - Deprecated f-measure & g-measure from ConfusionTable for removal in
   0.6.0
 - Added notes to indicate when functions, classes, & methods were added
+- Added the following 12 tokenizers:
+    - QSkipgrams
+    - CharacterTokenizer
+    - RegexpTokenizer, WhitespaceTokenizer, & WordpunctTokenizer
+    - COrVClusterTokenizer, CVClusterTokenizer, & VCClusterTokenizer
+    - SonoriPyTokenizer & LegaliPyTokenizer
+    - NLTKTokenizer
+    - SAPSTokenizer
+- Added the UnigramCorpus class & a facility for downloading data, such as
+  pre-processed/trained data, from storage on GitHub
+- Added the Wåhlin phonetic encoding
+- Added the following 211 similarity/distance/correlation measures:
+    - ALINE
+    - AMPLE
+    - Anderberg
+    - Andres & Marzo's Delta
+    - Average Linkage
+    - AZZOO
+    - Baroni-Urbani & Buser I
+    - Baroni-Urbani & Buser II
+    - Batagelj & Bren
+    - Baulieu I
+    - Baulieu II
+    - Baulieu III
+    - Baulieu IV
+    - Baulieu V
+    - Baulieu VI
+    - Baulieu VII
+    - Baulieu VIII
+    - Baulieu IX
+    - Baulieu X
+    - Baulieu XI
+    - Baulieu XII
+    - Baulieu XIII
+    - Baulieu XIV
+    - Baulieu XV
+    - Benini I
+    - Benini II
+    - Bennet
+    - Bhattacharyya
+    - BI-SIM
+    - BLEU
+    - Bloc kLevenshtein
+    - Brainerd-Robinson
+    - Braun-Blanquet
+    - Canberra
+    - Chord
+    - Clement
+    - Cohen's Kappa
+    - Cole
+    - Complete Linkage
+    - Consonni & Todeschini I
+    - Consonni & Todeschini II
+    - Consonni & Todeschini III
+    - Consonni & Todeschini IV
+    - Consonni & Todeschini V
+    - Cormode's LZ
+    - Covington
+    - Dennis
+    - Dice Asymmetric I
+    - Dice Asymmetric II
+    - Digby
+    - Dispersion
+    - Doolittle
+    - Dunning
+    - Eyraud
+    - Fager & McGowan
+    - Faith
+    - Fellegi-Sunter
+    - Fidelity
+    - Fleiss
+    - Fleiss-Levin-Paik
+    - FlexMetric
+    - Forbes I
+    - Forbes II
+    - Fossum
+    - FuzzyWuzzy Partial String
+    - FuzzyWuzzy Token Set
+    - FuzzyWuzzy Token Sort
+    - Generalized Fleiss
+    - Gilbert
+    - Gilbert & Wells
+    - Gini I
+    - Gini II
+    - Goodall
+    - Goodman & Kruskal's Lambda
+    - Goodman & Kruskal's Lambda-r
+    - Goodman & Kruskal's Tau A
+    - Goodman & Kruskal's Tau B
+    - Gower & Legendre
+    - Guttman's Lambda A
+    - Guttman's Lambda B
+    - Gwet's AC
+    - Hamann
+    - Harris & Lahey
+    - Hassanat
+    - Hawkins & Dotson
+    - Hellinger
+    - Higuera & Mico
+    - Hurlbert
+    - Iterative SubString
+    - Jaccard-NM
+    - Jensen-Shannon
+    - Johnson
+    - Kendall's Tau
+    - Kent & Foster I
+    - Kent & Foster II
+    - Koppen I
+    - Koppen II
+    - Kuder & Richardson
+    - Kuhns I
+    - Kuhns II
+    - Kuhns III
+    - Kuhns IV
+    - Kuhns V
+    - Kuhns VI
+    - Kuhns VII
+    - Kuhns VIII
+    - Kuhns IX
+    - Kuhns X
+    - Kuhns XI
+    - Kuhns XII
+    - Kulczynski I
+    - Kulczynski II
+    - Longest Common Prefix
+    - Longest Common Suffix
+    - Lorentzian
+    - Maarel
+    - Marking
+    - Marking Metric
+    - MASI
+    - Matusita
+    - Maxwell & Pilliner
+    - McConnaughey
+    - McEwen & Michael
+    - MetaLevenshtein
+    - Michelet
+    - MinHash
+    - Mountford
+    - Mean Squared Contingency
+    - Mutual Information
+    - NCD with LZSS
+    - NCD with PAQ9a
+    - Ozbay
+    - Pattern
+    - Pearson's Chi-Squared
+    - Pearson & Heron II
+    - Pearson II
+    - Pearson III
+    - Pearson's Phi
+    - Peirce
+    - Positional Q-Gram Dice
+    - Positional Q-Gram Jaccard
+    - Positional Q-Gram Overlap
+    - Q-Gram
+    - Quantitative Cosine
+    - Quantitative Dice
+    - Quantitative Jaccard
+    - Rees-Levenshtein
+    - Roberts
+    - Rogers & Tanimoto
+    - Rogot & Goldberg
+    - Rouge-L
+    - Rouge-S
+    - Rouge-SU
+    - Rouge-W
+    - Russell & Rao
+    - SAPS
+    - Scott's Pi
+    - Shape
+    - Shapira & Storer I
+    - Sift4 Extended
+    - Single Linkage
+    - Size
+    - Soft Cosine
+    - SoftTF-IDF
+    - Sokal & Michener
+    - Sokal & Sneath I
+    - Sokal & Sneath II
+    - Sokal & Sneath III
+    - Sokal & Sneath IV
+    - Sokal & Sneath V
+    - Sorgenfrei
+    - Steffensen
+    - Stiles
+    - Stuart's Tau
+    - Tarantula
+    - Tarwid
+    - Tetrachoric
+    - TF-IDF
+    - Tichy
+    - Tulloss's R
+    - Tulloss's S
+    - Tulloss's T
+    - Tulloss's U
+    - Unigram Subtuple
+    - Unknown A
+    - Unknown B
+    - Unknown C
+    - Unknown D
+    - Unknown E
+    - Unknown F
+    - Unknown G
+    - Unknown H
+    - Unknown I
+    - Unknown J
+    - Unknown K
+    - Unknown L
+    - Unknown M
+    - Upholt
+    - Warrens I
+    - Warrens II
+    - Warrens III
+    - Warrens IV
+    - Warrens V
+    - Weighted Jaccard
+    - Whittaker
+    - Yates' Chi-Squared
+    - YJHHR
+    - Yujian & Bo
+    - Yule's Q
+    - Yule's Q II
+    - Yule's Y
+- Four intersection types are now supported for all distance measure that are
+  based on _TokenDistance. In addition to basic crisp intersections, soft,
+  fuzzy, and group linkage intersections have been provided.
 
 
 0.3.6 (2018-11-17) *classy carl*
