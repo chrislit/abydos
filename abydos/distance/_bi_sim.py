@@ -33,10 +33,10 @@ from numpy import zeros as np_zeros
 
 from ._distance import _Distance
 
-__all__ = ['BISIM']
+__all__ = ['BI_SIM']
 
 
-class BISIM(_Distance):
+class BI_SIM(_Distance):
     r"""BI-SIM similarity.
 
     BI-SIM similarity :cite:`Kondrak:2003` is an n-gram based, edit-distance
@@ -46,7 +46,7 @@ class BISIM(_Distance):
     """
 
     def __init__(self, qval=2, **kwargs):
-        """Initialize BISIM instance.
+        """Initialize BI_SIM instance.
 
         Parameters
         ----------
@@ -61,7 +61,7 @@ class BISIM(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(BISIM, self).__init__(**kwargs)
+        super(BI_SIM, self).__init__(**kwargs)
         self._qval = qval
 
     def sim(self, src, tar):
@@ -81,7 +81,7 @@ class BISIM(_Distance):
 
         Examples
         --------
-        >>> cmp = BISIM()
+        >>> cmp = BI_SIM()
         >>> cmp.sim('cat', 'hat')
         0.5
         >>> cmp.sim('Niall', 'Neil')

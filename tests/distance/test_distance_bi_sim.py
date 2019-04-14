@@ -18,7 +18,7 @@
 
 """abydos.tests.distance.test_distance_bi_sim.
 
-This module contains unit tests for abydos.distance.BISIM
+This module contains unit tests for abydos.distance.BI_SIM
 """
 
 from __future__ import (
@@ -30,20 +30,20 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import BISIM
+from abydos.distance import BI_SIM
 
 
 class BISIMTestCases(unittest.TestCase):
-    """Test BISIM functions.
+    """Test BI_SIM functions.
 
-    abydos.distance.BISIM
+    abydos.distance.BI_SIM
     """
 
-    cmp = BISIM()
-    cmp3 = BISIM(qval=3)
+    cmp = BI_SIM()
+    cmp3 = BI_SIM(qval=3)
 
     def test_bi_sim_sim(self):
-        """Test abydos.distance.BISIM.sim."""
+        """Test abydos.distance.BI_SIM.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
