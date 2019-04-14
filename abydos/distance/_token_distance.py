@@ -213,10 +213,14 @@ class _TokenDistance(_Distance):
                 )
         else:
             if isinstance(self.params['tokenizer'], QGrams):
-                self.params['alphabet'] = (
-                    28 ** self.params['tokenizer'].qval
-                    if self.params['tokenizer'].qval > 1
-                    else 26
+                if isinstance(self.params['tokenizer'].qval, int):
+                    qvals = [self.params['tokenizer'].qval]
+                else:
+                    qvals = list(self.params['tokenizer'].qval)
+                self.params['alphabet'] = sum(
+                    28 ** qval
+                    if qval > 1
+                    else 26 for qval in qvals
                 )
             else:
                 self.params['alphabet'] = None
