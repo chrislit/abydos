@@ -102,12 +102,6 @@ class GilbertWells(_TokenDistance):
             The length of each q-gram. Using this parameter and tokenizer=None
             will cause the instance to use the QGram tokenizer with this
             q value.
-        metric : _Distance
-            A string distance measure class for use in the ``soft`` and
-            ``fuzzy`` variants.
-        threshold : float
-            A threshold value, similarities above which are counted as
-            members of the intersection for the ``fuzzy`` variant.
 
 
         .. versionadded:: 0.4.0
@@ -116,7 +110,6 @@ class GilbertWells(_TokenDistance):
         super(GilbertWells, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
-            intersection_type='crisp',
             **kwargs
         )
 
