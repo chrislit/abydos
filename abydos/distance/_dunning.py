@@ -28,6 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from sys import float_info
 from math import log1p
 
 from ._token_distance import _TokenDistance
@@ -161,7 +162,7 @@ class Dunning(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = self._total_complement_card()
+        d = max(self._total_complement_card(), float_info.epsilon)
         n = a + b + c + d
 
         return (
@@ -212,7 +213,7 @@ class Dunning(_TokenDistance):
         if score == 0.0:
             return 0.0
         norm = max(self.sim_score(src, src), self.sim_score(tar, tar))
-        return score / norm
+        return round(score / norm, 15)
 
 
 if __name__ == '__main__':
