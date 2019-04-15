@@ -150,9 +150,12 @@ class Digby(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return ((a * d) ** 0.75 - (b * c) ** 0.75) / (
-            (a * d) ** 0.75 + (b * c) ** 0.75
-        )
+        num = (a * d) ** 0.75 - (b * c) ** 0.75
+        if num:
+            return num / (
+                (a * d) ** 0.75 + (b * c) ** 0.75
+            )
+        return 0.0
 
     def sim(self, src, tar):
         """Return the Digby similarity of two strings.
