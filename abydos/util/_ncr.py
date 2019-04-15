@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import factorial
+from math import factorial, gamma
 
 __all__ = []
 
@@ -40,14 +40,14 @@ def _ncr(n, r):
 
     Parameters
     ----------
-    n : int
+    n : float
         The number of elements in the set/multiset
-    r : int
+    r : float
         The number of elements to choose
 
     Returns
     -------
-    int
+    float
         n Choose r
 
     Examples
@@ -64,7 +64,9 @@ def _ncr(n, r):
         return 1
     if r > n:
         return 0
-    return int(factorial(n) / (factorial(r) * factorial(n - r)))
+    if isinstance(r, int) and isinstance(n, int):
+        return int(factorial(n) / (factorial(r) * factorial(n - r)))
+    return gamma(n+1) / (gamma(r+1) * gamma(n - r+1))
 
 
 if __name__ == '__main__':
