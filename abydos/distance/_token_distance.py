@@ -48,7 +48,7 @@ from ._distance import _Distance
 from ._lcprefix import LCPrefix
 from ._levenshtein import Levenshtein
 from ..stats import ConfusionTable
-from ..tokenizer import QGrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, QSkipgrams, WhitespaceTokenizer
 
 __all__ = ['_TokenDistance']
 
@@ -187,7 +187,7 @@ class _TokenDistance(_Distance):
         if 'alphabet' in self.params:
             if isinstance(self.params['alphabet'], str):
                 self.params['alphabet'] = set(self.params['alphabet'])
-                if isinstance(self.params['tokenizer'], QGrams):
+                if isinstance(self.params['tokenizer'], (QGrams, QSkipgrams)):
                     self.params['alphabet'] |= set(
                         self.params['tokenizer'].start_stop
                     )
@@ -200,7 +200,7 @@ class _TokenDistance(_Distance):
             ):
                 self.params['alphabet'] = len(self.params['alphabet'])
             elif self.params['alphabet'] is None and isinstance(
-                self.params['tokenizer'], QGrams
+                self.params['tokenizer'], (QGrams, QSkipgrams)
             ):
                 if isinstance(self.params['tokenizer'].qval, int):
                     qvals = [self.params['tokenizer'].qval]
@@ -210,7 +210,7 @@ class _TokenDistance(_Distance):
                     28 ** qval if qval > 1 else 26 for qval in qvals
                 )
         else:
-            if isinstance(self.params['tokenizer'], QGrams):
+            if isinstance(self.params['tokenizer'], (QGrams, QSkipgrams)):
                 if isinstance(self.params['tokenizer'].qval, int):
                     qvals = [self.params['tokenizer'].qval]
                 else:
