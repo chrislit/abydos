@@ -175,7 +175,10 @@ class KoppenI(_TokenDistance):
         abac_mean = (2 * a + b + c) / 2
         dbdc_mean = (2 * d + b + c) / 2
 
-        return (abac_mean * dbdc_mean - (b + c) / 2) / (abac_mean * dbdc_mean)
+        num = abac_mean * dbdc_mean - (b + c)
+        if num:
+            return (num / 2) / (abac_mean * dbdc_mean)
+        return 0.0
 
     def sim(self, src, tar):
         """Return the Köppen I similarity of two strings.

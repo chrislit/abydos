@@ -157,9 +157,12 @@ class HarrisLahey(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        return a / (a + b + c) * (2 * d + b + c) / (2 * n) + d / (
-            d + b + c
-        ) * (2 * a + b + c) / (2 * n)
+        score = 0.0
+        if a and (d + b + c):
+            score += a / (a + b + c) * (2 * d + b + c) / (2 * n)
+        if d and (a + b + c):
+            score += d / (d + b + c) * (2 * a + b + c) / (2 * n)
+        return score
 
 
 if __name__ == '__main__':

@@ -180,6 +180,48 @@ class UnknownF(_TokenDistance):
             1.0, 1 + log(part1) - (log((a + b) / n) + log((a + c) / n)) / 2
         )
 
+    def sim(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Unknown F similarity
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        raise NotImplementedError('Method disabled for Unknown F similarity.')
+
+    def dist(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Unknown F similarity
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        raise NotImplementedError('Method disabled for Unknown F similarity.')
+
 
 if __name__ == '__main__':
     import doctest

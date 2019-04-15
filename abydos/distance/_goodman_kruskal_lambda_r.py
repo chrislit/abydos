@@ -153,7 +153,10 @@ class GoodmanKruskalLambdaR(_TokenDistance):
 
         sigma_prime = max(a + b, c + d) + max(a + c, b + d)
 
-        return (2 * (a + d) - sigma_prime) / (2 * n - sigma_prime)
+        num = (2 * (a + d) - sigma_prime)
+        if num:
+            return num / (2 * n - sigma_prime)
+        return 0.0
 
     def sim(self, src, tar):
         """Return Goodman & Kruskal Lambda-r similarity of two strings.

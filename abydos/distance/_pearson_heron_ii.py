@@ -150,7 +150,8 @@ class PearsonHeronII(_TokenDistance):
         ) ** 0.5
         root_bc = (self._src_only_card() * self._tar_only_card()) ** 0.5
 
-        return cos(pi * root_bc / (root_ad + root_bc))
+        num = pi * root_bc
+        return cos((num / (root_ad + root_bc)) if num else 0.0)
 
     def sim(self, src, tar):
         """Return the Pearson & Heron II similarity of two strings.

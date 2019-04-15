@@ -183,6 +183,8 @@ class MutualInformation(_TokenDistance):
                 for _ in [self.sim_score(src, src), self.sim_score(tar, tar)]
                 if _ != 0.0
             ]
+            if not norm:
+                norm = [1]
 
             return (1.0 + score / max(norm)) / 2.0
         return 0.0

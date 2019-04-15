@@ -167,7 +167,9 @@ class ScottPi(_TokenDistance):
             (2 * d + b + c) / (2 * n)
         ) ** 2
 
-        return (po - pe) / (1 - pe)
+        if po != pe:
+            return (po - pe) / (1 - pe)
+        return 0.0
 
     def sim(self, src, tar):
         """Return the Scott's Pi similarity of two strings.
