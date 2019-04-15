@@ -73,9 +73,7 @@ class JensenShannon(_TokenDistance):
 
         """
         super(JensenShannon, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def dist_abs(self, src, tar):
