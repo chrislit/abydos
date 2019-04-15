@@ -81,7 +81,6 @@ class GilbertWells(_TokenDistance):
         self,
         alphabet=None,
         tokenizer=None,
-        intersection_type='crisp',
         **kwargs
     ):
         """Initialize GilbertWells instance.
@@ -94,10 +93,6 @@ class GilbertWells(_TokenDistance):
             :py:class:`_TokenDistance` for details.
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
-        intersection_type : str
-            Specifies the intersection type, and set type as a result:
-            See :ref:`intersection_type <intersection_type>` description in
-            :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
 
@@ -121,7 +116,7 @@ class GilbertWells(_TokenDistance):
         super(GilbertWells, self).__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
-            intersection_type=intersection_type,
+            intersection_type='crisp',
             **kwargs
         )
 
