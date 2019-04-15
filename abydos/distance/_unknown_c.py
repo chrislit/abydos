@@ -150,6 +150,7 @@ class UnknownC(_TokenDistance):
 
         num = a + d
         if num:
+            d = max(d, 1)
             return num / ((a + b) * (a + c) * (b + d) * (c + d)) ** 0.5
         return 0.0
 

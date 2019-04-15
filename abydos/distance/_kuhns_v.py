@@ -156,6 +156,8 @@ class KuhnsV(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         n = self._population_unique_card()
+        if a == n:
+            n += 1
 
         apbmapc = (a + b) * (a + c)
         if not apbmapc:

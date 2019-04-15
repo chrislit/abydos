@@ -154,8 +154,10 @@ class KuhnsX(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = self._total_complement_card()
+        d = max(1, self._total_complement_card())
         n = self._population_unique_card()
+        if a == n:
+            n += 1
 
         apbmapc = (a + b) * (a + c)
         if not apbmapc:

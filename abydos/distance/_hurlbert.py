@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 from math import ceil, copysign, floor
+from sys import float_info
 
 from ._token_distance import _TokenDistance
 
@@ -167,8 +168,8 @@ class Hurlbert(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
+        d = max(float_info.epsilon, self._total_complement_card())
+        n = max(float_info.epsilon, self._population_unique_card())
 
         admbc = a * d - b * c
         marginals_product = (a + b) * (a + c) * (b + d) * (c + d)
@@ -187,9 +188,12 @@ class Hurlbert(_TokenDistance):
 
         min_chisq = n ** 3 * (a_hat - g_a_hat) ** 2 / marginals_product
 
-        return copysign(
-            ((obs_chisq - min_chisq) / (max_chisq - min_chisq)) ** 0.5, admbc
-        )
+        num = obs_chisq - min_chisq
+        if num:
+            return copysign(
+                (num / (max_chisq - min_chisq)) ** 0.5, admbc
+            )
+        return 0.0
 
     def sim(self, src, tar):
         """Return the Hurlbert similarity of two strings.

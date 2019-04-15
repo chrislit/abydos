@@ -144,7 +144,10 @@ class WarrensIII(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        return (2 * d - b - c) / (2 * d + b + c)
+        num = 2 * d - b - c
+        if num:
+            return num / (2 * d + b + c)
+        return 0.0
 
     def sim(self, src, tar):
         """Return the Warrens III similarity of two strings.
