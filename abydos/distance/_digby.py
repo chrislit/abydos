@@ -152,9 +152,7 @@ class Digby(_TokenDistance):
 
         num = (a * d) ** 0.75 - (b * c) ** 0.75
         if num:
-            return num / (
-                (a * d) ** 0.75 + (b * c) ** 0.75
-            )
+            return num / ((a * d) ** 0.75 + (b * c) ** 0.75)
         return 0.0
 
     def sim(self, src, tar):
