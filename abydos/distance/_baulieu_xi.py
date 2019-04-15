@@ -142,11 +142,12 @@ class BaulieuXI(_TokenDistance):
 
         self._tokenize(src, tar)
 
-        b = self._src_only_card()
-        c = self._tar_only_card()
+        bpc = self._src_only_card() + self._tar_only_card()
         d = self._total_complement_card()
 
-        return (b + c) / (b + c + d)
+        if bpc:
+            return bpc / (bpc + d)
+        return 0.0
 
 
 if __name__ == '__main__':
