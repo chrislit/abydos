@@ -190,9 +190,7 @@ class Hurlbert(_TokenDistance):
 
         num = obs_chisq - min_chisq
         if num:
-            return copysign(
-                (num / (max_chisq - min_chisq)) ** 0.5, admbc
-            )
+            return copysign((num / (max_chisq - min_chisq)) ** 0.5, admbc)
         return 0.0
 
     def sim(self, src, tar):
