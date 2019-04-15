@@ -34,7 +34,7 @@ from itertools import product
 from math import exp, log1p
 
 from numpy import copy as np_copy
-from numpy import zeros as np_ones
+from numpy import zeros as np_zeros
 
 try:
     from scipy.optimize import linear_sum_assignment
@@ -555,7 +555,7 @@ class _TokenDistance(_Distance):
             'internal_assignment_problem' in self.params
             and self.params['internal_assignment_problem']
         ):
-            arr = np_ones((len(tar_only), len(src_only)))
+            arr = np_zeros((len(tar_only), len(src_only)))
 
             for col in range(len(src_only)):
                 for row in range(len(tar_only)):
@@ -574,7 +574,7 @@ class _TokenDistance(_Distance):
                     )[tar_only[row]]
         else:
             n = max(len(tar_only), len(src_only))
-            arr = np_ones((n, n), dtype=float)
+            arr = np_zeros((n, n), dtype=float)
 
             for col in range(len(src_only)):
                 for row in range(len(tar_only)):
