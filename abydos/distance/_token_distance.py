@@ -146,7 +146,7 @@ class _TokenDistance(_Distance):
                 - If an int is supplied, it is used as the cardinality of the
                   full alphabet.
                 - If None is supplied, the cardinality of the full alphabet
-                  is inferred if QGram tokenization is used (i.e.
+                  is inferred if QGram of QSkipgrams tokenization is used (i.e.
                   :math:`28^{QGrams.qval}` is used as the cardinality of the
                   full alphabet or :math:`26` if QGrams.qval is 1, which
                   assumes the strings are English language strings and only
