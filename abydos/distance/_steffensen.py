@@ -186,8 +186,8 @@ class Steffensen(_TokenDistance):
                 pj_star = p[:, j].sum()
                 num = p[i, j] * (p[i, j] - pi_star * pj_star) ** 2
                 if num:
-                    psisq += (num
-                        / (pi_star * (1 - pi_star) * pj_star * (1 - pj_star))
+                    psisq += num / (
+                        pi_star * (1 - pi_star) * pj_star * (1 - pj_star)
                     )
 
         return psisq

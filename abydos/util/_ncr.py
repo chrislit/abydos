@@ -66,7 +66,7 @@ def _ncr(n, r):
         return 0
     if isinstance(r, int) and isinstance(n, int):
         return int(factorial(n) / (factorial(r) * factorial(n - r)))
-    return gamma(n+1) / (gamma(r+1) * gamma(n - r+1))
+    return gamma(n + 1) / (gamma(r + 1) * gamma(n - r + 1))
 
 
 if __name__ == '__main__':

@@ -77,12 +77,7 @@ class GilbertWells(_TokenDistance):
 
     """
 
-    def __init__(
-        self,
-        alphabet=None,
-        tokenizer=None,
-        **kwargs
-    ):
+    def __init__(self, alphabet=None, tokenizer=None, **kwargs):
         """Initialize GilbertWells instance.
 
         Parameters
@@ -108,9 +103,7 @@ class GilbertWells(_TokenDistance):
 
         """
         super(GilbertWells, self).__init__(
-            alphabet=alphabet,
-            tokenizer=tokenizer,
-            **kwargs
+            alphabet=alphabet, tokenizer=tokenizer, **kwargs
         )
 
     def sim_score(self, src, tar):
