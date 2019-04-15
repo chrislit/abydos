@@ -124,14 +124,18 @@ class Sift4Simplest(Sift4):
                         (src_cur + i < src_len) or (tar_cur + i < tar_len)
                     ):
                         break
-                    if (src_cur + i < src_len) and (
-                        src[src_cur + i] == tar[tar_cur]
+                    if (
+                        (src_cur + i < src_len)
+                        and (tar_cur < tar_len)
+                        and (src[src_cur + i] == tar[tar_cur])
                     ):
                         src_cur += i
                         local_cs += 1
                         break
-                    if (tar_cur + i < tar_len) and (
-                        src[src_cur] == tar[tar_cur + i]
+                    if (
+                        (tar_cur + i < tar_len)
+                        and (src_cur < src_len)
+                        and (src[src_cur] == tar[tar_cur + i])
                     ):
                         tar_cur += i
                         local_cs += 1
