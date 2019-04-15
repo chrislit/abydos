@@ -88,9 +88,7 @@ class MASI(_TokenDistance):
 
         """
         super(MASI, self).__init__(
-            tokenizer=tokenizer,
-            intersection_type=intersection_type,
-            **kwargs
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
     def sim(self, src, tar):
