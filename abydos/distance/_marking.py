@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._token_distance import _TokenDistance
+from ._distance import _Distance
 
 __all__ = ['Marking']
 
 
-class Marking(_TokenDistance):
+class Marking(_Distance):
     r"""Ehrenfeucht & Haussler's marking distance.
 
     This edit distance :cite:`Ehrenfeucht:1988` is the number of `marked`
