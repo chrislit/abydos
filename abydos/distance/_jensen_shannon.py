@@ -54,11 +54,17 @@ class JensenShannon(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize JensenShannon instance.
 
         Parameters
         ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
 
@@ -66,7 +72,11 @@ class JensenShannon(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(JensenShannon, self).__init__(**kwargs)
+        super(JensenShannon, self).__init__(
+            tokenizer=tokenizer,
+            intersection_type=intersection_type,
+            **kwargs
+        )
 
     def dist_abs(self, src, tar):
         """Return the Jensen-Shannon divergence of two strings.

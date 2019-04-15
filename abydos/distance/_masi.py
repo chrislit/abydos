@@ -56,19 +56,42 @@ class MASI(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
         """Initialize MASI instance.
 
         Parameters
         ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
         **kwargs
             Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+        metric : _Distance
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the ``fuzzy`` variant.
 
 
         .. versionadded:: 0.4.0
 
         """
-        super(MASI, self).__init__(**kwargs)
+        super(MASI, self).__init__(
+            tokenizer=tokenizer,
+            intersection_type=intersection_type,
+            **kwargs
+        )
 
     def sim(self, src, tar):
         """Return the MASI similarity of two strings.
