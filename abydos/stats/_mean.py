@@ -310,7 +310,7 @@ def lmean(nums):
             return nums[0]
         if 0 in nums:
             return 0.0
-        return (nums[1]-nums[0])/(math.log(nums[1])-math.log(nums[0]))
+        return (nums[1]-nums[0])/(math.log(nums[1]/nums[0]))
 
     else:
         if len(nums) != len(set(nums)):
@@ -557,7 +557,7 @@ def hoelder_mean(nums, exp=2):
     return ((1 / len(nums)) * sum(i ** exp for i in nums)) ** (1 / exp)
 
 
-def agmean(nums):
+def agmean(nums, prec=12):
     """Return arithmetic-geometric mean.
 
     Iterates between arithmetic & geometric means until they converge to
@@ -574,6 +574,8 @@ def agmean(nums):
     -------
     float
         The arithmetic-geometric mean of nums
+    prec : int
+        Digits of precision when testing convergeance
 
     Examples
     --------
@@ -591,12 +593,12 @@ def agmean(nums):
     m_g = gmean(nums)
     if math.isnan(m_a) or math.isnan(m_g):
         return float('nan')
-    while round(m_a, 10) != round(m_g, 10):
+    while round(m_a, prec) != round(m_g, prec):
         m_a, m_g = (m_a + m_g) / 2, (m_a * m_g) ** (1 / 2)
     return m_a
 
 
-def ghmean(nums):
+def ghmean(nums, prec=12):
     """Return geometric-harmonic mean.
 
     Iterates between geometric & harmonic means until they converge to
@@ -608,6 +610,8 @@ def ghmean(nums):
     ----------
     nums : list
         A series of numbers
+    prec : int
+        Digits of precision when testing convergeance
 
     Returns
     -------
@@ -635,12 +639,12 @@ def ghmean(nums):
     m_h = hmean(nums)
     if math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
-    while round(m_h, 10) != round(m_g, 10):
+    while round(m_h, prec) != round(m_g, prec):
         m_g, m_h = (m_g * m_h) ** (1 / 2), (2 * m_g * m_h) / (m_g + m_h)
     return m_g
 
 
-def aghmean(nums):
+def aghmean(nums, prec=12):
     """Return arithmetic-geometric-harmonic mean.
 
     Iterates over arithmetic, geometric, & harmonic means until they
@@ -651,6 +655,8 @@ def aghmean(nums):
     ----------
     nums : list
         A series of numbers
+    prec : int
+        Digits of precision when testing convergeance
 
     Returns
     -------
@@ -674,8 +680,8 @@ def aghmean(nums):
     m_h = hmean(nums)
     if math.isnan(m_a) or math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
-    while round(m_a, 10) != round(m_g, 10) and round(m_g, 10) != round(
-        m_h, 10
+    while round(m_a, prec) != round(m_g, prec) and round(m_g, prec) != round(
+        m_h, prec
     ):
         m_a, m_g, m_h = (
             (m_a + m_g + m_h) / 3,
