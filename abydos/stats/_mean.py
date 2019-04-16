@@ -292,7 +292,7 @@ def lmean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         No two values in the nums list may be equal
 
     Examples
@@ -305,16 +305,24 @@ def lmean(nums):
     .. versionadded:: 0.1.0
 
     """
-    if len(nums) != len(set(nums)):
-        raise AttributeError('No two values in the nums list may be equal')
-    rolling_sum = 0
-    for i in range(len(nums)):
-        rolling_prod = 1
-        for j in range(len(nums)):
-            if i != j:
-                rolling_prod *= math.log(nums[i] / nums[j])
-        rolling_sum += nums[i] / rolling_prod
-    return math.factorial(len(nums) - 1) * rolling_sum
+    if len(nums) == 2:
+        if nums[0] == nums[1]:
+            return nums[0]
+        if 0 in nums:
+            return 0.0
+        return (nums[1]-nums[0])/(math.log(nums[1])-math.log(nums[0]))
+
+    else:
+        if len(nums) != len(set(nums)):
+            raise ValueError('No two values in the nums list may be equal')
+        rolling_sum = 0
+        for i in range(len(nums)):
+            rolling_prod = 1
+            for j in range(len(nums)):
+                if i != j:
+                    rolling_prod *= math.log(nums[i] / nums[j])
+            rolling_sum += nums[i] / rolling_prod
+        return math.factorial(len(nums) - 1) * rolling_sum
 
 
 def imean(nums):
@@ -342,7 +350,7 @@ def imean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         imean supports no more than two values
 
     Examples
@@ -360,11 +368,12 @@ def imean(nums):
     if len(nums) == 1:
         return nums[0]
     if len(nums) > 2:
-        raise AttributeError('imean supports no more than two values')
+        raise ValueError('imean supports no more than two values')
     if nums[0] <= 0 or nums[1] <= 0:
         return float('NaN')
     elif nums[0] == nums[1]:
         return nums[0]
+    nums = sorted(nums, reverse=True)
     return (1 / math.e) * (nums[0] ** nums[0] / nums[1] ** nums[1]) ** (
         1 / (nums[0] - nums[1])
     )
@@ -393,7 +402,7 @@ def seiffert_mean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         seiffert_mean supports no more than two values
 
     Examples
@@ -413,7 +422,7 @@ def seiffert_mean(nums):
     if len(nums) == 1:
         return nums[0]
     if len(nums) > 2:
-        raise AttributeError('seiffert_mean supports no more than two values')
+        raise ValueError('seiffert_mean supports no more than two values')
     if nums[0] + nums[1] == 0 or nums[0] - nums[1] == 0:
         return float('NaN')
     return (nums[0] - nums[1]) / (
@@ -552,7 +561,7 @@ def agmean(nums):
     """Return arithmetic-geometric mean.
 
     Iterates between arithmetic & geometric means until they converge to
-    a single value (rounded to 12 digits).
+    a single value (rounded to 10 digits).
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic-geometric_mean
 
@@ -582,7 +591,7 @@ def agmean(nums):
     m_g = gmean(nums)
     if math.isnan(m_a) or math.isnan(m_g):
         return float('nan')
-    while round(m_a, 12) != round(m_g, 12):
+    while round(m_a, 10) != round(m_g, 10):
         m_a, m_g = (m_a + m_g) / 2, (m_a * m_g) ** (1 / 2)
     return m_a
 
@@ -591,7 +600,7 @@ def ghmean(nums):
     """Return geometric-harmonic mean.
 
     Iterates between geometric & harmonic means until they converge to
-    a single value (rounded to 12 digits).
+    a single value (rounded to 10 digits).
 
     Cf. https://en.wikipedia.org/wiki/Geometric-harmonic_mean
 
@@ -626,7 +635,7 @@ def ghmean(nums):
     m_h = hmean(nums)
     if math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
-    while round(m_h, 12) != round(m_g, 12):
+    while round(m_h, 10) != round(m_g, 10):
         m_g, m_h = (m_g * m_h) ** (1 / 2), (2 * m_g * m_h) / (m_g + m_h)
     return m_g
 
@@ -635,7 +644,7 @@ def aghmean(nums):
     """Return arithmetic-geometric-harmonic mean.
 
     Iterates over arithmetic, geometric, & harmonic means until they
-    converge to a single value (rounded to 12 digits), following the
+    converge to a single value (rounded to 10 digits), following the
     method described in :cite:`Raissouli:2009`.
 
     Parameters
@@ -665,8 +674,8 @@ def aghmean(nums):
     m_h = hmean(nums)
     if math.isnan(m_a) or math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
-    while round(m_a, 12) != round(m_g, 12) and round(m_g, 12) != round(
-        m_h, 12
+    while round(m_a, 10) != round(m_g, 10) and round(m_g, 10) != round(
+        m_h, 10
     ):
         m_a, m_g, m_h = (
             (m_a + m_g + m_h) / 3,
