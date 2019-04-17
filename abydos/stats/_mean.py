@@ -310,7 +310,7 @@ def lmean(nums):
             return nums[0]
         if 0 in nums:
             return 0.0
-        return (nums[1]-nums[0])/(math.log(nums[1]/nums[0]))
+        return (nums[1] - nums[0]) / (math.log(nums[1] / nums[0]))
 
     else:
         if len(nums) != len(set(nums)):
