@@ -158,7 +158,7 @@ def hmean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         hmean requires at least one value
 
     Examples
@@ -174,7 +174,7 @@ def hmean(nums):
 
     """
     if len(nums) < 1:
-        raise AttributeError('hmean requires at least one value')
+        raise ValueError('hmean requires at least one value')
     elif len(nums) == 1:
         return nums[0]
     else:
