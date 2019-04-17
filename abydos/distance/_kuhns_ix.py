@@ -155,7 +155,7 @@ class KuhnsIX(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = max(1.0, self._total_complement_card())
-        n = a+b+c+d
+        n = a + b + c + d
 
         apbmapc = (a + b) * (a + c)
         if not apbmapc:
@@ -172,14 +172,9 @@ class KuhnsIX(_TokenDistance):
                 min(
                     1.0,
                     (
-                        delta_ab*n
-                        / (
-                            (a + b)
-                            * (a + c)
-                            * (b + d)
-                            * (c + d)
-                        )
-                        ** 0.5
+                        delta_ab
+                        * n
+                        / ((a + b) * (a + c) * (b + d) * (c + d)) ** 0.5
                     ),
                 ),
             )

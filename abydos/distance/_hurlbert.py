@@ -168,7 +168,7 @@ class Hurlbert(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
         d = max(1.0, self._total_complement_card())
-        n = a+b+c+d
+        n = a + b + c + d
 
         admbc = a * d - b * c
         marginals_product = (a + b) * (a + c) * (b + d) * (c + d)
