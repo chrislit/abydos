@@ -162,7 +162,7 @@ class Dunning(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = max(self._total_complement_card(), float_info.epsilon)
+        d = max(1, self._total_complement_card())
         n = a + b + c + d
 
         return (
