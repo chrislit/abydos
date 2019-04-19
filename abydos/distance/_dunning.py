@@ -28,8 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from sys import float_info
-from math import log1p
+from math import log
 
 from ._token_distance import _TokenDistance
 
@@ -45,7 +44,7 @@ class Dunning(_TokenDistance):
         .. math::
 
             sim_{Dunning}(X, Y) = \lambda =
-            |N| \cdot log_2(|N|) + |X \cap Y| \cdot log_2(|X \cap Y|) +\\
+            |X \cap Y| \cdot log_2(|X \cap Y|) +\\
             |X \setminus Y| \cdot log_2(|X \setminus Y|) +
             |Y \setminus X| \cdot log_2(|Y \setminus X|) +\\
             |(N \setminus X) \setminus Y| \cdot
@@ -62,7 +61,7 @@ class Dunning(_TokenDistance):
         .. math::
 
             sim_{Dunning} = \lambda =
-            n \cdot log_2(n) + a \cdot log_2(a) +\\
+            a \cdot log_2(a) +\\
             b \cdot log_2(b) + c \cdot log_2(c) +
             d \cdot log_2(d) - \\
             ((a+b) \cdot log_2(a+b) + (a+c) \cdot log_2(a+c) +\\
@@ -162,19 +161,28 @@ class Dunning(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = max(1, self._total_complement_card())
+        d = self._total_complement_card()
         n = a + b + c + d
 
-        return (
-            n * log1p(n)
-            + (a * log1p(a) + b * log1p(b) + c * log1p(c) + d * log1p(d))
-            - (
-                (a + b) * log1p(a + b)
-                + (a + c) * log1p(a + c)
-                + (b + d) * log1p(b + d)
-                + (c + d) * log1p(c + d)
-            )
-        ) / log1p(2)
+        if n:
+            a /= n
+            b /= n
+            c /= n
+            d /= n
+
+        score = 0.0
+        for i in [a, b, c, d]:
+            if i > 0:
+                score += i * log(i)
+        for i in [a, d]:
+            for j in [b, c]:
+                ij = i+j
+                if ij > 0:
+                    score -= ij * log(ij)
+        score *= 2
+        score /= log(2)
+
+        return abs(round(score, 15))
 
     def sim(self, src, tar):
         """Return the normalized Dunning similarity of two strings.
@@ -209,11 +217,12 @@ class Dunning(_TokenDistance):
         """
         if src == tar:
             return 1.0
+
         score = self.sim_score(src, tar)
-        if score == 0.0:
+        if not score:
             return 0.0
         norm = max(self.sim_score(src, src), self.sim_score(tar, tar))
-        return round(score / norm, 15)
+        return score / norm
 
 
 if __name__ == '__main__':
