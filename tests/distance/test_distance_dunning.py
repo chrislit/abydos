@@ -52,15 +52,15 @@ class DunningTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertAlmostEqual(
-            self.cmp.sim('abcd', 'efgh'), 0.0010935459910939103
+            self.cmp.sim('abcd', 'efgh'), 0.0010606026735052122
         )
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3536159877)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3536159877)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3536159877)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3536159877)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.3233318396)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.3233318396)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.3233318396)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.3233318396)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4828872776
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.46141433614
         )
 
     def test_dunning_dist(self):
@@ -73,15 +73,15 @@ class DunningTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertAlmostEqual(
-            self.cmp.dist('abcd', 'efgh'), 0.9989064540089061
+            self.cmp.dist('abcd', 'efgh'), 0.9989393973264948
         )
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6463840123)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6463840123)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6463840123)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6463840123)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.6766681604)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.6766681604)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.6766681604)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.6766681604)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5171127224
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.53858566385
         )
 
     def test_dunning_sim_score(self):
@@ -93,26 +93,26 @@ class DunningTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
         self.assertAlmostEqual(
-            self.cmp.sim_score('abc', 'abc'), 22.03658785399824
+            self.cmp.sim_score('abc', 'abc'), 0.0923848802
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('abcd', 'efgh'), 0.0292119377521926
+            self.cmp.sim_score('abcd', 'efgh'), 0.0001181119
         )
 
         self.assertAlmostEqual(
-            self.cmp.sim_score('Nigel', 'Niall'), 11.0364485224
+            self.cmp.sim_score('Nigel', 'Niall'), 0.0419023599
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Niall', 'Nigel'), 11.0364485224
+            self.cmp.sim_score('Niall', 'Nigel'), 0.0419023599
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Colin', 'Coiln'), 11.0364485224
+            self.cmp.sim_score('Colin', 'Coiln'), 0.0419023599
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Coiln', 'Colin'), 11.0364485224
+            self.cmp.sim_score('Coiln', 'Colin'), 0.0419023599
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 25.0086762304
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.098245766
         )
 
         # Tests with alphabet=0 (no d factor)
@@ -123,23 +123,23 @@ class DunningTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), 0.0)
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('abcd', 'efgh'), 5.517285850726809
+            self.cmp_no_d.sim_score('abcd', 'efgh'), 2.0
         )
 
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('Nigel', 'Niall'), 1.3937830001
+            self.cmp_no_d.sim_score('Nigel', 'Niall'), 0.5032583348
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('Niall', 'Nigel'), 1.3937830001
+            self.cmp_no_d.sim_score('Niall', 'Nigel'), 0.5032583348
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('Colin', 'Coiln'), 1.3937830001
+            self.cmp_no_d.sim_score('Colin', 'Coiln'), 0.5032583348
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('Coiln', 'Colin'), 1.3937830001
+            self.cmp_no_d.sim_score('Coiln', 'Colin'), 0.5032583348
         )
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG'), 1.05211615
+            self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.240203516
         )
 
 
