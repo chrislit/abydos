@@ -114,6 +114,8 @@ class JensenShannon(_TokenDistance):
 
         def entropy(prob):
             """Return the entropy of prob."""
+            if not prob:
+                return 0.0
             return -(prob * log(prob))
 
         src_total = sum(self._src_tokens.values())
