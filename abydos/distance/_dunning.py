@@ -164,6 +164,12 @@ class Dunning(_TokenDistance):
         d = self._total_complement_card()
         n = a + b + c + d
 
+        # a should not equal n, because 0 will result
+        # As a workaround, we set d to 1 and add one to n.
+        if a == n:
+            d = 1
+            n += 1
+
         if n:
             a /= n
             b /= n
@@ -176,7 +182,7 @@ class Dunning(_TokenDistance):
                 score += i * log(i)
         for i in [a, d]:
             for j in [b, c]:
-                ij = i+j
+                ij = i + j
                 if ij > 0:
                     score -= ij * log(ij)
         score *= 2
@@ -221,6 +227,7 @@ class Dunning(_TokenDistance):
         score = self.sim_score(src, tar)
         if not score:
             return 0.0
+
         norm = max(self.sim_score(src, src), self.sim_score(tar, tar))
         return score / norm
 
