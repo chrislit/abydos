@@ -225,21 +225,21 @@ class _TokenDistance(_Distance):
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = DamerauLevenshtein()
             self._lcprefix = LCPrefix()
-            self.intersection = self._soft_intersection
+            self._intersection = self._soft_intersection
         elif intersection_type == 'fuzzy':
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = Levenshtein()
             if 'threshold' not in self.params:
                 self.params['threshold'] = 0.8
-            self.intersection = self._fuzzy_intersection
+            self._intersection = self._fuzzy_intersection
         elif intersection_type == 'linkage':
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = DamerauLevenshtein()
             if 'threshold' not in self.params:
                 self.params['threshold'] = 0.1
-            self.intersection = self._group_linkage_intersection
+            self._intersection = self._group_linkage_intersection
         else:
-            self.intersection = self._crisp_intersection
+            self._intersection = self._crisp_intersection
 
         self._src_tokens = Counter()
         self._tar_tokens = Counter()
@@ -332,7 +332,7 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
-        return self._src_tokens - self.intersection()
+        return self._src_tokens - self._intersection()
 
     def _src_only_card(self):
         """Return the cardinality of the tokens only in the source set."""
@@ -351,7 +351,7 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
-        return self._tar_tokens - self.intersection()
+        return self._tar_tokens - self._intersection()
 
     def _tar_only_card(self):
         """Return the cardinality of the tokens only in the target set."""
@@ -432,7 +432,7 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
-        return self._total() - self.intersection()
+        return self._total() - self._intersection()
 
     def _union_card(self):
         """Return the cardinality of the union."""
@@ -665,7 +665,7 @@ class _TokenDistance(_Distance):
     def _intersection_card(self):
         """Return the cardinality of the intersection."""
         return self.normalizer(
-            sum(abs(val) for val in self.intersection().values()), 1
+            sum(abs(val) for val in self._intersection().values()), 1
         )
 
     def _intersection(self):
