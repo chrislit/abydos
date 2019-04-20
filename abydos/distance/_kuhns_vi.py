@@ -154,9 +154,8 @@ class KuhnsVI(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        n = self._population_unique_card()
-        if a == n:
-            n += 1
+        d = self._total_complement_card()
+        n = a + b + c + d
 
         apbmapc = (a + b) * (a + c)
         if not apbmapc:
@@ -168,16 +167,20 @@ class KuhnsVI(_TokenDistance):
         else:
             # clamp to [-1.0, 1.0], strictly due to floating point precision
             # issues
-            return max(
-                -1.0,
-                min(
-                    1.0,
-                    delta_ab
-                    / min(
-                        (a + b) * (1 - (a + b) / n),
-                        (a + c) * (1 - (a + c) / n),
+            return round(
+                max(
+                    -1.0,
+                    min(
+                        1.0,
+                        delta_ab
+                        * n
+                        / min(
+                            max(1, a + b) * max(1, c + d),
+                            max(1, a + c) * max(1, b + d),
+                        ),
                     ),
                 ),
+                15,
             )
 
     def sim(self, src, tar):

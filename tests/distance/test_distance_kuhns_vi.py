@@ -51,7 +51,7 @@ class KuhnsVITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.5)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.496790757381258)
+        self.assertAlmostEqual(self.cmp.sim('abcd', 'efgh'), 0.496790757381258)
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.7480719794)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.7480719794)
@@ -68,7 +68,7 @@ class KuhnsVITestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.5)
         self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.25)
         self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.25)
@@ -87,7 +87,9 @@ class KuhnsVITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp.dist('', 'abc'), 0.5)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.503209242618742)
+        self.assertAlmostEqual(
+            self.cmp.dist('abcd', 'efgh'), 0.503209242618742
+        )
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.2519280206)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.2519280206)
@@ -104,7 +106,7 @@ class KuhnsVITestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.5)
         self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 0.75)
         self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 0.75)
@@ -123,7 +125,9 @@ class KuhnsVITestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'abc'), 0.0)
         self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.corr('abcd', 'efgh'), -0.006418485237483953)
+        self.assertAlmostEqual(
+            self.cmp.corr('abcd', 'efgh'), -0.006418485237484
+        )
 
         self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.4961439589)
         self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.4961439589)
