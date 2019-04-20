@@ -92,9 +92,7 @@ class DunningTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
-        self.assertAlmostEqual(
-            self.cmp.sim_score('abc', 'abc'), 0.0923848802
-        )
+        self.assertAlmostEqual(self.cmp.sim_score('abc', 'abc'), 0.0923848802)
         self.assertAlmostEqual(
             self.cmp.sim_score('abcd', 'efgh'), 0.0001181119
         )
@@ -121,10 +119,10 @@ class DunningTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), 0.0)
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('abcd', 'efgh'), 2.0
+            self.cmp_no_d.sim_score('abc', 'abc'), 1.44385618977
         )
+        self.assertAlmostEqual(self.cmp_no_d.sim_score('abcd', 'efgh'), 2.0)
 
         self.assertAlmostEqual(
             self.cmp_no_d.sim_score('Nigel', 'Niall'), 0.5032583348
