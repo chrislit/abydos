@@ -478,17 +478,16 @@ class _TokenDistance(_Distance):
         }
         while memberships:
             src_tok, tar_tok = max(memberships, key=memberships.get)
-            if memberships[src_tok, tar_tok] == 0.0:
-                break
-            pairings = min(src_only[src_tok], tar_only[tar_tok])
-            intersection[src_tok] += (
-                memberships[src_tok, tar_tok] * pairings / 2
-            )
-            intersection[tar_tok] += (
-                memberships[src_tok, tar_tok] * pairings / 2
-            )
-            src_only[src_tok] -= pairings
-            tar_only[tar_tok] -= pairings
+            if memberships[src_tok, tar_tok] > 0.0:
+                pairings = min(src_only[src_tok], tar_only[tar_tok])
+                intersection[src_tok] += (
+                    memberships[src_tok, tar_tok] * pairings / 2
+                )
+                intersection[tar_tok] += (
+                    memberships[src_tok, tar_tok] * pairings / 2
+                )
+                src_only[src_tok] -= pairings
+                tar_only[tar_tok] -= pairings
             del memberships[src_tok, tar_tok]
 
         return intersection
