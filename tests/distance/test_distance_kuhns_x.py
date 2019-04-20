@@ -67,15 +67,15 @@ class KuhnsXTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.5)
         self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Nigel', 'Niall'), 0.125)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Niall', 'Nigel'), 0.125)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Colin', 'Coiln'), 0.125)
+        self.assertAlmostEqual(self.cmp_no_d.sim('Coiln', 'Colin'), 0.125)
         self.assertAlmostEqual(
-            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
+            self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.18421052631
         )
 
     def test_kuhns_x_dist(self):
@@ -103,15 +103,15 @@ class KuhnsXTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.5)
         self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.5)
         self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.5)
-        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.5)
+        self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 1.0)
-        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 1.0)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Nigel', 'Niall'), 0.875)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Niall', 'Nigel'), 0.875)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Colin', 'Coiln'), 0.875)
+        self.assertAlmostEqual(self.cmp_no_d.dist('Coiln', 'Colin'), 0.875)
         self.assertAlmostEqual(
-            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 1.0
+            self.cmp_no_d.dist('ATCAACGAGT', 'AACGATTAG'), 0.81578947368
         )
 
     def test_kuhns_x_corr(self):
@@ -139,15 +139,15 @@ class KuhnsXTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.0)
         self.assertEqual(self.cmp_no_d.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.corr('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_no_d.corr('abcd', 'efgh'), -1.0)
 
-        self.assertAlmostEqual(self.cmp_no_d.corr('Nigel', 'Niall'), -1.0)
-        self.assertAlmostEqual(self.cmp_no_d.corr('Niall', 'Nigel'), -1.0)
-        self.assertAlmostEqual(self.cmp_no_d.corr('Colin', 'Coiln'), -1.0)
-        self.assertAlmostEqual(self.cmp_no_d.corr('Coiln', 'Colin'), -1.0)
+        self.assertAlmostEqual(self.cmp_no_d.corr('Nigel', 'Niall'), -0.75)
+        self.assertAlmostEqual(self.cmp_no_d.corr('Niall', 'Nigel'), -0.75)
+        self.assertAlmostEqual(self.cmp_no_d.corr('Colin', 'Coiln'), -0.75)
+        self.assertAlmostEqual(self.cmp_no_d.corr('Coiln', 'Colin'), -0.75)
         self.assertAlmostEqual(
-            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -1.0
+            self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -0.6315789474
         )
 
 
