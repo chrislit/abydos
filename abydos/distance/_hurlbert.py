@@ -167,20 +167,31 @@ class Hurlbert(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = max(1.0, self._total_complement_card())
+        d = self._total_complement_card()
         n = a + b + c + d
 
         admbc = a * d - b * c
-        marginals_product = (a + b) * (a + c) * (b + d) * (c + d)
+        marginals_product = (
+            max(1.0, a + b)
+            * max(1.0, a + c)
+            * max(1.0, b + d)
+            * max(1.0, c + d)
+        )
 
         obs_chisq = admbc * admbc * n / marginals_product
 
         if a * d >= b * c:
-            max_chisq = (a + b) * (b + d) * n / ((a + c) * (c + d))
+            max_chisq = (
+                (a + b) * (b + d) * n / (max(1.0, a + c) * max(1.0, c + d))
+            )
         elif a <= d:
-            max_chisq = (a + b) * (a + c) * n / ((b + d) * (c + d))
+            max_chisq = (
+                (a + b) * (a + c) * n / (max(1.0, b + d) * max(1.0, c + d))
+            )
         else:
-            max_chisq = (b + d) * (c + d) * n / ((a + b) * (a + c))
+            max_chisq = (
+                (b + d) * (c + d) * n / (max(1.0, a + b) * max(1.0, a + c))
+            )
 
         a_hat = (a + b) * (a + c) / n
         g_a_hat = ceil(a_hat) if a * d < b * c else floor(a_hat)
