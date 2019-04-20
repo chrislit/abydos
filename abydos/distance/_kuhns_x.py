@@ -169,7 +169,9 @@ class KuhnsX(_TokenDistance):
         else:
             # clamp to [-1.0, 1.0], strictly due to floating point precision
             # issues
-            return max(-1.0, min(1.0, (n * delta_ab) / (a * d + b * c)))
+            return round(
+                max(-1.0, min(1.0, (n * delta_ab) / (a * d + b * c))), 15
+            )
 
     def sim(self, src, tar):
         """Return the Kuhns X similarity of two strings.

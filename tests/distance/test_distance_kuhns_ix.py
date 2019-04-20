@@ -123,7 +123,9 @@ class KuhnsIXTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'abc'), 0.0)
         self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
-        self.assertAlmostEqual(self.cmp.corr('abcd', 'efgh'), -0.006418485237483954)
+        self.assertAlmostEqual(
+            self.cmp.corr('abcd', 'efgh'), -0.006418485237483954
+        )
 
         self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.4961439589)
         self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.4961439589)
