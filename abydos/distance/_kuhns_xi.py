@@ -149,15 +149,16 @@ class KuhnsXI(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = max(1, self._total_complement_card())
+        d = self._total_complement_card()
         n = self._population_unique_card()
-        if a == n:
-            n += 1
 
         apbmapc = (a + b) * (a + c)
         if not apbmapc:
@@ -173,7 +174,8 @@ class KuhnsXI(_TokenDistance):
                 -1.0,
                 min(
                     1.0,
-                    (n * delta_ab) / ((a * d) ** 0.5 + (b * c) ** 0.5) ** 2,
+                    (n * delta_ab)
+                    / max(1.0, ((a * d) ** 0.5 + (b * c) ** 0.5) ** 2),
                 ),
             )
 
