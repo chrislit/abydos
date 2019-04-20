@@ -154,7 +154,7 @@ class KuhnsIX(_TokenDistance):
         a = self._intersection_card()
         b = self._src_only_card()
         c = self._tar_only_card()
-        d = max(1.0, self._total_complement_card())
+        d = self._total_complement_card()
         n = a + b + c + d
 
         apbmapc = (a + b) * (a + c)
@@ -165,18 +165,13 @@ class KuhnsIX(_TokenDistance):
         if not delta_ab:
             return 0.0
         else:
+            marginals_product = (
+                max(1, a + b) * max(1, a + c) * max(1, b + d) * max(1, c + d)
+            )
             # clamp to [-1.0, 1.0], strictly due to floating point precision
             # issues
             return max(
-                -1.0,
-                min(
-                    1.0,
-                    (
-                        delta_ab
-                        * n
-                        / ((a + b) * (a + c) * (b + d) * (c + d)) ** 0.5
-                    ),
-                ),
+                -1.0, min(1.0, (delta_ab * n / (marginals_product ** 0.5)))
             )
 
     def sim(self, src, tar):
