@@ -172,12 +172,11 @@ class KoppenI(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        abac_mean = (2 * a + b + c) / 2
-        dbdc_mean = (2 * d + b + c) / 2
+        abac_dbdc_mean_prod = (2 * a + b + c) * (2 * d + b + c) / 4
 
-        num = abac_mean * dbdc_mean - (b + c)
+        num = abac_dbdc_mean_prod - (b + c) / 2
         if num:
-            return (num / 2) / (abac_mean * dbdc_mean)
+            return num / abac_dbdc_mean_prod
         return 0.0
 
     def sim(self, src, tar):
