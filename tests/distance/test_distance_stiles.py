@@ -63,12 +63,16 @@ class StilesTestCases(unittest.TestCase):
 
         # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.sim('', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.sim('a', ''), 0.9571673285275507)
-        self.assertEqual(self.cmp_no_d.sim('', 'a'), 0.9571673284946458)
-        self.assertEqual(self.cmp_no_d.sim('abc', ''), 0.936545532943466)
-        self.assertEqual(self.cmp_no_d.sim('', 'abc'), 0.9365455330049266)
+        self.assertAlmostEqual(self.cmp_no_d.sim('a', ''), 0.9511587063686434)
+        self.assertAlmostEqual(self.cmp_no_d.sim('', 'a'), 0.9511587063686434)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('abc', ''), 0.9309340273884292
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('', 'abc'), 0.9309340273884292
+        )
         self.assertEqual(self.cmp_no_d.sim('abc', 'abc'), 1.0)
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.cmp_no_d.sim('abcd', 'efgh'), 0.47481536969259386
         )
 
@@ -109,12 +113,20 @@ class StilesTestCases(unittest.TestCase):
 
         # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.dist('', ''), 0.0)
-        self.assertEqual(self.cmp_no_d.dist('a', ''), 0.04283267147244929)
-        self.assertEqual(self.cmp_no_d.dist('', 'a'), 0.04283267150535419)
-        self.assertEqual(self.cmp_no_d.dist('abc', ''), 0.06345446705653401)
-        self.assertEqual(self.cmp_no_d.dist('', 'abc'), 0.0634544669950734)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('a', ''), 0.048841293631356586
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('', 'a'), 0.048841293631356586
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('abc', ''), 0.06906597261157077
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('', 'abc'), 0.06906597261157077
+        )
         self.assertEqual(self.cmp_no_d.dist('abc', 'abc'), 0.0)
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.cmp_no_d.dist('abcd', 'efgh'), 0.5251846303074061
         )
 
@@ -137,13 +149,19 @@ class StilesTestCases(unittest.TestCase):
     def test_stiles_sim_score(self):
         """Test abydos.distance.Stiles.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_score('', ''), 16.292255897915638)
-        self.assertEqual(self.cmp.sim_score('a', ''), 8.992335212208333)
-        self.assertEqual(self.cmp.sim_score('', 'a'), 8.992335212208333)
-        self.assertEqual(self.cmp.sim_score('abc', ''), 8.692417367356594)
-        self.assertEqual(self.cmp.sim_score('', 'abc'), 8.692417367356594)
-        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 17.98245215160657)
-        self.assertEqual(
+        self.assertAlmostEqual(self.cmp.sim_score('', ''), 16.292255897915638)
+        self.assertAlmostEqual(self.cmp.sim_score('a', ''), 8.992335212208333)
+        self.assertAlmostEqual(self.cmp.sim_score('', 'a'), 8.992335212208333)
+        self.assertAlmostEqual(
+            self.cmp.sim_score('abc', ''), 8.692417367356594
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('', 'abc'), 8.692417367356594
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('abc', 'abc'), 17.98245215160657
+        )
+        self.assertAlmostEqual(
             self.cmp.sim_score('abcd', 'efgh'), -0.8426334527850912
         )
 
@@ -164,19 +182,25 @@ class StilesTestCases(unittest.TestCase):
         )
 
         # Tests with alphabet=0 (no d factor)
-        self.assertEqual(self.cmp_no_d.sim_score('', ''), 7.227243665691193)
-        self.assertEqual(self.cmp_no_d.sim_score('a', ''), 13.397940117956392)
-        self.assertEqual(self.cmp_no_d.sim_score('', 'a'), 13.397940116992064)
-        self.assertEqual(
-            self.cmp_no_d.sim_score('abc', ''), 13.698970057404921
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim_score('', ''), 7.2498773429282455
         )
-        self.assertEqual(
-            self.cmp_no_d.sim_score('', 'abc'), 13.698970059333575
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim_score('a', ''), 13.22184890168726
         )
-        self.assertEqual(
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim_score('', 'a'), 13.22184890168726
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim_score('abc', ''), 13.522878821349728
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim_score('', 'abc'), 13.522878821349728
+        )
+        self.assertAlmostEqual(
             self.cmp_no_d.sim_score('abc', 'abc'), 15.69019612345796
         )
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.cmp_no_d.sim_score('abcd', 'efgh'), -0.8061799153541304
         )
 
@@ -200,12 +224,14 @@ class StilesTestCases(unittest.TestCase):
         """Test abydos.distance.Stiles.corr."""
         # Base cases
         self.assertEqual(self.cmp.corr('', ''), 1.0)
-        self.assertEqual(self.cmp.corr('a', ''), 0.5214006292329901)
-        self.assertEqual(self.cmp.corr('', 'a'), 0.5214006292329901)
-        self.assertEqual(self.cmp.corr('abc', ''), 0.48338331691765435)
-        self.assertEqual(self.cmp.corr('', 'abc'), 0.48338331691765435)
+        self.assertAlmostEqual(self.cmp.corr('a', ''), 0.5214006292329901)
+        self.assertAlmostEqual(self.cmp.corr('', 'a'), 0.5214006292329901)
+        self.assertAlmostEqual(self.cmp.corr('abc', ''), 0.48338331691765435)
+        self.assertAlmostEqual(self.cmp.corr('', 'abc'), 0.48338331691765435)
         self.assertEqual(self.cmp.corr('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.corr('abcd', 'efgh'), -0.046296656196428934)
+        self.assertAlmostEqual(
+            self.cmp.corr('abcd', 'efgh'), -0.046296656196428934
+        )
 
         self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.1488587676)
         self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.1488587676)
@@ -217,12 +243,16 @@ class StilesTestCases(unittest.TestCase):
 
         # Tests with alphabet=0 (no d factor)
         self.assertEqual(self.cmp_no_d.corr('', ''), 1.0)
-        self.assertEqual(self.cmp_no_d.corr('a', ''), 0.9143346570551014)
-        self.assertEqual(self.cmp_no_d.corr('', 'a'), 0.9143346569892915)
-        self.assertEqual(self.cmp_no_d.corr('abc', ''), 0.8730910658869321)
-        self.assertEqual(self.cmp_no_d.corr('', 'abc'), 0.8730910660098531)
+        self.assertAlmostEqual(self.cmp_no_d.corr('a', ''), 0.9023174127372868)
+        self.assertAlmostEqual(self.cmp_no_d.corr('', 'a'), 0.9023174127372868)
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('abc', ''), 0.8618680547768583
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.corr('', 'abc'), 0.8618680547768583
+        )
         self.assertEqual(self.cmp_no_d.corr('abc', 'abc'), 1.0)
-        self.assertEqual(
+        self.assertAlmostEqual(
             self.cmp_no_d.corr('abcd', 'efgh'), -0.05036926061481227
         )
 
