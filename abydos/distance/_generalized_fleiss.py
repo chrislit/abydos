@@ -49,13 +49,25 @@ from ..stats._mean import (
 __all__ = ['GeneralizedFleiss']
 
 
+def _agmean_prec6(l):
+    return agmean(l, prec=6)
+
+
+def _ghmean_prec6(l):
+    return ghmean(l, prec=6)
+
+
+def _aghmean_prec6(l):
+    return aghmean(l, prec=6)
+
+
 means = {
     'arithmetic': amean,
     'geometric': gmean,
     'harmonic': hmean,
-    'ag': lambda l: agmean(l, prec=6),
-    'gh': lambda l: ghmean(l, prec=6),
-    'agh': lambda l: aghmean(l, prec=6),
+    'ag': _agmean_prec6,
+    'gh': _ghmean_prec6,
+    'agh': _aghmean_prec6,
     'contraharmonic': cmean,
     'identric': imean,
     'logarithmic': lmean,

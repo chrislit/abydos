@@ -1577,7 +1577,10 @@ class ALINE(_Distance):
                     out.append(('‖', '‖'))
                     _retrieve(i, j, 0, out)
 
-        return sorted(alignments, key=lambda _: _[0], reverse=True)
+        def _first_element(x):
+            return x[0]
+
+        return sorted(alignments, key=_first_element, reverse=True)
 
     def sim_score(self, src, tar):
         """Return the ALINE alignment score of two strings.

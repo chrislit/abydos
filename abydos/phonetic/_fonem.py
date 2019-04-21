@@ -54,6 +54,9 @@ class FONEM(_Phonetic):
 
     .. versionadded:: 0.3.6
     """
+    @staticmethod
+    def _get_parts(m):
+        return (m.group(1) or '') + (m.group(2) or '')
 
     # I don't see a sane way of doing this without regexps :(
     _rule_table = {
@@ -128,7 +131,7 @@ class FONEM(_Phonetic):
                 '(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKL'
                 + 'MNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'
             ),
-            lambda m: (m.group(1) or '') + (m.group(2) or ''),
+            _get_parts,
         ),
         'C-30,32': (re_compile('^(SA?INT?|SEI[NM]|CINQ?|ST)(?!E)-?'), 'ST-'),
         'C-31,33': (re_compile('^(SAINTE|STE)-?'), 'STE-'),

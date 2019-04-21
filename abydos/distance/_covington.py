@@ -268,7 +268,10 @@ class Covington(_Distance):
         _add_alignments(0, src[1:], tar, src[0], '-')
         _add_alignments(0, src[1:], tar[1:], src[0], tar[0])
 
-        terminals = sorted(terminals, key=lambda al: al.score)
+        def _score(al):
+            return al.score
+
+        terminals = sorted(terminals, key=_score)
 
         if top_n == 0:
             top_score = terminals[0].score
