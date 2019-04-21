@@ -147,7 +147,7 @@ class Stiles(_TokenDistance):
         a = max(self._intersection_card(), 0.0000001)
         b = max(self._src_only_card(), 0.0000001)
         c = max(self._tar_only_card(), 0.0000001)
-        n = self._total_complement_card() + a + b + c
+        n = max(self._total_complement_card(), 0.0000001) + a + b + c
 
         anmbc = a * n - b * c
 
