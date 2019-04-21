@@ -108,8 +108,7 @@ class NCDzlib(_Distance):
 
         return (
             min(len(concat_comp), len(concat_comp2))
-            - 2
-            - (min(len(src_comp), len(tar_comp) - 2))
+            - (min(len(src_comp), len(tar_comp)))
         ) / (max(len(src_comp), len(tar_comp)) - 2)
 
 
