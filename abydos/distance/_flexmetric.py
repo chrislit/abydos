@@ -85,6 +85,10 @@ class FlexMetric(_Distance):
             ]
         else:
             self._indel_costs = indel_costs
+
+        def _get_second(s):
+            return s[1]
+
         if subst_costs is None:
             self._subst_costs = [
                 (frozenset('szß'), 0.1),
@@ -106,7 +110,7 @@ class FlexMetric(_Distance):
                 (frozenset('aeiouy'), 0.9),
             ]
         else:
-            self._subst_costs = sorted(subst_costs, key=lambda s: s[1])
+            self._subst_costs = sorted(subst_costs, key=_get_second)
 
     def _cost(self, src, s_pos, tar, t_pos):
         if s_pos == -1:

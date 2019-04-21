@@ -43,6 +43,13 @@ class RougeW(_Distance):
 
     .. versionadded:: 0.4.0
     """
+    @staticmethod
+    def _square(n):
+        return n ** 2
+
+    @staticmethod
+    def _sqrt(n):
+        return n ** 0.5
 
     def __init__(self, f_func=None, f_inv=None, **kwargs):
         """Initialize RougeW instance.
@@ -66,9 +73,9 @@ class RougeW(_Distance):
         self._f_inv = f_inv
 
         if f_func is None:
-            self._f_func = lambda x: x ** 2
+            self._f_func = self._square
         if f_inv is None:
-            self._f_inv = lambda x: x ** 0.5
+            self._f_inv = self._sqrt
 
     def wlcs(self, src, tar):
         """Return the Rouge-W weighted longest common sub-sequence length.
