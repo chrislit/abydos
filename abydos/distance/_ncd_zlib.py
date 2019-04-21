@@ -60,7 +60,7 @@ class NCDzlib(_Distance):
         .. versionadded:: 0.3.6
 
         """
-        self._compressor = zlib.compressobj(level)
+        self._level = level
 
     def dist(self, src, tar):
         """Return the NCD between two strings using zlib compression.
@@ -101,19 +101,16 @@ class NCDzlib(_Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        self._compressor.compress(src)
-        src_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
-        self._compressor.compress(tar)
-        tar_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
-        self._compressor.compress(src + tar)
-        concat_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
-        self._compressor.compress(tar + src)
-        concat_comp2 = self._compressor.flush(zlib.Z_FULL_FLUSH)
+        src_comp = zlib.compress(src, self._level)
+        tar_comp = zlib.compress(tar, self._level)
+        concat_comp = zlib.compress(src + tar, self._level)
+        concat_comp2 = zlib.compress(tar + src, self._level)
 
         return (
             min(len(concat_comp), len(concat_comp2))
-            - min(len(src_comp), len(tar_comp))
-        ) / max(len(src_comp), len(tar_comp))
+            - 2
+            - (min(len(src_comp), len(tar_comp) - 2))
+        ) / (max(len(src_comp), len(tar_comp)) - 2)
 
 
 @deprecated(
