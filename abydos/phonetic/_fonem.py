@@ -54,6 +54,7 @@ class FONEM(_Phonetic):
 
     .. versionadded:: 0.3.6
     """
+
     @staticmethod
     def _get_parts(m):
         return (m.group(1) or '') + (m.group(2) or '')

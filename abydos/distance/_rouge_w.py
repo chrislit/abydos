@@ -43,6 +43,7 @@ class RougeW(_Distance):
 
     .. versionadded:: 0.4.0
     """
+
     @staticmethod
     def _square(n):
         return n ** 2
