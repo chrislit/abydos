@@ -246,7 +246,40 @@ class _TokenDistance(_Distance):
         self._population_card_value = 0
 
         # initialize normalizer
-        self.normalizer = lambda x, n: x
+        self.normalizer = self._norm_none
+
+    def _norm_none(self, x, *args):
+        return x
+
+    def _norm_proportional(self, x, *args):
+        return x / max(
+            1, self._population_card_value
+        )
+
+    def _norm_log(self, x, *args):
+        return log1p(x)
+
+    def _norm_exp(self, x, *args):
+        return exp(x)
+
+    def _norm_laplace(self, x, n):
+        return x+n
+
+    def _norm_inverse(self, x, *args):
+        return 1 / x if x else self._population_card_value
+
+    def _norm_complement(self, x, *args):
+        return self._population_card_value - x
+
+    _norm_dict = {
+        'proportional': _norm_proportional,
+        'log': _norm_log,
+        'exp': _norm_exp,
+        'laplace': _norm_laplace,
+        'inverse': _norm_inverse,
+        'complement': _norm_complement,
+    }
+
 
     def _tokenize(self, src, tar):
         """Return the Q-Grams in src & tar.
@@ -297,23 +330,8 @@ class _TokenDistance(_Distance):
         # Set up the normalizer, a function of two variables:
         # x is the value in the contingency table square(s)
         # n is the number of squares that x represents
-        if 'normalizer' in self.params:
-            if self.params['normalizer'] == 'proportional':
-                self.normalizer = lambda x, n: x / max(
-                    1, self._population_card_value
-                )
-            elif self.params['normalizer'] == 'log':
-                self.normalizer = lambda x, n: log1p(x)
-            elif self.params['normalizer'] == 'exp':
-                self.normalizer = lambda x, n: exp(x)
-            elif self.params['normalizer'] == 'laplace':
-                self.normalizer = lambda x, n: x + n
-            elif self.params['normalizer'] == 'inverse':
-                self.normalizer = (
-                    lambda x, n: 1 / x if x else self._population_card_value
-                )
-            elif self.params['normalizer'] == 'complement':
-                self.normalizer = lambda x, n: self._population_card_value - x
+        if 'normalizer' in self.params and self.params['normalizer'] in self._norm_dict:
+            self.normalizer = self._norm_dict[self.params['normalizer']]
 
         return self
 
@@ -412,7 +430,7 @@ class _TokenDistance(_Distance):
     def _calc_population_card(self):
         """Return the cardinality of the population."""
         save_normalizer = self.normalizer
-        self.normalizer = lambda x, n: x
+        self.normalizer = self._norm_none
         pop = self._total_card() + self._total_complement_card()
         self.normalizer = save_normalizer
         return pop
