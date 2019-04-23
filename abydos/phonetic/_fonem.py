@@ -41,6 +41,10 @@ from .. import __version__
 __all__ = ['FONEM', 'fonem']
 
 
+def _get_parts(m):
+    return (m.group(1) or '') + (m.group(2) or '')
+
+
 class FONEM(_Phonetic):
     """FONEM.
 
@@ -54,10 +58,6 @@ class FONEM(_Phonetic):
 
     .. versionadded:: 0.3.6
     """
-
-    @staticmethod
-    def _get_parts(m):
-        return (m.group(1) or '') + (m.group(2) or '')
 
     # I don't see a sane way of doing this without regexps :(
     _rule_table = {
