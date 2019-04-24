@@ -41,6 +41,7 @@ class WarrensIIITestCases(unittest.TestCase):
 
     cmp = WarrensIII()
     cmp_no_d = WarrensIII(alphabet=0)
+    cmp_2_1 = WarrensIII(alphabet=2, qval=1)
 
     def test_warrens_iii_sim(self):
         """Test abydos.distance.WarrensIII.sim."""
@@ -77,6 +78,8 @@ class WarrensIIITestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
+
+        self.assertEqual(self.cmp_2_1.sim('CG', 'GC'), 0.5)
 
     def test_warrens_iii_dist(self):
         """Test abydos.distance.WarrensIII.dist."""

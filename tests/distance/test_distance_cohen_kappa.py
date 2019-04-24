@@ -61,6 +61,8 @@ class CohenKappaTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9954751131
         )
 
+        self.assertEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
+
     def test_cohen_kappa_dist(self):
         """Test abydos.distance.CohenKappa.dist."""
         # Base cases
@@ -79,6 +81,8 @@ class CohenKappaTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0045248869
         )
+
+        self.assertEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
 
 if __name__ == '__main__':
