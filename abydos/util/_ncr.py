@@ -60,11 +60,11 @@ def _ncr(n, r):
     .. versionadded:: 0.4.0
 
     """
-    if not r:
-        return 1
-    if r > n:
-        return 0
     if isinstance(r, int) and isinstance(n, int):
+        if not r:
+            return 1
+        if r > n:
+            return 0
         return int(factorial(n) / (factorial(r) * factorial(n - r)))
     return gamma(n + 1) / (gamma(r + 1) * gamma(n - r + 1))
 
