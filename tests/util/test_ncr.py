@@ -55,6 +55,12 @@ class ProdTestCases(unittest.TestCase):
         self.assertEqual(_ncr(100, 3), 161700)
         self.assertEqual(_ncr(80, 5), 24040016)
 
+        # gamma variant
+        self.assertAlmostEqual(_ncr(10, 2.5), 77.8023559942)
+        self.assertAlmostEqual(_ncr(0, 2.5), 0.12732395447)
+        self.assertAlmostEqual(_ncr(2.5, 2.5), 1)
+        self.assertAlmostEqual(_ncr(2.5, 2.1), 1.7043970865)
+
 
 if __name__ == '__main__':
     unittest.main()
