@@ -65,6 +65,11 @@ class RougeW(_Distance):
         self._f_func = f_func
         self._f_inv = f_inv
 
+        if self._f_func is None:
+            self._f_func = RougeW._square
+        if self._f_inv is None:
+            self._f_inv = RougeW._sqrt
+
     @staticmethod
     def _square(n):
         return n * n
@@ -107,7 +112,7 @@ class RougeW(_Distance):
         tar_len = len(tar)
 
         if src == tar:
-            return (self._f_func if self._f_func else RougeW._square)(len(src))
+            return self._f_func(len(src))
         if not src:
             return 0
         if not tar:
@@ -122,10 +127,8 @@ class RougeW(_Distance):
                     k = w_mat[i - 1, j - 1]
                     c_mat[i, j] = (
                         c_mat[i - 1, j - 1]
-                        + (self._f_func if self._f_func else RougeW._square)(
-                            k + 1
-                        )
-                        - (self._f_func if self._f_func else RougeW._square)(k)
+                        + self._f_func(k + 1)
+                        - self._f_func(k)
                     )
                     w_mat[i, j] = k + 1
                 else:
@@ -177,12 +180,8 @@ class RougeW(_Distance):
             return 0.0
 
         wlcs = self.wlcs(src, tar)
-        r_wlcs = (self._f_inv if self._f_inv else RougeW._sqrt)(
-            wlcs / (self._f_func if self._f_func else RougeW._square)(len(src))
-        )
-        p_wlcs = (self._f_inv if self._f_inv else RougeW._sqrt)(
-            wlcs / (self._f_func if self._f_func else RougeW._square)(len(tar))
-        )
+        r_wlcs = self._f_inv(wlcs / self._f_func(len(src)))
+        p_wlcs = self._f_inv(wlcs / self._f_func(len(tar)))
         beta_sq = beta * beta
 
         if r_wlcs and p_wlcs:
