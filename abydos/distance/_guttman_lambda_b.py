@@ -138,11 +138,10 @@ class GuttmanLambdaB(_TokenDistance):
         """
         if src == tar:
             return 1.0
+        if not src or not tar:
+            return 0.0
 
         self._tokenize(src, tar)
-
-        if not self._src_card() or not self._tar_card():
-            return 0.0
 
         a = self._intersection_card()
         b = self._src_only_card()
@@ -150,9 +149,9 @@ class GuttmanLambdaB(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        num = float(max(a, b) + max(c, d) - max(a + c, b + d))
+        num = round(float(max(a, b) + max(c, d) - max(a + c, b + d)), 15)
         if num:
-            return num / (n - max(a + c, b + d))
+            return num / float(n - max(a + c, b + d))
         return 0.0
 
 
