@@ -111,6 +111,8 @@ class Stiles(_TokenDistance):
             **kwargs
         )
 
+
+
     def sim_score(self, src, tar):
         """Return the Stiles similarity of two strings.
 
@@ -144,17 +146,18 @@ class Stiles(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = max(self._intersection_card(), 0.0000001)
-        b = max(self._src_only_card(), 0.0000001)
-        c = max(self._tar_only_card(), 0.0000001)
-        n = max(self._total_complement_card(), 0.0000001) + a + b + c
+        eps = 0.0000001
+        a = max(self._intersection_card(), eps)
+        b = max(self._src_only_card(), eps)
+        c = max(self._tar_only_card(), eps)
+        n = max(self._total_complement_card(), eps) + a + b + c
 
         anmbc = a * n - b * c
 
         return copysign(
             log10(
                 n
-                * max((abs(anmbc) - n / 2) ** 2, 0.0000001)
+                * max((abs(anmbc) - n / 2) ** 2, eps)
                 / (b * (n - b) * c * (n - c))
             ),
             anmbc,

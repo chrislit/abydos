@@ -183,7 +183,7 @@ class StilesTestCases(unittest.TestCase):
 
         # Tests with alphabet=0 (no d factor)
         self.assertAlmostEqual(
-            self.cmp_no_d.sim_score('', ''), 7.2498773429282455
+            self.cmp_no_d.sim_score('', ''), 13.647817481888637
         )
         self.assertAlmostEqual(
             self.cmp_no_d.sim_score('a', ''), 13.22184890168726
