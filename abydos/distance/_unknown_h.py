@@ -138,10 +138,10 @@ class UnknownH(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        if not src or not tar:
-            return 0.0
-
         self._tokenize(src, tar)
+
+        if not self._src_card() or not self._tar_card():
+            return 0.0
 
         a = self._intersection_card()
         apb = self._src_card()

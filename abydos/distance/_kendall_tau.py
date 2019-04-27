@@ -150,7 +150,7 @@ class KendallTau(_TokenDistance):
 
         num = a + d - b - c
         if num:
-            return 2 * num / (n * (n - 1))
+            return 2 * num / (n * max(n - 1, 1))
         return 0.0
 
     def sim(self, src, tar):

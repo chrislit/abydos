@@ -140,10 +140,11 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         """
         if src == tar:
             return 1.0
-        if not src or not tar:
-            return -1.0
 
         self._tokenize(src, tar)
+
+        if not self._src_card() or not self._tar_card():
+            return -1.0
 
         a = self._intersection_card()
         b = self._src_only_card()
@@ -154,6 +155,7 @@ class GoodmanKruskalLambdaR(_TokenDistance):
         sigma_prime = max(a + b, c + d) + max(a + c, b + d)
 
         num = 2 * (a + d) - sigma_prime
+
         if num:
             return num / (2 * n - sigma_prime)
         return 0.0

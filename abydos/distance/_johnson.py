@@ -123,10 +123,11 @@ class Johnson(_TokenDistance):
         """
         if src == tar:
             return 2.0
-        if not src or not tar:
-            return 0.0
 
         self._tokenize(src, tar)
+
+        if not self._src_card() or not self._tar_card():
+            return 0.0
 
         a = self._intersection_card()
         ab = self._src_card()

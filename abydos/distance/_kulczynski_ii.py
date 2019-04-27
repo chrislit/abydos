@@ -124,14 +124,15 @@ class KulczynskiII(_TokenDistance):
         """
         if src == tar:
             return 1.0
-        if not src or not tar:
-            return 0.0
 
         self._tokenize(src, tar)
 
         a = self._intersection_card()
         apb = self._src_card()
         apc = self._tar_card()
+
+        if not apb or not apc:
+            return 0.0
 
         return 0.5 * (a / apb + a / apc)
 

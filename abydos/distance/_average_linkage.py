@@ -111,11 +111,12 @@ class AverageLinkage(_TokenDistance):
         """
         if not src and not tar:
             return 0.0
-        if not src or not tar:
-            return 1.0
 
         src = self.params['tokenizer'].tokenize(src).get_list()
         tar = self.params['tokenizer'].tokenize(tar).get_list()
+
+        if not src or not tar:
+            return 1.0
 
         num = 0.0
         den = len(src) * len(tar)

@@ -134,9 +134,11 @@ class Cosine(_TokenDistance):
 
         self._tokenize(src, tar)
 
-        return self._intersection_card() / sqrt(
-            self._src_card() * self._tar_card()
-        )
+        num = self._intersection_card()
+
+        if num:
+            return num / sqrt(self._src_card() * self._tar_card())
+        return 0.0
 
 
 @deprecated(

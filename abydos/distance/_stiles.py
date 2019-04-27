@@ -152,7 +152,11 @@ class Stiles(_TokenDistance):
         anmbc = a * n - b * c
 
         return copysign(
-            log10(n * (abs(anmbc) - n / 2) ** 2 / (b * (n - b) * c * (n - c))),
+            log10(
+                n
+                * max((abs(anmbc) - n / 2) ** 2, 0.0000001)
+                / (b * (n - b) * c * (n - c))
+            ),
             anmbc,
         )
 

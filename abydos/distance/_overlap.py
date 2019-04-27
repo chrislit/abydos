@@ -128,10 +128,11 @@ class Overlap(_TokenDistance):
         """
         if src == tar:
             return 1.0
-        elif not src or not tar:
-            return 0.0
 
         self._tokenize(src, tar)
+
+        if not self._src_card() or not self._tar_card():
+            return 0.0
 
         return self._intersection_card() / min(
             self._src_card(), self._tar_card()
