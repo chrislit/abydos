@@ -111,8 +111,6 @@ class Stiles(_TokenDistance):
             **kwargs
         )
 
-
-
     def sim_score(self, src, tar):
         """Return the Stiles similarity of two strings.
 
