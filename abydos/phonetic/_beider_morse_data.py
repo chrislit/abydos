@@ -891,7 +891,7 @@ _GEN_LANGUAGE_RULES = (
     # 1. following are rules to accept the language
     # 1.1 Special letter combinations
     ('^o’', 32, True),
-    ('^o\'', 32, True),
+    ("^o'", 32, True),
     ('^mc', 32, True),
     ('^fitz', 32, True),
     ('ceau', 65600, True),
@@ -1062,7 +1062,7 @@ _GEN_LANGUAGE_RULES = (
     ('ث', 2, True),  # tha'
     ('ج', 2, True),  # jim
     ('ح', 2, True),  # h.a'
-    ('خ\'', 2, True),  # kha'
+    ("خ\'", 2, True),  # kha'
     ('د', 2, True),  # dal (isol + init)
     ('ذ', 2, True),  # dhal (isol + init)
     ('ر', 2, True),  # ra' (isol + init)
@@ -1489,7 +1489,7 @@ _GEN_RULES_ANY = (
     ('ź', '', '', '(Z[16384]|z)'),
     ('ž', '', '', 'Z'),  # czech + latvian
     ('ß', '', '', 's'),  # german
-    ('\'', '', '', ''),  # russian
+    ("'", '', '', ''),  # russian
     ('"', '', '', ''),  # russian
     ('o', '', '[bcćdgklłmnńrsśtwzźż]', '(O|P[16384])'),
     # LATIN ALPHABET
@@ -1794,7 +1794,7 @@ _GEN_RULES_DUTCH = (
 _GEN_RULES_ENGLISH = (
     # CONSONANTS
     ('’', '', '', ''),  # O’Neill
-    ('\'', '', '', ''),  # O’Neill
+    ("'", '', '', ''),  # O’Neill
     ('mc', '^', '', 'mak'),  # McDonald
     ('tz', '', '', 'ts'),  # Fitzgerald
     ('tch', '', '', 'tS'),
@@ -2908,7 +2908,7 @@ _GEN_RULES_RUSSIAN = (
     ('ee', '', '', '(aje|i)'),
     ('e', '[aou]', '', 'je'),
     ('oo', '', '', '(oo|u)'),
-    ('\'', '', '', ''),
+    ("'", '', '', ''),
     ('"', '', '', ''),
     ('aue', '', '', 'aue'),
     # LATIN ALPHABET
@@ -4739,13 +4739,13 @@ _ASH_LANGUAGE_RULES = (
     ('gauz$', 131072, True),
     ('gauz$', 131072, True),
     ('goltz$', 131072, True),
-    ('gol\'tz$', 131072, True),
+    ("gol'tz$", 131072, True),
     ('golts$', 131072, True),
-    ('gol\'ts$', 131072, True),
+    ("gol'ts$", 131072, True),
     ('^goltz', 131072, True),
-    ('^gol\'tz', 131072, True),
+    ("^gol'tz", 131072, True),
     ('^golts', 131072, True),
-    ('^gol\'ts', 131072, True),
+    ("^gol'ts", 131072, True),
     ('gendler$', 131072, True),
     ('gejmer$', 131072, True),
     ('gejm$', 131072, True),
@@ -4992,13 +4992,13 @@ _ASH_RULES_ANY = (
     ('gh', '', '[ei]', '(g[65536]|gh)'),
     ('gauz', '', '$', 'haus'),
     ('gaus', '', '$', 'haus'),
-    ('gol\'ts', '', '$', 'holts'),
+    ("gol'ts", '', '$', 'holts'),
     ('golts', '', '$', 'holts'),
-    ('gol\'tz', '', '$', 'holts'),
+    ("gol'tz", '', '$', 'holts'),
     ('goltz', '', '', 'holts'),
-    ('gol\'ts', '^', '', 'holts'),
+    ("gol'ts", '^', '', 'holts'),
     ('golts', '^', '', 'holts'),
-    ('gol\'tz', '^', '', 'holts'),
+    ("gol'tz", '^', '', 'holts'),
     ('goltz', '^', '', 'holts'),
     ('gendler', '', '$', 'hendler'),
     ('gejmer', '', '$', 'hajmer'),
@@ -5130,7 +5130,7 @@ _ASH_RULES_ANY = (
     ('ú', '', '', 'u'),
     ('ű', '', '', 'Q'),  # hungarian
     ('ß', '', '', 's'),  # german
-    ('\'', '', '', ''),
+    ("'", '', '', ''),
     ('"', '', '', ''),
     ('a', '', '[bcdgkpstwzż]', '(A|B[16384])'),
     ('e', '', '[bcdgkpstwzż]', '(E|F[16384])'),
@@ -5872,9 +5872,9 @@ _ASH_RULES_RUSSIAN = (
     ('zyo', '', '', 'zo'),
     ('gauz', '', '$', 'haus'),
     ('gaus', '', '$', 'haus'),
-    ('gol\'ts', '', '$', 'holts'),
+    ("gol'ts", '', '$', 'holts'),
     ('golts', '', '$', 'holts'),
-    ('gol\'tz', '', '$', 'holts'),
+    ("gol'tz", '', '$', 'holts'),
     ('goltz', '', '$', 'holts'),
     ('gejmer', '', '$', 'hajmer'),
     ('gejm', '', '$', 'hajm'),
@@ -5967,7 +5967,7 @@ _ASH_RULES_RUSSIAN = (
     ('e', '[aou]', '', 'je'),
     ('y', '', '', 'I'),
     ('oo', '', '', '(oo|u)'),  # not in DJSRE
-    ('\'', '', '', ''),
+    ("'", '', '', ''),
     ('"', '', '', ''),
     ('aue', '', '', 'aue'),
     # TRIVIAL

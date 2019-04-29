@@ -341,22 +341,22 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
 
     for s in subdirs:
         sd = s
-        tail_text += '\nBMDATA[\'' + s + '\'] = {}\n'
-        tail_text += 'BMDATA[\'' + s + '\'][\'approx\'] = {}\n'
-        tail_text += 'BMDATA[\'' + s + '\'][\'exact\'] = {}\n'
-        tail_text += 'BMDATA[\'' + s + '\'][\'rules\'] = {}\n'
-        tail_text += 'BMDATA[\'' + s + '\'][\'hebrew\'] = {}\n\n'
+        tail_text += "\nBMDATA['" + s + "'] = {}\n"
+        tail_text += "BMDATA['" + s + "']['approx'] = {}\n"
+        tail_text += "BMDATA['" + s + "']['exact'] = {}\n"
+        tail_text += "BMDATA['" + s + "']['rules'] = {}\n"
+        tail_text += "BMDATA['" + s + "']['hebrew'] = {}\n\n"
         tail_text += (
-            'BMDATA[\''
+            "BMDATA['"
             + s
-            + '\'][\'language_rules\'] = _'
+            + "']['language_rules'] = _"
             + s.upper()
             + '_LANGUAGE_RULES\n'
         )
         tail_text += (
-            'BMDATA[\''
+            "BMDATA['"
             + s
-            + '\'][\'languages\'] = _'
+            + "']['languages'] = _"
             + s.upper()
             + '_LANGUAGES\n'
         )
@@ -442,8 +442,8 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
             nl = True
 
     outfile.write(
-        '\n\nif __name__ == \'__main__\':\n    import doctest\n\n\
-    doctest.testmod()\n'
+        "\n\nif __name__ == '__main__':\n    import doctest\n\n\
+    doctest.testmod()\n""
     )
 
 
