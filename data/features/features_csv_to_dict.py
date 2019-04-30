@@ -331,7 +331,7 @@ def main(argv):
     mag = len(keyline)
     for i in range(len(keyline)):
         features = int('0b' + ('00' * i) + '11' + ('00' * (mag - i - 1)), 2)
-        oline = '                \'{}\': {},'.format(keyline[i], features)
+        oline = "                '{}': {},".format(keyline[i], features)
         ofile.write(oline + '\n')
 
     ofile.write('               }\n')
