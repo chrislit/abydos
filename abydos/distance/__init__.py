@@ -36,7 +36,7 @@ These include traditional Levenshtein edit distance and related algorithms:
     - Covington distance (:py:class:`.Covington`)
     - ALINE distance (:py:class:`.ALINE`)
     - FlexMetric distance (:py:class:`.FlexMetric`)
-    - BI-SIM similarity (:py:class:`.BI_SIM`)
+    - BI-SIM similarity (:py:class:`.BISIM`)
 
 Hamming distance (:py:class:`.Hamming`) and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
@@ -379,7 +379,7 @@ from ._benini_i import BeniniI
 from ._benini_ii import BeniniII
 from ._bennet import Bennet
 from ._bhattacharyya import Bhattacharyya
-from ._bi_sim import BI_SIM
+from ._bi_sim import BISIM
 from ._bleu import BLEU
 from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
@@ -646,7 +646,7 @@ __all__ = [
     'Covington',
     'ALINE',
     'FlexMetric',
-    'BI_SIM',
+    'BISIM',
     'Hamming',
     'hamming',
     'dist_hamming',

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._bi_sim.
+"""abydos.distance._bisim.
 
 BI-SIM similarity
 """
@@ -33,10 +33,10 @@ from numpy import zeros as np_zeros
 
 from ._distance import _Distance
 
-__all__ = ['BI_SIM']
+__all__ = ['BISIM']
 
 
-class BI_SIM(_Distance):
+class BISIM(_Distance):
     r"""BI-SIM similarity.
 
     BI-SIM similarity :cite:`Kondrak:2003` is an n-gram based, edit-distance
@@ -46,7 +46,7 @@ class BI_SIM(_Distance):
     """
 
     def __init__(self, qval=2, **kwargs):
-        """Initialize BI_SIM instance.
+        """Initialize BISIM instance.
 
         Parameters
         ----------
@@ -61,7 +61,7 @@ class BI_SIM(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(BI_SIM, self).__init__(**kwargs)
+        super(BISIM, self).__init__(**kwargs)
         self._qval = qval
 
     def sim(self, src, tar):
@@ -81,7 +81,7 @@ class BI_SIM(_Distance):
 
         Examples
         --------
-        >>> cmp = BI_SIM()
+        >>> cmp = BISIM()
         >>> cmp.sim('cat', 'hat')
         0.5
         >>> cmp.sim('Niall', 'Neil')
