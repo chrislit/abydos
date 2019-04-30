@@ -49,8 +49,8 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode(''), '')
 
         # http://coryodaniel.com/index.php/2009/12/30/ruby-nysiis-implementation/
-        self.assertEqual(self.pa.encode('O\'Daniel'), 'ODANAL')
-        self.assertEqual(self.pa.encode('O\'Donnel'), 'ODANAL')
+        self.assertEqual(self.pa.encode("O'Daniel"), 'ODANAL')
+        self.assertEqual(self.pa.encode("O'Donnel"), 'ODANAL')
         self.assertEqual(self.pa.encode('Cory'), 'CARY')
         self.assertEqual(self.pa.encode('Corey'), 'CARY')
         self.assertEqual(self.pa.encode('Kory'), 'CARY')
@@ -104,7 +104,7 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(NYSIIS(max_length=0).encode('Niall'), 'NAL')
 
         # Test wrapper
-        self.assertEqual(nysiis('O\'Daniel'), 'ODANAL')
+        self.assertEqual(nysiis("O'Daniel"), 'ODANAL')
 
     def test_modified_nysiis(self):
         """Test abydos.phonetic.NYSIIS (modified version)."""

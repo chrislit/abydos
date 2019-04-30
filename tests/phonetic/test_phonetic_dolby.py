@@ -72,7 +72,7 @@ class DolbyTestCases(unittest.TestCase):
             ('*LVR', 'Oliveira', 'Olivera', 'Olivero'),
             ('*MS', 'Ames', 'Eames'),
             ('*NGL', 'Engel', 'Engle', 'Ingle'),
-            ('*NL', 'O\'Neal', 'O\'Neil', 'O\'Neill'),
+            ('*NL', "O'Neal", "O'Neil", "O'Neill"),
             ('*NRS', 'Andrews', 'Andrus'),
             ('*NRSN', 'Andersen', 'Anderson', 'Andreasen'),
             ('*NS', 'Ennis', 'Enos'),

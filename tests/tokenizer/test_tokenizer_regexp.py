@@ -52,9 +52,9 @@ class RegexpTokenizerTestCases(unittest.TestCase):
             sorted(['NEILSEN']),
         )
 
-        tweet = 'Looking forward to hearing your ideas about what we can\
-        accomplish this year & beyond. I\'ll answer your questions on\
-        #AskPOTUS at 12:30p ET.'
+        tweet = "Looking forward to hearing your ideas about what we can\
+        accomplish this year & beyond. I'll answer your questions on\
+        #AskPOTUS at 12:30p ET."
         self.assertEqual(
             sorted(RegexpTokenizer().tokenize(tweet).get_list()),
             sorted(

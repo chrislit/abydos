@@ -42,7 +42,7 @@ class _Snowball(_Stemmer):
     """
 
     _vowels = set('aeiouy')
-    _codanonvowels = set('\'bcdfghjklmnpqrstvz')
+    _codanonvowels = set("'bcdfghjklmnpqrstvz")
 
     def _sb_r1(self, term, r1_prefixes=None):
         """Return the R1 region, as defined in the Porter2 specification.

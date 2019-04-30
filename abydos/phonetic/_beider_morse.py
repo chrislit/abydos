@@ -110,7 +110,7 @@ BMDATA['gen']['discards'] = {
     'du ',
     'van ',
     'von ',
-    'd\'',
+    "d'",
 }
 BMDATA['sep']['discards'] = {
     'al',
@@ -319,7 +319,7 @@ class BeiderMorse(_Phonetic):
             # this is a bug, but I won't try to fix it now
 
             for word in words:
-                word = word[word.rfind('\'') + 1 :]
+                word = word[word.rfind("'") + 1 :]
                 if word not in BMDATA['sep']['discards']:
                     words2.append(word)
 
@@ -925,11 +925,11 @@ class BeiderMorse(_Phonetic):
                     lang_choices += _LANG_DICT[lang]
                 elif not filter_langs:
                     raise ValueError(
-                        'Unknown \''
+                        "Unknown '"
                         + name_mode
-                        + '\' language: \''
+                        + "' language: '"
                         + lang
-                        + '\''
+                        + "'"
                     )
 
         self._language_arg = language_arg

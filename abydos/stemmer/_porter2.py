@@ -141,8 +141,8 @@ class Porter2(_Snowball):
         word = normalize('NFC', text_type(word.lower()))
         # replace apostrophe-like characters with U+0027, per
         # http://snowball.tartarus.org/texts/apostrophe.html
-        word = word.replace('’', '\'')
-        word = word.replace('’', '\'')
+        word = word.replace('’', "'")
+        word = word.replace('’', "'")
 
         # Exceptions 1
         if word in self._exception1dict:
@@ -155,7 +155,7 @@ class Porter2(_Snowball):
             return word
 
         # Remove initial ', if present.
-        while word and word[0] == '\'':
+        while word and word[0] == "'":
             word = word[1:]
             # Return word if stem is shorter than 2
             if len(word) < 2:
@@ -172,11 +172,11 @@ class Porter2(_Snowball):
         r2_start = self._sb_r2(word, self._r1_prefixes)
 
         # Step 0
-        if word[-3:] == '\'s\'':
+        if word[-3:] == "'s'":
             word = word[:-3]
-        elif word[-2:] == '\'s':
+        elif word[-2:] == "'s":
             word = word[:-2]
-        elif word[-1:] == '\'':
+        elif word[-1:] == "'":
             word = word[:-1]
         # Return word if stem is shorter than 2
         if len(word) < 3:

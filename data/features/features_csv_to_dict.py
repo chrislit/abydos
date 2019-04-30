@@ -317,7 +317,7 @@ def main(argv):
                     checkset_f.add(featint)
 
             if variant < 5:
-                oline = '                     \'{}\': {},'.format(
+                oline = "                     '{}': {},".format(
                     symbol, featint
                 )
             else:

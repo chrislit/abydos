@@ -52,7 +52,7 @@ class UnigramCorpusTestCases(unittest.TestCase):
     double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
     double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
 
-    sotu2015_sample = 'Mr. Speaker, Mr. Vice President, Members of Congress,\
+    sotu2015_sample = "Mr. Speaker, Mr. Vice President, Members of Congress,\
     my fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
     years that dawned with terror touching our shores; that unfolded with a\
     new generation fighting two long and costly wars; that saw a vicious\
@@ -62,7 +62,7 @@ class UnigramCorpusTestCases(unittest.TestCase):
     jobs at the fastest pace since 1999.\n Our unemployment rate is now lower\
     than it was before the financial crisis.\n More of our kids are graduating\
     than ever before.\n More of our people are insured than ever before.\n And\
-    we are as free from the grip of foreign oil as we\'ve been in almost 30\
+    we are as free from the grip of foreign oil as we've been in almost 30\
     years.\n\nTonight, for the first time since 9/11, our combat mission in\
     Afghanistan is over.\n Six years ago, nearly 180,000 American troops\
     served in Iraq and Afghanistan.\n Today, fewer than 15,000 remain.\n And\
@@ -74,7 +74,7 @@ class UnigramCorpusTestCases(unittest.TestCase):
     Union is strong.\n\nAt this moment -- with a growing economy, shrinking\
     deficits, bustling industry, booming energy production -- we have risen\
     from recession freer to write our own future than any other nation on\
-    Earth.\n It\'s now up to us to choose who we want to be over the next 15\
+    Earth.\n It's now up to us to choose who we want to be over the next 15\
     years and for decades to come.\n\nWill we accept an economy where only a\
     few of us do spectacularly well?\n Or will we commit ourselves to an\
     economy that generates rising incomes and chances for everyone who makes\
@@ -85,10 +85,10 @@ class UnigramCorpusTestCases(unittest.TestCase):
     be sorted into factions and turned against one another?\n Or will we\
     recapture the sense of common purpose that has always propelled America\
     forward?\n\nIn two weeks, I will send this Congress a budget filled with\
-    ideas that are practical, not partisan.\n And in the months ahead, I\'ll\
+    ideas that are practical, not partisan.\n And in the months ahead, I'll\
     crisscross the country making a case for those ideas.\n So tonight, I want\
     to focus less on a checklist of proposals, and focus more on the values at\
-    stake in the choices before us.'
+    stake in the choices before us."
     sotu2015_corpus = UnigramCorpus(sotu2015_sample)
 
     sdx_corpus = UnigramCorpus(word_transform=Soundex().encode)

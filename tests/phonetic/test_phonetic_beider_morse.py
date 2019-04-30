@@ -115,7 +115,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'angelo anxelo anhelo anjelo anZelo andZelo',
         )
         self.assertEqual(
-            BeiderMorse('', 'gen', 'exact', True).encode('D\'Angelo'),
+            BeiderMorse('', 'gen', 'exact', True).encode("D'Angelo"),
             'angelo anxelo anhelo anjelo anZelo andZelo dangelo'
             + ' danxelo danhelo danjelo danZelo dandZelo',
         )
@@ -135,7 +135,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'angelo anxelo anhelo anjelo anZelo andZelo',
         )
         self.assertEqual(
-            BeiderMorse('', 'gen', 'exact', False).encode('D\'Angelo'),
+            BeiderMorse('', 'gen', 'exact', False).encode("D'Angelo"),
             'angelo anxelo anhelo anjelo anZelo andZelo dangelo'
             + ' danxelo danhelo danjelo danZelo dandZelo',
         )
@@ -157,7 +157,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' anzilo onzilo',
         )
         self.assertEqual(
-            BeiderMorse('', 'gen', 'approx', True).encode('D\'Angelo'),
+            BeiderMorse('', 'gen', 'approx', True).encode("D'Angelo"),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo dangilo dangYlo dagilo dongilo'
@@ -182,7 +182,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' anzilo onzilo',
         )
         self.assertEqual(
-            BeiderMorse('', 'gen', 'approx', False).encode('D\'Angelo'),
+            BeiderMorse('', 'gen', 'approx', False).encode("D'Angelo"),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo dangilo dangYlo dagilo dongilo'
@@ -206,7 +206,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'angelo andZelo anhelo anxelo',
         )
         self.assertEqual(
-            BeiderMorse('', 'ash', 'exact', True).encode('D\'Angelo'),
+            BeiderMorse('', 'ash', 'exact', True).encode("D'Angelo"),
             'dangelo dandZelo danhelo danxelo',
         )
         self.assertRaises(
@@ -233,7 +233,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'angelo andZelo anhelo anxelo',
         )
         self.assertEqual(
-            BeiderMorse('', 'ash', 'exact', False).encode('D\'Angelo'),
+            BeiderMorse('', 'ash', 'exact', False).encode("D'Angelo"),
             'dangelo dandZelo danhelo danxelo',
         )
         self.assertRaises(
@@ -261,7 +261,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' onzilo anilo onilo anxilo onxilo',
         )
         self.assertEqual(
-            BeiderMorse('', 'ash', 'approx', True).encode('D\'Angelo'),
+            BeiderMorse('', 'ash', 'approx', True).encode("D'Angelo"),
             'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'
             + ' danzilo donzilo danilo donilo danxilo donxilo',
         )
@@ -290,7 +290,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' onzilo anilo onilo anxilo onxilo',
         )
         self.assertEqual(
-            BeiderMorse('', 'ash', 'approx', False).encode('D\'Angelo'),
+            BeiderMorse('', 'ash', 'approx', False).encode("D'Angelo"),
             'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'
             + ' danzilo donzilo danilo donilo danxilo donxilo',
         )
@@ -319,7 +319,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'anZelo andZelo anxelo',
         )
         self.assertEqual(
-            BeiderMorse('', 'sep', 'exact', True).encode('D\'Angelo'),
+            BeiderMorse('', 'sep', 'exact', True).encode("D'Angelo"),
             'anZelo andZelo anxelo',
         )
         self.assertRaises(
@@ -346,7 +346,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'anZelo andZelo anxelo',
         )
         self.assertEqual(
-            BeiderMorse('', 'sep', 'exact', False).encode('D\'Angelo'),
+            BeiderMorse('', 'sep', 'exact', False).encode("D'Angelo"),
             'anZelo andZelo anxelo',
         )
         self.assertRaises(
@@ -373,7 +373,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertEqual(
-            BeiderMorse('', 'sep', 'approx', True).encode('D\'Angelo'),
+            BeiderMorse('', 'sep', 'approx', True).encode("D'Angelo"),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertRaises(
@@ -400,7 +400,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertEqual(
-            BeiderMorse('', 'sep', 'approx', False).encode('D\'Angelo'),
+            BeiderMorse('', 'sep', 'approx', False).encode("D'Angelo"),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertRaises(
@@ -458,7 +458,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             'sntjonsmit',
         )
         self.assertEqual(
-            BeiderMorse('', 'gen', 'exact', True).encode('d\'ortley'),
+            BeiderMorse('', 'gen', 'exact', True).encode("d'ortley"),
             'ortlaj ortlej dortlaj dortlej',
         )
         self.assertEqual(

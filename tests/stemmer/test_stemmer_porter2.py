@@ -62,8 +62,8 @@ class Porter2TestCases(unittest.TestCase):
         # missed branch test cases
         self.assertEqual(self.stmr.stem('capitalism'), 'capit')
         self.assertEqual(self.stmr.stem('fatalism'), 'fatal')
-        self.assertEqual(self.stmr.stem('dog\'s'), 'dog')
-        self.assertEqual(self.stmr.stem('A\'s\''), 'a')
+        self.assertEqual(self.stmr.stem("dog's"), 'dog')
+        self.assertEqual(self.stmr.stem("A's'"), 'a')
         self.assertEqual(self.stmr.stem('agreedly'), 'agre')
         self.assertEqual(self.stmr.stem('feedly'), 'feed')
         self.assertEqual(self.stmr.stem('stional'), 'stional')
