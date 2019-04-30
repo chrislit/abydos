@@ -443,7 +443,7 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
 
     outfile.write(
         "\n\nif __name__ == '__main__':\n    import doctest\n\n\
-    doctest.testmod()\n""
+    doctest.testmod()\n"
     )
 
 
