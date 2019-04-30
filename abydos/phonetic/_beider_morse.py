@@ -925,11 +925,7 @@ class BeiderMorse(_Phonetic):
                     lang_choices += _LANG_DICT[lang]
                 elif not filter_langs:
                     raise ValueError(
-                        "Unknown '"
-                        + name_mode
-                        + "' language: '"
-                        + lang
-                        + "'"
+                        "Unknown '" + name_mode + "' language: '" + lang + "'"
                     )
 
         self._language_arg = language_arg

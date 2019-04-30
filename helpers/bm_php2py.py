@@ -354,11 +354,7 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
             + '_LANGUAGE_RULES\n'
         )
         tail_text += (
-            "BMDATA['"
-            + s
-            + "']['languages'] = _"
-            + s.upper()
-            + '_LANGUAGES\n'
+            "BMDATA['" + s + "']['languages'] = _" + s.upper() + '_LANGUAGES\n'
         )
 
         phps = [
