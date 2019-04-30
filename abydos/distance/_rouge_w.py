@@ -66,9 +66,9 @@ class RougeW(_Distance):
         self._f_inv = f_inv
 
         if self._f_func is None:
-            self._f_func = RougeW._square
+            self._f_func = RougeW._square  # noqa: SF01
         if self._f_inv is None:
-            self._f_inv = RougeW._sqrt
+            self._f_inv = RougeW._sqrt  # noqa: SF01
 
     @staticmethod
     def _square(n):
