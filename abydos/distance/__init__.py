@@ -379,7 +379,7 @@ from ._benini_i import BeniniI
 from ._benini_ii import BeniniII
 from ._bennet import Bennet
 from ._bhattacharyya import Bhattacharyya
-from ._bi_sim import BISIM
+from ._bisim import BISIM
 from ._bleu import BLEU
 from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
