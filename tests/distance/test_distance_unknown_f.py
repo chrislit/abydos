@@ -69,6 +69,10 @@ class UnknownFTestCases(unittest.TestCase):
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.5956699662
         )
 
+        # Exceptions
+        self.assertRaises(NotImplementedError, self.cmp.sim, 'a', 'a')
+        self.assertRaises(NotImplementedError, self.cmp.dist, 'a', 'a')
+
 
 if __name__ == '__main__':
     unittest.main()
