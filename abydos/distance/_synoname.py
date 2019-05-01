@@ -708,7 +708,7 @@ class Synoname(_Distance):
                     ):
                         return _fmt_retval(self._match_type_dict['initials'])
         if self._tests & self._test_dict['extension']:
-            if src_ln[1] == tar_ln[1] and (
+            if src_ln[1:2] == tar_ln[1:2] and (
                 src_ln.startswith(tar_ln) or tar_ln.startswith(src_ln)
             ):
                 if (
