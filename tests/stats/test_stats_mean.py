@@ -122,8 +122,10 @@ class MeansTestCases(unittest.TestCase):
         """Test abydos.stats.lmean."""
         self.assertAlmostEqual(lmean(self._one_to_five), 2.6739681320855766)
         self.assertAlmostEqual(lmean(self._floats), 0.301387278840469)
-        self.assertEqual(lmean([1, 1]), 1)
-        self.assertEqual(lmean([2, 2]), 2)
+        self.assertEqual(lmean([1, 1]), 1.0)
+        self.assertEqual(lmean([2, 2]), 2.0)
+        self.assertEqual(lmean([2, 0]), 0.0)
+        self.assertAlmostEqual(lmean([1, 2]), 1.4426950408889634)
         self.assertRaises(ValueError, lmean, (1, 1, 1))
         self.assertRaises(ValueError, lmean, (0.15, 0.15, 1))
 

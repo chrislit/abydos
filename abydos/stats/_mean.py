@@ -307,7 +307,7 @@ def lmean(nums):
     """
     if len(nums) == 2:
         if nums[0] == nums[1]:
-            return nums[0]
+            return float(nums[0])
         if 0 in nums:
             return 0.0
         return (nums[1] - nums[0]) / (math.log(nums[1] / nums[0]))
