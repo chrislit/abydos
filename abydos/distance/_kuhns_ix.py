@@ -137,7 +137,7 @@ class KuhnsIX(_TokenDistance):
         --------
         >>> cmp = KuhnsIX()
         >>> cmp.corr('cat', 'hat')
-        0.497435897435897
+        0.49743589743589745
         >>> cmp.corr('Niall', 'Neil')
         0.36069255713421955
         >>> cmp.corr('aluminum', 'Catalan')
@@ -193,7 +193,7 @@ class KuhnsIX(_TokenDistance):
         --------
         >>> cmp = KuhnsIX()
         >>> cmp.sim('cat', 'hat')
-        0.748717948717945
+        0.7487179487179487
         >>> cmp.sim('Niall', 'Neil')
         0.6803462785671097
         >>> cmp.sim('aluminum', 'Catalan')
