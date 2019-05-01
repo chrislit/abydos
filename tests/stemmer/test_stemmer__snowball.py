@@ -87,10 +87,10 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(self.stmr._sb_r1('eucharist'), 3)  # noqa: SF01
 
         self.assertEqual(
-            self.stmr._sb_r1('eucharist', r1_prefixes='ist'), 3  # noqa: SF01
+            self.stmr._sb_r1('eucharist', r1_prefixes={'ist'}), 3  # noqa: SF01
         )
         self.assertEqual(
-            self.stmr._sb_r1('ist', r1_prefixes='ist'), 1  # noqa: SF01
+            self.stmr._sb_r1('ist', r1_prefixes={'ist'}), 3  # noqa: SF01
         )
 
     def test_sb_r2(self):
