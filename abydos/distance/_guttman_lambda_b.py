@@ -150,7 +150,7 @@ class GuttmanLambdaB(_TokenDistance):
         n = self._population_unique_card()
 
         num = round(float(max(a, b) + max(c, d) - max(a + c, b + d)), 15)
-        if num < 1e-8:
+        if num > 1e-8:
             return num / float(n - max(a + c, b + d))
         return 0.0
 
