@@ -47,15 +47,15 @@ def _ncr(n, r):
 
     Returns
     -------
-    float
+    int or float
         n Choose r
 
     Examples
     --------
     >>> _ncr(4, 2)
-    6.0
+    6
     >>> _ncr(10, 3)
-    120.0
+    120
 
     .. versionadded:: 0.4.0
 

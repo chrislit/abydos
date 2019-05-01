@@ -138,13 +138,13 @@ class KuhnsV(_TokenDistance):
         --------
         >>> cmp = KuhnsV()
         >>> cmp.corr('cat', 'hat')
-        0.4974358974358974
+        0.497435897435897
         >>> cmp.corr('Niall', 'Neil')
-        0.32947729220222793
+        0.329477292202228
         >>> cmp.corr('aluminum', 'Catalan')
-        0.10209049255441008
+        0.10209049255441
         >>> cmp.corr('ATCG', 'TAGC')
-        -0.006418485237483953
+        -0.006418485237484
 
 
         .. versionadded:: 0.4.0
@@ -203,11 +203,11 @@ class KuhnsV(_TokenDistance):
         --------
         >>> cmp = KuhnsV()
         >>> cmp.sim('cat', 'hat')
-        0.7487179487179487
+        0.7487179487179485
         >>> cmp.sim('Niall', 'Neil')
         0.664738646101114
         >>> cmp.sim('aluminum', 'Catalan')
-        0.5510452462772051
+        0.551045246277205
         >>> cmp.sim('ATCG', 'TAGC')
         0.496790757381258
 

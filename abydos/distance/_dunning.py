@@ -209,13 +209,13 @@ class Dunning(_TokenDistance):
         --------
         >>> cmp = Dunning()
         >>> cmp.sim('cat', 'hat')
-        0.030914603918847
+        0.33462839191969423
         >>> cmp.sim('Niall', 'Neil')
-        0.024920501187922
+        0.19229445539929793
         >>> cmp.sim('aluminum', 'Catalan')
-        0.005820460179801
+        0.03220862737070572
         >>> cmp.sim('ATCG', 'TAGC')
-        0.000118111994939
+        0.0010606026735052122
 
 
         .. versionadded:: 0.4.0
