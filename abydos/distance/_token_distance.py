@@ -184,6 +184,14 @@ class _TokenDistance(_Distance):
             else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         )
 
+        if hasattr(self.params['tokenizer'], 'qval'):
+            if isinstance(self.params['tokenizer'].qval, int):
+                qvals = [self.params['tokenizer'].qval]
+            else:
+                qvals = list(self.params['tokenizer'].qval)
+        else:
+            qvals = []
+
         if 'alphabet' in self.params:
             if isinstance(self.params['alphabet'], str):
                 self.params['alphabet'] = set(self.params['alphabet'])
@@ -191,9 +199,8 @@ class _TokenDistance(_Distance):
                     self.params['alphabet'] |= set(
                         self.params['tokenizer'].start_stop
                     )
-                    self.params['alphabet'] = (
-                        len(self.params['alphabet'])
-                        ** self.params['tokenizer'].qval
+                    self.params['alphabet'] = sum(
+                        len(self.params['alphabet']) ** qval for qval in qvals
                     )
             if hasattr(self.params['alphabet'], '__len__') and not isinstance(
                 self.params['alphabet'], Counter
@@ -202,19 +209,11 @@ class _TokenDistance(_Distance):
             elif self.params['alphabet'] is None and isinstance(
                 self.params['tokenizer'], (QGrams, QSkipgrams)
             ):
-                if isinstance(self.params['tokenizer'].qval, int):
-                    qvals = [self.params['tokenizer'].qval]
-                else:
-                    qvals = list(self.params['tokenizer'].qval)
                 self.params['alphabet'] = sum(
                     28 ** qval if qval > 1 else 26 for qval in qvals
                 )
         else:
             if isinstance(self.params['tokenizer'], (QGrams, QSkipgrams)):
-                if isinstance(self.params['tokenizer'].qval, int):
-                    qvals = [self.params['tokenizer'].qval]
-                else:
-                    qvals = list(self.params['tokenizer'].qval)
                 self.params['alphabet'] = sum(
                     28 ** qval if qval > 1 else 26 for qval in qvals
                 )
