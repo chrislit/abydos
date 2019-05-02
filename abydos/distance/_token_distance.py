@@ -715,7 +715,7 @@ class _TokenDistance(_Distance):
         This function may be overridden by setting the intersection_type during
         initialization.
         """
-        return self._crisp_intersection()
+        return self._crisp_intersection()  # pragma: no cover
 
     def _get_confusion_table(self):
         """Return the token counts as a ConfusionTable object."""
