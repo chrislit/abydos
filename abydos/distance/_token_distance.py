@@ -557,9 +557,6 @@ class _TokenDistance(_Distance):
 
         for src_tok in src_only:
             for tar_tok in tar_only:
-                # TODO: should sim be divided by 2? should this be multiplied
-                #  by the bag value? should it really be every token in both
-                #  sets that we compare?
                 sim = self.params['metric'].sim(src_tok, tar_tok)
                 if sim >= self.params['threshold']:
                     intersection[src_tok] += (sim / 2) * src_only[src_tok]
@@ -689,8 +686,6 @@ class _TokenDistance(_Distance):
 
             for row, col in assignments.keys():
                 sim = orig_sim[row, col]
-                # TODO: should sim be divided by 2? should this be multiplied
-                #  by the bag value?
                 if sim >= self.params['threshold']:
                     intersection[src_only[col]] += (sim / 2) * (
                         self._src_tokens - self._tar_tokens
