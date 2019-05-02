@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import PearsonChiSquared
+from abydos.tokenizer import QSkipgrams
 
 
 class PearsonChiSquaredTestCases(unittest.TestCase):
@@ -159,6 +160,8 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_no_d.sim_score('ATCAACGAGT', 'AACGATTAG'), 1.5272727273
         )
+
+        self.assertEqual(PearsonChiSquared(alphabet=None, tokenizer=QSkipgrams(qval=2)).sim_score('eh', 'a'), 0.0)
 
     def test_pearson_chi_squared_corr(self):
         """Test abydos.distance.PearsonChiSquared.corr."""

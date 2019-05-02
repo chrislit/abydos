@@ -106,6 +106,8 @@ class JensenShannonTestCases(unittest.TestCase):
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0.2307566995
         )
 
+        self.assertEqual(JensenShannon(intersection_type='soft', qval=2).dist_abs('a', 'eh'), 0.6931471805599453)
+
 
 if __name__ == '__main__':
     unittest.main()

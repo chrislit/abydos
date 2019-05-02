@@ -32,7 +32,7 @@ import math
 import unittest
 
 from abydos.distance import Cosine, dist_cosine, sim_cosine
-from abydos.tokenizer import QGrams, WhitespaceTokenizer
+from abydos.tokenizer import QGrams, QSkipgrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
 
@@ -103,6 +103,8 @@ class CosineSimilarityTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 4 / math.sqrt(9 * 7)
         )
+
+        self.assertEqual(self.cmp_q2.sim('eh', 'a'), 0.0)
 
         # Test wrapper
         self.assertAlmostEqual(

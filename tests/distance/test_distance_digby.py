@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Digby
+from abydos.tokenizer import QSkipgrams
 
 
 class DigbyTestCases(unittest.TestCase):
@@ -149,6 +150,8 @@ class DigbyTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -1.0
         )
+
+        self.assertEqual(Digby(alphabet=None, tokenizer=QSkipgrams(qval=2)).corr('eh', 'a'), 0.0)
 
 
 if __name__ == '__main__':

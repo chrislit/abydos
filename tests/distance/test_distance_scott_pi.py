@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import ScottPi
+from abydos.tokenizer import QSkipgrams
 
 
 class ScottPiTestCases(unittest.TestCase):
@@ -149,6 +150,8 @@ class ScottPiTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -0.3333333333
         )
+
+        self.assertEqual(ScottPi(alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')).corr('eh', 'a'), 0.0)
 
 
 if __name__ == '__main__':
