@@ -31,7 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Hurlbert
-from abydos.tokenizer import QSkipgrams
+from abydos.tokenizer import VCClusterTokenizer
 
 
 class HurlbertTestCases(unittest.TestCase):
@@ -152,8 +152,8 @@ class HurlbertTestCases(unittest.TestCase):
         )
 
         self.assertEqual(
-            Hurlbert(alphabet=None, tokenizer=QSkipgrams(qval=2)).corr(
-                'eh', 'a'
+            Hurlbert(alphabet=0, tokenizer=VCClusterTokenizer()).corr(
+                'a', 'eh'
             ),
             0.0,
         )
