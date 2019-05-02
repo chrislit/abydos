@@ -89,18 +89,18 @@ class GoodmanKruskalTauBTestCases(unittest.TestCase):
 
         self.assertEqual(
             GoodmanKruskalTauB(
-                intersection_type='soft',
+                intersection_type='linkage',
                 alphabet=64,
                 tokenizer=QGrams(qval=range(2, 4), skip=1),
-            ).sim('became', 'emigrant'),
+            ).sim('adhering', 'gilled'),
             0.0,
         )
         self.assertEqual(
             GoodmanKruskalTauB(
-                intersection_type='soft',
+                intersection_type='linkage',
                 alphabet=64,
                 tokenizer=QGrams(qval=range(2, 4), skip=1),
-            ).sim('emigrant', 'became'),
+            ).sim('gilled', 'adhering'),
             0.0,
         )
 
