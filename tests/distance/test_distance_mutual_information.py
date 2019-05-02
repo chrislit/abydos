@@ -61,7 +61,9 @@ class MutualInformationTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.9481813127
         )
 
-        self.assertAlmostEqual(self.cmp_no_d.sim('a', 'eh'), -0.9036774610288023)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('a', 'eh'), -0.9036774610288023
+        )
 
     def test_mutual_information_dist(self):
         """Test abydos.distance.MutualInformation.dist."""

@@ -62,7 +62,12 @@ class BaulieuXITestCases(unittest.TestCase):
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.009009009
         )
 
-        self.assertEqual(BaulieuXI(alphabet=None, tokenizer=QSkipgrams(qval=2, scaler='SSK')).dist('a', 'eh'), 0.0)
+        self.assertEqual(
+            BaulieuXI(
+                alphabet=None, tokenizer=QSkipgrams(qval=2, scaler='SSK')
+            ).dist('a', 'eh'),
+            0.0,
+        )
 
     def test_baulieu_xi_sim(self):
         """Test abydos.distance.BaulieuXI.sim."""

@@ -151,7 +151,12 @@ class HurlbertTestCases(unittest.TestCase):
             self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -1.0
         )
 
-        self.assertEqual(Hurlbert(alphabet=None, tokenizer=QSkipgrams(qval=2)).corr('eh', 'a'), 0.0)
+        self.assertEqual(
+            Hurlbert(alphabet=None, tokenizer=QSkipgrams(qval=2)).corr(
+                'eh', 'a'
+            ),
+            0.0,
+        )
 
 
 if __name__ == '__main__':

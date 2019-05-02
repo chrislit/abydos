@@ -190,18 +190,10 @@ class GeneralizedFleissTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ag.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_ag.sim('abcd', 'efgh'), 0.496790757381258)
 
-        self.assertAlmostEqual(
-            self.cmp_ag.sim('Nigel', 'Niall'), 0.7480719794
-        )
-        self.assertAlmostEqual(
-            self.cmp_ag.sim('Niall', 'Nigel'), 0.7480719794
-        )
-        self.assertAlmostEqual(
-            self.cmp_ag.sim('Colin', 'Coiln'), 0.7480719794
-        )
-        self.assertAlmostEqual(
-            self.cmp_ag.sim('Coiln', 'Colin'), 0.7480719794
-        )
+        self.assertAlmostEqual(self.cmp_ag.sim('Nigel', 'Niall'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp_ag.sim('Niall', 'Nigel'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp_ag.sim('Colin', 'Coiln'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp_ag.sim('Coiln', 'Colin'), 0.7480719794)
         self.assertAlmostEqual(
             self.cmp_ag.sim('ATCAACGAGT', 'AACGATTAG'), 0.8312793457877081
         )
@@ -210,18 +202,10 @@ class GeneralizedFleissTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_gh.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp_gh.sim('abcd', 'efgh'), 0.496790757381258)
 
-        self.assertAlmostEqual(
-            self.cmp_gh.sim('Nigel', 'Niall'), 0.7480719794
-        )
-        self.assertAlmostEqual(
-            self.cmp_gh.sim('Niall', 'Nigel'), 0.7480719794
-        )
-        self.assertAlmostEqual(
-            self.cmp_gh.sim('Colin', 'Coiln'), 0.7480719794
-        )
-        self.assertAlmostEqual(
-            self.cmp_gh.sim('Coiln', 'Colin'), 0.7480719794
-        )
+        self.assertAlmostEqual(self.cmp_gh.sim('Nigel', 'Niall'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp_gh.sim('Niall', 'Nigel'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp_gh.sim('Colin', 'Coiln'), 0.7480719794)
+        self.assertAlmostEqual(self.cmp_gh.sim('Coiln', 'Colin'), 0.7480719794)
         self.assertAlmostEqual(
             self.cmp_gh.sim('ATCAACGAGT', 'AACGATTAG'), 0.8316454969290444
         )
