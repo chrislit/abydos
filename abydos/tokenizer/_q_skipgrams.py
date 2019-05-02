@@ -168,10 +168,10 @@ class QSkipgrams(_Tokenizer):
             self.qval = (self.qval,)
 
         for qval_i in self.qval:
-            if len(self._string) < qval_i or qval_i < 1:
+            if qval_i < 1:
                 continue
 
-            if self.start_stop:
+            if self.start_stop and self._string:
                 string = (
                     self.start_stop[0] * (qval_i - 1)
                     + self._string
@@ -179,6 +179,9 @@ class QSkipgrams(_Tokenizer):
                 )
             else:
                 string = self._string
+
+            if len(string) < qval_i:
+                continue
 
             # Having appended start & stop symbols (or not), save the
             # result, but only for the longest valid qval_i
