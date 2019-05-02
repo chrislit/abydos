@@ -164,7 +164,6 @@ class ALINETestCases(unittest.TestCase):
             [(62.5, '‖ dS aF t ‖', '‖ d  a  s ‖')],
         )
         # Different from paper:
-        # TODO: Implement 'double' and see if it changes
         self.assertEqual(
             self.cmp.alignment('wat', 'vas'),
             [(40.0, 'w ‖ a t ‖', 'v ‖ a s ‖')],
@@ -481,8 +480,6 @@ class ALINETestCases(unittest.TestCase):
         )
 
         # other alignment styles:
-        # TODO: verify that these are functioning correctly, since they don't
-        #  match thesis
         cmp2 = ALINE(mode='local')
         self.assertEqual(
             cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
