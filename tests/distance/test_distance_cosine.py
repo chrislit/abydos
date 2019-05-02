@@ -32,7 +32,7 @@ import math
 import unittest
 
 from abydos.distance import Cosine, dist_cosine, sim_cosine
-from abydos.tokenizer import QGrams, QSkipgrams, WhitespaceTokenizer
+from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
 
