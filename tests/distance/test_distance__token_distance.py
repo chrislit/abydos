@@ -32,13 +32,18 @@ import unittest
 from collections import Counter
 
 from abydos.distance import (
+    AverageLinkage,
     DamerauLevenshtein,
     Jaccard,
     JaroWinkler,
     SokalMichener,
 )
 from abydos.stats import ConfusionTable
-from abydos.tokenizer import QSkipgrams
+from abydos.tokenizer import (
+    CharacterTokenizer,
+    QSkipgrams,
+    WhitespaceTokenizer,
+)
 
 
 class TokenDistanceTestCases(unittest.TestCase):
@@ -380,6 +385,34 @@ class TokenDistanceTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             jac.sim('abundacies', 'abundances'), 0.607142857143
+        )
+
+        # Some additional constructors needed to complete test coverage
+        self.assertAlmostEqual(
+            Jaccard(alphabet=None, qval=range(2, 4)).sim('abc', 'abcd'),
+            0.42857142857142855,
+        )
+        self.assertAlmostEqual(
+            AverageLinkage(qval=range(2, 4)).sim('abc', 'abcd'),
+            0.22558922558922556,
+        )
+        self.assertAlmostEqual(
+            Jaccard(alphabet='abcdefghijklmnop', qval=range(2, 4)).sim(
+                'abc', 'abcd'
+            ),
+            0.42857142857142855,
+        )
+        self.assertAlmostEqual(
+            Jaccard(
+                alphabet='abcdefghijklmnop', tokenizer=WhitespaceTokenizer()
+            ).sim('abc', 'abcd'),
+            0.0,
+        )
+        self.assertAlmostEqual(
+            Jaccard(alphabet=list('abcdefghijklmnop')).sim('abc', 'abcd'), 0.5
+        )
+        self.assertAlmostEqual(
+            Jaccard(tokenizer=CharacterTokenizer()).sim('abc', 'abcd'), 0.75
         )
 
 
