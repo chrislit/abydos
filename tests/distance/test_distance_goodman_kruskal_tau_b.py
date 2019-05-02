@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import GoodmanKruskalTauB
+from abydos.tokenizer import QGrams
 
 
 class GoodmanKruskalTauBTestCases(unittest.TestCase):
@@ -85,6 +86,16 @@ class GoodmanKruskalTauBTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.2187412587
         )
+
+        self.assertEqual(
+            GoodmanKruskalTauB(intersection_type='soft', alphabet=64, tokenizer=QGrams(qval=range(2, 4), skip=1)).sim('became', 'emigrant'),
+            0.0
+        )
+        self.assertEqual(
+            GoodmanKruskalTauB(intersection_type='soft', alphabet=64, tokenizer=QGrams(qval=range(2, 4), skip=1)).sim('emigrant', 'became'),
+            0.0
+        )
+
 
     def test_goodman_kruskal_tau_b_dist(self):
         """Test abydos.distance.GoodmanKruskalTauB.dist."""

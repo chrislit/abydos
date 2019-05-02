@@ -157,16 +157,17 @@ class GoodmanKruskalTauB(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        fp = a * a + b * b
-        if fp:
-            fp /= a + b
+        if a + b == 0 or a + c == 0:
+            return 0.0
+
+        fp = (a * a + b * b) / (a + b)
 
         sp = c * c + d * d
         if sp:
             sp /= c + d
 
         num = fp + sp - (a + c) ** 2 - (b + d) ** 2
-        if num:
+        if num > 1e-14:
             return num / (1 - (a + c) ** 2 - (b + d) ** 2)
         return 0.0
 
