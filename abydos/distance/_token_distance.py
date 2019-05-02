@@ -29,7 +29,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Counter
+from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
 
@@ -510,10 +510,12 @@ class _TokenDistance(_Distance):
                 / greater_length
             )
 
-        memberships = {
-            (src, tar): _membership(src, tar)
-            for src, tar in product(src_only, tar_only)
-        }
+        # Dictionary ordering is important for reproducibility, so insertion
+        # order needs to be controlled and retained.
+        memberships = OrderedDict(
+            ((src, tar), _membership(src, tar))
+            for src, tar in sorted(product(src_only, tar_only))
+        )
 
         while memberships:
             src_tok, tar_tok = max(memberships, key=memberships.get)
