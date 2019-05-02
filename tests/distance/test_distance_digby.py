@@ -152,7 +152,9 @@ class DigbyTestCases(unittest.TestCase):
         )
 
         self.assertEqual(
-            Digby(alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')).corr('a', 'eh'),
+            Digby(alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')).corr(
+                'a', 'eh'
+            ),
             0.0,
         )
 

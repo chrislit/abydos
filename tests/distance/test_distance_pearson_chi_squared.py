@@ -162,7 +162,9 @@ class PearsonChiSquaredTestCases(unittest.TestCase):
         )
 
         self.assertEqual(
-            PearsonChiSquared(alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')).sim_score('a', 'eh'),
+            PearsonChiSquared(
+                alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')
+            ).sim_score('a', 'eh'),
             0.0,
         )
 
