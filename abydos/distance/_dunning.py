@@ -170,11 +170,10 @@ class Dunning(_TokenDistance):
             d = 1
             n += 1
 
-        if n:
-            a /= n
-            b /= n
-            c /= n
-            d /= n
+        a /= n
+        b /= n
+        c /= n
+        d /= n
 
         score = 0.0
         for i in [a, b, c, d]:
