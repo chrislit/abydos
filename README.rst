@@ -268,12 +268,17 @@ Installation
 
 Required libraries:
 
-- Numpy
-- Six
+- NumPy
+- six
+- deprecation
 
-Recommended libraries:
+Optional libraries (all available on PyPI, some available on conda or conda-forge):
 
 - PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
+- `SyllabiPy <http://syllabipy.com/>`_
+- `NLTK <https://www.nltk.org/>`_
+- `PyLZSS <https://github.com/rumbah/pylzss>`_
+- `paq <https://github.com/observerss/paq>`_
 
 
 To install Abydos (master) from Github source::
