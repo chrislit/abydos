@@ -43,6 +43,11 @@ class SonoriPyTokenizerTestCases(unittest.TestCase):
         if PY2:  # skip tests of SyllabiPy on Python 2.7
             return
 
+        try:
+            from syllabipy.sonoripy import SonoriPy
+        except ImportError:  # pragma: no cover
+            return
+
         self.assertEqual(
             sorted(SonoriPyTokenizer().tokenize('').get_list()), []
         )

@@ -47,6 +47,10 @@ class NCDpaq9aTestCases(unittest.TestCase):
         """Test abydos.distance.NCDpaq9a.dist."""
         if PY2:  # skip tests since paq9a isn't supported on Python 2.7
             return
+        try:
+            import paq
+        except ImportError:  # pragma: no cover
+            return
 
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
@@ -68,6 +72,11 @@ class NCDpaq9aTestCases(unittest.TestCase):
     def test_ncd_paq9a_sim(self):
         """Test abydos.distance.NCDpaq9a.sim."""
         if PY2:  # skip tests since paq9a isn't supported on Python 2.7
+            return
+
+        try:
+            import paq
+        except ImportError:  # pragma: no cover
             return
 
         # Base cases

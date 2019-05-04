@@ -32,7 +32,10 @@ import unittest
 
 from abydos.tokenizer import NLTKTokenizer
 
-from nltk import TweetTokenizer
+try:
+    from nltk import TweetTokenizer
+except ImportError:  # pragma: no cover
+    TweetTokenizer = None
 
 from six import PY2
 
@@ -43,6 +46,9 @@ class NLTKTokenizerTestCases(unittest.TestCase):
     def test_nltk_tokenizer(self):
         """Test abydos.tokenizer.NLTKTokenizer."""
         if PY2:  # skip tests of NLTK on Python 2.7
+            return
+
+        if TweetTokenizer is None:  # pragma: no cover
             return
 
         tok = NLTKTokenizer(nltk_tokenizer=TweetTokenizer())

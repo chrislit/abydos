@@ -44,6 +44,10 @@ class LegaliPyTokenizerTestCases(unittest.TestCase):
         """Test abydos.tokenizer.LegaliPyTokenizer."""
         if PY2:  # skip tests of SyllabiPy on Python 2.7
             return
+        try:
+            from syllabipy.legalipy import LegaliPy
+        except ImportError:  # pragma: no cover
+            return
 
         self.assertEqual(
             sorted(LegaliPyTokenizer().tokenize('').get_list()), []

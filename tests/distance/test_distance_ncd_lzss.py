@@ -43,6 +43,11 @@ class NCDlzssTestCases(unittest.TestCase):
 
     def test_ncd_lzss_dist(self):
         """Test abydos.distance.NCDlzss.dist."""
+        try:
+            import lzss
+        except ImportError:  # pragma: no cover
+            return
+
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
@@ -60,6 +65,11 @@ class NCDlzssTestCases(unittest.TestCase):
 
     def test_ncd_lzss_sim(self):
         """Test abydos.distance.NCDlzss.sim."""
+        try:
+            import lzss
+        except ImportError:  # pragma: no cover
+            return
+
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
