@@ -272,7 +272,8 @@ Required libraries:
 - six
 - deprecation
 
-Optional libraries (all available on PyPI, some available on conda or conda-forge):
+Optional libraries (all available on PyPI, some available on conda or
+conda-forge):
 
 - PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
 - `SyllabiPy <http://syllabipy.com/>`_
