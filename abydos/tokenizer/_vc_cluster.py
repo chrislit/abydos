@@ -114,7 +114,7 @@ class VCClusterTokenizer(_Tokenizer):
             else:
                 token = unicodedata.normalize('NFD', token)
                 mode = 0  # 0 = starting mode, 1 = cons, 2 = vowels
-                new_token = ''
+                new_token = ''  # noqa: S105
                 for char in token:
                     if char in self._consonants:
                         new_token += char
