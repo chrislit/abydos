@@ -44,7 +44,7 @@ class SonoriPyTokenizerTestCases(unittest.TestCase):
             return
 
         try:
-            from syllabipy.sonoripy import SonoriPy
+            from syllabipy.sonoripy import SonoriPy  # noqa: F401
         except ImportError:  # pragma: no cover
             return
 

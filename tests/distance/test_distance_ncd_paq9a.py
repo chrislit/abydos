@@ -48,7 +48,7 @@ class NCDpaq9aTestCases(unittest.TestCase):
         if PY2:  # skip tests since paq9a isn't supported on Python 2.7
             return
         try:
-            import paq
+            import paq  # noqa: F401
         except ImportError:  # pragma: no cover
             return
 
@@ -75,7 +75,7 @@ class NCDpaq9aTestCases(unittest.TestCase):
             return
 
         try:
-            import paq
+            import paq  # noqa: F401
         except ImportError:  # pragma: no cover
             return
 

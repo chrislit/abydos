@@ -44,7 +44,7 @@ class NCDlzssTestCases(unittest.TestCase):
     def test_ncd_lzss_dist(self):
         """Test abydos.distance.NCDlzss.dist."""
         try:
-            import lzss
+            import lzss  # noqa: F401
         except ImportError:  # pragma: no cover
             return
 
@@ -66,7 +66,7 @@ class NCDlzssTestCases(unittest.TestCase):
     def test_ncd_lzss_sim(self):
         """Test abydos.distance.NCDlzss.sim."""
         try:
-            import lzss
+            import lzss  # noqa: F401
         except ImportError:  # pragma: no cover
             return
 

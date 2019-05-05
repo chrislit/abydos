@@ -45,7 +45,7 @@ class LegaliPyTokenizerTestCases(unittest.TestCase):
         if PY2:  # skip tests of SyllabiPy on Python 2.7
             return
         try:
-            from syllabipy.legalipy import LegaliPy
+            from syllabipy.legalipy import LegaliPy  # noqa: F401
         except ImportError:  # pragma: no cover
             return
 
