@@ -28,6 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
+import unicodedata
 from math import log
 
 from deprecation import deprecated
@@ -110,6 +111,7 @@ class Typo(_Distance):
         metric='euclidean',
         cost=(1, 1, 0.5, 0.5),
         layout='QWERTY',
+        strip_accents=False,
         **kwargs
     ):
         """Initialize Typo instance.
@@ -128,6 +130,8 @@ class Typo(_Distance):
         layout : str
             Name of the keyboard layout to use (Currently supported:
             ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
+        strip_accents : bool
+            Whether to strip all accents before calculating distance
         **kwargs
             Arbitrary keyword arguments
 
@@ -139,6 +143,7 @@ class Typo(_Distance):
         self._metric = metric
         self._cost = cost
         self._layout = layout
+        self._strip_accents = strip_accents
 
     def dist_abs(self, src, tar):
         """Return the typo distance between two strings.
@@ -210,6 +215,17 @@ class Typo(_Distance):
         keyboard = self._keyboard[self._layout]
         lowercase = {item for sublist in keyboard[0] for item in sublist}
         uppercase = {item for sublist in keyboard[1] for item in sublist}
+
+        def _strip_accents(s):
+            return ''.join(
+                c
+                for c in unicodedata.normalize('NFD', s)
+                if unicodedata.category(c) != 'Mn'
+            )
+
+        if self._strip_accents:
+            src = _strip_accents(src)
+            tar = _strip_accents(tar)
 
         def _kb_array_for_char(char):
             """Return the keyboard layout that contains ch.
