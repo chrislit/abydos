@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 import os
+import sys
 import tempfile
 import unittest
 from collections import defaultdict
@@ -36,8 +37,6 @@ from collections import defaultdict
 from abydos.corpus import UnigramCorpus
 from abydos.phonetic import Soundex
 from abydos.tokenizer import QSkipgrams
-
-from six import PY2
 
 from .. import _corpus_file
 
@@ -110,7 +109,8 @@ class UnigramCorpusTestCases(unittest.TestCase):
         self.assertIsInstance(self.simple_corpus, UnigramCorpus)
         self.assertIsInstance(self.simple_corpus.corpus, defaultdict)
 
-        if PY2:  # skip tests of UnigramCorpus on Python 2.7
+        # skip tests of UnigramCorpus on Python < 3.5 (lack ordered dict)
+        if sys.version_info >= (3, 5):
             return
 
         self.sdx_corpus.gng_importer('tests/corpora/simple-ngrams.txt')

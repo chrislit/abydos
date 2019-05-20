@@ -28,13 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+import sys
 import unittest
 from collections import Counter
 from math import log1p
 
 from abydos.tokenizer import QGrams, QSkipgrams, _Tokenizer
-
-from six import PY2
 
 
 class TokenizerTestCases(unittest.TestCase):
@@ -74,7 +73,7 @@ class TokenizerTestCases(unittest.TestCase):
         self.assertEqual(
             nelson.get_list(), ['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#']
         )
-        if not PY2:
+        if sys.version_info >= (3, 5):
             self.assertEqual(
                 repr(nelson),
                 "QGrams({'$N': 1, 'NE': 1, 'EL': 1, 'LS': 1, 'SO': 1, 'ON': 1, \

@@ -28,13 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+import sys
 import unittest
 from collections import Counter
 from math import log1p
 
 from abydos.tokenizer import QGrams
-
-from six import PY2
 
 
 class QGramsTestCases(unittest.TestCase):
@@ -247,7 +246,7 @@ class QGramsTestCases(unittest.TestCase):
             QGrams(qval=10, start_stop='').tokenize('COLIN').get_counter(),
             Counter({}),
         )
-        if not PY2:
+        if sys.version_info >= (3, 5):
             self.assertEqual(
                 repr(QGrams(qval=1).tokenize('COLIN')),
                 "QGrams({'C': 1, 'O': 1, 'L': 1, 'I': 1, 'N': 1})",
