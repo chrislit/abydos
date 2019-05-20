@@ -71,11 +71,11 @@ Abydos
      :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
      :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-8.94/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-8.86/10-yellowgreen.svg
    :target: #
    :alt: Pylint Score
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-2-green.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-0-brightgreen.svg
    :target: #
    :alt: flake8 Errors
 
