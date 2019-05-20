@@ -110,7 +110,7 @@ class UnigramCorpusTestCases(unittest.TestCase):
         self.assertIsInstance(self.simple_corpus.corpus, defaultdict)
 
         # skip tests of UnigramCorpus on Python < 3.5 (lack ordered dict)
-        if sys.version_info >= (3, 5):
+        if sys.version_info < (3, 5):
             return
 
         self.sdx_corpus.gng_importer('tests/corpora/simple-ngrams.txt')
