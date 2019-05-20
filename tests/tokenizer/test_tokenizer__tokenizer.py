@@ -73,7 +73,7 @@ class TokenizerTestCases(unittest.TestCase):
         self.assertEqual(
             nelson.get_list(), ['$N', 'NE', 'EL', 'LS', 'SO', 'ON', 'N#']
         )
-        if sys.version_info >= (3, 5):
+        if sys.version_info >= (3, 6):
             self.assertEqual(
                 repr(nelson),
                 "QGrams({'$N': 1, 'NE': 1, 'EL': 1, 'LS': 1, 'SO': 1, 'ON': 1, \

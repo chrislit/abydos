@@ -246,7 +246,7 @@ class QGramsTestCases(unittest.TestCase):
             QGrams(qval=10, start_stop='').tokenize('COLIN').get_counter(),
             Counter({}),
         )
-        if sys.version_info >= (3, 5):
+        if sys.version_info >= (3, 6):
             self.assertEqual(
                 repr(QGrams(qval=1).tokenize('COLIN')),
                 "QGrams({'C': 1, 'O': 1, 'L': 1, 'I': 1, 'N': 1})",
