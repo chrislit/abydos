@@ -275,6 +275,7 @@ Required libraries:
 Optional libraries (all available on PyPI, some available on conda or
 conda-forge):
 
+- SciPy
 - PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
 - `SyllabiPy <http://syllabipy.com/>`_
 - `NLTK <https://www.nltk.org/>`_
