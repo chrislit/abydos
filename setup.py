@@ -37,8 +37,6 @@ from setuptools import find_packages, setup
 
 HERE = path.abspath(path.dirname(__file__))
 
-test_requirements = ['nose', 'coverage', 'scipy', 'nltk', 'syllabipy']
-
 
 def readfile(fn):
     """Read fn and return the contents.
@@ -109,5 +107,4 @@ later (GPLv3+)',
             ]
         },
         python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*',
-        tests_require=test_requirements,
     )

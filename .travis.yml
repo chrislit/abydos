@@ -23,7 +23,8 @@ notifications:
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
   - travis_retry pip install coveralls
-  - travis_retry python setup.py install
+  - travis_retry pip install pipenv
+  - travis_retry pipenv install --dev
 
 # Run test
 script:
