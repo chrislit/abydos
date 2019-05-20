@@ -40,6 +40,7 @@ class TypoTestCases(unittest.TestCase):
     """
 
     cmp = Typo()
+    cmp_auto = Typo(layout='auto', failsafe=True)
 
     def test_typo_dist_abs(self):
         """Test abydos.distance.Typo.dist_abs."""
@@ -64,6 +65,12 @@ class TypoTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             Typo(metric='log-manhattan').dist_abs('asdf', 'asdt'), 0.54930615
         )
+
+        self.assertEqual(self.cmp_auto.dist_abs('Schluß', 'Schluss'), 3)
+        self.assertAlmostEqual(
+            self.cmp_auto.dist_abs('délicat', 'delicate'), 1.7071068
+        )
+        self.assertEqual(self.cmp_auto.dist_abs('비빔밥', 'Bibimbap'), 11)
 
         self.assertRaises(ValueError, self.cmp.dist_abs, 'asdf', 'Ösdf')
 
