@@ -28,7 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-import unicodedata
+from itertools import chain
 from math import log
 
 from deprecation import deprecated
@@ -111,7 +111,7 @@ class Typo(_Distance):
         metric='euclidean',
         cost=(1, 1, 0.5, 0.5),
         layout='QWERTY',
-        strip_accents=False,
+        failsafe=False,
         **kwargs
     ):
         """Initialize Typo instance.
@@ -129,9 +129,13 @@ class Typo(_Distance):
             a log metric is used.
         layout : str
             Name of the keyboard layout to use (Currently supported:
-            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
-        strip_accents : bool
-            Whether to strip all accents before calculating distance
+            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``, ``auto``). If
+            ``auto`` is selected, the class will attempt to determine an
+            appropriate keyboard based on the supplied words.
+        failsafe : bool
+            If True, substitution of an unknown character (one not present on
+            the selected keyboard) will incur a cost equal to an insertion plus
+            a deletion.
         **kwargs
             Arbitrary keyword arguments
 
@@ -143,7 +147,7 @@ class Typo(_Distance):
         self._metric = metric
         self._cost = cost
         self._layout = layout
-        self._strip_accents = strip_accents
+        self._failsafe = failsafe
 
     def dist_abs(self, src, tar):
         """Return the typo distance between two strings.
@@ -212,20 +216,22 @@ class Typo(_Distance):
         if not tar:
             return len(src) * del_cost
 
-        keyboard = self._keyboard[self._layout]
+        if self._layout == 'auto':
+            for kb in ['QWERTY', 'QWERTZ', 'AZERTY']:
+                keys = set(chain(*chain(*self._keyboard[kb])))
+                letters = set(src) | set(tar)
+                if not (letters - keys):
+                    keyboard = self._keyboard[kb]
+                    break
+            else:
+                # Fallback to QWERTY
+                keyboard = self._keyboard['QWERTY']
+        else:
+            keyboard = self._keyboard[self._layout]
+
         lowercase = {item for sublist in keyboard[0] for item in sublist}
         uppercase = {item for sublist in keyboard[1] for item in sublist}
-
-        def _strip_accents(s):
-            return ''.join(
-                c
-                for c in unicodedata.normalize('NFD', s)
-                if unicodedata.category(c) != 'Mn'
-            )
-
-        if self._strip_accents:
-            src = _strip_accents(src)
-            tar = _strip_accents(tar)
+        keys = set(chain(*chain(*keyboard)))
 
         def _kb_array_for_char(char):
             """Return the keyboard layout that contains ch.
@@ -255,6 +261,8 @@ class Typo(_Distance):
             raise ValueError(char + ' not found in any keyboard layouts')
 
         def _substitution_cost(char1, char2):
+            if self._failsafe and (char1 not in keys or char2 not in keys):
+                return ins_cost + del_cost
             cost = sub_cost
             cost *= metric_dict[self._metric](char1, char2) + shift_cost * (
                 _kb_array_for_char(char1) != _kb_array_for_char(char2)
