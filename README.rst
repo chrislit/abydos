@@ -12,7 +12,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
-| Contribution     | |cii| |waffle| |openhub|                             |
+| Contribution     | |cii| |openhub|                                      |
 +------------------+------------------------------------------------------+
 | PyPI             | |pypi| |pypi-dl| |pypi-ver|                          |
 +------------------+------------------------------------------------------+
@@ -110,10 +110,6 @@ Abydos
 .. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
     :target: https://bestpractices.coreinfrastructure.org/projects/1598
     :alt: CII Best Practices
-
-.. |waffle| image:: https://badge.waffle.io/chrislit/abydos.svg?columns=To%20Do,In%20Progress
-    :target: https://waffle.io/chrislit/abydos
-    :alt: 'Waffle.io - Columns and their card count'
 
 .. |openhub| image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
     :target: https://www.openhub.net/p/abydosnlp
