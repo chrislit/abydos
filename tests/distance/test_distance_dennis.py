@@ -51,7 +51,9 @@ class DennisTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('abc', ''), 0.3333333333333333)
         self.assertAlmostEqual(self.cmp.sim('', 'abc'), 0.3333333333333333)
         self.assertAlmostEqual(self.cmp.sim('abc', 'abc'), 0.9965986394557826)
-        self.assertAlmostEqual(self.cmp.sim('abcd', 'efgh'), 0.32908163265306134)
+        self.assertAlmostEqual(
+            self.cmp.sim('abcd', 'efgh'), 0.32908163265306134
+        )
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.6615646259)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.6615646259)
@@ -65,9 +67,15 @@ class DennisTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_no_d.sim('', ''), 0.3333333333333333)
         self.assertAlmostEqual(self.cmp_no_d.sim('a', ''), 0.3333333333333333)
         self.assertAlmostEqual(self.cmp_no_d.sim('', 'a'), 0.3333333333333333)
-        self.assertAlmostEqual(self.cmp_no_d.sim('abc', ''), 0.3333333333333333)
-        self.assertAlmostEqual(self.cmp_no_d.sim('', 'abc'), 0.3333333333333333)
-        self.assertAlmostEqual(self.cmp_no_d.sim('abc', 'abc'), 0.3333333333333333)
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('abc', ''), 0.3333333333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('', 'abc'), 0.3333333333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim('abc', 'abc'), 0.3333333333333333
+        )
         self.assertAlmostEqual(self.cmp_no_d.sim('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(
@@ -94,8 +102,12 @@ class DennisTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('', 'a'), 0.6666666666666667)
         self.assertAlmostEqual(self.cmp.dist('abc', ''), 0.6666666666666667)
         self.assertAlmostEqual(self.cmp.dist('', 'abc'), 0.6666666666666667)
-        self.assertAlmostEqual(self.cmp.dist('abc', 'abc'), 0.003401360544217358)
-        self.assertAlmostEqual(self.cmp.dist('abcd', 'efgh'), 0.6709183673469387)
+        self.assertAlmostEqual(
+            self.cmp.dist('abc', 'abc'), 0.003401360544217358
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist('abcd', 'efgh'), 0.6709183673469387
+        )
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.3384353741)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.3384353741)
@@ -109,9 +121,15 @@ class DennisTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_no_d.dist('', ''), 0.6666666666666667)
         self.assertAlmostEqual(self.cmp_no_d.dist('a', ''), 0.6666666666666667)
         self.assertAlmostEqual(self.cmp_no_d.dist('', 'a'), 0.6666666666666667)
-        self.assertAlmostEqual(self.cmp_no_d.dist('abc', ''), 0.6666666666666667)
-        self.assertAlmostEqual(self.cmp_no_d.dist('', 'abc'), 0.6666666666666667)
-        self.assertAlmostEqual(self.cmp_no_d.dist('abc', 'abc'), 0.6666666666666667)
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('abc', ''), 0.6666666666666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('', 'abc'), 0.6666666666666667
+        )
+        self.assertAlmostEqual(
+            self.cmp_no_d.dist('abc', 'abc'), 0.6666666666666667
+        )
         self.assertAlmostEqual(self.cmp_no_d.dist('abcd', 'efgh'), 1.0)
 
         self.assertAlmostEqual(
@@ -138,7 +156,9 @@ class DennisTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
-        self.assertAlmostEqual(self.cmp.sim_score('abc', 'abc'), 27.85714285714286)
+        self.assertAlmostEqual(
+            self.cmp.sim_score('abc', 'abc'), 27.85714285714286
+        )
         self.assertAlmostEqual(
             self.cmp.sim_score('abcd', 'efgh'), -0.17857142857142858
         )
@@ -187,7 +207,9 @@ class DennisTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.corr('abc', ''), 0.0)
         self.assertEqual(self.cmp.corr('', 'abc'), 0.0)
         self.assertAlmostEqual(self.cmp.corr('abc', 'abc'), 0.994897959183674)
-        self.assertAlmostEqual(self.cmp.corr('abcd', 'efgh'), -0.006377551020408)
+        self.assertAlmostEqual(
+            self.cmp.corr('abcd', 'efgh'), -0.006377551020408
+        )
 
         self.assertAlmostEqual(self.cmp.corr('Nigel', 'Niall'), 0.4923469388)
         self.assertAlmostEqual(self.cmp.corr('Niall', 'Nigel'), 0.4923469388)

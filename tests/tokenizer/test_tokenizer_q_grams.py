@@ -338,19 +338,21 @@ class QGramsTestCases(unittest.TestCase):
         )
 
         gold_standard = Counter(
-                {
-                    '$A': 0.6931471805599453,
-                    'AC': 1.3862943611198906,
-                    'CA': 1.0986122886681096,
-                    'AA': 0.6931471805599453,
-                    'CC': 0.6931471805599453,
-                    'CT': 0.6931471805599453,
-                    'TA': 0.6931471805599453,
-                    'AG': 0.6931471805599453,
-                    'G#': 0.6931471805599453,
-                }
-            )
-        test_counter = QGrams(scaler=log1p).tokenize('ACAACACCTAG').get_counter()
+            {
+                '$A': 0.6931471805599453,
+                'AC': 1.3862943611198906,
+                'CA': 1.0986122886681096,
+                'AA': 0.6931471805599453,
+                'CC': 0.6931471805599453,
+                'CT': 0.6931471805599453,
+                'TA': 0.6931471805599453,
+                'AG': 0.6931471805599453,
+                'G#': 0.6931471805599453,
+            }
+        )
+        test_counter = (
+            QGrams(scaler=log1p).tokenize('ACAACACCTAG').get_counter()
+        )
         for key in test_counter:
             self.assertAlmostEqual(test_counter[key], gold_standard[key])
 
