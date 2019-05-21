@@ -162,12 +162,13 @@ class UnigramCorpusTestCases(unittest.TestCase):
 
     def test_unigram_corpus_save_load_corpus(self):
         """Test abydos.corpus.UnigramCorpus.save_corpus & .load_corpus."""
-        fn = tempfile.mkstemp('.dat')[1]
-        self.sotu2015_corpus.save_corpus(fn)
-        self.sotu2015_corpus.load_corpus(fn)
-        statinfo = os.stat(fn)
+        handle, path = tempfile.mkstemp('.dat')
+        self.sotu2015_corpus.save_corpus(path)
+        self.sotu2015_corpus.load_corpus(path)
+        statinfo = os.stat(path)
         self.assertGreater(statinfo.st_size, 0)
-        os.remove(fn)
+        os.close(handle)
+        os.remove(path)
 
     def test_unigram_corpus_idf(self):
         """Test abydos.corpus.UnigramCorpus.idf."""

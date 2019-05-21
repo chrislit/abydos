@@ -130,7 +130,7 @@ class MinHash(_Distance):
         k = self._k if self._k else max(len(src_tokens), len(tar_tokens))
 
         masks = np.random.RandomState(seed=self._seed).randint(
-            _MININT, _MAXINT, k
+            _MININT, _MAXINT, k, dtype=np.int64
         )
 
         hashes_src = np.full(k, _MAXINT, dtype=np.int64)
