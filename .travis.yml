@@ -18,8 +18,10 @@ notifications:
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then travis_retry pip install pylzss paq; fi
   - travis_retry pip install coveralls
-  - travis_retry pip install scipy nltk syllabipy
+  - travis_retry pip install -r requirements.txt
+  - travis_retry pip install -r requirements-dev.txt
   - travis_retry python setup.py install
 
 # Run test
