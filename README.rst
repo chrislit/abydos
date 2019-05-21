@@ -12,7 +12,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
-| Contribution     | |cii| |openhub|                                      |
+| Contribution     | |cii| |openhub| |gh-commits| |gh-issues| |gh-stars|  |
 +------------------+------------------------------------------------------+
 | PyPI             | |pypi| |pypi-dl| |pypi-ver|                          |
 +------------------+------------------------------------------------------+
@@ -114,6 +114,15 @@ Abydos
 .. |openhub| image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
     :target: https://www.openhub.net/p/abydosnlp
     :alt: OpenHUB
+
+.. |gh-commits| image:: https://img.shields.io/github/commit-activity/y/chrislit/abydos.svg?logo=git&logoColor=white
+   :target: https://github.com/chrislit/abydos/graphs/commit-activity
+
+.. |gh-issues| image:: https://img.shields.io/github/issues-closed/chrislit/abydos.svg?logo=github&logoColor=white
+   :target: https://github.com/chrislit/abydos/issues?q=
+
+.. |gh-stars| image:: https://img.shields.io/github/stars/chrislit/abydos.svg?logo=github&logoColor=white
+   :target: https://github.com/chrislit/abydos/stargazers
 
 .. |pypi| image:: https://img.shields.io/pypi/v/abydos.svg
     :target: https://pypi.python.org/pypi/abydos
