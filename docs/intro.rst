@@ -94,7 +94,7 @@ warranted.
     - `CircleCI <https://circleci.com/gh/chrislit/abydos/tree/master>`_ runs
       only the Python 3.6 tests on Linux and is used for quick tests of each
       commit.
-    - `Azure Devops <https://dev.azure.com/chrislit/abydos/_build/latest?definitionId=1>`_
+    - `Azure DevOps <https://dev.azure.com/chrislit/abydos/_build/latest?definitionId=1>`_
       is used to perform tests on Linux, MaxOS, and Windows on Python 2.7,
       3.5, 3.6, & 3.7 using pytest.
     - `Semaphore <https://semaphoreci.com/chrislit/abydos>`_ is used to run
@@ -134,6 +134,8 @@ warranted.
       be 0.
     - `pydocstyle <https://github.com/PyCQA/pydocstyle>`_ score, run locally,
       should be 0.
+    - `SLOCCount <https://dwheeler.com/sloccount>`_ shows the total source
+      lines of code.
     - `Black code style <https://github.com/ambv/black>`_ signals that Black is
       used for code styling.
 
@@ -154,10 +156,11 @@ warranted.
 
     - `CII Best Practices <https://bestpractices.coreinfrastructure.org/en/projects/1598>`_
       identifies compliance with Core Infrastructure Initiative best practices.
-    - `waffle.io <https://waffle.io/chrislit/abydos>`_ is used for issue
-      tracking and planning.
     - `OpenHub <https://www.openhub.net/p/abydosnlp>`_ tracks project activity
       and KLOC and estimates project value.
+    - The commit activity shows commit rate.
+    - The issues badge indicates the number of issues closed.
+    - The GitHub stars badge indicates the number of stars received.
 
 - PyPI
 
