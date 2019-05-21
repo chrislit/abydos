@@ -39,6 +39,7 @@ if [ "$docs_only" = "0" ]; then
         # pycodestyle . > pycodestyle.log
         flake8 . > flake8.log
         doc8 . > doc8.log
+        sloccount abydos > sloccount.log
 
         ./badge_update.py
     fi
