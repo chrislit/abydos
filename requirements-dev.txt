@@ -4,3 +4,5 @@
 scipy
 nltk
 syllabipy
+sphinxcontrib-bibtex
+sphinx_rtd_theme
