@@ -2,7 +2,7 @@ Release History
 ---------------
 
 
-0.4.0 (2018-04-30) *dietrich*
+0.4.0 (2018-05-30) *dietrich*
 +++++++++++++++++++++++++++++
 
 doi:
@@ -14,6 +14,7 @@ service of expanding distance measure options.
 
 Changes:
 
+- Support for Python 3.3 was dropped.
 - Deprecated functions that merely wrap class methods to maintain API
   compatibility, for removal in 0.6.0
 - Added methods to ConfusionTable to return:
@@ -54,31 +55,15 @@ Changes:
     - Andres & Marzo's Delta
     - Average Linkage
     - AZZOO
-    - Baroni-Urbani & Buser I
-    - Baroni-Urbani & Buser II
+    - Baroni-Urbani & Buser I & II
     - Batagelj & Bren
-    - Baulieu I
-    - Baulieu II
-    - Baulieu III
-    - Baulieu IV
-    - Baulieu V
-    - Baulieu VI
-    - Baulieu VII
-    - Baulieu VIII
-    - Baulieu IX
-    - Baulieu X
-    - Baulieu XI
-    - Baulieu XII
-    - Baulieu XIII
-    - Baulieu XIV
-    - Baulieu XV
-    - Benini I
-    - Benini II
+    - Baulieu I-XV
+    - Benini I & II
     - Bennet
     - Bhattacharyya
     - BI-SIM
     - BLEU
-    - Bloc kLevenshtein
+    - Block Levenshtein
     - Brainerd-Robinson
     - Braun-Blanquet
     - Canberra
@@ -87,16 +72,11 @@ Changes:
     - Cohen's Kappa
     - Cole
     - Complete Linkage
-    - Consonni & Todeschini I
-    - Consonni & Todeschini II
-    - Consonni & Todeschini III
-    - Consonni & Todeschini IV
-    - Consonni & Todeschini V
+    - Consonni & Todeschini I-V
     - Cormode's LZ
     - Covington
     - Dennis
-    - Dice Asymmetric I
-    - Dice Asymmetric II
+    - Dice Asymmetric I & II
     - Digby
     - Dispersion
     - Doolittle
@@ -109,8 +89,7 @@ Changes:
     - Fleiss
     - Fleiss-Levin-Paik
     - FlexMetric
-    - Forbes I
-    - Forbes II
+    - Forbes I & II
     - Fossum
     - FuzzyWuzzy Partial String
     - FuzzyWuzzy Token Set
@@ -118,16 +97,13 @@ Changes:
     - Generalized Fleiss
     - Gilbert
     - Gilbert & Wells
-    - Gini I
-    - Gini II
+    - Gini I & II
     - Goodall
     - Goodman & Kruskal's Lambda
     - Goodman & Kruskal's Lambda-r
-    - Goodman & Kruskal's Tau A
-    - Goodman & Kruskal's Tau B
+    - Goodman & Kruskal's Tau A & B
     - Gower & Legendre
-    - Guttman's Lambda A
-    - Guttman's Lambda B
+    - Guttman's Lambda A & B
     - Gwet's AC
     - Hamann
     - Harris & Lahey
@@ -141,25 +117,11 @@ Changes:
     - Jensen-Shannon
     - Johnson
     - Kendall's Tau
-    - Kent & Foster I
-    - Kent & Foster II
-    - Koppen I
-    - Koppen II
+    - Kent & Foster I & II
+    - Koppen I & II
     - Kuder & Richardson
-    - Kuhns I
-    - Kuhns II
-    - Kuhns III
-    - Kuhns IV
-    - Kuhns V
-    - Kuhns VI
-    - Kuhns VII
-    - Kuhns VIII
-    - Kuhns IX
-    - Kuhns X
-    - Kuhns XI
-    - Kuhns XII
-    - Kulczynski I
-    - Kulczynski II
+    - Kuhns I-XII
+    - Kulczynski I & II
     - Longest Common Prefix
     - Longest Common Suffix
     - Lorentzian
@@ -183,25 +145,17 @@ Changes:
     - Pattern
     - Pearson's Chi-Squared
     - Pearson & Heron II
-    - Pearson II
-    - Pearson III
+    - Pearson II & III
     - Pearson's Phi
     - Peirce
-    - Positional Q-Gram Dice
-    - Positional Q-Gram Jaccard
-    - Positional Q-Gram Overlap
+    - Positional Q-Gram Dice, Jaccard, & Overlap
     - Q-Gram
-    - Quantitative Cosine
-    - Quantitative Dice
-    - Quantitative Jaccard
+    - Quantitative Cosine, Dice, & Jaccard
     - Rees-Levenshtein
     - Roberts
     - Rogers & Tanimoto
     - Rogot & Goldberg
-    - Rouge-L
-    - Rouge-S
-    - Rouge-SU
-    - Rouge-W
+    - Rouge-L, -S, -SU, & -W
     - Russell & Rao
     - SAPS
     - Scott's Pi
@@ -213,11 +167,7 @@ Changes:
     - Soft Cosine
     - SoftTF-IDF
     - Sokal & Michener
-    - Sokal & Sneath I
-    - Sokal & Sneath II
-    - Sokal & Sneath III
-    - Sokal & Sneath IV
-    - Sokal & Sneath V
+    - Sokal & Sneath I-V
     - Sorgenfrei
     - Steffensen
     - Stiles
@@ -227,38 +177,17 @@ Changes:
     - Tetrachoric
     - TF-IDF
     - Tichy
-    - Tulloss's R
-    - Tulloss's S
-    - Tulloss's T
-    - Tulloss's U
+    - Tulloss's R, S, T, & U
     - Unigram Subtuple
-    - Unknown A
-    - Unknown B
-    - Unknown C
-    - Unknown D
-    - Unknown E
-    - Unknown F
-    - Unknown G
-    - Unknown H
-    - Unknown I
-    - Unknown J
-    - Unknown K
-    - Unknown L
-    - Unknown M
+    - Unknown A-M
     - Upholt
-    - Warrens I
-    - Warrens II
-    - Warrens III
-    - Warrens IV
-    - Warrens V
+    - Warrens I-V
     - Weighted Jaccard
     - Whittaker
     - Yates' Chi-Squared
     - YJHHR
     - Yujian & Bo
-    - Yule's Q
-    - Yule's Q II
-    - Yule's Y
+    - Yule's Q, Q II, & Y
 - Four intersection types are now supported for all distance measure that are
   based on _TokenDistance. In addition to basic crisp intersections, soft,
   fuzzy, and group linkage intersections have been provided.
