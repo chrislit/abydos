@@ -111,9 +111,7 @@ class TokenizerTestCases(unittest.TestCase):
         self.assertAlmostEqual(nelson_ssk.count(), 18.66784401)
 
         nelson_log = QSkipgrams(qval=3, scaler=log1p).tokenize('NELSON')
-        self.assertEqual(
-            nelson_log.get_counter(),
-            Counter(
+        gold_standard = Counter(
                 {
                     '$$N': 1.0986122886681096,
                     '$$E': 0.6931471805599453,
@@ -182,9 +180,10 @@ class TokenizerTestCases(unittest.TestCase):
                     'S##': 0.6931471805599453,
                     'ON#': 1.0986122886681096,
                     'O##': 0.6931471805599453,
-                }
-            ),
-        )
+                })
+        test_counter = nelson_log.get_counter()
+        for key in test_counter:
+            self.assertAlmostEqual(test_counter[key], gold_standard[key])
 
 
 if __name__ == '__main__':
