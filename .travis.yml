@@ -18,7 +18,7 @@ notifications:
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then travis_retry pip install paq; fi
+  - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7) travis_retry pip install cython paq;; esac
   - travis_retry pip install coveralls
   - travis_retry pip install -r requirements.txt
   - travis_retry pip install -r requirements-dev.txt
