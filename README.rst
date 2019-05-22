@@ -8,7 +8,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | Dependencies     | |requires| |snyk| |pyup| |fossa|                     |
 +------------------+------------------------------------------------------+
-| Local Analysis   | |pylint| |flake8| |pydocstyle| |black|               |
+| Local Analysis   | |pylint| |flake8| |pydocstyle| |sloccount| |black|   |
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
