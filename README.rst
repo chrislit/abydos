@@ -119,15 +119,15 @@ Abydos
     :target: https://www.openhub.net/p/abydosnlp
     :alt: OpenHUB
 
-.. |gh-commits| image:: https://img.shields.io/github/commit-activity/y/chrislit/abydos.svg?logo=git&logoColor=white
+.. |gh-commits| image:: https://img.shields.io/github/commit-activity/y/chrislit/abydos.svg?logo=github
     :target: https://github.com/chrislit/abydos/graphs/commit-activity
     :alt: GitHub Commits
 
-.. |gh-issues| image:: https://img.shields.io/github/issues-closed/chrislit/abydos.svg?logo=github&logoColor=white
+.. |gh-issues| image:: https://img.shields.io/github/issues-closed/chrislit/abydos.svg?logo=github
     :target: https://github.com/chrislit/abydos/issues?q=
     :alt: GitHub Issues Closed
 
-.. |gh-stars| image:: https://img.shields.io/github/stars/chrislit/abydos.svg?logo=github&logoColor=white
+.. |gh-stars| image:: https://img.shields.io/github/stars/chrislit/abydos.svg?logo=github
     :target: https://github.com/chrislit/abydos/stargazers
     :alt: GitHub Stars
 
@@ -315,7 +315,7 @@ To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
-It should run on Python 2.7 and Python 3.4-3.7.
+It should run on Python 2.7 and Python 3.5-3.7.
 
 Testing & Contributing
 ======================
