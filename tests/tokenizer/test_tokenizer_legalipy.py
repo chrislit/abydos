@@ -50,7 +50,7 @@ class LegaliPyTokenizerTestCases(unittest.TestCase):
             return
 
         self.assertEqual(
-            sorted(LegaliPyTokenizer().tokenize('').get_list()), []
+            sorted(LegaliPyTokenizer().tokenize('').get_list()), ['']
         )
         self.assertEqual(
             sorted(LegaliPyTokenizer().tokenize('a').get_list()), ['a']

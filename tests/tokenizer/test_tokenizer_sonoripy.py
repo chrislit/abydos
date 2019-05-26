@@ -49,7 +49,7 @@ class SonoriPyTokenizerTestCases(unittest.TestCase):
             return
 
         self.assertEqual(
-            sorted(SonoriPyTokenizer().tokenize('').get_list()), []
+            sorted(SonoriPyTokenizer().tokenize('').get_list()), ['']
         )
         self.assertEqual(
             sorted(SonoriPyTokenizer().tokenize('a').get_list()), ['a']

@@ -99,6 +99,8 @@ class SonoriPyTokenizer(_Tokenizer):
         self._ordered_tokens = []
         for word in string.split():
             self._ordered_tokens += SonoriPy(word)
+        if not self._ordered_tokens:
+            self._ordered_tokens = [word]
 
         super(SonoriPyTokenizer, self).tokenize()
         return self
