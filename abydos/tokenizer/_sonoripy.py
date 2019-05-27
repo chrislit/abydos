@@ -100,7 +100,7 @@ class SonoriPyTokenizer(_Tokenizer):
         for word in string.split():
             self._ordered_tokens += SonoriPy(word)
         if not self._ordered_tokens:
-            self._ordered_tokens = [word]
+            self._ordered_tokens = [self._string]
 
         super(SonoriPyTokenizer, self).tokenize()
         return self

@@ -129,7 +129,7 @@ class LegaliPyTokenizer(_Tokenizer):
         for word in string.split():
             self._ordered_tokens += LegaliPy(word, self._onsets)
         if not self._ordered_tokens:
-            self._ordered_tokens = [word]
+            self._ordered_tokens = [self._string]
 
         super(LegaliPyTokenizer, self).tokenize()
         return self
