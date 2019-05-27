@@ -58,7 +58,7 @@ def _run_script():
             'flake8',
             'doc8',
             'pydocstyle',
-            'sloccount'
+            'sloccount',
         }:
             sys.exit(1)
         with open(args[0] + '.log', 'w') as output:

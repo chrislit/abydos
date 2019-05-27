@@ -196,10 +196,7 @@ if __name__ == '__main__':
 
     prefix = 'https://img.shields.io/badge/SLOCCount-'
     readme_text = re.sub(
-        prefix + r'[0-9,]+',
-        prefix + str(sloccount),
-        readme_text,
-        1
+        prefix + r'[0-9,]+', prefix + str(sloccount), readme_text, 1
     )
 
     with open('README.rst', 'w', encoding='utf-8') as f:
