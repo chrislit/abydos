@@ -87,7 +87,7 @@ class GoodmanKruskalTauBTestCases(unittest.TestCase):
             self.cmp_no_d.sim('ATCAACGAGT', 'AACGATTAG'), 0.2187412587
         )
 
-        self.assertEqual(
+        self.assertAlmostEqual(
             GoodmanKruskalTauB(
                 intersection_type='linkage',
                 alphabet=64,
@@ -95,7 +95,7 @@ class GoodmanKruskalTauBTestCases(unittest.TestCase):
             ).sim('adhering', 'gilled'),
             0.11438069846285533,
         )
-        self.assertEqual(
+        self.assertAlmostEqual(
             GoodmanKruskalTauB(
                 intersection_type='linkage',
                 alphabet=64,
