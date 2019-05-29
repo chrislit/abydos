@@ -98,25 +98,21 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_j_soft.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp_j_soft.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp_j_soft.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_j_soft.sim('abcd', 'efgh'), 0.1)
+        self.assertAlmostEqual(self.cmp_j_soft.sim('abcd', 'efgh'), 0.11111111)
 
+        self.assertAlmostEqual(self.cmp_j_soft.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_soft.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_soft.sim('Colin', 'Coiln'), 0.6)
+        self.assertAlmostEqual(self.cmp_j_soft.sim('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(
-            self.cmp_j_soft.sim('Nigel', 'Niall'), 0.4444444444
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_soft.sim('Niall', 'Nigel'), 0.4444444444
-        )
-        self.assertAlmostEqual(self.cmp_j_soft.sim('Colin', 'Coiln'), 0.5)
-        self.assertAlmostEqual(self.cmp_j_soft.sim('Coiln', 'Colin'), 0.5)
-        self.assertAlmostEqual(
-            self.cmp_j_soft.sim('ATCAACGAGT', 'AACGATTAG'), 0.6071428571428571
+            self.cmp_j_soft.sim('ATCAACGAGT', 'AACGATTAG'), 0.68
         )
 
         self.assertAlmostEqual(
             Jaccard(intersection_type='soft', metric=JaroWinkler()).sim(
                 'synonym', 'antonym'
             ),
-            0.5833333333333,
+            0.777777777777,
         )
 
     def test_fuzzy_jaccard_sim(self):
@@ -128,18 +124,16 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_j_fuzzy.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp_j_fuzzy.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp_j_fuzzy.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_j_fuzzy.sim('abcd', 'efgh'), 0.1)
+        self.assertAlmostEqual(
+            self.cmp_j_fuzzy.sim('abcd', 'efgh'), 0.1111111111111111
+        )
 
         self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Nigel', 'Niall'), 0.5)
         self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Colin', 'Coiln'), 0.6)
+        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(
-            self.cmp_j_fuzzy.sim('Colin', 'Coiln'), 0.72222222222
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_fuzzy.sim('Coiln', 'Colin'), 0.72222222222
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_fuzzy.sim('ATCAACGAGT', 'AACGATTAG'), 0.7857142857142857
+            self.cmp_j_fuzzy.sim('ATCAACGAGT', 'AACGATTAG'), 0.68
         )
 
         self.assertAlmostEqual(
@@ -156,19 +150,16 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_j_linkage.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp_j_linkage.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp_j_linkage.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_j_linkage.sim('abcd', 'efgh'), 0.1)
+        self.assertAlmostEqual(
+            self.cmp_j_linkage.sim('abcd', 'efgh'), 0.1111111111111111
+        )
 
+        self.assertAlmostEqual(self.cmp_j_linkage.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_linkage.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_linkage.sim('Colin', 'Coiln'), 0.6)
+        self.assertAlmostEqual(self.cmp_j_linkage.sim('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(
-            self.cmp_j_linkage.sim('Nigel', 'Niall'), 0.4444444444444444
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage.sim('Niall', 'Nigel'), 0.4444444444444444
-        )
-        self.assertAlmostEqual(self.cmp_j_linkage.sim('Colin', 'Coiln'), 0.5)
-        self.assertAlmostEqual(self.cmp_j_linkage.sim('Coiln', 'Colin'), 0.5)
-        self.assertAlmostEqual(
-            self.cmp_j_linkage.sim('ATCAACGAGT', 'AACGATTAG'),
-            0.6071428571428571,
+            self.cmp_j_linkage.sim('ATCAACGAGT', 'AACGATTAG'), 0.68
         )
 
         # Base cases
@@ -178,23 +169,24 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_j_linkage_int.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp_j_linkage_int.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp_j_linkage_int.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('abcd', 'efgh'), 0.1)
+        self.assertEqual(
+            self.cmp_j_linkage_int.sim('abcd', 'efgh'), 0.1111111111111111
+        )
 
         self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Nigel', 'Niall'), 0.4444444444444444
+            self.cmp_j_linkage_int.sim('Nigel', 'Niall'), 0.5
         )
         self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Niall', 'Nigel'), 0.5
+            self.cmp_j_linkage_int.sim('Niall', 'Nigel'), 0.6
         )
         self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Colin', 'Coiln'), 0.5
+            self.cmp_j_linkage_int.sim('Colin', 'Coiln'), 0.5625
         )
         self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Coiln', 'Colin'), 0.5
+            self.cmp_j_linkage_int.sim('Coiln', 'Colin'), 0.6
         )
         self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('ATCAACGAGT', 'AACGATTAG'),
-            0.6428571428571429,
+            self.cmp_j_linkage_int.sim('ATCAACGAGT', 'AACGATTAG'), 0.75
         )
 
         self.assertAlmostEqual(
@@ -203,7 +195,7 @@ class TokenDistanceTestCases(unittest.TestCase):
                 metric=JaroWinkler(),
                 threshold=0.2,
             ).sim('synonym', 'antonym'),
-            0.5,
+            0.6,
         )
 
     def test_token_distance(self):
@@ -212,7 +204,7 @@ class TokenDistanceTestCases(unittest.TestCase):
             Jaccard(intersection_type='soft', alphabet=24).sim(
                 'ATCAACGAGT', 'AACGATTAG'
             ),
-            0.6071428571428571,
+            0.68,
         )
         self.assertAlmostEqual(
             Jaccard(qval=1, alphabet='CGAT').sim('ATCAACGAGT', 'AACGATTAG'),
@@ -380,11 +372,9 @@ class TokenDistanceTestCases(unittest.TestCase):
         jac = Jaccard(
             intersection_type='linkage', internal_assignment_problem=True
         )
+        self.assertAlmostEqual(jac.sim('abandonned', 'abandoned'), 1.0)
         self.assertAlmostEqual(
-            jac.sim('abandonned', 'abandoned'), 0.954545454545
-        )
-        self.assertAlmostEqual(
-            jac.sim('abundacies', 'abundances'), 0.607142857143
+            jac.sim('abundacies', 'abundances'), 0.6296296296296297
         )
 
         # Some additional constructors needed to complete test coverage
