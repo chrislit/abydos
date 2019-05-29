@@ -573,12 +573,13 @@ class _TokenDistance(_Distance):
             for tar_tok in sorted(tar_only):
                 sim = self.params['metric'].sim(src_tok, tar_tok)
                 if sim >= self.params['threshold']:
-                    pair[(src_tok, tar_tok)] = sim
+                    pairings = min(src_only[src_tok], tar_only[tar_tok])
+                    pair[(src_tok, tar_tok)] = (sim, pairings)
 
         for src_tok, tar_tok in sorted(pair, key=pair.get, reverse=True):
-            pairings = min(src_only[src_tok], tar_only[tar_tok])
+            pairings = pair[(src_tok, tar_tok)][1]
             if pairings:
-                sim = pair[(src_tok, tar_tok)]
+                sim = pair[(src_tok, tar_tok)][0]
 
                 intersection[src_tok] += sim / 2 * pairings
                 intersection[tar_tok] += sim / 2 * pairings
