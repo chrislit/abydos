@@ -173,7 +173,9 @@ class _TokenDistance(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(_TokenDistance, self).__init__(**kwargs)
+        super(_TokenDistance, self).__init__(
+            intersection_type=intersection_type, **kwargs
+        )
 
         qval = 2 if 'qval' not in self.params else self.params['qval']
         self.params['tokenizer'] = (
@@ -351,7 +353,15 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
-        return self._src_tokens - self._intersection()
+        return (
+            self._src_tokens
+            - self._intersection()
+            - (
+                0
+                if self.params['intersection_type'] == 'crisp'
+                else self._intersection() - self._crisp_intersection()
+            )
+        )
 
     def _src_only_card(self):
         """Return the cardinality of the tokens only in the source set."""
@@ -374,7 +384,15 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
-        return self._tar_tokens - self._intersection()
+        return (
+            self._tar_tokens
+            - self._intersection()
+            - (
+                0
+                if self.params['intersection_type'] == 'crisp'
+                else self._intersection() - self._crisp_intersection()
+            )
+        )
 
     def _tar_only_card(self):
         """Return the cardinality of the tokens only in the target set."""
@@ -468,7 +486,15 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
-        return self._total() - self._intersection()
+        return (
+            self._total()
+            - self._intersection()
+            - (
+                0
+                if self.params['intersection_type'] == 'crisp'
+                else self._intersection() - self._crisp_intersection()
+            )
+        )
 
     def _union_card(self):
         """Return the cardinality of the union."""
@@ -557,12 +583,48 @@ class _TokenDistance(_Distance):
         src_only = self._src_tokens - self._tar_tokens
         tar_only = self._tar_tokens - self._src_tokens
 
-        for src_tok in src_only:
-            for tar_tok in tar_only:
+        pair = {}
+        for src_tok in sorted(src_only):
+            for tar_tok in sorted(tar_only):
                 sim = self.params['metric'].sim(src_tok, tar_tok)
                 if sim >= self.params['threshold']:
-                    intersection[src_tok] += (sim / 2) * src_only[src_tok]
-                    intersection[tar_tok] += (sim / 2) * tar_only[tar_tok]
+                    pair[(src_tok, tar_tok)] = sim
+
+        for src_tok, tar_tok in sorted(pair, key=pair.get, reverse=True):
+            pairings = min(src_only[src_tok], tar_only[tar_tok])
+            if pairings:
+                sim = pair[(src_tok, tar_tok)]
+
+                intersection[src_tok] += sim / 2 * pairings
+                intersection[tar_tok] += sim / 2 * pairings
+
+                src_only[src_tok] -= pairings
+                tar_only[tar_tok] -= pairings
+
+        """
+        # Here is a slightly different optimization method, which is even
+        # greedier than the above.
+        # ordered by sim*pairings rather than just sim
+
+        pair = {}
+        for src_tok in sorted(src_only):
+            for tar_tok in sorted(tar_only):
+                sim = self.params['metric'].sim(src_tok, tar_tok)
+                if sim >= self.params['threshold']:
+                    pairings = min(src_only[src_tok], tar_only[tar_tok])
+                    pair[(src_tok, tar_tok)] = sim*pairings
+
+        for src_tok, tar_tok in sorted(pair, key=pair.get, reverse=True):
+            pairings = min(src_only[src_tok], tar_only[tar_tok])
+            if pairings:
+                sim = pair[(src_tok, tar_tok)]
+
+                intersection[src_tok] += sim / 2
+                intersection[tar_tok] += sim / 2
+
+                src_only[src_tok] -= pairings
+                tar_only[tar_tok] -= pairings
+        """
 
         return intersection
 
