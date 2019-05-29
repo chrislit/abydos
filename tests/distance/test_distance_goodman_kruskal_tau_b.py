@@ -93,7 +93,7 @@ class GoodmanKruskalTauBTestCases(unittest.TestCase):
                 alphabet=64,
                 tokenizer=QGrams(qval=range(2, 4), skip=1),
             ).sim('adhering', 'gilled'),
-            0.0,
+            0.11438069846285533,
         )
         self.assertEqual(
             GoodmanKruskalTauB(
@@ -101,7 +101,7 @@ class GoodmanKruskalTauBTestCases(unittest.TestCase):
                 alphabet=64,
                 tokenizer=QGrams(qval=range(2, 4), skip=1),
             ).sim('gilled', 'adhering'),
-            0.0,
+            0.09616825122443111,
         )
 
     def test_goodman_kruskal_tau_b_dist(self):
