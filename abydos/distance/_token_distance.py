@@ -353,15 +353,10 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
-        return (
-            self._src_tokens
-            - self._intersection()
-            - (
-                0
-                if self.params['intersection_type'] == 'crisp'
-                else self._intersection() - self._crisp_intersection()
-            )
-        )
+        src_only = self._src_tokens - self._intersection()
+        if self.params['intersection_type'] != 'crisp':
+            src_only -= self._intersection() - self._crisp_intersection()
+        return src_only
 
     def _src_only_card(self):
         """Return the cardinality of the tokens only in the source set."""
@@ -384,15 +379,10 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
-        return (
-            self._tar_tokens
-            - self._intersection()
-            - (
-                0
-                if self.params['intersection_type'] == 'crisp'
-                else self._intersection() - self._crisp_intersection()
-            )
-        )
+        tar_only = self._tar_tokens - self._intersection()
+        if self.params['intersection_type'] != 'crisp':
+            tar_only -= self._intersection() - self._crisp_intersection()
+        return tar_only
 
     def _tar_only_card(self):
         """Return the cardinality of the tokens only in the target set."""
@@ -486,15 +476,10 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
-        return (
-            self._total()
-            - self._intersection()
-            - (
-                0
-                if self.params['intersection_type'] == 'crisp'
-                else self._intersection() - self._crisp_intersection()
-            )
-        )
+        union = self._total() - self._intersection()
+        if self.params['intersection_type'] != 'crisp':
+            union -= self._intersection() - self._crisp_intersection()
+        return union
 
     def _union_card(self):
         """Return the cardinality of the union."""
