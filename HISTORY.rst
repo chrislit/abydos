@@ -5,7 +5,7 @@ Release History
 0.4.0 (2018-05-30) *dietrich*
 +++++++++++++++++++++++++++++
 
-doi:
+doi:10.5281/zenodo.3235034
 
 Version 0.4.0 focuses on distance measures, adding 211 new measures. Attempts
 were made to provide normalized version for measure that did not inherently
