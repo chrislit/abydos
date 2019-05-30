@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 from ..phonetic import mra
 
 __all__ = ['MRA', 'dist_mra', 'mra_compare', 'sim_mra']
@@ -41,6 +44,8 @@ class MRA(_Distance):
 
     The Western Airlines Surname Match Rating Algorithm comparison rating, as
     presented on page 18 of :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist_abs(self, src, tar):
@@ -69,6 +74,11 @@ class MRA(_Distance):
         0
         >>> cmp.dist_abs('ATCG', 'TAGC')
         5
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if src == tar:
@@ -140,10 +150,21 @@ class MRA(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.8333333333333334
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return mra_compare(src, tar) / 6
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MRA.dist_abs method instead.',
+)
 def mra_compare(src, tar):
     """Return the MRA comparison rating of two strings.
 
@@ -172,10 +193,18 @@ def mra_compare(src, tar):
     >>> mra_compare('ATCG', 'TAGC')
     5
 
+    .. versionadded:: 0.1.0
+
     """
     return MRA().dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MRA.sim method instead.',
+)
 def sim_mra(src, tar):
     """Return the normalized MRA similarity of two strings.
 
@@ -204,10 +233,18 @@ def sim_mra(src, tar):
     >>> sim_mra('ATCG', 'TAGC')
     0.8333333333333334
 
+    .. versionadded:: 0.1.0
+
     """
     return MRA().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MRA.dist method instead.',
+)
 def dist_mra(src, tar):
     """Return the normalized MRA distance between two strings.
 
@@ -235,6 +272,8 @@ def dist_mra(src, tar):
     1.0
     >>> dist_mra('ATCG', 'TAGC')
     0.16666666666666663
+
+    .. versionadded:: 0.1.0
 
     """
     return MRA().dist(src, tar)

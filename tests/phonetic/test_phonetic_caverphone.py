@@ -42,12 +42,13 @@ class CaverphoneTestCases(unittest.TestCase):
     """
 
     pa = Caverphone()
+    pa_1 = Caverphone(version=1)
+    pa_2 = Caverphone(version=2)
 
     def test_caverphone2_encode(self):
         """Test abydos.phonetic.Caverphone (Caverphone 2)."""
         self.assertEqual(self.pa.encode(''), '1111111111')
-        self.assertEqual(self.pa.encode('', 2), '1111111111')
-        self.assertEqual(self.pa.encode('', version=2), '1111111111')
+        self.assertEqual(self.pa_2.encode(''), '1111111111')
 
         # http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
         self.assertEqual(self.pa.encode('Henrichsen'), 'ANRKSN1111')
@@ -139,8 +140,7 @@ class CaverphoneTestCases(unittest.TestCase):
             'Tutto',
         ):
             self.assertEqual(self.pa.encode(word), 'TTA1111111')
-            self.assertEqual(self.pa.encode(word, 2), 'TTA1111111')
-            self.assertEqual(self.pa.encode(word, version=2), 'TTA1111111')
+            self.assertEqual(self.pa_2.encode(word), 'TTA1111111')
         for word in (
             'Cailean',
             'Calan',
@@ -226,8 +226,7 @@ class CaverphoneTestCases(unittest.TestCase):
             'Xylon',
         ):
             self.assertEqual(self.pa.encode(word), 'KLN1111111')
-            self.assertEqual(self.pa.encode(word, 2), 'KLN1111111')
-            self.assertEqual(self.pa.encode(word, version=2), 'KLN1111111')
+            self.assertEqual(self.pa_2.encode(word), 'KLN1111111')
         for word in (
             'Dan',
             'Dane',
@@ -300,13 +299,19 @@ class CaverphoneTestCases(unittest.TestCase):
             'Tyne',
         ):
             self.assertEqual(self.pa.encode(word), 'TN11111111')
-            self.assertEqual(self.pa.encode(word, 2), 'TN11111111')
-            self.assertEqual(self.pa.encode(word, version=2), 'TN11111111')
+            self.assertEqual(self.pa_2.encode(word), 'TN11111111')
 
         # etc. (for code coverage)
         self.assertEqual(self.pa.encode('enough'), 'ANF1111111')
         self.assertEqual(self.pa.encode('trough'), 'TRF1111111')
         self.assertEqual(self.pa.encode('gnu'), 'NA11111111')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Henrichsen'), 'ANRKSN')
+        self.assertEqual(self.pa.encode_alpha('Dierdre'), 'TTA')
+        self.assertEqual(self.pa.encode_alpha('Mcclifferty'), 'MKLFTA')
+        self.assertEqual(self.pa.encode_alpha('Killen'), 'KLN')
+        self.assertEqual(self.pa.encode_alpha('Whittle'), 'WTA')
 
         # Test wrapper
         self.assertEqual(caverphone('Maclaverty'), 'MKLFTA1111')
@@ -321,12 +326,11 @@ class CaverphoneTestCases(unittest.TestCase):
 
     def test_caverphone1_encode(self):
         """Test abydos.phonetic.Caverphone (Caverphone 1)."""
-        self.assertEqual(self.pa.encode('', 1), '111111')
-        self.assertEqual(self.pa.encode('', version=1), '111111')
+        self.assertEqual(self.pa_1.encode(''), '111111')
 
         # http://caversham.otago.ac.nz/files/working/ctp060902.pdf
-        self.assertEqual(self.pa.encode('David', version=1), 'TFT111')
-        self.assertEqual(self.pa.encode('Whittle', version=1), 'WTL111')
+        self.assertEqual(self.pa_1.encode('David'), 'TFT111')
+        self.assertEqual(self.pa_1.encode('Whittle'), 'WTL111')
 
     def test_caversham(self):
         """Test using Caversham test set (SoundEx, Metaphone, & Caverphone)."""

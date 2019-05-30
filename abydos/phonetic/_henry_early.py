@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['HenryEarly', 'henry_early']
 
@@ -42,6 +45,8 @@ class HenryEarly(_Phonetic):
 
     The early version of Henry coding is given in :cite:`Legare:1972`. This is
     different from the later version defined in :cite:`Henry:1976`.
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_c_set = set('BCDFGHJKLMNPQRSTVWXZ')
@@ -56,15 +61,27 @@ class HenryEarly(_Phonetic):
     }
     _simple = {'W': 'V', 'X': 'S', 'Z': 'S'}
 
-    def encode(self, word, max_length=3):
+    def __init__(self, max_length=3):
+        """Initialize HenryEarly instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 3)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Calculate the early version of the Henry code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 3)
 
         Returns
         -------
@@ -73,16 +90,22 @@ class HenryEarly(_Phonetic):
 
         Examples
         --------
-        >>> henry_early('Marchand')
+        >>> pe = HenryEarly()
+        >>> pe.encode('Marchand')
         'MRC'
-        >>> henry_early('Beaulieu')
+        >>> pe.encode('Beaulieu')
         'BL'
-        >>> henry_early('Beaumont')
+        >>> pe.encode('Beaumont')
         'BM'
-        >>> henry_early('Legrand')
+        >>> pe.encode('Legrand')
         'LGR'
-        >>> henry_early('Pelletier')
+        >>> pe.encode('Pelletier')
         'PLT'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -233,12 +256,18 @@ class HenryEarly(_Phonetic):
             {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
         )
 
-        if max_length != -1:
-            code = code[:max_length]
+        if self._max_length != -1:
+            code = code[: self._max_length]
 
         return code
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the HenryEarly.encode method instead.',
+)
 def henry_early(word, max_length=3):
     """Calculate the early version of the Henry code for a word.
 
@@ -269,8 +298,10 @@ def henry_early(word, max_length=3):
     >>> henry_early('Pelletier')
     'PLT'
 
+    .. versionadded:: 0.3.0
+
     """
-    return HenryEarly().encode(word, max_length)
+    return HenryEarly(max_length).encode(word)
 
 
 if __name__ == '__main__':

@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['Porter', 'porter']
 
@@ -42,6 +45,8 @@ class Porter(_Stemmer):
     """Porter stemmer.
 
     The Porter stemmer is described in :cite:`Porter:1980`.
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y'}
@@ -60,6 +65,11 @@ class Porter(_Stemmer):
         -------
         int
             The m-degree as defined in the Porter stemmer definition
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         mdeg = 0
@@ -87,6 +97,11 @@ class Porter(_Stemmer):
             True iff a vowel exists in the term (as defined in the Porter
             stemmer definition)
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         for letter in term:
             if letter in self._vowels:
@@ -106,6 +121,11 @@ class Porter(_Stemmer):
         bool
             True iff the stem ends in a doubled consonant (as defined in the
             Porter stemmer definition)
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return (
@@ -128,6 +148,11 @@ class Porter(_Stemmer):
             True iff the stem ends in cvc (as defined in the Porter stemmer
             definition)
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return len(term) > 2 and (
             term[-1] not in self._vowels
@@ -136,16 +161,28 @@ class Porter(_Stemmer):
             and term[-1] not in tuple('wxY')
         )
 
-    def stem(self, word, early_english=False):
+    def __init__(self, early_english=False):
+        """Initialize Porter instance.
+
+        Parameters
+        ----------
+        early_english : bool
+            Set to True in order to remove -eth & -est (2nd & 3rd person
+            singular verbal agreement suffixes)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._early_english = early_english
+
+    def stem(self, word):
         """Return Porter stem.
 
         Parameters
         ----------
         word : str
             The word to stem
-        early_english : bool
-            Set to True in order to remove -eth & -est (2nd & 3rd person
-            singular verbal agreement suffixes)
 
         Returns
         -------
@@ -162,8 +199,14 @@ class Porter(_Stemmer):
         >>> stmr.stem('elusiveness')
         'elus'
 
-        >>> stmr.stem('eateth', early_english=True)
+        >>> stmr = Porter(early_english=True)
+        >>> stmr.stem('eateth')
         'eat'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -204,7 +247,7 @@ class Porter(_Stemmer):
             if self._has_vowel(word[:-3]):
                 word = word[:-3]
                 step1b_flag = True
-        elif early_english:
+        elif self._early_english:
             if word[-3:] == 'est':
                 if self._has_vowel(word[:-3]):
                     word = word[:-3]
@@ -371,6 +414,12 @@ class Porter(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Porter.stem method instead.',
+)
 def porter(word, early_english=False):
     """Return Porter stem.
 
@@ -401,8 +450,10 @@ def porter(word, early_english=False):
     >>> porter('eateth', early_english=True)
     'eat'
 
+    .. versionadded:: 0.1.0
+
     """
-    return Porter().stem(word, early_english)
+    return Porter(early_english).stem(word)
 
 
 if __name__ == '__main__':

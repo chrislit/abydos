@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from itertools import chain
 from math import log
+
+from deprecation import deprecated
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -36,6 +39,8 @@ from numpy import zeros as np_zeros
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
+
 
 __all__ = ['Typo', 'dist_typo', 'sim_typo', 'typo']
 
@@ -46,6 +51,8 @@ class Typo(_Distance):
     This is inspired by Typo-Distance :cite:`Song:2011`, and a fair bit of
     this was copied from that module. Compared to the original, this supports
     different metrics for substitution.
+
+    .. versionadded:: 0.3.6
     """
 
     # fmt: off
@@ -53,60 +60,64 @@ class Typo(_Distance):
         (('`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='),
          ('', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']',
           '\\'),
-         ('', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\''),
-         ('', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/')),
+         ('', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'"),
+         ('', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'),
+         ('', '', '', ' ')),
         (('~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'),
          ('', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|'),
          ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"'),
-         ('', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'))
+         ('', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'),
+         ('', '', '', ' '))
     ), 'Dvorak': (
         (('`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '[', ']'),
-         ('', '\'', ',', '.', 'p', 'y', 'f', 'g', 'c', 'r', 'l', '/', '=',
+         ('', "'", ',', '.', 'p', 'y', 'f', 'g', 'c', 'r', 'l', '/', '=',
           '\\'),
          ('', 'a', 'o', 'e', 'u', 'i', 'd', 'h', 't', 'n', 's', '-'),
-         ('', ';', 'q', 'j', 'k', 'x', 'b', 'm', 'w', 'v', 'z')),
+         ('', ';', 'q', 'j', 'k', 'x', 'b', 'm', 'w', 'v', 'z'),
+         ('', '', '', ' ')),
         (('~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}'),
          ('', '"', '<', '>', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', '?', '+', '|'),
          ('', 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', '_'),
-         ('', ':', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'))
+         ('', ':', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'),
+         ('', '', '', ' '))
     ), 'AZERTY': (
-        (('²', '&', 'é', '"', '\'', '(', '-', 'è', '_', 'ç', 'à', ')', '='),
+        (('²', '&', 'é', '"', "'", '(', '-', 'è', '_', 'ç', 'à', ')', '='),
          ('', 'a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '', '$'),
          ('', 'q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'ù', '*'),
-         ('<', 'w', 'x', 'c', 'v', 'b', 'n', ',', ';', ':', '!')),
+         ('<', 'w', 'x', 'c', 'v', 'b', 'n', ',', ';', ':', '!'),
+         ('', '', '', ' ')),
         (('~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '°', '+'),
          ('', 'A', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '', '£'),
          ('', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'Ù', 'μ'),
-         ('>', 'W', 'X', 'C', 'V', 'B', 'N', '?', '.', '/', '§'))
+         ('>', 'W', 'X', 'C', 'V', 'B', 'N', '?', '.', '/', '§'),
+         ('', '', '', ' '))
     ), 'QWERTZ': (
         (('', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'ß', ''),
          ('', 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', ' ü', '+',
           '\\'),
          ('', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä', '#'),
-         ('<', 'y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-')),
+         ('<', 'y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-'),
+         ('', '', '', ' ')),
         (('°', '!', '"', '§', '$', '%', '&', '/', '(', ')', '=', '?', ''),
          ('', 'Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Ü', '*', ''),
-         ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ö', 'Ä', '\''),
-         ('>', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_'))
+         ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ö', 'Ä', "'"),
+         ('>', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_'),
+         ('', '', '', ' '))
     )}
     # fmt: on
 
-    def dist_abs(
+    def __init__(
         self,
-        src,
-        tar,
         metric='euclidean',
         cost=(1, 1, 0.5, 0.5),
         layout='QWERTY',
+        failsafe=False,
+        **kwargs
     ):
-        """Return the typo distance between two strings.
+        """Initialize Typo instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
         metric : str
             Supported values include: ``euclidean``, ``manhattan``,
             ``log-euclidean``, and ``log-manhattan``
@@ -118,7 +129,35 @@ class Typo(_Distance):
             a log metric is used.
         layout : str
             Name of the keyboard layout to use (Currently supported:
-            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
+            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``, ``auto``). If
+            ``auto`` is selected, the class will attempt to determine an
+            appropriate keyboard based on the supplied words.
+        failsafe : bool
+            If True, substitution of an unknown character (one not present on
+            the selected keyboard) will incur a cost equal to an insertion plus
+            a deletion.
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Typo, self).__init__(**kwargs)
+        self._metric = metric
+        self._cost = cost
+        self._layout = layout
+        self._failsafe = failsafe
+
+    def dist_abs(self, src, tar):
+        """Return the typo distance between two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
         Returns
         -------
@@ -142,26 +181,33 @@ class Typo(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2.5
 
-        >>> cmp.dist_abs('cat', 'hat', metric='manhattan')
+        >>> cmp = Typo(metric='manhattan')
+        >>> cmp.dist_abs('cat', 'hat')
         2.0
-        >>> cmp.dist_abs('Niall', 'Neil', metric='manhattan')
+        >>> cmp.dist_abs('Niall', 'Neil')
         3.0
-        >>> cmp.dist_abs('Colin', 'Cuilen', metric='manhattan')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         3.5
-        >>> cmp.dist_abs('ATCG', 'TAGC', metric='manhattan')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2.5
 
-        >>> cmp.dist_abs('cat', 'hat', metric='log-manhattan')
+        >>> cmp = Typo(metric='log-manhattan')
+        >>> cmp.dist_abs('cat', 'hat')
         0.804719
-        >>> cmp.dist_abs('Niall', 'Neil', metric='log-manhattan')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2.2424533
-        >>> cmp.dist_abs('Colin', 'Cuilen', metric='log-manhattan')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         2.2424533
-        >>> cmp.dist_abs('ATCG', 'TAGC', metric='log-manhattan')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2.3465736
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        ins_cost, del_cost, sub_cost, shift_cost = cost
+        ins_cost, del_cost, sub_cost, shift_cost = self._cost
 
         if src == tar:
             return 0.0
@@ -170,9 +216,22 @@ class Typo(_Distance):
         if not tar:
             return len(src) * del_cost
 
-        keyboard = self._keyboard[layout]
+        if self._layout == 'auto':
+            for kb in ['QWERTY', 'QWERTZ', 'AZERTY']:
+                keys = set(chain(*chain(*self._keyboard[kb])))
+                letters = set(src) | set(tar)
+                if not (letters - keys):
+                    keyboard = self._keyboard[kb]
+                    break
+            else:
+                # Fallback to QWERTY
+                keyboard = self._keyboard['QWERTY']
+        else:
+            keyboard = self._keyboard[self._layout]
+
         lowercase = {item for sublist in keyboard[0] for item in sublist}
         uppercase = {item for sublist in keyboard[1] for item in sublist}
+        keys = set(chain(*chain(*keyboard)))
 
         def _kb_array_for_char(char):
             """Return the keyboard layout that contains ch.
@@ -192,6 +251,8 @@ class Typo(_Distance):
             ValueError
                 char not found in any keyboard layouts
 
+            .. versionadded:: 0.3.0
+
             """
             if char in lowercase:
                 return keyboard[0]
@@ -200,8 +261,10 @@ class Typo(_Distance):
             raise ValueError(char + ' not found in any keyboard layouts')
 
         def _substitution_cost(char1, char2):
+            if self._failsafe and (char1 not in keys or char2 not in keys):
+                return ins_cost + del_cost
             cost = sub_cost
-            cost *= metric_dict[metric](char1, char2) + shift_cost * (
+            cost *= metric_dict[self._metric](char1, char2) + shift_cost * (
                 _kb_array_for_char(char1) != _kb_array_for_char(char2)
             )
             return cost
@@ -220,6 +283,8 @@ class Typo(_Distance):
             -------
             tuple
                 The row & column of the key
+
+            .. versionadded:: 0.3.0
 
             """
             for row in kb_array:  # pragma: no branch
@@ -270,14 +335,7 @@ class Typo(_Distance):
 
         return d_mat[len(src), len(tar)]
 
-    def dist(
-        self,
-        src,
-        tar,
-        metric='euclidean',
-        cost=(1, 1, 0.5, 0.5),
-        layout='QWERTY',
-    ):
+    def dist(self, src, tar):
         """Return the normalized typo distance between two strings.
 
         This is typo distance, normalized to [0, 1].
@@ -288,18 +346,6 @@ class Typo(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        metric : str
-            Supported values include: ``euclidean``, ``manhattan``,
-            ``log-euclidean``, and ``log-manhattan``
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and shift, respectively (by
-            default: (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-            significantly less than the cost of an insertion & deletion unless
-            a log metric is used.
-        layout : str
-            Name of the keyboard layout to use (Currently supported:
-            ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
 
         Returns
         -------
@@ -318,15 +364,26 @@ class Typo(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.625
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
-        ins_cost, del_cost = cost[:2]
-        return self.dist_abs(src, tar, metric, cost, layout) / (
+        ins_cost, del_cost = self._cost[:2]
+        return self.dist_abs(src, tar) / (
             max(len(src) * del_cost, len(tar) * ins_cost)
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Typo.dist_abs method instead.',
+)
 def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     """Return the typo distance between two strings.
 
@@ -385,10 +442,18 @@ def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
     >>> typo('ATCG', 'TAGC', metric='log-manhattan')
     2.3465736
 
+    .. versionadded:: 0.3.0
+
     """
-    return Typo().dist_abs(src, tar, metric, cost, layout)
+    return Typo(metric, cost, layout).dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Typo.dist method instead.',
+)
 def dist_typo(
     src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
 ):
@@ -431,10 +496,18 @@ def dist_typo(
     >>> dist_typo('ATCG', 'TAGC')
     0.625
 
+    .. versionadded:: 0.3.0
+
     """
-    return Typo().dist(src, tar, metric, cost, layout)
+    return Typo(metric, cost, layout).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Typo.sim method instead.',
+)
 def sim_typo(
     src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
 ):
@@ -477,8 +550,10 @@ def sim_typo(
     >>> sim_typo('ATCG', 'TAGC')
     0.375
 
+    .. versionadded:: 0.3.0
+
     """
-    return Typo().sim(src, tar, metric, cost, layout)
+    return Typo(metric, cost, layout).sim(src, tar)
 
 
 if __name__ == '__main__':

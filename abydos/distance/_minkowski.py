@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,9 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
-from numbers import Number
+from deprecation import deprecated
 
 from ._token_distance import _TokenDistance
+from .. import __version__
 
 __all__ = ['Minkowski', 'dist_minkowski', 'minkowski', 'sim_minkowski']
 
@@ -40,11 +41,61 @@ class Minkowski(_TokenDistance):
 
     The Minkowski distance :cite:`Minkowski:1910` is a distance metric in
     :math:`L^p-space`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def dist_abs(
-        self, src, tar, qval=2, pval=1, normalized=False, alphabet=None
+    def __init__(
+        self,
+        pval=1,
+        alphabet=0,
+        tokenizer=None,
+        intersection_type='crisp',
+        **kwargs
     ):
+        """Initialize Euclidean instance.
+
+        Parameters
+        ----------
+        pval : int
+            The :math:`p`-value of the :math:`L^p`-space
+        alphabet : collection or int
+            The values or size of the alphabet
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+        metric : _Distance
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the ``fuzzy`` variant.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Minkowski, self).__init__(
+            tokenizer=tokenizer,
+            alphabet=alphabet,
+            intersection_type=intersection_type,
+            **kwargs
+        )
+        self.set_params(pval=pval)
+
+    def dist_abs(self, src, tar, normalized=False):
         """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
         Parameters
@@ -53,14 +104,8 @@ class Minkowski(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        pval : int or float
-            The :math:`p`-value of the :math:`L^p`-space
         normalized : bool
             Normalizes to [0, 1] if True
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -79,34 +124,42 @@ class Minkowski(_TokenDistance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         10.0
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        q_src, q_tar = self._get_qgrams(src, tar, qval)
-        diffs = ((q_src - q_tar) + (q_tar - q_src)).values()
+        self._tokenize(src, tar)
+        diffs = self._symmetric_difference().values()
 
         normalizer = 1
         if normalized:
-            totals = (q_src + q_tar).values()
-            if alphabet is not None:
-                # noinspection PyTypeChecker
-                normalizer = (
-                    alphabet if isinstance(alphabet, Number) else len(alphabet)
-                )
-            elif pval == 0:
+            totals = self._total().values()
+            if self.params['alphabet']:
+                normalizer = self.params['alphabet']
+            elif self.params['pval'] == 0:
                 normalizer = len(totals)
             else:
-                normalizer = sum(_ ** pval for _ in totals) ** (1 / pval)
+                normalizer = sum(_ ** self.params['pval'] for _ in totals) ** (
+                    1 / self.params['pval']
+                )
 
         if len(diffs) == 0:
             return 0.0
-        if pval == float('inf'):
+        if self.params['pval'] == float('inf'):
             # Chebyshev distance
             return max(diffs) / normalizer
-        if pval == 0:
+        if self.params['pval'] == 0:
             # This is the l_0 "norm" as developed by David Donoho
-            return len(diffs) / normalizer
-        return sum(_ ** pval for _ in diffs) ** (1 / pval) / normalizer
+            return sum(_ != 0 for _ in diffs) / normalizer
+        return (
+            sum(_ ** self.params['pval'] for _ in diffs)
+            ** (1 / self.params['pval'])
+            / normalizer
+        )
 
-    def dist(self, src, tar, qval=2, pval=1, alphabet=None):
+    def dist(self, src, tar):
         """Return normalized Minkowski distance of two strings.
 
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance
@@ -118,12 +171,6 @@ class Minkowski(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        pval : int or float
-            The :math:`p`-value of the :math:`L^p`-space
-        alphabet : collection or int
-            The values or size of the alphabet
 
         Returns
         -------
@@ -142,11 +189,22 @@ class Minkowski(_TokenDistance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        return self.dist_abs(src, tar, qval, pval, True, alphabet)
+        return self.dist_abs(src, tar, normalized=True)
 
 
-def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Minkowski.dist_abs method instead.',
+)
+def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=0):
     """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist_abs`.
@@ -158,7 +216,7 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     pval : int or float
         The :math:`p`-value of the :math:`L^p`-space
     normalized : bool
@@ -182,11 +240,21 @@ def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=None):
     >>> minkowski('ATCG', 'TAGC')
     10.0
 
+    .. versionadded:: 0.3.0
+
     """
-    return Minkowski().dist_abs(src, tar, qval, pval, normalized, alphabet)
+    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).dist_abs(
+        src, tar, normalized=normalized
+    )
 
 
-def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Minkowski.dist method instead.',
+)
+def dist_minkowski(src, tar, qval=2, pval=1, alphabet=0):
     """Return normalized Minkowski distance of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.dist`.
@@ -198,7 +266,7 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     pval : int or float
         The :math:`p`-value of the :math:`L^p`-space
     alphabet : collection or int
@@ -220,11 +288,21 @@ def dist_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     >>> dist_minkowski('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.3.0
+
     """
-    return Minkowski().dist(src, tar, qval, pval, alphabet)
+    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).dist_abs(
+        src, tar, normalized=True
+    )
 
 
-def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Minkowski.sim method instead.',
+)
+def sim_minkowski(src, tar, qval=2, pval=1, alphabet=0):
     """Return normalized Minkowski similarity of two strings.
 
     This is a wrapper for :py:meth:`Minkowski.sim`.
@@ -236,7 +314,7 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     pval : int or float
         The :math:`p`-value of the :math:`L^p`-space
     alphabet : collection or int
@@ -258,8 +336,10 @@ def sim_minkowski(src, tar, qval=2, pval=1, alphabet=None):
     >>> sim_minkowski('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.3.0
+
     """
-    return Minkowski().sim(src, tar, qval, pval, alphabet)
+    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).sim(src, tar)
 
 
 if __name__ == '__main__':

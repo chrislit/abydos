@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['SStemmer', 's_stemmer']
 
@@ -37,6 +40,8 @@ class SStemmer(_Stemmer):
     """S-stemmer.
 
     The S stemmer is defined in :cite:`Harman:1991`.
+
+    .. versionadded:: 0.3.6
     """
 
     def stem(self, word):
@@ -66,6 +71,11 @@ class SStemmer(_Stemmer):
         >>> stmr.stem('census')
         'census'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         lowered = word.lower()
         if lowered[-3:] == 'ies' and lowered[-4:-3] not in {'e', 'a'}:
@@ -77,6 +87,12 @@ class SStemmer(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SStemmer.stem method instead.',
+)
 def s_stemmer(word):
     """Return the S-stemmed form of a word.
 
@@ -104,6 +120,8 @@ def s_stemmer(word):
     'reading'
     >>> s_stemmer('census')
     'census'
+
+    .. versionadded:: 0.3.0
 
     """
     return SStemmer().stem(word)

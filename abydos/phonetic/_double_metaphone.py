@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['DoubleMetaphone', 'double_metaphone']
 
@@ -38,18 +41,67 @@ class DoubleMetaphone(_Phonetic):
 
     Based on Lawrence Philips' (Visual) C++ code from 1999
     :cite:`Philips:2000`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=-1):
+    def __init__(self, max_length=-1):
+        """Initialize DoubleMetaphone instance.
+
+        Parameters
+        ----------
+        max_length : int
+            Maximum length of the returned Dolby code -- this also activates
+            the fixed-length code mode if it is greater than 0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+        # Require a max_length of at least 4
+        if self._max_length != -1:
+            self._max_length = max(4, max_length)
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Double Metaphone code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic Double Metaphone value(s)
+
+        Examples
+        --------
+        >>> pe = DoubleMetaphone()
+        >>> pe.encode_alpha('Christopher')
+        ('KRSTFR', '')
+        >>> pe.encode_alpha('Niall')
+        ('NL', '')
+        >>> pe.encode_alpha('Smith')
+        ('SMÞ', 'XMT')
+        >>> pe.encode_alpha('Schmidt')
+        ('XMT', 'SMT')
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return tuple(code.replace('0', 'Þ') for code in self.encode(word))
+
+    def encode(self, word):
         """Return the Double Metaphone code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length of the returned Double Metaphone codes (defaults
-            to unlmited, but in Philips' original implementation this was 4)
 
         Returns
         -------
@@ -68,11 +120,12 @@ class DoubleMetaphone(_Phonetic):
         >>> pe.encode('Schmidt')
         ('XMT', 'SMT')
 
-        """
-        # Require a max_length of at least 4
-        if max_length != -1:
-            max_length = max(4, max_length)
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
+        """
         primary = ''
         secondary = ''
 
@@ -83,6 +136,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             bool
                 True if the word appears to be Slavic or Germanic
+
+            .. versionadded:: 0.1.0
 
             """
             if 'W' in word or 'K' in word or 'CZ' in word:
@@ -103,6 +158,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             tuple
                 A new metaphone tuple with the supplied elements
+
+            .. versionadded:: 0.1.0
 
             """
             newpri = primary
@@ -129,6 +186,8 @@ class DoubleMetaphone(_Phonetic):
             bool
                 True if the character is a vowel
 
+            .. versionadded:: 0.1.0
+
             """
             if pos >= 0 and word[pos] in {'A', 'E', 'I', 'O', 'U', 'Y'}:
                 return True
@@ -146,6 +205,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             str
                 Character at word[pos]
+
+            .. versionadded:: 0.1.0
 
             """
             return word[pos]
@@ -166,6 +227,8 @@ class DoubleMetaphone(_Phonetic):
             -------
             bool
                 True if word[pos:pos+slen] is in substrings
+
+            .. versionadded:: 0.1.0
 
             """
             if pos < 0:
@@ -949,15 +1012,21 @@ class DoubleMetaphone(_Phonetic):
             else:
                 current += 1
 
-        if max_length > 0:
-            primary = primary[:max_length]
-            secondary = secondary[:max_length]
+        if self._max_length > 0:
+            primary = primary[: self._max_length]
+            secondary = secondary[: self._max_length]
         if primary == secondary:
             secondary = ''
 
         return primary, secondary
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DoubleMetaphone.encode method instead.',
+)
 def double_metaphone(word, max_length=-1):
     """Return the Double Metaphone code for a word.
 
@@ -987,8 +1056,10 @@ def double_metaphone(word, max_length=-1):
     >>> double_metaphone('Schmidt')
     ('XMT', 'SMT')
 
+    .. versionadded:: 0.1.0
+
     """
-    return DoubleMetaphone().encode(word, max_length)
+    return DoubleMetaphone(max_length).encode(word)
 
 
 if __name__ == '__main__':

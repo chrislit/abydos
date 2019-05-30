@@ -51,14 +51,14 @@ class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
 
         self.assertEqual(self.fp.fingerprint('inst'), 0b0001000010100100)
         self.assertEqual(
-            self.fp.fingerprint('instance', 15), 0b0110010010111000
+            OccurrenceHalved(15).fingerprint('instance'), 0b0110010010111000
         )
         self.assertEqual(
-            self.fp.fingerprint('instance', 32),
+            OccurrenceHalved(32).fingerprint('instance'),
             0b01100100101110000000000100000000,
         )
         self.assertEqual(
-            self.fp.fingerprint('instance', 64),
+            OccurrenceHalved(64).fingerprint('instance'),
             0b01100100101110000000000100000000 << 32,
         )
 

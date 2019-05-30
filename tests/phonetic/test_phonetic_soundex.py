@@ -96,65 +96,65 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Jackson-Jackson'), 'J252')
 
         # max_length tests
-        self.assertEqual(self.pa.encode('Lincoln', 10), 'L524500000')
-        self.assertEqual(self.pa.encode('Lincoln', 5), 'L5245')
-        self.assertEqual(self.pa.encode('Christopher', 6), 'C62316')
+        self.assertEqual(Soundex(10).encode('Lincoln'), 'L524500000')
+        self.assertEqual(Soundex(5).encode('Lincoln'), 'L5245')
+        self.assertEqual(Soundex(6).encode('Christopher'), 'C62316')
 
         # max_length bounds tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1),
+            Soundex(max_length=-1).encode('Niall'),
             'N4000000000000000000000000000000000000000000000000'
             + '00000000000000',
         )
-        self.assertEqual(self.pa.encode('Niall', max_length=0), 'N400')
+        self.assertEqual(Soundex(max_length=0).encode('Niall'), 'N400')
 
         # reverse tests
-        self.assertEqual(self.pa.encode('Rubin', reverse=True), 'N160')
-        self.assertEqual(self.pa.encode('Llyod', reverse=True), 'D400')
-        self.assertEqual(self.pa.encode('Lincoln', reverse=True), 'N425')
-        self.assertEqual(self.pa.encode('Knuth', reverse=True), 'H352')
+        self.assertEqual(Soundex(reverse=True).encode('Rubin'), 'N160')
+        self.assertEqual(Soundex(reverse=True).encode('Llyod'), 'D400')
+        self.assertEqual(Soundex(reverse=True).encode('Lincoln'), 'N425')
+        self.assertEqual(Soundex(reverse=True).encode('Knuth'), 'H352')
 
         # zero_pad tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1, zero_pad=False), 'N4'
+            Soundex(max_length=-1, zero_pad=False).encode('Niall'), 'N4'
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=False), 'N4'
+            Soundex(max_length=0, zero_pad=False).encode('Niall'), 'N4'
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=True), 'N400'
+            Soundex(max_length=0, zero_pad=True).encode('Niall'), 'N400'
         )
-        self.assertEqual(self.pa.encode('', max_length=4, zero_pad=False), '0')
+        self.assertEqual(Soundex(max_length=4, zero_pad=False).encode(''), '0')
         self.assertEqual(
-            self.pa.encode('', max_length=4, zero_pad=True), '0000'
+            Soundex(max_length=4, zero_pad=True).encode(''), '0000'
         )
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Euler'), 'ELR')
+        self.assertEqual(self.pa.encode_alpha('Gauss'), 'GK')
+        self.assertEqual(self.pa.encode_alpha('Hilbert'), 'HLPR')
+        self.assertEqual(self.pa.encode_alpha('Knuth'), 'KNT')
 
         # Test wrapper
         self.assertEqual(soundex('Euler'), 'E460')
 
     def test_soundex_special(self):
         """Test abydos.phonetic.Soundex (special 1880-1910 variant method)."""
-        self.assertEqual(self.pa.encode('Ashcroft', var='special'), 'A226')
-        self.assertEqual(self.pa.encode('Asicroft', var='special'), 'A226')
-        self.assertEqual(self.pa.encode('AsWcroft', var='special'), 'A226')
-        self.assertEqual(self.pa.encode('Rupert', var='special'), 'R163')
-        self.assertEqual(self.pa.encode('Rubin', var='special'), 'R150')
+        pa_special = Soundex(var='special')
+        self.assertEqual(pa_special.encode('Ashcroft'), 'A226')
+        self.assertEqual(pa_special.encode('Asicroft'), 'A226')
+        self.assertEqual(pa_special.encode('AsWcroft'), 'A226')
+        self.assertEqual(pa_special.encode('Rupert'), 'R163')
+        self.assertEqual(pa_special.encode('Rubin'), 'R150')
 
     def test_soundex_census(self):
         """Test abydos.phonetic.Soundex(Census variant method)."""
-        self.assertEqual(
-            self.pa.encode('Vandeusen', var='Census'), ('V532', 'D250')
-        )
-        self.assertEqual(
-            self.pa.encode('van Deusen', var='Census'), ('V532', 'D250')
-        )
-        self.assertEqual(self.pa.encode('McDonald', var='Census'), 'M235')
-        self.assertEqual(
-            self.pa.encode('la Cruz', var='Census'), ('L262', 'C620')
-        )
-        self.assertEqual(
-            self.pa.encode('vanDamme', var='Census'), ('V535', 'D500')
-        )
+        pa_census = Soundex(var='Census')
+        self.assertEqual(pa_census.encode('Vandeusen'), ('V532', 'D250'))
+        self.assertEqual(pa_census.encode('van Deusen'), ('V532', 'D250'))
+        self.assertEqual(pa_census.encode('McDonald'), 'M235')
+        self.assertEqual(pa_census.encode('la Cruz'), ('L262', 'C620'))
+        self.assertEqual(pa_census.encode('vanDamme'), ('V535', 'D500'))
 
 
 if __name__ == '__main__':

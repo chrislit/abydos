@@ -39,11 +39,12 @@ if [ "$docs_only" = "0" ]; then
         # pycodestyle . > pycodestyle.log
         flake8 . > flake8.log
         doc8 . > doc8.log
+        sloccount abydos > sloccount.log
 
         ./badge_update.py
     fi
 fi
 
-sphinx-apidoc -e -f -M -o docs ./abydos
+sphinx-apidoc -e -M -o docs ./abydos
 cd docs || exit
 make html epub xelatexpdf >> /dev/null 2> /dev/null

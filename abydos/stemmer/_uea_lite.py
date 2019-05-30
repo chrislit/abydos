@@ -30,9 +30,12 @@ from __future__ import (
 
 from re import match as re_match
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['UEALite', 'uealite']
 
@@ -48,6 +51,8 @@ class UEALite(_Stemmer):
     Java version: :cite:`Churchill:2005`
     Perl version: :cite:`Jenkins:2005`
     Ruby version: :cite:`Adams:2017`
+
+    .. versionadded:: 0.3.6
     """
 
     _problem_words = {'is', 'as', 'this', 'has', 'was', 'during'}
@@ -617,20 +622,17 @@ class UEALite(_Stemmer):
         'Perl': _perl_rule_table,
     }
 
-    def stem(
+    def __init__(
         self,
-        word,
         max_word_length=20,
         max_acro_length=8,
         return_rule_no=False,
         var='standard',
     ):
-        """Return UEA-Lite stem.
+        """Initialize UEALite instance.
 
         Parameters
         ----------
-        word : str
-            The word to stem
         max_word_length : int
             The maximum word length allowed
         max_acro_length : int
@@ -642,6 +644,23 @@ class UEALite(_Stemmer):
 
                 - ``Adams`` to use Jason Adams' rules
                 - ``Perl`` to use the original Perl rules
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_word_length = max_word_length
+        self._max_acro_length = max_acro_length
+        self._return_rule_no = return_rule_no
+        self._var = var
+
+    def stem(self, word):
+        """Return UEA-Lite stem.
+
+        Parameters
+        ----------
+        word : str
+            The word to stem
 
         Returns
         -------
@@ -661,6 +680,11 @@ class UEALite(_Stemmer):
         >>> uealite('eroded')
         'erode'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _stem_with_duplicate_character_check(word, del_len):
@@ -678,10 +702,10 @@ class UEALite(_Stemmer):
             if not word:
                 return word, 0
             if word in self._problem_words or (
-                word == 'menses' and var == 'Adams'
+                word == 'menses' and self._var == 'Adams'
             ):
                 return word, 90
-            if max_word_length and len(word) > max_word_length:
+            if self._max_word_length and len(word) > self._max_word_length:
                 return word, 95
 
             if "'" in word:
@@ -710,25 +734,33 @@ class UEALite(_Stemmer):
                 elif '_' in word:
                     return word, 90
                 elif word[-1] == 's' and word[:-1].isupper():
-                    if var == 'Adams' and len(word) - 1 > max_acro_length:
+                    if (
+                        self._var == 'Adams'
+                        and len(word) - 1 > self._max_acro_length
+                    ):
                         return word, 96
                     return word[:-1], 91.1
                 elif word.isupper():
-                    if var == 'Adams' and len(word) > max_acro_length:
+                    if (
+                        self._var == 'Adams'
+                        and len(word) > self._max_acro_length
+                    ):
                         return word, 96
                     return word, 91
                 elif re_match(r'^.*[A-Z].*[A-Z].*$', word):
                     return word, 92
                 elif word[0].isupper():
                     return word, 93
-                elif var == 'Adams' and re_match(
+                elif self._var == 'Adams' and re_match(
                     r'^[a-z](|[rl])(ing|ed)$', word
                 ):
                     return word, 97
 
             for n in range(7, 1, -1):
-                if word[-n:] in self._rules[var][n]:
-                    rule_no, del_len, add_str = self._rules[var][n][word[-n:]]
+                if word[-n:] in self._rules[self._var][n]:
+                    rule_no, del_len, add_str = self._rules[self._var][n][
+                        word[-n:]
+                    ]
                     if del_len:
                         stemmed_word = word[:-del_len]
                     else:
@@ -755,11 +787,17 @@ class UEALite(_Stemmer):
             return stemmed_word, rule_no
 
         stem, rule_no = _stem(word)
-        if return_rule_no:
+        if self._return_rule_no:
             return stem, rule_no
         return stem
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the UEALite.stem method instead.',
+)
 def uealite(
     word,
     max_word_length=20,
@@ -805,9 +843,11 @@ def uealite(
     >>> uealite('eroded')
     'erode'
 
+    .. versionadded:: 0.1.0
+
     """
-    return UEALite().stem(
-        word, max_word_length, max_acro_length, return_rule_no, var
+    return UEALite(max_word_length, max_acro_length, return_rule_no, var).stem(
+        word
     )
 
 

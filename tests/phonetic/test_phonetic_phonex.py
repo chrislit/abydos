@@ -82,26 +82,28 @@ class PhonexTestCases(unittest.TestCase):
 
         # max_length bounds tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1),
-            'N4000000000000000000000000000000000000000000000000'
-            + '00000000000000',
+            Phonex(max_length=-1).encode('Niall'),
+            'N400000000000000000000000000000000000000000000000000000000000000',
         )
-        self.assertEqual(self.pa.encode('Niall', max_length=0), 'N400')
+        self.assertEqual(Phonex(max_length=0).encode('Niall'), 'N400')
 
         # zero_pad tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=False), 'N4'
+            Phonex(max_length=0, zero_pad=False).encode('Niall'), 'N4'
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=False), 'N4'
+            Phonex(max_length=0, zero_pad=True).encode('Niall'), 'N400'
         )
+        self.assertEqual(Phonex(max_length=4, zero_pad=False).encode(''), '0')
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=True), 'N400'
+            Phonex(max_length=4, zero_pad=True).encode(''), '0000'
         )
-        self.assertEqual(self.pa.encode('', max_length=4, zero_pad=False), '0')
-        self.assertEqual(
-            self.pa.encode('', max_length=4, zero_pad=True), '0000'
-        )
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Ewell'), 'AL')
+        self.assertEqual(self.pa.encode_alpha('Filp'), 'FP')
+        self.assertEqual(self.pa.encode_alpha('Heames'), 'AN')
+        self.assertEqual(self.pa.encode_alpha('Kneves'), 'NP')
 
         # Test wrapper
         self.assertEqual(phonex('Ewell'), 'A400')

@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['CLEFSwedish', 'clef_swedish']
 
@@ -37,6 +40,8 @@ class CLEFSwedish(_Stemmer):
     """CLEF Swedish stemmer.
 
     The CLEF Swedish stemmer is defined at :cite:`Savoy:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     def stem(self, word):
@@ -61,6 +66,11 @@ class CLEFSwedish(_Stemmer):
         >>> clef_swedish('visshet')
         'viss'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         wlen = len(word) - 2
 
@@ -82,6 +92,12 @@ class CLEFSwedish(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the CLEFSwedish.stem method instead.',
+)
 def clef_swedish(word):
     """Return CLEF Swedish stem.
 
@@ -105,6 +121,8 @@ def clef_swedish(word):
     'suspensio'
     >>> clef_swedish('visshet')
     'viss'
+
+    .. versionadded:: 0.1.0
 
     """
     return CLEFSwedish().stem(word)

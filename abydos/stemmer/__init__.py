@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -89,14 +89,18 @@ from ._porter import Porter, porter
 from ._porter2 import Porter2, porter2
 from ._s_stemmer import SStemmer, s_stemmer
 from ._schinke import Schinke, schinke
+from ._snowball import _Snowball
 from ._snowball_danish import SnowballDanish, sb_danish
 from ._snowball_dutch import SnowballDutch, sb_dutch
 from ._snowball_german import SnowballGerman, sb_german
 from ._snowball_norwegian import SnowballNorwegian, sb_norwegian
 from ._snowball_swedish import SnowballSwedish, sb_swedish
+from ._stemmer import _Stemmer
 from ._uea_lite import UEALite, uealite
 
 __all__ = [
+    '_Stemmer',
+    '_Snowball',
     'Lovins',
     'lovins',
     'PaiceHusk',

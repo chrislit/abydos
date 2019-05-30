@@ -40,6 +40,8 @@ class PSHPSoundexTestCases(unittest.TestCase):
     """
 
     pa = PSHPSoundexFirst()
+    pa_german = PSHPSoundexFirst(german=True)
+    pa_unl = PSHPSoundexFirst(max_length=-1)
 
     def test_pshp_soundex_first(self):
         """Test abydos.phonetic.PSHPSoundexFirst."""
@@ -60,12 +62,19 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Knabe'), 'N100')
         self.assertEqual(self.pa.encode('Phil'), 'F400')
         self.assertEqual(self.pa.encode('Wieland'), 'V400')
-        self.assertEqual(self.pa.encode('Wayne', german=True), 'V500')
-        self.assertEqual(self.pa.encode('Christopher', max_length=-1), 'K5')
-        self.assertEqual(
-            self.pa.encode('Asdaananndsjsjasd', max_length=-1), 'A23553223'
-        )
+        self.assertEqual(self.pa_german.encode('Wayne'), 'V500')
+        self.assertEqual(self.pa_unl.encode('Christopher'), 'K5')
+        self.assertEqual(self.pa_unl.encode('Asdaananndsjsjasd'), 'A23553223')
         self.assertEqual(self.pa.encode('Asdaananndsjsjasd'), 'A235')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('JAMES'), 'JN')
+        self.assertEqual(self.pa.encode_alpha('JOHN'), 'JN')
+        self.assertEqual(self.pa.encode_alpha('PAT'), 'PT')
+        self.assertEqual(self.pa.encode_alpha('PETER'), 'PT')
+        self.assertEqual(self.pa.encode_alpha('Knabe'), 'NP')
+        self.assertEqual(self.pa.encode_alpha('Phil'), 'FL')
+        self.assertEqual(self.pa.encode_alpha('Wieland'), 'VL')
 
         # Test wrapper
         self.assertEqual(pshp_soundex_first('Giles'), 'J400')

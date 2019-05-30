@@ -82,7 +82,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         particularly in terms of formatting and ordering.
         """
         # base cases
-        self.assertEqual(self.pa.encode(''), '')
+        self.assertEqual(BeiderMorse().encode(''), '')
 
         for langs in ('', 1, 'spanish', 'english,italian', 3):
             for name_mode in ('gen', 'ash', 'sep'):
@@ -94,8 +94,7 @@ class BeiderMorseTestCases(unittest.TestCase):
                         ):
                             self.assertRaises(
                                 ValueError,
-                                self.pa.encode,
-                                '',
+                                BeiderMorse,
                                 langs,
                                 name_mode,
                                 match_mode,
@@ -103,58 +102,62 @@ class BeiderMorseTestCases(unittest.TestCase):
                             )
                         else:
                             self.assertEqual(
-                                self.pa.encode(
-                                    '', langs, name_mode, match_mode, concat
-                                ),
+                                BeiderMorse(
+                                    langs, name_mode, match_mode, concat
+                                ).encode(''),
                                 '',
                             )
 
         # testSolrGENERIC
         # concat is true, ruleType is EXACT
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'gen', 'exact', True),
+            BeiderMorse('', 'gen', 'exact', True).encode('Angelo'),
             'angelo anxelo anhelo anjelo anZelo andZelo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'gen', 'exact', True),
+            BeiderMorse('', 'gen', 'exact', True).encode("D'Angelo"),
             'angelo anxelo anhelo anjelo anZelo andZelo dangelo'
             + ' danxelo danhelo danjelo danZelo dandZelo',
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'gen', 'exact', True
+            BeiderMorse('italian,greek,spanish', 'gen', 'exact', True).encode(
+                'Angelo'
             ),
             'angelo anxelo andZelo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'gen', 'exact', True), '')
+        self.assertEqual(
+            BeiderMorse('', 'gen', 'exact', True).encode('1234'), ''
+        )
 
         # concat is false, ruleType is EXACT
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'gen', 'exact', False),
+            BeiderMorse('', 'gen', 'exact', False).encode('Angelo'),
             'angelo anxelo anhelo anjelo anZelo andZelo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'gen', 'exact', False),
+            BeiderMorse('', 'gen', 'exact', False).encode("D'Angelo"),
             'angelo anxelo anhelo anjelo anZelo andZelo dangelo'
             + ' danxelo danhelo danjelo danZelo dandZelo',
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'gen', 'exact', False
+            BeiderMorse('italian,greek,spanish', 'gen', 'exact', False).encode(
+                'Angelo'
             ),
             'angelo anxelo andZelo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'gen', 'exact', False), '')
+        self.assertEqual(
+            BeiderMorse('', 'gen', 'exact', False).encode('1234'), ''
+        )
 
         # concat is true, ruleType is APPROX
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'gen', 'approx', True),
+            BeiderMorse('', 'gen', 'approx', True).encode('Angelo'),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'gen', 'approx', True),
+            BeiderMorse('', 'gen', 'approx', True).encode("D'Angelo"),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo dangilo dangYlo dagilo dongilo'
@@ -162,22 +165,24 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' danilo donilo daniilo doniilo danzilo donzilo',
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'gen', 'approx', True
+            BeiderMorse('italian,greek,spanish', 'gen', 'approx', True).encode(
+                'Angelo'
             ),
             'angilo ongilo anxilo onxilo anzilo onzilo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'gen', 'approx', True), '')
+        self.assertEqual(
+            BeiderMorse('', 'gen', 'approx', True).encode('1234'), ''
+        )
 
         # concat is false, ruleType is APPROX
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'gen', 'approx', False),
+            BeiderMorse('', 'gen', 'approx', False).encode('Angelo'),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'gen', 'approx', False),
+            BeiderMorse('', 'gen', 'approx', False).encode("D'Angelo"),
             'angilo angYlo agilo ongilo ongYlo ogilo Yngilo'
             + ' YngYlo anxilo onxilo anilo onilo aniilo oniilo'
             + ' anzilo onzilo dangilo dangYlo dagilo dongilo'
@@ -185,275 +190,279 @@ class BeiderMorseTestCases(unittest.TestCase):
             + ' danilo donilo daniilo doniilo danzilo donzilo',
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'gen', 'approx', False
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'gen', 'approx', False
+            ).encode('Angelo'),
             'angilo ongilo anxilo onxilo anzilo onzilo',
         )
         self.assertEqual(
-            self.pa.encode('1234', '', 'gen', 'approx', False), ''
+            BeiderMorse('', 'gen', 'approx', False).encode('1234'), ''
         )
 
         # testSolrASHKENAZI
         # concat is true, ruleType is EXACT
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'ash', 'exact', True),
+            BeiderMorse('', 'ash', 'exact', True).encode('Angelo'),
             'angelo andZelo anhelo anxelo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'ash', 'exact', True),
+            BeiderMorse('', 'ash', 'exact', True).encode("D'Angelo"),
             'dangelo dandZelo danhelo danxelo',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'ash',
             'exact',
             True,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'ash', 'exact', True, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'ash', 'exact', True, True
+            ).encode('Angelo'),
             'anxelo angelo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'ash', 'exact', True), '')
+        self.assertEqual(
+            BeiderMorse('', 'ash', 'exact', True).encode('1234'), ''
+        )
 
         # concat is false, ruleType is EXACT
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'ash', 'exact', False),
+            BeiderMorse('', 'ash', 'exact', False).encode('Angelo'),
             'angelo andZelo anhelo anxelo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'ash', 'exact', False),
+            BeiderMorse('', 'ash', 'exact', False).encode("D'Angelo"),
             'dangelo dandZelo danhelo danxelo',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'ash',
             'exact',
             False,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'ash', 'exact', False, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'ash', 'exact', False, True
+            ).encode('Angelo'),
             'anxelo angelo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'ash', 'exact', False), '')
+        self.assertEqual(
+            BeiderMorse('', 'ash', 'exact', False).encode('1234'), ''
+        )
 
         # concat is true, ruleType is APPROX
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'ash', 'approx', True),
+            BeiderMorse('', 'ash', 'approx', True).encode('Angelo'),
             'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'
             + ' onzilo anilo onilo anxilo onxilo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'ash', 'approx', True),
+            BeiderMorse('', 'ash', 'approx', True).encode("D'Angelo"),
             'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'
             + ' danzilo donzilo danilo donilo danxilo donxilo',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'ash',
             'approx',
             True,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'ash', 'approx', True, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'ash', 'approx', True, True
+            ).encode('Angelo'),
             'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo' + ' ongilo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'ash', 'approx', True), '')
+        self.assertEqual(
+            BeiderMorse('', 'ash', 'approx', True).encode('1234'), ''
+        )
 
         # concat is false, ruleType is APPROX
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'ash', 'approx', False),
+            BeiderMorse('', 'ash', 'approx', False).encode('Angelo'),
             'angilo angYlo ongilo ongYlo Yngilo YngYlo anzilo'
             + ' onzilo anilo onilo anxilo onxilo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'ash', 'approx', False),
+            BeiderMorse('', 'ash', 'approx', False).encode("D'Angelo"),
             'dangilo dangYlo dongilo dongYlo dYngilo dYngYlo'
             + ' danzilo donzilo danilo donilo danxilo donxilo',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'ash',
             'approx',
             False,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'ash', 'approx', False, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'ash', 'approx', False, True
+            ).encode('Angelo'),
             'anxYlo anxilo onxYlo onxilo angYlo angilo ongYlo' + ' ongilo',
         )
         self.assertEqual(
-            self.pa.encode('1234', '', 'ash', 'approx', False), ''
+            BeiderMorse('', 'ash', 'approx', False).encode('1234'), ''
         )
 
         # testSolrSEPHARDIC
         # concat is true, ruleType is EXACT
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'sep', 'exact', True),
+            BeiderMorse('', 'sep', 'exact', True).encode('Angelo'),
             'anZelo andZelo anxelo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'sep', 'exact', True),
+            BeiderMorse('', 'sep', 'exact', True).encode("D'Angelo"),
             'anZelo andZelo anxelo',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'sep',
             'exact',
             True,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'sep', 'exact', True, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'sep', 'exact', True, True
+            ).encode('Angelo'),
             'andZelo anxelo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'sep', 'exact', True), '')
+        self.assertEqual(
+            BeiderMorse('', 'sep', 'exact', True).encode('1234'), ''
+        )
 
         # concat is false, ruleType is EXACT
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'sep', 'exact', False),
+            BeiderMorse('', 'sep', 'exact', False).encode('Angelo'),
             'anZelo andZelo anxelo',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'sep', 'exact', False),
+            BeiderMorse('', 'sep', 'exact', False).encode("D'Angelo"),
             'anZelo andZelo anxelo',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'sep',
             'exact',
             False,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'sep', 'exact', False, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'sep', 'exact', False, True
+            ).encode('Angelo'),
             'andZelo anxelo',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'sep', 'exact', False), '')
+        self.assertEqual(
+            BeiderMorse('', 'sep', 'exact', False).encode('1234'), ''
+        )
 
         # concat is true, ruleType is APPROX
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'sep', 'approx', True),
+            BeiderMorse('', 'sep', 'approx', True).encode('Angelo'),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'sep', 'approx', True),
+            BeiderMorse('', 'sep', 'approx', True).encode("D'Angelo"),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'sep',
             'approx',
             True,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'sep', 'approx', True, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'sep', 'approx', True, True
+            ).encode('Angelo'),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
-        self.assertEqual(self.pa.encode('1234', '', 'sep', 'approx', True), '')
+        self.assertEqual(
+            BeiderMorse('', 'sep', 'approx', True).encode('1234'), ''
+        )
 
         # concat is false, ruleType is APPROX
         self.assertEqual(
-            self.pa.encode('Angelo', '', 'sep', 'approx', False),
+            BeiderMorse('', 'sep', 'approx', False).encode('Angelo'),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertEqual(
-            self.pa.encode('D\'Angelo', '', 'sep', 'approx', False),
+            BeiderMorse('', 'sep', 'approx', False).encode("D'Angelo"),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertRaises(
             ValueError,
-            self.pa.encode,
-            'Angelo',
+            BeiderMorse,
             'italian,greek,spanish',
             'sep',
             'approx',
             False,
         )
         self.assertEqual(
-            self.pa.encode(
-                'Angelo', 'italian,greek,spanish', 'sep', 'approx', False, True
-            ),
+            BeiderMorse(
+                'italian,greek,spanish', 'sep', 'approx', False, True
+            ).encode('Angelo'),
             'anzila anzilu nzila nzilu anhila anhilu nhila nhilu',
         )
         self.assertEqual(
-            self.pa.encode('1234', '', 'sep', 'approx', False), ''
+            BeiderMorse('', 'sep', 'approx', False).encode('1234'), ''
         )
 
         # testCompatibilityWithOriginalVersion
         self.assertEqual(
-            self.pa.encode('abram', '', 'gen', 'approx', False),
+            BeiderMorse('', 'gen', 'approx', False).encode('abram'),
             'abram abrom avram avrom obram obrom ovram ovrom'
             + ' Ybram Ybrom abran abron obran obron',
         )
         self.assertEqual(
-            self.pa.encode('Bendzin', '', 'gen', 'approx', False),
+            BeiderMorse('', 'gen', 'approx', False).encode('Bendzin'),
             'binzn bindzn vindzn bintsn vintsn',
         )
         self.assertEqual(
-            self.pa.encode('abram', '', 'ash', 'approx', False),
+            BeiderMorse('', 'ash', 'approx', False).encode('abram'),
             'abram abrom avram avrom obram obrom ovram ovrom'
             + ' Ybram Ybrom ombram ombrom imbram imbrom',
         )
         self.assertEqual(
-            self.pa.encode('Halpern', '', 'ash', 'approx', False),
+            BeiderMorse('', 'ash', 'approx', False).encode('Halpern'),
             'alpirn alpYrn olpirn olpYrn Ylpirn YlpYrn xalpirn' + ' xolpirn',
         )
 
         # PhoneticEngineTest
         self.assertEqual(
-            self.pa.encode('Renault', '', 'gen', 'approx', True),
+            BeiderMorse('', 'gen', 'approx', True).encode('Renault'),
             'rinolt rino rinDlt rinalt rinult rinD rina rinu',
         )
         self.assertEqual(
-            self.pa.encode('Renault', '', 'ash', 'approx', True),
+            BeiderMorse('', 'ash', 'approx', True).encode('Renault'),
             'rinDlt rinalt rinult rYnDlt rYnalt rYnult rinolt',
         )
         self.assertEqual(
-            self.pa.encode('Renault', '', 'sep', 'approx', True), 'rinDlt'
+            BeiderMorse('', 'sep', 'approx', True).encode('Renault'), 'rinDlt'
         )
         self.assertEqual(
-            self.pa.encode('SntJohn-Smith', '', 'gen', 'exact', True),
+            BeiderMorse('', 'gen', 'exact', True).encode('SntJohn-Smith'),
             'sntjonsmit',
         )
         self.assertEqual(
-            self.pa.encode('d\'ortley', '', 'gen', 'exact', True),
+            BeiderMorse('', 'gen', 'exact', True).encode("d'ortley"),
             'ortlaj ortlej dortlaj dortlej',
         )
         self.assertEqual(
-            self.pa.encode('van helsing', '', 'gen', 'exact', False),
+            BeiderMorse('', 'gen', 'exact', False).encode('van helsing'),
             'helSink helsink helzink xelsink elSink elsink'
             + ' vanhelsink vanhelzink vanjelsink fanhelsink'
             + ' fanhelzink banhelsink',
@@ -473,19 +482,19 @@ class BeiderMorseTestCases(unittest.TestCase):
         """
         # test of Ashkenazi with discardable prefix
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='ash'), 'Dm xDm'
+            BeiderMorse(name_mode='ash').encode('bar Hayim'), 'Dm xDm'
         )
 
         # tests of concat behavior
         self.assertEqual(
-            self.pa.encode('Rodham Clinton', concat=False),
+            BeiderMorse(concat=False).encode('Rodham Clinton'),
             'rodam rodom rYdam rYdom rodan rodon rodxam rodxom'
             + ' rodxan rodxon rudam rudom klinton klnton klintun'
             + ' klntun tzlinton tzlnton tzlintun tzlntun zlinton'
             + ' zlnton',
         )
         self.assertEqual(
-            self.pa.encode('Rodham Clinton', concat=True),
+            BeiderMorse(concat=True).encode('Rodham Clinton'),
             'rodamklinton rodomklinton rodamklnton rodomklnton'
             + ' rodamklintun rodomklintun rodamklntun rodomklntun'
             + ' rodamtzlinton rodomtzlinton rodamtzlnton'
@@ -505,50 +514,50 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # tests of name_mode values
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='ash'), 'Dm xDm'
+            BeiderMorse(name_mode='ash').encode('bar Hayim'), 'Dm xDm'
         )
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='ashkenazi'), 'Dm xDm'
+            BeiderMorse(name_mode='ashkenazi').encode('bar Hayim'), 'Dm xDm'
         )
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='Ashkenazi'), 'Dm xDm'
+            BeiderMorse(name_mode='Ashkenazi').encode('bar Hayim'), 'Dm xDm'
         )
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='gen', concat=True),
+            BeiderMorse(name_mode='gen', concat=True).encode('bar Hayim'),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='general', concat=True),
+            BeiderMorse(name_mode='general', concat=True).encode('bar Hayim'),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='Mizrahi', concat=True),
+            BeiderMorse(name_mode='Mizrahi', concat=True).encode('bar Hayim'),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='mizrahi', concat=True),
+            BeiderMorse(name_mode='mizrahi', concat=True).encode('bar Hayim'),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
         self.assertEqual(
-            self.pa.encode('bar Hayim', name_mode='miz', concat=True),
+            BeiderMorse(name_mode='miz', concat=True).encode('bar Hayim'),
             'barDm borDm bYrDm varDm vorDm barDn borDn barxDm'
             + ' borxDm varxDm vorxDm barxDn borxDn',
         )
 
         # test that out-of-range language_arg results in L_ANY
         self.assertEqual(
-            self.pa.encode('Rodham Clinton', language_arg=2 ** 32),
+            BeiderMorse(language_arg=2 ** 32).encode('Rodham Clinton'),
             'rodam rodom rYdam rYdom rodan rodon rodxam rodxom'
             + ' rodxan rodxon rudam rudom klinton klnton klintun'
             + ' klntun tzlinton tzlnton tzlintun tzlntun zlinton'
             + ' zlnton',
         )
         self.assertEqual(
-            self.pa.encode('Rodham Clinton', language_arg=-4),
+            BeiderMorse(language_arg=-4).encode('Rodham Clinton'),
             'rodam rodom rYdam rYdom rodan rodon rodxam rodxom'
             + ' rodxan rodxon rudam rudom klinton klnton klintun'
             + ' klntun tzlinton tzlnton tzlintun tzlntun zlinton'
@@ -557,7 +566,7 @@ class BeiderMorseTestCases(unittest.TestCase):
 
         # etc. (for code coverage)
         self.assertEqual(
-            self.pa.encode('van Damme', name_mode='sep'), 'dami mi dam m'
+            BeiderMorse(name_mode='sep').encode('van Damme'), 'dami mi dam m'
         )
 
     def test_beider_morse_encode_nachnamen(self):
@@ -574,10 +583,12 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if nn_line[0] != '#' and _one_in(500):
                     self.assertEqual(
-                        self.pa.encode(nn_line[0], language_arg='german'),
+                        BeiderMorse(language_arg='german').encode(nn_line[0]),
                         nn_line[1],
                     )
-                    self.assertEqual(self.pa.encode(nn_line[0]), nn_line[2])
+                    self.assertEqual(
+                        BeiderMorse().encode(nn_line[0]), nn_line[2]
+                    )
 
     def test_beider_morse_encode_nachnamen_cc(self):
         """Test abydos.phonetic.BeiderMorse (Nachnamen, corner cases)."""
@@ -591,10 +602,12 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if nn_line[0] != '#':
                     self.assertEqual(
-                        self.pa.encode(nn_line[0], language_arg='german'),
+                        BeiderMorse(language_arg='german').encode(nn_line[0]),
                         nn_line[1],
                     )
-                    self.assertEqual(self.pa.encode(nn_line[0]), nn_line[2])
+                    self.assertEqual(
+                        BeiderMorse().encode(nn_line[0]), nn_line[2]
+                    )
 
     def test_beider_morse_encode_uscensus2000(self):
         """Test abydos.phonetic.BeiderMorse (US Census 2000 set)."""
@@ -608,39 +621,39 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if cen_line[0] != '#' and _one_in(7500):
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='approx', name_mode='gen'
-                        ),
+                        BeiderMorse(
+                            match_mode='approx', name_mode='gen'
+                        ).encode(cen_line[0]),
                         cen_line[1],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='approx', name_mode='ash'
-                        ),
+                        BeiderMorse(
+                            match_mode='approx', name_mode='ash'
+                        ).encode(cen_line[0]),
                         cen_line[2],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='approx', name_mode='sep'
-                        ),
+                        BeiderMorse(
+                            match_mode='approx', name_mode='sep'
+                        ).encode(cen_line[0]),
                         cen_line[3],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='exact', name_mode='gen'
-                        ),
+                        BeiderMorse(
+                            match_mode='exact', name_mode='gen'
+                        ).encode(cen_line[0]),
                         cen_line[4],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='exact', name_mode='ash'
-                        ),
+                        BeiderMorse(
+                            match_mode='exact', name_mode='ash'
+                        ).encode(cen_line[0]),
                         cen_line[5],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='exact', name_mode='sep'
-                        ),
+                        BeiderMorse(
+                            match_mode='exact', name_mode='sep'
+                        ).encode(cen_line[0]),
                         cen_line[6],
                     )
 
@@ -654,39 +667,39 @@ class BeiderMorseTestCases(unittest.TestCase):
                 # so let's just randomly select about 20 for testing
                 if cen_line[0] != '#' and _one_in(10):
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='approx', name_mode='gen'
-                        ),
+                        BeiderMorse(
+                            match_mode='approx', name_mode='gen'
+                        ).encode(cen_line[0]),
                         cen_line[1],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='approx', name_mode='ash'
-                        ),
+                        BeiderMorse(
+                            match_mode='approx', name_mode='ash'
+                        ).encode(cen_line[0]),
                         cen_line[2],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='approx', name_mode='sep'
-                        ),
+                        BeiderMorse(
+                            match_mode='approx', name_mode='sep'
+                        ).encode(cen_line[0]),
                         cen_line[3],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='exact', name_mode='gen'
-                        ),
+                        BeiderMorse(
+                            match_mode='exact', name_mode='gen'
+                        ).encode(cen_line[0]),
                         cen_line[4],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='exact', name_mode='ash'
-                        ),
+                        BeiderMorse(
+                            match_mode='exact', name_mode='ash'
+                        ).encode(cen_line[0]),
                         cen_line[5],
                     )
                     self.assertEqual(
-                        self.pa.encode(
-                            cen_line[0], match_mode='exact', name_mode='sep'
-                        ),
+                        BeiderMorse(
+                            match_mode='exact', name_mode='sep'
+                        ).encode(cen_line[0]),
                         cen_line[6],
                     )
 
@@ -926,6 +939,10 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             self.pa._normalize_lang_attrs('ab[2]c[6]', True),  # noqa: SF01
             'abc',
+        )
+
+        self.assertEqual(
+            self.pa._language_index_from_code(0, 'gen'), L_ANY  # noqa: SF01
         )
 
 

@@ -72,7 +72,7 @@ class DolbyTestCases(unittest.TestCase):
             ('*LVR', 'Oliveira', 'Olivera', 'Olivero'),
             ('*MS', 'Ames', 'Eames'),
             ('*NGL', 'Engel', 'Engle', 'Ingle'),
-            ('*NL', 'O\'Neal', 'O\'Neil', 'O\'Neill'),
+            ('*NL', "O'Neal", "O'Neil", "O'Neill"),
             ('*NRS', 'Andrews', 'Andrus'),
             ('*NRSN', 'Andersen', 'Anderson', 'Andreasen'),
             ('*NS', 'Ennis', 'Enos'),
@@ -739,17 +739,23 @@ class DolbyTestCases(unittest.TestCase):
 
         # Additional tests to improve coverage
         self.assertEqual(self.pa.encode('Rune'), 'R*N')
-        self.assertEqual(self.pa.encode('Rune', keep_vowels=True), 'R*N*')
-        self.assertEqual(self.pa.encode('Rune', vowel_char=''), 'RN')
-        self.assertEqual(self.pa.encode('Rune', vowel_char='A'), 'RAN')
-        self.assertEqual(self.pa.encode('Rune', max_length=2), 'R*')
-        self.assertEqual(self.pa.encode('Rune', max_length=2), 'R*')
-        self.assertEqual(self.pa.encode('Wassermann', max_length=4), 'W*SR')
+        self.assertEqual(Dolby(keep_vowels=True).encode('Rune'), 'R*N*')
+        self.assertEqual(Dolby(vowel_char='').encode('Rune'), 'RN')
+        self.assertEqual(Dolby(vowel_char='A').encode('Rune'), 'RAN')
+        self.assertEqual(Dolby(max_length=2).encode('Rune'), 'R*')
+        self.assertEqual(Dolby(max_length=2).encode('Rune'), 'R*')
+        self.assertEqual(Dolby(max_length=4).encode('Wassermann'), 'W*SR')
         self.assertEqual(
-            self.pa.encode('Wassermanns', max_length=4, keep_vowels=True),
-            'W*S*',
+            Dolby(max_length=4, keep_vowels=True).encode('Wassermanns'), 'W*S*'
         )
         self.assertEqual(self.pa.encode('Wassermanns'), 'W*SRMNS')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Rune'), 'RAN')
+        self.assertEqual(self.pa.encode_alpha('Weissman'), 'WASMN')
+        self.assertEqual(self.pa.encode_alpha('Pederson'), 'PADRSN')
+        self.assertEqual(self.pa.encode_alpha('Frederiksen'), 'FRADRKSN')
+        self.assertEqual(self.pa.encode_alpha('Bare'), 'BAR')
 
         # Test wrapper
         self.assertEqual(dolby('Wassermanns'), 'W*SRMNS')

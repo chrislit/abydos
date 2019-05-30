@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Dolby', 'dolby']
 
@@ -42,15 +45,15 @@ class Dolby(_Phonetic):
 
     This follows "A Spelling Equivalent Abbreviation Algorithm For Personal
     Names" from :cite:`Dolby:1970` and :cite:`Cunningham:1969`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=-1, keep_vowels=False, vowel_char='*'):
-        r"""Return the Dolby Code of a name.
+    def __init__(self, max_length=-1, keep_vowels=False, vowel_char='*'):
+        r"""Initialize Dolby instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         max_length : int
             Maximum length of the returned Dolby code -- this also activates
             the fixed-length code mode if it is greater than 0
@@ -58,6 +61,55 @@ class Dolby(_Phonetic):
             If True, retains all vowel markers
         vowel_char : str
             The vowel marker character (default to \*)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._keep_vowels = keep_vowels
+        self._vowel_char = vowel_char
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Dolby Code of a name.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Dolby Code
+
+        Examples
+        --------
+        >>> pe = Dolby()
+        >>> pe.encode_alpha('Hansen')
+        'HANSN'
+        >>> pe.encode_alpha('Larsen')
+        'LARSN'
+        >>> pe.encode_alpha('Aagaard')
+        'AGR'
+        >>> pe.encode_alpha('Braaten')
+        'BRADN'
+        >>> pe.encode_alpha('Sandvik')
+        'SANVK'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.encode(word).replace(self._vowel_char, 'A')
+
+    def encode(self, word):
+        """Return the Dolby Code of a name.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -77,15 +129,17 @@ class Dolby(_Phonetic):
         'BR*DN'
         >>> pe.encode('Sandvik')
         'S*NVK'
-        >>> pe.encode('Hansen', max_length=6)
+
+        >>> pe_6 = Dolby(max_length=6)
+        >>> pe_6.encode('Hansen')
         'H*NS*N'
-        >>> pe.encode('Larsen', max_length=6)
+        >>> pe_6.encode('Larsen')
         'L*RS*N'
-        >>> pe.encode('Aagaard', max_length=6)
+        >>> pe_6.encode('Aagaard')
         '*G*R  '
-        >>> pe.encode('Braaten', max_length=6)
+        >>> pe_6.encode('Braaten')
         'BR*D*N'
-        >>> pe.encode('Sandvik', max_length=6)
+        >>> pe_6.encode('Sandvik')
         'S*NF*K'
 
         >>> pe.encode('Smith')
@@ -98,16 +152,22 @@ class Dolby(_Phonetic):
         'SM*D'
         >>> pe.encode('Ashcroft')
         '*SKRFD'
-        >>> pe.encode('Smith', max_length=6)
+
+        >>> pe_6.encode('Smith')
         'SM*D  '
-        >>> pe.encode('Waters', max_length=6)
+        >>> pe_6.encode('Waters')
         'W*D*RS'
-        >>> pe.encode('James', max_length=6)
+        >>> pe_6.encode('James')
         'J*M*S '
-        >>> pe.encode('Schmidt', max_length=6)
+        >>> pe_6.encode('Schmidt')
         'SM*D  '
-        >>> pe.encode('Ashcroft', max_length=6)
+        >>> pe_6.encode('Ashcroft')
         '*SKRFD'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -181,7 +241,7 @@ class Dolby(_Phonetic):
             pos = word.find('K', pos + 1)
 
         # Rule FL6
-        if max_length > 0 and word[-1:] == 'E':
+        if self._max_length > 0 and word[-1:] == 'E':
             word = word[:-1]
 
         # Rule 5 (FL7)
@@ -200,52 +260,58 @@ class Dolby(_Phonetic):
         word = word.replace('GH', '')
 
         # Rule FL9
-        if max_length > 0:
+        if self._max_length > 0:
             word = word.replace('V', 'F')
 
         # Rules 7-9 (FL10-FL12)
-        first = 1 + (1 if max_length > 0 else 0)
+        first = 1 + (1 if self._max_length > 0 else 0)
         code = ''
         for pos, char in enumerate(word):
             if char in self._uc_vy_set:
-                if first or keep_vowels:
-                    code += vowel_char
+                if first or self._keep_vowels:
+                    code += self._vowel_char
                     first -= 1
             elif pos > 0 and char in {'W', 'H'}:
                 continue
             else:
                 code += char
 
-        if max_length > 0:
+        if self._max_length > 0:
             # Rule FL13
-            if len(code) > max_length and code[-1:] == 'S':
+            if len(code) > self._max_length and code[-1:] == 'S':
                 code = code[:-1]
-            if keep_vowels:
-                code = code[:max_length]
+            if self._keep_vowels:
+                code = code[: self._max_length]
             else:
                 # Rule FL14
-                code = code[: max_length + 2]
+                code = code[: self._max_length + 2]
                 # Rule FL15
-                while len(code) > max_length:
-                    vowels = len(code) - max_length
+                while len(code) > self._max_length:
+                    vowels = len(code) - self._max_length
                     excess = vowels - 1
                     word = code
                     code = ''
                     for char in word:
-                        if char == vowel_char:
+                        if char == self._vowel_char:
                             if vowels:
                                 code += char
                                 vowels -= 1
                         else:
                             code += char
-                    code = code[: max_length + excess]
+                    code = code[: self._max_length + excess]
 
             # Rule FL16
-            code += ' ' * (max_length - len(code))
+            code += ' ' * (self._max_length - len(code))
 
         return code
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Dolby.encode method instead.',
+)
 def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     r"""Return the Dolby Code of a name.
 
@@ -312,8 +378,10 @@ def dolby(word, max_length=-1, keep_vowels=False, vowel_char='*'):
     >>> dolby('Ashcroft', max_length=6)
     '*SKRFD'
 
+    .. versionadded:: 0.3.0
+
     """
-    return Dolby().encode(word, max_length, keep_vowels, vowel_char)
+    return Dolby(max_length, keep_vowels, vowel_char).encode(word)
 
 
 if __name__ == '__main__':

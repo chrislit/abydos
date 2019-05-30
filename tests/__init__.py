@@ -57,7 +57,7 @@ NIALL = (
     'Nel',
     'Kneale',
     'Uí Néill',
-    'O\'Neill',
+    "O'Neill",
     'MacNeil',
     'MacNele',
     'Niall Noígíallach',

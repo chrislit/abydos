@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -30,7 +30,6 @@ from __future__ import (
 
 from codecs import open as c_open
 from collections import Counter
-from math import log10
 
 from six import text_type
 from six.moves import range
@@ -53,6 +52,8 @@ class NGramCorpus(object):
     level is a numeric value representing the frequency of the trigram. E.g.
     the trigram frequency of 'colorless green ideas' would be the value stored
     in ``self.ngcorpus['colorless']['green']['ideas'][None]``.
+
+    .. versionadded:: 0.3.0
     """
 
     def __init__(self, corpus=None):
@@ -75,6 +76,9 @@ class NGramCorpus(object):
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus(Corpus(tqbf))
+
+
+        .. versionadded:: 0.3.0
 
         """
         self.ngcorpus = Counter()
@@ -115,6 +119,9 @@ class NGramCorpus(object):
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus()
         >>> ngcorp.corpus_importer(Corpus(tqbf))
+
+
+        .. versionadded:: 0.3.0
 
         """
         if not corpus or not isinstance(corpus, Corpus):
@@ -158,10 +165,13 @@ class NGramCorpus(object):
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> ngcorp = NGramCorpus(Corpus(tqbf))
-        >>> NGramCorpus(Corpus(tqbf)).get_count('the')
+        >>> ngcorp.get_count('the')
         2
-        >>> NGramCorpus(Corpus(tqbf)).get_count('fox')
+        >>> ngcorp.get_count('fox')
         1
+
+
+        .. versionadded:: 0.3.0
 
         """
         if not corpus:
@@ -194,6 +204,9 @@ class NGramCorpus(object):
         count : int
             Count of words
 
+
+        .. versionadded:: 0.3.0
+
         """
         if words[0] not in corpus:
             corpus[words[0]] = Counter()
@@ -211,6 +224,9 @@ class NGramCorpus(object):
         corpus_file : file
             The Google NGram file from which to initialize the n-gram corpus
 
+
+        .. versionadded:: 0.3.0
+
         """
         with c_open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
@@ -218,44 +234,6 @@ class NGramCorpus(object):
                 words = line[0].split()
 
                 self._add_to_ngcorpus(self.ngcorpus, words, int(line[2]))
-
-    def tf(self, term):
-        r"""Return term frequency.
-
-        Parameters
-        ----------
-        term : str
-            The term for which to calculate tf
-
-        Returns
-        -------
-        float
-            The term frequency (tf)
-
-        Raises
-        ------
-        ValueError
-            tf can only calculate the frequency of individual words
-
-        Examples
-        --------
-        >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
-        >>> tqbf += 'And then it slept.\n And the dog ran off.'
-        >>> ngcorp = NGramCorpus(Corpus(tqbf))
-        >>> NGramCorpus(Corpus(tqbf)).tf('the')
-        1.3010299956639813
-        >>> NGramCorpus(Corpus(tqbf)).tf('fox')
-        1.0
-
-        """
-        if ' ' in term:
-            raise ValueError(
-                'tf can only calculate the term frequency of individual words'
-            )
-        tcount = self.get_count(term)
-        if tcount == 0:
-            return 0.0
-        return 1 + log10(tcount)
 
 
 if __name__ == '__main__':

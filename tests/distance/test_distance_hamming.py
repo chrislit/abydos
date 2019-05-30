@@ -40,24 +40,25 @@ class HammingTestCases(unittest.TestCase):
     """
 
     cmp = Hamming()
+    cmp_no_diff = Hamming(False)
 
     def test_hamming_dist_abs(self):
         """Test abydos.distance.Hamming.dist_abs."""
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
-        self.assertEqual(self.cmp.dist_abs('', '', False), 0)
+        self.assertEqual(self.cmp_no_diff.dist_abs('', ''), 0)
 
         self.assertEqual(self.cmp.dist_abs('a', ''), 1)
         self.assertEqual(self.cmp.dist_abs('a', 'a'), 0)
-        self.assertEqual(self.cmp.dist_abs('a', 'a', False), 0)
+        self.assertEqual(self.cmp_no_diff.dist_abs('a', 'a'), 0)
         self.assertEqual(self.cmp.dist_abs('a', 'b'), 1)
-        self.assertEqual(self.cmp.dist_abs('a', 'b', False), 1)
+        self.assertEqual(self.cmp_no_diff.dist_abs('a', 'b'), 1)
         self.assertEqual(self.cmp.dist_abs('abc', 'cba'), 2)
-        self.assertEqual(self.cmp.dist_abs('abc', 'cba', False), 2)
+        self.assertEqual(self.cmp_no_diff.dist_abs('abc', 'cba'), 2)
         self.assertEqual(self.cmp.dist_abs('abc', ''), 3)
         self.assertEqual(self.cmp.dist_abs('bb', 'cbab'), 3)
 
         # test exception
-        self.assertRaises(ValueError, self.cmp.dist_abs, 'ab', 'a', False)
+        self.assertRaises(ValueError, self.cmp_no_diff.dist_abs, 'ab', 'a')
 
         # https://en.wikipedia.org/wiki/Hamming_distance
         self.assertEqual(self.cmp.dist_abs('karolin', 'kathrin'), 3)
@@ -66,25 +67,25 @@ class HammingTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('2173896', '2233796'), 3)
 
         # Test wrapper
-        self.assertEqual(hamming('abc', 'cba', False), 2)
+        self.assertEqual(hamming('abc', 'cba'), 2)
 
     def test_hamming_dist(self):
         """Test abydos.distance.Hamming.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
-        self.assertEqual(self.cmp.dist('', '', False), 0)
+        self.assertEqual(self.cmp_no_diff.dist('', ''), 0)
 
         self.assertEqual(self.cmp.dist('a', ''), 1)
         self.assertEqual(self.cmp.dist('a', 'a'), 0)
-        self.assertEqual(self.cmp.dist('a', 'a', False), 0)
+        self.assertEqual(self.cmp_no_diff.dist('a', 'a'), 0)
         self.assertEqual(self.cmp.dist('a', 'b'), 1)
-        self.assertEqual(self.cmp.dist('a', 'b', False), 1)
+        self.assertEqual(self.cmp_no_diff.dist('a', 'b'), 1)
         self.assertAlmostEqual(self.cmp.dist('abc', 'cba'), 2 / 3)
-        self.assertAlmostEqual(self.cmp.dist('abc', 'cba', False), 2 / 3)
+        self.assertAlmostEqual(self.cmp_no_diff.dist('abc', 'cba'), 2 / 3)
         self.assertEqual(self.cmp.dist('abc', ''), 1)
         self.assertAlmostEqual(self.cmp.dist('bb', 'cbab'), 3 / 4)
 
         # test exception
-        self.assertRaises(ValueError, self.cmp.dist, 'ab', 'a', False)
+        self.assertRaises(ValueError, self.cmp_no_diff.dist, 'ab', 'a')
 
         # https://en.wikipedia.org/wiki/Hamming_distance
         self.assertAlmostEqual(self.cmp.dist('karolin', 'kathrin'), 3 / 7)
@@ -98,20 +99,20 @@ class HammingTestCases(unittest.TestCase):
     def test_hamming_sim(self):
         """Test abydos.distance.Hamming.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
-        self.assertEqual(self.cmp.sim('', '', False), 1)
+        self.assertEqual(self.cmp_no_diff.sim('', ''), 1)
 
         self.assertEqual(self.cmp.sim('a', ''), 0)
         self.assertEqual(self.cmp.sim('a', 'a'), 1)
-        self.assertEqual(self.cmp.sim('a', 'a', False), 1)
+        self.assertEqual(self.cmp_no_diff.sim('a', 'a'), 1)
         self.assertEqual(self.cmp.sim('a', 'b'), 0)
-        self.assertEqual(self.cmp.sim('a', 'b', False), 0)
+        self.assertEqual(self.cmp_no_diff.sim('a', 'b'), 0)
         self.assertAlmostEqual(self.cmp.sim('abc', 'cba'), 1 / 3)
-        self.assertAlmostEqual(self.cmp.sim('abc', 'cba', False), 1 / 3)
+        self.assertAlmostEqual(self.cmp_no_diff.sim('abc', 'cba'), 1 / 3)
         self.assertEqual(self.cmp.sim('abc', ''), 0)
         self.assertAlmostEqual(self.cmp.sim('bb', 'cbab'), 1 / 4)
 
         # test exception
-        self.assertRaises(ValueError, self.cmp.sim, 'ab', 'a', False)
+        self.assertRaises(ValueError, self.cmp_no_diff.sim, 'ab', 'a')
 
         # https://en.wikipedia.org/wiki/Hamming_distance
         self.assertAlmostEqual(self.cmp.sim('karolin', 'kathrin'), 4 / 7)

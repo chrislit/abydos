@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['ParmarKumbharana', 'parmar_kumbharana']
 
@@ -39,6 +42,8 @@ class ParmarKumbharana(_Phonetic):
     """Parmar-Kumbharana code.
 
     This is based on the phonetic algorithm proposed in :cite:`Parmar:2014`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rules = {
@@ -88,6 +93,11 @@ class ParmarKumbharana(_Phonetic):
         >>> pe.encode('judge')
         'JJ'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = word.upper()  # Rule 3
         word = self._delete_consecutive_repeats(word)  # Rule 4
@@ -108,6 +118,12 @@ class ParmarKumbharana(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the ParmarKumbharana.encode method instead.',
+)
 def parmar_kumbharana(word):
     """Return the Parmar-Kumbharana encoding of a word.
 
@@ -135,6 +151,8 @@ def parmar_kumbharana(word):
     'TRS'
     >>> parmar_kumbharana('judge')
     'JJ'
+
+    .. versionadded:: 0.3.0
 
     """
     return ParmarKumbharana().encode(word)

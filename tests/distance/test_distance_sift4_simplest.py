@@ -79,18 +79,16 @@ class Sift4TestCases(unittest.TestCase):
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
         self.assertEqual(
-            self.cmp.dist_abs(
-                'This is the first string', 'And this is another string', 5
+            Sift4Simplest(5).dist_abs(
+                'This is the first string', 'And this is another string'
             ),
             13,
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                'Lorem ipsum dolor sit amet, '
-                + 'consectetur adipiscing elit.',
-                'Amet Lorm ispum dolor sit amet, '
-                + 'consetetur adixxxpiscing elit.',
-                10,
+            Sift4Simplest(10).dist_abs(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing'
+                + ' elit.',
             ),
             20,
         )

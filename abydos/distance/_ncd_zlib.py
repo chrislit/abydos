@@ -30,8 +30,10 @@ from __future__ import (
 
 import zlib
 
-from ._distance import _Distance
+from deprecation import deprecated
 
+from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['NCDzlib', 'dist_ncd_zlib', 'sim_ncd_zlib']
 
@@ -42,9 +44,9 @@ class NCDzlib(_Distance):
     Cf. https://zlib.net/
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
-    """
 
-    _compressor = None
+    .. versionadded:: 0.3.6
+    """
 
     def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION):
         """Initialize zlib compressor.
@@ -54,8 +56,11 @@ class NCDzlib(_Distance):
         level : int
             The compression level (0 to 9)
 
+
+        .. versionadded:: 0.3.6
+
         """
-        self._compressor = zlib.compressobj(level)
+        self._level = level
 
     def dist(self, src, tar):
         """Return the NCD between two strings using zlib compression.
@@ -84,6 +89,11 @@ class NCDzlib(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.4
 
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -91,21 +101,23 @@ class NCDzlib(_Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        self._compressor.compress(src)
-        src_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
-        self._compressor.compress(tar)
-        tar_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
-        self._compressor.compress(src + tar)
-        concat_comp = self._compressor.flush(zlib.Z_FULL_FLUSH)
-        self._compressor.compress(tar + src)
-        concat_comp2 = self._compressor.flush(zlib.Z_FULL_FLUSH)
+        src_comp = zlib.compress(src, self._level)
+        tar_comp = zlib.compress(tar, self._level)
+        concat_comp = zlib.compress(src + tar, self._level)
+        concat_comp2 = zlib.compress(tar + src, self._level)
 
         return (
             min(len(concat_comp), len(concat_comp2))
-            - min(len(src_comp), len(tar_comp))
-        ) / max(len(src_comp), len(tar_comp))
+            - (min(len(src_comp), len(tar_comp)))
+        ) / (max(len(src_comp), len(tar_comp)) - 2)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDzlib.dist method instead.',
+)
 def dist_ncd_zlib(src, tar):
     """Return the NCD between two strings using zlib compression.
 
@@ -134,10 +146,18 @@ def dist_ncd_zlib(src, tar):
     >>> dist_ncd_zlib('ATCG', 'TAGC')
     0.4
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDzlib().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDzlib.sim method instead.',
+)
 def sim_ncd_zlib(src, tar):
     """Return the NCD similarity between two strings using zlib compression.
 
@@ -164,6 +184,8 @@ def sim_ncd_zlib(src, tar):
     0.4285714285714286
     >>> sim_ncd_zlib('ATCG', 'TAGC')
     0.6
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDzlib().sim(src, tar)

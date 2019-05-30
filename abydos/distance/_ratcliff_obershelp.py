@@ -28,12 +28,15 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = [
     'RatcliffObershelp',
@@ -58,6 +61,8 @@ class RatcliffObershelp(_Distance):
 
     Cf.
     http://www.drdobbs.com/database/pattern-matching-the-gestalt-approach/184407970
+
+    .. versionadded:: 0.3.6
     """
 
     def sim(self, src, tar):
@@ -87,6 +92,11 @@ class RatcliffObershelp(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.5
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _lcsstr_stl(src, tar):
@@ -105,6 +115,8 @@ class RatcliffObershelp(_Distance):
                 The start position in the source string, start position in the
                 target string, and length of the longest common substring of
                 strings src and tar.
+
+            .. versionadded:: 0.1.0
 
             """
             lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
@@ -146,6 +158,8 @@ class RatcliffObershelp(_Distance):
             int
                 Sum of substring match lengths
 
+            .. versionadded:: 0.1.0
+
             """
             src_start, tar_start, length = _lcsstr_stl(src, tar)
             if length == 0:
@@ -165,6 +179,12 @@ class RatcliffObershelp(_Distance):
         return 2 * _sstr_matches(src, tar) / (len(src) + len(tar))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RatcliffObershelp.sim method instead.',
+)
 def sim_ratcliff_obershelp(src, tar):
     """Return the Ratcliff-Obershelp similarity of two strings.
 
@@ -193,10 +213,18 @@ def sim_ratcliff_obershelp(src, tar):
     >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.1.0
+
     """
     return RatcliffObershelp().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RatcliffObershelp.dist method instead.',
+)
 def dist_ratcliff_obershelp(src, tar):
     """Return the Ratcliff-Obershelp distance between two strings.
 
@@ -224,6 +252,8 @@ def dist_ratcliff_obershelp(src, tar):
     0.6
     >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
     0.5
+
+    .. versionadded:: 0.1.0
 
     """
     return RatcliffObershelp().dist(src, tar)

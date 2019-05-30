@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,11 +28,16 @@ from __future__ import (
     unicode_literals,
 )
 
+__all__ = ['_Stemmer']
+
 
 class _Stemmer(object):
-    """Abstract Stemmer class."""
+    """Abstract Stemmer class.
 
-    def stem(self, word, *args, **kwargs):
+    .. versionadded:: 0.3.6
+    """
+
+    def stem(self, word):
         """Return stem.
 
         Parameters
@@ -48,6 +53,9 @@ class _Stemmer(object):
         -------
         str
             Word stem
+
+
+        .. versionadded:: 0.3.6
 
         """
         pass

@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['SPFC', 'spfc']
 
@@ -43,6 +46,8 @@ class SPFC(_Phonetic):
 
     Standardized Phonetic Frequency Code is roughly Soundex-like.
     This implementation is based on page 19-21 of :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     _pf1 = dict(
@@ -71,6 +76,57 @@ class SPFC(_Phonetic):
         ('KN', 'N'),
         ('MN', 'N'),
     )
+
+    _pf1_alphabetic = dict(zip((ord(_) for _ in '01234567'), 'SCFALDEG'))
+    _pf2_alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'SCFAODMGUE'))
+    _pf3_alphabetic = dict(zip((ord(_) for _ in '01234567'), 'BDFGMRSZ'))
+
+    def encode_alpha(self, word):
+        """Return the alphabetic SPFC of a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic SPFC value
+
+        Examples
+        --------
+        >>> pe = SPFC()
+        >>> pe.encode_alpha('Christopher Smith')
+        'SDCMS'
+        >>> pe.encode_alpha('Christopher Schmidt')
+        'SDCMS'
+        >>> pe.encode_alpha('Niall Smith')
+        'SDMMS'
+        >>> pe.encode_alpha('Niall Schmidt')
+        'SDMMS'
+
+        >>> pe.encode_alpha('L.Smith')
+        'SDEMS'
+        >>> pe.encode_alpha('R.Miller')
+        'EROES'
+
+        >>> pe.encode_alpha(('L', 'Smith'))
+        'SDEMS'
+        >>> pe.encode_alpha(('R', 'Miller'))
+        'EROES'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word)
+
+        return (
+            code[:1].translate(self._pf1_alphabetic)
+            + code[1:2].translate(self._pf3_alphabetic)
+            + code[2:].translate(self._pf2_alphabetic)
+        )
 
     def encode(self, word):
         """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
@@ -114,6 +170,11 @@ class SPFC(_Phonetic):
         >>> pe.encode(('R', 'Miller'))
         '65490'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _raise_word_ex():
@@ -125,6 +186,8 @@ class SPFC(_Phonetic):
                 Word attribute must be a string with a space or period dividing
                 the first and last names or a tuple/list consisting of the
                 first and last names
+
+            .. versionadded:: 0.1.0
 
             """
             raise AttributeError(
@@ -171,6 +234,8 @@ class SPFC(_Phonetic):
             str
                 Transformed name
 
+            .. versionadded:: 0.1.0
+
             """
             # filter out non A-Z
             name = ''.join(_ for _ in name if _ in self._uc_set)
@@ -206,22 +271,10 @@ class SPFC(_Phonetic):
         # second digit of the code. Use as many letters as possible and remove
         # after coding.
         if names[1]:
-            if names[1][-3:] == 'STN' or names[1][-3:] == 'PRS':
-                code += '8'
-                names[1] = names[1][:-3]
-            elif names[1][-2:] == 'SN':
-                code += '8'
-                names[1] = names[1][:-2]
-            elif names[1][-3:] == 'STR':
-                code += '9'
-                names[1] = names[1][:-3]
-            elif names[1][-2:] in {'SR', 'TN', 'TD'}:
-                code += '9'
-                names[1] = names[1][:-2]
-            elif names[1][-3:] == 'DRS':
+            if names[1][-3:] in {'DRS', 'STN', 'PRS', 'STR'}:
                 code += '7'
                 names[1] = names[1][:-3]
-            elif names[1][-2:] in {'TR', 'MN'}:
+            elif names[1][-2:] in {'MN', 'TR', 'SN', 'SR', 'TN', 'TD'}:
                 code += '7'
                 names[1] = names[1][:-2]
             else:
@@ -249,6 +302,12 @@ class SPFC(_Phonetic):
         return code
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SPFC.encode method instead.',
+)
 def spfc(word):
     """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
@@ -284,6 +343,8 @@ def spfc(word):
     '01960'
     >>> spfc(('R', 'Miller'))
     '65490'
+
+    .. versionadded:: 0.1.0
 
     """
     return SPFC().encode(word)

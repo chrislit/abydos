@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ from __future__ import (
 from six.moves import range
 
 from ._mean import amean, hmean, std
-from ..distance import sim
+from ..distance._levenshtein import sim_levenshtein as sim
 
 __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 
@@ -80,6 +80,8 @@ def mean_pairwise_similarity(
     0.519801980198
     >>> round(mean_pairwise_similarity(['Niall', 'Neal', 'Neil']), 12)
     0.545454545455
+
+    .. versionadded:: 0.1.0
 
     """
     if not callable(mean_func):
@@ -156,6 +158,8 @@ def pairwise_similarity_statistics(
     >>> tuple(round(_, 12) for _ in pairwise_similarity_statistics(
     ... ['Christopher', 'Kristof', 'Christobal'], ['Niall', 'Neal', 'Neil']))
     (0.2, 0.0, 0.118614718615, 0.075070477184)
+
+    .. versionadded:: 0.3.0
 
     """
     if not callable(mean_func):

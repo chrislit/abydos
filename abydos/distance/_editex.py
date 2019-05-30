@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,15 +28,19 @@ from __future__ import (
     unicode_literals,
 )
 
+from sys import float_info
 from unicodedata import normalize as unicode_normalize
 
-from numpy import int as np_int
+from deprecation import deprecated
+
+from numpy import float as np_float
 from numpy import zeros as np_zeros
 
 from six import text_type
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Editex', 'dist_editex', 'editex', 'sim_editex']
 
@@ -47,6 +51,10 @@ class Editex(_Distance):
     As described on pages 3 & 4 of :cite:`Zobel:1996`.
 
     The local variant is based on :cite:`Ring:2009`.
+
+    .. versionadded:: 0.3.6
+    .. versionchanged:: 0.4.0
+        Added taper option
     """
 
     _letter_groups = (
@@ -63,7 +71,41 @@ class Editex(_Distance):
 
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 
-    def dist_abs(self, src, tar, cost=(0, 1, 2), local=False):
+    def __init__(self, cost=(0, 1, 2), local=False, taper=False, **kwargs):
+        """Initialize Editex instance.
+
+        Parameters
+        ----------
+        cost : tuple
+            A 3-tuple representing the cost of the four possible edits: match,
+            same-group, and mismatch respectively (by default: (0, 1, 2))
+        local : bool
+            If True, the local variant of Editex is used
+        taper : bool
+            Enables cost tapering. Following :cite:`Zobel:1996`, it causes
+            edits at the start of the string to "just [exceed] twice the
+            minimum penalty for replacement or deletion at the end of the
+            string".
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Editex, self).__init__(**kwargs)
+        self._cost = cost
+        self._local = local
+        self._taper_enabled = taper
+
+    def _taper(self, pos, length):
+        return (
+            round(1 + ((length - pos) / length) * (1 + float_info.epsilon), 15)
+            if self._taper_enabled
+            else 1
+        )
+
+    def dist_abs(self, src, tar):
         """Return the Editex distance between two strings.
 
         Parameters
@@ -72,11 +114,6 @@ class Editex(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 3-tuple representing the cost of the four possible edits: match,
-            same-group, and mismatch respectively (by default: (0, 1, 2))
-        local : bool
-            If True, the local variant of Editex is used
 
         Returns
         -------
@@ -95,8 +132,13 @@ class Editex(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         6
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        match_cost, group_cost, mismatch_cost = cost
+        match_cost, group_cost, mismatch_cost = self._cost
 
         def r_cost(ch1, ch2):
             """Return r(a,b) according to Zobel & Dart's definition.
@@ -112,6 +154,8 @@ class Editex(_Distance):
             -------
             int
                 r(a,b) according to Zobel & Dart's definition
+
+            .. versionadded:: 0.1.0
 
             """
             if ch1 == ch2:
@@ -137,6 +181,8 @@ class Editex(_Distance):
             int
                 d(a,b) according to Zobel & Dart's definition
 
+            .. versionadded:: 0.1.0
+
             """
             if ch1 != ch2 and (ch1 == 'H' or ch1 == 'W'):
                 return group_cost
@@ -149,36 +195,56 @@ class Editex(_Distance):
         src = src.replace('ß', 'SS')
         tar = tar.replace('ß', 'SS')
 
+        src_len = len(src)
+        tar_len = len(tar)
+        max_len = max(src_len, tar_len)
+
         if src == tar:
             return 0.0
         if not src:
-            return len(tar) * mismatch_cost
+            return sum(
+                mismatch_cost * self._taper(pos, max_len)
+                for pos in range(tar_len)
+            )
         if not tar:
-            return len(src) * mismatch_cost
+            return sum(
+                mismatch_cost * self._taper(pos, max_len)
+                for pos in range(src_len)
+            )
 
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-        lens = len(src)
-        lent = len(tar)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
         src = ' ' + src
         tar = ' ' + tar
 
-        if not local:
-            for i in range(1, lens + 1):
-                d_mat[i, 0] = d_mat[i - 1, 0] + d_cost(src[i - 1], src[i])
-        for j in range(1, lent + 1):
-            d_mat[0, j] = d_mat[0, j - 1] + d_cost(tar[j - 1], tar[j])
+        if not self._local:
+            for i in range(1, src_len + 1):
+                d_mat[i, 0] = d_mat[i - 1, 0] + d_cost(
+                    src[i - 1], src[i]
+                ) * self._taper(i, max_len)
+        for j in range(1, tar_len + 1):
+            d_mat[0, j] = d_mat[0, j - 1] + d_cost(
+                tar[j - 1], tar[j]
+            ) * self._taper(j, max_len)
 
-        for i in range(1, lens + 1):
-            for j in range(1, lent + 1):
+        for i in range(1, src_len + 1):
+            for j in range(1, tar_len + 1):
                 d_mat[i, j] = min(
-                    d_mat[i - 1, j] + d_cost(src[i - 1], src[i]),
-                    d_mat[i, j - 1] + d_cost(tar[j - 1], tar[j]),
-                    d_mat[i - 1, j - 1] + r_cost(src[i], tar[j]),
+                    d_mat[i - 1, j]
+                    + d_cost(src[i - 1], src[i])
+                    * self._taper(max(i, j), max_len),
+                    d_mat[i, j - 1]
+                    + d_cost(tar[j - 1], tar[j])
+                    * self._taper(max(i, j), max_len),
+                    d_mat[i - 1, j - 1]
+                    + r_cost(src[i], tar[j]) * self._taper(max(i, j), max_len),
                 )
 
-        return d_mat[lens, lent]
+        if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
+            return int(d_mat[src_len, tar_len])
+        else:
+            return d_mat[src_len, tar_len]
 
-    def dist(self, src, tar, cost=(0, 1, 2), local=False):
+    def dist(self, src, tar):
         """Return the normalized Editex distance between two strings.
 
         The Editex distance is normalized by dividing the Editex distance
@@ -194,11 +260,6 @@ class Editex(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 3-tuple representing the cost of the four possible edits: match,
-            same-group, and mismatch respectively (by default: (0, 1, 2))
-        local : bool
-            If True, the local variant of Editex is used
 
         Returns
         -------
@@ -217,15 +278,45 @@ class Editex(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.75
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
-        mismatch_cost = cost[2]
-        return self.dist_abs(src, tar, cost, local) / (
-            max(len(src) * mismatch_cost, len(tar) * mismatch_cost)
-        )
+
+        match_cost, group_cost, mismatch_cost = self._cost
+        src_len = len(src)
+        tar_len = len(tar)
+
+        if self._taper_enabled:
+            normalize_term = max(
+                [
+                    sum(
+                        self._taper(pos, src_len) * mismatch_cost
+                        for pos in range(src_len)
+                    ),
+                    sum(
+                        self._taper(pos, tar_len) * mismatch_cost
+                        for pos in range(tar_len)
+                    ),
+                ]
+            )
+        else:
+            normalize_term = max(
+                src_len * mismatch_cost, tar_len * mismatch_cost
+            )
+        return self.dist_abs(src, tar) / normalize_term
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Editex.dist_abs method instead.',
+)
 def editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the Editex distance between two strings.
 
@@ -259,10 +350,18 @@ def editex(src, tar, cost=(0, 1, 2), local=False):
     >>> editex('ATCG', 'TAGC')
     6
 
+    .. versionadded:: 0.1.0
+
     """
-    return Editex().dist_abs(src, tar, cost, local)
+    return Editex(cost, local).dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Editex.dist method instead.',
+)
 def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the normalized Editex distance between two strings.
 
@@ -296,10 +395,18 @@ def dist_editex(src, tar, cost=(0, 1, 2), local=False):
     >>> dist_editex('ATCG', 'TAGC')
     0.75
 
+    .. versionadded:: 0.1.0
+
     """
-    return Editex().dist(src, tar, cost, local)
+    return Editex(cost, local).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Editex.sim method instead.',
+)
 def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     """Return the normalized Editex similarity of two strings.
 
@@ -333,8 +440,10 @@ def sim_editex(src, tar, cost=(0, 1, 2), local=False):
     >>> sim_editex('ATCG', 'TAGC')
     0.25
 
+    .. versionadded:: 0.1.0
+
     """
-    return Editex().sim(src, tar, cost, local)
+    return Editex(cost, local).sim(src, tar)
 
 
 if __name__ == '__main__':

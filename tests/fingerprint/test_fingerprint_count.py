@@ -50,15 +50,13 @@ class CountFingerprintTestCases(unittest.TestCase):
         self.assertEqual(self.fp.fingerprint('instance'), 0b0101010001100100)
 
         self.assertEqual(self.fp.fingerprint('inst'), 0b0001000001010100)
+        self.assertEqual(Count(15).fingerprint('instance'), 0b0101010001100100)
         self.assertEqual(
-            self.fp.fingerprint('instance', 15), 0b0101010001100100
-        )
-        self.assertEqual(
-            self.fp.fingerprint('instance', 32),
+            Count(32).fingerprint('instance'),
             0b01010100011001000000000100000000,
         )
         self.assertEqual(
-            self.fp.fingerprint('instance', 64),
+            Count(64).fingerprint('instance'),
             0b01010100011001000000000100000000 << 32,
         )
 

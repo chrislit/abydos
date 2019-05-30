@@ -28,11 +28,14 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._metaphone import Metaphone
 from ._phonetic import _Phonetic
 from ._phonetic_spanish import PhoneticSpanish
 from ._soundex import Soundex
 from ._spanish_metaphone import SpanishMetaphone
+from .. import __version__
 
 __all__ = ['MetaSoundex', 'metasoundex']
 
@@ -42,6 +45,8 @@ class MetaSoundex(_Phonetic):
 
     This is based on :cite:`Koneru:2017`. Only English ('en') and Spanish
     ('es') languages are supported, as in the original.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -50,20 +55,80 @@ class MetaSoundex(_Phonetic):
             '07430755015866075943077514',
         )
     )
-    _phonetic_spanish = PhoneticSpanish()
-    _spanish_metaphone = SpanishMetaphone()
-    _metaphone = Metaphone()
-    _soundex = Soundex()
 
-    def encode(self, word, lang='en'):
+    def __init__(self, lang='en'):
+        """Initialize MetaSoundex instance.
+
+        Parameters
+        ----------
+        lang : str
+            Either ``en`` for English or ``es`` for Spanish
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._lang = lang
+        if lang == 'en':
+            self._sdx = Soundex()
+            self._meta = Metaphone()
+        else:
+            self._sdx = PhoneticSpanish()
+            self._meta = SpanishMetaphone()
+
+    def encode_alpha(self, word):
         """Return the MetaSoundex code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        lang : str
-            Either ``en`` for English or ``es`` for Spanish
+
+        Returns
+        -------
+        str
+            The MetaSoundex code
+
+        Examples
+        --------
+        >>> pe = MetaSoundex()
+        >>> pe.encode_alpha('Smith')
+        'SN'
+        >>> pe.encode_alpha('Waters')
+        'WTRK'
+        >>> pe.encode_alpha('James')
+        'JNK'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+        >>> pe.encode_alpha('Ashcroft')
+        'AKRP'
+
+        >>> pe = MetaSoundex(lang='es')
+        >>> pe.encode_alpha('Perez')
+        'PRS'
+        >>> pe.encode_alpha('Martinez')
+        'NRTNS'
+        >>> pe.encode_alpha('Gutierrez')
+        'GTRRS'
+        >>> pe.encode_alpha('Santiago')
+        'SNTG'
+        >>> pe.encode_alpha('Nicolás')
+        'NKLS'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        word = self._sdx.encode_alpha(self._meta.encode_alpha(word))
+        return word
+
+    def encode(self, word):
+        """Return the MetaSoundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -83,28 +148,37 @@ class MetaSoundex(_Phonetic):
         '4530'
         >>> pe.encode('Ashcroft')
         '0261'
-        >>> pe.encode('Perez', lang='es')
+
+        >>> pe = MetaSoundex(lang='es')
+        >>> pe.encode('Perez')
         '094'
-        >>> pe.encode('Martinez', lang='es')
+        >>> pe.encode('Martinez')
         '69364'
-        >>> pe.encode('Gutierrez', lang='es')
+        >>> pe.encode('Gutierrez')
         '83994'
-        >>> pe.encode('Santiago', lang='es')
+        >>> pe.encode('Santiago')
         '4638'
-        >>> pe.encode('Nicolás', lang='es')
+        >>> pe.encode('Nicolás')
         '6754'
 
-        """
-        if lang == 'es':
-            return self._phonetic_spanish.encode(
-                self._spanish_metaphone.encode(word)
-            )
 
-        word = self._soundex.encode(self._metaphone.encode(word))
-        word = word[0].translate(self._trans) + word[1:]
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
+        """
+        word = self._sdx.encode(self._meta.encode(word))
+        if self._lang == 'en':
+            word = word[0].translate(self._trans) + word[1:]
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MetaSoundex.encode method instead.',
+)
 def metasoundex(word, lang='en'):
     """Return the MetaSoundex code for a word.
 
@@ -145,8 +219,10 @@ def metasoundex(word, lang='en'):
     >>> metasoundex('Nicolás', lang='es')
     '6754'
 
+    .. versionadded:: 0.3.0
+
     """
-    return MetaSoundex().encode(word, lang)
+    return MetaSoundex(lang).encode(word)
 
 
 if __name__ == '__main__':

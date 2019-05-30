@@ -55,7 +55,15 @@ class PhoneticSpanishTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Sielo'), '45')
 
         # Test to maximize coverage
-        self.assertEqual(self.pa.encode('Giraldo', max_length=2), '89')
+        self.assertEqual(PhoneticSpanish(max_length=2).encode('Giraldo'), '89')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Giraldo'), 'GRLT')
+        self.assertEqual(self.pa.encode_alpha('Jiraldo'), 'GRLT')
+        self.assertEqual(self.pa.encode_alpha('Halla'), 'FL')
+        self.assertEqual(self.pa.encode_alpha('Haya'), 'FL')
+        self.assertEqual(self.pa.encode_alpha('Cielo'), 'SL')
+        self.assertEqual(self.pa.encode_alpha('Sielo'), 'SL')
 
         # Test wrapper
         self.assertEqual(phonetic_spanish('Giraldo'), '8953')

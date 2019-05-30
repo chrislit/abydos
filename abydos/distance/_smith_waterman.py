@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
@@ -35,6 +37,7 @@ from six.moves import range
 
 from ._ident import sim_ident
 from ._needleman_wunsch import NeedlemanWunsch
+from .. import __version__
 
 __all__ = ['SmithWaterman', 'smith_waterman']
 
@@ -45,9 +48,34 @@ class SmithWaterman(NeedlemanWunsch):
     The Smith-Waterman score :cite:`Smith:1981` is a standard edit distance
     measure, differing from Needleman-Wunsch in that it focuses on local
     alignment and disallows negative scores.
+
+    .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, gap_cost=1, sim_func=sim_ident):
+    def __init__(self, gap_cost=1, sim_func=None, **kwargs):
+        """Initialize SmithWaterman instance.
+
+        Parameters
+        ----------
+        gap_cost : float
+            The cost of an alignment gap (1 by default)
+        sim_func : function
+            A function that returns the similarity of two characters (identity
+            similarity by default)
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(SmithWaterman, self).__init__(**kwargs)
+        self._gap_cost = gap_cost
+        self._sim_func = sim_func
+        if self._sim_func is None:
+            self._sim_func = NeedlemanWunsch.sim_matrix
+
+    def dist_abs(self, src, tar):
         """Return the Smith-Waterman score of two strings.
 
         Parameters
@@ -56,11 +84,6 @@ class SmithWaterman(NeedlemanWunsch):
             Source string for comparison
         tar : str
             Target string for comparison
-        gap_cost : float
-            The cost of an alignment gap (1 by default)
-        sim_func : function
-            A function that returns the similarity of two characters (identity
-            similarity by default)
 
         Returns
         -------
@@ -79,22 +102,31 @@ class SmithWaterman(NeedlemanWunsch):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         1.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
 
-        for i in range(len(src) + 1):
-            d_mat[i, 0] = 0
-        for j in range(len(tar) + 1):
-            d_mat[0, j] = 0
         for i in range(1, len(src) + 1):
             for j in range(1, len(tar) + 1):
-                match = d_mat[i - 1, j - 1] + sim_func(src[i - 1], tar[j - 1])
-                delete = d_mat[i - 1, j] - gap_cost
-                insert = d_mat[i, j - 1] - gap_cost
+                match = d_mat[i - 1, j - 1] + self._sim_func(
+                    src[i - 1], tar[j - 1]
+                )
+                delete = d_mat[i - 1, j] - self._gap_cost
+                insert = d_mat[i, j - 1] - self._gap_cost
                 d_mat[i, j] = max(0, match, delete, insert)
         return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SmithWaterman.dist_abs method instead.',
+)
 def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     """Return the Smith-Waterman score of two strings.
 
@@ -128,8 +160,10 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     >>> smith_waterman('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return SmithWaterman().dist_abs(src, tar, gap_cost, sim_func)
+    return SmithWaterman(gap_cost, sim_func).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

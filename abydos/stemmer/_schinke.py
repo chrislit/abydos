@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['Schinke', 'schinke']
 
@@ -42,6 +45,8 @@ class Schinke(_Stemmer):
     """Schinke stemmer.
 
     This is defined in :cite:`Schinke:1996`.
+
+    .. versionadded:: 0.3.6
     """
 
     _keep_que = {
@@ -165,6 +170,11 @@ class Schinke(_Stemmer):
         >>> stmr.stem('senatus')
         {'n': 'senat', 'v': 'senatu'}
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = normalize('NFKD', text_type(word.lower()))
         word = ''.join(
@@ -261,6 +271,12 @@ class Schinke(_Stemmer):
         return {'n': noun, 'v': verb}
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Schinke.stem method instead.',
+)
 def schinke(word):
     """Return the stem of a word according to the Schinke stemmer.
 
@@ -288,6 +304,8 @@ def schinke(word):
     {'n': 'popul', 'v': 'populu'}
     >>> schinke('senatus')
     {'n': 'senat', 'v': 'senatu'}
+
+    .. versionadded:: 0.3.0
 
     """
     return Schinke().stem(word)

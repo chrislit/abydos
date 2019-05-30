@@ -30,8 +30,10 @@ from __future__ import (
 
 from itertools import groupby
 
-from ._bwt import BWT
+from deprecation import deprecated
 
+from ._bwt import BWT
+from .. import __version__
 
 __all__ = ['RLE', 'rle_decode', 'rle_encode']
 
@@ -45,6 +47,8 @@ class RLE(object):
     :cite:`rosettacode:2018`. This is licensed GFDL 1.2.
 
     Digits 0-9 cannot be in text.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, text):
@@ -78,6 +82,10 @@ class RLE(object):
         'ab\x00abbab5a'
         >>> rle.encode('aaabaabababa')
         '3abaabababa'
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if text:
@@ -120,6 +128,10 @@ class RLE(object):
         >>> rle.decode('3abaabababa')
         'aaabaabababa'
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         mult = ''
         decoded = []
@@ -137,6 +149,12 @@ class RLE(object):
         return text
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RLE.encode method instead.',
+)
 def rle_encode(text, use_bwt=True):
     r"""Perform encoding of run-length-encoding (RLE).
 
@@ -171,12 +189,20 @@ def rle_encode(text, use_bwt=True):
     >>> rle_encode('aaabaabababa', False)
     '3abaabababa'
 
+    .. versionadded:: 0.1.0
+
     """
     if use_bwt:
         text = BWT().encode(text)
     return RLE().encode(text)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RLE.decode method instead.',
+)
 def rle_decode(text, use_bwt=True):
     r"""Perform decoding of run-length-encoding (RLE).
 
@@ -210,6 +236,8 @@ def rle_decode(text, use_bwt=True):
     'aaabaabababa'
     >>> rle_decode('3abaabababa', False)
     'aaabaabababa'
+
+    .. versionadded:: 0.1.0
 
     """
     text = RLE().decode(text)

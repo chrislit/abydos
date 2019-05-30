@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._token_distance import _TokenDistance
+from .. import __version__
 
 __all__ = ['Tversky', 'dist_tversky', 'sim_tversky']
 
@@ -38,8 +41,11 @@ class Tversky(_TokenDistance):
 
     The Tversky index :cite:`Tversky:1977` is defined as:
     For two sets X and Y:
-    :math:`sim_{Tversky}(X, Y) = \frac{|X \cap Y|}
-    {|X \cap Y| + \alpha|X - Y| + \beta|Y - X|}`.
+
+        .. math::
+
+            sim_{Tversky}(X, Y) = \frac{|X \cap Y|}
+            {|X \cap Y| + \alpha|X - Y| + \beta|Y - X|}
 
     :math:`\alpha = \beta = 1` is equivalent to the Jaccard & Tanimoto
     similarity coefficients.
@@ -56,16 +62,69 @@ class Tversky(_TokenDistance):
     Parameter values' relation to 1 emphasizes different types of
     contributions:
 
-        - :math:`\alpha and \beta > 1` emphsize unique contributions over the
-          intersection
-        - :math:`\alpha and \beta < 1` emphsize the intersection over unique
-          contributions
+        - :math:`\alpha` and :math:`\beta > 1` emphsize unique contributions
+          over the intersection
+        - :math:`\alpha` and :math:`\beta < 1` emphsize the intersection over
+          unique contributions
 
     The symmetric variant is defined in :cite:`Jiminez:2013`. This is activated
     by specifying a bias parameter.
+
+
+    .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, qval=2, alpha=1, beta=1, bias=None):
+    def __init__(
+        self,
+        alpha=1.0,
+        beta=1.0,
+        bias=None,
+        tokenizer=None,
+        intersection_type='crisp',
+        **kwargs
+    ):
+        """Initialize Tversky instance.
+
+        Parameters
+        ----------
+        alpha : float
+            Tversky index parameter as described above
+        beta : float
+            Tversky index parameter as described above
+        bias : float
+            The symmetric Tversky index bias parameter
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+        metric : _Distance
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the ``fuzzy`` variant.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Tversky, self).__init__(
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
+        )
+        self.set_params(alpha=alpha, beta=beta, bias=bias)
+
+    def sim(self, src, tar):
         """Return the Tversky index of two strings.
 
         Parameters
@@ -74,14 +133,6 @@ class Tversky(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
-        alpha : float
-            Tversky index parameter as described above
-        beta : float
-            Tversky index parameter as described above
-        bias : float
-            The symmetric Tversky index bias parameter
 
         Returns
         -------
@@ -106,8 +157,13 @@ class Tversky(_TokenDistance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        if alpha < 0 or beta < 0:
+        if self.params['alpha'] < 0 or self.params['beta'] < 0:
             raise ValueError(
                 'Unsupported weight assignment; alpha and beta '
                 + 'must be greater than or equal to 0.'
@@ -118,32 +174,41 @@ class Tversky(_TokenDistance):
         elif not src or not tar:
             return 0.0
 
-        q_src, q_tar = self._get_qgrams(src, tar, qval)
-        q_src_mag = sum(q_src.values())
-        q_tar_mag = sum(q_tar.values())
-        q_intersection_mag = sum((q_src & q_tar).values())
+        self._tokenize(src, tar)
 
-        if not q_src or not q_tar:
+        q_src_mag = self._src_only_card()
+        q_tar_mag = self._tar_only_card()
+        q_intersection_mag = self._intersection_card()
+
+        if not self._src_tokens or not self._tar_tokens:
             return 0.0
 
-        if bias is None:
+        if self.params['bias'] is None:
             return q_intersection_mag / (
                 q_intersection_mag
-                + alpha * (q_src_mag - q_intersection_mag)
-                + beta * (q_tar_mag - q_intersection_mag)
+                + self.params['alpha'] * q_src_mag
+                + self.params['beta'] * q_tar_mag
             )
 
-        a_val = min(
-            q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag
+        a_val, b_val = sorted((q_src_mag, q_tar_mag))
+        c_val = q_intersection_mag + self.params['bias']
+        return c_val / (
+            self.params['beta']
+            * (
+                self.params['alpha'] * a_val
+                + (1 - self.params['alpha']) * b_val
+            )
+            + c_val
         )
-        b_val = max(
-            q_src_mag - q_intersection_mag, q_tar_mag - q_intersection_mag
-        )
-        c_val = q_intersection_mag + bias
-        return c_val / (beta * (alpha * a_val + (1 - alpha) * b_val) + c_val)
 
 
-def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Tversky.sim method instead.',
+)
+def sim_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     """Return the Tversky index of two strings.
 
     This is a wrapper for :py:meth:`Tversky.sim`.
@@ -155,7 +220,7 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alpha : float
         Tversky index parameter as described above
     beta : float
@@ -179,11 +244,20 @@ def sim_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     >>> sim_tversky('ATCG', 'TAGC')
     0.0
 
+
+    .. versionadded:: 0.1.0
+
     """
-    return Tversky().sim(src, tar, qval, alpha, beta, bias)
+    return Tversky(alpha=alpha, beta=beta, bias=bias, qval=qval).sim(src, tar)
 
 
-def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Tversky.dist method instead.',
+)
+def dist_tversky(src, tar, qval=2, alpha=1.0, beta=1.0, bias=None):
     """Return the Tversky distance between two strings.
 
     This is a wrapper for :py:meth:`Tversky.dist`.
@@ -195,7 +269,7 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
     alpha : float
         Tversky index parameter as described above
     beta : float
@@ -219,8 +293,11 @@ def dist_tversky(src, tar, qval=2, alpha=1, beta=1, bias=None):
     >>> dist_tversky('ATCG', 'TAGC')
     1.0
 
+
+    .. versionadded:: 0.1.0
+
     """
-    return Tversky().dist(src, tar, qval, alpha, beta, bias)
+    return Tversky(alpha=alpha, beta=beta, bias=bias, qval=qval).dist(src, tar)
 
 
 if __name__ == '__main__':

@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Eudex', 'eudex']
 
@@ -42,6 +45,8 @@ class Eudex(_Phonetic):
     (not the reference implementation) at :cite:`Ticki:2016`.
 
     Further details can be found at :cite:`Ticki:2016b`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trailing_phones = {
@@ -168,15 +173,27 @@ class Eudex(_Phonetic):
         'ÿ': 0b11100101,  # ÿ
     }
 
-    def encode(self, word, max_length=8):
+    def __init__(self, max_length=8):
+        """Initialize Eudex instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length in bits of the code returned (default 8)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Return the eudex phonetic hash of a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length in bits of the code returned (default 8)
 
         Returns
         -------
@@ -196,6 +213,11 @@ class Eudex(_Phonetic):
         720575940412906756
         >>> pe.encode('Schmidt')
         720589151732307997
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # Lowercase input & filter unknown characters
@@ -220,8 +242,8 @@ class Eudex(_Phonetic):
         # Add padding after first character & trim beyond max_length
         values = (
             [condensed_values[0]]
-            + [0] * max(0, max_length - len(condensed_values))
-            + condensed_values[1:max_length]
+            + [0] * max(0, self._max_length - len(condensed_values))
+            + condensed_values[1 : self._max_length]
         )
 
         # Combine individual character values into eudex hash
@@ -232,6 +254,12 @@ class Eudex(_Phonetic):
         return hash_value
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Eudex.encode method instead.',
+)
 def eudex(word, max_length=8):
     """Return the eudex phonetic hash of a word.
 
@@ -262,8 +290,10 @@ def eudex(word, max_length=8):
     >>> eudex('Schmidt')
     720589151732307997
 
+    .. versionadded:: 0.3.0
+
     """
-    return Eudex().encode(word, max_length)
+    return Eudex(max_length).encode(word)
 
 
 if __name__ == '__main__':

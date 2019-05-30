@@ -51,14 +51,14 @@ class PositionFingerprintTestCases(unittest.TestCase):
 
         self.assertEqual(self.fp.fingerprint('instance'), 0b1110111001110001)
         self.assertEqual(
-            self.fp.fingerprint('instance', 15), 0b111011100111000
+            Position(15).fingerprint('instance'), 0b111011100111000
         )
         self.assertEqual(
-            self.fp.fingerprint('instance', 32),
+            Position(32).fingerprint('instance'),
             0b11101110011100000101011111111111,
         )
         self.assertEqual(
-            self.fp.fingerprint('instance', 64), 0xEE7057FFEFFFFFFF
+            Position(64).fingerprint('instance'), 0xEE7057FFEFFFFFFF
         )
 
         # Test wrapper

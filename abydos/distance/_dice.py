@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._tversky import Tversky
+from .. import __version__
 
 __all__ = ['Dice', 'dist_dice', 'sim_dice']
 
@@ -37,15 +40,79 @@ class Dice(Tversky):
     r"""Sørensen–Dice coefficient.
 
     For two sets X and Y, the Sørensen–Dice coefficient
-    :cite:`Dice:1945,Sorensen:1948` is
-    :math:`sim_{dice}(X, Y) = \frac{2 \cdot |X \cap Y|}{|X| + |Y|}`.
+    :cite:`Dice:1945,Sorensen:1948,Bray:1957,Czekanowski:1909,Motyka:1950` is
+
+        .. math::
+
+            sim_{Dice}(X, Y) = \frac{2 \cdot |X \cap Y|}{|X| + |Y|}
+
+    This is the complement of Bray & Curtis dissimilarity :cite:`Bray:1957`,
+    also known as the Lance & Williams dissimilarity :cite:`Lance:1967`.
 
     This is identical to the Tanimoto similarity coefficient
     :cite:`Tanimoto:1958` and the Tversky index :cite:`Tversky:1977` for
     :math:`\alpha = \beta = 0.5`.
+
+    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
+    this is
+
+        .. math::
+
+            sim_{Dice} =
+            \frac{2a}{2a+b+c}
+
+    Notes
+    -----
+    In terms of a confusion matrix, this is equivalent to :math:`F_1` score
+    :py:meth:`ConfusionTable.f1_score`.
+
+    The multiset variant is termed Gleason similarity :cite:`Gleason:1920`.
+
+    .. versionadded:: 0.3.6
+
     """
 
-    def sim(self, src, tar, qval=2):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+        """Initialize Dice instance.
+
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+        metric : _Distance
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the ``fuzzy`` variant.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Dice, self).__init__(
+            alpha=0.5,
+            beta=0.5,
+            bias=None,
+            tokenizer=tokenizer,
+            intersection_type=intersection_type,
+            **kwargs
+        )
+
+    def sim(self, src, tar):
         """Return the Sørensen–Dice coefficient of two strings.
 
         Parameters
@@ -54,8 +121,6 @@ class Dice(Tversky):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
 
         Returns
         -------
@@ -74,10 +139,21 @@ class Dice(Tversky):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        return super(self.__class__, self).sim(src, tar, qval, 0.5, 0.5)
+        return super(Dice, self).sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Dice.sim method instead.',
+)
 def sim_dice(src, tar, qval=2):
     """Return the Sørensen–Dice coefficient of two strings.
 
@@ -90,7 +166,7 @@ def sim_dice(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -108,10 +184,18 @@ def sim_dice(src, tar, qval=2):
     >>> sim_dice('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return Dice().sim(src, tar, qval)
+    return Dice(qval=qval).sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Dice.dist method instead.',
+)
 def dist_dice(src, tar, qval=2):
     """Return the Sørensen–Dice distance between two strings.
 
@@ -124,7 +208,7 @@ def dist_dice(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -142,8 +226,10 @@ def dist_dice(src, tar, qval=2):
     >>> dist_dice('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return Dice().dist(src, tar, qval)
+    return Dice(qval=qval).dist(src, tar)
 
 
 if __name__ == '__main__':

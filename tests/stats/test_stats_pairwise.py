@@ -52,7 +52,7 @@ NIALL = (
     'Nel',
     'Kneale',
     'Uí Néill',
-    'O\'Neill',
+    "O'Neill",
     'MacNeil',
     'MacNele',
     'Niall Noígíallach',
@@ -70,7 +70,7 @@ NIALL_1WORD = (
     'Nigelli',
     'Nel',
     'Kneale',
-    'O\'Neill',
+    "O'Neill",
     'MacNeil',
     'MacNele',
 )

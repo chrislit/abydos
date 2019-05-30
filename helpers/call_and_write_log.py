@@ -43,14 +43,13 @@ from subprocess import call  # noqa: S404
 
 
 def _run_script():
-    const_ret = None
+    const_ret = False
     if len(sys.argv) > 2:
         try:
             const_ret = int(sys.argv[2])
         except ValueError:
             pass
 
-    retval = 1
     if len(sys.argv) > 1:
         args = sys.argv[1].split()
         if args[0] not in {
@@ -59,11 +58,14 @@ def _run_script():
             'flake8',
             'doc8',
             'pydocstyle',
+            'sloccount',
         }:
-            sys.exit(const_ret if const_ret is not None else retval)
+            sys.exit(1)
         with open(args[0] + '.log', 'w') as output:
             retval = call(args, stdout=output, shell=False)  # noqa: S603
-        sys.exit(const_ret if const_ret is not None else retval)
+            if args[0] in {'pylint', 'pycodestyle'}:
+                retval = 0
+        sys.exit(const_ret if const_ret else retval)
 
 
 if __name__ == '__main__':

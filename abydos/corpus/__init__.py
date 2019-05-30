@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@ The corpus package includes basic and n-gram corpus classes:
 
 - :py:class:`Corpus`
 - :py:class:`NGramCorpus`
+- :py:class:`UnigramCorpus`
 
 
 As a quick example of :py:class:`.Corpus`:
@@ -33,9 +34,9 @@ As a quick example of :py:class:`.Corpus`:
 [[['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.']],
 [['And', 'then', 'it', 'slept.']], [['And', 'the', 'dog', 'ran', 'off.']]]
 >>> round(corp.idf('dog'), 10)
-0.4771212547
+1.0986122887
 >>> round(corp.idf('the'), 10)
-0.1760912591
+0.4054651081
 
 Here, each sentence is a separate "document". We can retrieve IDF values from
 the :py:class:`.Corpus`. The same :py:class:`.Corpus` can be used to initialize
@@ -46,10 +47,7 @@ an :py:class:`.NGramCorpus` and calculate TF values:
 2
 >>> ngcorp.get_count('fox')
 1
->>> ngcorp.tf('the')
-1.3010299956639813
->>> ngcorp.tf('fox')
-1.0
+
 
 ----
 
@@ -64,8 +62,9 @@ from __future__ import (
 
 from ._corpus import Corpus
 from ._ngram_corpus import NGramCorpus
+from ._unigram_corpus import UnigramCorpus
 
-__all__ = ['Corpus', 'NGramCorpus']
+__all__ = ['Corpus', 'NGramCorpus', 'UnigramCorpus']
 
 
 if __name__ == '__main__':

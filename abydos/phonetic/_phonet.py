@@ -31,10 +31,13 @@ from __future__ import (
 from collections import Counter
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Phonet', 'phonet']
 
@@ -50,6 +53,8 @@ class Phonet(_Phonetic):
 
     That is, in turn, based on Michael's C code, which is also licensed LGPL
     :cite:`Michael:2007`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rules_no_lang = (  # separator chars
@@ -57,7 +62,7 @@ class Phonet(_Phonetic):
         '´', ' ', ' ',
         '"', ' ', ' ',
         '`$', '', '',
-        '\'', ' ', ' ',
+        "'", ' ', ' ',
         ',', ',', ',',
         ';', ',', ',',
         '-', ' ', ' ',
@@ -104,9 +109,9 @@ class Phonet(_Phonetic):
         'MC^', 'MAC', 'MAC',
         'MC^', 'MAC', 'MAC',
         'M´^', 'MAC', 'MAC',
-        'M\'^', 'MAC', 'MAC',
+        "M'^", 'MAC', 'MAC',
         'O´^', 'O', 'O',
-        'O\'^', 'O', 'O',
+        "O'^", 'O', 'O',
         'VAN DEN ^', 'VANDEN', 'VANDEN',
         None, None, None
         # fmt: on
@@ -117,7 +122,7 @@ class Phonet(_Phonetic):
         '´', ' ', ' ',
         '"', ' ', ' ',
         '`$', '', '',
-        '\'', ' ', ' ',
+        "'", ' ', ' ',
         ',', ' ', ' ',
         ';', ' ', ' ',
         '-', ' ', ' ',
@@ -299,7 +304,7 @@ class Phonet(_Phonetic):
         'CERST(EI)----^', 'KE', 'KE',
         'CER$', 'ZA', 'ZA',
         'CE3', 'ZE', 'ZE',
-        'CH\'S$', 'X', 'X',
+        "CH'S$", 'X', 'X',
         'CH´S$', 'X', 'X',
         'CHAO(ST)-', 'KAO', 'KAU',
         'CHAMPIO-^', 'SHEMPI', 'ZENBI',
@@ -345,14 +350,14 @@ class Phonet(_Phonetic):
         'CST', 'XT', 'XT',
         'CS<^', 'Z', 'Z',
         'C(SßX)', 'X', 'X',
-        'CT\'S$', 'X', 'X',
+        "CT'S$", 'X', 'X',
         'CT(SßXZ)', 'X', 'X',
         'CZ<', 'Z', 'Z',
         'C(ÈÉÊÌÍÎÝ)3', 'Z', 'Z',
         'C.^', 'C.', 'C.',
         'CÄ-', 'Z', 'Z',
         'CÜ$', 'ZÜ', 'ZI',
-        'C\'S$', 'X', 'X',
+        "C'S$", 'X', 'X',
         'C<', 'K', 'K',
         'DAHER^$', 'DAHER', None,
         'DARAUFFOLGE-----', 'DARAUF ', 'TARAUF ',
@@ -382,10 +387,10 @@ class Phonet(_Phonetic):
         'D(SßZ)', 'Z', 'Z',
         'D(AÄEIOÖRUÜY)-', 'D', None,
         'D(ÀÁÂÃÅÈÉÊÌÍÎÙÚÛ)-', 'D', None,
-        'D\'H^', 'D', 'T',
+        "D'H^", 'D', 'T',
         'D´H^', 'D', 'T',
         'D`H^', 'D', 'T',
-        'D\'S3$', 'Z', 'Z',
+        "D'S3$", 'Z', 'Z',
         'D´S3$', 'Z', 'Z',
         'D^', 'D', None,
         'D', 'T', 'T',
@@ -519,7 +524,7 @@ class Phonet(_Phonetic):
         'GY9^', 'GÜ', None,
         'G(AÄEILOÖRUÜY)-', 'G', None,
         'G(ÀÁÂÃÅÈÉÊÌÍÎÙÚÛ)-', 'G', None,
-        'G\'S$', 'X', 'X',
+        "G'S$", 'X', 'X',
         'G´S$', 'X', 'X',
         'G^', 'G', None,
         'G', 'K', 'K',
@@ -619,18 +624,18 @@ class Phonet(_Phonetic):
         'KSCH---', 'K', 'K',
         'KSH--', 'K', 'K',
         'K(SßXZ)7', 'X', 'X',  # implies 'KST' -> 'XT'
-        'KT\'S$', 'X', 'X',
+        "KT'S$", 'X', 'X',
         'KTI(AIOU)-3', 'XI', 'XI',
         'KT(SßXZ)', 'X', 'X',
         'KY9^', 'KÜ', None,
-        'K\'S$', 'X', 'X',
+        "K'S$", 'X', 'X',
         'K´S$', 'X', 'X',
         'LANGES$', ' LANGES', ' LANKEZ',
         'LANGE$', ' LANGE', ' LANKE',
         'LANG$', ' LANK', ' LANK',
         'LARVE-', 'LARF', 'LARF',
         'LD(SßZ)$', 'LS', 'LZ',
-        'LD\'S$', 'LS', 'LZ',
+        "LD'S$", 'LS', 'LZ',
         'LD´S$', 'LS', 'LZ',
         'LEAND-^', 'LEAN', 'LEAN',
         'LEERSTEHE-----^', 'LER ', 'LER ',
@@ -647,7 +652,7 @@ class Phonet(_Phonetic):
         'LIC$', 'LIZ', 'LIZ',
         'LIVE^$', 'LEIF', 'LEIF',
         'LT(SßZ)$', 'LS', 'LZ',
-        'LT\'S$', 'LS', 'LZ',
+        "LT'S$", 'LS', 'LZ',
         'LT´S$', 'LS', 'LZ',
         'LUI(GS)--', 'LU', 'LU',
         'LV(AIO)-', 'LW', None,
@@ -683,9 +688,9 @@ class Phonet(_Phonetic):
         'MY9^', 'MÜ', None,
         'M(ßZ)$', 'MS', None,
         'M´G7^', 'MAK', 'NAK',
-        'M\'G7^', 'MAK', 'NAK',
+        "M'G7^", 'MAK', 'NAK',
         'M´^', 'MAK', 'NAK',
-        'M\'^', 'MAK', 'NAK',
+        "M'^", 'MAK', 'NAK',
         'M', None, 'N',
         'NACH^^', 'NACH', 'NAK',
         'NADINE', 'NADIN', 'NATIN',
@@ -701,7 +706,7 @@ class Phonet(_Phonetic):
         'NDRO(CDKTZ)-', 'NTRO', None,
         'ND(BFGJLMNPQVW)-', 'NT', None,
         'ND(SßZ)$', 'NS', 'NZ',
-        'ND\'S$', 'NS', 'NZ',
+        "ND'S$", 'NS', 'NZ',
         'ND´S$', 'NS', 'NZ',
         'NEBEN^^', 'NEBN', 'NEBN',
         'NENGELERN------', 'NEN ', 'NEN ',
@@ -724,7 +729,7 @@ class Phonet(_Phonetic):
         'NTI(AIOU)-3', 'NZI', 'NZI',
         'NTIEL--3', 'NZI', 'NZI',
         'NT(SßZ)$', 'NS', 'NZ',
-        'NT\'S$', 'NS', 'NZ',
+        "NT'S$", 'NS', 'NZ',
         'NT´S$', 'NS', 'NZ',
         'NYLON', 'NEILON', 'NEILUN',
         'NY9^', 'NÜ', None,
@@ -770,7 +775,7 @@ class Phonet(_Phonetic):
         'O(JY)<', 'EU', 'EU',
         'OZ$', 'OS', None,
         'O´^', 'O', 'U',
-        'O\'^', 'O', 'U',
+        "O'^", 'O', 'U',
         'O', None, 'U',
         'PATIEN--^', 'PAZI', 'PAZI',
         'PENSIO-^', 'PANSI', 'PANZI',
@@ -877,7 +882,7 @@ class Phonet(_Phonetic):
         'STEPHEN-^$', 'STEW', None,
         'STERN', 'STERN', None,
         'STRAF^^', 'STRAF', 'ZTRAF',
-        'ST\'S$', 'Z', 'Z',
+        "ST'S$", 'Z', 'Z',
         'ST´S$', 'Z', 'Z',
         'STST--', '', '',
         'STS(ACEÈÉÊHIÌÍÎOUÄÜÖ)--', 'ST', 'ZT',
@@ -932,7 +937,7 @@ class Phonet(_Phonetic):
         'TX(AEIOU)-3', 'SH', 'Z',
         'TY9^', 'TÜ', None,
         'TZ-', '', '',
-        'T\'S3$', 'Z', 'Z',
+        "T'S3$", 'Z', 'Z',
         'T´S3$', 'Z', 'Z',
         'UEBEL(GNRW)-^^', 'ÜBL ', 'IBL ',
         'UEBER^^', 'ÜBA', 'IBA',
@@ -1072,17 +1077,30 @@ class Phonet(_Phonetic):
         )
     )
 
-    def encode(self, word, mode=1, lang='de'):
+    def __init__(self, mode=1, lang='de'):
+        """Initialize AlphaSIS instance.
+
+        Parameters
+        ----------
+        mode : int
+            The ponet variant to employ (1 or 2)
+        lang : str
+            ``de`` (default) for German, ``none`` for no language
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._mode = mode
+        self._lang = lang
+
+    def encode(self, word):
         """Return the phonet code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        mode : int
-            The ponet variant to employ (1 or 2)
-        lang : str
-            ``de`` (default) for German, ``none`` for no language
 
         Returns
         -------
@@ -1101,23 +1119,30 @@ class Phonet(_Phonetic):
         >>> pe.encode('Schmidt')
         'SHMIT'
 
-        >>> pe.encode('Christopher', mode=2)
+        >>> pe2 = Phonet(mode=2)
+        >>> pe2.encode('Christopher')
         'KRIZTUFA'
-        >>> pe.encode('Niall', mode=2)
+        >>> pe2.encode('Niall')
         'NIAL'
-        >>> pe.encode('Smith', mode=2)
+        >>> pe2.encode('Smith')
         'ZNIT'
-        >>> pe.encode('Schmidt', mode=2)
+        >>> pe2.encode('Schmidt')
         'ZNIT'
 
-        >>> pe.encode('Christopher', lang='none')
+        >>> pe_none = Phonet(lang='none')
+        >>> pe_none.encode('Christopher')
         'CHRISTOPHER'
-        >>> pe.encode('Niall', lang='none')
+        >>> pe_none.encode('Niall')
         'NIAL'
-        >>> pe.encode('Smith', lang='none')
+        >>> pe_none.encode('Smith')
         'SMITH'
-        >>> pe.encode('Schmidt', lang='none')
+        >>> pe_none.encode('Schmidt')
         'SCHMIDT'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         phonet_hash = Counter()
@@ -1133,6 +1158,8 @@ class Phonet(_Phonetic):
             ----------
             lang : str
                 Language to use for rules
+
+            .. versionadded:: 0.1.0
 
             """
             if lang == 'none':
@@ -1258,6 +1285,8 @@ class Phonet(_Phonetic):
             -------
             str
                 The phonet value
+
+            .. versionadded:: 0.1.0
 
             """
             if lang == 'none':
@@ -1716,12 +1745,18 @@ class Phonet(_Phonetic):
 
             return dest
 
-        _initialize_phonet(lang)
+        _initialize_phonet(self._lang)
 
         word = unicode_normalize('NFKC', text_type(word))
-        return _phonet(word, mode, lang)
+        return _phonet(word, self._mode, self._lang)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Phonet.encode method instead.',
+)
 def phonet(word, mode=1, lang='de'):
     """Return the phonet code for a word.
 
@@ -1770,8 +1805,10 @@ def phonet(word, mode=1, lang='de'):
     >>> phonet('Schmidt', lang='none')
     'SCHMIDT'
 
+    .. versionadded:: 0.1.0
+
     """
-    return Phonet().encode(word, mode, lang)
+    return Phonet(mode, lang).encode(word)
 
 
 if __name__ == '__main__':

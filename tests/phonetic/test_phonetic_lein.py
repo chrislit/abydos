@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """abydos.tests.phonetic.test_phonetic_lein.
 
-This module contains unit tests for abydos.phonetic.Lein
+This module contains unit tests for abydos.phonetic.LEIN
 """
 
 from __future__ import (
@@ -30,19 +30,20 @@ from __future__ import (
 
 import unittest
 
-from abydos.phonetic import Lein, lein
+from abydos.phonetic import LEIN, lein
 
 
 class LeinTestCases(unittest.TestCase):
-    """Test Lein functions.
+    """Test LEIN functions.
 
-    test cases for abydos.phonetic.Lein
+    test cases for abydos.phonetic.LEIN
     """
 
-    pa = Lein()
+    pa = LEIN()
+    pa_n0 = LEIN(zero_pad=False)
 
     def test_lein(self):
-        """Test abydos.phonetic.Lein."""
+        """Test abydos.phonetic.LEIN."""
         self.assertEqual(self.pa.encode(''), '0000')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
@@ -113,10 +114,14 @@ class LeinTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Lüdenscheidt'), 'L125')
 
         # Coverage
-        self.assertEqual(
-            self.pa.encode('Lüdenscheidt', zero_pad=False), 'L125'
-        )
-        self.assertEqual(self.pa.encode('Smith', zero_pad=False), 'S21')
+        self.assertEqual(self.pa_n0.encode('Lüdenscheidt'), 'L125')
+        self.assertEqual(self.pa_n0.encode('Smith'), 'S21')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Deveaux'), 'DPK')
+        self.assertEqual(self.pa.encode_alpha('Devies'), 'DPK')
+        self.assertEqual(self.pa.encode_alpha('Sand'), 'SNT')
+        self.assertEqual(self.pa.encode_alpha('Sandau'), 'SNT')
 
         # Test wrapper
         self.assertEqual(lein('Dubose'), 'D450')

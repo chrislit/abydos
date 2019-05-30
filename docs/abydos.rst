@@ -4,6 +4,7 @@ abydos package
 .. automodule:: abydos
     :members:
     :undoc-members:
+    :private-members:
     :show-inheritance:
 
 Subpackages

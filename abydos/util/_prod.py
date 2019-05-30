@@ -18,7 +18,7 @@
 
 """abydos.util._prod.
 
-The util._prod module defines prod, which computes the product of a collection
+The util._prod module defines _prod, which computes the product of a collection
 of numbers (akin to sum, but for product).
 """
 
@@ -39,7 +39,11 @@ __all__ = []
 def _prod(nums):
     r"""Return the product of nums.
 
-    The product is :math:`\prod nums`.
+    The product is
+
+            .. math::
+
+                \prod nums
 
     Cf. https://en.wikipedia.org/wiki/Product_(mathematics)
 
@@ -63,6 +67,8 @@ def _prod(nums):
     24
     >>> _prod(2**i for i in range(5))
     1024
+
+    .. versionadded:: 0.1.0
 
     """
     return reduce(mul, nums, 1)

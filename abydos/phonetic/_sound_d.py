@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['SoundD', 'sound_d']
 
@@ -41,6 +44,8 @@ class SoundD(_Phonetic):
     """SoundD code.
 
     SoundD is defined in :cite:`Varol:2012`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -50,15 +55,62 @@ class SoundD(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=4):
+    _alphabetic = dict(zip((ord(_) for _ in '0123456'), 'APKTLNR'))
+
+    def __init__(self, max_length=4):
+        """Initialize SoundD instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode_alpha(self, word):
+        """Return the alphabetic SoundD code.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic SoundD code
+
+        Examples
+        --------
+        >>> pe = SoundD()
+        >>> pe.encode_alpha('Gough')
+        'K'
+        >>> pe.encode_alpha('pneuma')
+        'NN'
+        >>> pe.encode_alpha('knight')
+        'NT'
+        >>> pe.encode_alpha('trice')
+        'TRK'
+        >>> pe.encode_alpha('judge')
+        'KK'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.encode(word).rstrip('0').translate(self._alphabetic)
+
+    def encode(self, word):
         """Return the SoundD code.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
 
         Returns
         -------
@@ -67,16 +119,22 @@ class SoundD(_Phonetic):
 
         Examples
         --------
-        >>> sound_d('Gough')
+        >>> pe = SoundD()
+        >>> pe.encode('Gough')
         '2000'
-        >>> sound_d('pneuma')
+        >>> pe.encode('pneuma')
         '5500'
-        >>> sound_d('knight')
+        >>> pe.encode('knight')
         '5300'
-        >>> sound_d('trice')
+        >>> pe.encode('trice')
         '3620'
-        >>> sound_d('judge')
+        >>> pe.encode('judge')
         '2200'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -98,15 +156,21 @@ class SoundD(_Phonetic):
         word = self._delete_consecutive_repeats(word)
         word = word.replace('0', '')
 
-        if max_length != -1:
-            if len(word) < max_length:
-                word += '0' * (max_length - len(word))
+        if self._max_length != -1:
+            if len(word) < self._max_length:
+                word += '0' * (self._max_length - len(word))
             else:
-                word = word[:max_length]
+                word = word[: self._max_length]
 
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SoundD.encode method instead.',
+)
 def sound_d(word, max_length=4):
     """Return the SoundD code.
 
@@ -135,8 +199,10 @@ def sound_d(word, max_length=4):
     >>> sound_d('judge')
     '2200'
 
+    .. versionadded:: 0.3.0
+
     """
-    return SoundD().encode(word, max_length)
+    return SoundD(max_length).encode(word)
 
 
 if __name__ == '__main__':

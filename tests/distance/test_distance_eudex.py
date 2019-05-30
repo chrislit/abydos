@@ -50,35 +50,35 @@ class EudexTestCases(unittest.TestCase):
         """Test abydos.distance.Eudex.dist_abs."""
         # Base cases
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
-        self.assertEqual(self.cmp.dist_abs('', '', None), 0)
-        self.assertEqual(self.cmp.dist_abs('', '', 'fibonacci'), 0)
-        self.assertEqual(self.cmp.dist_abs('', '', [10, 1, 1, 1]), 0)
-        self.assertEqual(self.cmp.dist_abs('', '', _yield_1), 0)
+        self.assertEqual(Eudex(None).dist_abs('', ''), 0)
+        self.assertEqual(Eudex('fibonacci').dist_abs('', ''), 0)
+        self.assertEqual(Eudex([10, 1, 1, 1]).dist_abs('', ''), 0)
+        self.assertEqual(Eudex(_yield_1).dist_abs('', ''), 0)
         self.assertEqual(self.cmp.dist_abs('', '', normalized=True), 0)
 
         self.assertEqual(self.cmp.dist_abs('Niall', 'Niall'), 0)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', None), 0)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', 'fibonacci'), 0)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', [10, 1, 1, 1]), 0)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Niall', _yield_1), 0)
+        self.assertEqual(Eudex(None).dist_abs('Niall', 'Niall'), 0)
+        self.assertEqual(Eudex('fibonacci').dist_abs('Niall', 'Niall'), 0)
+        self.assertEqual(Eudex([10, 1, 1, 1]).dist_abs('Niall', 'Niall'), 0)
+        self.assertEqual(Eudex(_yield_1).dist_abs('Niall', 'Niall'), 0)
         self.assertEqual(
             self.cmp.dist_abs('Niall', 'Niall', normalized=True), 0
         )
 
         self.assertEqual(self.cmp.dist_abs('Niall', 'Neil'), 2)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Neil', None), 1)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Neil', 'fibonacci'), 2)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Neil', [10, 1, 1, 1]), 1)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Neil', _yield_1), 1)
+        self.assertEqual(Eudex(None).dist_abs('Niall', 'Neil'), 1)
+        self.assertEqual(Eudex('fibonacci').dist_abs('Niall', 'Neil'), 2)
+        self.assertEqual(Eudex([10, 1, 1, 1]).dist_abs('Niall', 'Neil'), 1)
+        self.assertEqual(Eudex(_yield_1).dist_abs('Niall', 'Neil'), 1)
         self.assertAlmostEqual(
             self.cmp.dist_abs('Niall', 'Neil', normalized=True), 0.00098039
         )
 
         self.assertEqual(self.cmp.dist_abs('Niall', 'Colin'), 524)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Colin', None), 10)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Colin', 'fibonacci'), 146)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Colin', [10, 1, 1, 1]), 6)
-        self.assertEqual(self.cmp.dist_abs('Niall', 'Colin', _yield_1), 10)
+        self.assertEqual(Eudex(None).dist_abs('Niall', 'Colin'), 10)
+        self.assertEqual(Eudex('fibonacci').dist_abs('Niall', 'Colin'), 146)
+        self.assertEqual(Eudex([10, 1, 1, 1]).dist_abs('Niall', 'Colin'), 42)
+        self.assertEqual(Eudex(_yield_1).dist_abs('Niall', 'Colin'), 10)
         self.assertAlmostEqual(
             self.cmp.dist_abs('Niall', 'Colin', normalized=True), 0.25686274
         )
@@ -90,28 +90,27 @@ class EudexTestCases(unittest.TestCase):
         """Test abydos.distance.Eudex.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0)
-        self.assertEqual(self.cmp.dist('', '', None), 0)
-        self.assertEqual(self.cmp.dist('', '', 'fibonacci'), 0)
+        self.assertEqual(Eudex(None).dist('', ''), 0)
+        self.assertEqual(Eudex('fibonacci').dist('', ''), 0)
 
         self.assertEqual(self.cmp.dist('Niall', 'Niall'), 0)
-        self.assertEqual(self.cmp.dist('Niall', 'Niall', None), 0)
-        self.assertEqual(self.cmp.dist('Niall', 'Niall', 'fibonacci'), 0)
+        self.assertEqual(Eudex(None).dist('Niall', 'Niall'), 0)
+        self.assertEqual(Eudex('fibonacci').dist('Niall', 'Niall'), 0)
 
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Neil'), 0.00098039)
+        self.assertAlmostEqual(Eudex(None).dist('Niall', 'Neil'), 0.11111111)
         self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Neil', None), 0.11111111
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Neil', 'fibonacci'), 0.00287356
+            Eudex('fibonacci').dist('Niall', 'Neil'), 0.00287356
         )
 
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Colin'), 0.25686275)
+        self.assertAlmostEqual(Eudex(None).dist('Niall', 'Colin'), 0.16666667)
         self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Colin', None), 0.16666667
+            Eudex('fibonacci').dist('Niall', 'Colin'), 0.20977011
         )
-        self.assertAlmostEqual(
-            self.cmp.dist('Niall', 'Colin', 'fibonacci'), 0.20977011
-        )
+
+        with self.assertRaises(ValueError):
+            Eudex('veryLarge').dist_abs('Niall', 'Colin')
 
         # Test wrapper
         self.assertAlmostEqual(
@@ -122,25 +121,23 @@ class EudexTestCases(unittest.TestCase):
         """Test abydos.distance.Eudex.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1)
-        self.assertEqual(self.cmp.sim('', '', None), 1)
-        self.assertEqual(self.cmp.sim('', '', 'fibonacci'), 1)
+        self.assertEqual(Eudex(None).sim('', ''), 1)
+        self.assertEqual(Eudex('fibonacci').sim('', ''), 1)
 
         self.assertEqual(self.cmp.sim('Niall', 'Niall'), 1)
-        self.assertEqual(self.cmp.sim('Niall', 'Niall', None), 1)
-        self.assertEqual(self.cmp.sim('Niall', 'Niall', 'fibonacci'), 1)
+        self.assertEqual(Eudex(None).sim('Niall', 'Niall'), 1)
+        self.assertEqual(Eudex('fibonacci').sim('Niall', 'Niall'), 1)
 
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Neil'), 0.99901961)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Neil', None), 0.88888889)
+        self.assertAlmostEqual(Eudex(None).sim('Niall', 'Neil'), 0.88888889)
         self.assertAlmostEqual(
-            self.cmp.sim('Niall', 'Neil', 'fibonacci'), 0.99712644
+            Eudex('fibonacci').sim('Niall', 'Neil'), 0.99712644
         )
 
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Colin'), 0.74313725)
+        self.assertAlmostEqual(Eudex(None).sim('Niall', 'Colin'), 0.83333333)
         self.assertAlmostEqual(
-            self.cmp.sim('Niall', 'Colin', None), 0.83333333
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('Niall', 'Colin', 'fibonacci'), 0.79022989
+            Eudex('fibonacci').sim('Niall', 'Colin'), 0.79022989
         )
 
         # Test wrapper

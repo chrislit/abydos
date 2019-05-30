@@ -40,6 +40,7 @@ class Sift4TestCases(unittest.TestCase):
     """
 
     cmp = Sift4()
+    cmp55 = Sift4(5, 5)
 
     def test_sift4_dist_abs(self):
         """Test abydos.distance.Sift4.dist_abs."""
@@ -79,29 +80,25 @@ class Sift4TestCases(unittest.TestCase):
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
         self.assertEqual(
-            self.cmp.dist_abs(
-                'This is the first string', 'And this is another string', 5
+            Sift4(5).dist_abs(
+                'This is the first string', 'And this is another string'
             ),
             11,
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                'Lorem ipsum dolor sit amet, '
-                + 'consectetur adipiscing elit.',
-                'Amet Lorm ispum dolor sit amet, '
-                + 'consetetur adixxxpiscing elit.',
-                10,
+            Sift4(10).dist_abs(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing'
+                + ' elit.',
             ),
             12,
         )
 
         # cases with max_distance
-        self.assertEqual(self.cmp.dist_abs('example', 'samples', 5, 5), 5)
-        self.assertEqual(self.cmp.dist_abs('sturgeon', 'urgently', 5, 5), 5)
-        self.assertEqual(
-            self.cmp.dist_abs('levenshtein', 'frankenstein', 5, 5), 5
-        )
-        self.assertEqual(self.cmp.dist_abs('distance', 'difference', 5, 5), 5)
+        self.assertEqual(self.cmp55.dist_abs('example', 'samples'), 5)
+        self.assertEqual(self.cmp55.dist_abs('sturgeon', 'urgently'), 5)
+        self.assertEqual(self.cmp55.dist_abs('levenshtein', 'frankenstein'), 5)
+        self.assertEqual(self.cmp55.dist_abs('distance', 'difference'), 5)
 
         # Test wrapper
         self.assertEqual(sift4_common('xabxcdxxefxgx', 'abcdefg'), 7)
@@ -152,35 +149,29 @@ class Sift4TestCases(unittest.TestCase):
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
         self.assertAlmostEqual(
-            self.cmp.dist(
-                'This is the first string', 'And this is another string', 5
+            Sift4(5).dist(
+                'This is the first string', 'And this is another string'
             ),
             0.423076923,
         )
         self.assertAlmostEqual(
-            self.cmp.dist(
-                'Lorem ipsum dolor sit amet, '
-                + 'consectetur adipiscing elit.',
-                'Amet Lorm ispum dolor sit amet, '
-                + 'consetetur adixxxpiscing elit.',
-                10,
+            Sift4(10).dist(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing'
+                + ' elit.',
             ),
             0.193548387,
         )
 
         # cases with max_distance
         self.assertAlmostEqual(
-            self.cmp.dist('example', 'samples', 5, 5), 0.714285714
+            self.cmp55.dist('example', 'samples'), 0.714285714
         )
+        self.assertAlmostEqual(self.cmp55.dist('sturgeon', 'urgently'), 0.625)
         self.assertAlmostEqual(
-            self.cmp.dist('sturgeon', 'urgently', 5, 5), 0.625
+            self.cmp55.dist('levenshtein', 'frankenstein'), 0.416666666
         )
-        self.assertAlmostEqual(
-            self.cmp.dist('levenshtein', 'frankenstein', 5, 5), 0.416666666
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('distance', 'difference', 5, 5), 0.5
-        )
+        self.assertAlmostEqual(self.cmp55.dist('distance', 'difference'), 0.5)
 
         # Test wrapper
         self.assertAlmostEqual(
@@ -231,35 +222,29 @@ class Sift4TestCases(unittest.TestCase):
         # Tests copied from
         # https://github.com/tdebatty/java-string-similarity/blob/master/src/test/java/info/debatty/java/stringsimilarity/experimental/Sift4Test.java
         self.assertAlmostEqual(
-            self.cmp.sim(
-                'This is the first string', 'And this is another string', 5
+            Sift4(5).sim(
+                'This is the first string', 'And this is another string'
             ),
             0.576923077,
         )
         self.assertAlmostEqual(
-            self.cmp.sim(
-                'Lorem ipsum dolor sit amet, '
-                + 'consectetur adipiscing elit.',
-                'Amet Lorm ispum dolor sit amet, '
-                + 'consetetur adixxxpiscing elit.',
-                10,
+            Sift4(10).sim(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                'Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing'
+                + ' elit.',
             ),
             0.806451613,
         )
 
         # cases with max_distance
         self.assertAlmostEqual(
-            self.cmp.sim('example', 'samples', 5, 5), 0.285714286
+            self.cmp55.sim('example', 'samples'), 0.285714286
         )
+        self.assertAlmostEqual(self.cmp55.sim('sturgeon', 'urgently'), 0.375)
         self.assertAlmostEqual(
-            self.cmp.sim('sturgeon', 'urgently', 5, 5), 0.375
+            self.cmp55.sim('levenshtein', 'frankenstein'), 0.583333333
         )
-        self.assertAlmostEqual(
-            self.cmp.sim('levenshtein', 'frankenstein', 5, 5), 0.583333333
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('distance', 'difference', 5, 5), 0.5
-        )
+        self.assertAlmostEqual(self.cmp55.sim('distance', 'difference'), 0.5)
 
         # Test wrapper
         self.assertAlmostEqual(

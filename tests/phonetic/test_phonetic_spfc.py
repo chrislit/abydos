@@ -67,14 +67,20 @@ class SPFCTestCases(unittest.TestCase):
         self.assertRaises(AttributeError, self.pa.encode, 5)
 
         # etc. (for code coverage)
-        self.assertEqual(self.pa.encode('James Goldstein'), '78795')
-        self.assertEqual(self.pa.encode('James Hansen'), '58760')
-        self.assertEqual(self.pa.encode('James Hester'), '59700')
+        self.assertEqual(self.pa.encode('James Goldstein'), '77795')
+        self.assertEqual(self.pa.encode('James Hansen'), '57760')
+        self.assertEqual(self.pa.encode('James Hester'), '57700')
         self.assertEqual(self.pa.encode('James Bardot'), '31745')
-        self.assertEqual(self.pa.encode('James Windsor'), '29765')
+        self.assertEqual(self.pa.encode('James Windsor'), '27765')
         self.assertEqual(self.pa.encode('James Wenders'), '27760')
         self.assertEqual(self.pa.encode('James Ventor'), '17760')
         self.assertEqual(self.pa.encode('þ þ'), '00')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('J. Kuhns'), 'CSGMS')
+        self.assertEqual(self.pa.encode_alpha('G. Altshuler'), 'ARGEG')
+        self.assertEqual(self.pa.encode_alpha('T. Vines'), 'CSGMS')
+        self.assertEqual(self.pa.encode_alpha('James Ventor'), 'CZGMS')
 
         # Test wrapper
         self.assertEqual(spfc('G ALTSHULER'), '35797')

@@ -153,6 +153,12 @@ if __name__ == '__main__':
         open('flake8.log', 'r', encoding='utf-8').read().split()[-1]
     )
 
+    if not os.path.isfile('./sloccount.log'):
+        exit('Please direct sloccount output to sloccount.log')
+    with open('sloccount.log', 'r', encoding='utf-8') as fh:
+        pattern = r'Total Physical Source Lines of Code \(SLOC\) += ([0-9,]+)'
+        sloccount = re.search(pattern, fh.read()).group(1)
+
     readme_text = open('README.rst', 'r', encoding='utf-8').read()
 
     prefix = 'https://img.shields.io/badge/Pylint-'
@@ -186,6 +192,11 @@ if __name__ == '__main__':
         prefix + str(flake8_score) + '-' + flake8_color(flake8_score),
         readme_text,
         1,
+    )
+
+    prefix = 'https://img.shields.io/badge/SLOCCount-'
+    readme_text = re.sub(
+        prefix + r'[0-9,]+', prefix + str(sloccount), readme_text, 1
     )
 
     with open('README.rst', 'w', encoding='utf-8') as f:

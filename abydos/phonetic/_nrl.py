@@ -30,7 +30,10 @@ from __future__ import (
 
 from re import match as re_match
 
+from deprecation import deprecated
+
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['NRL', 'nrl']
 
@@ -39,16 +42,19 @@ class NRL(_Phonetic):
     """Naval Research Laboratory English-to-phoneme encoder.
 
     This is defined by :cite:`Elovitz:1976`.
+
+
+    .. versionadded:: 0.3.6
     """
 
     _rules = {
         ' ': (
             ('', ' ', '', ' '),
             ('', '-', '', ''),
-            ('.', '\'S', '', 'z'),
-            ('#:.E', '\'S', '', 'z'),
-            ('#', '\'S', '', 'z'),
-            ('', '\'', '', ''),
+            ('.', "'S", '', 'z'),
+            ('#:.E', "'S", '', 'z'),
+            ('#', "'S", '', 'z'),
+            ('', "'", '', ''),
             ('', ',', '', ' '),
             ('', '.', '', ' '),
             ('', '?', '', ' '),
@@ -124,7 +130,7 @@ class NRL(_Phonetic):
         ),
         'E': (
             ('#:', 'E', ' ', ''),
-            ('\':^', 'E', ' ', ''),
+            ("':^", 'E', ' ', ''),
             (' :', 'E', ' ', 'IY'),
             ('#', 'ED', ' ', 'd'),
             ('#:', 'E', 'D ', ''),
@@ -283,7 +289,7 @@ class NRL(_Phonetic):
             ('', 'OA', '', 'OW'),
             (' ', 'ONLY', '', 'OWnlIY'),
             (' ', 'ONCE', '', 'wAHns'),
-            ('', 'ON\'T', '', 'OWnt'),
+            ('', "ON'T", '', 'OWnt'),
             ('C', 'O', 'N', 'AA'),
             ('', 'O', 'NG', 'AO'),
             (' :^', 'O', 'N', 'AH'),
@@ -332,7 +338,7 @@ class NRL(_Phonetic):
             (' ', 'SCH', '', 'sk'),
             ('', 'S', 'C+', ''),
             ('#', 'SM', '', 'zm'),
-            ('#', 'SN', '\'', 'zAXn'),
+            ('#', 'SN', "'", 'zAXn'),
             ('', 'S', '', 's'),
         ),
         'T': (
@@ -461,6 +467,11 @@ class NRL(_Phonetic):
         >>> pe.encode('Larsen')
         'lAArsEHn'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _to_regex(pattern, left_match=True):
@@ -519,6 +530,12 @@ class NRL(_Phonetic):
         return pron
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NRL.encode method instead.',
+)
 def nrl(word):
     """Return the Naval Research Laboratory phonetic encoding of a word.
 
@@ -548,6 +565,9 @@ def nrl(word):
     'smIHTH'
     >>> nrl('Larsen')
     'lAArsEHn'
+
+
+    .. versionadded:: 0.3.0
 
     """
     return NRL().encode(word)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -30,12 +30,15 @@ from __future__ import (
 
 from sys import maxsize
 
+from deprecation import deprecated
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = [
     'DamerauLevenshtein',
@@ -54,7 +57,31 @@ class DamerauLevenshtein(_Distance):
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
 
-    def dist_abs(self, src, tar, cost=(1, 1, 1, 1)):
+    def __init__(self, cost=(1, 1, 1, 1), normalizer=max, **kwargs):
+        """Initialize Levenshtein instance.
+
+        Parameters
+        ----------
+        cost : tuple
+            A 4-tuple representing the cost of the four possible edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
+        normalizer : function
+            A function that takes an list and computes a normalization term
+            by which the edit distance is divided (max by default). Another
+            good option is the sum function.
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(DamerauLevenshtein, self).__init__(**kwargs)
+        self._cost = cost
+        self._normalizer = normalizer
+
+    def dist_abs(self, src, tar):
         """Return the Damerau-Levenshtein distance between two strings.
 
         Parameters
@@ -63,10 +90,6 @@ class DamerauLevenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
 
         Returns
         -------
@@ -91,8 +114,13 @@ class DamerauLevenshtein(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        ins_cost, del_cost, sub_cost, trans_cost = cost
+        ins_cost, del_cost, sub_cost, trans_cost = self._cost
 
         if src == tar:
             return 0
@@ -107,9 +135,7 @@ class DamerauLevenshtein(_Distance):
                 + 'must not be less than the cost of an insert plus a delete.'
             )
 
-        d_mat = np_zeros((len(src)) * (len(tar)), dtype=np_int).reshape(
-            (len(src), len(tar))
-        )
+        d_mat = np_zeros((len(src), len(tar)), dtype=np_int)
 
         if src[0] != tar[0]:
             d_mat[0, 0] = min(sub_cost, ins_cost + del_cost)
@@ -173,7 +199,7 @@ class DamerauLevenshtein(_Distance):
 
         return d_mat[len(src) - 1, len(tar) - 1]
 
-    def dist(self, src, tar, cost=(1, 1, 1, 1)):
+    def dist(self, src, tar):
         """Return the Damerau-Levenshtein similarity of two strings.
 
         Damerau-Levenshtein distance normalized to the interval [0, 1].
@@ -191,10 +217,6 @@ class DamerauLevenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
 
         Returns
         -------
@@ -213,15 +235,26 @@ class DamerauLevenshtein(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
-        ins_cost, del_cost = cost[:2]
-        return self.dist_abs(src, tar, cost) / (
-            max(len(src) * del_cost, len(tar) * ins_cost)
+        ins_cost, del_cost = self._cost[:2]
+        return self.dist_abs(src, tar) / (
+            self._normalizer([len(src) * del_cost, len(tar) * ins_cost])
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DamerauLevenshtein.dist_abs method instead.',
+)
 def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein distance between two strings.
 
@@ -254,10 +287,18 @@ def damerau_levenshtein(src, tar, cost=(1, 1, 1, 1)):
     >>> damerau_levenshtein('ATCG', 'TAGC')
     2
 
+    .. versionadded:: 0.1.0
+
     """
-    return DamerauLevenshtein().dist_abs(src, tar, cost)
+    return DamerauLevenshtein(cost).dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DamerauLevenshtein.dist method instead.',
+)
 def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein similarity of two strings.
 
@@ -290,10 +331,18 @@ def dist_damerau(src, tar, cost=(1, 1, 1, 1)):
     >>> dist_damerau('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.1.0
+
     """
-    return DamerauLevenshtein().dist(src, tar, cost)
+    return DamerauLevenshtein(cost).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DamerauLevenshtein.sim method instead.',
+)
 def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     """Return the Damerau-Levenshtein similarity of two strings.
 
@@ -326,8 +375,10 @@ def sim_damerau(src, tar, cost=(1, 1, 1, 1)):
     >>> sim_damerau('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.1.0
+
     """
-    return DamerauLevenshtein().sim(src, tar, cost)
+    return DamerauLevenshtein(cost).sim(src, tar)
 
 
 if __name__ == '__main__':

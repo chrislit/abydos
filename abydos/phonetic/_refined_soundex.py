@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['RefinedSoundex', 'refined_soundex']
 
@@ -42,6 +45,8 @@ class RefinedSoundex(_Phonetic):
 
     This is Soundex, but with more character classes. It was defined at
     :cite:`Boyce:1998`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -51,13 +56,13 @@ class RefinedSoundex(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=-1, zero_pad=False, retain_vowels=False):
-        """Return the Refined Soundex code for a word.
+    _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PFKGZTLNR'))
+
+    def __init__(self, max_length=-1, zero_pad=False, retain_vowels=False):
+        """Initialize RefinedSoundex instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         max_length : int
             The length of the code returned (defaults to unlimited)
         zero_pad : bool
@@ -65,6 +70,54 @@ class RefinedSoundex(_Phonetic):
             string
         retain_vowels : bool
             Retain vowels (as 0) in the resulting code
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._zero_pad = zero_pad
+        self._retain_vowels = retain_vowels
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Refined Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Refined Soundex value
+
+        Examples
+        --------
+        >>> pe = RefinedSoundex()
+        >>> pe.encode_alpha('Christopher')
+        'CRKTPR'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SKNT'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
+
+    def encode(self, word):
+        """Return the Refined Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -75,13 +128,18 @@ class RefinedSoundex(_Phonetic):
         --------
         >>> pe = RefinedSoundex()
         >>> pe.encode('Christopher')
-        'C393619'
+        'C93619'
         >>> pe.encode('Niall')
-        'N87'
+        'N7'
         >>> pe.encode('Smith')
-        'S386'
+        'S86'
         >>> pe.encode('Schmidt')
         'S386'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -90,19 +148,25 @@ class RefinedSoundex(_Phonetic):
         word = ''.join(c for c in word if c in self._uc_set)
 
         # apply the Soundex algorithm
-        sdx = word[:1] + word.translate(self._trans)
+        sdx = word[:1] + word[1:].translate(self._trans)
         sdx = self._delete_consecutive_repeats(sdx)
-        if not retain_vowels:
+        if not self._retain_vowels:
             sdx = sdx.replace('0', '')  # Delete vowels, H, W, Y
 
-        if max_length > 0:
-            if zero_pad:
-                sdx += '0' * max_length
-            sdx = sdx[:max_length]
+        if self._max_length > 0:
+            if self._zero_pad:
+                sdx += '0' * self._max_length
+            sdx = sdx[: self._max_length]
 
         return sdx
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RefinedSoundex.encode method instead.',
+)
 def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
     """Return the Refined Soundex code for a word.
 
@@ -127,16 +191,18 @@ def refined_soundex(word, max_length=-1, zero_pad=False, retain_vowels=False):
     Examples
     --------
     >>> refined_soundex('Christopher')
-    'C393619'
+    'C93619'
     >>> refined_soundex('Niall')
-    'N87'
+    'N7'
     >>> refined_soundex('Smith')
-    'S386'
+    'S86'
     >>> refined_soundex('Schmidt')
     'S386'
 
+    .. versionadded:: 0.3.0
+
     """
-    return RefinedSoundex().encode(word, max_length, zero_pad, retain_vowels)
+    return RefinedSoundex(max_length, zero_pad, retain_vowels).encode(word)
 
 
 if __name__ == '__main__':

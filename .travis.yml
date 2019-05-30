@@ -2,7 +2,6 @@ language: python
 
 python:
   - 2.7
-  - 3.3
   - 3.4
   - 3.5
   - 3.6
@@ -12,9 +11,6 @@ matrix:
     - python: 3.7
       dist: xenial
       sudo: true
-    - python: 3.8-dev
-      dist: xenial
-      sudo: true
 
 notifications:
   email: false
@@ -22,7 +18,11 @@ notifications:
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
+  - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7) travis_retry pip install cython;; esac
+  - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7) travis_retry pip install paq lzss;; esac
   - travis_retry pip install coveralls
+  - travis_retry pip install -r requirements.txt
+  - travis_retry pip install -r requirements-dev.txt
   - travis_retry python setup.py install
 
 # Run test

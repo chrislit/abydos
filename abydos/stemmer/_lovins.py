@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['Lovins', 'lovins']
 
@@ -43,6 +46,8 @@ class Lovins(_Stemmer):
 
     The Lovins stemmer is described in Julie Beth Lovins's article
     :cite:`Lovins:1968`.
+
+    .. versionadded:: 0.3.6
     """
 
     def _cond_b(self, word, suffix_len):
@@ -59,6 +64,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return len(word) - suffix_len >= 3
@@ -78,6 +88,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return len(word) - suffix_len >= 4
 
@@ -95,6 +110,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return len(word) - suffix_len >= 5
@@ -114,6 +134,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] != 'e'
 
@@ -131,6 +156,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] != 'e'
@@ -150,6 +180,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] == 'f'
 
@@ -167,6 +202,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return (
@@ -189,6 +229,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] not in {'e', 'o'}
 
@@ -207,6 +252,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] not in {'a', 'e'}
 
@@ -224,6 +274,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return (len(word) - suffix_len >= 3) and (
@@ -246,6 +301,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return (
             word[-suffix_len - 1] not in {'s', 'u', 'x'}
@@ -267,6 +327,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] not in {'a', 'c', 'e', 'm'}
 
@@ -284,6 +349,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if len(word) - suffix_len >= 3:
@@ -309,6 +379,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] in {'i', 'l'}
 
@@ -327,6 +402,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] != 'c'
 
@@ -344,6 +424,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] not in {
@@ -366,6 +451,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] in {'n', 'r'}
 
@@ -383,6 +473,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return word[-suffix_len - 2 : -suffix_len] == 'dr' or (
@@ -405,6 +500,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return (
             word[-suffix_len - 1] in {'s', 't'}
@@ -426,6 +526,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] in {'l', 'm', 'n', 'r'}
 
@@ -443,6 +548,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return word[-suffix_len - 1] == 'c'
@@ -462,6 +572,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] not in {'s', 'u'}
 
@@ -479,6 +594,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return word[-suffix_len - 1] in {'i', 'l'} or (
@@ -501,6 +621,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 2 : -suffix_len] == 'in'
 
@@ -519,6 +644,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] != 'f'
 
@@ -536,6 +666,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return word[-suffix_len - 1] in {'d', 'f', 'l', 't'} or word[
@@ -556,6 +691,11 @@ class Lovins(_Stemmer):
         -------
         bool
             True if condition is met
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         return (
@@ -579,6 +719,11 @@ class Lovins(_Stemmer):
         bool
             True if condition is met
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return word[-suffix_len - 1] == 'l'
 
@@ -594,6 +739,11 @@ class Lovins(_Stemmer):
         -------
         str
             Word stripped of suffix
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if stem[-3:-2] in {'a', 'i', 'o'}:
@@ -613,6 +763,11 @@ class Lovins(_Stemmer):
         str
             Word stripped of suffix
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if stem[-4:-3] == 's':
             return stem
@@ -630,6 +785,11 @@ class Lovins(_Stemmer):
         -------
         str
             Word stripped of suffix
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if stem[-4:-3] in {'p', 't'}:
@@ -649,6 +809,11 @@ class Lovins(_Stemmer):
         str
             Word stripped of suffix
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if stem[-4:-3] == 'm':
             return stem
@@ -667,6 +832,11 @@ class Lovins(_Stemmer):
         str
             Word stripped of suffix
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if stem[-3:-2] == 'n':
             return stem
@@ -676,7 +846,11 @@ class Lovins(_Stemmer):
     _recode = ()
 
     def __init__(self):
-        """Initialize the stemmer."""
+        """Initialize the stemmer.
+
+        .. versionadded:: 0.3.6
+
+        """
         self._suffix = {
             'alistically': self._cond_b,
             'arizability': None,
@@ -964,8 +1138,8 @@ class Lovins(_Stemmer):
             'um': self._cond_u,
             'us': self._cond_v,
             'yl': self._cond_r,
-            '\'s': None,
-            's\'': None,
+            "'s": None,
+            "s'": None,
             'a': None,
             'e': None,
             'i': None,
@@ -1034,6 +1208,11 @@ class Lovins(_Stemmer):
         >>> stmr.stem('elusiveness')
         'elus'
 
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -1075,6 +1254,12 @@ class Lovins(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Lovins.stem method instead.',
+)
 def lovins(word):
     """Return Lovins stem.
 
@@ -1097,6 +1282,8 @@ def lovins(word):
     'suspens'
     >>> lovins('elusiveness')
     'elus'
+
+    .. versionadded:: 0.2.0
 
     """
     return Lovins().stem(word)

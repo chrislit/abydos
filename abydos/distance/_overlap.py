@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._token_distance import _TokenDistance
+from .. import __version__
 
 __all__ = ['Overlap', 'dist_overlap', 'sim_overlap']
 
@@ -38,11 +41,59 @@ class Overlap(_TokenDistance):
 
     For two sets X and Y, the overlap coefficient
     :cite:`Szymkiewicz:1934,Simpson:1949`, also called the
-    Szymkiewicz-Simpson coefficient, is
-    :math:`sim_{overlap}(X, Y) = \frac{|X \cap Y|}{min(|X|, |Y|)}`.
+    Szymkiewicz-Simpson coefficient and Simpson's ecological coexistence
+    coefficient, is
+
+        .. math::
+
+            sim_{overlap}(X, Y) = \frac{|X \cap Y|}{min(|X|, |Y|)}
+
+    In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
+    this is
+
+        .. math::
+
+            sim_{overlap} = \frac{a}{min(a+b, a+c)}
+
+    .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, qval=2):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+        """Initialize Overlap instance.
+
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+        metric : _Distance
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the ``fuzzy`` variant.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Overlap, self).__init__(
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
+        )
+
+    def sim(self, src, tar):
         r"""Return the overlap coefficient of two strings.
 
         Parameters
@@ -51,8 +102,6 @@ class Overlap(_TokenDistance):
             Source string (or QGrams/Counter objects) for comparison
         tar : str
             Target string (or QGrams/Counter objects) for comparison
-        qval : int
-            The length of each q-gram; 0 for non-q-gram version
 
         Returns
         -------
@@ -71,20 +120,31 @@ class Overlap(_TokenDistance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 1.0
-        elif not src or not tar:
+
+        self._tokenize(src, tar)
+
+        if not self._src_card() or not self._tar_card():
             return 0.0
 
-        q_src, q_tar = self._get_qgrams(src, tar, qval)
-        q_src_mag = sum(q_src.values())
-        q_tar_mag = sum(q_tar.values())
-        q_intersection_mag = sum((q_src & q_tar).values())
-
-        return q_intersection_mag / min(q_src_mag, q_tar_mag)
+        return self._intersection_card() / min(
+            self._src_card(), self._tar_card()
+        )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Overlap.sim method instead.',
+)
 def sim_overlap(src, tar, qval=2):
     r"""Return the overlap coefficient of two strings.
 
@@ -97,7 +157,7 @@ def sim_overlap(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -115,10 +175,18 @@ def sim_overlap(src, tar, qval=2):
     >>> sim_overlap('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return Overlap().sim(src, tar, qval)
+    return Overlap(qval=qval).sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Overlap.dist method instead.',
+)
 def dist_overlap(src, tar, qval=2):
     """Return the overlap distance between two strings.
 
@@ -131,7 +199,7 @@ def dist_overlap(src, tar, qval=2):
     tar : str
         Target string (or QGrams/Counter objects) for comparison
     qval : int
-        The length of each q-gram; 0 for non-q-gram version
+        The length of each q-gram
 
     Returns
     -------
@@ -149,8 +217,10 @@ def dist_overlap(src, tar, qval=2):
     >>> dist_overlap('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return Overlap().dist(src, tar, qval)
+    return Overlap(qval=qval).dist(src, tar)
 
 
 if __name__ == '__main__':

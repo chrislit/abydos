@@ -18,7 +18,7 @@
 
 """abydos.tests.util.test_prod.
 
-This module contains unit tests for abydos.util.prod
+This module contains unit tests for abydos.util._prod
 """
 
 from __future__ import (

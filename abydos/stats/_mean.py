@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -62,8 +62,11 @@ __all__ = [
 def amean(nums):
     r"""Return arithmetic mean.
 
-    The arithmetic mean is defined as:
-    :math:`\frac{\sum{nums}}{|nums|}`
+    The arithmetic mean is defined as
+
+        .. math::
+
+            \frac{\sum{nums}}{|nums|}
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -86,6 +89,8 @@ def amean(nums):
     >>> amean([0, 5, 1000])
     335.0
 
+    .. versionadded:: 0.1.0
+
     """
     return sum(nums) / len(nums)
 
@@ -93,8 +98,11 @@ def amean(nums):
 def gmean(nums):
     r"""Return geometric mean.
 
-    The geometric mean is defined as:
-    :math:`\sqrt[|nums|]{\prod\limits_{i} nums_{i}}`
+    The geometric mean is defined as
+
+        .. math::
+
+            \sqrt[|nums|]{\prod\limits_{i} nums_{i}}
 
     Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -117,6 +125,8 @@ def gmean(nums):
     >>> gmean([0, 5, 1000])
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return _prod(nums) ** (1 / len(nums))
 
@@ -124,8 +134,11 @@ def gmean(nums):
 def hmean(nums):
     r"""Return harmonic mean.
 
-    The harmonic mean is defined as:
-    :math:`\frac{|nums|}{\sum\limits_{i}\frac{1}{nums_i}}`
+    The harmonic mean is defined as
+
+        .. math::
+
+            \frac{|nums|}{\sum\limits_{i}\frac{1}{nums_i}}
 
     Following the behavior of Wolfram|Alpha:
     - If one of the values in nums is 0, return 0.
@@ -145,7 +158,7 @@ def hmean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         hmean requires at least one value
 
     Examples
@@ -157,9 +170,11 @@ def hmean(nums):
     >>> hmean([0, 5, 1000])
     0
 
+    .. versionadded:: 0.1.0
+
     """
     if len(nums) < 1:
-        raise AttributeError('hmean requires at least one value')
+        raise ValueError('hmean requires at least one value')
     elif len(nums) == 1:
         return nums[0]
     else:
@@ -179,8 +194,11 @@ def hmean(nums):
 def qmean(nums):
     r"""Return quadratic mean.
 
-    The quadratic mean of precision and recall is defined as:
-    :math:`\sqrt{\sum\limits_{i} \frac{num_i^2}{|nums|}}`
+    The quadratic mean is defined as
+
+        .. math::
+
+            \sqrt{\sum\limits_{i} \frac{num_i^2}{|nums|}}
 
     Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -203,6 +221,8 @@ def qmean(nums):
     >>> qmean([0, 5, 1000])
     577.3574860228857
 
+    .. versionadded:: 0.1.0
+
     """
     return (sum(i ** 2 for i in nums) / len(nums)) ** 0.5
 
@@ -210,8 +230,11 @@ def qmean(nums):
 def cmean(nums):
     r"""Return contraharmonic mean.
 
-    The contraharmonic mean is:
-    :math:`\frac{\sum\limits_i x_i^2}{\sum\limits_i x_i}`
+    The contraharmonic mean is
+
+        .. math::
+
+            \frac{\sum\limits_i x_i^2}{\sum\limits_i x_i}
 
     Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -234,6 +257,8 @@ def cmean(nums):
     >>> cmean([0, 5, 1000])
     995.0497512437811
 
+    .. versionadded:: 0.1.0
+
     """
     return sum(x ** 2 for x in nums) / sum(nums)
 
@@ -243,11 +268,15 @@ def lmean(nums):
 
     The logarithmic mean of an arbitrarily long series is defined by
     http://www.survo.fi/papers/logmean.pdf
-    as:
-    :math:`L(x_1, x_2, ..., x_n) =
-    (n-1)! \sum\limits_{i=1}^n \frac{x_i}
-    {\prod\limits_{\substack{j = 1\\j \ne i}}^n
-    ln \frac{x_i}{x_j}}`
+    as
+
+
+        .. math::
+
+            L(x_1, x_2, ..., x_n) =
+            (n-1)! \sum\limits_{i=1}^n \frac{x_i}
+            {\prod\limits_{\substack{j = 1\\j \ne i}}^n
+            ln \frac{x_i}{x_j}}
 
     Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
@@ -263,7 +292,7 @@ def lmean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         No two values in the nums list may be equal
 
     Examples
@@ -273,17 +302,27 @@ def lmean(nums):
     >>> lmean([1, 2])
     1.4426950408889634
 
+    .. versionadded:: 0.1.0
+
     """
-    if len(nums) != len(set(nums)):
-        raise AttributeError('No two values in the nums list may be equal')
-    rolling_sum = 0
-    for i in range(len(nums)):
-        rolling_prod = 1
-        for j in range(len(nums)):
-            if i != j:
-                rolling_prod *= math.log(nums[i] / nums[j])
-        rolling_sum += nums[i] / rolling_prod
-    return math.factorial(len(nums) - 1) * rolling_sum
+    if len(nums) == 2:
+        if nums[0] == nums[1]:
+            return float(nums[0])
+        if 0 in nums:
+            return 0.0
+        return (nums[1] - nums[0]) / (math.log(nums[1] / nums[0]))
+
+    else:
+        if len(nums) != len(set(nums)):
+            raise ValueError('No two values in the nums list may be equal')
+        rolling_sum = 0
+        for i in range(len(nums)):
+            rolling_prod = 1
+            for j in range(len(nums)):
+                if i != j:
+                    rolling_prod *= math.log(nums[i] / nums[j])
+            rolling_sum += nums[i] / rolling_prod
+        return math.factorial(len(nums) - 1) * rolling_sum
 
 
 def imean(nums):
@@ -291,7 +330,11 @@ def imean(nums):
 
     The identric mean of two numbers x and y is:
     x if x = y
-    otherwise :math:`\frac{1}{e} \sqrt[x-y]{\frac{x^x}{y^y}}`
+    otherwise
+
+        .. math::
+
+            \frac{1}{e} \sqrt[x-y]{\frac{x^x}{y^y}}
 
     Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -307,7 +350,7 @@ def imean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         imean supports no more than two values
 
     Examples
@@ -319,15 +362,18 @@ def imean(nums):
     >>> imean([2, 4])
     2.9430355293715387
 
+    .. versionadded:: 0.1.0
+
     """
     if len(nums) == 1:
         return nums[0]
     if len(nums) > 2:
-        raise AttributeError('imean supports no more than two values')
+        raise ValueError('imean supports no more than two values')
     if nums[0] <= 0 or nums[1] <= 0:
         return float('NaN')
     elif nums[0] == nums[1]:
         return nums[0]
+    nums = sorted(nums, reverse=True)
     return (1 / math.e) * (nums[0] ** nums[0] / nums[1] ** nums[1]) ** (
         1 / (nums[0] - nums[1])
     )
@@ -336,8 +382,11 @@ def imean(nums):
 def seiffert_mean(nums):
     r"""Return Seiffert's mean.
 
-    Seiffert's mean of two numbers x and y is:
-    :math:`\frac{x - y}{4 \cdot arctan \sqrt{\frac{x}{y}} - \pi}`
+    Seiffert's mean of two numbers x and y is
+
+        .. math::
+
+            \frac{x - y}{4 \cdot arctan \sqrt{\frac{x}{y}} - \pi}
 
     It is defined in :cite:`Seiffert:1993`.
 
@@ -353,7 +402,7 @@ def seiffert_mean(nums):
 
     Raises
     ------
-    AttributeError
+    ValueError
         seiffert_mean supports no more than two values
 
     Examples
@@ -367,11 +416,13 @@ def seiffert_mean(nums):
     >>> seiffert_mean([2, 1000])
     336.84053300118825
 
+    .. versionadded:: 0.1.0
+
     """
     if len(nums) == 1:
         return nums[0]
     if len(nums) > 2:
-        raise AttributeError('seiffert_mean supports no more than two values')
+        raise ValueError('seiffert_mean supports no more than two values')
     if nums[0] + nums[1] == 0 or nums[0] - nums[1] == 0:
         return float('NaN')
     return (nums[0] - nums[1]) / (
@@ -382,8 +433,11 @@ def seiffert_mean(nums):
 def lehmer_mean(nums, exp=2):
     r"""Return Lehmer mean.
 
-    The Lehmer mean is:
-    :math:`\frac{\sum\limits_i{x_i^p}}{\sum\limits_i{x_i^(p-1)}}`
+    The Lehmer mean is
+
+        .. math::
+
+            \frac{\sum\limits_i{x_i^p}}{\sum\limits_i{x_i^(p-1)}}
 
     Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
@@ -408,6 +462,8 @@ def lehmer_mean(nums, exp=2):
     >>> lehmer_mean([0, 5, 1000])
     995.0497512437811
 
+    .. versionadded:: 0.1.0
+
     """
     return sum(x ** exp for x in nums) / sum(x ** (exp - 1) for x in nums)
 
@@ -416,8 +472,12 @@ def heronian_mean(nums):
     r"""Return Heronian mean.
 
     The Heronian mean is:
-    :math:`\frac{\sum\limits_{i, j}\sqrt{{x_i \cdot x_j}}}
-    {|nums| \cdot \frac{|nums| + 1}{2}}`
+
+        .. math::
+
+            \frac{\sum\limits_{i, j}\sqrt{{x_i \cdot x_j}}}
+            {|nums| \cdot \frac{|nums| + 1}{2}}
+
     for :math:`j \ge i`
 
     Cf. https://en.wikipedia.org/wiki/Heronian_mean
@@ -441,6 +501,8 @@ def heronian_mean(nums):
     >>> heronian_mean([0, 5, 1000])
     179.28511301977582
 
+    .. versionadded:: 0.1.0
+
     """
     mag = len(nums)
     rolling_sum = 0
@@ -457,7 +519,11 @@ def hoelder_mean(nums, exp=2):
     r"""Return Hölder (power/generalized) mean.
 
     The Hölder mean is defined as:
-    :math:`\sqrt[p]{\frac{1}{|nums|} \cdot \sum\limits_i{x_i^p}}`
+
+        .. math::
+
+            \sqrt[p]{\frac{1}{|nums|} \cdot \sum\limits_i{x_i^p}}
+
     for :math:`p \ne 0`, and the geometric mean for :math:`p = 0`
 
     Cf. https://en.wikipedia.org/wiki/Generalized_mean
@@ -483,17 +549,19 @@ def hoelder_mean(nums, exp=2):
     >>> hoelder_mean([0, 5, 1000])
     577.3574860228857
 
+    .. versionadded:: 0.1.0
+
     """
     if exp == 0:
         return gmean(nums)
     return ((1 / len(nums)) * sum(i ** exp for i in nums)) ** (1 / exp)
 
 
-def agmean(nums):
+def agmean(nums, prec=12):
     """Return arithmetic-geometric mean.
 
     Iterates between arithmetic & geometric means until they converge to
-    a single value (rounded to 12 digits).
+    a single value (rounded to 10 digits).
 
     Cf. https://en.wikipedia.org/wiki/Arithmetic-geometric_mean
 
@@ -506,6 +574,8 @@ def agmean(nums):
     -------
     float
         The arithmetic-geometric mean of nums
+    prec : int
+        Digits of precision when testing convergeance
 
     Examples
     --------
@@ -516,21 +586,23 @@ def agmean(nums):
     >>> agmean([0, 5, 1000])
     2.9753977059954195e-13
 
+    .. versionadded:: 0.1.0
+
     """
     m_a = amean(nums)
     m_g = gmean(nums)
     if math.isnan(m_a) or math.isnan(m_g):
         return float('nan')
-    while round(m_a, 12) != round(m_g, 12):
+    while round(m_a, prec) != round(m_g, prec):
         m_a, m_g = (m_a + m_g) / 2, (m_a * m_g) ** (1 / 2)
     return m_a
 
 
-def ghmean(nums):
+def ghmean(nums, prec=12):
     """Return geometric-harmonic mean.
 
     Iterates between geometric & harmonic means until they converge to
-    a single value (rounded to 12 digits).
+    a single value (rounded to 10 digits).
 
     Cf. https://en.wikipedia.org/wiki/Geometric-harmonic_mean
 
@@ -538,6 +610,8 @@ def ghmean(nums):
     ----------
     nums : list
         A series of numbers
+    prec : int
+        Digits of precision when testing convergeance
 
     Returns
     -------
@@ -558,27 +632,31 @@ def ghmean(nums):
     >>> ghmean([0, 0, 5])
     nan
 
+    .. versionadded:: 0.1.0
+
     """
     m_g = gmean(nums)
     m_h = hmean(nums)
     if math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
-    while round(m_h, 12) != round(m_g, 12):
+    while round(m_h, prec) != round(m_g, prec):
         m_g, m_h = (m_g * m_h) ** (1 / 2), (2 * m_g * m_h) / (m_g + m_h)
     return m_g
 
 
-def aghmean(nums):
+def aghmean(nums, prec=12):
     """Return arithmetic-geometric-harmonic mean.
 
     Iterates over arithmetic, geometric, & harmonic means until they
-    converge to a single value (rounded to 12 digits), following the
+    converge to a single value (rounded to 10 digits), following the
     method described in :cite:`Raissouli:2009`.
 
     Parameters
     ----------
     nums : list
         A series of numbers
+    prec : int
+        Digits of precision when testing convergeance
 
     Returns
     -------
@@ -594,14 +672,16 @@ def aghmean(nums):
     >>> aghmean([0, 5, 1000])
     335.0
 
+    .. versionadded:: 0.1.0
+
     """
     m_a = amean(nums)
     m_g = gmean(nums)
     m_h = hmean(nums)
     if math.isnan(m_a) or math.isnan(m_g) or math.isnan(m_h):
         return float('nan')
-    while round(m_a, 12) != round(m_g, 12) and round(m_g, 12) != round(
-        m_h, 12
+    while round(m_a, prec) != round(m_g, prec) and round(m_g, prec) != round(
+        m_h, prec
     ):
         m_a, m_g, m_h = (
             (m_a + m_g + m_h) / 3,
@@ -637,6 +717,8 @@ def midrange(nums):
     >>> midrange([1, 2, 1000, 3])
     500.5
 
+    .. versionadded:: 0.1.0
+
     """
     return 0.5 * (max(nums) + min(nums))
 
@@ -668,6 +750,8 @@ def median(nums):
     2.5
     >>> median([1, 2, 2, 4])
     2
+
+    .. versionadded:: 0.1.0
 
     """
     nums = sorted(nums)
@@ -702,6 +786,8 @@ def mode(nums):
     >>> mode([1, 2, 2, 3])
     2
 
+    .. versionadded:: 0.1.0
+
     """
     return Counter(nums).most_common(1)[0][0]
 
@@ -712,7 +798,9 @@ def var(nums, mean_func=amean, ddof=0):
     The variance (:math:`\sigma^2`) of a series of numbers (:math:`x_i`) with
     mean :math:`\mu` and population :math:`N` is:
 
-    :math:`\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(x_i-\mu)^2`.
+        .. math::
+
+            \sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(x_i-\mu)^2
 
     Cf. https://en.wikipedia.org/wiki/Variance
 
@@ -738,6 +826,8 @@ def var(nums, mean_func=amean, ddof=0):
     1.25
     >>> round(var([1, 2, 3, 4], ddof=1), 12)
     1.666666666667
+
+    .. versionadded:: 0.3.0
 
     """
     x_bar = mean_func(nums)
@@ -774,6 +864,8 @@ def std(nums, mean_func=amean, ddof=0):
     1.11803398875
     >>> round(std([1, 2, 3, 4], ddof=1), 12)
     1.290994448736
+
+    .. versionadded:: 0.3.0
 
     """
     return var(nums, mean_func, ddof) ** 0.5

@@ -31,11 +31,18 @@ from __future__ import (
 from re import compile as re_compile
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['FONEM', 'fonem']
+
+
+def _get_parts(m):
+    return (m.group(1) or '') + (m.group(2) or '')
 
 
 class FONEM(_Phonetic):
@@ -47,6 +54,9 @@ class FONEM(_Phonetic):
     Guillaume Plique's Javascript implementation :cite:`Plique:2018` at
     https://github.com/Yomguithereal/talisman/blob/master/src/phonetics/french/fonem.js
     was also consulted for this implementation.
+
+
+    .. versionadded:: 0.3.6
     """
 
     # I don't see a sane way of doing this without regexps :(
@@ -122,7 +132,7 @@ class FONEM(_Phonetic):
                 '(ILS|[CS]H|[MN]P|R[CFKLNSX])$|([BCDFGHJKL'
                 + 'MNPQRSTVWXZ])[BCDFGHJKLMNPQRSTVWXZ]$'
             ),
-            lambda m: (m.group(1) or '') + (m.group(2) or ''),
+            _get_parts,
         ),
         'C-30,32': (re_compile('^(SA?INT?|SEI[NM]|CINQ?|ST)(?!E)-?'), 'ST-'),
         'C-31,33': (re_compile('^(SAINTE|STE)-?'), 'STE-'),
@@ -225,6 +235,11 @@ class FONEM(_Phonetic):
         >>> pe.encode('Pelletier')
         'PELETIER'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # normalize, upper-case, and filter non-French letters
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -241,6 +256,12 @@ class FONEM(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the FONEM.encode method instead.',
+)
 def fonem(word):
     """Return the FONEM code of a word.
 
@@ -268,6 +289,9 @@ def fonem(word):
     'LEGREN'
     >>> fonem('Pelletier')
     'PELETIER'
+
+
+    .. versionadded:: 0.3.0
 
     """
     return FONEM().encode(word)

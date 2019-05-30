@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
+from .. import __version__
 
 __all__ = ['Position', 'position_fingerprint']
 
@@ -37,27 +40,38 @@ class Position(_Fingerprint):
     """Position Fingerprint.
 
     Based on the position fingerprint from :cite:`Cislak:2017`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def fingerprint(
-        self,
-        word,
-        n_bits=16,
-        most_common=MOST_COMMON_LETTERS_CG,
-        bits_per_letter=3,
+    def __init__(
+        self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG, bits_per_letter=3
     ):
+        """Initialize Count instance.
+
+        Parameters
+        ----------
+        n_bits : int
+            Number of bits in the fingerprint returned
+        most_common : list
+            The most common tokens in the target language, ordered by frequency
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(_Fingerprint, self).__init__()
+        self._n_bits = n_bits
+        self._most_common = most_common
+        self._bits_per_letter = bits_per_letter
+
+    def fingerprint(self, word):
         """Return the position fingerprint.
 
         Parameters
         ----------
         word : str
             The word to fingerprint
-        n_bits : int
-            Number of bits in the fingerprint returned
-        most_common : list
-            The most common tokens in the target language, ordered by frequency
-        bits_per_letter : int
-            The bits to assign for letter position
 
         Returns
         -------
@@ -77,24 +91,30 @@ class Position(_Fingerprint):
         >>> bin(position_fingerprint('entreatment'))
         '0b101011111111'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
+        n_bits = self._n_bits
         position = {}
         for pos, letter in enumerate(word):
-            if letter not in position and letter in most_common:
-                position[letter] = min(pos, 2 ** bits_per_letter - 1)
+            if letter not in position and letter in self._most_common:
+                position[letter] = min(pos, 2 ** self._bits_per_letter - 1)
 
         fingerprint = 0
 
-        for letter in most_common:
+        for letter in self._most_common:
             if n_bits:
-                fingerprint <<= min(bits_per_letter, n_bits)
+                fingerprint <<= min(self._bits_per_letter, n_bits)
                 if letter in position:
                     fingerprint += min(position[letter], 2 ** n_bits - 1)
                 else:
                     fingerprint += min(
-                        2 ** bits_per_letter - 1, 2 ** n_bits - 1
+                        2 ** self._bits_per_letter - 1, 2 ** n_bits - 1
                     )
-                n_bits -= min(bits_per_letter, n_bits)
+                n_bits -= min(self._bits_per_letter, n_bits)
             else:
                 break
 
@@ -105,6 +125,12 @@ class Position(_Fingerprint):
         return fingerprint
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Position.fingerprint method instead.',
+)
 def position_fingerprint(
     word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG, bits_per_letter=3
 ):
@@ -141,8 +167,10 @@ def position_fingerprint(
     >>> bin(position_fingerprint('entreatment'))
     '0b101011111111'
 
+    .. versionadded:: 0.3.0
+
     """
-    return Position().fingerprint(word, n_bits, most_common, bits_per_letter)
+    return Position(n_bits, most_common, bits_per_letter).fingerprint(word)
 
 
 if __name__ == '__main__':

@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['FuzzySoundex', 'fuzzy_soundex']
 
@@ -42,6 +45,8 @@ class FuzzySoundex(_Phonetic):
 
     Fuzzy Soundex is an algorithm derived from Soundex, defined in
     :cite:`Holmes:2002`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -51,18 +56,69 @@ class FuzzySoundex(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=5, zero_pad=True):
+    _alphabetic = dict(zip((ord(_) for _ in '01345679'), 'APTLNRKS'))
+
+    def __init__(self, max_length=5, zero_pad=True):
+        """Initialize FuzzySoundex instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+        self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Fuzzy Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Fuzzy Soundex value
+
+        Examples
+        --------
+        >>> pe = FuzzySoundex()
+        >>> pe.encode_alpha('Christopher')
+        'KRSTP'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
+
+    def encode(self, word):
         """Return the Fuzzy Soundex code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -81,19 +137,18 @@ class FuzzySoundex(_Phonetic):
         >>> pe.encode('Smith')
         'S5300'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
 
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
-
         if not word:
-            if zero_pad:
-                return '0' * max_length
+            if self._zero_pad:
+                return '0' * self._max_length
             return '0'
 
         if word[:2] in {'CS', 'CZ', 'TS', 'TZ'}:
@@ -153,12 +208,18 @@ class FuzzySoundex(_Phonetic):
 
         sdx = sdx.replace('0', '')
 
-        if zero_pad:
-            sdx += '0' * max_length
+        if self._zero_pad:
+            sdx += '0' * self._max_length
 
-        return sdx[:max_length]
+        return sdx[: self._max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the FuzzySoundex.encode method instead.',
+)
 def fuzzy_soundex(word, max_length=5, zero_pad=True):
     """Return the Fuzzy Soundex code for a word.
 
@@ -189,8 +250,10 @@ def fuzzy_soundex(word, max_length=5, zero_pad=True):
     >>> fuzzy_soundex('Smith')
     'S5300'
 
+    .. versionadded:: 0.1.0
+
     """
-    return FuzzySoundex().encode(word, max_length, zero_pad)
+    return FuzzySoundex(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

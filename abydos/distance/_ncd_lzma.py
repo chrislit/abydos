@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 try:
     import lzma
@@ -46,6 +49,8 @@ class NCDlzma(_Distance):
     Cf. https://en.wikipedia.org/wiki/Lempel-Ziv-Markov_chain_algorithm
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     def dist(self, src, tar):
@@ -80,6 +85,11 @@ class NCDlzma(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.08695652173913043
 
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -103,6 +113,12 @@ class NCDlzma(_Distance):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDlzma.dist method instead.',
+)
 def dist_ncd_lzma(src, tar):
     """Return the NCD between two strings using LZMA compression.
 
@@ -131,10 +147,18 @@ def dist_ncd_lzma(src, tar):
     >>> dist_ncd_lzma('ATCG', 'TAGC')
     0.08695652173913043
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDlzma().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDlzma.sim method instead.',
+)
 def sim_ncd_lzma(src, tar):
     """Return the NCD similarity between two strings using LZMA compression.
 
@@ -162,6 +186,8 @@ def sim_ncd_lzma(src, tar):
     0.84
     >>> sim_ncd_lzma('ATCG', 'TAGC')
     0.9130434782608696
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDlzma().sim(src, tar)

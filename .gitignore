@@ -4,6 +4,7 @@ dist/
 flake8/
 abydos.egg-info/
 .settings/
+*.bak
 *.pyc
 *.log
 .coverage
@@ -11,5 +12,3 @@ abydos.egg-info/
 .tox/
 binder/.ipynb_checkpoints
 binder/Untitled*
-docs/abydos.bib.bak
-

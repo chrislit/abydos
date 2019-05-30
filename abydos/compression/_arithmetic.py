@@ -31,8 +31,11 @@ from __future__ import (
 from collections import Counter
 from fractions import Fraction
 
+from deprecation import deprecated
+
 from six import PY3, text_type
 
+from .. import __version__
 
 if PY3:
     long = int
@@ -45,6 +48,9 @@ class Arithmetic(object):
 
     This is based on Andrew Dalke's public domain implementation
     :cite:`Dalke:2005`. It has been ported to use the fractions.Fraction class.
+
+
+    .. versionadded:: 0.3.6
     """
 
     _probs = {}
@@ -56,6 +62,9 @@ class Arithmetic(object):
         ----------
         text : str
             The training text
+
+
+        .. versionadded:: 0.3.6
 
         """
         if text is not None:
@@ -69,6 +78,9 @@ class Arithmetic(object):
         dict
             The dictionary of probabilities
 
+
+        .. versionadded:: 0.3.6
+
         """
         return self._probs
 
@@ -79,6 +91,9 @@ class Arithmetic(object):
         ----------
         probs : dict
             The dictionary of probabilities
+
+
+        .. versionadded:: 0.3.6
 
         """
         self._probs = probs
@@ -128,6 +143,11 @@ class Arithmetic(object):
          'a': (Fraction(43, 45), Fraction(44, 45)),
          '\x00': (Fraction(44, 45), Fraction(1, 1))}
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         text = text_type(text)
         if '\x00' in text:
@@ -169,6 +189,11 @@ class Arithmetic(object):
         >>> ac = Arithmetic('the quick brown fox jumped over the lazy dog')
         >>> ac.encode('align')
         (16720586181, 34)
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         text = text_type(text)
@@ -222,6 +247,11 @@ class Arithmetic(object):
         >>> ac.decode(16720586181, 34)
         'align'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         val = Fraction(longval, long(1) << nbits)
         letters = []
@@ -245,6 +275,12 @@ class Arithmetic(object):
         return ''.join(letters)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Arithmetic.train method instead.',
+)
 def ac_train(text):
     r"""Generate a probability dict from the provided text.
 
@@ -293,10 +329,19 @@ def ac_train(text):
      'a': (Fraction(43, 45), Fraction(44, 45)),
      '\x00': (Fraction(44, 45), Fraction(1, 1))}
 
+
+    .. versionadded:: 0.1.0
+
     """
     return Arithmetic(text).get_probs()
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Arithmetic.encode method instead.',
+)
 def ac_encode(text, probs):
     """Encode a text using arithmetic coding with the provided probabilities.
 
@@ -321,12 +366,21 @@ def ac_encode(text, probs):
     >>> ac_encode('align', pr)
     (16720586181, 34)
 
+
+    .. versionadded:: 0.1.0
+
     """
     coder = Arithmetic()
     coder.set_probs(probs)
     return coder.encode(text)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Arithmetic.decode method instead.',
+)
 def ac_decode(longval, nbits, probs):
     """Decode the number to a string using the given statistics.
 
@@ -352,6 +406,9 @@ def ac_decode(longval, nbits, probs):
     >>> pr = ac_train('the quick brown fox jumped over the lazy dog')
     >>> ac_decode(16720586181, 34, pr)
     'align'
+
+
+    .. versionadded:: 0.1.0
 
     """
     coder = Arithmetic()

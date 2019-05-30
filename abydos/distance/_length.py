@@ -28,13 +28,19 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Length', 'dist_length', 'sim_length']
 
 
 class Length(_Distance):
-    """Length similarity and distance."""
+    """Length similarity and distance.
+
+    .. versionadded:: 0.3.6
+    """
 
     def sim(self, src, tar):
         """Return the length similarity of two strings.
@@ -66,6 +72,11 @@ class Length(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         1.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 1.0
@@ -76,6 +87,12 @@ class Length(_Distance):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Length.sim method instead.',
+)
 def sim_length(src, tar):
     """Return the length similarity of two strings.
 
@@ -104,10 +121,19 @@ def sim_length(src, tar):
     >>> sim_length('ATCG', 'TAGC')
     1.0
 
+
+    .. versionadded:: 0.1.0
+
     """
     return Length().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Length.dist method instead.',
+)
 def dist_length(src, tar):
     """Return the length distance between two strings.
 
@@ -135,6 +161,9 @@ def dist_length(src, tar):
     0.125
     >>> dist_length('ATCG', 'TAGC')
     0.0
+
+
+    .. versionadded:: 0.1.0
 
     """
     return Length().dist(src, tar)

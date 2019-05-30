@@ -28,51 +28,38 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from deprecation import deprecated
+
 from ._levenshtein import Levenshtein
+from .. import __version__
 
 __all__ = ['Indel', 'dist_indel', 'indel', 'sim_indel']
 
 
-class Indel(_Distance):
+class Indel(Levenshtein):
     """Indel distance.
 
     This is equivalent to Levenshtein distance, when only inserts and deletes
     are possible.
+
+    .. versionadded:: 0.3.6
+
     """
 
-    _lev = Levenshtein()
-
-    def dist_abs(self, src, tar):
-        """Return the indel distance between two strings.
+    def __init__(self, **kwargs):
+        """Initialize Levenshtein instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
+        **kwargs
+            Arbitrary keyword arguments
 
-        Returns
-        -------
-        int
-            Indel distance
 
-        Examples
-        --------
-        >>> cmp = Indel()
-        >>> cmp.dist_abs('cat', 'hat')
-        2
-        >>> cmp.dist_abs('Niall', 'Neil')
-        3
-        >>> cmp.dist_abs('Colin', 'Cuilen')
-        5
-        >>> cmp.dist_abs('ATCG', 'TAGC')
-        4
+        .. versionadded:: 0.4.0
 
         """
-        return self._lev.dist_abs(
-            src, tar, mode='lev', cost=(1, 1, 9999, 9999)
+        super(Indel, self).__init__(
+            mode='lev', cost=(1, 1, 9999, 9999), **kwargs
         )
 
     def dist(self, src, tar):
@@ -105,12 +92,21 @@ class Indel(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
 
+
+        .. versionadded:: 0.3.6
+
         """
         if src == tar:
             return 0.0
         return self.dist_abs(src, tar) / (len(src) + len(tar))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Indel.dist_abs method instead.',
+)
 def indel(src, tar):
     """Return the indel distance between two strings.
 
@@ -137,10 +133,18 @@ def indel(src, tar):
     >>> indel('ATCG', 'TAGC')
     4
 
+    .. versionadded:: 0.3.0
+
     """
     return Indel().dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Indel.dist method instead.',
+)
 def dist_indel(src, tar):
     """Return the normalized indel distance between two strings.
 
@@ -170,10 +174,18 @@ def dist_indel(src, tar):
     >>> dist_indel('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.3.0
+
     """
     return Indel().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Indel.sim method instead.',
+)
 def sim_indel(src, tar):
     """Return the normalized indel similarity of two strings.
 
@@ -202,6 +214,8 @@ def sim_indel(src, tar):
     0.545454545455
     >>> sim_indel('ATCG', 'TAGC')
     0.5
+
+    .. versionadded:: 0.3.0
 
     """
     return Indel().sim(src, tar)

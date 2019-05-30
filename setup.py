@@ -81,7 +81,6 @@ if __name__ == '__main__':
             'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.3',
             'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
             'Programming Language :: Python :: 3.6',
@@ -100,7 +99,7 @@ later (GPLv3+)',
         long_description='\n\n'.join(
             [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
         ),
-        install_requires=['numpy', 'six'],
+        install_requires=['numpy', 'six', 'deprecation'],
         extras_require={
             ':python_version >= "2.7" and python_version < "2.8"': [
                 'pyliblzma>=0.5.3,<0.6.0'

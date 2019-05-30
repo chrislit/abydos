@@ -28,8 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
 from ._hamming import Hamming
+from .. import __version__
 
 __all__ = ['MLIPNS', 'dist_mlipns', 'sim_mlipns']
 
@@ -41,11 +44,35 @@ class MLIPNS(_Distance):
     :cite:`Shannaq:2010`. This function returns only 1.0 (similar) or 0.0
     (not similar). LIPNS similarity is identical to normalized Hamming
     similarity.
+
+    .. versionadded:: 0.3.6
     """
 
-    hamming = Hamming()
+    _hamming = Hamming(diff_lens=True)
 
-    def sim(self, src, tar, threshold=0.25, max_mismatches=2):
+    def __init__(self, threshold=0.25, max_mismatches=2, **kwargs):
+        """Initialize MLIPNS instance.
+
+        Parameters
+        ----------
+        threshold : float
+            A number [0, 1] indicating the maximum similarity score, below
+            which the strings are considered 'similar' (0.25 by default)
+        max_mismatches : int
+            A number indicating the allowable number of mismatches to remove
+            before declaring two strings not similar (2 by default)
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(MLIPNS, self).__init__(**kwargs)
+        self._threshold = threshold
+        self._max_mismatches = max_mismatches
+
+    def sim(self, src, tar):
         """Return the MLIPNS similarity of two strings.
 
         Parameters
@@ -54,12 +81,6 @@ class MLIPNS(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        threshold : float
-            A number [0, 1] indicating the maximum similarity score, below
-            which the strings are considered 'similar' (0.25 by default)
-        max_mismatches : int
-            A number indicating the allowable number of mismatches to remove
-            before declaring two strings not similar (2 by default)
 
         Returns
         -------
@@ -77,6 +98,11 @@ class MLIPNS(_Distance):
         >>> sim_mlipns('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if tar == src:
             return 1.0
@@ -84,12 +110,12 @@ class MLIPNS(_Distance):
             return 0.0
 
         mismatches = 0
-        ham = Hamming().dist_abs(src, tar, diff_lens=True)
+        ham = self._hamming.dist_abs(src, tar)
         max_length = max(len(src), len(tar))
-        while src and tar and mismatches <= max_mismatches:
+        while src and tar and mismatches <= self._max_mismatches:
             if (
                 max_length < 1
-                or (1 - (max_length - ham) / max_length) <= threshold
+                or (1 - (max_length - ham) / max_length) <= self._threshold
             ):
                 return 1.0
             else:
@@ -102,6 +128,12 @@ class MLIPNS(_Distance):
         return 0.0
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MLIPNS.sim method instead.',
+)
 def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS similarity of two strings.
 
@@ -136,10 +168,18 @@ def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     >>> sim_mlipns('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return MLIPNS().sim(src, tar, threshold, max_mismatches)
+    return MLIPNS(threshold, max_mismatches).sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MLIPNS.dist method instead.',
+)
 def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     """Return the MLIPNS distance between two strings.
 
@@ -174,8 +214,10 @@ def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
     >>> dist_mlipns('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return MLIPNS().dist(src, tar, threshold, max_mismatches)
+    return MLIPNS(threshold, max_mismatches).dist(src, tar)
 
 
 if __name__ == '__main__':

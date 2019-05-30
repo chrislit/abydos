@@ -53,6 +53,7 @@ extensions = [
 ]
 
 smartquotes = False
+autoclass_content = 'both'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -72,7 +73,7 @@ suppress_warnings = ['epub.unknown_project_files']
 # General information about the project.
 project = 'Abydos'
 # noinspection PyShadowingBuiltins
-copyright = '2018, Christopher C. Little'
+copyright = '2014-2019, Christopher C. Little'
 author = 'Christopher C. Little'
 
 # The version info for the project you're documenting, acts as replacement for

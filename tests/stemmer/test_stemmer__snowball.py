@@ -86,6 +86,13 @@ class SnowballTestCases(unittest.TestCase):
         self.assertEqual(self.stmr._sb_r1('sprinkled'), 5)  # noqa: SF01
         self.assertEqual(self.stmr._sb_r1('eucharist'), 3)  # noqa: SF01
 
+        self.assertEqual(
+            self.stmr._sb_r1('eucharist', r1_prefixes={'ist'}), 3  # noqa: SF01
+        )
+        self.assertEqual(
+            self.stmr._sb_r1('ist', r1_prefixes={'ist'}), 3  # noqa: SF01
+        )
+
     def test_sb_r2(self):
         """Test abydos.stemmer._Snowball._sb_r2."""
         # base case
@@ -145,6 +152,9 @@ class SnowballTestCases(unittest.TestCase):
         )
         self.assertFalse(
             self.stmr._sb_ends_in_short_syllable('a')  # noqa: SF01
+        )
+        self.assertFalse(
+            self.stmr._sb_ends_in_short_syllable('da')  # noqa: SF01
         )
 
     def test_sb_short_word(self):

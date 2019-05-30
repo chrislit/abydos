@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['SfinxBis', 'sfinxbis']
 
@@ -46,6 +49,8 @@ class SfinxBis(_Phonetic):
     :cite:`Sjoo:2009`.
 
     SfinxBis is intended chiefly for Swedish names.
+
+    .. versionadded:: 0.3.6
     """
 
     _adelstitler = (
@@ -151,15 +156,67 @@ class SfinxBis(_Phonetic):
         )
     )
 
-    def encode(self, word, max_length=-1):
+    _alphabetic = dict(zip((ord(_) for _ in '123456789#'), 'PKTLNRFSAŠ'))
+
+    def __init__(self, max_length=-1):
+        """Initialize SfinxBis instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to unlimited)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode_alpha(self, word):
+        """Return the alphabetic SfinxBis code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic SfinxBis value
+
+        Examples
+        --------
+        >>> pe = SfinxBis()
+        >>> pe.encode_alpha('Christopher')
+        ('KRSTFR',)
+        >>> pe.encode_alpha('Niall')
+        ('NL',)
+        >>> pe.encode_alpha('Smith')
+        ('SNT',)
+        >>> pe.encode_alpha('Schmidt')
+        ('SNT',)
+
+        >>> pe.encode_alpha('Johansson')
+        ('JNSN',)
+        >>> pe.encode_alpha('Sjöberg')
+        ('ŠPRK',)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return tuple(
+            code.translate(self._alphabetic) for code in self.encode(word)
+        )
+
+    def encode(self, word):
         """Return the SfinxBis code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to unlimited)
 
         Returns
         -------
@@ -183,6 +240,11 @@ class SfinxBis(_Phonetic):
         >>> pe.encode('Sjöberg')
         ('#162',)
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _foersvensker(lokal_ordet):
@@ -197,6 +259,8 @@ class SfinxBis(_Phonetic):
             -------
             str
                 Transformed word
+
+            .. versionadded:: 0.1.0
 
             """
             lokal_ordet = lokal_ordet.replace('STIERN', 'STJÄRN')
@@ -240,6 +304,8 @@ class SfinxBis(_Phonetic):
             -------
             str
                 Transformed word
+
+            .. versionadded:: 0.1.0
 
             """
             if (
@@ -351,12 +417,18 @@ class SfinxBis(_Phonetic):
         ]
 
         # truncate, if max_length is set
-        if max_length > 0:
-            ordlista = [ordet[:max_length] for ordet in ordlista]
+        if self._max_length > 0:
+            ordlista = [ordet[: self._max_length] for ordet in ordlista]
 
         return tuple(ordlista)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SfinxBis.encode method instead.',
+)
 def sfinxbis(word, max_length=-1):
     """Return the SfinxBis code for a word.
 
@@ -390,8 +462,10 @@ def sfinxbis(word, max_length=-1):
     >>> sfinxbis('Sjöberg')
     ('#162',)
 
+    .. versionadded:: 0.1.0
+
     """
-    return SfinxBis().encode(word, max_length)
+    return SfinxBis(max_length).encode(word)
 
 
 if __name__ == '__main__':

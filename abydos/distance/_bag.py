@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,9 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
-from collections import Counter
+from deprecation import deprecated
 
 from ._token_distance import _TokenDistance
+from .. import __version__
+from ..tokenizer import CharacterTokenizer
 
 __all__ = ['Bag', 'bag', 'dist_bag', 'sim_bag']
 
@@ -38,11 +40,54 @@ __all__ = ['Bag', 'bag', 'dist_bag', 'sim_bag']
 class Bag(_TokenDistance):
     """Bag distance.
 
-    Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as:
-    :math:`max(|multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)|)`.
+    Bag distance is proposed in :cite:`Bartolini:2002`. It is defined as
+
+        .. math::
+
+            dist_{bag}(src, tar) =
+            max(|multiset(src)-multiset(tar)|, |multiset(tar)-multiset(src)|)
+
+    .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar):
+    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+        """Initialize Bag instance.
+
+        Parameters
+        ----------
+        tokenizer : _Tokenizer
+            A tokenizer instance from the :py:mod:`abydos.tokenizer` package
+        intersection_type : str
+            Specifies the intersection type, and set type as a result:
+            See :ref:`intersection_type <intersection_type>` description in
+            :py:class:`_TokenDistance` for details.
+        **kwargs
+            Arbitrary keyword arguments
+
+        Other Parameters
+        ----------------
+        qval : int
+            The length of each q-gram. Using this parameter and tokenizer=None
+            will cause the instance to use the QGram tokenizer with this
+            q value.
+        metric : _Distance
+            A string distance measure class for use in the ``soft`` and
+            ``fuzzy`` variants.
+        threshold : float
+            A threshold value, similarities above which are counted as
+            members of the intersection for the ``fuzzy`` variant.
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        if tokenizer is None:
+            tokenizer = CharacterTokenizer()
+        super(Bag, self).__init__(
+            tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
+        )
+
+    def dist_abs(self, src, tar, normalized=False):
         """Return the bag distance between two strings.
 
         Parameters
@@ -51,10 +96,12 @@ class Bag(_TokenDistance):
             Source string for comparison
         tar : str
             Target string for comparison
+        normalized : bool
+            Normalizes to [0, 1] if True
 
         Returns
         -------
-        int
+        int or float
             Bag distance
 
         Examples
@@ -73,6 +120,11 @@ class Bag(_TokenDistance):
         >>> cmp.dist_abs('abcdefg', 'hijklmno')
         8
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if tar == src:
             return 0
@@ -81,12 +133,14 @@ class Bag(_TokenDistance):
         elif not tar:
             return len(src)
 
-        src_bag = Counter(src)
-        tar_bag = Counter(tar)
-        return max(
-            sum((src_bag - tar_bag).values()),
-            sum((tar_bag - src_bag).values()),
-        )
+        self._tokenize(src, tar)
+
+        dist = max(self._src_only_card(), self._tar_only_card())
+
+        if normalized:
+            dist /= max(self._src_card(), self._tar_card())
+
+        return dist
 
     def dist(self, src, tar):
         """Return the normalized bag distance between two strings.
@@ -117,17 +171,26 @@ class Bag(_TokenDistance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if tar == src:
             return 0.0
         if not src or not tar:
             return 1.0
 
-        max_length = max(len(src), len(tar))
-
-        return self.dist_abs(src, tar) / max_length
+        return self.dist_abs(src, tar, normalized=True)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Bag.dist_abs method instead.',
+)
 def bag(src, tar):
     """Return the bag distance between two strings.
 
@@ -160,10 +223,18 @@ def bag(src, tar):
     >>> bag('abcdefg', 'hijklmno')
     8
 
+    .. versionadded:: 0.1.0
+
     """
     return Bag().dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Bag.dist method instead.',
+)
 def dist_bag(src, tar):
     """Return the normalized bag distance between two strings.
 
@@ -192,10 +263,18 @@ def dist_bag(src, tar):
     >>> dist_bag('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Bag().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Bag.sim method instead.',
+)
 def sim_bag(src, tar):
     """Return the normalized bag similarity of two strings.
 
@@ -223,6 +302,8 @@ def sim_bag(src, tar):
     0.375
     >>> sim_bag('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Bag().sim(src, tar)

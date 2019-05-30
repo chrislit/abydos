@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Hamming', 'dist_hamming', 'hamming', 'sim_hamming']
 
@@ -41,9 +44,33 @@ class Hamming(_Distance):
     it is not normally defined. By default, this implementation calculates the
     Hamming distance of the first n characters where n is the lesser of the two
     strings' lengths and adds to this the difference in string lengths.
+
+    .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, diff_lens=True):
+    def __init__(self, diff_lens=True, **kwargs):
+        """Initialize Hamming instance.
+
+        Parameters
+        ----------
+        diff_lens : bool
+            If True (default), this returns the Hamming distance for those
+            characters that have a matching character in both strings plus the
+            difference in the strings' lengths. This is equivalent to extending
+            the shorter string with obligatorily non-matching characters. If
+            False, an exception is raised in the case of strings of unequal
+            lengths.
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Hamming, self).__init__(**kwargs)
+        self._diff_lens = diff_lens
+
+    def dist_abs(self, src, tar):
         """Return the Hamming distance between two strings.
 
         Parameters
@@ -52,13 +79,6 @@ class Hamming(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        diff_lens : bool
-            If True (default), this returns the Hamming distance for those
-            characters that have a matching character in both strings plus the
-            difference in the strings' lengths. This is equivalent to extending
-            the shorter string with obligatorily non-matching characters. If
-            False, an exception is raised in the case of strings of unequal
-            lengths.
 
         Returns
         -------
@@ -83,8 +103,13 @@ class Hamming(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         4
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        if not diff_lens and len(src) != len(tar):
+        if not self._diff_lens and len(src) != len(tar):
             raise ValueError(
                 'Undefined for sequences of unequal length; set diff_lens '
                 + 'to True for Hamming distance between strings of unequal '
@@ -92,13 +117,13 @@ class Hamming(_Distance):
             )
 
         hdist = 0
-        if diff_lens:
+        if self._diff_lens:
             hdist += abs(len(src) - len(tar))
         hdist += sum(c1 != c2 for c1, c2 in zip(src, tar))
 
         return hdist
 
-    def dist(self, src, tar, diff_lens=True):
+    def dist(self, src, tar):
         """Return the normalized Hamming distance between two strings.
 
         Hamming distance normalized to the interval [0, 1].
@@ -115,13 +140,6 @@ class Hamming(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        diff_lens : bool
-            If True (default), this returns the Hamming distance for those
-            characters that have a matching character in both strings plus the
-            difference in the strings' lengths. This is equivalent to extending
-            the shorter string with obligatorily non-matching characters. If
-            False, an exception is raised in the case of strings of unequal
-            lengths.
 
         Returns
         -------
@@ -140,12 +158,23 @@ class Hamming(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
-        return self.dist_abs(src, tar, diff_lens) / max(len(src), len(tar))
+        return self.dist_abs(src, tar) / max(len(src), len(tar))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Hamming.dist_abs method instead.',
+)
 def hamming(src, tar, diff_lens=True):
     """Return the Hamming distance between two strings.
 
@@ -180,10 +209,18 @@ def hamming(src, tar, diff_lens=True):
     >>> hamming('ATCG', 'TAGC')
     4
 
+    .. versionadded:: 0.1.0
+
     """
-    return Hamming().dist_abs(src, tar, diff_lens)
+    return Hamming(diff_lens).dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Hamming.dist method instead.',
+)
 def dist_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming distance between two strings.
 
@@ -218,10 +255,18 @@ def dist_hamming(src, tar, diff_lens=True):
     >>> dist_hamming('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return Hamming().dist(src, tar, diff_lens)
+    return Hamming(diff_lens).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Hamming.sim method instead.',
+)
 def sim_hamming(src, tar, diff_lens=True):
     """Return the normalized Hamming similarity of two strings.
 
@@ -256,8 +301,10 @@ def sim_hamming(src, tar, diff_lens=True):
     >>> sim_hamming('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
-    return Hamming().sim(src, tar, diff_lens)
+    return Hamming(diff_lens).sim(src, tar)
 
 
 if __name__ == '__main__':

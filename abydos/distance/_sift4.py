@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Sift4', 'dist_sift4', 'sift4_common', 'sim_sift4']
 
@@ -40,9 +43,31 @@ class Sift4(_Distance):
 
     This is an approximation of edit distance, described in
     :cite:`Zackwehdex:2014`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, max_offset=5, max_distance=0):
+    def __init__(self, max_offset=5, max_distance=0, **kwargs):
+        """Initialize Sift4 instance.
+
+        Parameters
+        ----------
+        max_offset : int
+            The number of characters to search for matching letters
+        max_distance : int
+            The distance at which to stop and exit
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Sift4, self).__init__(**kwargs)
+        self._max_offset = max_offset
+        self._max_distance = max_distance
+
+    def dist_abs(self, src, tar):
         """Return the "common" Sift4 distance between two terms.
 
         Parameters
@@ -51,10 +76,6 @@ class Sift4(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        max_offset : int
-            The number of characters to search for matching letters
-        max_distance : int
-            The distance at which to stop and exit
 
         Returns
         -------
@@ -72,6 +93,11 @@ class Sift4(_Distance):
         3
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not src:
@@ -120,7 +146,7 @@ class Sift4(_Distance):
                 local_cs = 0
                 if src_cur != tar_cur:
                     src_cur = tar_cur = min(src_cur, tar_cur)
-                for i in range(max_offset):
+                for i in range(self._max_offset):
                     if not (
                         (src_cur + i < src_len) or (tar_cur + i < tar_len)
                     ):
@@ -141,9 +167,9 @@ class Sift4(_Distance):
             src_cur += 1
             tar_cur += 1
 
-            if max_distance:
+            if self._max_distance:
                 temporary_distance = max(src_cur, tar_cur) - lcss + trans
-                if temporary_distance >= max_distance:
+                if temporary_distance >= self._max_distance:
                     return round(temporary_distance)
 
             if (src_cur >= src_len) or (tar_cur >= tar_len):
@@ -154,7 +180,7 @@ class Sift4(_Distance):
         lcss += local_cs
         return round(max(src_len, tar_len) - lcss + trans)
 
-    def dist(self, src, tar, max_offset=5, max_distance=0):
+    def dist(self, src, tar):
         """Return the normalized "common" Sift4 distance between two terms.
 
         This is Sift4 distance, normalized to [0, 1].
@@ -165,10 +191,6 @@ class Sift4(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        max_offset : int
-            The number of characters to search for matching letters
-        max_distance : int
-            The distance at which to stop and exit
 
         Returns
         -------
@@ -187,12 +209,21 @@ class Sift4(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.5
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        return self.dist_abs(src, tar, max_offset, max_distance) / (
-            max(len(src), len(tar), 1)
-        )
+        return self.dist_abs(src, tar) / (max(len(src), len(tar), 1))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4.dist_abs method instead.',
+)
 def sift4_common(src, tar, max_offset=5, max_distance=0):
     """Return the "common" Sift4 distance between two terms.
 
@@ -225,10 +256,18 @@ def sift4_common(src, tar, max_offset=5, max_distance=0):
     >>> sift4_common('ATCG', 'TAGC')
     2
 
+    .. versionadded:: 0.3.0
+
     """
-    return Sift4().dist_abs(src, tar, max_offset, max_distance)
+    return Sift4(max_offset, max_distance).dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4.dist method instead.',
+)
 def dist_sift4(src, tar, max_offset=5, max_distance=0):
     """Return the normalized "common" Sift4 distance between two terms.
 
@@ -261,10 +300,18 @@ def dist_sift4(src, tar, max_offset=5, max_distance=0):
     >>> dist_sift4('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.3.0
+
     """
-    return Sift4().dist(src, tar, max_offset, max_distance)
+    return Sift4(max_offset, max_distance).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4.sim method instead.',
+)
 def sim_sift4(src, tar, max_offset=5, max_distance=0):
     """Return the normalized "common" Sift4 similarity of two terms.
 
@@ -297,8 +344,10 @@ def sim_sift4(src, tar, max_offset=5, max_distance=0):
     >>> sim_sift4('ATCG', 'TAGC')
     0.5
 
+    .. versionadded:: 0.3.0
+
     """
-    return Sift4().sim(src, tar, max_offset, max_distance)
+    return Sift4(max_offset, max_distance).sim(src, tar)
 
 
 if __name__ == '__main__':

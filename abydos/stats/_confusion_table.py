@@ -43,6 +43,8 @@ from __future__ import (
 
 import math
 
+from deprecation import deprecated
+
 from ._mean import (
     aghmean,
     agmean,
@@ -58,6 +60,7 @@ from ._mean import (
     qmean,
     seiffert_mean,
 )
+from .. import __version__
 
 __all__ = ['ConfusionTable']
 
@@ -105,6 +108,9 @@ class ConfusionTable(object):
         True
         >>> ct == ConfusionTable({'tp': 120, 'tn': 60, 'fp': 20, 'fn': 30})
         True
+
+
+        .. versionadded:: 0.1.0
 
         """
         if isinstance(tp, (tuple, list)):
@@ -166,6 +172,9 @@ class ConfusionTable(object):
         >>> ct1 != ct3
         True
 
+
+        .. versionadded:: 0.1.0
+
         """
         if isinstance(other, ConfusionTable):
             if id(self) == id(other):
@@ -209,8 +218,34 @@ class ConfusionTable(object):
         >>> str(ct)
         'tp:120, tn:60, fp:20, fn:30'
 
+
+        .. versionadded:: 0.1.0
+
         """
         return 'tp:{}, tn:{}, fp:{}, fn:{}'.format(
+            self._tp, self._tn, self._fp, self._fn
+        )
+
+    def __repr__(self):
+        """Return representation.
+
+        Returns
+        -------
+        str
+            A string representation of the ConfusionTable that can be used to
+            recreate it
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> repr(ct)
+        'ConfusionTable(tp=120, tn=60, fp=20, fn=30)'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return 'ConfusionTable(tp={}, tn={}, fp={}, fn={})'.format(
             self._tp, self._tn, self._fp, self._fn
         )
 
@@ -227,6 +262,9 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.to_tuple()
         (120, 60, 20, 30)
+
+
+        .. versionadded:: 0.1.0
 
         """
         return self._tp, self._tn, self._fp, self._fn
@@ -246,6 +284,9 @@ class ConfusionTable(object):
         >>> pprint.pprint(ct.to_dict())
         {'fn': 30, 'fp': 20, 'tn': 60, 'tp': 120}
 
+
+        .. versionadded:: 0.1.0
+
         """
         return {'tp': self._tp, 'tn': self._tn, 'fp': self._fp, 'fn': self._fn}
 
@@ -262,6 +303,9 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.true_pos()
         120
+
+
+        .. versionadded:: 0.1.0
 
         """
         return self._tp
@@ -280,11 +324,16 @@ class ConfusionTable(object):
         >>> ct.true_neg()
         60
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self._tn
 
     def false_pos(self):
         """Return false positives.
+
+        AKA Type I error
 
         Returns
         -------
@@ -297,11 +346,16 @@ class ConfusionTable(object):
         >>> ct.false_pos()
         20
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self._fp
 
     def false_neg(self):
         """Return false negatives.
+
+        AKA Type II error
 
         Returns
         -------
@@ -313,6 +367,9 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.false_neg()
         30
+
+
+        .. versionadded:: 0.1.0
 
         """
         return self._fn
@@ -331,6 +388,9 @@ class ConfusionTable(object):
         >>> ct.correct_pop()
         180
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self._tp + self._tn
 
@@ -348,39 +408,58 @@ class ConfusionTable(object):
         >>> ct.error_pop()
         50
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self._fp + self._fn
 
-    def test_pos_pop(self):
-        """Return test positive population.
+    def pred_pos_pop(self):
+        """Return predicted positive population.
 
         Returns
         -------
         int
-            The test positive population of the confusion table
+            The predicted positive population of the confusion table
 
         Example
         -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.test_pos_pop()
+        >>> ct.pred_pos_pop()
         140
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.4.0
+            renamed from test_pos_pop
+
+
+        .. versionadded:: 0.1.0
 
         """
         return self._tp + self._fp
 
-    def test_neg_pop(self):
-        """Return test negative population.
+    def pred_neg_pop(self):
+        """Return predicted negative population.
 
         Returns
         -------
         int
-            The test negative population of the confusion table
+            The predicted negative population of the confusion table
 
         Example
         -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.test_neg_pop()
+        >>> ct.pred_neg_pop()
         90
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.4.0
+            renamed from test_neg_pop
+
+
+        .. versionadded:: 0.1.0
 
         """
         return self._tn + self._fn
@@ -399,6 +478,9 @@ class ConfusionTable(object):
         >>> ct.cond_pos_pop()
         150
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self._tp + self._fn
 
@@ -415,6 +497,9 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.cond_neg_pop()
         80
+
+
+        .. versionadded:: 0.1.0
 
         """
         return self._fp + self._tn
@@ -433,13 +518,20 @@ class ConfusionTable(object):
         >>> ct.population()
         230
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self._tp + self._tn + self._fp + self._fn
 
     def precision(self):
         r"""Return precision.
 
-        Precision is defined as :math:`\frac{tp}{tp + fp}`
+        Precision is defined as
+
+            .. math::
+
+                \frac{tp}{tp + fp}
 
         AKA positive predictive value (PPV)
 
@@ -458,16 +550,23 @@ class ConfusionTable(object):
         >>> ct.precision()
         0.8571428571428571
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self._tp + self._fp == 0:
-            return float('NaN')
-        return self._tp / (self._tp + self._fp)
+        try:
+            return self._tp / (self._tp + self._fp)
+        except ZeroDivisionError:
+            return float('nan')
 
     def precision_gain(self):
         r"""Return gain in precision.
 
-        The gain in precision is defined as:
-        :math:`G(precision) = \frac{precision}{random~ precision}`
+        The gain in precision is defined as
+
+            .. math::
+
+                G(precision) = \frac{precision}{random~ precision}
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -482,16 +581,24 @@ class ConfusionTable(object):
         >>> ct.precision_gain()
         1.3142857142857143
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self.population() == 0:
-            return float('NaN')
-        random_precision = self.cond_pos_pop() / self.population()
-        return self.precision() / random_precision
+        try:
+            random_precision = self.cond_pos_pop() / self.population()
+            return self.precision() / random_precision
+        except ZeroDivisionError:
+            return float('nan')
 
     def recall(self):
         r"""Return recall.
 
-        Recall is defined as :math:`\frac{tp}{tp + fn}`
+        Recall is defined as
+
+            .. math::
+
+                \frac{tp}{tp + fn}
 
         AKA sensitivity
 
@@ -514,17 +621,27 @@ class ConfusionTable(object):
         >>> ct.recall()
         0.8
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self._tp + self._fn == 0:
-            return float('NaN')
-        return self._tp / (self._tp + self._fn)
+        try:
+            return self._tp / (self._tp + self._fn)
+        except ZeroDivisionError:
+            return float('nan')
 
     def specificity(self):
         r"""Return specificity.
 
-        Specificity is defined as :math:`\frac{tn}{tn + fp}`
+        Specificity is defined as
+
+            .. math::
+
+                \frac{tn}{tn + fp}
 
         AKA true negative rate (TNR)
+
+        AKA inverse recall
 
         Cf. https://en.wikipedia.org/wiki/Specificity_(tests)
 
@@ -539,15 +656,55 @@ class ConfusionTable(object):
         >>> ct.specificity()
         0.75
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self._tn + self._fp == 0:
-            return float('NaN')
-        return self._tn / (self._tn + self._fp)
+        try:
+            return self._tn / (self._tn + self._fp)
+        except ZeroDivisionError:
+            return float('nan')
+
+    def fnr(self):
+        r"""Return false negative rate.
+
+        False negative rate is defined as
+
+            .. math::
+
+                \frac{fn}{tp + fn}
+
+        AKA miss rate
+
+        Cf. https://en.wikipedia.org/wiki/False_negative_rate
+
+        Returns
+        -------
+        float
+            The false negative rate of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> round(ct.fnr(), 8)
+        0.2
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return 1 - self.recall()
 
     def npv(self):
         r"""Return negative predictive value (NPV).
 
-        NPV is defined as :math:`\frac{tn}{tn + fn}`
+        NPV is defined as
+
+            .. math::
+
+                \frac{tn}{tn + fn}
+
+        AKA inverse precision
 
         Cf. https://en.wikipedia.org/wiki/Negative_predictive_value
 
@@ -562,15 +719,54 @@ class ConfusionTable(object):
         >>> ct.npv()
         0.6666666666666666
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self._tn + self._fn == 0:
-            return float('NaN')
-        return self._tn / (self._tn + self._fn)
+        try:
+            return self._tn / (self._tn + self._fn)
+        except ZeroDivisionError:
+            return float('nan')
+
+    def false_omission_rate(self):
+        r"""Return false omission rate (FOR).
+
+        FOR is defined as
+
+            .. math::
+
+                \frac{fn}{tn + fn}
+
+        Cf. https://en.wikipedia.org/wiki/False_omission_rate
+
+        Returns
+        -------
+        float
+            The false omission rate of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.false_omission_rate()
+        0.3333333333333333
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return self._fn / (self._tn + self._fn)
+        except ZeroDivisionError:
+            return float('nan')
 
     def fallout(self):
         r"""Return fall-out.
 
-        Fall-out is defined as :math:`\frac{fp}{fp + tn}`
+        Fall-out is defined as
+
+            .. math::
+
+                \frac{fp}{fp + tn}
 
         AKA false positive rate (FPR)
 
@@ -587,15 +783,110 @@ class ConfusionTable(object):
         >>> ct.fallout()
         0.25
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self._fp + self._tn == 0:
-            return float('NaN')
-        return self._fp / (self._fp + self._tn)
+        return 1 - self.specificity()
+
+    def pos_likelihood_ratio(self):
+        r"""Return positive likelihood ratio.
+
+        Positive likelihood ratio is defined as
+
+            .. math::
+
+                \frac{recall}{1-specificity}
+
+        Cf.
+        https://en.wikipedia.org/wiki/Likelihood_ratios_in_diagnostic_testing
+
+        Returns
+        -------
+        float
+            The positive likelihood ratio of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.pos_likelihood_ratio()
+        3.2
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.recall() / (1.0 - self.specificity())
+
+    def neg_likelihood_ratio(self):
+        r"""Return negative likelihood ratio.
+
+        Negative likelihood ratio is defined as
+
+            .. math::
+
+                \frac{1-recall}{specificity}
+
+        Cf.
+        https://en.wikipedia.org/wiki/Likelihood_ratios_in_diagnostic_testing
+
+        Returns
+        -------
+        float
+            The negative likelihood ratio of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.neg_likelihood_ratio()
+        0.2666666666666666
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return (1.0 - self.recall()) / self.specificity()
+
+    def diagnostic_odds_ratio(self):
+        r"""Return diagnostic odds ratio.
+
+        Diagnostic odds ratio is defined as
+
+            .. math::
+
+                \frac{tp \cdot tn}{fp \cdot fn}
+
+        Cf.
+        https://en.wikipedia.org/wiki/Diagnostic_odds_ratio
+
+        Returns
+        -------
+        float
+            The negative likelihood ratio of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.diagnostic_odds_ratio()
+        12.0
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return (self._tp * self._tn) / (self._fp * self._fn)
+        except ZeroDivisionError:
+            return float('nan')
 
     def fdr(self):
         r"""Return false discovery rate (FDR).
 
-        False discovery rate is defined as :math:`\frac{fp}{fp + tp}`
+        False discovery rate is defined as
+
+            .. math::
+
+                \frac{fp}{fp + tp}
 
         Cf. https://en.wikipedia.org/wiki/False_discovery_rate
 
@@ -610,15 +901,23 @@ class ConfusionTable(object):
         >>> ct.fdr()
         0.14285714285714285
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self._fp + self._tp == 0:
-            return float('NaN')
-        return self._fp / (self._fp + self._tp)
+        try:
+            return self._fp / (self._fp + self._tp)
+        except ZeroDivisionError:
+            return float('nan')
 
     def accuracy(self):
         r"""Return accuracy.
 
-        Accuracy is defined as :math:`\frac{tp + tn}{population}`
+        Accuracy is defined as
+
+            .. math::
+
+                \frac{tp + tn}{population}
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -633,16 +932,23 @@ class ConfusionTable(object):
         >>> ct.accuracy()
         0.782608695652174
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self.population() == 0:
-            return float('NaN')
-        return (self._tp + self._tn) / self.population()
+        try:
+            return (self._tp + self._tn) / self.population()
+        except ZeroDivisionError:
+            return float('nan')
 
     def accuracy_gain(self):
         r"""Return gain in accuracy.
 
-        The gain in accuracy is defined as:
-        :math:`G(accuracy) = \frac{accuracy}{random~ accuracy}`
+        The gain in accuracy is defined as
+
+            .. math::
+
+                G(accuracy) = \frac{accuracy}{random~ accuracy}
 
         Cf. https://en.wikipedia.org/wiki/Gain_(information_retrieval)
 
@@ -657,19 +963,26 @@ class ConfusionTable(object):
         >>> ct.accuracy_gain()
         1.4325259515570934
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self.population() == 0:
-            return float('NaN')
-        random_accuracy = (self.cond_pos_pop() / self.population()) ** 2 + (
-            self.cond_neg_pop() / self.population()
-        ) ** 2
-        return self.accuracy() / random_accuracy
+        try:
+            random_accuracy = (
+                self.cond_pos_pop() / self.population()
+            ) ** 2 + (self.cond_neg_pop() / self.population()) ** 2
+            return self.accuracy() / random_accuracy
+        except ZeroDivisionError:
+            return float('nan')
 
     def balanced_accuracy(self):
         r"""Return balanced accuracy.
 
         Balanced accuracy is defined as
-        :math:`\frac{sensitivity + specificity}{2}`
+
+            .. math::
+
+                \frac{sensitivity + specificity}{2}
 
         Cf. https://en.wikipedia.org/wiki/Accuracy
 
@@ -684,13 +997,82 @@ class ConfusionTable(object):
         >>> ct.balanced_accuracy()
         0.775
 
+
+        .. versionadded:: 0.1.0
+
         """
         return 0.5 * (self.recall() + self.specificity())
+
+    def error_rate(self):
+        r"""Return error rate.
+
+        Error rate is defined as
+
+            .. math::
+
+                \frac{fp + fn}{population}
+
+        Returns
+        -------
+        float
+            The error rate of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.error_rate()
+        0.21739130434782608
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return (self._fn + self._fp) / (
+                self._fn + self._fp + self._tn + self._tp
+            )
+        except ZeroDivisionError:
+            return float('nan')
+
+    def prevalence(self):
+        r"""Return prevalence.
+
+        Prevalence is defined as
+
+            .. math::
+
+                \frac{condition positive}{population}
+
+        Cf. https://en.wikipedia.org/wiki/Prevalence
+
+        Returns
+        -------
+        float
+            The prevelence of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.prevalence()
+        0.6521739130434783
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return self.cond_pos_pop() / self.population()
+        except ZeroDivisionError:
+            return float('nan')
 
     def informedness(self):
         """Return informedness.
 
-        Informedness is defined as :math:`sensitivity + specificity - 1`.
+        Informedness is defined as
+
+            .. math::
+
+                sensitivity + specificity - 1
 
         AKA Youden's J statistic (:cite:`Youden:1950`)
 
@@ -709,13 +1091,22 @@ class ConfusionTable(object):
         >>> ct.informedness()
         0.55
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self.recall() + self.specificity() - 1
 
     def markedness(self):
         """Return markedness.
 
-        Markedness is defined as :math:`precision + npv - 1`
+        Markedness is defined as
+
+            .. math::
+
+                precision + npv - 1
+
+        AKA DeltaP
 
         Returns
         -------
@@ -728,14 +1119,20 @@ class ConfusionTable(object):
         >>> ct.markedness()
         0.5238095238095237
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self.precision() + self.npv() - 1
 
     def pr_amean(self):
         r"""Return arithmetic mean of precision & recall.
 
-        The arithmetic mean of precision and recall is defined as:
-        :math:`\frac{precision \cdot recall}{2}`
+        The arithmetic mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{precision \cdot recall}{2}
 
         Cf. https://en.wikipedia.org/wiki/Arithmetic_mean
 
@@ -750,6 +1147,9 @@ class ConfusionTable(object):
         >>> ct.pr_amean()
         0.8285714285714285
 
+
+        .. versionadded:: 0.1.0
+
         """
         return amean((self.precision(), self.recall()))
 
@@ -757,7 +1157,10 @@ class ConfusionTable(object):
         r"""Return geometric mean of precision & recall.
 
         The geometric mean of precision and recall is defined as:
-        :math:`\sqrt{precision \cdot recall}`
+
+            .. math::
+
+                \sqrt{precision \cdot recall}
 
         Cf. https://en.wikipedia.org/wiki/Geometric_mean
 
@@ -772,14 +1175,20 @@ class ConfusionTable(object):
         >>> ct.pr_gmean()
         0.828078671210825
 
+
+        .. versionadded:: 0.1.0
+
         """
         return gmean((self.precision(), self.recall()))
 
     def pr_hmean(self):
         r"""Return harmonic mean of precision & recall.
 
-        The harmonic mean of precision and recall is defined as:
-        :math:`\frac{2 \cdot precision \cdot recall}{precision + recall}`
+        The harmonic mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{2 \cdot precision \cdot recall}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/Harmonic_mean
 
@@ -794,14 +1203,20 @@ class ConfusionTable(object):
         >>> ct.pr_hmean()
         0.8275862068965516
 
+
+        .. versionadded:: 0.1.0
+
         """
         return hmean((self.precision(), self.recall()))
 
     def pr_qmean(self):
         r"""Return quadratic mean of precision & recall.
 
-        The quadratic mean of precision and recall is defined as:
-        :math:`\sqrt{\frac{precision^{2} + recall^{2}}{2}}`
+        The quadratic mean of precision and recall is defined as
+
+            .. math::
+
+                \sqrt{\frac{precision^{2} + recall^{2}}{2}}
 
         Cf. https://en.wikipedia.org/wiki/Quadratic_mean
 
@@ -816,14 +1231,20 @@ class ConfusionTable(object):
         >>> ct.pr_qmean()
         0.8290638930598233
 
+
+        .. versionadded:: 0.1.0
+
         """
         return qmean((self.precision(), self.recall()))
 
     def pr_cmean(self):
         r"""Return contraharmonic mean of precision & recall.
 
-        The contraharmonic mean is:
-        :math:`\frac{precision^{2} + recall^{2}}{precision + recall}`
+        The contraharmonic mean is
+
+            .. math::
+
+                \frac{precision^{2} + recall^{2}}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/Contraharmonic_mean
 
@@ -838,6 +1259,9 @@ class ConfusionTable(object):
         >>> ct.pr_cmean()
         0.8295566502463055
 
+
+        .. versionadded:: 0.1.0
+
         """
         return cmean((self.precision(), self.recall()))
 
@@ -847,8 +1271,12 @@ class ConfusionTable(object):
         The logarithmic mean is:
         0 if either precision or recall is 0,
         the precision if they are equal,
-        otherwise :math:`\frac{precision - recall}
-        {ln(precision) - ln(recall)}`
+        otherwise
+
+            .. math::
+
+                \frac{precision - recall}
+                {ln(precision) - ln(recall)}
 
         Cf. https://en.wikipedia.org/wiki/Logarithmic_mean
 
@@ -862,6 +1290,9 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_lmean()
         0.8282429171492667
+
+
+        .. versionadded:: 0.1.0
 
         """
         precision = self.precision()
@@ -877,9 +1308,13 @@ class ConfusionTable(object):
 
         The identric mean is:
         precision if precision = recall,
-        otherwise :math:`\frac{1}{e} \cdot
-        \sqrt[precision - recall]{\frac{precision^{precision}}
-        {recall^{recall}}}`
+        otherwise
+
+            .. math::
+
+                \frac{1}{e} \cdot
+                \sqrt[precision - recall]{\frac{precision^{precision}}
+                {recall^{recall}}}
 
         Cf. https://en.wikipedia.org/wiki/Identric_mean
 
@@ -894,15 +1329,21 @@ class ConfusionTable(object):
         >>> ct.pr_imean()
         0.8284071826325543
 
+
+        .. versionadded:: 0.1.0
+
         """
         return imean((self.precision(), self.recall()))
 
     def pr_seiffert_mean(self):
         r"""Return Seiffert's mean of precision & recall.
 
-        Seiffert's mean of precision and recall is:
-        :math:`\frac{precision - recall}{4 \cdot arctan
-        \sqrt{\frac{precision}{recall}} - \pi}`
+        Seiffert's mean of precision and recall is
+
+            .. math::
+
+                \frac{precision - recall}{4 \cdot arctan
+                \sqrt{\frac{precision}{recall}} - \pi}
 
         It is defined in :cite:`Seiffert:1993`.
 
@@ -917,15 +1358,21 @@ class ConfusionTable(object):
         >>> ct.pr_seiffert_mean()
         0.8284071696048312
 
+
+        .. versionadded:: 0.1.0
+
         """
         return seiffert_mean((self.precision(), self.recall()))
 
     def pr_lehmer_mean(self, exp=2.0):
         r"""Return Lehmer mean of precision & recall.
 
-        The Lehmer mean is:
-        :math:`\frac{precision^{exp} + recall^{exp}}
-        {precision^{exp-1} + recall^{exp-1}}`
+        The Lehmer mean is
+
+            .. math::
+
+                \frac{precision^{exp} + recall^{exp}}
+                {precision^{exp-1} + recall^{exp-1}}
 
         Cf. https://en.wikipedia.org/wiki/Lehmer_mean
 
@@ -946,14 +1393,20 @@ class ConfusionTable(object):
         >>> ct.pr_lehmer_mean()
         0.8295566502463055
 
+
+        .. versionadded:: 0.1.0
+
         """
         return lehmer_mean((self.precision(), self.recall()), exp)
 
     def pr_heronian_mean(self):
         r"""Return Heronian mean of precision & recall.
 
-        The Heronian mean of precision and recall is defined as:
-        :math:`\frac{precision + \sqrt{precision \cdot recall} + recall}{3}`
+        The Heronian mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{precision + \sqrt{precision \cdot recall} + recall}{3}
 
         Cf. https://en.wikipedia.org/wiki/Heronian_mean
 
@@ -968,15 +1421,22 @@ class ConfusionTable(object):
         >>> ct.pr_heronian_mean()
         0.8284071761178939
 
+
+        .. versionadded:: 0.1.0
+
         """
         return heronian_mean((self.precision(), self.recall()))
 
     def pr_hoelder_mean(self, exp=2):
         r"""Return Hölder (power/generalized) mean of precision & recall.
 
-        The power mean of precision and recall is defined as:
-        :math:`\frac{1}{2} \cdot
-        \sqrt[exp]{precision^{exp} + recall^{exp}}`
+        The power mean of precision and recall is defined as
+
+            .. math::
+
+                \frac{1}{2} \cdot
+                \sqrt[exp]{precision^{exp} + recall^{exp}}
+
         for :math:`exp \ne 0`, and the geometric mean for :math:`exp = 0`
 
         Cf. https://en.wikipedia.org/wiki/Generalized_mean
@@ -997,6 +1457,9 @@ class ConfusionTable(object):
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.pr_hoelder_mean()
         0.8290638930598233
+
+
+        .. versionadded:: 0.1.0
 
         """
         return hoelder_mean((self.precision(), self.recall()), exp)
@@ -1021,6 +1484,9 @@ class ConfusionTable(object):
         >>> ct.pr_agmean()
         0.8283250315702829
 
+
+        .. versionadded:: 0.1.0
+
         """
         return agmean((self.precision(), self.recall()))
 
@@ -1044,6 +1510,9 @@ class ConfusionTable(object):
         >>> ct.pr_ghmean()
         0.8278323841238441
 
+
+        .. versionadded:: 0.1.0
+
         """
         return ghmean((self.precision(), self.recall()))
 
@@ -1066,6 +1535,9 @@ class ConfusionTable(object):
         >>> ct.pr_aghmean()
         0.8280786712108288
 
+
+        .. versionadded:: 0.1.0
+
         """
         return aghmean((self.precision(), self.recall()))
 
@@ -1077,9 +1549,12 @@ class ConfusionTable(object):
         attaches :math:`\beta` times as much importance to recall as
         precision" (van Rijsbergen 1979)
 
-        :math:`F_{\beta}` score is defined as:
-        :math:`(1 + \beta^2) \cdot \frac{precision \cdot recall}
-        {((\beta^2 \cdot precision) + recall)}`
+        :math:`F_{\beta}` score is defined as
+
+            .. math::
+
+                (1 + \beta^2) \cdot \frac{precision \cdot recall}
+                {((\beta^2 \cdot precision) + recall)}
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -1106,13 +1581,16 @@ class ConfusionTable(object):
         >>> ct.fbeta_score(beta=0.1)
         0.8565371024734982
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if beta <= 0:
+        if beta <= 0.0:
             raise AttributeError('Beta must be a positive real value.')
         precision = self.precision()
         recall = self.recall()
         return (
-            (1 + beta ** 2)
+            (1.0 + beta ** 2)
             * precision
             * recall
             / ((beta ** 2 * precision) + recall)
@@ -1137,6 +1615,9 @@ class ConfusionTable(object):
         >>> ct.f2_score()
         0.8108108108108109
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self.fbeta_score(2.0)
 
@@ -1159,10 +1640,13 @@ class ConfusionTable(object):
         >>> ct.fhalf_score()
         0.8450704225352114
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self.fbeta_score(0.5)
 
-    def e_score(self, beta=1):
+    def e_score(self, beta=1.0):
         r"""Return :math:`E`-score.
 
         This is Van Rijsbergen's effectiveness measure:
@@ -1186,14 +1670,20 @@ class ConfusionTable(object):
         >>> ct.e_score()
         0.17241379310344818
 
+
+        .. versionadded:: 0.1.0
+
         """
-        return 1 - self.fbeta_score(beta)
+        return 1.0 - self.fbeta_score(beta)
 
     def f1_score(self):
         r"""Return :math:`F_{1}` score.
 
-        :math:`F_{1}` score is the harmonic mean of precision and recall:
-        :math:`2 \cdot \frac{precision \cdot recall}{precision + recall}`
+        :math:`F_{1}` score is the harmonic mean of precision and recall
+
+            .. math::
+
+                2 \cdot \frac{precision \cdot recall}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -1206,16 +1696,28 @@ class ConfusionTable(object):
         -------
         >>> ct = ConfusionTable(120, 60, 20, 30)
         >>> ct.f1_score()
-        0.8275862068965516
+        0.8275862068965518
+
+
+        .. versionadded:: 0.1.0
 
         """
-        return self.pr_hmean()
+        return self.fbeta_score(1.0)
 
+    @deprecated(
+        deprecated_in='0.4.0',
+        removed_in='0.6.0',
+        current_version=__version__,
+        details='Use the ConfusionTable.pr_hmean method instead.',
+    )
     def f_measure(self):
         r"""Return :math:`F`-measure.
 
-        :math:`F`-measure is the harmonic mean of precision and recall:
-        :math:`2 \cdot \frac{precision \cdot recall}{precision + recall}`
+        :math:`F`-measure is the harmonic mean of precision and recall
+
+            .. math::
+
+                2 \cdot \frac{precision \cdot recall}{precision + recall}
 
         Cf. https://en.wikipedia.org/wiki/F1_score
 
@@ -1230,14 +1732,55 @@ class ConfusionTable(object):
         >>> ct.f_measure()
         0.8275862068965516
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self.pr_hmean()
 
+    def jaccard(self):
+        r"""Return Jaccard index.
+
+        The Jaccard index of a confusion table is
+
+            .. math::
+
+                \frac{tp}{tp+fp+fn}
+
+        Returns
+        -------
+        float
+            The Jaccard index of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.jaccard()
+        0.7058823529411765
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return self._tp / (self._tp + self._fp + self._fn)
+        except ZeroDivisionError:
+            return float('nan')
+
+    @deprecated(
+        deprecated_in='0.4.0',
+        removed_in='0.6.0',
+        current_version=__version__,
+        details='Use the ConfusionTable.pr_gmean method instead.',
+    )
     def g_measure(self):
         r"""Return G-measure.
 
         :math:`G`-measure is the geometric mean of precision and recall:
-        :math:`\sqrt{precision \cdot recall}`
+
+            .. math::
+
+                \sqrt{precision \cdot recall}
 
         This is identical to the Fowlkes–Mallows (FM) index for two
         clusters.
@@ -1257,16 +1800,50 @@ class ConfusionTable(object):
         >>> ct.g_measure()
         0.828078671210825
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self.pr_gmean()
+
+    def d_measure(self):
+        r"""Return D-measure.
+
+        :math:`D`-measure is defined as
+
+            .. math::
+
+                1-\frac{1}{\frac{1}{precision}+\frac{1}{recall}-1}
+
+        Returns
+        -------
+        float
+            The :math:`D`-measure of the confusion table
+
+        Examples
+        --------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.d_measure()
+        0.2941176470588237
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return 1.0 - (
+            1.0 / (1.0 / self.precision() + 1.0 / self.recall() - 1.0)
+        )
 
     def mcc(self):
         r"""Return Matthews correlation coefficient (MCC).
 
         The Matthews correlation coefficient is defined in
         :cite:`Matthews:1975` as:
-        :math:`\frac{(tp \cdot tn) - (fp \cdot fn)}
-        {\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}`
+
+            .. math::
+
+                \frac{(tp \cdot tn) - (fp \cdot fn)}
+                {\sqrt{(tp + fp)(tp + fn)(tn + fp)(tn + fn)}}
 
         This is equivalent to the geometric mean of informedness and
         markedness, defined above.
@@ -1284,30 +1861,30 @@ class ConfusionTable(object):
         >>> ct.mcc()
         0.5367450401216932
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if (
-            (
+        try:
+            return ((self._tp * self._tn) - (self._fp * self._fn)) / math.sqrt(
                 (self._tp + self._fp)
                 * (self._tp + self._fn)
                 * (self._tn + self._fp)
                 * (self._tn + self._fn)
             )
-        ) == 0:
-            return float('NaN')
-        return ((self._tp * self._tn) - (self._fp * self._fn)) / math.sqrt(
-            (self._tp + self._fp)
-            * (self._tp + self._fn)
-            * (self._tn + self._fp)
-            * (self._tn + self._fn)
-        )
+        except ZeroDivisionError:
+            return float('nan')
 
     def significance(self):
         r"""Return the significance, :math:`\chi^{2}`.
 
-        Significance is defined as:
-        :math:`\chi^{2} =
-        \frac{(tp \cdot tn - fp \cdot fn)^{2} (tp + tn + fp + fn)}
-        {((tp + fp)(tp + fn)(tn + fp)(tn + fn)}`
+        Significance is defined as
+
+            .. math::
+
+                \chi^{2} =
+                \frac{(tp \cdot tn - fp \cdot fn)^{2} (tp + tn + fp + fn)}
+                {((tp + fp)(tp + fn)(tn + fp)(tn + fn)}`
 
         Also: :math:`\chi^{2} = MCC^{2} \cdot n`
 
@@ -1324,32 +1901,32 @@ class ConfusionTable(object):
         >>> ct.significance()
         66.26190476190476
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if (
-            (
+        try:
+            return (
+                (self._tp * self._tn - self._fp * self._fn) ** 2
+                * (self._tp + self._tn + self._fp + self._fn)
+            ) / (
                 (self._tp + self._fp)
                 * (self._tp + self._fn)
                 * (self._tn + self._fp)
                 * (self._tn + self._fn)
             )
-        ) == 0:
-            return float('NaN')
-        return (
-            (self._tp * self._tn - self._fp * self._fn) ** 2
-            * (self._tp + self._tn + self._fp + self._fn)
-        ) / (
-            (self._tp + self._fp)
-            * (self._tp + self._fn)
-            * (self._tn + self._fp)
-            * (self._tn + self._fn)
-        )
+        except ZeroDivisionError:
+            return float('nan')
 
     def kappa_statistic(self):
         r"""Return κ statistic.
 
-        The κ statistic is defined as:
-        :math:`\kappa = \frac{accuracy - random~ accuracy}
-        {1 - random~ accuracy}`
+        The κ statistic is defined as
+
+            .. math::
+
+                \kappa = \frac{accuracy - random~ accuracy}
+                {1 - random~ accuracy}`
 
         The κ statistic compares the performance of the classifier relative to
         the performance of a random classifier. :math:`\kappa` = 0 indicates
@@ -1368,14 +1945,301 @@ class ConfusionTable(object):
         >>> ct.kappa_statistic()
         0.5344129554655871
 
+
+        .. versionadded:: 0.1.0
+
         """
-        if self.population() == 0:
-            return float('NaN')
-        random_accuracy = (
-            (self._tn + self._fp) * (self._tn + self._fn)
-            + (self._fn + self._tp) * (self._fp + self._tp)
-        ) / self.population() ** 2
-        return (self.accuracy() - random_accuracy) / (1 - random_accuracy)
+        try:
+            random_accuracy = (
+                (self._tn + self._fp) * (self._tn + self._fn)
+                + (self._fn + self._tp) * (self._fp + self._tp)
+            ) / self.population() ** 2
+            return (self.accuracy() - random_accuracy) / (1 - random_accuracy)
+        except ZeroDivisionError:
+            return float('nan')
+
+    def phi_coefficient(self):
+        r"""Return φ coefficient.
+
+        The :math:`\phi` coefficient is defined as
+
+            .. math::
+
+                \phi = \frac{tp \cdot tn - fp \cdot tn}
+                {\sqrt{(tp + fp) \cdot (tp + fn) \cdot (tn + fp) \cdot
+                (tn + fn)}}
+
+        Returns
+        -------
+        float
+            The φ coefficient of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.phi_coefficient()
+        0.5367450401216932
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return ((self._tp * self._tn) - (self._fp * self._fn)) / (
+                (self._tp + self._fn)
+                * (self._tp + self._fp)
+                * (self._tn + self._fn)
+                * (self._tn + self._fp)
+            ) ** 0.5
+        except ZeroDivisionError:
+            return float('nan')
+
+    def joint_entropy(self):
+        """Return the joint entropy.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The joint entropy of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.joint_entropy()
+        1.1680347446270396
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return (
+                math.log(self.population())
+                - sum(_ * math.log(_) for _ in self.to_tuple())
+                / self.population()
+            )
+        except ValueError:
+            return float('nan')
+
+    def actual_entropy(self):
+        """Return the actual entropy.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The actual entropy of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.actual_entropy()
+        0.6460905050608101
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return (
+                math.log(self.population())
+                - sum(
+                    _ * math.log(_)
+                    for _ in (self.cond_pos_pop(), self.cond_neg_pop())
+                )
+                / self.population()
+            )
+        except ValueError:
+            return float('nan')
+
+    def predicted_entropy(self):
+        """Return the predicted entropy.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The predicted entropy of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.predicted_entropy()
+        0.6693279632926457
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return (
+                math.log(self.population())
+                - sum(
+                    _ * math.log(_)
+                    for _ in (self.pred_pos_pop(), self.pred_neg_pop())
+                )
+                / self.population()
+            )
+        except ValueError:
+            return float('nan')
+
+    def mutual_information(self):
+        """Return the mutual information.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The mutual information of the confusion table
+
+        Cf. https://en.wikipedia.org/wiki/Mutual_information
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.mutual_information()
+        0.14738372372641576
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return (
+                sum(
+                    _[0] * math.log(self.population() * _[0] / _[1])
+                    for _ in (
+                        (
+                            (
+                                self._fp,
+                                self.cond_neg_pop() * self.pred_pos_pop(),
+                            ),
+                            (
+                                self._fn,
+                                self.cond_pos_pop() * self.pred_neg_pop(),
+                            ),
+                            (
+                                self._tn,
+                                self.cond_neg_pop() * self.pred_neg_pop(),
+                            ),
+                            (
+                                self._tp,
+                                self.cond_pos_pop() * self.pred_pos_pop(),
+                            ),
+                        )
+                    )
+                )
+                / self.population()
+            )
+        except ZeroDivisionError:
+            return float('nan')
+
+    def proficiency(self):
+        """Return the proficiency.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+        :cite:`Steingold:2015`
+
+        AKA uncertainty coefficient
+
+        Cf. https://en.wikipedia.org/wiki/Uncertainty_coefficient
+
+        Returns
+        -------
+        float
+            The proficiency of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.proficiency()
+        0.228116219897929
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.mutual_information() / self.actual_entropy()
+
+    def igr(self):
+        """Return information gain ratio.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Cf. https://en.wikipedia.org/wiki/Information_gain_ratio
+
+        Returns
+        -------
+        float
+            The information gain ratio of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.igr()
+        0.22019657299448012
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.mutual_information() / self.predicted_entropy()
+
+    def dependency(self):
+        """Return dependency.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The dependency of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.dependency()
+        0.12618094145262454
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.mutual_information() / self.joint_entropy()
+
+    def lift(self):
+        """Return lift.
+
+        Implementation based on https://github.com/Magnetic/proficiency-metric
+
+        Returns
+        -------
+        float
+            The lift of the confusion table
+
+        Example
+        -------
+        >>> ct = ConfusionTable(120, 60, 20, 30)
+        >>> ct.lift()
+        1.3142857142857143
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        try:
+            return (
+                self._tp
+                * self.population()
+                / (self.pred_pos_pop() * self.cond_pos_pop())
+            )
+        except ZeroDivisionError:
+            return float('nan')
 
 
 if __name__ == '__main__':

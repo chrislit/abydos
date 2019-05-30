@@ -40,6 +40,7 @@ class Strcmp95TestCases(unittest.TestCase):
     """
 
     cmp = Strcmp95()
+    cmp_ls = Strcmp95(True)
 
     def test_strcmp95_sim(self):
         """Test abydos.distance.Strcmp95.sim."""
@@ -56,27 +57,19 @@ class Strcmp95TestCases(unittest.TestCase):
 
         # long_strings = True
         self.assertAlmostEqual(
-            self.cmp.sim('DIXON', 'DICKSONX', True), 0.85393939
+            self.cmp_ls.sim('DIXON', 'DICKSONX'), 0.85393939
         )
-        self.assertAlmostEqual(
-            self.cmp.sim('DWAYNE', 'DUANE', True), 0.89609090
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('MARTHA', 'MARHTA', True), 0.97083333
-        )
+        self.assertAlmostEqual(self.cmp_ls.sim('DWAYNE', 'DUANE'), 0.89609090)
+        self.assertAlmostEqual(self.cmp_ls.sim('MARTHA', 'MARHTA'), 0.97083333)
 
         # cover case where we don't boost, etc.
         self.assertAlmostEqual(self.cmp.sim('A', 'ABCDEFGHIJK'), 69 / 99)
-        self.assertAlmostEqual(self.cmp.sim('A', 'ABCDEFGHIJK', True), 69 / 99)
+        self.assertAlmostEqual(self.cmp_ls.sim('A', 'ABCDEFGHIJK'), 69 / 99)
         self.assertAlmostEqual(self.cmp.sim('d', 'abcdefgh'), 0.708333333)
+        self.assertAlmostEqual(self.cmp_ls.sim('d', 'abcdefgh'), 0.708333333)
+        self.assertAlmostEqual(self.cmp_ls.sim('1', 'abc1efgh'), 0.708333333)
         self.assertAlmostEqual(
-            self.cmp.sim('d', 'abcdefgh', True), 0.708333333
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('1', 'abc1efgh', True), 0.708333333
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('12hundredths', '12hundred', True), 0.916666667
+            self.cmp_ls.sim('12hundredths', '12hundred'), 0.916666667
         )
 
         # Test wrapper

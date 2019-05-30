@@ -45,6 +45,7 @@ class LevenshteinTestCases(unittest.TestCase):
     """
 
     cmp = Levenshtein()
+    cmp_taper = Levenshtein(taper=True)
 
     def test_levenshtein_dist_abs(self):
         """Test abydos.distance.Levenshtein.dist_abs."""
@@ -84,68 +85,100 @@ class LevenshteinTestCases(unittest.TestCase):
         )
 
         # https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
-        self.assertEqual(self.cmp.dist_abs('CA', 'ABC', 'osa'), 3)
+        self.assertEqual(Levenshtein(mode='osa').dist_abs('CA', 'ABC'), 3)
 
         # test cost of insert
         self.assertEqual(
-            self.cmp.dist_abs('', 'b', 'lev', cost=(5, 7, 10, 10)), 5
+            Levenshtein(mode='lev', cost=(5, 7, 10, 10)).dist_abs('', 'b'), 5
         )
         self.assertEqual(
-            self.cmp.dist_abs('', 'b', 'osa', cost=(5, 7, 10, 10)), 5
+            Levenshtein(mode='osa', cost=(5, 7, 10, 10)).dist_abs('', 'b'), 5
         )
         self.assertEqual(
-            self.cmp.dist_abs('a', 'ab', 'lev', cost=(5, 7, 10, 10)), 5
+            Levenshtein(mode='lev', cost=(5, 7, 10, 10)).dist_abs('a', 'ab'), 5
         )
         self.assertEqual(
-            self.cmp.dist_abs('a', 'ab', 'osa', cost=(5, 7, 10, 10)), 5
+            Levenshtein(mode='osa', cost=(5, 7, 10, 10)).dist_abs('a', 'ab'), 5
         )
 
         # test cost of delete
         self.assertEqual(
-            self.cmp.dist_abs('b', '', 'lev', cost=(5, 7, 10, 10)), 7
+            Levenshtein(mode='lev', cost=(5, 7, 10, 10)).dist_abs('b', ''), 7
         )
         self.assertEqual(
-            self.cmp.dist_abs('b', '', 'osa', cost=(5, 7, 10, 10)), 7
+            Levenshtein(mode='osa', cost=(5, 7, 10, 10)).dist_abs('b', ''), 7
         )
         self.assertEqual(
-            self.cmp.dist_abs('ab', 'a', 'lev', cost=(5, 7, 10, 10)), 7
+            Levenshtein(mode='lev', cost=(5, 7, 10, 10)).dist_abs('ab', 'a'), 7
         )
         self.assertEqual(
-            self.cmp.dist_abs('ab', 'a', 'osa', cost=(5, 7, 10, 10)), 7
+            Levenshtein(mode='osa', cost=(5, 7, 10, 10)).dist_abs('ab', 'a'), 7
         )
 
         # test cost of substitute
         self.assertEqual(
-            self.cmp.dist_abs('a', 'b', 'lev', cost=(10, 10, 5, 10)), 5
+            Levenshtein(mode='lev', cost=(10, 10, 5, 10)).dist_abs('a', 'b'), 5
         )
         self.assertEqual(
-            self.cmp.dist_abs('a', 'b', 'osa', cost=(10, 10, 5, 10)), 5
+            Levenshtein(mode='osa', cost=(10, 10, 5, 10)).dist_abs('a', 'b'), 5
         )
         self.assertEqual(
-            self.cmp.dist_abs('ac', 'bc', 'lev', cost=(10, 10, 5, 10)), 5
+            Levenshtein(mode='lev', cost=(10, 10, 5, 10)).dist_abs('ac', 'bc'),
+            5,
         )
         self.assertEqual(
-            self.cmp.dist_abs('ac', 'bc', 'osa', cost=(10, 10, 5, 10)), 5
+            Levenshtein(mode='osa', cost=(10, 10, 5, 10)).dist_abs('ac', 'bc'),
+            5,
         )
 
         # test cost of transpose
         self.assertEqual(
-            self.cmp.dist_abs('ab', 'ba', 'lev', cost=(10, 10, 10, 5)), 20
+            Levenshtein(mode='lev', cost=(10, 10, 10, 5)).dist_abs('ab', 'ba'),
+            20,
         )
         self.assertEqual(
-            self.cmp.dist_abs('ab', 'ba', 'osa', cost=(10, 10, 10, 5)), 5
+            Levenshtein(mode='osa', cost=(10, 10, 10, 5)).dist_abs('ab', 'ba'),
+            5,
         )
         self.assertEqual(
-            self.cmp.dist_abs('abc', 'bac', 'lev', cost=(10, 10, 10, 5)), 20
+            Levenshtein(mode='lev', cost=(10, 10, 10, 5)).dist_abs(
+                'abc', 'bac'
+            ),
+            20,
         )
         self.assertEqual(
-            self.cmp.dist_abs('abc', 'bac', 'osa', cost=(10, 10, 10, 5)), 5
+            Levenshtein(mode='osa', cost=(10, 10, 10, 5)).dist_abs(
+                'abc', 'bac'
+            ),
+            5,
         )
         self.assertEqual(
-            self.cmp.dist_abs('cab', 'cba', 'lev', cost=(10, 10, 10, 5)), 20
+            Levenshtein(mode='lev', cost=(10, 10, 10, 5)).dist_abs(
+                'cab', 'cba'
+            ),
+            20,
         )
         self.assertEqual(
-            self.cmp.dist_abs('cab', 'cba', 'osa', cost=(10, 10, 10, 5)), 5
+            Levenshtein(mode='osa', cost=(10, 10, 10, 5)).dist_abs(
+                'cab', 'cba'
+            ),
+            5,
+        )
+
+        # tapered variant
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('abc', 'ac'), 1.33333333333
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('xabxcdxxefxgx', 'abcdefg'),
+            8.615384615384617,
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('levenshtein', 'frankenstein'), 10
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist_abs('distance', 'difference'),
+            7.499999999999999,
         )
 
         # Test wrapper
@@ -169,6 +202,17 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('abc', 'ac'), 1 / 3)
         self.assertAlmostEqual(self.cmp.dist('abbc', 'ac'), 1 / 2)
         self.assertAlmostEqual(self.cmp.dist('abbc', 'abc'), 1 / 4)
+
+        # tapered variant
+        self.assertAlmostEqual(
+            self.cmp_taper.dist('abc', 'ac'), 0.2666666666666666
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist('abbc', 'ac'), 0.4230769230769231
+        )
+        self.assertAlmostEqual(
+            self.cmp_taper.dist('abbc', 'abc'), 0.19230769230769232
+        )
 
         # Test wrapper
         self.assertAlmostEqual(dist_levenshtein('abbc', 'abc'), 1 / 4)

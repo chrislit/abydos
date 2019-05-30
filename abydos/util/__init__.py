@@ -33,7 +33,21 @@ from __future__ import (
     unicode_literals,
 )
 
-__all__ = []
+from ._data import (
+    data_path,
+    download_package,
+    list_available_packages,
+    list_installed_packages,
+    package_path,
+)
+
+__all__ = [
+    'data_path',
+    'download_package',
+    'list_available_packages',
+    'list_installed_packages',
+    'package_path',
+]
 
 
 if __name__ == '__main__':

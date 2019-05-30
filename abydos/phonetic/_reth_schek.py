@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['RethSchek', 'reth_schek_phonetik']
 
@@ -55,6 +58,8 @@ class RethSchek(_Phonetic):
     - Should 'TUI' -> 'ZUI' rule exist? (PPRL has rule, but I can't
       think of a German word with '-tui-' in it.)
     - Should we really change 'SCH' -> 'CH' and then 'CH' -> 'SCH'?
+
+    .. versionadded:: 0.3.6
     """
 
     _replacements = {
@@ -139,16 +144,22 @@ class RethSchek(_Phonetic):
 
         Examples
         --------
-        >>> reth_schek_phonetik('Joachim')
+        >>> pe = RethSchek()
+        >>> pe.encode('Joachim')
         'JOAGHIM'
-        >>> reth_schek_phonetik('Christoph')
+        >>> pe.encode('Christoph')
         'GHRISDOF'
-        >>> reth_schek_phonetik('Jörg')
+        >>> pe.encode('Jörg')
         'JOERG'
-        >>> reth_schek_phonetik('Smith')
+        >>> pe.encode('Smith')
         'SMID'
-        >>> reth_schek_phonetik('Schmidt')
+        >>> pe.encode('Schmidt')
         'SCHMID'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # Uppercase
@@ -189,6 +200,12 @@ class RethSchek(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RethSchek.encode method instead.',
+)
 def reth_schek_phonetik(word):
     """Return Reth-Schek Phonetik code for a word.
 
@@ -216,6 +233,8 @@ def reth_schek_phonetik(word):
     'SMID'
     >>> reth_schek_phonetik('Schmidt')
     'SCHMID'
+
+    .. versionadded:: 0.3.0
 
     """
     return RethSchek().encode(word)

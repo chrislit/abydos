@@ -31,6 +31,7 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Bag, bag, dist_bag, sim_bag
+from abydos.tokenizer import SAPSTokenizer
 
 
 class BagTestCases(unittest.TestCase):
@@ -71,6 +72,8 @@ class BagTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('aluminum', 'Catalan'), 3 / 8)
         self.assertEqual(self.cmp.sim('abcdefg', 'hijklm'), 0)
         self.assertEqual(self.cmp.sim('abcdefg', 'hijklmno'), 0)
+
+        self.assertEqual(Bag(tokenizer=SAPSTokenizer()).sim('DNA', 'RNA'), 0.5)
 
         # Test wrapper
         self.assertAlmostEqual(sim_bag('nelson', 'neilsen'), 5 / 7)

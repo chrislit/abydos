@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._snowball import _Snowball
+from .. import __version__
 
 __all__ = ['SnowballGerman', 'sb_german']
 
@@ -42,21 +45,35 @@ class SnowballGerman(_Snowball):
 
     The Snowball German stemmer is defined at:
     http://snowball.tartarus.org/algorithms/german/stemmer.html
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'ö', 'ü'}
     _s_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'r', 't'}
     _st_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
 
-    def stem(self, word, alternate_vowels=False):
+    def __init__(self, alternate_vowels=False):
+        """Initialize SnowballGerman instance.
+
+        Parameters
+        ----------
+        alternate_vowels : bool
+            Composes ae as ä, oe as ö, and ue as ü before running the algorithm
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._alternate_vowels = alternate_vowels
+
+    def stem(self, word):
         """Return Snowball German stem.
 
         Parameters
         ----------
         word : str
             The word to stem
-        alternate_vowels : bool
-            Composes ae as ä, oe as ö, and ue as ü before running the algorithm
 
         Returns
         -------
@@ -73,6 +90,11 @@ class SnowballGerman(_Snowball):
         >>> stmr.stem('buchstabieren')
         'buchstabi'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', word.lower())
@@ -86,7 +108,7 @@ class SnowballGerman(_Snowball):
                     elif word[i - 1] == 'y':
                         word = word[: i - 1] + 'Y' + word[i:]
 
-        if alternate_vowels:
+        if self._alternate_vowels:
             word = word.replace('ae', 'ä')
             word = word.replace('oe', 'ö')
             word = word.replace('que', 'Q')
@@ -191,6 +213,12 @@ class SnowballGerman(_Snowball):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SnowballGerman.stem method instead.',
+)
 def sb_german(word, alternate_vowels=False):
     """Return Snowball German stem.
 
@@ -217,8 +245,10 @@ def sb_german(word, alternate_vowels=False):
     >>> sb_german('buchstabieren')
     'buchstabi'
 
+    .. versionadded:: 0.1.0
+
     """
-    return SnowballGerman().stem(word, alternate_vowels)
+    return SnowballGerman(alternate_vowels).stem(word)
 
 
 if __name__ == '__main__':

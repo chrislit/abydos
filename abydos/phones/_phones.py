@@ -609,6 +609,8 @@ def ipa_to_features(ipa):
     [2783230754502126250, 1826957430176000426, 2693158761954453926,
     2783230754501863834]
 
+    .. versionadded:: 0.1.0
+
     """
     features = []
     pos = 0
@@ -696,6 +698,8 @@ def get_feature(vector, feature):
     [-1, -1, -1, -1]
     >>> get_feature(tails, 'coronal')
     [1, -1, 1, 1]
+
+    .. versionadded:: 0.1.0
 
     """
     # :param bool binary: if False, -1, 0, & 1 represent -, 0, & +
@@ -793,6 +797,8 @@ def cmp_features(feat1, feat2):
     0.8709677419354839
     >>> cmp_features(ipa_to_features('l')[0], ipa_to_features('i')[0])
     0.564516129032258
+
+    .. versionadded:: 0.1.0
 
     """
     if feat1 < 0 or feat2 < 0:

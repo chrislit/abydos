@@ -68,7 +68,7 @@ class BaystatTestCases(unittest.TestCase):
 
         # Tests to maximize coverage
         self.assertAlmostEqual(
-            self.cmp.sim('ZIMMERMANN', 'SEMMERMANN', 2, 2, 2), 0.8
+            Baystat(2, 2, 2).sim('ZIMMERMANN', 'SEMMERMANN'), 0.8
         )
         self.assertAlmostEqual(self.cmp.sim('ZIMMER', 'ZIMMERMANN'), 0.6)
 

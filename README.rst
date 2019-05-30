@@ -8,11 +8,11 @@ Abydos
 +------------------+------------------------------------------------------+
 | Dependencies     | |requires| |snyk| |pyup| |fossa|                     |
 +------------------+------------------------------------------------------+
-| Local Analysis   | |pylint| |flake8| |pydocstyle| |black|               |
+| Local Analysis   | |pylint| |flake8| |pydocstyle| |sloccount| |black|   |
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
-| Contribution     | |cii| |waffle| |openhub|                             |
+| Contribution     | |cii| |openhub| |gh-commits| |gh-issues| |gh-stars|  |
 +------------------+------------------------------------------------------+
 | PyPI             | |pypi| |pypi-dl| |pypi-ver|                          |
 +------------------+------------------------------------------------------+
@@ -40,8 +40,8 @@ Abydos
     :alt: Coverage Status
 
 .. |codeclimate| image:: https://codeclimate.com/github/chrislit/abydos/badges/gpa.svg
-   :target: https://codeclimate.com/github/chrislit/abydos
-   :alt: Code Climate
+    :target: https://codeclimate.com/github/chrislit/abydos
+    :alt: Code Climate
 
 .. |scrutinizer| image:: https://scrutinizer-ci.com/g/chrislit/abydos/badges/quality-score.png?b=master
     :target: https://scrutinizer-ci.com/g/chrislit/abydos/?branch=master
@@ -64,28 +64,32 @@ Abydos
     :alt: Known Vulnerabilities
 
 .. |pyup| image:: https://pyup.io/repos/github/chrislit/abydos/shield.svg
-     :target: https://pyup.io/repos/github/chrislit/abydos/
-     :alt: Updates
+    :target: https://pyup.io/repos/github/chrislit/abydos/
+    :alt: Updates
 
 .. |fossa| image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchrislit%2Fabydos.svg?type=shield
-     :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
-     :alt: FOSSA Status
+    :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
+    :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.16/10-yellowgreen.svg
-   :target: #
-   :alt: Pylint Score
+.. |pylint| image:: https://img.shields.io/badge/Pylint-8.89/10-yellowgreen.svg
+    :target: #
+    :alt: Pylint Score
 
 .. |flake8| image:: https://img.shields.io/badge/flake8-0-brightgreen.svg
-   :target: #
-   :alt: flake8 Errors
+    :target: #
+    :alt: flake8 Errors
 
 .. |pydocstyle| image:: https://img.shields.io/badge/pydocstyle-0-brightgreen.svg
-   :target: #
-   :alt: pydocstyle Errors
+    :target: #
+    :alt: pydocstyle Errors
+
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,243-blue.svg
+    :target: #
+    :alt: SLOCCount
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-   :target: https://github.com/ambv/black
-   :alt: black
+    :target: https://github.com/ambv/black
+    :alt: black
 
 .. |docs| image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/
@@ -104,20 +108,28 @@ Abydos
     :alt: Libraries.io SourceRank
 
 .. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1490537.svg
-   :target: https://doi.org/10.5281/zenodo.1490537
-   :alt: Zenodo
+    :target: https://doi.org/10.5281/zenodo.1490537
+    :alt: Zenodo
 
 .. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
     :target: https://bestpractices.coreinfrastructure.org/projects/1598
     :alt: CII Best Practices
 
-.. |waffle| image:: https://badge.waffle.io/chrislit/abydos.svg?columns=To%20Do,In%20Progress
-    :target: https://waffle.io/chrislit/abydos
-    :alt: 'Waffle.io - Columns and their card count'
-
 .. |openhub| image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
     :target: https://www.openhub.net/p/abydosnlp
     :alt: OpenHUB
+
+.. |gh-commits| image:: https://img.shields.io/github/commit-activity/y/chrislit/abydos.svg?logo=github
+    :target: https://github.com/chrislit/abydos/graphs/commit-activity
+    :alt: GitHub Commits
+
+.. |gh-issues| image:: https://img.shields.io/github/issues-closed/chrislit/abydos.svg?logo=github
+    :target: https://github.com/chrislit/abydos/issues?q=
+    :alt: GitHub Issues Closed
+
+.. |gh-stars| image:: https://img.shields.io/github/stars/chrislit/abydos.svg?logo=github
+    :target: https://github.com/chrislit/abydos/stargazers
+    :alt: GitHub Stars
 
 .. |pypi| image:: https://img.shields.io/pypi/v/abydos.svg
     :target: https://pypi.python.org/pypi/abydos
@@ -152,7 +164,7 @@ Abydos
 
 |
 | `Abydos NLP/IR library <https://github.com/chrislit/abydos>`_
-| Copyright 2014-2018 by Christopher C. Little
+| Copyright 2014-2019 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics,
 stemmers, and string fingerprinters including:
@@ -268,12 +280,19 @@ Installation
 
 Required libraries:
 
-- Numpy
-- Six
+- NumPy
+- six
+- deprecation
 
-Recommended libraries:
+Optional libraries (all available on PyPI, some available on conda or
+conda-forge):
 
+- SciPy
 - PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
+- `SyllabiPy <http://syllabipy.com/>`_
+- `NLTK <https://www.nltk.org/>`_
+- `PyLZSS <https://github.com/rumbah/pylzss>`_
+- `paq <https://github.com/observerss/paq>`_
 
 
 To install Abydos (master) from Github source::
@@ -296,7 +315,7 @@ To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
-It should run on Python 2.7 and Python 3.3-3.7.
+It should run on Python 2.7 and Python 3.5-3.7.
 
 Testing & Contributing
 ======================

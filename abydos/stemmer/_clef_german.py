@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['CLEFGerman', 'clef_german']
 
@@ -41,6 +44,8 @@ class CLEFGerman(_Stemmer):
     """CLEF German stemmer.
 
     The CLEF German stemmer is defined at :cite:`Savoy:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
@@ -68,6 +73,11 @@ class CLEFGerman(_Stemmer):
         >>> stmr.stem('buchstabieren')
         'buchstabier'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
@@ -90,6 +100,12 @@ class CLEFGerman(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the CLEFGerman.stem method instead.',
+)
 def clef_german(word):
     """Return CLEF German stem.
 
@@ -113,6 +129,8 @@ def clef_german(word):
     'grau'
     >>> clef_german('buchstabieren')
     'buchstabier'
+
+    .. versionadded:: 0.1.0
 
     """
     return CLEFGerman().stem(word)

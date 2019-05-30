@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -32,13 +32,17 @@ from __future__ import (
     unicode_literals,
 )
 
+from sys import float_info
 
-from numpy import int as np_int
+from deprecation import deprecated
+
+from numpy import float as np_float
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Levenshtein', 'dist_levenshtein', 'levenshtein', 'sim_levenshtein']
 
@@ -58,17 +62,24 @@ class Levenshtein(_Distance):
 
     Levenshtein edit distance ordinarily has unit insertion, deletion, and
     substitution costs.
+
+    .. versionadded:: 0.3.6
+    .. versionchanged:: 0.4.0
+        Added taper option
     """
 
-    def dist_abs(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
-        """Return the Levenshtein distance between two strings.
+    def __init__(
+        self,
+        mode='lev',
+        cost=(1, 1, 1, 1),
+        normalizer=max,
+        taper=False,
+        **kwargs
+    ):
+        """Initialize Levenshtein instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
         mode : str
             Specifies a mode for computing the Levenshtein distance:
 
@@ -83,6 +94,44 @@ class Levenshtein(_Distance):
             A 4-tuple representing the cost of the four possible edits:
             inserts, deletes, substitutions, and transpositions, respectively
             (by default: (1, 1, 1, 1))
+        normalizer : function
+            A function that takes an list and computes a normalization term
+            by which the edit distance is divided (max by default). Another
+            good option is the sum function.
+        taper : bool
+            Enables cost tapering. Following :cite:`Zobel:1996`, it causes
+            edits at the start of the string to "just [exceed] twice the
+            minimum penalty for replacement or deletion at the end of the
+            string".
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Levenshtein, self).__init__(**kwargs)
+        self._mode = mode
+        self._cost = cost
+        self._normalizer = normalizer
+        self._taper_enabled = taper
+
+    def _taper(self, pos, length):
+        return (
+            round(1 + ((length - pos) / length) * (1 + float_info.epsilon), 15)
+            if self._taper_enabled
+            else 1
+        )
+
+    def dist_abs(self, src, tar):
+        """Return the Levenshtein distance between two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
 
         Returns
         -------
@@ -101,37 +150,57 @@ class Levenshtein(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         3
 
-        >>> cmp.dist_abs('ATCG', 'TAGC', mode='osa')
+        >>> cmp = Levenshtein(mode='osa')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         2
-        >>> cmp.dist_abs('ACTG', 'TAGC', mode='osa')
+        >>> cmp.dist_abs('ACTG', 'TAGC')
         4
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        ins_cost, del_cost, sub_cost, trans_cost = cost
+        ins_cost, del_cost, sub_cost, trans_cost = self._cost
+
+        src_len = len(src)
+        tar_len = len(tar)
+        max_len = max(src_len, tar_len)
 
         if src == tar:
             return 0
         if not src:
-            return len(tar) * ins_cost
+            return sum(
+                ins_cost * self._taper(pos, max_len) for pos in range(tar_len)
+            )
         if not tar:
-            return len(src) * del_cost
+            return sum(
+                del_cost * self._taper(pos, max_len) for pos in range(src_len)
+            )
 
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
-        for i in range(len(src) + 1):
-            d_mat[i, 0] = i * del_cost
-        for j in range(len(tar) + 1):
-            d_mat[0, j] = j * ins_cost
+        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+        for i in range(src_len + 1):
+            d_mat[i, 0] = i * self._taper(i, max_len) * del_cost
+        for j in range(tar_len + 1):
+            d_mat[0, j] = j * self._taper(j, max_len) * ins_cost
 
-        for i in range(len(src)):
-            for j in range(len(tar)):
+        for i in range(src_len):
+            for j in range(tar_len):
                 d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + ins_cost,  # ins
-                    d_mat[i, j + 1] + del_cost,  # del
+                    d_mat[i + 1, j]
+                    + ins_cost * self._taper(1 + max(i, j), max_len),  # ins
+                    d_mat[i, j + 1]
+                    + del_cost * self._taper(1 + max(i, j), max_len),  # del
                     d_mat[i, j]
-                    + (sub_cost if src[i] != tar[j] else 0),  # sub/==
+                    + (
+                        sub_cost * self._taper(1 + max(i, j), max_len)
+                        if src[i] != tar[j]
+                        else 0
+                    ),  # sub/==
                 )
 
-                if mode == 'osa':
+                if self._mode == 'osa':
                     if (
                         i + 1 > 1
                         and j + 1 > 1
@@ -141,12 +210,16 @@ class Levenshtein(_Distance):
                         # transposition
                         d_mat[i + 1, j + 1] = min(
                             d_mat[i + 1, j + 1],
-                            d_mat[i - 1, j - 1] + trans_cost,
+                            d_mat[i - 1, j - 1]
+                            + trans_cost * self._taper(1 + max(i, j), max_len),
                         )
 
-        return d_mat[len(src), len(tar)]
+        if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
+            return int(d_mat[src_len, tar_len])
+        else:
+            return d_mat[src_len, tar_len]
 
-    def dist(self, src, tar, mode='lev', cost=(1, 1, 1, 1)):
+    def dist(self, src, tar):
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein
@@ -162,20 +235,6 @@ class Levenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        mode : str
-            Specifies a mode for computing the Levenshtein distance:
-
-                - ``lev`` (default) computes the ordinary Levenshtein distance,
-                  in which edits may include inserts, deletes, and
-                  substitutions
-                - ``osa`` computes the Optimal String Alignment distance, in
-                  which edits may include inserts, deletes, substitutions, and
-                  transpositions but substrings may only be edited once
-
-        cost : tuple
-            A 4-tuple representing the cost of the four possible edits:
-            inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 1))
 
         Returns
         -------
@@ -194,15 +253,46 @@ class Levenshtein(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.75
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0
-        ins_cost, del_cost = cost[:2]
-        return levenshtein(src, tar, mode, cost) / (
-            max(len(src) * del_cost, len(tar) * ins_cost)
-        )
+        ins_cost, del_cost = self._cost[:2]
+
+        src_len = len(src)
+        tar_len = len(tar)
+
+        if self._taper_enabled:
+            normalize_term = self._normalizer(
+                [
+                    sum(
+                        self._taper(pos, src_len) * del_cost
+                        for pos in range(src_len)
+                    ),
+                    sum(
+                        self._taper(pos, tar_len) * ins_cost
+                        for pos in range(tar_len)
+                    ),
+                ]
+            )
+        else:
+            normalize_term = self._normalizer(
+                [src_len * del_cost, tar_len * ins_cost]
+            )
+
+        return self.dist_abs(src, tar) / normalize_term
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Levenshtein.dist_abs method instead.',
+)
 def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein distance between two strings.
 
@@ -249,10 +339,18 @@ def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     >>> levenshtein('ACTG', 'TAGC', mode='osa')
     4
 
+    .. versionadded:: 0.1.0
+
     """
-    return Levenshtein().dist_abs(src, tar, mode, cost)
+    return Levenshtein(mode=mode, cost=cost).dist_abs(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Levenshtein.dist method instead.',
+)
 def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the normalized Levenshtein distance between two strings.
 
@@ -294,10 +392,18 @@ def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     >>> dist_levenshtein('ATCG', 'TAGC')
     0.75
 
+    .. versionadded:: 0.1.0
+
     """
-    return Levenshtein().dist(src, tar, mode, cost)
+    return Levenshtein(mode=mode, cost=cost).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Levenshtein.sim method instead.',
+)
 def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     """Return the Levenshtein similarity of two strings.
 
@@ -339,8 +445,10 @@ def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
     >>> sim_levenshtein('ATCG', 'TAGC')
     0.25
 
+    .. versionadded:: 0.1.0
+
     """
-    return Levenshtein().sim(src, tar, mode, cost)
+    return Levenshtein(mode=mode, cost=cost).sim(src, tar)
 
 
 if __name__ == '__main__':

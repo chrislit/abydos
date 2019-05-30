@@ -101,7 +101,7 @@ class MeansTestCases(unittest.TestCase):
         self.assertEqual(hmean([5, 5, 5, 5, 5]), 5)
         self.assertEqual(hmean([0]), 0)
         self.assertEqual(hmean([8]), 8)
-        self.assertRaises(AttributeError, hmean, ([]))
+        self.assertRaises(ValueError, hmean, ([]))
 
     def test_means_qmean(self):
         """Test abydos.stats.qmean."""
@@ -122,16 +122,20 @@ class MeansTestCases(unittest.TestCase):
         """Test abydos.stats.lmean."""
         self.assertAlmostEqual(lmean(self._one_to_five), 2.6739681320855766)
         self.assertAlmostEqual(lmean(self._floats), 0.301387278840469)
-        self.assertRaises(AttributeError, lmean, (1, 1))
-        self.assertRaises(AttributeError, lmean, (0.15, 0.15))
+        self.assertEqual(lmean([1, 1]), 1.0)
+        self.assertEqual(lmean([2, 2]), 2.0)
+        self.assertEqual(lmean([2, 0]), 0.0)
+        self.assertAlmostEqual(lmean([1, 2]), 1.4426950408889634)
+        self.assertRaises(ValueError, lmean, (1, 1, 1))
+        self.assertRaises(ValueError, lmean, (0.15, 0.15, 1))
 
     def test_means_imean(self):
         """Test abydos.stats.imean."""
-        self.assertRaises(AttributeError, imean, self._ones)
-        self.assertRaises(AttributeError, imean, self._zeros)
-        self.assertRaises(AttributeError, imean, self._one_to_five)
-        self.assertRaises(AttributeError, imean, self._onethreefive)
-        self.assertRaises(AttributeError, imean, self._floats)
+        self.assertRaises(ValueError, imean, self._ones)
+        self.assertRaises(ValueError, imean, self._zeros)
+        self.assertRaises(ValueError, imean, self._one_to_five)
+        self.assertRaises(ValueError, imean, self._onethreefive)
+        self.assertRaises(ValueError, imean, self._floats)
         self.assertAlmostEqual(imean(self._2ones), 1)
         self.assertTrue(isnan(imean(self._2zeros)))
         self.assertAlmostEqual(imean(self._onetwo), 1.4715177646857693)
@@ -141,17 +145,18 @@ class MeansTestCases(unittest.TestCase):
 
     def test_means_seiffert_mean(self):
         """Test abydos.stats.seiffert_mean."""
-        self.assertRaises(AttributeError, seiffert_mean, self._ones)
-        self.assertRaises(AttributeError, seiffert_mean, self._zeros)
-        self.assertRaises(AttributeError, seiffert_mean, self._one_to_five)
-        self.assertRaises(AttributeError, seiffert_mean, self._onethreefive)
-        self.assertRaises(AttributeError, seiffert_mean, self._floats)
+        self.assertRaises(ValueError, seiffert_mean, self._ones)
+        self.assertRaises(ValueError, seiffert_mean, self._zeros)
+        self.assertRaises(ValueError, seiffert_mean, self._one_to_five)
+        self.assertRaises(ValueError, seiffert_mean, self._onethreefive)
+        self.assertRaises(ValueError, seiffert_mean, self._floats)
         self.assertAlmostEqual(seiffert_mean(self._onetwo), 1.4712939827611637)
         self.assertAlmostEqual(
             seiffert_mean(self._2floats), 0.36782349569029094
         )
         self.assertEqual(seiffert_mean([1]), 1)
         self.assertEqual(seiffert_mean([0.05]), 0.05)
+        self.assertTrue(isnan(seiffert_mean([1, 1])))
 
     def test_means_lehmer_mean(self):
         """Test abydos.stats.lehmer_mean."""
@@ -189,6 +194,9 @@ class MeansTestCases(unittest.TestCase):
             hoelder_mean(self._onethreefive), 3.492849839314596
         )
         self.assertAlmostEqual(hoelder_mean(self._floats), 0.4477722635447623)
+        self.assertAlmostEqual(
+            hoelder_mean(self._floats, 0), gmean(self._floats)
+        )
 
     def test_means_agmean(self):
         """Test abydos.stats.agmean."""
@@ -197,6 +205,7 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(agmean(self._one_to_five), 2.799103662640505)
         self.assertAlmostEqual(agmean(self._onethreefive), 2.6764865062631356)
         self.assertAlmostEqual(agmean(self._floats), 0.32800436242611486)
+        self.assertTrue(isnan(agmean(self._has_inf)))
 
     def test_means_ghmean(self):
         """Test abydos.stats.ghmean."""
@@ -204,6 +213,7 @@ class MeansTestCases(unittest.TestCase):
         self.assertAlmostEqual(ghmean(self._one_to_five), 2.3839666656453167)
         self.assertAlmostEqual(ghmean(self._onethreefive), 2.0740491019412035)
         self.assertAlmostEqual(ghmean(self._floats), 0.2536468771476393)
+        self.assertTrue(isnan(ghmean(self._has_inf)))
 
     def test_means_aghmean(self):
         """Test abydos.stats.aghmean."""

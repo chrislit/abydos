@@ -56,9 +56,7 @@ class HaaseTestCases(unittest.TestCase):
 
         # coverage completion
         self.assertEqual(self.pa.encode('Häschen'), ('9896', '9496'))
-        self.assertEqual(
-            self.pa.encode('Häschen', primary_only=True), ('9896',)
-        )
+        self.assertEqual(Haase(primary_only=True).encode('Häschen'), ('9896',))
         self.assertEqual(self.pa.encode('Eichörnchen'), ('94976496',))
         self.assertEqual(self.pa.encode('Hexe'), ('9489',))
         self.assertEqual(self.pa.encode('Chemie'), ('4969', '8969'))
@@ -79,6 +77,12 @@ class HaaseTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('addiscendae'), ('92989629',))
         self.assertEqual(self.pa.encode('kickx'), ('4948',))
         self.assertEqual(self.pa.encode('sanctionen'), ('896829696',))
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Niveau'), ('NAFA',))
+        self.assertEqual(self.pa.encode_alpha('Korb'), ('KARP', 'KARF'))
+        self.assertEqual(self.pa.encode_alpha('Heino'), ('ANA', 'ANAF'))
+        self.assertEqual(self.pa.encode_alpha('Nekka'), ('NAKA', 'NAKAR'))
 
         # Test wrapper
         self.assertEqual(haase_phonetik('Häschen'), ('9896', '9496'))

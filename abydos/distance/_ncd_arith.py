@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 from ..compression import Arithmetic
 
 __all__ = ['NCDarith', 'dist_ncd_arith', 'sim_ncd_arith']
@@ -40,15 +43,29 @@ class NCDarith(_Distance):
     Cf. https://en.wikipedia.org/wiki/Arithmetic_coding
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
-    _coder = None
+    def __init__(self, probs=None, **kwargs):
+        """Initialize the arithmetic coder object.
 
-    def __init__(self):
-        """Initialize the arithmetic coder object."""
+        Parameters
+        ----------
+        probs : dict
+            A dictionary trained with :py:meth:`Arithmetic.train`
+
+
+        .. versionadded:: 0.3.6
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
+        """
+        super(NCDarith, self).__init__(**kwargs)
         self._coder = Arithmetic()
+        self._probs = probs
 
-    def dist(self, src, tar, probs=None):
+    def dist(self, src, tar):
         """Return the NCD between two strings using arithmetic coding.
 
         Parameters
@@ -57,8 +74,6 @@ class NCDarith(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        probs : dict
-            A dictionary trained with :py:meth:`Arithmetic.train`
 
         Returns
         -------
@@ -77,15 +92,20 @@ class NCDarith(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         0.6923076923076923
 
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
 
-        if probs is None:
+        if self._probs is None:
             # lacking a reasonable dictionary, train on the strings themselves
             self._coder.train(src + tar)
         else:
-            self._coder.set_probs(probs)
+            self._coder.set_probs(self._probs)
 
         src_comp = self._coder.encode(src)[1]
         tar_comp = self._coder.encode(tar)[1]
@@ -97,6 +117,12 @@ class NCDarith(_Distance):
         ) / max(src_comp, tar_comp)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDarith.dist method instead.',
+)
 def dist_ncd_arith(src, tar, probs=None):
     """Return the NCD between two strings using arithmetic coding.
 
@@ -127,10 +153,18 @@ def dist_ncd_arith(src, tar, probs=None):
     >>> dist_ncd_arith('ATCG', 'TAGC')
     0.6923076923076923
 
+    .. versionadded:: 0.3.5
+
     """
-    return NCDarith().dist(src, tar, probs)
+    return NCDarith(probs).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDarith.sim method instead.',
+)
 def sim_ncd_arith(src, tar, probs=None):
     """Return the NCD similarity between two strings using arithmetic coding.
 
@@ -161,8 +195,10 @@ def sim_ncd_arith(src, tar, probs=None):
     >>> sim_ncd_arith('ATCG', 'TAGC')
     0.3076923076923077
 
+    .. versionadded:: 0.3.5
+
     """
-    return NCDarith().sim(src, tar, probs)
+    return NCDarith(probs).sim(src, tar)
 
 
 if __name__ == '__main__':

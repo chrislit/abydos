@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Phonix', 'phonix']
 
@@ -46,6 +49,8 @@ class Phonix(_Phonetic):
     - :cite:`Pfeifer:2000`
     - :cite:`Christen:2011`
     - :cite:`Kollar:2007`
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_c_set = None
@@ -59,8 +64,23 @@ class Phonix(_Phonetic):
         )
     )
 
-    def __init__(self):
-        """Initialize Phonix."""
+    _alphabetic = dict(zip((ord(_) for _ in '012345678'), 'APKTLNRFS'))
+
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize Phonix instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+
+        .. versionadded:: 0.3.6
+
+        """
         self._uc_c_set = (
             super(Phonix, self)._uc_set - super(Phonix, self)._uc_v_set
         )
@@ -179,18 +199,53 @@ class Phonix(_Phonetic):
             (3, 'MPT', 'MT'),
         )
 
-    def encode(self, word, max_length=4, zero_pad=True):
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+
+        self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Phonix code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Phonix value
+
+        Examples
+        --------
+        >>> pe = Phonix()
+        >>> pe.encode_alpha('Christopher')
+        'KRST'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
+
+    def encode(self, word):
         """Return the Phonix code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -208,6 +263,11 @@ class Phonix(_Phonetic):
         'S530'
         >>> pe.encode('Schmidt')
         'S530'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
 
@@ -229,6 +289,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if post:
@@ -257,6 +319,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if pre:
@@ -287,6 +351,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if pre or post:
@@ -319,6 +385,8 @@ class Phonix(_Phonetic):
             -------
             str
                 Modified string
+
+            .. versionadded:: 0.1.0
 
             """
             if pre or post:
@@ -354,19 +422,19 @@ class Phonix(_Phonetic):
             sdx = self._delete_consecutive_repeats(sdx)
             sdx = sdx.replace('0', '')
 
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
-
-        if zero_pad:
-            sdx += '0' * max_length
+        if self._zero_pad:
+            sdx += '0' * self._max_length
         if not sdx:
             sdx = '0'
-        return sdx[:max_length]
+        return sdx[: self._max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Phonix.encode method instead.',
+)
 def phonix(word, max_length=4, zero_pad=True):
     """Return the Phonix code for a word.
 
@@ -397,8 +465,10 @@ def phonix(word, max_length=4, zero_pad=True):
     >>> phonix('Schmidt')
     'S530'
 
+    .. versionadded:: 0.1.0
+
     """
-    return Phonix().encode(word, max_length, zero_pad)
+    return Phonix(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

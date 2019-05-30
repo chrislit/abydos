@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['DaitchMokotoff', 'dm_soundex']
 
@@ -43,6 +46,8 @@ class DaitchMokotoff(_Phonetic):
     Based on Daitch-Mokotoff Soundex :cite:`Mokotoff:1997`, this returns values
     of a word as a set. A collection is necessary since there can be multiple
     values for a single word.
+
+    .. versionadded:: 0.3.6
     """
 
     _dms_table = {
@@ -257,19 +262,80 @@ class DaitchMokotoff(_Phonetic):
 
     _uc_v_set = set('AEIJOUY')
 
-    def encode(self, word, max_length=6, zero_pad=True):
-        """Return the Daitch-Mokotoff Soundex code for a word.
+    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'AYﬆTSKNPLR'))
+    _alphabetic_non_initials = dict(
+        zip((ord(_) for _ in '0123456789'), ' A TSKNPLR')
+    )
+
+    def __init__(self, max_length=6, zero_pad=True):
+        """Initialize DaitchMokotoff instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         max_length : int
             The length of the code returned (defaults to 6; must be between 6
             and 64)
         zero_pad : bool
             Pad the end of the return value with 0s to achieve a max_length
             string
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Require a max_length of at least 6 and not more than 64
+        if max_length != -1:
+            self._max_length = min(max(6, max_length), 64)
+        else:
+            self._max_length = 64
+        self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Daitch-Mokotoff Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Daitch-Mokotoff Soundex value
+
+        Examples
+        --------
+        >>> pe = DaitchMokotoff()
+        >>> sorted(pe.encode_alpha('Christopher'))
+        ['KRSTPR', 'SRSTPR']
+        >>> pe.encode_alpha('Niall')
+        {'NL'}
+        >>> pe.encode_alpha('Smith')
+        {'SNT'}
+        >>> pe.encode_alpha('Schmidt')
+        {'SNT'}
+
+        >>> sorted(DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode_alpha('The quick brown fox'))
+        ['TKKPRPNPKS', 'TKSKPRPNPKS']
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        alphas = {
+            code.rstrip('0').translate(self._alphabetic)
+            for code in self.encode(word)
+        }
+        return {code[:1] + code[1:].replace('Y', 'A') for code in alphas}
+
+    def encode(self, word):
+        """Return the Daitch-Mokotoff Soundex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
 
         Returns
         -------
@@ -288,18 +354,17 @@ class DaitchMokotoff(_Phonetic):
         >>> pe.encode('Schmidt')
         {'463000'}
 
-        >>> sorted(pe.encode('The quick brown fox', max_length=20,
-        ... zero_pad=False))
+        >>> sorted(DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode('The quick brown fox'))
         ['35457976754', '3557976754']
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         dms = ['']  # initialize empty code list
-
-        # Require a max_length of at least 6 and not more than 64
-        if max_length != -1:
-            max_length = min(max(6, max_length), 64)
-        else:
-            max_length = 64
 
         # uppercase, normalize, decompose, and filter non-A-Z
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -308,8 +373,8 @@ class DaitchMokotoff(_Phonetic):
 
         # Nothing to convert, return base case
         if not word:
-            if zero_pad:
-                return {'0' * max_length}
+            if self._zero_pad:
+                return {'0' * self._max_length}
             return {'0'}
 
         pos = 0
@@ -351,13 +416,21 @@ class DaitchMokotoff(_Phonetic):
         )
 
         # Trim codes and return set
-        if zero_pad:
-            dms = ((_ + ('0' * max_length))[:max_length] for _ in dms)
+        if self._zero_pad:
+            dms = (
+                (_ + ('0' * self._max_length))[: self._max_length] for _ in dms
+            )
         else:
-            dms = (_[:max_length] for _ in dms)
+            dms = (_[: self._max_length] for _ in dms)
         return set(dms)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the DaitchMokotoff.encode method instead.',
+)
 def dm_soundex(word, max_length=6, zero_pad=True):
     """Return the Daitch-Mokotoff Soundex code for a word.
 
@@ -393,8 +466,12 @@ def dm_soundex(word, max_length=6, zero_pad=True):
     ... zero_pad=False))
     ['35457976754', '3557976754']
 
+    .. versionadded:: 0.1.0
+    .. versionchanged:: 0.3.6
+        Encapsulated in class
+
     """
-    return DaitchMokotoff().encode(word, max_length, zero_pad)
+    return DaitchMokotoff(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

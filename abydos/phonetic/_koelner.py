@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = [
     'Koelner',
@@ -47,6 +50,8 @@ class Koelner(_Phonetic):
     """Kölner Phonetik.
 
     Based on the algorithm defined by :cite:`Postel:1969`.
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_v_set = set('AEIOUJY')
@@ -86,6 +91,11 @@ class Koelner(_Phonetic):
         >>> pe.encode('Zimmermann')
         '86766'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _after(word, pos, letters):
@@ -104,6 +114,8 @@ class Koelner(_Phonetic):
             -------
             bool
                 True if word[pos] follows a value in letters
+
+            .. versionadded:: 0.1.0
 
             """
             return pos > 0 and word[pos - 1] in letters
@@ -124,6 +136,8 @@ class Koelner(_Phonetic):
             -------
             bool
                 True if word[pos] precedes a value in letters
+
+            .. versionadded:: 0.1.0
 
             """
             return pos + 1 < len(word) and word[pos + 1] in letters
@@ -219,6 +233,11 @@ class Koelner(_Phonetic):
         >>> pe._to_alpha('86766')
         'SNRNN'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         num = ''.join(c for c in text_type(num) if c in self._num_set)
         return num.translate(self._num_trans)
@@ -248,10 +267,21 @@ class Koelner(_Phonetic):
         >>> pe.encode_alpha('Zimmermann')
         'SNRNN'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Koelner.encode method instead.',
+)
 def koelner_phonetik(word):
     """Return the Kölner Phonetik (numeric output) code for a word.
 
@@ -282,10 +312,18 @@ def koelner_phonetik(word):
     >>> koelner_phonetik('Zimmermann')
     '86766'
 
+    .. versionadded:: 0.1.0
+
     """
     return Koelner().encode(word)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Koelner._to_alpha method instead.',
+)
 def koelner_phonetik_num_to_alpha(num):
     """Convert a Kölner Phonetik code from numeric to alphabetic.
 
@@ -310,10 +348,18 @@ def koelner_phonetik_num_to_alpha(num):
     >>> koelner_phonetik_num_to_alpha('86766')
     'SNRNN'
 
+    .. versionadded:: 0.1.0
+
     """
     return Koelner()._to_alpha(num)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Koelner.encode_alpha method instead.',
+)
 def koelner_phonetik_alpha(word):
     """Return the Kölner Phonetik (alphabetic output) code for a word.
 
@@ -339,6 +385,8 @@ def koelner_phonetik_alpha(word):
     'NLR'
     >>> koelner_phonetik_alpha('Zimmermann')
     'SNRNN'
+
+    .. versionadded:: 0.1.0
 
     """
     return Koelner().encode_alpha(word)

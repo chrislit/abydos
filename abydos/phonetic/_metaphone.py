@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Metaphone', 'metaphone']
 
@@ -42,12 +45,33 @@ class Metaphone(_Phonetic):
     as described in :cite:`Philips:1990b`.
     This incorporates some corrections to the above code, particularly
     some of those suggested by Michael Kuhn in :cite:`Kuhn:1995`.
+
+    .. versionadded:: 0.3.6
     """
 
     _frontv = {'E', 'I', 'Y'}
     _varson = {'C', 'G', 'P', 'S', 'T'}
 
-    def encode(self, word, max_length=-1):
+    def __init__(self, max_length=-1):
+        """Initialize AlphaSIS instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The maximum length of the returned Metaphone code (defaults to 64,
+            but in Philips' original implementation this was 4)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Require a max_length of at least 4
+        if max_length != -1:
+            self._max_length = max(4, max_length)
+        else:
+            self._max_length = 64
+
+    def encode(self, word):
         """Return the Metaphone code for a word.
 
         Based on Lawrence Philips' Pick BASIC code from 1990
@@ -59,9 +83,6 @@ class Metaphone(_Phonetic):
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length of the returned Metaphone code (defaults to 64,
-            but in Philips' original implementation this was 4)
 
         Returns
         -------
@@ -80,13 +101,12 @@ class Metaphone(_Phonetic):
         >>> pe.encode('Schmidt')
         'SKMTT'
 
-        """
-        # Require a max_length of at least 4
-        if max_length != -1:
-            max_length = max(4, max_length)
-        else:
-            max_length = 64
 
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
+        """
         # As in variable sound--those modified by adding an "h"
         ename = ''.join(c for c in word.upper() if c.isalnum())
         ename = ename.replace('ß', 'SS')
@@ -105,7 +125,7 @@ class Metaphone(_Phonetic):
         elen = len(ename) - 1
         metaph = ''
         for i in range(len(ename)):
-            if len(metaph) >= max_length:
+            if len(metaph) >= self._max_length:
                 break
             if (
                 ename[i] not in {'G', 'T'}
@@ -254,6 +274,12 @@ class Metaphone(_Phonetic):
         return metaph
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Metaphone.encode method instead.',
+)
 def metaphone(word, max_length=-1):
     """Return the Metaphone code for a word.
 
@@ -283,8 +309,10 @@ def metaphone(word, max_length=-1):
     >>> metaphone('Schmidt')
     'SKMTT'
 
+    .. versionadded:: 0.1.0
+
     """
-    return Metaphone().encode(word, max_length)
+    return Metaphone(max_length).encode(word)
 
 
 if __name__ == '__main__':

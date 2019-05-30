@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._snowball import _Snowball
+from .. import __version__
 
 __all__ = ['SnowballDutch', 'sb_dutch']
 
@@ -43,6 +46,8 @@ class SnowballDutch(_Snowball):
 
     The Snowball Dutch stemmer is defined at:
     http://snowball.tartarus.org/algorithms/dutch/stemmer.html
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'è'}
@@ -61,6 +66,11 @@ class SnowballDutch(_Snowball):
         -------
         str
             The word with doubled endings undoubled
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if (
@@ -93,6 +103,11 @@ class SnowballDutch(_Snowball):
         'opschort'
         >>> stmr.stem('ongrijpbaarheid')
         'ongrijp'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, decompose, filter umlauts & acutes out, and
@@ -213,6 +228,12 @@ class SnowballDutch(_Snowball):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SnowballDutch.stem method instead.',
+)
 def sb_dutch(word):
     """Return Snowball Dutch stem.
 
@@ -236,6 +257,8 @@ def sb_dutch(word):
     'opschort'
     >>> sb_dutch('ongrijpbaarheid')
     'ongrijp'
+
+    .. versionadded:: 0.1.0
 
     """
     return SnowballDutch().stem(word)

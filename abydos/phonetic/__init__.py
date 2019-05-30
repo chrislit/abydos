@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -37,7 +37,7 @@ including:
     - Phonix (:py:class:`.Phonix`)
     - Standardized Phonetic Frequency Code (:py:class:`.SPFC`)
     - Statistics Canada (:py:class:`.StatisticsCanada`)
-    - Lein (:py:class:`.Lein`)
+    - LEIN (:py:class:`.LEIN`)
     - Roger Root (:py:class:`.RogerRoot`)
     - Eudex phonetic hash (:py:class:`.phonetic.Eudex`)
     - Parmar-Kumbharana (:py:class:`.ParmarKumbharana`)
@@ -69,6 +69,7 @@ For Spanish:
 For Swedish:
 
     - SfinxBis (:py:class:`.SfinxBis`)
+    - Wåhlin (:py:class:`.Waahlin`)
 
 For Norwegian:
 
@@ -125,7 +126,7 @@ from ._koelner import (
     koelner_phonetik_alpha,
     koelner_phonetik_num_to_alpha,
 )
-from ._lein import Lein, lein
+from ._lein import LEIN, lein
 from ._meta_soundex import MetaSoundex, metasoundex
 from ._metaphone import Metaphone, metaphone
 from ._mra import MRA, mra
@@ -136,6 +137,7 @@ from ._onca import ONCA, onca
 from ._parmar_kumbharana import ParmarKumbharana, parmar_kumbharana
 from ._phonem import Phonem, phonem
 from ._phonet import Phonet, phonet
+from ._phonetic import _Phonetic
 from ._phonetic_spanish import PhoneticSpanish, phonetic_spanish
 from ._phonex import Phonex, phonex
 from ._phonix import Phonix, phonix
@@ -157,8 +159,10 @@ from ._soundex_br import SoundexBR, soundex_br
 from ._spanish_metaphone import SpanishMetaphone, spanish_metaphone
 from ._spfc import SPFC, spfc
 from ._statistics_canada import StatisticsCanada, statistics_canada
+from ._waahlin import Waahlin
 
 __all__ = [
+    '_Phonetic',
     'RussellIndex',
     'russell_index',
     'russell_index_num_to_alpha',
@@ -171,7 +175,7 @@ __all__ = [
     'dm_soundex',
     'FuzzySoundex',
     'fuzzy_soundex',
-    'Lein',
+    'LEIN',
     'lein',
     'Phonex',
     'phonex',
@@ -241,6 +245,7 @@ __all__ = [
     'spanish_metaphone',
     'SfinxBis',
     'sfinxbis',
+    'Waahlin',
     'Norphone',
     'norphone',
 ]

@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._snowball import _Snowball
+from .. import __version__
 
 __all__ = ['SnowballSwedish', 'sb_swedish']
 
@@ -42,6 +45,8 @@ class SnowballSwedish(_Snowball):
 
     The Snowball Swedish stemmer is defined at:
     http://snowball.tartarus.org/algorithms/swedish/stemmer.html
+
+    .. versionadded:: 0.3.6
     """
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y', 'ä', 'å', 'ö'}
@@ -87,6 +92,11 @@ class SnowballSwedish(_Snowball):
         'suspension'
         >>> stmr.stem('visshet')
         'viss'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
@@ -152,6 +162,12 @@ class SnowballSwedish(_Snowball):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the SnowballSwedish.stem method instead.',
+)
 def sb_swedish(word):
     """Return Snowball Swedish stem.
 
@@ -175,6 +191,8 @@ def sb_swedish(word):
     'suspension'
     >>> sb_swedish('visshet')
     'viss'
+
+    .. versionadded:: 0.1.0
 
     """
     return SnowballSwedish().stem(word)

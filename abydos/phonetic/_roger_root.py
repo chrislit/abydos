@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['RogerRoot', 'roger_root']
 
@@ -42,6 +45,8 @@ class RogerRoot(_Phonetic):
     """Roger Root code.
 
     This is Roger Root name coding, described in :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     # '*' is used to prevent combining by _delete_consecutive_repeats()
@@ -138,18 +143,68 @@ class RogerRoot(_Phonetic):
         },
     }
 
-    def encode(self, word, max_length=5, zero_pad=True):
+    _alphabetic_initial = dict(zip((ord(_) for _ in '012345'), ' AHJWY'))
+    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
+
+    def __init__(self, max_length=5, zero_pad=True):
+        """Initialize RogerRoot instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The maximum length (default 5) of the code to return
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Roger Root code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Roger Root code
+
+        Examples
+        --------
+        >>> pe = RogerRoot()
+        >>> pe.encode_alpha('Christopher')
+        'JRST'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SMT'
+        >>> pe.encode_alpha('Schmidt')
+        'JMT'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1].translate(self._alphabetic_initial).strip() + code[
+            1:
+        ].translate(self._alphabetic)
+
+    def encode(self, word):
         """Return the Roger Root code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length (default 5) of the code to return
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -158,14 +213,20 @@ class RogerRoot(_Phonetic):
 
         Examples
         --------
-        >>> roger_root('Christopher')
+        >>> pe = RogerRoot()
+        >>> pe.encode('Christopher')
         '06401'
-        >>> roger_root('Niall')
+        >>> pe.encode('Niall')
         '02500'
-        >>> roger_root('Smith')
+        >>> pe.encode('Smith')
         '00310'
-        >>> roger_root('Schmidt')
+        >>> pe.encode('Schmidt')
         '06310'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -194,12 +255,18 @@ class RogerRoot(_Phonetic):
         code = self._delete_consecutive_repeats(code)
         code = code.replace('*', '')
 
-        if zero_pad:
-            code += '0' * max_length
+        if self._zero_pad:
+            code += '0' * self._max_length
 
-        return code[:max_length]
+        return code[: self._max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the RogerRoot.encode method instead.',
+)
 def roger_root(word, max_length=5, zero_pad=True):
     """Return the Roger Root code for a word.
 
@@ -230,8 +297,10 @@ def roger_root(word, max_length=5, zero_pad=True):
     >>> roger_root('Schmidt')
     '06310'
 
+    .. versionadded:: 0.3.0
+
     """
-    return RogerRoot().encode(word, max_length, zero_pad)
+    return RogerRoot(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

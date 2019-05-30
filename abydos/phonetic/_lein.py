@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 """abydos.phonetic._lein.
 
-Lein
+Michigan LEIN (Law Enforcement Information Network) encoding
 """
 
 from __future__ import (
@@ -30,17 +30,23 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
-__all__ = ['Lein', 'lein']
+__all__ = ['LEIN', 'lein']
 
 
-class Lein(_Phonetic):
-    """Lein code.
+class LEIN(_Phonetic):
+    """LEIN code.
 
-    This is Lein name coding, described in :cite:`Moore:1977`.
+    This is Michigan LEIN (Law Enforcement Information Network) name coding,
+    described in :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -49,27 +55,74 @@ class Lein(_Phonetic):
 
     _del_trans = {num: None for num in (32, 65, 69, 72, 73, 79, 85, 87, 89)}
 
-    def encode(self, word, max_length=4, zero_pad=True):
-        """Return the Lein code for a word.
+    _alphabetic = dict(zip((ord(_) for _ in '12345'), 'TNLPK'))
+
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize LEIN instance.
 
         Parameters
         ----------
-        word : str
-            The word to transform
         max_length : int
             The length of the code returned (defaults to 4)
         zero_pad : bool
             Pad the end of the return value with 0s to achieve a max_length
             string
 
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+        self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic LEIN code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
         Returns
         -------
         str
-            The Lein code
+            The alphabetic LEIN code
 
         Examples
         --------
-        >>> pe = Lein()
+        >>> pe = LEIN()
+        >>> pe.encode_alpha('Christopher')
+        'CLKT'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SKNT'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
+
+    def encode(self, word):
+        """Return the LEIN code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The LEIN code
+
+        Examples
+        --------
+        >>> pe = LEIN()
         >>> pe.encode('Christopher')
         'C351'
         >>> pe.encode('Niall')
@@ -78,6 +131,11 @@ class Lein(_Phonetic):
         'S210'
         >>> pe.encode('Schmidt')
         'S521'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -90,16 +148,22 @@ class Lein(_Phonetic):
         word = self._delete_consecutive_repeats(word)  # Rule 3
         code += word.translate(self._trans)  # Rule 4
 
-        if zero_pad:
-            code += '0' * max_length  # Rule 4
+        if self._zero_pad:
+            code += '0' * self._max_length  # Rule 4
 
-        return code[:max_length]
+        return code[: self._max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the LEIN.encode method instead.',
+)
 def lein(word, max_length=4, zero_pad=True):
-    """Return the Lein code for a word.
+    """Return the LEIN code for a word.
 
-    This is a wrapper for :py:meth:`Lein.encode`.
+    This is a wrapper for :py:meth:`LEIN.encode`.
 
     Parameters
     ----------
@@ -113,7 +177,7 @@ def lein(word, max_length=4, zero_pad=True):
     Returns
     -------
     str
-        The Lein code
+        The LEIN code
 
     Examples
     --------
@@ -126,8 +190,10 @@ def lein(word, max_length=4, zero_pad=True):
     >>> lein('Schmidt')
     'S521'
 
+    .. versionadded:: 0.3.0
+
     """
-    return Lein().encode(word, max_length, zero_pad)
+    return LEIN(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

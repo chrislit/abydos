@@ -28,18 +28,45 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['LCSstr', 'dist_lcsstr', 'lcsstr', 'sim_lcsstr']
 
 
 class LCSstr(_Distance):
-    """Longest common substring."""
+    """Longest common substring.
+
+    .. versionadded:: 0.3.6
+    """
+
+    def __init__(self, normalizer=max, **kwargs):
+        r"""Initialize LCSseq.
+
+        Parameters
+        ----------
+        normalizer : function
+            A normalization function for the normalized similarity & distance.
+            By default, the max of the lengths of the input strings. If
+            lambda x: sum(x)/2.0 is supplied, the normalization proposed in
+            :cite:`Radev:2001` is used, i.e.
+            :math:`\frac{2 \dot |LCS(src, tar)|}{|src| + |tar|}`.
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(LCSstr, self).__init__(**kwargs)
+        self._normalizer = normalizer
 
     def lcsstr(self, src, tar):
         """Return the longest common substring of two strings.
@@ -80,6 +107,11 @@ class LCSstr(_Distance):
         >>> sstr.lcsstr('ATCG', 'TAGC')
         'A'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         lengths = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         longest, i_longest = 0, 0
@@ -116,23 +148,39 @@ class LCSstr(_Distance):
 
         Examples
         --------
-        >>> sim_lcsstr('cat', 'hat')
+        >>> sstr = LCSstr()
+        >>> sstr.sim('cat', 'hat')
         0.6666666666666666
-        >>> sim_lcsstr('Niall', 'Neil')
+        >>> sstr.sim('Niall', 'Neil')
         0.2
-        >>> sim_lcsstr('aluminum', 'Catalan')
+        >>> sstr.sim('aluminum', 'Catalan')
         0.25
-        >>> sim_lcsstr('ATCG', 'TAGC')
+        >>> sstr.sim('ATCG', 'TAGC')
         0.25
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+        .. versionchanged:: 0.4.0
+            Added normalization option
 
         """
         if src == tar:
             return 1.0
         elif not src or not tar:
             return 0.0
-        return len(self.lcsstr(src, tar)) / max(len(src), len(tar))
+        return len(self.lcsstr(src, tar)) / self._normalizer(
+            [len(src), len(tar)]
+        )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the LCSstr.lcsstr method instead.',
+)
 def lcsstr(src, tar):
     """Return the longest common substring of two strings.
 
@@ -161,10 +209,18 @@ def lcsstr(src, tar):
     >>> lcsstr('ATCG', 'TAGC')
     'A'
 
+    .. versionadded:: 0.1.0
+
     """
     return LCSstr().lcsstr(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the LCSstr.sim method instead.',
+)
 def sim_lcsstr(src, tar):
     """Return the longest common substring similarity of two strings.
 
@@ -193,10 +249,18 @@ def sim_lcsstr(src, tar):
     >>> sim_lcsstr('ATCG', 'TAGC')
     0.25
 
+    .. versionadded:: 0.1.0
+
     """
     return LCSstr().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the LCSstr.dist method instead.',
+)
 def dist_lcsstr(src, tar):
     """Return the longest common substring distance between two strings.
 
@@ -224,6 +288,8 @@ def dist_lcsstr(src, tar):
     0.75
     >>> dist_lcsstr('ATCG', 'TAGC')
     0.75
+
+    .. versionadded:: 0.1.0
 
     """
     return LCSstr().dist(src, tar)

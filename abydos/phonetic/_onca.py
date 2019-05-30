@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._nysiis import NYSIIS
 from ._phonetic import _Phonetic
 from ._soundex import Soundex
+from .. import __version__
 
 __all__ = ['ONCA', 'onca']
 
@@ -44,23 +47,66 @@ class ONCA(_Phonetic):
     method" identified as the first step in this algorithm, so this is likely
     not a precisely correct implementation, in that it employs the standard
     NYSIIS algorithm.
+
+    .. versionadded:: 0.3.6
     """
 
-    _nysiis = NYSIIS()
-    _soundex = Soundex()
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize ONCA instance.
 
-    def encode(self, word, max_length=4, zero_pad=True):
+        Parameters
+        ----------
+        max_length : int
+            The maximum length (default 5) of the code to return
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._nysiis = NYSIIS(max_length=max_length * 3)
+        self._soundex = Soundex(max_length=max_length, zero_pad=zero_pad)
+
+    def encode_alpha(self, word):
+        """Return the alphabetic ONCA code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic ONCA code
+
+        Examples
+        --------
+        >>> pe = ONCA()
+        >>> pe.encode_alpha('Christopher')
+        'CRKT'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SNT'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self._soundex.encode_alpha(self._nysiis.encode_alpha(word))
+
+    def encode(self, word):
         """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length (default 5) of the code to return
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -79,17 +125,24 @@ class ONCA(_Phonetic):
         >>> pe.encode('Schmidt')
         'S530'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # In the most extreme case, 3 characters of NYSIIS input can be
         # compressed to one character of output, so give it triple the
         # max_length.
-        return self._soundex.encode(
-            self._nysiis.encode(word, max_length=max_length * 3),
-            max_length,
-            zero_pad=zero_pad,
-        )
+        return self._soundex.encode(self._nysiis.encode(word))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the ONCA.encode method instead.',
+)
 def onca(word, max_length=4, zero_pad=True):
     """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
@@ -120,8 +173,10 @@ def onca(word, max_length=4, zero_pad=True):
     >>> onca('Schmidt')
     'S530'
 
+    .. versionadded:: 0.3.0
+
     """
-    return ONCA().encode(word, max_length, zero_pad)
+    return ONCA(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

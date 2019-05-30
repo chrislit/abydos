@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Phonem', 'phonem']
 
@@ -48,6 +51,8 @@ class Phonem(_Phonetic):
     :cite:`dcm4che:2011`.
 
     Phonem is intended chiefly for German names/words.
+
+    .. versionadded:: 0.3.6
     """
 
     _substitutions = (
@@ -104,6 +109,11 @@ class Phonem(_Phonetic):
         >>> pe.encode('Schmidt')
         'CMYD'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = unicode_normalize('NFC', text_type(word.upper()))
         for i, j in self._substitutions:
@@ -117,6 +127,12 @@ class Phonem(_Phonetic):
         )
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Phonem.encode method instead.',
+)
 def phonem(word):
     """Return the Phonem code for a word.
 
@@ -142,6 +158,8 @@ def phonem(word):
     'SMYD'
     >>> phonem('Schmidt')
     'CMYD'
+
+    .. versionadded:: 0.1.0
 
     """
     return Phonem().encode(word)

@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._fingerprint import _Fingerprint
+from .. import __version__
 
 __all__ = ['OmissionKey', 'omission_key']
 
@@ -41,6 +44,8 @@ class OmissionKey(_Fingerprint):
     """Omission Key.
 
     The omission key of a word is defined in :cite:`Pollock:1984`.
+
+    .. versionadded:: 0.3.6
     """
 
     _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
@@ -69,6 +74,11 @@ class OmissionKey(_Fingerprint):
         >>> ok.fingerprint('Niall')
         'LNIA'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = ''.join(c for c in word if c in self._letters)
@@ -88,6 +98,12 @@ class OmissionKey(_Fingerprint):
         return key
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the OmissionKey.fingerprint method instead.',
+)
 def omission_key(word):
     """Return the omission key.
 
@@ -111,6 +127,8 @@ def omission_key(word):
     'PHCTSRIOE'
     >>> omission_key('Niall')
     'LNIA'
+
+    .. versionadded:: 0.1.0
 
     """
     return OmissionKey().fingerprint(word)

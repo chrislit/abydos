@@ -28,15 +28,21 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Suffix', 'dist_suffix', 'sim_suffix']
 
 
 class Suffix(_Distance):
-    """Suffix similarity and distance."""
+    """Suffix similarity and distance.
+
+    .. versionadded:: 0.3.6
+    """
 
     def sim(self, src, tar):
         """Return the suffix similarity of two strings.
@@ -69,6 +75,11 @@ class Suffix(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 1.0
@@ -82,6 +93,12 @@ class Suffix(_Distance):
         return 0.0
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Suffix.sim method instead.',
+)
 def sim_suffix(src, tar):
     """Return the suffix similarity of two strings.
 
@@ -110,10 +127,18 @@ def sim_suffix(src, tar):
     >>> sim_suffix('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Suffix().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Suffix.dist method instead.',
+)
 def dist_suffix(src, tar):
     """Return the suffix distance between two strings.
 
@@ -141,6 +166,8 @@ def dist_suffix(src, tar):
     1.0
     >>> dist_suffix('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Suffix().dist(src, tar)

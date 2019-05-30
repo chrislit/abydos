@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['AlphaSIS', 'alpha_sis']
 
@@ -43,6 +46,8 @@ class AlphaSIS(_Phonetic):
 
     The Alpha Search Inquiry System code is defined in :cite:`IBM:1973`.
     This implementation is based on the description in :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     _alpha_sis_initials = {
@@ -154,7 +159,68 @@ class AlphaSIS(_Phonetic):
         'P',
     )
 
-    def encode(self, word, max_length=14):
+    _alphabetic_initials = dict(zip((ord(_) for _ in '012345'), ' AHJWY'))
+    _alphabetic_non_initials = dict(
+        zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP')
+    )
+
+    def __init__(self, max_length=14):
+        """Initialize AlphaSIS instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 14)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Alpha-SIS code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic Alpha-SIS value
+
+        Examples
+        --------
+        >>> pe = AlphaSIS()
+        >>> pe.encode_alpha('Christopher')
+        ('JRSTFR', 'KSRSTFR', 'RSTFR')
+        >>> pe.encode_alpha('Niall')
+        ('NL',)
+        >>> pe.encode_alpha('Smith')
+        ('MT',)
+        >>> pe.encode_alpha('Schmidt')
+        ('JMT',)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        codes = self.encode(word)
+        alphas = [
+            code[0].translate(self._alphabetic_initials).strip()
+            + code[1:].translate(self._alphabetic_non_initials).rstrip('S')
+            for code in codes
+        ]
+
+        return tuple(alphas)
+
+    def encode(self, word):
         """Return the IBM Alpha Search Inquiry System code for a word.
 
         A collection is necessary as the return type since there can be
@@ -165,8 +231,6 @@ class AlphaSIS(_Phonetic):
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 14)
 
         Returns
         -------
@@ -185,18 +249,17 @@ class AlphaSIS(_Phonetic):
         >>> pe.encode('Schmidt')
         ('06310000000000',)
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         alpha = ['']
         pos = 0
         word = unicode_normalize('NFKD', text_type(word.upper()))
         word = word.replace('ß', 'SS')
         word = ''.join(c for c in word if c in self._uc_set)
-
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
 
         # Do special processing for initial substrings
         for k in self._alpha_sis_initials_order:
@@ -240,10 +303,18 @@ class AlphaSIS(_Phonetic):
         alpha = (_.replace('_', '') for _ in alpha)
 
         # Trim codes and return tuple
-        alpha = ((_ + ('0' * max_length))[:max_length] for _ in alpha)
+        alpha = (
+            (_ + ('0' * self._max_length))[: self._max_length] for _ in alpha
+        )
         return tuple(alpha)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the AlphaSIS.encode method instead.',
+)
 def alpha_sis(word, max_length=14):
     """Return the IBM Alpha Search Inquiry System code for a word.
 
@@ -272,8 +343,10 @@ def alpha_sis(word, max_length=14):
     >>> alpha_sis('Schmidt')
     ('06310000000000',)
 
+    .. versionadded:: 0.1.0
+
     """
-    return AlphaSIS().encode(word, max_length)
+    return AlphaSIS(max_length).encode(word)
 
 
 if __name__ == '__main__':

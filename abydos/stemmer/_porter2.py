@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._snowball import _Snowball
+from .. import __version__
 
 __all__ = ['Porter2', 'porter2']
 
@@ -42,6 +45,8 @@ class Porter2(_Snowball):
     """Porter2 (Snowball English) stemmer.
 
     The Porter2 (Snowball English) stemmer is defined in :cite:`Porter:2002`.
+
+    .. versionadded:: 0.3.6
     """
 
     _doubles = {'bb', 'dd', 'ff', 'gg', 'mm', 'nn', 'pp', 'rr', 'tt'}
@@ -84,16 +89,28 @@ class Porter2(_Snowball):
         'succeed',
     }
 
-    def stem(self, word, early_english=False):
+    def __init__(self, early_english=False):
+        """Initialize Porter2 instance.
+
+        Parameters
+        ----------
+        early_english : bool
+            Set to True in order to remove -eth & -est (2nd & 3rd person
+            singular verbal agreement suffixes)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._early_english = early_english
+
+    def stem(self, word):
         """Return the Porter2 (Snowball English) stem.
 
         Parameters
         ----------
         word : str
             The word to stem
-        early_english : bool
-            Set to True in order to remove -eth & -est (2nd & 3rd person
-            singular verbal agreement suffixes)
 
         Returns
         -------
@@ -110,16 +127,22 @@ class Porter2(_Snowball):
         >>> stmr.stem('elusiveness')
         'elus'
 
-        >>> stmr.stem('eateth', early_english=True)
+        >>> stmr = Porter2(early_english=True)
+        >>> stmr.stem('eateth')
         'eat'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         # lowercase, normalize, and compose
         word = normalize('NFC', text_type(word.lower()))
         # replace apostrophe-like characters with U+0027, per
         # http://snowball.tartarus.org/texts/apostrophe.html
-        word = word.replace('’', '\'')
-        word = word.replace('’', '\'')
+        word = word.replace('’', "'")
+        word = word.replace('’', "'")
 
         # Exceptions 1
         if word in self._exception1dict:
@@ -132,7 +155,7 @@ class Porter2(_Snowball):
             return word
 
         # Remove initial ', if present.
-        while word and word[0] == '\'':
+        while word and word[0] == "'":
             word = word[1:]
             # Return word if stem is shorter than 2
             if len(word) < 2:
@@ -149,11 +172,11 @@ class Porter2(_Snowball):
         r2_start = self._sb_r2(word, self._r1_prefixes)
 
         # Step 0
-        if word[-3:] == '\'s\'':
+        if word[-3:] == "'s'":
             word = word[:-3]
-        elif word[-2:] == '\'s':
+        elif word[-2:] == "'s":
             word = word[:-2]
-        elif word[-1:] == '\'':
+        elif word[-1:] == "'":
             word = word[:-1]
         # Return word if stem is shorter than 2
         if len(word) < 3:
@@ -201,7 +224,7 @@ class Porter2(_Snowball):
             if self._sb_has_vowel(word[:-2]):
                 word = word[:-2]
                 step1b_flag = True
-        elif early_english:
+        elif self._early_english:
             if word[-3:] == 'est':
                 if self._sb_has_vowel(word[:-3]):
                     word = word[:-3]
@@ -377,6 +400,12 @@ class Porter2(_Snowball):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Porter2.stem method instead.',
+)
 def porter2(word, early_english=False):
     """Return the Porter2 (Snowball English) stem.
 
@@ -407,8 +436,10 @@ def porter2(word, early_english=False):
     >>> porter2('eateth', early_english=True)
     'eat'
 
+    .. versionadded:: 0.1.0
+
     """
-    return Porter2().stem(word, early_english)
+    return Porter2(early_english).stem(word)
 
 
 if __name__ == '__main__':

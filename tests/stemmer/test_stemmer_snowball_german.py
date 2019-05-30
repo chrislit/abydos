@@ -43,6 +43,7 @@ class SnowballGermanTestCases(unittest.TestCase):
     """
 
     stmr = SnowballGerman()
+    stmr_av = SnowballGerman(alternate_vowels=True)
 
     def test_snowball_german(self):
         """Test abydos.stemmer.SnowballGerman (Snowball testset).
@@ -73,67 +74,47 @@ class SnowballGermanTestCases(unittest.TestCase):
     def test_sb_german_snowball_alt(self):
         """Test abydos.stemmer.SnowballGerman (alternate vowels)."""
         # base case
-        self.assertEqual(self.stmr.stem('', alternate_vowels=True), '')
+        self.assertEqual(self.stmr_av.stem(''), '')
 
         # dämmerung,dammer
-        self.assertEqual(
-            self.stmr.stem('dämmerung', alternate_vowels=True), 'dammer'
-        )
-        self.assertEqual(
-            self.stmr.stem('daemmerung', alternate_vowels=True), 'dammer'
-        )
+        self.assertEqual(self.stmr_av.stem('dämmerung'), 'dammer')
+        self.assertEqual(self.stmr_av.stem('daemmerung'), 'dammer')
         self.assertEqual(self.stmr.stem('dämmerung'), 'dammer')
         self.assertEqual(self.stmr.stem('daemmerung'), 'daemmer')
 
         # brötchen,brotch
-        self.assertEqual(
-            self.stmr.stem('brötchen', alternate_vowels=True), 'brotch'
-        )
-        self.assertEqual(
-            self.stmr.stem('broetchen', alternate_vowels=True), 'brotch'
-        )
+        self.assertEqual(self.stmr_av.stem('brötchen'), 'brotch')
+        self.assertEqual(self.stmr_av.stem('broetchen'), 'brotch')
         self.assertEqual(self.stmr.stem('brötchen'), 'brotch')
         self.assertEqual(self.stmr.stem('broetchen'), 'broetch')
 
         # büro,buro
-        self.assertEqual(self.stmr.stem('büro', alternate_vowels=True), 'buro')
-        self.assertEqual(
-            self.stmr.stem('buero', alternate_vowels=True), 'buro'
-        )
+        self.assertEqual(self.stmr_av.stem('büro'), 'buro')
+        self.assertEqual(self.stmr_av.stem('buero'), 'buro')
         self.assertEqual(self.stmr.stem('büro'), 'buro')
         self.assertEqual(self.stmr.stem('buero'), 'buero')
 
         # häufen,hauf
-        self.assertEqual(
-            self.stmr.stem('häufen', alternate_vowels=True), 'hauf'
-        )
-        self.assertEqual(
-            self.stmr.stem('haeufen', alternate_vowels=True), 'hauf'
-        )
+        self.assertEqual(self.stmr_av.stem('häufen'), 'hauf')
+        self.assertEqual(self.stmr_av.stem('haeufen'), 'hauf')
         self.assertEqual(self.stmr.stem('häufen'), 'hauf')
         self.assertEqual(self.stmr.stem('haeufen'), 'haeuf')
 
         # quelle,quell
-        self.assertEqual(
-            self.stmr.stem('qülle', alternate_vowels=True), 'qull'
-        )
-        self.assertEqual(
-            self.stmr.stem('quelle', alternate_vowels=True), 'quell'
-        )
+        self.assertEqual(self.stmr_av.stem('qülle'), 'qull')
+        self.assertEqual(self.stmr_av.stem('quelle'), 'quell')
         self.assertEqual(self.stmr.stem('qülle'), 'qull')
         self.assertEqual(self.stmr.stem('quelle'), 'quell')
 
         # feuer,feuer
-        self.assertEqual(self.stmr.stem('feür', alternate_vowels=True), 'feur')
-        self.assertEqual(self.stmr.stem('feuer', alternate_vowels=True), 'feu')
+        self.assertEqual(self.stmr_av.stem('feür'), 'feur')
+        self.assertEqual(self.stmr_av.stem('feuer'), 'feu')
         self.assertEqual(self.stmr.stem('feür'), 'feur')
         self.assertEqual(self.stmr.stem('feuer'), 'feu')
 
         # über,uber
-        self.assertEqual(self.stmr.stem('über', alternate_vowels=True), 'uber')
-        self.assertEqual(
-            self.stmr.stem('ueber', alternate_vowels=True), 'uber'
-        )
+        self.assertEqual(self.stmr_av.stem('über'), 'uber')
+        self.assertEqual(self.stmr_av.stem('ueber'), 'uber')
         self.assertEqual(self.stmr.stem('über'), 'uber')
         self.assertEqual(self.stmr.stem('ueber'), 'ueb')
 

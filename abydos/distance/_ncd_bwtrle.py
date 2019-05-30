@@ -28,9 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._ncd_rle import NCDrle
-from ..compression import BWT
+from deprecation import deprecated
 
+from ._ncd_rle import NCDrle
+from .. import __version__
+from ..compression import BWT
 
 __all__ = ['NCDbwtrle', 'dist_ncd_bwtrle', 'sim_ncd_bwtrle']
 
@@ -41,6 +43,8 @@ class NCDbwtrle(NCDrle):
     Cf. https://en.wikipedia.org/wiki/Burrows-Wheeler_transform
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _bwt = BWT()
@@ -72,6 +76,11 @@ class NCDbwtrle(NCDrle):
         >>> cmp.dist('ATCG', 'TAGC')
         0.8
 
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -87,6 +96,12 @@ class NCDbwtrle(NCDrle):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDbwtrle.dist method instead.',
+)
 def dist_ncd_bwtrle(src, tar):
     """Return the NCD between two strings using BWT plus RLE.
 
@@ -114,6 +129,8 @@ def dist_ncd_bwtrle(src, tar):
     1.0
     >>> dist_ncd_bwtrle('ATCG', 'TAGC')
     0.8
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDbwtrle().dist(src, tar)
@@ -146,6 +163,8 @@ def sim_ncd_bwtrle(src, tar):
     0.0
     >>> sim_ncd_bwtrle('ATCG', 'TAGC')
     0.19999999999999996
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDbwtrle().sim(src, tar)

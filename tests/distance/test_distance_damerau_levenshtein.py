@@ -45,30 +45,26 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
     """
 
     cmp = DamerauLevenshtein()
+    cmp571010 = DamerauLevenshtein(cost=(5, 7, 10, 10))
+    cmp1010510 = DamerauLevenshtein(cost=(10, 10, 5, 10))
+    cmp55105 = DamerauLevenshtein(cost=(5, 5, 10, 5))
+    cmp1010105 = DamerauLevenshtein(cost=(10, 10, 10, 5))
 
     def test_damerau_levenshtein_dist_abs(self):
         """Test abydos.distance.DamerauLevenshtein.dist_abs."""
         self.assertEqual(self.cmp.dist_abs('', ''), 0)
         self.assertEqual(self.cmp.dist_abs('CA', 'CA'), 0)
         self.assertEqual(self.cmp.dist_abs('CA', 'ABC'), 2)
-        self.assertEqual(self.cmp.dist_abs('', 'b', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(self.cmp.dist_abs('a', 'ab', cost=(5, 7, 10, 10)), 5)
-        self.assertEqual(self.cmp.dist_abs('b', '', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(self.cmp.dist_abs('ab', 'a', cost=(5, 7, 10, 10)), 7)
-        self.assertEqual(self.cmp.dist_abs('a', 'b', cost=(10, 10, 5, 10)), 5)
-        self.assertEqual(
-            self.cmp.dist_abs('ac', 'bc', cost=(10, 10, 5, 10)), 5
-        )
-        self.assertEqual(self.cmp.dist_abs('ab', 'ba', cost=(5, 5, 10, 5)), 5)
-        self.assertEqual(
-            self.cmp.dist_abs('abc', 'bac', cost=(5, 5, 10, 5)), 5
-        )
-        self.assertEqual(
-            self.cmp.dist_abs('cab', 'cba', cost=(5, 5, 10, 5)), 5
-        )
-        self.assertRaises(
-            ValueError, self.cmp.dist_abs, 'ab', 'ba', cost=(10, 10, 10, 5)
-        )
+        self.assertEqual(self.cmp571010.dist_abs('', 'b'), 5)
+        self.assertEqual(self.cmp571010.dist_abs('a', 'ab'), 5)
+        self.assertEqual(self.cmp571010.dist_abs('b', ''), 7)
+        self.assertEqual(self.cmp571010.dist_abs('ab', 'a'), 7)
+        self.assertEqual(self.cmp1010510.dist_abs('a', 'b'), 5)
+        self.assertEqual(self.cmp1010510.dist_abs('ac', 'bc'), 5)
+        self.assertEqual(self.cmp55105.dist_abs('ab', 'ba'), 5)
+        self.assertEqual(self.cmp55105.dist_abs('abc', 'bac'), 5)
+        self.assertEqual(self.cmp55105.dist_abs('cab', 'cba'), 5)
+        self.assertRaises(ValueError, self.cmp1010105.dist_abs, 'ab', 'ba')
 
         # Test wrapper
         self.assertEqual(damerau_levenshtein('CA', 'ABC'), 2)
@@ -88,32 +84,16 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('abbc', 'abc'), 1 / 4)
 
         self.assertAlmostEqual(self.cmp.dist('CA', 'ABC'), 2 / 3)
-        self.assertAlmostEqual(self.cmp.dist('', 'b', cost=(5, 7, 10, 10)), 1)
-        self.assertAlmostEqual(
-            self.cmp.dist('a', 'ab', cost=(5, 7, 10, 10)), 1 / 2
-        )
-        self.assertAlmostEqual(self.cmp.dist('b', '', cost=(5, 7, 10, 10)), 1)
-        self.assertAlmostEqual(
-            self.cmp.dist('ab', 'a', cost=(5, 7, 10, 10)), 1 / 2
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('a', 'b', cost=(10, 10, 5, 10)), 1 / 2
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('ac', 'bc', cost=(10, 10, 5, 10)), 1 / 4
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('ab', 'ba', cost=(5, 5, 10, 5)), 1 / 2
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('abc', 'bac', cost=(5, 5, 10, 5)), 1 / 3
-        )
-        self.assertAlmostEqual(
-            self.cmp.dist('cab', 'cba', cost=(5, 5, 10, 5)), 1 / 3
-        )
-        self.assertRaises(
-            ValueError, self.cmp.dist, 'ab', 'ba', cost=(10, 10, 10, 5)
-        )
+        self.assertAlmostEqual(self.cmp571010.dist('', 'b'), 1)
+        self.assertAlmostEqual(self.cmp571010.dist('a', 'ab'), 1 / 2)
+        self.assertAlmostEqual(self.cmp571010.dist('b', ''), 1)
+        self.assertAlmostEqual(self.cmp571010.dist('ab', 'a'), 1 / 2)
+        self.assertAlmostEqual(self.cmp1010510.dist('a', 'b'), 1 / 2)
+        self.assertAlmostEqual(self.cmp1010510.dist('ac', 'bc'), 1 / 4)
+        self.assertAlmostEqual(self.cmp55105.dist('ab', 'ba'), 1 / 2)
+        self.assertAlmostEqual(self.cmp55105.dist('abc', 'bac'), 1 / 3)
+        self.assertAlmostEqual(self.cmp55105.dist('cab', 'cba'), 1 / 3)
+        self.assertRaises(ValueError, self.cmp1010105.dist, 'ab', 'ba')
 
         # Test wrapper
         self.assertAlmostEqual(dist_damerau('abbc', 'abc'), 1 / 4)
@@ -133,32 +113,16 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('abbc', 'abc'), 3 / 4)
 
         self.assertAlmostEqual(self.cmp.sim('CA', 'ABC'), 1 / 3)
-        self.assertAlmostEqual(self.cmp.sim('', 'b', cost=(5, 7, 10, 10)), 0)
-        self.assertAlmostEqual(
-            self.cmp.sim('a', 'ab', cost=(5, 7, 10, 10)), 1 / 2
-        )
-        self.assertAlmostEqual(self.cmp.sim('b', '', cost=(5, 7, 10, 10)), 0)
-        self.assertAlmostEqual(
-            self.cmp.sim('ab', 'a', cost=(5, 7, 10, 10)), 1 / 2
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('a', 'b', cost=(10, 10, 5, 10)), 1 / 2
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('ac', 'bc', cost=(10, 10, 5, 10)), 3 / 4
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('ab', 'ba', cost=(5, 5, 10, 5)), 1 / 2
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('abc', 'bac', cost=(5, 5, 10, 5)), 2 / 3
-        )
-        self.assertAlmostEqual(
-            self.cmp.sim('cab', 'cba', cost=(5, 5, 10, 5)), 2 / 3
-        )
-        self.assertRaises(
-            ValueError, self.cmp.sim, 'ab', 'ba', cost=(10, 10, 10, 5)
-        )
+        self.assertAlmostEqual(self.cmp571010.sim('', 'b'), 0)
+        self.assertAlmostEqual(self.cmp571010.sim('a', 'ab'), 1 / 2)
+        self.assertAlmostEqual(self.cmp571010.sim('b', ''), 0)
+        self.assertAlmostEqual(self.cmp571010.sim('ab', 'a'), 1 / 2)
+        self.assertAlmostEqual(self.cmp1010510.sim('a', 'b'), 1 / 2)
+        self.assertAlmostEqual(self.cmp1010510.sim('ac', 'bc'), 3 / 4)
+        self.assertAlmostEqual(self.cmp55105.sim('ab', 'ba'), 1 / 2)
+        self.assertAlmostEqual(self.cmp55105.sim('abc', 'bac'), 2 / 3)
+        self.assertAlmostEqual(self.cmp55105.sim('cab', 'cba'), 2 / 3)
+        self.assertRaises(ValueError, self.cmp1010105.sim, 'ab', 'ba')
 
         # Test wrapper
         self.assertAlmostEqual(sim_damerau('abbc', 'abc'), 3 / 4)

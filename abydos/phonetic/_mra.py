@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['MRA', 'mra']
 
@@ -38,6 +41,8 @@ class MRA(_Phonetic):
 
     A description of the Western Airlines Surname Match Rating Algorithm can
     be found on page 18 of :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
     def encode(self, word):
@@ -65,6 +70,11 @@ class MRA(_Phonetic):
         >>> pe.encode('Schmidt')
         'SCHMDT'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if not word:
             return word
@@ -79,6 +89,12 @@ class MRA(_Phonetic):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the MRA.encode method instead.',
+)
 def mra(word):
     """Return the MRA personal numeric identifier (PNI) for a word.
 
@@ -104,6 +120,8 @@ def mra(word):
     'SMTH'
     >>> mra('Schmidt')
     'SCHMDT'
+
+    .. versionadded:: 0.1.0
 
     """
     return MRA().encode(word)

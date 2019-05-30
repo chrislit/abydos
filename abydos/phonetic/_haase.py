@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2018 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -31,10 +31,13 @@ from __future__ import (
 from itertools import product
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Haase', 'haase_phonetik']
 
@@ -45,11 +48,64 @@ class Haase(_Phonetic):
     Based on the algorithm described at :cite:`Prante:2015`.
 
     Based on the original :cite:`Haase:2000`.
+
+    .. versionadded:: 0.3.6
     """
 
     _uc_v_set = set('AEIJOUY')
 
-    def encode(self, word, primary_only=False):
+    _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PTFKLNRSA'))
+
+    def __init__(self, primary_only=False):
+        """Initialize Haase instance.
+
+        Parameters
+        ----------
+        primary_only : bool
+            If True, only the primary code is returned
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._primary_only = primary_only
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Haase Phonetik code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        tuple
+            The alphabetic Haase Phonetik value
+
+        Examples
+        --------
+        >>> pe = Haase()
+        >>> pe.encode_alpha('Joachim')
+        ('AKAN',)
+        >>> pe.encode_alpha('Christoph')
+        ('KRASTAF', 'SRASTAF')
+        >>> pe.encode_alpha('Jörg')
+        ('ARK',)
+        >>> pe.encode_alpha('Smith')
+        ('SNAT',)
+        >>> pe.encode_alpha('Schmidt')
+        ('SNAT', 'KNAT')
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return tuple(
+            code.translate(self._alphabetic) for code in self.encode(word)
+        )
+
+    def encode(self, word):
         """Return the Haase Phonetik (numeric output) code for a word.
 
         While the output code is numeric, it is nevertheless a str.
@@ -58,8 +114,6 @@ class Haase(_Phonetic):
         ----------
         word : str
             The word to transform
-        primary_only : bool
-            If True, only the primary code is returned
 
         Returns
         -------
@@ -80,6 +134,11 @@ class Haase(_Phonetic):
         >>> pe.encode('Schmidt')
         ('8692', '4692')
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
 
         def _after(word, pos, letters):
@@ -98,6 +157,8 @@ class Haase(_Phonetic):
             -------
             bool
                 True if word[pos] follows one of letters
+
+            .. versionadded:: 0.3.0
 
             """
             if pos > 0 and word[pos - 1] in letters:
@@ -121,6 +182,8 @@ class Haase(_Phonetic):
             bool
                 True if word[pos] precedes one of letters
 
+            .. versionadded:: 0.3.0
+
             """
             if pos + 1 < len(word) and word[pos + 1] in letters:
                 return True
@@ -135,7 +198,7 @@ class Haase(_Phonetic):
         word = ''.join(c for c in word if c in self._uc_set)
 
         variants = []
-        if primary_only:
+        if self._primary_only:
             variants = [word]
         else:
             pos = 0
@@ -245,8 +308,14 @@ class Haase(_Phonetic):
         return encoded
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Haase.encode method instead.',
+)
 def haase_phonetik(word, primary_only=False):
-    """Return the Haase Phonetik (numeric output) code for a word.
+    """Return the Haase Phonetik code for a word.
 
     This is a wrapper for :py:meth:`Haase.encode`.
 
@@ -275,8 +344,10 @@ def haase_phonetik(word, primary_only=False):
     >>> haase_phonetik('Schmidt')
     ('8692', '4692')
 
+    .. versionadded:: 0.3.0
+
     """
-    return Haase().encode(word, primary_only)
+    return Haase(primary_only).encode(word)
 
 
 if __name__ == '__main__':

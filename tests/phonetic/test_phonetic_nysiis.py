@@ -40,14 +40,17 @@ class NysiisTestCases(unittest.TestCase):
     """
 
     pa = NYSIIS()
+    pa_20 = NYSIIS(max_length=20)
+    pa_8mod = NYSIIS(max_length=8, modified=True)
+    pa_mod = NYSIIS(modified=True)
 
     def test_nysiis(self):
         """Test abydos.phonetic.NYSIIS."""
         self.assertEqual(self.pa.encode(''), '')
 
         # http://coryodaniel.com/index.php/2009/12/30/ruby-nysiis-implementation/
-        self.assertEqual(self.pa.encode('O\'Daniel'), 'ODANAL')
-        self.assertEqual(self.pa.encode('O\'Donnel'), 'ODANAL')
+        self.assertEqual(self.pa.encode("O'Daniel"), 'ODANAL')
+        self.assertEqual(self.pa.encode("O'Donnel"), 'ODANAL')
         self.assertEqual(self.pa.encode('Cory'), 'CARY')
         self.assertEqual(self.pa.encode('Corey'), 'CARY')
         self.assertEqual(self.pa.encode('Kory'), 'CARY')
@@ -61,9 +64,7 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Dugall'), 'DAGAL')
         self.assertEqual(self.pa.encode('Dugall'), 'DAGAL')
         self.assertEqual(self.pa.encode('Glinde'), 'GLAND')
-        self.assertEqual(
-            self.pa.encode('Plumridge', max_length=20), 'PLANRADG'
-        )
+        self.assertEqual(self.pa_20.encode('Plumridge'), 'PLANRADG')
         self.assertEqual(self.pa.encode('Chinnick'), 'CANAC')
         self.assertEqual(self.pa.encode('Chinnock'), 'CANAC')
         self.assertEqual(self.pa.encode('Chinnock'), 'CANAC')
@@ -79,8 +80,8 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Sunnex'), 'SANAX')
         self.assertEqual(self.pa.encode('Sunnucks'), 'SANAC')
         self.assertEqual(self.pa.encode('Sunock'), 'SANAC')
-        self.assertEqual(self.pa.encode('Webberley', max_length=20), 'WABARLY')
-        self.assertEqual(self.pa.encode('Wibberley', max_length=20), 'WABARLY')
+        self.assertEqual(self.pa_20.encode('Webberley'), 'WABARLY')
+        self.assertEqual(self.pa_20.encode('Wibberley'), 'WABARLY')
 
         # etc. (for code coverage)
         self.assertEqual(self.pa.encode('Alpharades'), 'ALFARA')
@@ -99,254 +100,111 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Iraq'), 'IRAG')
 
         # max_length bounds tests
-        self.assertEqual(self.pa.encode('Niall', max_length=-1), 'NAL')
-        self.assertEqual(self.pa.encode('Niall', max_length=0), 'NAL')
+        self.assertEqual(NYSIIS(max_length=-1).encode('Niall'), 'NAL')
+        self.assertEqual(NYSIIS(max_length=0).encode('Niall'), 'NAL')
 
         # Test wrapper
-        self.assertEqual(nysiis('O\'Daniel'), 'ODANAL')
+        self.assertEqual(nysiis("O'Daniel"), 'ODANAL')
 
     def test_modified_nysiis(self):
         """Test abydos.phonetic.NYSIIS (modified version)."""
-        self.assertEqual(self.pa.encode('', max_length=-1, modified=True), '')
+        self.assertEqual(NYSIIS(max_length=-1, modified=True).encode(''), '')
 
         # https://naldc.nal.usda.gov/download/27833/PDF
         # Some of these were... wrong... and have been corrected
-        self.assertEqual(
-            self.pa.encode('Daves', max_length=8, modified=True), 'DAV'
-        )
-        self.assertEqual(
-            self.pa.encode('Davies', max_length=8, modified=True), 'DAVY'
-        )
-        self.assertEqual(
-            self.pa.encode('Devies', max_length=8, modified=True), 'DAFY'
-        )
-        self.assertEqual(
-            self.pa.encode('Divish', max_length=8, modified=True), 'DAVAS'
-        )
-        self.assertEqual(
-            self.pa.encode('Dove', max_length=8, modified=True), 'DAV'
-        )
-        self.assertEqual(
-            self.pa.encode('Devese', max_length=8, modified=True), 'DAFAS'
-        )
-        self.assertEqual(
-            self.pa.encode('Devies', max_length=8, modified=True), 'DAFY'
-        )
-        self.assertEqual(
-            self.pa.encode('Devos', max_length=8, modified=True), 'DAF'
-        )
+        self.assertEqual(self.pa_8mod.encode('Daves'), 'DAV')
+        self.assertEqual(self.pa_8mod.encode('Davies'), 'DAVY')
+        self.assertEqual(self.pa_8mod.encode('Devies'), 'DAFY')
+        self.assertEqual(self.pa_8mod.encode('Divish'), 'DAVAS')
+        self.assertEqual(self.pa_8mod.encode('Dove'), 'DAV')
+        self.assertEqual(self.pa_8mod.encode('Devese'), 'DAFAS')
+        self.assertEqual(self.pa_8mod.encode('Devies'), 'DAFY')
+        self.assertEqual(self.pa_8mod.encode('Devos'), 'DAF')
 
-        self.assertEqual(
-            self.pa.encode('Schmit', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Schmitt', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Schmitz', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Schmoutz', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Schnitt', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Smit', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Smite', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Smits', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Smoot', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Smuts', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Sneath', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Smyth', max_length=8, modified=True), 'SNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Smithy', max_length=8, modified=True), 'SNATY'
-        )
-        self.assertEqual(
-            self.pa.encode('Smithey', max_length=8, modified=True), 'SNATY'
-        )
+        self.assertEqual(self.pa_8mod.encode('Schmit'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Schmitt'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Schmitz'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Schmoutz'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Schnitt'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Smit'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Smite'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Smits'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Smoot'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Smuts'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Sneath'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Smyth'), 'SNAT')
+        self.assertEqual(self.pa_8mod.encode('Smithy'), 'SNATY')
+        self.assertEqual(self.pa_8mod.encode('Smithey'), 'SNATY')
 
         # http://www.dropby.com/NYSIISTextStrings.html
         # Some of these have been altered since the above uses a different set
         # of modifications.
-        self.assertEqual(
-            self.pa.encode('Edwards', max_length=8, modified=True), 'EDWAD'
-        )
-        self.assertEqual(
-            self.pa.encode('Perez', max_length=8, modified=True), 'PAR'
-        )
-        self.assertEqual(
-            self.pa.encode('Macintosh', max_length=8, modified=True), 'MCANTAS'
-        )
-        self.assertEqual(
-            self.pa.encode('Phillipson', max_length=8, modified=True),
-            'FALAPSAN',
-        )
-        self.assertEqual(
-            self.pa.encode('Haddix', max_length=8, modified=True), 'HADAC'
-        )
-        self.assertEqual(
-            self.pa.encode('Essex', max_length=8, modified=True), 'ESAC'
-        )
-        self.assertEqual(
-            self.pa.encode('Moye', max_length=8, modified=True), 'MY'
-        )
-        self.assertEqual(
-            self.pa.encode('McKee', max_length=8, modified=True), 'MCY'
-        )
-        self.assertEqual(
-            self.pa.encode('Mackie', max_length=8, modified=True), 'MCY'
-        )
-        self.assertEqual(
-            self.pa.encode('Heitschmidt', max_length=8, modified=True),
-            'HATSNAD',
-        )
-        self.assertEqual(
-            self.pa.encode('Bart', max_length=8, modified=True), 'BAD'
-        )
-        self.assertEqual(
-            self.pa.encode('Hurd', max_length=8, modified=True), 'HAD'
-        )
-        self.assertEqual(
-            self.pa.encode('Hunt', max_length=8, modified=True), 'HAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Westerlund', max_length=8, modified=True),
-            'WASTARLA',
-        )
-        self.assertEqual(
-            self.pa.encode('Evers', max_length=8, modified=True), 'EVAR'
-        )
-        self.assertEqual(
-            self.pa.encode('Devito', max_length=8, modified=True), 'DAFAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Rawson', max_length=8, modified=True), 'RASAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Shoulders', max_length=8, modified=True), 'SALDAR'
-        )
-        self.assertEqual(
-            self.pa.encode('Leighton', max_length=8, modified=True), 'LATAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Wooldridge', max_length=8, modified=True),
-            'WALDRAG',
-        )
-        self.assertEqual(
-            self.pa.encode('Oliphant', max_length=8, modified=True), 'OLAFAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Hatchett', max_length=8, modified=True), 'HATCAT'
-        )
-        self.assertEqual(
-            self.pa.encode('McKnight', max_length=8, modified=True), 'MCNAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Rickert', max_length=8, modified=True), 'RACAD'
-        )
-        self.assertEqual(
-            self.pa.encode('Bowman', max_length=8, modified=True), 'BANAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Vasquez', max_length=8, modified=True), 'VASG'
-        )
-        self.assertEqual(
-            self.pa.encode('Bashaw', max_length=8, modified=True), 'BAS'
-        )
-        self.assertEqual(
-            self.pa.encode('Schoenhoeft', max_length=8, modified=True),
-            'SANAFT',
-        )
-        self.assertEqual(
-            self.pa.encode('Heywood', max_length=8, modified=True), 'HAD'
-        )
-        self.assertEqual(
-            self.pa.encode('Hayman', max_length=8, modified=True), 'HANAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Seawright', max_length=8, modified=True), 'SARAT'
-        )
-        self.assertEqual(
-            self.pa.encode('Kratzer', max_length=8, modified=True), 'CRATSAR'
-        )
-        self.assertEqual(
-            self.pa.encode('Canaday', max_length=8, modified=True), 'CANADY'
-        )
-        self.assertEqual(
-            self.pa.encode('Crepeau', max_length=8, modified=True), 'CRAP'
-        )
+        self.assertEqual(self.pa_8mod.encode('Edwards'), 'EDWAD')
+        self.assertEqual(self.pa_8mod.encode('Perez'), 'PAR')
+        self.assertEqual(self.pa_8mod.encode('Macintosh'), 'MCANTAS')
+        self.assertEqual(self.pa_8mod.encode('Phillipson'), 'FALAPSAN')
+        self.assertEqual(self.pa_8mod.encode('Haddix'), 'HADAC')
+        self.assertEqual(self.pa_8mod.encode('Essex'), 'ESAC')
+        self.assertEqual(self.pa_8mod.encode('Moye'), 'MY')
+        self.assertEqual(self.pa_8mod.encode('McKee'), 'MCY')
+        self.assertEqual(self.pa_8mod.encode('Mackie'), 'MCY')
+        self.assertEqual(self.pa_8mod.encode('Heitschmidt'), 'HATSNAD')
+        self.assertEqual(self.pa_8mod.encode('Bart'), 'BAD')
+        self.assertEqual(self.pa_8mod.encode('Hurd'), 'HAD')
+        self.assertEqual(self.pa_8mod.encode('Hunt'), 'HAN')
+        self.assertEqual(self.pa_8mod.encode('Westerlund'), 'WASTARLA')
+        self.assertEqual(self.pa_8mod.encode('Evers'), 'EVAR')
+        self.assertEqual(self.pa_8mod.encode('Devito'), 'DAFAT')
+        self.assertEqual(self.pa_8mod.encode('Rawson'), 'RASAN')
+        self.assertEqual(self.pa_8mod.encode('Shoulders'), 'SALDAR')
+        self.assertEqual(self.pa_8mod.encode('Leighton'), 'LATAN')
+        self.assertEqual(self.pa_8mod.encode('Wooldridge'), 'WALDRAG')
+        self.assertEqual(self.pa_8mod.encode('Oliphant'), 'OLAFAN')
+        self.assertEqual(self.pa_8mod.encode('Hatchett'), 'HATCAT')
+        self.assertEqual(self.pa_8mod.encode('McKnight'), 'MCNAT')
+        self.assertEqual(self.pa_8mod.encode('Rickert'), 'RACAD')
+        self.assertEqual(self.pa_8mod.encode('Bowman'), 'BANAN')
+        self.assertEqual(self.pa_8mod.encode('Vasquez'), 'VASG')
+        self.assertEqual(self.pa_8mod.encode('Bashaw'), 'BAS')
+        self.assertEqual(self.pa_8mod.encode('Schoenhoeft'), 'SANAFT')
+        self.assertEqual(self.pa_8mod.encode('Heywood'), 'HAD')
+        self.assertEqual(self.pa_8mod.encode('Hayman'), 'HANAN')
+        self.assertEqual(self.pa_8mod.encode('Seawright'), 'SARAT')
+        self.assertEqual(self.pa_8mod.encode('Kratzer'), 'CRATSAR')
+        self.assertEqual(self.pa_8mod.encode('Canaday'), 'CANADY')
+        self.assertEqual(self.pa_8mod.encode('Crepeau'), 'CRAP')
 
         # Additional tests from @Yomguithereal's talisman
         # https://github.com/Yomguithereal/talisman/blob/master/test/phonetics/nysiis.js
-        self.assertEqual(
-            self.pa.encode('Andrew', max_length=8, modified=True), 'ANDR'
-        )
-        self.assertEqual(
-            self.pa.encode('Robertson', max_length=8, modified=True),
-            'RABARTSA',
-        )
-        self.assertEqual(
-            self.pa.encode('Nolan', max_length=8, modified=True), 'NALAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Louis XVI', max_length=8, modified=True), 'LASXV'
-        )
-        self.assertEqual(
-            self.pa.encode('Case', max_length=8, modified=True), 'CAS'
-        )
-        self.assertEqual(
-            self.pa.encode('Mclaughlin', max_length=8, modified=True),
-            'MCLAGLAN',
-        )
-        self.assertEqual(
-            self.pa.encode('Awale', max_length=8, modified=True), 'AL'
-        )
-        self.assertEqual(
-            self.pa.encode('Aegir', max_length=8, modified=True), 'AGAR'
-        )
-        self.assertEqual(
-            self.pa.encode('Lundgren', max_length=8, modified=True), 'LANGRAN'
-        )
-        self.assertEqual(
-            self.pa.encode('Philbert', max_length=8, modified=True), 'FALBAD'
-        )
-        self.assertEqual(
-            self.pa.encode('Harry', max_length=8, modified=True), 'HARY'
-        )
-        self.assertEqual(
-            self.pa.encode('Mackenzie', max_length=8, modified=True), 'MCANSY'
-        )
+        self.assertEqual(self.pa_8mod.encode('Andrew'), 'ANDR')
+        self.assertEqual(self.pa_8mod.encode('Robertson'), 'RABARTSA')
+        self.assertEqual(self.pa_8mod.encode('Nolan'), 'NALAN')
+        self.assertEqual(self.pa_8mod.encode('Louis XVI'), 'LASXV')
+        self.assertEqual(self.pa_8mod.encode('Case'), 'CAS')
+        self.assertEqual(self.pa_8mod.encode('Mclaughlin'), 'MCLAGLAN')
+        self.assertEqual(self.pa_8mod.encode('Awale'), 'AL')
+        self.assertEqual(self.pa_8mod.encode('Aegir'), 'AGAR')
+        self.assertEqual(self.pa_8mod.encode('Lundgren'), 'LANGRAN')
+        self.assertEqual(self.pa_8mod.encode('Philbert'), 'FALBAD')
+        self.assertEqual(self.pa_8mod.encode('Harry'), 'HARY')
+        self.assertEqual(self.pa_8mod.encode('Mackenzie'), 'MCANSY')
 
         # max_length bounds tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1, modified=True), 'NAL'
+            NYSIIS(max_length=-1, modified=True).encode('Niall'), 'NAL'
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, modified=True), 'NAL'
+            NYSIIS(max_length=0, modified=True).encode('Niall'), 'NAL'
         )
 
         # coverage
-        self.assertEqual(self.pa.encode('Sam Jr.', modified=True), 'ERROR')
-        self.assertEqual(self.pa.encode('John Sr.', modified=True), 'ERROR')
-        self.assertEqual(self.pa.encode('Wright', modified=True), 'RAT')
-        self.assertEqual(self.pa.encode('Rhodes', modified=True), 'RAD')
-        self.assertEqual(self.pa.encode('Dgagoda', modified=True), 'GAGAD')
-        self.assertEqual(self.pa.encode('Bosch', modified=True), 'BAS')
-        self.assertEqual(self.pa.encode('Schrader', modified=True), 'SRADAR')
+        self.assertEqual(self.pa_mod.encode('Sam Jr.'), 'ERROR')
+        self.assertEqual(self.pa_mod.encode('John Sr.'), 'ERROR')
+        self.assertEqual(self.pa_mod.encode('Wright'), 'RAT')
+        self.assertEqual(self.pa_mod.encode('Rhodes'), 'RAD')
+        self.assertEqual(self.pa_mod.encode('Dgagoda'), 'GAGAD')
+        self.assertEqual(self.pa_mod.encode('Bosch'), 'BAS')
+        self.assertEqual(self.pa_mod.encode('Schrader'), 'SRADAR')
 
         # Test wrapper
         self.assertEqual(

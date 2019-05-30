@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from math import log10
+from math import log
 
 __all__ = ['Corpus']
 
@@ -41,6 +41,8 @@ class Corpus(object):
     of documents. Each document is an ordered list of sentences in those
     documents. And each sentence is an ordered list of words that make up that
     sentence.
+
+    .. versionadded:: 0.1.0
     """
 
     def __init__(
@@ -50,6 +52,7 @@ class Corpus(object):
         sent_split='\n',
         filter_chars='',
         stop_words=None,
+        word_tokenizer=None,
     ):
         r"""Initialize Corpus.
 
@@ -72,12 +75,18 @@ class Corpus(object):
         stop_words : list
             A list of words (as a tuple, set, or list) to filter out of the
             corpus text
+        word_tokenizer : _Tokenizer
+            A tokenizer to apply to each sentence in order to retrieve the
+            individual "word" tokens. If set to none, str.split() will be used.
 
         Example
         -------
         >>> tqbf = 'The quick brown fox jumped over the lazy dog.\n'
         >>> tqbf += 'And then it slept.\n And the dog ran off.'
         >>> corp = Corpus(tqbf)
+
+
+        .. versionadded:: 0.1.0
 
         """
         self.corpus = []
@@ -86,7 +95,12 @@ class Corpus(object):
 
         for document in corpus_text.split(doc_split):
             doc = []
-            for sentence in (s.split() for s in document.split(sent_split)):
+            for sentence in document.split(sent_split):
+                if word_tokenizer:
+                    sentence = word_tokenizer.tokenize(sentence).get_list()
+                else:
+                    sentence = sentence.split()
+
                 if stop_words:
                     for word in set(stop_words):
                         while word in sentence:
@@ -121,6 +135,9 @@ class Corpus(object):
         >>> len(corp.docs())
         1
 
+
+        .. versionadded:: 0.1.0
+
         """
         return self.corpus
 
@@ -148,6 +165,9 @@ class Corpus(object):
         'ran', 'off.']]]
         >>> len(corp.paras())
         1
+
+
+        .. versionadded:: 0.1.0
 
         """
         return self.docs()
@@ -197,6 +217,9 @@ class Corpus(object):
         >>> len(corp.words())
         18
 
+
+        .. versionadded:: 0.1.0
+
         """
         return [words for sents in self.sents() for words in sents]
 
@@ -222,6 +245,9 @@ class Corpus(object):
         'off.']]
         >>> len(corp.docs_of_words())
         1
+
+
+        .. versionadded:: 0.1.0
 
         """
         return [
@@ -250,6 +276,9 @@ class Corpus(object):
         And the dog ran off.
         >>> len(corp.raw())
         85
+
+
+        .. versionadded:: 0.1.0
 
         """
         doc_list = []
@@ -288,9 +317,12 @@ class Corpus(object):
         [['And', 'then', 'it', 'slept.']],
         [['And', 'the', 'dog', 'ran', 'off.']]]
         >>> round(corp.idf('dog'), 10)
-        0.4771212547
+        1.0986122887
         >>> round(corp.idf('the'), 10)
-        0.1760912591
+        0.4054651081
+
+
+        .. versionadded:: 0.1.0
 
         """
         docs_with_term = 0
@@ -309,7 +341,7 @@ class Corpus(object):
         if docs_with_term == 0:
             return float('inf')
 
-        return log10(len(docs) / docs_with_term)
+        return log(len(docs) / docs_with_term)
 
 
 if __name__ == '__main__':

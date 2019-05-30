@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,11 +28,46 @@ from __future__ import (
     unicode_literals,
 )
 
+__all__ = ['_Distance']
+
 
 class _Distance(object):
-    """Abstract Distance class."""
+    """Abstract Distance class.
 
-    def sim(self, src, tar, *args, **kwargs):
+    .. versionadded:: 0.3.6
+    """
+
+    def __init__(self, **kwargs):
+        """Initialize _Distance instance.
+
+        Parameters
+        ----------
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self.params = {}
+        self.set_params(**kwargs)
+
+    def set_params(self, **kwargs):
+        """Store params in the params dict.
+
+        Parameters
+        ----------
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+
+    def sim(self, src, tar):
         """Return similarity.
 
         Parameters
@@ -41,20 +76,19 @@ class _Distance(object):
             Source string for comparison
         tar : str
             Target string for comparison
-        *args
-            Variable length argument list.
-        **kwargs
-            Arbitrary keyword arguments.
 
         Returns
         -------
         float
             Similarity
 
-        """
-        return 1.0 - self.dist(src, tar, *args, **kwargs)
 
-    def dist(self, src, tar, *args, **kwargs):
+        .. versionadded:: 0.3.6
+
+        """
+        return 1.0 - self.dist(src, tar)
+
+    def dist(self, src, tar):
         """Return distance.
 
         Parameters
@@ -63,20 +97,19 @@ class _Distance(object):
             Source string for comparison
         tar : str
             Target string for comparison
-        *args
-            Variable length argument list.
-        **kwargs
-            Arbitrary keyword arguments.
 
         Returns
         -------
         float
             Distance
 
-        """
-        return 1.0 - self.sim(src, tar, *args, **kwargs)
 
-    def dist_abs(self, src, tar, *args, **kwargs):
+        .. versionadded:: 0.3.6
+
+        """
+        return 1.0 - self.sim(src, tar)
+
+    def dist_abs(self, src, tar):
         """Return absolute distance.
 
         Parameters
@@ -85,18 +118,17 @@ class _Distance(object):
             Source string for comparison
         tar : str
             Target string for comparison
-        *args
-            Variable length argument list.
-        **kwargs
-            Arbitrary keyword arguments.
 
         Returns
         -------
         int
             Absolute distance
 
+
+        .. versionadded:: 0.3.6
+
         """
-        return self.dist(src, tar, *args, **kwargs)
+        return self.dist(src, tar)
 
 
 if __name__ == '__main__':

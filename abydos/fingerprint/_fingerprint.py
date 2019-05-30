@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -28,6 +28,8 @@ from __future__ import (
     print_function,
     unicode_literals,
 )
+
+__all__ = ['_Fingerprint']
 
 # fmt: off
 # most common letters, as defined in Cisłak & Grabowski
@@ -71,7 +73,10 @@ MOST_COMMON_LETTERS_DE_LC = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
 
 
 class _Fingerprint(object):
-    """Abstract _Fingerprint class."""
+    """Abstract _Fingerprint class.
+
+    .. versionadded:: 0.3.6
+    """
 
     def fingerprint(self, word):
         """Fingerprint string.
@@ -80,6 +85,9 @@ class _Fingerprint(object):
         ----------
         word : str
             Word to fingerprint
+
+
+        .. versionadded:: 0.3.6
 
         """
         pass

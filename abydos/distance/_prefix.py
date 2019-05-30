@@ -28,15 +28,21 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Prefix', 'dist_prefix', 'sim_prefix']
 
 
 class Prefix(_Distance):
-    """Prefix similiarity and distance."""
+    """Prefix similiarity and distance.
+
+    .. versionadded:: 0.3.6
+    """
 
     def sim(self, src, tar):
         """Return the prefix similarity of two strings.
@@ -69,6 +75,11 @@ class Prefix(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 1.0
@@ -82,6 +93,12 @@ class Prefix(_Distance):
         return 0.0
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Prefix.sim method instead.',
+)
 def sim_prefix(src, tar):
     """Return the prefix similarity of two strings.
 
@@ -110,10 +127,18 @@ def sim_prefix(src, tar):
     >>> sim_prefix('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.1.0
+
     """
     return Prefix().sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Prefix.dist method instead.',
+)
 def dist_prefix(src, tar):
     """Return the prefix distance between two strings.
 
@@ -141,6 +166,8 @@ def dist_prefix(src, tar):
     1.0
     >>> dist_prefix('ATCG', 'TAGC')
     1.0
+
+    .. versionadded:: 0.1.0
 
     """
     return Prefix().dist(src, tar)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.corpus.test_ngram.
+"""abydos.tests.corpus.test_n_gram_corpus.
 
 This module contains unit tests for abydos.corpus._n_gram_corpus
 """
@@ -47,8 +47,8 @@ class NGramCorpusTestCases(unittest.TestCase):
     double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
     double_corpus.gng_importer(_corpus_file('simple-ngrams.txt'))
 
-    sotu2015Sample = 'Mr. Speaker, Mr. Vice President, Members of Congress, my\
-    fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
+    sotu2015_sample = "Mr. Speaker, Mr. Vice President, Members of Congress,\
+    my fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
     years that dawned with terror touching our shores; that unfolded with a\
     new generation fighting two long and costly wars; that saw a vicious\
     recession spread across our nation and the world.\n It has been, and still\
@@ -57,7 +57,7 @@ class NGramCorpusTestCases(unittest.TestCase):
     jobs at the fastest pace since 1999.\n Our unemployment rate is now lower\
     than it was before the financial crisis.\n More of our kids are graduating\
     than ever before.\n More of our people are insured than ever before.\n And\
-    we are as free from the grip of foreign oil as we\'ve been in almost 30\
+    we are as free from the grip of foreign oil as we've been in almost 30\
     years.\n\nTonight, for the first time since 9/11, our combat mission in\
     Afghanistan is over.\n Six years ago, nearly 180,000 American troops\
     served in Iraq and Afghanistan.\n Today, fewer than 15,000 remain.\n And\
@@ -69,7 +69,7 @@ class NGramCorpusTestCases(unittest.TestCase):
     Union is strong.\n\nAt this moment -- with a growing economy, shrinking\
     deficits, bustling industry, booming energy production -- we have risen\
     from recession freer to write our own future than any other nation on\
-    Earth.\n It\'s now up to us to choose who we want to be over the next 15\
+    Earth.\n It's now up to us to choose who we want to be over the next 15\
     years and for decades to come.\n\nWill we accept an economy where only a\
     few of us do spectacularly well?\n Or will we commit ourselves to an\
     economy that generates rising incomes and chances for everyone who makes\
@@ -80,19 +80,19 @@ class NGramCorpusTestCases(unittest.TestCase):
     be sorted into factions and turned against one another?\n Or will we\
     recapture the sense of common purpose that has always propelled America\
     forward?\n\nIn two weeks, I will send this Congress a budget filled with\
-    ideas that are practical, not partisan.\n And in the months ahead, I\'ll\
+    ideas that are practical, not partisan.\n And in the months ahead, I'll\
     crisscross the country making a case for those ideas.\n So tonight, I want\
     to focus less on a checklist of proposals, and focus more on the values at\
-    stake in the choices before us.'
-    sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
+    stake in the choices before us."
+    sotu2015_corpus = Corpus(sotu2015_sample, filter_chars='.?-;,:')
 
-    sotu_ngcorpus_uni = NGramCorpus(sotu2015Corpus)
+    sotu_ngcorpus_uni = NGramCorpus(sotu2015_corpus)
 
     sotu_ngcorpus_tri = NGramCorpus()
-    sotu_ngcorpus_tri.corpus_importer(sotu2015Corpus, 3, '<SOS>', '<EOS>')
+    sotu_ngcorpus_tri.corpus_importer(sotu2015_corpus, 3, '<SOS>', '<EOS>')
 
     sotu_ngcorpus_5 = NGramCorpus()
-    sotu_ngcorpus_5.corpus_importer(sotu2015Corpus, 5, '', '')
+    sotu_ngcorpus_5.corpus_importer(sotu2015_corpus, 5, '', '')
 
     simple_ngcorpus_5 = NGramCorpus()
     simple_ngcorpus_5.corpus_importer(
@@ -103,7 +103,7 @@ class NGramCorpusTestCases(unittest.TestCase):
         """Test abydos.corpus.NGramCorpus.__init__."""
         self.assertIsInstance(NGramCorpus(), NGramCorpus)
         self.assertRaises(TypeError, NGramCorpus, ['a', 'b', 'c'])
-        self.assertIsInstance(NGramCorpus(self.sotu2015Corpus), NGramCorpus)
+        self.assertIsInstance(NGramCorpus(self.sotu2015_corpus), NGramCorpus)
 
     def test_corpus_importer(self):
         """Test abydos.corpus.NGramCorpus.corpus_importer."""
@@ -208,19 +208,6 @@ class NGramCorpusTestCases(unittest.TestCase):
         self.assertEqual(self.simple_corpus.get_count(['the']), 20)
         self.assertEqual(self.simple_corpus.get_count(['the', 'quick']), 2)
         self.assertEqual(self.simple_corpus.get_count(['trolley']), 0)
-
-    def test_tf(self):
-        """Test abydos.corpus.NGramCorpus.tf."""
-        # zero case
-        self.assertEqual(self.sotu_ngcorpus_uni.tf('Niall'), 0)
-
-        # simple cases
-        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('the'), 2.2787536)
-        self.assertAlmostEqual(self.sotu_ngcorpus_uni.tf('America'), 1.4771213)
-
-        # bigrams
-        self.assertRaises(ValueError, self.sotu_ngcorpus_tri.tf, 'the sense')
-        self.assertRaises(ValueError, self.sotu_ngcorpus_tri.tf, 'the world')
 
 
 if __name__ == '__main__':

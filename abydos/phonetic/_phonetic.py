@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -30,9 +30,14 @@ from __future__ import (
 
 from itertools import groupby
 
+__all__ = ['_Phonetic']
+
 
 class _Phonetic(object):
-    """Abstract Phonetic class."""
+    """Abstract Phonetic class.
+
+    .. versionadded:: 0.3.6
+    """
 
     _uc_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     _lc_set = set('abcdefghijklmnopqrstuvwxyz')
@@ -65,6 +70,11 @@ class _Phonetic(object):
         >>> pe._delete_consecutive_repeats('AAACCCTTTGGG')
         'ACTG'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         return ''.join(char for char, _ in groupby(word))
 
@@ -75,6 +85,9 @@ class _Phonetic(object):
         ----------
         word : str
             The word to transform
+
+
+        .. versionadded:: 0.3.6
 
         """
         pass
@@ -91,6 +104,9 @@ class _Phonetic(object):
         -------
         str
             The word transformed
+
+
+        .. versionadded:: 0.3.6
 
         """
         return self.encode(word)

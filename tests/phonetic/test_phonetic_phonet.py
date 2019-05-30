@@ -43,59 +43,63 @@ class PhonetTestCases(unittest.TestCase):
     """
 
     pa = Phonet()
+    pa_1 = Phonet(1)
+    pa_2 = Phonet(2)
+    pa_1none = Phonet(1, 'none')
+    pa_2none = Phonet(2, 'none')
 
     def test_phonet_german(self):
         """Test abydos.phonetic.Phonet (German)."""
         self.assertEqual(self.pa.encode(''), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
-        self.assertEqual(self.pa.encode('', 1), '')
-        self.assertEqual(self.pa.encode('Zedlitz', 1), 'ZETLIZ')
-        self.assertEqual(self.pa.encode('Bremerhaven', 1), 'BREMAHAFN')
-        self.assertEqual(self.pa.encode('Hamburger Hafen', 1), 'HAMBURGA HAFN')
-        self.assertEqual(self.pa.encode('Jesper', 1), 'IESPA')
-        self.assertEqual(self.pa.encode('elisabeth', 1), 'ELISABET')
-        self.assertEqual(self.pa.encode('elisabet', 1), 'ELISABET')
-        self.assertEqual(self.pa.encode('Ziegler', 1), 'ZIKLA')
-        self.assertEqual(self.pa.encode('Scherer', 1), 'SHERA')
-        self.assertEqual(self.pa.encode('Bartels', 1), 'BARTLS')
-        self.assertEqual(self.pa.encode('Jansen', 1), 'IANSN')
-        self.assertEqual(self.pa.encode('Sievers', 1), 'SIWAS')
-        self.assertEqual(self.pa.encode('Michels', 1), 'MICHLS')
-        self.assertEqual(self.pa.encode('Ewers', 1), 'EWERS')
-        self.assertEqual(self.pa.encode('Evers', 1), 'EWERS')
-        self.assertEqual(self.pa.encode('Wessels', 1), 'WESLS')
-        self.assertEqual(self.pa.encode('Gottschalk', 1), 'GOSHALK')
-        self.assertEqual(self.pa.encode('Brückmann', 1), 'BRÜKMAN')
-        self.assertEqual(self.pa.encode('Blechschmidt', 1), 'BLECHSHMIT')
-        self.assertEqual(self.pa.encode('Kolodziej', 1), 'KOLOTZI')
-        self.assertEqual(self.pa.encode('Krauße', 1), 'KRAUSE')
-        self.assertEqual(self.pa.encode('Cachel', 1), 'KESHL')
+        self.assertEqual(self.pa_1.encode(''), '')
+        self.assertEqual(self.pa_1.encode('Zedlitz'), 'ZETLIZ')
+        self.assertEqual(self.pa_1.encode('Bremerhaven'), 'BREMAHAFN')
+        self.assertEqual(self.pa_1.encode('Hamburger Hafen'), 'HAMBURGA HAFN')
+        self.assertEqual(self.pa_1.encode('Jesper'), 'IESPA')
+        self.assertEqual(self.pa_1.encode('elisabeth'), 'ELISABET')
+        self.assertEqual(self.pa_1.encode('elisabet'), 'ELISABET')
+        self.assertEqual(self.pa_1.encode('Ziegler'), 'ZIKLA')
+        self.assertEqual(self.pa_1.encode('Scherer'), 'SHERA')
+        self.assertEqual(self.pa_1.encode('Bartels'), 'BARTLS')
+        self.assertEqual(self.pa_1.encode('Jansen'), 'IANSN')
+        self.assertEqual(self.pa_1.encode('Sievers'), 'SIWAS')
+        self.assertEqual(self.pa_1.encode('Michels'), 'MICHLS')
+        self.assertEqual(self.pa_1.encode('Ewers'), 'EWERS')
+        self.assertEqual(self.pa_1.encode('Evers'), 'EWERS')
+        self.assertEqual(self.pa_1.encode('Wessels'), 'WESLS')
+        self.assertEqual(self.pa_1.encode('Gottschalk'), 'GOSHALK')
+        self.assertEqual(self.pa_1.encode('Brückmann'), 'BRÜKMAN')
+        self.assertEqual(self.pa_1.encode('Blechschmidt'), 'BLECHSHMIT')
+        self.assertEqual(self.pa_1.encode('Kolodziej'), 'KOLOTZI')
+        self.assertEqual(self.pa_1.encode('Krauße'), 'KRAUSE')
+        self.assertEqual(self.pa_1.encode('Cachel'), 'KESHL')
 
-        self.assertEqual(self.pa.encode('', 2), '')
-        self.assertEqual(self.pa.encode('Zedlitz', 2), 'ZETLIZ')
-        self.assertEqual(self.pa.encode('Bremerhaven', 2), 'BRENAFN')
-        self.assertEqual(self.pa.encode('Schönberg', 2), 'ZÖNBAK')
-        self.assertEqual(self.pa.encode('Hamburger Hafen', 2), 'ANBURKA AFN')
-        self.assertEqual(self.pa.encode('Ziegler', 2), 'ZIKLA')
-        self.assertEqual(self.pa.encode('Scherer', 2), 'ZERA')
-        self.assertEqual(self.pa.encode('Jansen', 2), 'IANZN')
-        self.assertEqual(self.pa.encode('Eberhardt', 2), 'EBART')
-        self.assertEqual(self.pa.encode('Gottschalk', 2), 'KUZALK')
-        self.assertEqual(self.pa.encode('Brückmann', 2), 'BRIKNAN')
-        self.assertEqual(self.pa.encode('Blechschmidt', 2), 'BLEKZNIT')
-        self.assertEqual(self.pa.encode('Kolodziej', 2), 'KULUTZI')
-        self.assertEqual(self.pa.encode('Krauße', 2), 'KRAUZE')
+        self.assertEqual(self.pa_2.encode(''), '')
+        self.assertEqual(self.pa_2.encode('Zedlitz'), 'ZETLIZ')
+        self.assertEqual(self.pa_2.encode('Bremerhaven'), 'BRENAFN')
+        self.assertEqual(self.pa_2.encode('Schönberg'), 'ZÖNBAK')
+        self.assertEqual(self.pa_2.encode('Hamburger Hafen'), 'ANBURKA AFN')
+        self.assertEqual(self.pa_2.encode('Ziegler'), 'ZIKLA')
+        self.assertEqual(self.pa_2.encode('Scherer'), 'ZERA')
+        self.assertEqual(self.pa_2.encode('Jansen'), 'IANZN')
+        self.assertEqual(self.pa_2.encode('Eberhardt'), 'EBART')
+        self.assertEqual(self.pa_2.encode('Gottschalk'), 'KUZALK')
+        self.assertEqual(self.pa_2.encode('Brückmann'), 'BRIKNAN')
+        self.assertEqual(self.pa_2.encode('Blechschmidt'), 'BLEKZNIT')
+        self.assertEqual(self.pa_2.encode('Kolodziej'), 'KULUTZI')
+        self.assertEqual(self.pa_2.encode('Krauße'), 'KRAUZE')
 
         # etc. (for code coverage)
-        self.assertEqual(self.pa.encode('Jesper', 1), 'IESPA')
-        self.assertEqual(self.pa.encode('Glacéhandschuh', 1), 'GLAZANSHU')
-        self.assertEqual(self.pa.encode('Blechschmidt', 1), 'BLECHSHMIT')
-        self.assertEqual(self.pa.encode('Burgdorf', 1), 'BURKDORF')
-        self.assertEqual(self.pa.encode('Holzschuh', 1), 'HOLSHU')
-        self.assertEqual(self.pa.encode('Aachen', 1), 'ACHN')
+        self.assertEqual(self.pa_1.encode('Jesper'), 'IESPA')
+        self.assertEqual(self.pa_1.encode('Glacéhandschuh'), 'GLAZANSHU')
+        self.assertEqual(self.pa_1.encode('Blechschmidt'), 'BLECHSHMIT')
+        self.assertEqual(self.pa_1.encode('Burgdorf'), 'BURKDORF')
+        self.assertEqual(self.pa_1.encode('Holzschuh'), 'HOLSHU')
+        self.assertEqual(self.pa_1.encode('Aachen'), 'ACHN')
         self.assertEqual(
-            self.pa.encode('Abendspaziergang', 1), 'ABENTSPAZIRGANK'
+            self.pa_1.encode('Abendspaziergang'), 'ABENTSPAZIRGANK'
         )
 
         # Test wrapper
@@ -103,26 +107,22 @@ class PhonetTestCases(unittest.TestCase):
 
     def test_phonet_nolang(self):
         """Test abydos.phonetic.Phonet (no language)."""
-        self.assertEqual(self.pa.encode('', lang='none'), '')
+        self.assertEqual(Phonet(lang='none').encode(''), '')
 
         # https://code.google.com/p/phonet4java/source/browse/trunk/src/test/java/com/googlecode/phonet4java/Phonet1Test.java
-        self.assertEqual(self.pa.encode('', 1, 'none'), '')
-        self.assertEqual(self.pa.encode('Zedlitz', 1, 'none'), 'ZEDLITZ')
-        self.assertEqual(
-            self.pa.encode('Bremerhaven', 1, 'none'), 'BREMERHAVEN'
-        )
-        self.assertEqual(self.pa.encode('Schönberg', 2, 'none'), 'SCHOENBERG')
-        self.assertEqual(self.pa.encode('Brückmann', 1, 'none'), 'BRUECKMAN')
-        self.assertEqual(self.pa.encode('Krauße', 1, 'none'), 'KRAUSE')
+        self.assertEqual(self.pa_1none.encode(''), '')
+        self.assertEqual(self.pa_1none.encode('Zedlitz'), 'ZEDLITZ')
+        self.assertEqual(self.pa_1none.encode('Bremerhaven'), 'BREMERHAVEN')
+        self.assertEqual(self.pa_2none.encode('Schönberg'), 'SCHOENBERG')
+        self.assertEqual(self.pa_1none.encode('Brückmann'), 'BRUECKMAN')
+        self.assertEqual(self.pa_1none.encode('Krauße'), 'KRAUSE')
 
-        self.assertEqual(self.pa.encode('', 2, 'none'), '')
-        self.assertEqual(self.pa.encode('Zedlitz', 2, 'none'), 'ZEDLITZ')
-        self.assertEqual(
-            self.pa.encode('Bremerhaven', 2, 'none'), 'BREMERHAVEN'
-        )
-        self.assertEqual(self.pa.encode('Schönberg', 2, 'none'), 'SCHOENBERG')
-        self.assertEqual(self.pa.encode('Brückmann', 2, 'none'), 'BRUECKMAN')
-        self.assertEqual(self.pa.encode('Krauße', 2, 'none'), 'KRAUSE')
+        self.assertEqual(self.pa_2none.encode(''), '')
+        self.assertEqual(self.pa_2none.encode('Zedlitz'), 'ZEDLITZ')
+        self.assertEqual(self.pa_2none.encode('Bremerhaven'), 'BREMERHAVEN')
+        self.assertEqual(self.pa_2none.encode('Schönberg'), 'SCHOENBERG')
+        self.assertEqual(self.pa_2none.encode('Brückmann'), 'BRUECKMAN')
+        self.assertEqual(self.pa_2none.encode('Krauße'), 'KRAUSE')
 
         # Test wrapper
         self.assertEqual(phonet('Bremerhaven', 1, 'none'), 'BREMERHAVEN')
@@ -141,8 +141,8 @@ class PhonetTestCases(unittest.TestCase):
                     # so let's just randomly select about 100 for testing
                     if len(nn_line) >= 3 and _one_in(100):
                         (term, ph1, ph2) = nn_line
-                        self.assertEqual(self.pa.encode(term, 1), ph1)
-                        self.assertEqual(self.pa.encode(term, 2), ph2)
+                        self.assertEqual(self.pa_1.encode(term), ph1)
+                        self.assertEqual(self.pa_2.encode(term), ph2)
 
     def test_phonet_ngerman(self):
         """Test abydos.phonetic.Phonet (ngerman set)."""
@@ -158,8 +158,8 @@ class PhonetTestCases(unittest.TestCase):
                     # so let's just randomly select about 30 for testing
                     if len(ng_line) >= 3 and _one_in(10000):
                         (term, ph1, ph2) = ng_line
-                        self.assertEqual(self.pa.encode(term, 1), ph1)
-                        self.assertEqual(self.pa.encode(term, 2), ph2)
+                        self.assertEqual(self.pa_1.encode(term), ph1)
+                        self.assertEqual(self.pa_2.encode(term), ph2)
 
 
 if __name__ == '__main__':

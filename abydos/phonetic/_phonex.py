@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['Phonex', 'phonex']
 
@@ -42,20 +45,73 @@ class Phonex(_Phonetic):
     """Phonex code.
 
     Phonex is an algorithm derived from Soundex, defined in :cite:`Lait:1996`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=4, zero_pad=True):
+    _alphabetic = dict(zip((ord(_) for _ in '123456'), 'PSTLNR'))
+
+    def __init__(self, max_length=4, zero_pad=True):
+        """Initialize Phonex instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+        zero_pad : bool
+            Pad the end of the return value with 0s to achieve a max_length
+            string
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        # Clamp max_length to [4, 64]
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
+        self._zero_pad = zero_pad
+
+    def encode_alpha(self, word):
+        """Return the alphabetic Phonex code for a word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic Phonex value
+
+        Examples
+        --------
+        >>> pe = Phonex()
+        >>> pe.encode_alpha('Christopher')
+        'CRST'
+        >>> pe.encode_alpha('Niall')
+        'NL'
+        >>> pe.encode_alpha('Smith')
+        'SNT'
+        >>> pe.encode_alpha('Schmidt')
+        'SSNT'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        code = self.encode(word).rstrip('0')
+        return code[:1] + code[1:].translate(self._alphabetic)
+
+    def encode(self, word):
         """Return the Phonex code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to 4)
-        zero_pad : bool
-            Pad the end of the return value with 0s to achieve a max_length
-            string
 
         Returns
         -------
@@ -74,15 +130,14 @@ class Phonex(_Phonetic):
         >>> pe.encode('Smith')
         'S530'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         name = unicode_normalize('NFKD', text_type(word.upper()))
         name = name.replace('ß', 'SS')
-
-        # Clamp max_length to [4, 64]
-        if max_length != -1:
-            max_length = min(max(4, max_length), 64)
-        else:
-            max_length = 64
 
         name_code = last = ''
 
@@ -157,13 +212,19 @@ class Phonex(_Phonetic):
 
             last = name_code[-1]
 
-        if zero_pad:
-            name_code += '0' * max_length
+        if self._zero_pad:
+            name_code += '0' * self._max_length
         if not name_code:
             name_code = '0'
-        return name_code[:max_length]
+        return name_code[: self._max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Phonex.encode method instead.',
+)
 def phonex(word, max_length=4, zero_pad=True):
     """Return the Phonex code for a word.
 
@@ -194,8 +255,10 @@ def phonex(word, max_length=4, zero_pad=True):
     >>> phonex('Smith')
     'S530'
 
+    .. versionadded:: 0.1.0
+
     """
-    return Phonex().encode(word, max_length, zero_pad)
+    return Phonex(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

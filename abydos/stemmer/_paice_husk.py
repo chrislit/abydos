@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['PaiceHusk', 'paice_husk']
 
@@ -42,6 +45,8 @@ class PaiceHusk(_Stemmer):
     Stemmer, developed by Chris Paice, with the assistance of Gareth Husk
 
     This is based on the algorithm's description in :cite:`Paice:1990`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rule_table = {
@@ -225,6 +230,11 @@ class PaiceHusk(_Stemmer):
         >>> stmr.stem('torment')
         'tor'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         terminate = False
         intact = True
@@ -256,6 +266,12 @@ class PaiceHusk(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the PaiceHusk.stem method instead.',
+)
 def paice_husk(word):
     """Return Paice-Husk stem.
 
@@ -283,6 +299,8 @@ def paice_husk(word):
     'fancy'
     >>> paice_husk('torment')
     'tor'
+
+    .. versionadded:: 0.3.0
 
     """
     return PaiceHusk().stem(word)

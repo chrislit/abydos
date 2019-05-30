@@ -39,13 +39,13 @@ class DavidsonTestCases(unittest.TestCase):
     test cases for abydos.phonetic.Davidson
     """
 
-    pa = Davidson()
+    pa = Davidson(omit_fname=True)
 
     def test_davidson_encode(self):
         """Test abydos.phonetic.Davidson."""
         # Base cases
-        self.assertEqual(self.pa.encode('', omit_fname=True), '    ')
-        self.assertEqual(self.pa.encode(''), '    .')
+        self.assertEqual(self.pa.encode(''), '    ')
+        self.assertEqual(Davidson().encode(''), '    .')
 
         # Test cases from Gadd (1988) "'Fisching fore werds': phonetic
         # retrieval of written text in information systems." Program,
@@ -69,7 +69,7 @@ class DavidsonTestCases(unittest.TestCase):
             ('REECE', 'RC  '),
         )
         for word, encoding in test_cases:
-            self.assertEqual(self.pa.encode(word, omit_fname=True), encoding)
+            self.assertEqual(self.pa.encode(word), encoding)
 
         # Test wrapper
         self.assertEqual(davidson('WAIT', omit_fname=True), 'WT  ')

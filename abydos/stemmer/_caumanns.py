@@ -30,10 +30,13 @@ from __future__ import (
 
 from unicodedata import normalize
 
+from deprecation import deprecated
+
 from six import text_type
 from six.moves import range
 
 from ._stemmer import _Stemmer
+from .. import __version__
 
 __all__ = ['Caumanns', 'caumanns']
 
@@ -46,6 +49,8 @@ class Caumanns(_Stemmer):
 
     This implementation is based on the GermanStemFilter described at
     :cite:`Lang:2013`.
+
+    .. versionadded:: 0.3.6
     """
 
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
@@ -72,6 +77,11 @@ class Caumanns(_Stemmer):
         'grau'
         >>> stmr.stem('buchstabieren')
         'buchstabier'
+
+
+        .. versionadded:: 0.2.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not word:
@@ -146,6 +156,12 @@ class Caumanns(_Stemmer):
         return word
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Caumanns.stem method instead.',
+)
 def caumanns(word):
     """Return Caumanns German stem.
 
@@ -169,6 +185,8 @@ def caumanns(word):
     'grau'
     >>> caumanns('buchstabieren')
     'buchstabier'
+
+    .. versionadded:: 0.2.0
 
     """
     return Caumanns().stem(word)

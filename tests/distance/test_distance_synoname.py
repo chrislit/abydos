@@ -194,12 +194,12 @@ class SynonameTestCases(unittest.TestCase):
         """Test abydos.distance.Synoname.dist_abs."""
         # Base cases
         self.assertEqual(self.cmp.dist_abs('', ''), 1)
-        self.assertEqual(self.cmp.dist_abs('', '', tests=['exact']), 1)
-        self.assertEqual(self.cmp.dist_abs('', '', tests=[]), 13)
+        self.assertEqual(Synoname(tests=['exact']).dist_abs('', ''), 1)
+        self.assertEqual(Synoname(tests=[]).dist_abs('', ''), 13)
         self.assertEqual(
-            self.cmp.dist_abs('', '', tests=['nonsense-test']), 13
+            Synoname(tests=['nonsense-test']).dist_abs('', ''), 13
         )
-        self.assertEqual(self.cmp.dist_abs('', '', ret_name=True), 'exact')
+        self.assertEqual(Synoname(ret_name=True).dist_abs('', ''), 'exact')
 
         # Test input formats
         self.assertEqual(
@@ -246,219 +246,174 @@ class SynonameTestCases(unittest.TestCase):
 
         # Types 1-12
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel', 'Pieter', ''),
-                ('Brueghel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel', 'Pieter', ''), ('Brueghel', 'Pieter', '')
             ),
             'exact',
         )
 
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel II', 'Pieter', ''),
-                ('Brueghel I', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel II', 'Pieter', ''), ('Brueghel I', 'Pieter', '')
             ),
             'no_match',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Breghel', 'Pieter', ''),
-                ('Brueghel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', '')
             ),
             'omission',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel', 'Pieter', ''),
-                ('Breghel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel', 'Pieter', ''), ('Breghel', 'Pieter', '')
             ),
             'omission',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel', 'Piter', ''),
-                ('Brueghel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel', 'Piter', ''), ('Brueghel', 'Pieter', '')
             ),
             'omission',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel', 'Pieter', ''),
-                ('Brueghel', 'Piter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel', 'Pieter', ''), ('Brueghel', 'Piter', '')
             ),
             'omission',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brughel', 'Pieter', ''),
-                ('Breghel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brughel', 'Pieter', ''), ('Breghel', 'Pieter', '')
             ),
             'substitution',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Breughel', 'Peter', ''),
-                ('Breughel', 'Piter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Breughel', 'Peter', ''), ('Breughel', 'Piter', '')
             ),
             'substitution',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel', 'Pieter', ''),
-                ('Breughel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel', 'Pieter', ''), ('Breughel', 'Pieter', '')
             ),
             'transposition',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel', 'Peiter', ''),
-                ('Brueghel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel', 'Peiter', ''), ('Brueghel', 'Pieter', '')
             ),
             'transposition',
         )
 
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel:', 'Pieter', ''),
-                ('Brueghel', 'Pi-eter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel:', 'Pieter', ''), ('Brueghel', 'Pi-eter', '')
             ),
             'punctuation',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel,', 'Pieter', ''),
-                ('Brueghel', 'Pieter...', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel,', 'Pieter', ''), ('Brueghel', 'Pieter...', '')
             ),
             'punctuation',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
+            Synoname(ret_name=True).dist_abs(
                 ('Seu rat', 'George Pierre', ''),
                 ('Seu-rat', 'George-Pierre', ''),
-                ret_name=True,
             ),
             'punctuation',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Picasso', '', ''), ('Picasso', 'Pablo', ''), ret_name=True
+            Synoname(ret_name=True).dist_abs(
+                ('Picasso', '', ''), ('Picasso', 'Pablo', '')
             ),
             'no_first',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Pereira', 'I. R.', ''),
-                ('Pereira', 'Irene Rice', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Pereira', 'I. R.', ''), ('Pereira', 'Irene Rice', '')
             ),
             'initials',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Pereira', 'I.', ''),
-                ('Pereira', 'Irene Rice', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Pereira', 'I.', ''), ('Pereira', 'Irene Rice', '')
             ),
             'initials',
         )
         self.assertNotEqual(
-            self.cmp.dist_abs(
-                ('Pereira', 'I. R.', ''),
-                ('Pereira', 'I. Smith', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', '')
             ),
             'initials',
         )
         self.assertNotEqual(
-            self.cmp.dist_abs(
-                ('Pereira', 'I. R. S.', ''),
-                ('Pereira', 'I. S. R.', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Pereira', 'I. R. S.', ''), ('Pereira', 'I. S. R.', '')
             ),
             'initials',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
+            Synoname(ret_name=True).dist_abs(
                 ('de Goya', 'Francisco', ''),
                 ('de Goya y Lucientes', 'Francisco', ''),
-                ret_name=True,
             ),
             'extension',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Seurat', 'George', ''),
-                ('Seurat', 'George-Pierre', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Seurat', 'George', ''), ('Seurat', 'George-Pierre', '')
             ),
             'extension',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
+            Synoname(ret_name=True).dist_abs(
                 ('Gericault', 'Theodore', ''),
                 ('Gericault', 'Jean Louis Andre Theodore', ''),
-                ret_name=True,
             ),
             'inclusion',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
+            Synoname(ret_name=True).dist_abs(
                 ('Dore', 'Gustave', ''),
                 ('Dore', 'Paul Gustave Louis Christophe', ''),
-                ret_name=True,
             ),
             'inclusion',
         )
 
         self.assertEqual(
-            self.cmp.dist_abs(
+            Synoname(ret_name=True).dist_abs(
                 ('Rosetti', 'Dante Gabriel', ''),
                 ('Rosetti', 'Gabriel Charles Dante', ''),
-                ret_name=True,
             ),
             'word_approx',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
+            Synoname(ret_name=True).dist_abs(
                 ('di Domenico di Bonaventura', 'Cosimo', ''),
                 ('di Tomme di Nuto', 'Luca', ''),
-                ret_name=True,
             ),
             'no_match',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Pereira', 'I. R.', ''),
-                ('Pereira', 'I. Smith', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', '')
             ),
             'word_approx',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
+            Synoname(ret_name=True).dist_abs(
                 ('Antonello da Messina', '', ''),
                 ('Messina', 'Antonello da', ''),
-                ret_name=True,
             ),
             'confusions',
         )
         self.assertEqual(
-            self.cmp.dist_abs(
-                ('Brueghel', 'Pietter', ''),
-                ('Bruegghel', 'Pieter', ''),
-                ret_name=True,
+            Synoname(ret_name=True).dist_abs(
+                ('Brueghel', 'Pietter', ''), ('Bruegghel', 'Pieter', '')
             ),
             'char_approx',
         )

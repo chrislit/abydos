@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -70,6 +70,7 @@ from ._fingerprint import (
     MOST_COMMON_LETTERS_DE,
     MOST_COMMON_LETTERS_DE_LC,
     MOST_COMMON_LETTERS_EN_LC,
+    _Fingerprint,
 )
 from ._occurrence import Occurrence, occurrence_fingerprint
 from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
@@ -79,9 +80,10 @@ from ._position import Position, position_fingerprint
 from ._qgram import QGram, qgram_fingerprint
 from ._skeleton_key import SkeletonKey, skeleton_key
 from ._string import String, str_fingerprint
-from ._synoname import SynonameToolcode, synoname_toolcode
+from ._synoname_toolcode import SynonameToolcode, synoname_toolcode
 
 __all__ = [
+    '_Fingerprint',
     'String',
     'str_fingerprint',
     'QGram',

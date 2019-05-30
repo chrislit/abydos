@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['PhoneticSpanish', 'phonetic_spanish']
 
@@ -42,6 +45,8 @@ class PhoneticSpanish(_Phonetic):
 
     This follows the coding described in :cite:`Amon:2012` and
     :cite:`delPilarAngeles:2015`.
+
+    .. versionadded:: 0.3.6
     """
 
     _trans = dict(
@@ -50,15 +55,62 @@ class PhoneticSpanish(_Phonetic):
 
     _uc_set = set('BCDFGHJKLMNPQRSTVXYZ')
 
-    def encode(self, word, max_length=-1):
+    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'PBFTSLNKGR'))
+
+    def __init__(self, max_length=-1):
+        """Initialize PhoneticSpanish instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to unlimited)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode_alpha(self, word):
+        """Return the alphabetic PhoneticSpanish coding of word.
+
+        Parameters
+        ----------
+        word : str
+            The word to transform
+
+        Returns
+        -------
+        str
+            The alphabetic PhoneticSpanish code
+
+        Examples
+        --------
+        >>> pe = PhoneticSpanish()
+        >>> pe.encode_alpha('Perez')
+        'PRS'
+        >>> pe.encode_alpha('Martinez')
+        'NRTNS'
+        >>> pe.encode_alpha('Gutierrez')
+        'GTRRS'
+        >>> pe.encode_alpha('Santiago')
+        'SNTG'
+        >>> pe.encode_alpha('Nicolás')
+        'NSLS'
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        return self.encode(word).translate(self._alphabetic)
+
+    def encode(self, word):
         """Return the PhoneticSpanish coding of word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The length of the code returned (defaults to unlimited)
 
         Returns
         -------
@@ -79,6 +131,11 @@ class PhoneticSpanish(_Phonetic):
         >>> pe.encode('Nicolás')
         '6454'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # uppercase, normalize, and decompose, filter to A-Z minus vowels & W
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -91,12 +148,18 @@ class PhoneticSpanish(_Phonetic):
         # apply the Soundex algorithm
         sdx = word.translate(self._trans)
 
-        if max_length > 0:
-            sdx = (sdx + ('0' * max_length))[:max_length]
+        if self._max_length > 0:
+            sdx = (sdx + ('0' * self._max_length))[: self._max_length]
 
         return sdx
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the PhoneticSpanish.encode method instead.',
+)
 def phonetic_spanish(word, max_length=-1):
     """Return the PhoneticSpanish coding of word.
 
@@ -127,8 +190,10 @@ def phonetic_spanish(word, max_length=-1):
     >>> phonetic_spanish('Nicolás')
     '6454'
 
+    .. versionadded:: 0.3.0
+
     """
-    return PhoneticSpanish().encode(word, max_length)
+    return PhoneticSpanish(max_length).encode(word)
 
 
 if __name__ == '__main__':

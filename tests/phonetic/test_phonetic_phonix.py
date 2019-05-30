@@ -62,7 +62,7 @@ class PhonixTestCases(unittest.TestCase):
         # testcases from Wais Module
         self.assertEqual(self.pa.encode('computer'), 'K513')
         self.assertEqual(self.pa.encode('computers'), 'K513')
-        self.assertEqual(self.pa.encode('computers', 5), 'K5138')
+        self.assertEqual(Phonix(5).encode('computers'), 'K5138')
         self.assertEqual(self.pa.encode('pfeifer'), 'F700')
         self.assertEqual(self.pa.encode('pfeiffer'), 'F700')
         self.assertEqual(self.pa.encode('knight'), 'N300')
@@ -102,24 +102,30 @@ class PhonixTestCases(unittest.TestCase):
 
         # max_length bounds tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1), 'N4' + '0' * 62
+            Phonix(max_length=-1).encode('Niall'), 'N4' + '0' * 62
         )
-        self.assertEqual(self.pa.encode('Niall', max_length=0), 'N400')
+        self.assertEqual(Phonix(max_length=0).encode('Niall'), 'N400')
 
         # zero_pad tests
         self.assertEqual(
-            self.pa.encode('Niall', max_length=-1, zero_pad=False), 'N4'
+            Phonix(max_length=-1, zero_pad=False).encode('Niall'), 'N4'
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=False), 'N4'
+            Phonix(max_length=0, zero_pad=False).encode('Niall'), 'N4'
         )
         self.assertEqual(
-            self.pa.encode('Niall', max_length=0, zero_pad=True), 'N400'
+            Phonix(max_length=0, zero_pad=True).encode('Niall'), 'N400'
         )
-        self.assertEqual(self.pa.encode('', max_length=4, zero_pad=False), '0')
+        self.assertEqual(Phonix(max_length=4, zero_pad=False).encode(''), '0')
         self.assertEqual(
-            self.pa.encode('', max_length=4, zero_pad=True), '0000'
+            Phonix(max_length=4, zero_pad=True).encode(''), '0000'
         )
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Müller'), 'ML')
+        self.assertEqual(self.pa.encode_alpha('schneider'), 'SNT')
+        self.assertEqual(self.pa.encode_alpha('fischer'), 'FS')
+        self.assertEqual(self.pa.encode_alpha('weber'), 'WP')
 
         # Test wrapper
         self.assertEqual(phonix('Müller'), 'M400')

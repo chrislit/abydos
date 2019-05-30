@@ -28,9 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._sift4 import Sift4
+from .. import __version__
 
 __all__ = ['Sift4Simplest', 'sift4_simplest']
 
@@ -40,9 +43,28 @@ class Sift4Simplest(Sift4):
 
     This is an approximation of edit distance, described in
     :cite:`Zackwehdex:2014`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def dist_abs(self, src, tar, max_offset=5):
+    def __init__(self, max_offset=5, **kwargs):
+        """Initialize Sift4Simplest instance.
+
+        Parameters
+        ----------
+        max_offset : int
+            The number of characters to search for matching letters
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Sift4Simplest, self).__init__(**kwargs)
+        self._max_offset = max_offset
+
+    def dist_abs(self, src, tar):
         """Return the "simplest" Sift4 distance between two terms.
 
         Parameters
@@ -51,8 +73,6 @@ class Sift4Simplest(Sift4):
             Source string for comparison
         tar : str
             Target string for comparison
-        max_offset : int
-            The number of characters to search for matching letters
 
         Returns
         -------
@@ -70,6 +90,11 @@ class Sift4Simplest(Sift4):
         3
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if not src:
@@ -94,19 +119,23 @@ class Sift4Simplest(Sift4):
                 local_cs = 0
                 if src_cur != tar_cur:
                     src_cur = tar_cur = max(src_cur, tar_cur)
-                for i in range(max_offset):
+                for i in range(self._max_offset):
                     if not (
                         (src_cur + i < src_len) or (tar_cur + i < tar_len)
                     ):
                         break
-                    if (src_cur + i < src_len) and (
-                        src[src_cur + i] == tar[tar_cur]
+                    if (
+                        (src_cur + i < src_len)
+                        and (tar_cur < tar_len)
+                        and (src[src_cur + i] == tar[tar_cur])
                     ):
                         src_cur += i
                         local_cs += 1
                         break
-                    if (tar_cur + i < tar_len) and (
-                        src[src_cur] == tar[tar_cur + i]
+                    if (
+                        (tar_cur + i < tar_len)
+                        and (src_cur < src_len)
+                        and (src[src_cur] == tar[tar_cur + i])
                     ):
                         tar_cur += i
                         local_cs += 1
@@ -119,6 +148,12 @@ class Sift4Simplest(Sift4):
         return round(max(src_len, tar_len) - lcss)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Sift4Simplest.dist_abs method instead.',
+)
 def sift4_simplest(src, tar, max_offset=5):
     """Return the "simplest" Sift4 distance between two terms.
 
@@ -149,8 +184,10 @@ def sift4_simplest(src, tar, max_offset=5):
     >>> sift4_simplest('ATCG', 'TAGC')
     2
 
+    .. versionadded:: 0.3.0
+
     """
-    return Sift4Simplest().dist_abs(src, tar, max_offset)
+    return Sift4Simplest(max_offset).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

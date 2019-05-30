@@ -40,6 +40,8 @@ class PSHPSoundexLastTestCases(unittest.TestCase):
     """
 
     pa = PSHPSoundexLast()
+    pa_german = PSHPSoundexLast(german=True)
+    pa_unl = PSHPSoundexLast(max_length=-1)
 
     def test_pshp_soundex_last(self):
         """Test abydos.phonetic.PSHPSoundexLast."""
@@ -63,21 +65,29 @@ class PSHPSoundexLastTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Knight'), 'N230')
         self.assertEqual(self.pa.encode('Phillip'), 'F410')
         self.assertEqual(self.pa.encode('Wein'), 'V500')
-        self.assertEqual(self.pa.encode('Wagner', german=True), 'V255')
+        self.assertEqual(self.pa_german.encode('Wagner'), 'V255')
         self.assertEqual(self.pa.encode('Pence'), 'P500')
         self.assertEqual(self.pa.encode('Less'), 'L000')
         self.assertEqual(self.pa.encode('Simpson'), 'S525')
         self.assertEqual(self.pa.encode('Samson'), 'S250')
         self.assertEqual(self.pa.encode('Lang'), 'L500')
         self.assertEqual(self.pa.encode('Hagan'), 'H500')
-        self.assertEqual(self.pa.encode('Cartes', german=True), 'K500')
-        self.assertEqual(self.pa.encode('Kats', german=True), 'K000')
-        self.assertEqual(self.pa.encode('Schultze', german=True), 'S400')
-        self.assertEqual(self.pa.encode('Alze', german=True), 'A400')
-        self.assertEqual(self.pa.encode('Galz', german=True), 'G400')
-        self.assertEqual(self.pa.encode('Alte', german=True), 'A400')
-        self.assertEqual(self.pa.encode('Alte', max_length=-1), 'A43')
-        self.assertEqual(self.pa.encode('Altemaier', max_length=-1), 'A4355')
+        self.assertEqual(self.pa_german.encode('Cartes'), 'K500')
+        self.assertEqual(self.pa_german.encode('Kats'), 'K000')
+        self.assertEqual(self.pa_german.encode('Schultze'), 'S400')
+        self.assertEqual(self.pa_german.encode('Alze'), 'A400')
+        self.assertEqual(self.pa_german.encode('Galz'), 'G400')
+        self.assertEqual(self.pa_german.encode('Alte'), 'A400')
+        self.assertEqual(self.pa_unl.encode('Alte'), 'A43')
+        self.assertEqual(self.pa_unl.encode('Altemaier'), 'A4355')
+
+        # encode_alpha
+        self.assertEqual(self.pa.encode_alpha('Simpson'), 'SNKN')
+        self.assertEqual(self.pa.encode_alpha('Samson'), 'SKN')
+        self.assertEqual(self.pa.encode_alpha('Lang'), 'LN')
+        self.assertEqual(self.pa.encode_alpha('Hagan'), 'HN')
+        self.assertEqual(self.pa_german.encode_alpha('Cartes'), 'KN')
+        self.assertEqual(self.pa_german.encode_alpha('Kats'), 'K')
 
         # Test wrapper
         self.assertEqual(pshp_soundex_last('Smith'), 'S530')

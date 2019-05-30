@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._phonetic import _Phonetic
+from .. import __version__
 
 __all__ = ['StatisticsCanada', 'statistics_canada']
 
@@ -48,17 +51,31 @@ class StatisticsCanada(_Phonetic):
 
     The modified version of this algorithm is described in Appendix B of
     :cite:`Moore:1977`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, max_length=4):
+    def __init__(self, max_length=4):
+        """Initialize StatisticsCanada instance.
+
+        Parameters
+        ----------
+        max_length : int
+            The length of the code returned (defaults to 4)
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._max_length = max_length
+
+    def encode(self, word):
         """Return the Statistics Canada code for a word.
 
         Parameters
         ----------
         word : str
             The word to transform
-        max_length : int
-            The maximum length (default 4) of the code to return
 
         Returns
         -------
@@ -77,6 +94,11 @@ class StatisticsCanada(_Phonetic):
         >>> pe.encode('Schmidt')
         'SCHM'
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', text_type(word.upper()))
@@ -92,9 +114,15 @@ class StatisticsCanada(_Phonetic):
         code = self._delete_consecutive_repeats(code)
         code = code.replace(' ', '')
 
-        return code[:max_length]
+        return code[: self._max_length]
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the StatisticsCanada.encode method instead.',
+)
 def statistics_canada(word, max_length=4):
     """Return the Statistics Canada code for a word.
 
@@ -123,8 +151,10 @@ def statistics_canada(word, max_length=4):
     >>> statistics_canada('Schmidt')
     'SCHM'
 
+    .. versionadded:: 0.3.0
+
     """
-    return StatisticsCanada().encode(word, max_length)
+    return StatisticsCanada(max_length).encode(word)
 
 
 if __name__ == '__main__':

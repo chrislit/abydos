@@ -1,0 +1,8 @@
+# Library dependencies for the Python code.  You need to install these with
+# `pip install -r requirements-dev.txt` before you can run this.
+
+scipy
+nltk
+syllabipy
+sphinxcontrib-bibtex
+sphinx_rtd_theme

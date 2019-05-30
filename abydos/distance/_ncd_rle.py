@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 from ..compression import RLE
 
 __all__ = ['NCDrle', 'dist_ncd_rle', 'sim_ncd_rle']
@@ -40,6 +43,8 @@ class NCDrle(_Distance):
     Cf. https://en.wikipedia.org/wiki/Run-length_encoding
 
     Normalized compression distance (NCD) :cite:`Cilibrasi:2005`.
+
+    .. versionadded:: 0.3.6
     """
 
     _rle = RLE()
@@ -71,6 +76,11 @@ class NCDrle(_Distance):
         >>> cmp.dist('ATCG', 'TAGC')
         1.0
 
+
+        .. versionadded:: 0.3.5
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 0.0
@@ -86,6 +96,12 @@ class NCDrle(_Distance):
         ) / max(len(src_comp), len(tar_comp))
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDrle.dist method instead.',
+)
 def dist_ncd_rle(src, tar):
     """Return the NCD between two strings using RLE.
 
@@ -114,10 +130,18 @@ def dist_ncd_rle(src, tar):
     >>> dist_ncd_rle('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.3.5
+
     """
     return NCDrle().dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the NCDrle.sim method instead.',
+)
 def sim_ncd_rle(src, tar):
     """Return the NCD similarity between two strings using RLE.
 
@@ -145,6 +169,8 @@ def sim_ncd_rle(src, tar):
     0.0
     >>> sim_ncd_rle('ATCG', 'TAGC')
     0.0
+
+    .. versionadded:: 0.3.5
 
     """
     return NCDrle().sim(src, tar)

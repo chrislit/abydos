@@ -28,8 +28,11 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from six.moves import range
 
+from .. import __version__
 
 __all__ = ['BWT', 'bwt_decode', 'bwt_encode']
 
@@ -40,17 +43,31 @@ class BWT(object):
     The Burrows-Wheeler transform is an attempt at placing similar characters
     together to improve compression.
     Cf. :cite:`Burrows:1994`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def encode(self, word, terminator='\0'):
+    def __init__(self, terminator='\0'):
+        """Initialize BWT instance.
+
+        Parameters
+        ----------
+        terminator : str
+            A character added to signal the end of the string
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._terminator = terminator
+
+    def encode(self, word):
         r"""Return the Burrows-Wheeler transformed form of a word.
 
         Parameters
         ----------
         word : str
             The word to transform using BWT
-        terminator : str
-            A character added to signal the end of the string
 
         Returns
         -------
@@ -69,27 +86,34 @@ class BWT(object):
         'n\x00ilag'
         >>> bwt.encode('banana')
         'annb\x00aa'
-        >>> bwt.encode('banana', '@')
+
+        >>> bwt = BWT('@')
+        >>> bwt.encode('banana')
         'annb@aa'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if word:
-            if terminator in word:
+            if self._terminator in word:
                 raise ValueError(
                     'Specified terminator, {}, already in word.'.format(
-                        terminator if terminator != '\0' else '\\0'
+                        self._terminator if self._terminator != '\0' else '\\0'
                     )
                 )
             else:
-                word += terminator
+                word += self._terminator
                 wordlist = sorted(
                     word[i:] + word[:i] for i in range(len(word))
                 )
                 return ''.join([w[-1] for w in wordlist])
         else:
-            return terminator
+            return self._terminator
 
-    def decode(self, code, terminator='\0'):
+    def decode(self, code):
         r"""Return a word decoded from BWT form.
 
         Parameters
@@ -116,15 +140,22 @@ class BWT(object):
         'align'
         >>> bwt.decode('annb\x00aa')
         'banana'
-        >>> bwt.decode('annb@aa', '@')
+
+        >>> bwt = BWT('@')
+        >>> bwt.decode('annb@aa')
         'banana'
+
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         if code:
-            if terminator not in code:
+            if self._terminator not in code:
                 raise ValueError(
                     'Specified terminator, {}, absent from code.'.format(
-                        terminator if terminator != '\0' else '\\0'
+                        self._terminator if self._terminator != '\0' else '\\0'
                     )
                 )
             else:
@@ -133,12 +164,18 @@ class BWT(object):
                     wordlist = sorted(
                         code[i] + wordlist[i] for i in range(len(code))
                     )
-                rows = [w for w in wordlist if w[-1] == terminator][0]
-                return rows.rstrip(terminator)
+                rows = [w for w in wordlist if w[-1] == self._terminator][0]
+                return rows.rstrip(self._terminator)
         else:
             return ''
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the BWT.encode method instead.',
+)
 def bwt_encode(word, terminator='\0'):
     r"""Return the Burrows-Wheeler transformed form of a word.
 
@@ -165,10 +202,18 @@ def bwt_encode(word, terminator='\0'):
     >>> bwt_encode('banana', '@')
     'annb@aa'
 
+    .. versionadded:: 0.1.0
+
     """
-    return BWT().encode(word, terminator)
+    return BWT(terminator).encode(word)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the BWT.decode method instead.',
+)
 def bwt_decode(code, terminator='\0'):
     r"""Return a word decoded from BWT form.
 
@@ -195,8 +240,10 @@ def bwt_decode(code, terminator='\0'):
     >>> bwt_decode('annb@aa', '@')
     'banana'
 
+    .. versionadded:: 0.1.0
+
     """
-    return BWT().decode(code, terminator)
+    return BWT(terminator).decode(code)
 
 
 if __name__ == '__main__':

@@ -30,9 +30,12 @@ from __future__ import (
 
 from types import GeneratorType
 
+from deprecation import deprecated
+
 from six.moves import range
 
 from ._distance import _Distance
+from .. import __version__
 from ..phonetic import eudex
 
 __all__ = ['Eudex', 'dist_eudex', 'eudex_hamming', 'sim_eudex']
@@ -42,6 +45,8 @@ class Eudex(_Distance):
     """Distance between the Eudex hashes of two terms.
 
     Cf. :cite:`Ticki:2016`.
+
+    .. versionadded:: 0.3.6
     """
 
     @staticmethod
@@ -55,6 +60,11 @@ class Eudex(_Distance):
         ------
         int
             The next Fibonacci number
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
         num_a, num_b = 1, 2
@@ -78,23 +88,22 @@ class Eudex(_Distance):
         int
             The next power of `base`
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         exp = 0
         while True:
             yield base ** exp
             exp += 1
 
-    def dist_abs(
-        self, src, tar, weights='exponential', max_length=8, normalized=False
-    ):
-        """Calculate the distance between the Eudex hashes of two terms.
+    def __init__(self, weights='exponential', max_length=8, **kwargs):
+        """Initialize Eudex instance.
 
         Parameters
         ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
         weights : str, iterable, or generator function
             The weights or weights generator function
 
@@ -110,8 +119,32 @@ class Eudex(_Distance):
                 - If set to an iterable, the iterable's values should be
                   integers and will be used as the weights.
 
+            In all cases, the weights should be ordered or generated from least
+            significant to most significant, so larger values should generally
+            come first.
+
         max_length : int
             The number of characters to encode as a eudex hash
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Eudex, self).__init__(**kwargs)
+        self._weights = weights
+        self._max_length = max_length
+
+    def dist_abs(self, src, tar, normalized=False):
+        """Calculate the distance between the Eudex hashes of two terms.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
         normalized : bool
             Normalizes to [0, 1] if True
 
@@ -132,43 +165,51 @@ class Eudex(_Distance):
         >>> cmp.dist_abs('ATCG', 'TAGC')
         403
 
-        >>> cmp.dist_abs('cat', 'hat', weights='fibonacci')
+        >>> cmp = Eudex(weights='fibonacci')
+        >>> cmp.dist_abs('cat', 'hat')
         34
-        >>> cmp.dist_abs('Niall', 'Neil', weights='fibonacci')
+        >>> cmp.dist_abs('Niall', 'Neil')
         2
-        >>> cmp.dist_abs('Colin', 'Cuilen', weights='fibonacci')
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         7
-        >>> cmp.dist_abs('ATCG', 'TAGC', weights='fibonacci')
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         117
 
-        >>> cmp.dist_abs('cat', 'hat', weights=None)
+        >>> cmp = Eudex(weights=None)
+        >>> cmp.dist_abs('cat', 'hat')
         1
-        >>> cmp.dist_abs('Niall', 'Neil', weights=None)
+        >>> cmp.dist_abs('Niall', 'Neil')
         1
-        >>> cmp.dist_abs('Colin', 'Cuilen', weights=None)
+        >>> cmp.dist_abs('Colin', 'Cuilen')
         2
-        >>> cmp.dist_abs('ATCG', 'TAGC', weights=None)
+        >>> cmp.dist_abs('ATCG', 'TAGC')
         9
 
         >>> # Using the OEIS A000142:
-        >>> cmp.dist_abs('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp = Eudex(weights=[1, 1, 2, 6, 24, 120, 720, 5040])
+        >>> cmp.dist_abs('cat', 'hat')
+        5040
+        >>> cmp.dist_abs('Niall', 'Neil')
         1
-        >>> cmp.dist_abs('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
-        720
-        >>> cmp.dist_abs('Colin', 'Cuilen',
-        ... [1, 1, 2, 6, 24, 120, 720, 5040])
-        744
-        >>> cmp.dist_abs('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
-        6243
+        >>> cmp.dist_abs('Colin', 'Cuilen')
+        7
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        15130
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
 
         """
+
         # Calculate the eudex hashes and XOR them
-        xored = eudex(src, max_length=max_length) ^ eudex(
-            tar, max_length=max_length
+        xored = eudex(src, max_length=self._max_length) ^ eudex(
+            tar, max_length=self._max_length
         )
 
         # Simple hamming distance (all bits are equal)
-        if not weights:
+        if not self._weights:
             binary = bin(xored)
             distance = binary.count('1')
             if normalized:
@@ -177,14 +218,21 @@ class Eudex(_Distance):
 
         # If weights is a function, it should create a generator,
         # which we now use to populate a list
-        if callable(weights):
-            weights = weights()
-        elif weights == 'exponential':
+        if callable(self._weights):
+            weights = self._weights()
+        elif self._weights == 'exponential':
             weights = Eudex.gen_exponential()
-        elif weights == 'fibonacci':
+        elif self._weights == 'fibonacci':
             weights = Eudex.gen_fibonacci()
+        elif hasattr(self._weights, '__iter__') and not isinstance(
+            self._weights, str
+        ):
+            weights = self._weights[::-1]
+        else:
+            raise ValueError('Unrecognized weights value or type.')
+
         if isinstance(weights, GeneratorType):
-            weights = [next(weights) for _ in range(max_length)][::-1]
+            weights = [next(weights) for _ in range(self._max_length)][::-1]
 
         # Sum the weighted hamming distance
         distance = 0
@@ -199,7 +247,7 @@ class Eudex(_Distance):
 
         return distance
 
-    def dist(self, src, tar, weights='exponential', max_length=8):
+    def dist(self, src, tar):
         """Return normalized distance between the Eudex hashes of two terms.
 
         This is Eudex distance normalized to [0, 1].
@@ -210,10 +258,6 @@ class Eudex(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        weights : str, iterable, or generator function
-            The weights or weights generator function
-        max_length : int
-            The number of characters to encode as a eudex hash
 
         Returns
         -------
@@ -232,10 +276,21 @@ class Eudex(_Distance):
         >>> round(cmp.dist('ATCG', 'TAGC'), 12)
         0.197549019608
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
-        return self.dist_abs(src, tar, weights, max_length, True)
+        return self.dist_abs(src, tar, True)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Eudex.dist_abs method instead.',
+)
 def eudex_hamming(
     src, tar, weights='exponential', max_length=8, normalized=False
 ):
@@ -292,18 +347,26 @@ def eudex_hamming(
 
     >>> # Using the OEIS A000142:
     >>> eudex_hamming('cat', 'hat', [1, 1, 2, 6, 24, 120, 720, 5040])
-    1
+    5040
     >>> eudex_hamming('Niall', 'Neil', [1, 1, 2, 6, 24, 120, 720, 5040])
-    720
+    1
     >>> eudex_hamming('Colin', 'Cuilen', [1, 1, 2, 6, 24, 120, 720, 5040])
-    744
+    7
     >>> eudex_hamming('ATCG', 'TAGC', [1, 1, 2, 6, 24, 120, 720, 5040])
-    6243
+    15130
+
+    .. versionadded:: 0.3.0
 
     """
-    return Eudex().dist_abs(src, tar, weights, max_length, normalized)
+    return Eudex(weights, max_length).dist_abs(src, tar, normalized)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Eudex.dist method instead.',
+)
 def dist_eudex(src, tar, weights='exponential', max_length=8):
     """Return normalized Hamming distance between Eudex hashes of two terms.
 
@@ -336,10 +399,18 @@ def dist_eudex(src, tar, weights='exponential', max_length=8):
     >>> round(dist_eudex('ATCG', 'TAGC'), 12)
     0.197549019608
 
+    .. versionadded:: 0.3.0
+
     """
-    return Eudex().dist(src, tar, weights, max_length)
+    return Eudex(weights, max_length).dist(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Eudex.sim method instead.',
+)
 def sim_eudex(src, tar, weights='exponential', max_length=8):
     """Return normalized Hamming similarity between Eudex hashes of two terms.
 
@@ -372,8 +443,10 @@ def sim_eudex(src, tar, weights='exponential', max_length=8):
     >>> round(sim_eudex('ATCG', 'TAGC'), 12)
     0.802450980392
 
+    .. versionadded:: 0.3.0
+
     """
-    return Eudex().sim(src, tar, weights, max_length)
+    return Eudex(weights, max_length).sim(src, tar)
 
 
 if __name__ == '__main__':

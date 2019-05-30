@@ -28,7 +28,10 @@ from __future__ import (
     unicode_literals,
 )
 
+from deprecation import deprecated
+
 from ._distance import _Distance
+from .. import __version__
 
 __all__ = ['Baystat', 'dist_baystat', 'sim_baystat']
 
@@ -44,9 +47,36 @@ class Baystat(_Distance):
     This is ostensibly a port of the R module PPRL's implementation:
     https://github.com/cran/PPRL/blob/master/src/MTB_Baystat.cpp
     :cite:`Rukasz:2018`. As such, this could be made more pythonic.
+
+    .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar, min_ss_len=None, left_ext=None, right_ext=None):
+    def __init__(
+        self, min_ss_len=None, left_ext=None, right_ext=None, **kwargs
+    ):
+        """Initialize Levenshtein instance.
+
+        Parameters
+        ----------
+        min_ss_len : int
+            Minimum substring length to be considered
+        left_ext : int
+            Left-side extension length
+        right_ext : int
+            Right-side extension length
+        **kwargs
+            Arbitrary keyword arguments
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        super(Baystat, self).__init__(**kwargs)
+        self._min_ss_len = min_ss_len
+        self._left_ext = left_ext
+        self._right_ext = right_ext
+
+    def sim(self, src, tar):
         """Return the Baystat similarity.
 
         Parameters
@@ -55,12 +85,6 @@ class Baystat(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
-        min_ss_len : int
-            Minimum substring length to be considered
-        left_ext :int
-            Left-side extension length
-        right_ext :int
-            Right-side extension length
 
         Returns
         -------
@@ -79,6 +103,11 @@ class Baystat(_Distance):
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         if src == tar:
             return 1.0
@@ -87,7 +116,7 @@ class Baystat(_Distance):
 
         max_len = max(len(src), len(tar))
 
-        if not (min_ss_len and left_ext and right_ext):
+        if not (self._min_ss_len and self._left_ext and self._right_ext):
             # These can be set via arguments to the function. Otherwise they
             # are set automatically based on values from the article.
             if max_len >= 7:
@@ -101,6 +130,10 @@ class Baystat(_Distance):
                 min_ss_len = 1
                 left_ext = 0
                 right_ext = 0
+        else:
+            min_ss_len = self._min_ss_len
+            left_ext = self._left_ext
+            right_ext = self._right_ext
 
         pos = 0
         match_len = 0
@@ -173,6 +206,12 @@ class Baystat(_Distance):
             pos += ix
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Baystat.sim method instead.',
+)
 def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     """Return the Baystat similarity.
 
@@ -207,10 +246,18 @@ def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     >>> sim_baystat('ATCG', 'TAGC')
     0.0
 
+    .. versionadded:: 0.3.0
+
     """
-    return Baystat().sim(src, tar, min_ss_len, left_ext, right_ext)
+    return Baystat(min_ss_len, left_ext, right_ext).sim(src, tar)
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the Baystat.dist method instead.',
+)
 def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     """Return the Baystat distance.
 
@@ -245,8 +292,10 @@ def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
     >>> dist_baystat('ATCG', 'TAGC')
     1.0
 
+    .. versionadded:: 0.3.0
+
     """
-    return Baystat().dist(src, tar, min_ss_len, left_ext, right_ext)
+    return Baystat(min_ss_len, left_ext, right_ext).dist(src, tar)
 
 
 if __name__ == '__main__':

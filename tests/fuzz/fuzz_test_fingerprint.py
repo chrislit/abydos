@@ -48,31 +48,20 @@ from abydos.fingerprint import (
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 
-string = String()
-qgram = QGram()
-phonetic = Phonetic()
-skeleton = SkeletonKey()
-omission = OmissionKey()
-occurrence = Occurrence()
-occurrence_halved = OccurrenceHalved()
-count = Count()
-position = Position()
 synoname = SynonameToolcode()
 
 algorithms = {
-    'str_fingerprint': string.fingerprint,
-    'qgram_fingerprint': qgram.fingerprint,
-    'qgram_fingerprint_3': lambda _: qgram.fingerprint(_, qval=3),
-    'qgram_fingerprint_ssj': lambda _: qgram.fingerprint(
-        _, start_stop='$#', joiner=' '
-    ),
-    'phonetic_fingerprint': phonetic.fingerprint,
-    'skeleton_key': skeleton.fingerprint,
-    'omission_key': omission.fingerprint,
-    'occurrence_fingerprint': occurrence.fingerprint,
-    'occurrence_halved_fingerprint': occurrence_halved.fingerprint,
-    'count_fingerprint': count.fingerprint,
-    'position_fingerprint': position.fingerprint,
+    'str_fingerprint': String().fingerprint,
+    'qgram_fingerprint': QGram().fingerprint,
+    'qgram_fingerprint_3': QGram(qval=3).fingerprint,
+    'qgram_fingerprint_ssj': QGram(start_stop='$#', joiner=' ').fingerprint,
+    'phonetic_fingerprint': Phonetic().fingerprint,
+    'skeleton_key': SkeletonKey().fingerprint,
+    'omission_key': OmissionKey().fingerprint,
+    'occurrence_fingerprint': Occurrence().fingerprint,
+    'occurrence_halved_fingerprint': OccurrenceHalved().fingerprint,
+    'count_fingerprint': Count().fingerprint,
+    'position_fingerprint': Position().fingerprint,
     'synoname_toolcode': synoname.fingerprint,
     'synoname_toolcode_2name': lambda _: synoname.fingerprint(_, _),
 }

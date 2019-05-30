@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -31,13 +31,14 @@ from __future__ import (
 import unittest
 
 from abydos.corpus import Corpus
+from abydos.tokenizer import QSkipgrams
 
 
 class CorpusTestCases(unittest.TestCase):
     """Test Corpus class."""
 
-    sotu2015Sample = 'Mr. Speaker, Mr. Vice President, Members of Congress, my\
-    fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
+    sotu2015_sample = "Mr. Speaker, Mr. Vice President, Members of Congress,\
+    my fellow Americans:\n\nWe are 15 years into this new century.\n Fifteen\
     years that dawned with terror touching our shores; that unfolded with a\
     new generation fighting two long and costly wars; that saw a vicious\
     recession spread across our nation and the world.\n It has been, and still\
@@ -46,7 +47,7 @@ class CorpusTestCases(unittest.TestCase):
     jobs at the fastest pace since 1999.\n Our unemployment rate is now lower\
     than it was before the financial crisis.\n More of our kids are graduating\
     than ever before.\n More of our people are insured than ever before.\n And\
-    we are as free from the grip of foreign oil as we\'ve been in almost 30\
+    we are as free from the grip of foreign oil as we've been in almost 30\
     years.\n\nTonight, for the first time since 9/11, our combat mission in\
     Afghanistan is over.\n Six years ago, nearly 180,000 American troops\
     served in Iraq and Afghanistan.\n Today, fewer than 15,000 remain.\n And\
@@ -58,7 +59,7 @@ class CorpusTestCases(unittest.TestCase):
     Union is strong.\n\nAt this moment -- with a growing economy, shrinking\
     deficits, bustling industry, booming energy production -- we have risen\
     from recession freer to write our own future than any other nation on\
-    Earth.\n It\'s now up to us to choose who we want to be over the next 15\
+    Earth.\n It's now up to us to choose who we want to be over the next 15\
     years and for decades to come.\n\nWill we accept an economy where only a\
     few of us do spectacularly well?\n Or will we commit ourselves to an\
     economy that generates rising incomes and chances for everyone who makes\
@@ -69,11 +70,11 @@ class CorpusTestCases(unittest.TestCase):
     be sorted into factions and turned against one another?\n Or will we\
     recapture the sense of common purpose that has always propelled America\
     forward?\n\nIn two weeks, I will send this Congress a budget filled with\
-    ideas that are practical, not partisan.\n And in the months ahead, I\'ll\
+    ideas that are practical, not partisan.\n And in the months ahead, I'll\
     crisscross the country making a case for those ideas.\n So tonight, I want\
     to focus less on a checklist of proposals, and focus more on the values at\
-    stake in the choices before us.'
-    sotu2015Corpus = Corpus(sotu2015Sample, filter_chars='.?-;,:')
+    stake in the choices before us."
+    sotu2015_corpus = Corpus(sotu2015_sample, filter_chars='.?-;,:')
 
     def test_corpus(self):
         """Test abydos.corpus.Corpus."""
@@ -207,6 +208,27 @@ class CorpusTestCases(unittest.TestCase):
                 ]
             ],
         )
+        self.assertEqual(
+            Corpus(
+                'quick', word_tokenizer=QSkipgrams(qval=3, start_stop='')
+            ).corpus,
+            [
+                [
+                    [
+                        'qui',
+                        'quc',
+                        'quk',
+                        'qic',
+                        'qik',
+                        'qck',
+                        'uic',
+                        'uik',
+                        'uck',
+                        'ick',
+                    ]
+                ]
+            ],
+        )
 
     def test_corpus_docs_raw(self):
         """Test abydos.corpus.Corpus.paras, .docs, .docs_of_words, .raw."""
@@ -254,11 +276,11 @@ class CorpusTestCases(unittest.TestCase):
         wiki_idf_corpus = Corpus(wiki_idf_sample)
 
         self.assertAlmostEqual(wiki_idf_corpus.idf('this'), 0)
-        self.assertAlmostEqual(wiki_idf_corpus.idf('example'), 0.30102999566)
+        self.assertAlmostEqual(wiki_idf_corpus.idf('example'), 0.69314718056)
         self.assertAlmostEqual(wiki_idf_corpus.idf('these'), float('inf'))
         self.assertAlmostEqual(wiki_idf_corpus.idf('A'), float('inf'))
         self.assertAlmostEqual(
-            wiki_idf_corpus.idf('A', lambda w: w.upper()), 0.30102999566
+            wiki_idf_corpus.idf('A', lambda w: w.upper()), 0.69314718056
         )
 
 

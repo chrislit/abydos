@@ -30,9 +30,12 @@ from __future__ import (
 
 from unicodedata import normalize as unicode_normalize
 
+from deprecation import deprecated
+
 from six import text_type
 
 from ._fingerprint import _Fingerprint
+from .. import __version__
 
 __all__ = ['String', 'str_fingerprint']
 
@@ -43,17 +46,31 @@ class String(_Fingerprint):
     The fingerprint of a string is a string consisting of all of the unique
     words in a string, alphabetized & concatenated with intervening joiners.
     This fingerprint is described at :cite:`OpenRefine:2012`.
+
+    .. versionadded:: 0.3.6
     """
 
-    def fingerprint(self, phrase, joiner=' '):
+    def __init__(self, joiner=' '):
+        """Initialize String instance.
+
+        Parameters
+        ----------
+        joiner : str
+            The string that will be placed between each word
+
+
+        .. versionadded:: 0.4.0
+
+        """
+        self._joiner = joiner
+
+    def fingerprint(self, phrase):
         """Return string fingerprint.
 
         Parameters
         ----------
         phrase : str
             The string from which to calculate the fingerprint
-        joiner : str
-            The string that will be placed between each word
 
         Returns
         -------
@@ -66,13 +83,24 @@ class String(_Fingerprint):
         >>> sf.fingerprint('The quick brown fox jumped over the lazy dog.')
         'brown dog fox jumped lazy over quick the'
 
+
+        .. versionadded:: 0.1.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
         phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
-        phrase = joiner.join(sorted(list(set(phrase.split()))))
+        phrase = self._joiner.join(sorted(list(set(phrase.split()))))
         return phrase
 
 
+@deprecated(
+    deprecated_in='0.4.0',
+    removed_in='0.6.0',
+    current_version=__version__,
+    details='Use the String.fingerprint method instead.',
+)
 def str_fingerprint(phrase, joiner=' '):
     """Return string fingerprint.
 
@@ -95,8 +123,10 @@ def str_fingerprint(phrase, joiner=' '):
     >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
     'brown dog fox jumped lazy over quick the'
 
+    .. versionadded:: 0.1.0
+
     """
-    return String().fingerprint(phrase, joiner)
+    return String(joiner).fingerprint(phrase)
 
 
 if __name__ == '__main__':
