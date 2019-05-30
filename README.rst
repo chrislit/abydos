@@ -27,7 +27,7 @@ Abydos
     :target: https://circleci.com/gh/chrislit/abydos/tree/master
     :alt: Circle-CI Build Status
 
-.. |azure| image:: https://dev.azure.com/chrislit/abydos/_apis/build/status/chrislit.abydos
+.. |azure| image:: https://dev.azure.com/chrislit/abydos/_apis/build/status/chrislit.abydos?branchName=master
     :target: https://dev.azure.com/chrislit/abydos/_build/latest?definitionId=1
     :alt: Azure Pipelines Build Status
 
