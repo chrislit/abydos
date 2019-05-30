@@ -42,6 +42,7 @@ The fingerprint package implements string fingerprints such as:
 
     - The Synoname toolcode (:py:class:`.SynonameToolcode`)
 
+    - Taft's consonant coding
 
 Each fingerprint class has a ``fingerprint`` method that takes a string and
 returns the string's fingerprint:
@@ -63,6 +64,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._consonant import Consonant
 from ._count import Count, count_fingerprint
 from ._fingerprint import (
     MOST_COMMON_LETTERS,
@@ -109,6 +111,7 @@ __all__ = [
     'position_fingerprint',
     'SynonameToolcode',
     'synoname_toolcode',
+    'Consonant',
 ]
 
 
