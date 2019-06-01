@@ -74,6 +74,7 @@ from ._fingerprint import (
     MOST_COMMON_LETTERS_EN_LC,
     _Fingerprint,
 )
+from ._lacss import LACSS
 from ._occurrence import Occurrence, occurrence_fingerprint
 from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
 from ._omission_key import OmissionKey, omission_key
@@ -112,6 +113,7 @@ __all__ = [
     'SynonameToolcode',
     'synoname_toolcode',
     'Consonant',
+    'LACSS',
 ]
 
 
