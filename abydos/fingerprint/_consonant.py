@@ -38,14 +38,14 @@ __all__ = ['Consonant']
 class Consonant(_Fingerprint):
     """Consonant Coding Fingerprint.
 
-    Based on the consonant coding from :cite:`Cislak:2017`, variants 1, 2, 3,
+    Based on the consonant coding from :cite:`Taft:1970`, variants 1, 2, 3,
     1-D, 2-D, and 3-D.
 
-    .. versionadded:: 0.3.6
+    .. versionadded:: 0.4.1
     """
 
     def __init__(self, variant=1, doubles=True, vowels=None):
-        """Initialize Count instance.
+        """Initialize Consonant instance.
 
         Parameters
         ----------
