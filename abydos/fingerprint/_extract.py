@@ -28,8 +28,6 @@ from __future__ import (
     unicode_literals,
 )
 
-from itertools import groupby
-
 from ._fingerprint import _Fingerprint
 
 __all__ = ['Extract']
