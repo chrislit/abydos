@@ -131,15 +131,15 @@ Abydos
     :target: https://github.com/chrislit/abydos/stargazers
     :alt: GitHub Stars
 
-.. |pypi| image:: https://img.shields.io/pypi/v/abydos.svg?logo=pypi
+.. |pypi| image:: https://img.shields.io/pypi/v/abydos.svg?logo=python&logoColor=white
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI
 
-.. |pypi-dl| image:: https://img.shields.io/pypi/dm/abydos.svg?logo=pypi
+.. |pypi-dl| image:: https://img.shields.io/pypi/dm/abydos.svg?logo=python&logoColor=white
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI downloads/month
 
-.. |pypi-ver| image:: https://img.shields.io/pypi/pyversions/abydos.svg?logo=pypi
+.. |pypi-ver| image:: https://img.shields.io/pypi/pyversions/abydos.svg?logo=python&logoColor=white
     :target: https://pypi.python.org/pypi/abydos
     :alt: PyPI versions
 
