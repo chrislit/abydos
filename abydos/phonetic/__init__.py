@@ -35,6 +35,7 @@ including:
     - Phonex (:py:class:`.Phonex`)
     - Phonem (:py:class:`.Phonem`)
     - Phonix (:py:class:`.Phonix`)
+    - PHONIC (:py:class:`.PHONIC`)
     - Standardized Phonetic Frequency Code (:py:class:`.SPFC`)
     - Statistics Canada (:py:class:`.StatisticsCanada`)
     - LEIN (:py:class:`.LEIN`)
@@ -140,6 +141,7 @@ from ._phonet import Phonet, phonet
 from ._phonetic import _Phonetic
 from ._phonetic_spanish import PhoneticSpanish, phonetic_spanish
 from ._phonex import Phonex, phonex
+from ._phonic import PHONIC
 from ._phonix import Phonix, phonix
 from ._pshp_soundex_first import PSHPSoundexFirst, pshp_soundex_first
 from ._pshp_soundex_last import PSHPSoundexLast, pshp_soundex_last
@@ -179,6 +181,7 @@ __all__ = [
     'lein',
     'Phonex',
     'phonex',
+    'PHONIC',
     'Phonix',
     'phonix',
     'PSHPSoundexFirst',
