@@ -42,7 +42,14 @@ The fingerprint package implements string fingerprints such as:
 
     - The Synoname toolcode (:py:class:`.SynonameToolcode`)
 
-    - Taft's consonant coding
+    - Taft's codings:
+
+        - Consonant coding (:py:class:`.Consonant`)
+        - Extract - letter list (:py:class:`.Extract`)
+        - Extract - position & frequency
+          (:py:class:`.ExtractPositionFrequency`)
+
+    - L.A. County Sheriff's System (:py:class:`.LACSS`)
 
 Each fingerprint class has a ``fingerprint`` method that takes a string and
 returns the string's fingerprint:
