@@ -67,6 +67,7 @@ from __future__ import (
 from ._consonant import Consonant
 from ._count import Count, count_fingerprint
 from ._extract import Extract
+from ._extract_position_frequency import ExtractPositionFrequency
 from ._fingerprint import (
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
@@ -115,6 +116,7 @@ __all__ = [
     'synoname_toolcode',
     'Consonant',
     'Extract',
+    'ExtractPositionFrequency',
     'LACSS',
 ]
 
