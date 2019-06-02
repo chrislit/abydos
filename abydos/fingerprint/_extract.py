@@ -71,7 +71,7 @@ class Extract(_Fingerprint):
             self._letter_list = list(letter_lists[0])
 
     def fingerprint(self, word):
-        """Return the consonant coding.
+        """Return the extract letter list coding.
 
         Parameters
         ----------
@@ -81,7 +81,7 @@ class Extract(_Fingerprint):
         Returns
         -------
         int
-            The consonant coding
+            The extract letter list coding
 
         Examples
         --------
