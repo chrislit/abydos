@@ -1,0 +1,63 @@
+# -*- coding: utf-8 -*-
+
+# Copyright 2019 by Christopher C. Little.
+# This file is part of Abydos.
+#
+# Abydos is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Abydos is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Abydos. If not, see <http://www.gnu.org/licenses/>.
+
+"""abydos.tests.distance.test_distance_indel.
+
+This module contains unit tests for abydos.distance.Indel
+"""
+
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
+import unittest
+
+from abydos.distance import Inclusion
+
+
+class IndelTestCases(unittest.TestCase):
+    """Test indel functions.
+
+    abydos.distance.Indel
+    """
+
+    cmp = Inclusion()
+
+    def test_indel_dist(self):
+        """Test abydos.distance.Indel.dist."""
+        # Base cases
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
+
+        # Tescases from paper
+        self.assertEqual(self.cmp.dist('ALINE', 'LINA'), 0.0)
+        self.assertEqual(self.cmp.dist('ADELINE', 'LINA'), 0.0)
+        self.assertEqual(self.cmp.dist('DIONNE', 'DONNE'), 0.0)
+        self.assertEqual(self.cmp.dist('ANGELINE', 'ADELINE'), 1.0)
+        self.assertEqual(self.cmp.dist('CASSEGRAIN', 'CASGRAIN'), 1.0)
+
+
+if __name__ == '__main__':
+    unittest.main()
