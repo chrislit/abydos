@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_indel.
+"""abydos.tests.distance.test_distance_inclusion.
 
-This module contains unit tests for abydos.distance.Indel
+This module contains unit tests for abydos.distance.Inclusion
 """
 
 from __future__ import (
@@ -33,16 +33,16 @@ import unittest
 from abydos.distance import Inclusion
 
 
-class IndelTestCases(unittest.TestCase):
-    """Test indel functions.
+class InclusionTestCases(unittest.TestCase):
+    """Test Inclusion functions.
 
-    abydos.distance.Indel
+    abydos.distance.Inclusion
     """
 
     cmp = Inclusion()
 
-    def test_indel_dist(self):
-        """Test abydos.distance.Indel.dist."""
+    def test_inclusion_dist(self):
+        """Test abydos.distance.Inclusion.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)
         self.assertEqual(self.cmp.dist('a', ''), 1.0)
