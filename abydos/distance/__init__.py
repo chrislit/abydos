@@ -319,6 +319,8 @@ The remaining distance measures & metrics include:
     - Typo distance (:py:class:`.Typo`)
     - Synoname (:py:class:`.Synoname`)
     - Ozbay metric (:py:class:`.Ozbay`)
+    - INClusion Programme (:py:class:`.Inclusion`)
+    - Guth (:py:class:`.Guth`)
 
 Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
 which return a measure that is normalized to the range :math:`[0, 1]`. The
@@ -443,6 +445,7 @@ from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
 from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
 from ._gotoh import Gotoh, gotoh
 from ._gower_legendre import GowerLegendre
+from ._guth import Guth
 from ._guttman_lambda_a import GuttmanLambdaA
 from ._guttman_lambda_b import GuttmanLambdaB
 from ._gwet_ac import GwetAC
@@ -455,6 +458,7 @@ from ._hellinger import Hellinger
 from ._higuera_mico import HigueraMico
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
+from ._inclusion import Inclusion
 from ._indel import Indel, dist_indel, indel, sim_indel
 from ._iterative_substring import IterativeSubString
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
@@ -971,6 +975,8 @@ __all__ = [
     'Synoname',
     'synoname',
     'Ozbay',
+    'Inclusion',
+    'Guth',
 ]
 
 
