@@ -52,10 +52,14 @@ class LACSS(_Fingerprint):
 
         self._vowels = set('AEIOUYWH')
 
-        self._t1 = {_[0]: _[1] for _ in zip('RNLTSCMDKAGBPFVZXJQ', range(1, 20))}
+        self._t1 = {
+            _[0]: _[1] for _ in zip('RNLTSCMDKAGBPFVZXJQ', range(1, 20))
+        }
         self._t1.update({_: 0 for _ in self._vowels})
 
-        self._t2 = {_[0]:_[1] for _ in zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ', range(1, 27))}
+        self._t2 = {
+            _[0]: _[1] for _ in zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ', range(1, 27))
+        }
 
     def fingerprint(self, word):
         """Return the LACSS coding.
@@ -93,17 +97,17 @@ class LACSS(_Fingerprint):
 
         # remove vowels
         word = word[:1] + ''.join(_ for _ in word[1:] if _ not in 'AEIOUWHY')
-        word += (12-len(word))*'A'
+        word += (12 - len(word)) * 'A'
 
         # step 1
-        code = self._t2[word[:1]]*10
+        code = self._t2[word[:1]] * 10
 
         for letter in word[1:12]:
             code *= 10
             code += self._t1[letter]
 
         code *= 3
-        code = str(int(code**0.5))
+        code = str(int(code ** 0.5))
 
         return code
 

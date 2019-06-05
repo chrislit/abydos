@@ -232,9 +232,9 @@ class Levenshtein(_Distance):
         distance = d_mat[src_pos, tar_pos]
 
         while src_pos and tar_pos:
-            up = d_mat[src_pos, tar_pos-1]
-            left = d_mat[src_pos-1, tar_pos]
-            diag = d_mat[src_pos-1, tar_pos-1]
+            up = d_mat[src_pos, tar_pos - 1]
+            left = d_mat[src_pos - 1, tar_pos]
+            diag = d_mat[src_pos - 1, tar_pos - 1]
 
             if diag <= min(up, left):
                 src_pos -= 1

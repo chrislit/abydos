@@ -41,6 +41,7 @@ class Inclusion(_Distance):
 
     .. versionadded:: 0.4.1
     """
+
     _lev = Levenshtein()
 
     def dist(self, src, tar):

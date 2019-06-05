@@ -77,7 +77,9 @@ class Guth(_Distance):
 
         self.params['tokenizer'] = tokenizer
         if 'qval' in self.params:
-            self.params['tokenizer'] = QGrams(qval=self.params['qval'], start_stop='$#', skip=0, scaler=None)
+            self.params['tokenizer'] = QGrams(
+                qval=self.params['qval'], start_stop='$#', skip=0, scaler=None
+            )
 
     def _token_at(self, name, pos):
         """Return the token of name at position pos.
@@ -144,11 +146,11 @@ class Guth(_Distance):
 
         for pos in range(len(src)):
             s = self._token_at(src, pos)
-            t = set(tar[max(0, pos - 1):pos + 3])
+            t = set(tar[max(0, pos - 1) : pos + 3])
             if s and s in t:
                 continue
 
-            s = set(src[max(0, pos - 1):pos + 3])
+            s = set(src[max(0, pos - 1) : pos + 3])
             t = self._token_at(tar, pos)
             if t and t in s:
                 continue

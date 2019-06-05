@@ -74,9 +74,7 @@ class PHONIC(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'TNMRLJKFPS'))
 
-    def __init__(
-        self, max_length=5, zero_pad=True, extended=False
-    ):
+    def __init__(self, max_length=5, zero_pad=True, extended=False):
         """Initialize PHONIC instance.
 
         Parameters
@@ -170,8 +168,8 @@ class PHONIC(_Phonetic):
         code = []
         pos = 0
         while pos < len(word):
-            if word[pos:pos+2] in self._trans2:
-                code.append(self._trans2[word[pos:pos+2]])
+            if word[pos : pos + 2] in self._trans2:
+                code.append(self._trans2[word[pos : pos + 2]])
                 pos += 1
             elif word[pos] in self._trans1:
                 code.append(self._trans1[word[pos]])
@@ -184,12 +182,12 @@ class PHONIC(_Phonetic):
         code = code.replace('.', '')
 
         if self._zero_pad:
-            code += '0'*(self._max_length-1-len(code))
+            code += '0' * (self._max_length - 1 - len(code))
 
         if not self._extended:
             code = word[:1] + code
 
-        return code[:self._max_length]
+        return code[: self._max_length]
 
 
 if __name__ == '__main__':

@@ -56,15 +56,17 @@ class Extract(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        letter_lists = ['ETAONRISHDLFCMUGYPWBVKXJQZ',
-                        'ETASIONRHCDLPMFBUWGYKVJQZX',
-                        'ETAONISRHLDCUMFYWGPKBVXJQZ',
-                        'EARNLOISTHDMCBGUWYJKPFVZXQ']
+        letter_lists = [
+            'ETAONRISHDLFCMUGYPWBVKXJQZ',
+            'ETASIONRHCDLPMFBUWGYKVJQZX',
+            'ETAONISRHLDCUMFYWGPKBVXJQZ',
+            'EARNLOISTHDMCBGUWYJKPFVZXQ',
+        ]
 
         super(_Fingerprint, self).__init__()
         self._letter_list = letter_list
         if isinstance(self._letter_list, int) and 1 <= self._letter_list <= 4:
-            self._letter_list = list(letter_lists[self._letter_list-1])
+            self._letter_list = list(letter_lists[self._letter_list - 1])
         elif hasattr(self._letter_list, '__iter__'):
             self._letter_list = list(self._letter_list)
         else:
@@ -110,7 +112,9 @@ class Extract(_Fingerprint):
 
             count = word.count(letter)
             if count:
-                word = word.replace(letter, '', count-(4-(len(word)-count)))
+                word = word.replace(
+                    letter, '', count - (4 - (len(word) - count))
+                )
 
         return word[::-1]
 

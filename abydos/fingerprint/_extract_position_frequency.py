@@ -48,7 +48,40 @@ class ExtractPositionFrequency(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        self._frequency = {x:y for x,y in zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ', (5,1,5,0,7,1,2,5,6,0,1,5,1,3,4,3,0,4,5,3,4,1,1,0,2,1))}
+        self._frequency = {
+            x: y
+            for x, y in zip(
+                'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                (
+                    5,
+                    1,
+                    5,
+                    0,
+                    7,
+                    1,
+                    2,
+                    5,
+                    6,
+                    0,
+                    1,
+                    5,
+                    1,
+                    3,
+                    4,
+                    3,
+                    0,
+                    4,
+                    5,
+                    3,
+                    4,
+                    1,
+                    1,
+                    0,
+                    2,
+                    1,
+                ),
+            )
+        }
         self._position = (0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7)
 
         super(_Fingerprint, self).__init__()
@@ -92,8 +125,8 @@ class ExtractPositionFrequency(_Fingerprint):
         for i in range(len(word)):
             scores[pos].append(self._frequency[word[pos]])
             scores[pos][0] += self._position[min(i, 15)]
-            scores[pos].append(len(word)+pos if pos < 0 else pos)
-            pos = -(pos if pos < 0 else pos+1)
+            scores[pos].append(len(word) + pos if pos < 0 else pos)
+            pos = -(pos if pos < 0 else pos + 1)
         positions = sorted(pos[1] for pos in sorted(scores, reverse=True)[-4:])
 
         return ''.join(word[_] for _ in positions)
