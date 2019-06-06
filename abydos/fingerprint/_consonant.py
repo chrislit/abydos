@@ -96,16 +96,16 @@ class Consonant(_Fingerprint):
         Examples
         --------
         >>> cf = Consonant()
-        >>> bin(cf.fingerprint('hat'))
-        '0b110000100000000'
-        >>> bin(cf.fingerprint('niall'))
-        '0b10110000100000'
-        >>> bin(cf.fingerprint('colin'))
-        '0b1110000110000'
-        >>> bin(cf.fingerprint('atcg'))
-        '0b110000000010000'
-        >>> bin(cf.fingerprint('entreatment'))
-        '0b1110010010000100'
+        >>> cf.fingerprint('hat')
+        'HT'
+        >>> cf.fingerprint('niall')
+        'NLL'
+        >>> cf.fingerprint('colin')
+        'CLN'
+        >>> cf.fingerprint('atcg')
+        'ATCG'
+        >>> cf.fingerprint('entreatment')
+        'ENTRTMNT'
 
 
         .. versionadded:: 0.4.1

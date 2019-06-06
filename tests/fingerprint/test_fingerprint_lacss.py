@@ -44,7 +44,7 @@ class LACSSTestCases(unittest.TestCase):
     def test_lacss_fingerprint(self):
         """Test abydos.fingerprint.LACSS."""
         # Base case
-        self.assertEqual(self.fp.fingerprint(''), '')
+        self.assertEqual(self.fp.fingerprint(''), '1732050')
 
         # Test cases from paper
         self.assertEqual(self.fp.fingerprint('Williams'), '8312716')

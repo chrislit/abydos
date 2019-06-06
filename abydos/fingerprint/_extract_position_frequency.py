@@ -102,16 +102,16 @@ class ExtractPositionFrequency(_Fingerprint):
         Examples
         --------
         >>> fp = ExtractPositionFrequency()
-        >>> bin(fp.fingerprint('hat'))
-        '0b110000100000000'
-        >>> bin(fp.fingerprint('niall'))
-        '0b10110000100000'
-        >>> bin(fp.fingerprint('colin'))
-        '0b1110000110000'
-        >>> bin(fp.fingerprint('atcg'))
-        '0b110000000010000'
-        >>> bin(fp.fingerprint('entreatment'))
-        '0b1110010010000100'
+        >>> fp.fingerprint('hat')
+        'HAT'
+        >>> fp.fingerprint('niall')
+        'NILL'
+        >>> fp.fingerprint('colin')
+        'COLN'
+        >>> fp.fingerprint('atcg')
+        'ATCG'
+        >>> fp.fingerprint('entreatment')
+        'NMNT'
 
 
         .. versionadded:: 0.4.1

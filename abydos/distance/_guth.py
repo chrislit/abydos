@@ -125,13 +125,13 @@ class Guth(_Distance):
         --------
         >>> cmp = Guth()
         >>> cmp.sim_score('cat', 'hat')
-        0.5
+        1.0
         >>> cmp.sim_score('Niall', 'Neil')
-        0.36363636363636365
+        1.0
         >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
         >>> cmp.sim_score('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.1
@@ -139,6 +139,8 @@ class Guth(_Distance):
         """
         if src == tar:
             return 1.0
+        if not src or not tar:
+            return 0.0
 
         if self.params['tokenizer']:
             src = self.params['tokenizer'].tokenize(src).get_list()
@@ -197,13 +199,13 @@ class Guth(_Distance):
         --------
         >>> cmp = Guth()
         >>> cmp.sim('cat', 'hat')
-        0.5
+        0.8666666666666667
         >>> cmp.sim('Niall', 'Neil')
-        0.36363636363636365
+        0.8800000000000001
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.4
         >>> cmp.sim('ATCG', 'TAGC')
-        0.0
+        0.8
 
 
         .. versionadded:: 0.4.1
@@ -211,6 +213,8 @@ class Guth(_Distance):
         """
         if src == tar:
             return 1.0
+        if not src or not tar:
+            return 0.0
 
         if self.params['tokenizer']:
             src = self.params['tokenizer'].tokenize(src).get_list()

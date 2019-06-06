@@ -208,9 +208,9 @@ class Levenshtein(_Distance):
         >>> cmp.alignment('Niall', 'Neil')
         (3.0, 'Niall', 'Neil-')
         >>> cmp.alignment('aluminum', 'Catalan')
-        (7.0, 'aluminum', 'Catalan--')
+        (7.0, '-aluminum', 'Catalan--')
         >>> cmp.alignment('ATCG', 'TAGC')
-        (3.0, 'ATCG-', 'TAGC')
+        (3.0, 'ATCG-', '-TAGC')
 
         >>> cmp = Levenshtein(mode='osa')
         >>> cmp.alignment('ATCG', 'TAGC')

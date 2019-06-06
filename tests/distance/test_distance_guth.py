@@ -44,13 +44,13 @@ class GuthTestCases(unittest.TestCase):
     def test_guth_sim_score(self):
         """Test abydos.distance.Guth.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_score('', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', ''), 1.0)
         self.assertEqual(self.cmp.sim_score('a', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim_score('a', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim_score('a', 'a'), 1.0)
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0.0)
 
         # Tescases from paper
@@ -62,20 +62,20 @@ class GuthTestCases(unittest.TestCase):
     def test_guth_sim(self):
         """Test abydos.distance.Guth.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('a', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('a', 'a'), 1.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         # Tescases from paper
-        self.assertEqual(self.cmp.sim('Glawyn', 'Glavin'), 0.0)
-        self.assertEqual(self.cmp.sim('Smears', 'Smares'), 0.0)
-        self.assertEqual(self.cmp.sim('Giddings', 'Gittins'), 0.0)
-        self.assertEqual(self.cmp.sim('Bokenham', 'Buckingham'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Glawyn', 'Glavin'), 0.8)
+        self.assertAlmostEqual(self.cmp.sim('Smears', 'Smares'), 0.86666666666)
+        self.assertAlmostEqual(self.cmp.sim('Giddings', 'Gittins'), 0.8)
+        self.assertAlmostEqual(self.cmp.sim('Bokenham', 'Buckingham'), 0.65)
 
 
 if __name__ == '__main__':

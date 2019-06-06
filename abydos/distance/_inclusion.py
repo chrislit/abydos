@@ -77,13 +77,13 @@ class Inclusion(_Distance):
         --------
         >>> cmp = Inclusion()
         >>> round(cmp.dist('cat', 'hat'), 12)
-        0.333333333333
+        1.0
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.6
+        1.0
         >>> cmp.dist('aluminum', 'Catalan')
-        0.875
+        1.0
         >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        1.0
 
 
         .. versionadded:: 0.4.1

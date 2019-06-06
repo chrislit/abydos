@@ -77,16 +77,16 @@ class LACSS(_Fingerprint):
         Examples
         --------
         >>> cf = LACSS()
-        >>> bin(cf.fingerprint('hat'))
-        '0b110000100000000'
-        >>> bin(cf.fingerprint('niall'))
-        '0b10110000100000'
-        >>> bin(cf.fingerprint('colin'))
-        '0b1110000110000'
-        >>> bin(cf.fingerprint('atcg'))
-        '0b110000000010000'
-        >>> bin(cf.fingerprint('entreatment'))
-        '0b1110010010000100'
+        >>> cf.fingerprint('hat')
+        '4911211'
+        >>> cf.fingerprint('niall')
+        '6488374'
+        >>> cf.fingerprint('colin')
+        '3015957'
+        >>> cf.fingerprint('atcg')
+        '1772371'
+        >>> cf.fingerprint('entreatment')
+        '3882324'
 
 
         .. versionadded:: 0.4.1
