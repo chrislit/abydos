@@ -37,7 +37,19 @@ __all__ = ['Inclusion']
 class Inclusion(_Distance):
     """Inclusion distance.
 
+    The INC Programme, developed by :cite:`Bouchard:1980` designates two
+    terms as being "included" when:
 
+        - One name is shorter than the other
+        - There are at least 3 common characters
+        - There is at most one difference, disregarding unmatching
+          prefixes and suffixes
+
+    In addition to these rules, this implementation considers two terms
+    as being "included" if they are identical.
+
+    The return value, though a float, can only take one of two values:
+    0.0, indicating inclusion, or 1.0, indication non-inclusion.
 
     .. versionadded:: 0.4.1
     """
@@ -46,20 +58,6 @@ class Inclusion(_Distance):
 
     def dist(self, src, tar):
         """Return the INClusion Programme value of two words.
-
-        The INC Programme, developed by :cite:`Bouchard:1980` designates two
-        terms as being "included" when:
-
-            - One name is shorter than the other
-            - There are at least 3 common characters
-            - There is at most one difference, disregarding unmatching
-              prefixes and suffixes
-
-        In addition to these rules, this implementation considers two terms
-        as being "included" if they are identical.
-
-        The return value, though a float, can only take one of two values:
-        0.0, indicating inclusion, or 1.0, indication non-inclusion.
 
         Parameters
         ----------
