@@ -319,6 +319,7 @@ The remaining distance measures & metrics include:
     - Typo distance (:py:class:`.Typo`)
     - Synoname (:py:class:`.Synoname`)
     - Ozbay metric (:py:class:`.Ozbay`)
+    - Indice de Similitude-Guth (:py:class:`.ISG`)
     - INClusion Programme (:py:class:`.Inclusion`)
     - Guth (:py:class:`.Guth`)
 
@@ -460,6 +461,7 @@ from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
 from ._inclusion import Inclusion
 from ._indel import Indel, dist_indel, indel, sim_indel
+from ._isg import ISG
 from ._iterative_substring import IterativeSubString
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaccard_nm import JaccardNM
@@ -975,6 +977,7 @@ __all__ = [
     'Synoname',
     'synoname',
     'Ozbay',
+    'ISG',
     'Inclusion',
     'Guth',
 ]
