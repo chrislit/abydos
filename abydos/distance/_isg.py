@@ -34,7 +34,7 @@ __all__ = ['ISG']
 
 
 class ISG(_Distance):
-    """Indice de Similitude-Guth (ISG) distance.
+    """Indice de Similitude-Guth (ISG) similarity.
 
     This is an implementation of Bouchard & Pouyez's Indice de Similitude-Guth
     (ISG) :cite:`Bouchard:1980`. At its heart, ISG is Jaccard similarity, but
@@ -76,7 +76,7 @@ class ISG(_Distance):
         self._symmetric = symmetric
 
     def _isg_i(self, src, tar):
-        """Return an individual ISG distance (not symmetric) for src to tar.
+        """Return an individual ISG similarity (not symmetric) for src to tar.
         """
 
         def _char_at(name, pos):
@@ -112,10 +112,11 @@ class ISG(_Distance):
                 if s and t and s == t:
                     matches += 1
                     continue
+
         return matches / (len(src) + len(tar) - matches)
 
-    def dist(self, src, tar):
-        """Return the Indice de Similitude-Guth (ISG) distance of two words.
+    def sim(self, src, tar):
+        """Return the Indice de Similitude-Guth (ISG) similarity of two words.
 
         Parameters
         ----------
@@ -132,13 +133,13 @@ class ISG(_Distance):
         Examples
         --------
         >>> cmp = ISG()
-        >>> round(cmp.dist('cat', 'hat'), 12)
+        >>> round(cmp.sim('cat', 'hat'), 12)
         1.0
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
         1.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.sim('aluminum', 'Catalan')
         1.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         1.0
 
 
