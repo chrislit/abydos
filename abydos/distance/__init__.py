@@ -322,6 +322,9 @@ The remaining distance measures & metrics include:
     - Indice de Similitude-Guth (:py:class:`.ISG`)
     - INClusion Programme (:py:class:`.Inclusion`)
     - Guth (:py:class:`.Guth`)
+    - Victorian Panel Study (:py:class:`.VPS`)
+    - LIG1 (:py:class:`.LIG1`)
+    - LIG3 (:py:class:`.LIG3`)
 
 Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
 which return a measure that is normalized to the range :math:`[0, 1]`. The
@@ -499,6 +502,8 @@ from ._levenshtein import (
     levenshtein,
     sim_levenshtein,
 )
+from ._lig1 import LIG1
+from ._lig3 import LIG3
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
@@ -611,6 +616,7 @@ from ._unknown_k import UnknownK
 from ._unknown_l import UnknownL
 from ._unknown_m import UnknownM
 from ._upholt import Upholt
+from ._vps import VPS
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
 from ._warrens_iii import WarrensIII
@@ -980,6 +986,9 @@ __all__ = [
     'ISG',
     'Inclusion',
     'Guth',
+    'VPS',
+    'LIG1',
+    'LIG3',
 ]
 
 
