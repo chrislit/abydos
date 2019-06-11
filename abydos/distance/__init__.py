@@ -323,7 +323,6 @@ The remaining distance measures & metrics include:
     - INClusion Programme (:py:class:`.Inclusion`)
     - Guth (:py:class:`.Guth`)
     - Victorian Panel Study (:py:class:`.VPS`)
-    - LIG1 (:py:class:`.LIG1`)
     - LIG3 (:py:class:`.LIG3`)
 
 Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
@@ -502,7 +501,6 @@ from ._levenshtein import (
     levenshtein,
     sim_levenshtein,
 )
-from ._lig1 import LIG1
 from ._lig3 import LIG3
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
@@ -987,7 +985,6 @@ __all__ = [
     'Inclusion',
     'Guth',
     'VPS',
-    'LIG1',
     'LIG3',
 ]
 
