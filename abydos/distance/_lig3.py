@@ -29,20 +29,34 @@ from __future__ import (
 )
 
 from ._distance import _Distance
+from ._levenshtein import Levenshtein
 
 __all__ = ['LIG3']
 
 
 class LIG3(_Distance):
-    """LIG3 distance.
+    """LIG3 similarity.
 
+    :cite:`Snae:2002` proposes three Levenshtein-ISG-Guth hybrid similarity
+    measures: LIG1, LIG2, and LIG3. Of these, LIG1 is identical to ISG and LIG2
+    is identical to normalized Levenshtein similarity. Only LIG3 is a novel
+    measure, defined as:
 
+        .. math::
+
+            sim_{LIG3}(X, Y) = \frac{2I}{2I+C}
+
+    Here, I is the number of exact matches between the two words, truncated to
+    the length of the shorter word, and C is the Levenshtein distance between
+    the two words.
 
     .. versionadded:: 0.4.1
     """
 
-    def dist(self, src, tar):
-        """Return the LIG3 distance of two words.
+    _lev = Levenshtein()
+
+    def sim(self, src, tar):
+        """Return the LIG3 similarity of two words.
 
         Parameters
         ----------
@@ -54,25 +68,30 @@ class LIG3(_Distance):
         Returns
         -------
         float
-            The LIG3 distance
+            The LIG3 similarity
 
         Examples
         --------
         >>> cmp = LIG3()
-        >>> round(cmp.dist('cat', 'hat'), 12)
+        >>> round(cmp.sim('cat', 'hat'), 12)
         1.0
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
         1.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.sim('aluminum', 'Catalan')
         1.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         1.0
 
 
         .. versionadded:: 0.4.1
 
         """
-        pass
+        matches = 2 * sum(
+            src[pos] == tar[pos] for pos in range(min(len(src), len(tar)))
+        )
+        cost = self._lev.dist_abs(src, tar)
+
+        return matches / (matches + cost)
 
 
 if __name__ == '__main__':

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_isg.
+"""abydos.tests.distance.test_distance_lig3.
 
-This module contains unit tests for abydos.distance.ISG
+This module contains unit tests for abydos.distance.LIG3
 """
 
 from __future__ import (
@@ -30,19 +30,19 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import ISG
+from abydos.distance import LIG3
 
 
-class ISGTestCases(unittest.TestCase):
-    """Test ISG functions.
+class LIG3TestCases(unittest.TestCase):
+    """Test LIG3 functions.
 
-    abydos.distance.ISG
+    abydos.distance.LIG3
     """
 
-    cmp = ISG()
+    cmp = LIG3()
 
     def test_inclusion_sim(self):
-        """Test abydos.distance.ISG.sim."""
+        """Test abydos.distance.LIG3.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 0.0)
         self.assertEqual(self.cmp.sim('a', ''), 1.0)
@@ -54,22 +54,15 @@ class ISGTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.0)
 
         # Tescases from paper
-        self.assertEqual(self.cmp.sim('alaire', 'alard'), 0.5714285714285714)
-        self.assertEqual(self.cmp.sim('georges', 'george'), 0.8571428571428571)
-        self.assertEqual(self.cmp.sim('emile', 'emilien'), 0.7142857142857143)
-        self.assertEqual(self.cmp.sim('blanchet', 'blanchette'), 0.8)
-        self.assertEqual(self.cmp.sim('marie', 'maria'), 0.6666666666666666)
-        self.assertEqual(self.cmp.sim('filion', 'filguion'), 0.75)
-        self.assertEqual(self.cmp.sim('daneau', 'dagneau'), 0.8571428571428571)
-        self.assertEqual(self.cmp.sim('larouche', 'laroche'), 0.875)
-        self.assertEqual(self.cmp.sim('alaire', 'dalaire'), 0.8571428571428571)
-        self.assertEqual(self.cmp.sim('donne', 'dionne'), 0.8333333333333334)
-        self.assertEqual(self.cmp.sim('audet', 'gaudet'), 0.8333333333333334)
-        self.assertEqual(self.cmp.sim('couet', 'caouet'), 0.8333333333333334)
-        self.assertEqual(self.cmp.sim('exulie', 'axilia'), 0.5)
-        self.assertEqual(self.cmp.sim('leon', 'noel'), 0.3333333333333333)
+        self.assertEqual(self.cmp.sim('Glavin', 'Glawyn'), 0.8)
         self.assertEqual(
-            self.cmp.sim('norbert', 'bertran'), 0.16666666666666666
+            self.cmp.sim('Williams', 'Vylliems'), 0.7692307692307693
+        )
+        self.assertEqual(self.cmp.sim('Lewis', 'Louis'), 0.75)
+        self.assertEqual(self.cmp.sim('Alex', 'Alexander'), 0.6153846153846154)
+        self.assertEqual(self.cmp.sim('Wild', 'Wildsmith'), 0.6153846153846154)
+        self.assertEqual(
+            self.cmp.sim('Bram', 'Bramberley'), 0.5714285714285714
         )
 
 
