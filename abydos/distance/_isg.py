@@ -128,7 +128,7 @@ class ISG(_Distance):
         Returns
         -------
         float
-            The ISG distance
+            The ISG similarity
 
         Examples
         --------
@@ -148,7 +148,7 @@ class ISG(_Distance):
         """
         if len(src) > len(tar):
             src, tar = tar, src
-        elif self._symmetric and (src) == len(tar):
+        elif self._symmetric and len(src) == len(tar):
             return max(self._isg_i(src, tar), self._isg_i(tar, src))
         return self._isg_i(src, tar)
 
