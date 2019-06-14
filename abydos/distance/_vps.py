@@ -18,7 +18,7 @@
 
 """abydos.distance._vps
 
-Victorian Panel Study (VPS)
+Victorian Panel Study (VPS) score
 """
 
 from __future__ import (
@@ -28,21 +28,23 @@ from __future__ import (
     unicode_literals,
 )
 
+from collections import defaultdict
+
 from ._distance import _Distance
 
 __all__ = ['VPS']
 
 
 class VPS(_Distance):
-    """Victorian Panel Study distance.
+    """Victorian Panel Study (VPS) score.
 
-
+    VPS score is presented in :cite:`Shurer:2007`.
 
     .. versionadded:: 0.4.1
     """
 
-    def dist(self, src, tar):
-        """Return the Victorian Panel Study distance of two words.
+    def sim(self, src, tar):
+        """Return the Victorian Panel Study score of two words.
 
         Parameters
         ----------
@@ -54,25 +56,52 @@ class VPS(_Distance):
         Returns
         -------
         float
-            The VPS distance
+            The VPS score
 
         Examples
         --------
         >>> cmp = VPS()
-        >>> round(cmp.dist('cat', 'hat'), 12)
+        >>> round(cmp.sim('cat', 'hat'), 12)
         1.0
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
         1.0
-        >>> cmp.dist('aluminum', 'Catalan')
+        >>> cmp.sim('aluminum', 'Catalan')
         1.0
-        >>> cmp.dist('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         1.0
 
 
         .. versionadded:: 0.4.1
 
         """
-        pass
+        if len(src) < len(tar):
+            src, tar = tar, src
+
+        score = 0
+        discount = 0
+
+        src_tokens = defaultdict(set)
+        tar_tokens = defaultdict(set)
+        for slen in range(1, 4):
+            for i in range(len(src) - slen + 1):
+                src_tokens[src[i : i + slen]].add(i)
+            for i in range(len(tar) - slen + 1):
+                tar_tokens[tar[i : i + slen]].add(i)
+
+        for token in src_tokens.keys():
+            if token in tar_tokens:
+                for src_pos in src_tokens[token]:
+                    score += 1
+                    if src_pos not in tar_tokens[token]:
+                        discount += min(
+                            abs(src_pos - tar_pos)
+                            for tar_pos in tar_tokens[token]
+                        )
+
+        score -= discount / max(len(src), len(tar))
+        score /= 3 * len(src) - 3
+
+        return score
 
 
 if __name__ == '__main__':
