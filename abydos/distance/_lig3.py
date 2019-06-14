@@ -86,6 +86,9 @@ class LIG3(_Distance):
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 1.0
+
         matches = 2 * sum(
             src[pos] == tar[pos] for pos in range(min(len(src), len(tar)))
         )

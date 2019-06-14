@@ -74,6 +74,8 @@ class VPS(_Distance):
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 1.0
         if len(src) < len(tar):
             src, tar = tar, src
 
