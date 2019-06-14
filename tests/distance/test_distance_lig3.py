@@ -44,14 +44,14 @@ class LIG3TestCases(unittest.TestCase):
     def test_inclusion_sim(self):
         """Test abydos.distance.LIG3.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0.0)
-        self.assertEqual(self.cmp.sim('a', ''), 1.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
-        self.assertEqual(self.cmp.sim('a', 'a'), 0.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 1.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('a', 'a'), 1.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
         # Tescases from paper
         self.assertEqual(self.cmp.sim('Glavin', 'Glawyn'), 0.8)
