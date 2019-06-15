@@ -133,12 +133,12 @@ class ISG(_Distance):
         Examples
         --------
         >>> cmp = ISG()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        1.0
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        1.0
+        >>> cmp.sim('cat', 'hat')
+        0.5
+        >>> cmp.sim('Niall', 'Neil')
+        0.5
         >>> cmp.sim('aluminum', 'Catalan')
-        1.0
+        0.15384615384615385
         >>> cmp.sim('ATCG', 'TAGC')
         1.0
 

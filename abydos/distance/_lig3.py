@@ -73,14 +73,14 @@ class LIG3(_Distance):
         Examples
         --------
         >>> cmp = LIG3()
-        >>> round(cmp.sim('cat', 'hat'), 12)
-        1.0
-        >>> round(cmp.sim('Niall', 'Neil'), 12)
-        1.0
+        >>> cmp.sim('cat', 'hat')
+        0.8
+        >>> cmp.sim('Niall', 'Neil')
+        0.5714285714285714
         >>> cmp.sim('aluminum', 'Catalan')
-        1.0
+        0.0
         >>> cmp.sim('ATCG', 'TAGC')
-        1.0
+        0.0
 
 
         .. versionadded:: 0.4.1
