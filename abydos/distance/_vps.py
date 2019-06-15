@@ -101,7 +101,8 @@ class VPS(_Distance):
                         )
 
         score -= discount / max(len(src), len(tar))
-        score /= 3 * len(src) - 3
+        if score:
+            score /= 3 * len(src) - 3
 
         return score
 
