@@ -41,25 +41,12 @@ class LACSS(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self):
-        """Initialize LACSS instance.
+    _vowels = set('AEIOUYWH')
 
+    _t1 = {_[0]: _[1] for _ in zip('RNLTSCMDKAGBPFVZXJQ', range(1, 20))}
+    _t1.update({_: 0 for _ in _vowels})
 
-        .. versionadded:: 0.4.1
-
-        """
-        super(_Fingerprint, self).__init__()
-
-        self._vowels = set('AEIOUYWH')
-
-        self._t1 = {
-            _[0]: _[1] for _ in zip('RNLTSCMDKAGBPFVZXJQ', range(1, 20))
-        }
-        self._t1.update({_: 0 for _ in self._vowels})
-
-        self._t2 = {
-            _[0]: _[1] for _ in zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ', range(1, 27))
-        }
+    _t2 = {_[0]: _[1] for _ in zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ', range(1, 27))}
 
     def fingerprint(self, word):
         """Return the LACSS coding.

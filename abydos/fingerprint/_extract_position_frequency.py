@@ -41,50 +41,41 @@ class ExtractPositionFrequency(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self):
-        """Initialize ExtractPositionFrequency instance.
-
-
-        .. versionadded:: 0.4.1
-
-        """
-        self._frequency = {
-            x: y
-            for x, y in zip(
-                'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                (
-                    5,
-                    1,
-                    5,
-                    0,
-                    7,
-                    1,
-                    2,
-                    5,
-                    6,
-                    0,
-                    1,
-                    5,
-                    1,
-                    3,
-                    4,
-                    3,
-                    0,
-                    4,
-                    5,
-                    3,
-                    4,
-                    1,
-                    1,
-                    0,
-                    2,
-                    1,
-                ),
-            )
-        }
-        self._position = (0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7)
-
-        super(_Fingerprint, self).__init__()
+    _frequency = {
+        x: y
+        for x, y in zip(
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            (
+                5,
+                1,
+                5,
+                0,
+                7,
+                1,
+                2,
+                5,
+                6,
+                0,
+                1,
+                5,
+                1,
+                3,
+                4,
+                3,
+                0,
+                4,
+                5,
+                3,
+                4,
+                1,
+                1,
+                0,
+                2,
+                1,
+            ),
+        )
+    }
+    _position = (0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7)
 
     def fingerprint(self, word):
         """Return the extract - position & frequency coding.

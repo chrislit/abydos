@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._lig3
+"""abydos.distance._lig3.
 
-LIG3
+LIG3 similarity
 """
 
 from __future__ import (
@@ -35,7 +35,7 @@ __all__ = ['LIG3']
 
 
 class LIG3(_Distance):
-    """LIG3 similarity.
+    r"""LIG3 similarity.
 
     :cite:`Snae:2002` proposes three Levenshtein-ISG-Guth hybrid similarity
     measures: LIG1, LIG2, and LIG3. Of these, LIG1 is identical to ISG and LIG2

@@ -124,7 +124,7 @@ class Levenshtein(_Distance):
         )
 
     def _alignment_matrix(self, src, tar):
-        """Return the Levenshtein alignment matrix
+        """Return the Levenshtein alignment matrix.
 
         Parameters
         ----------
@@ -140,6 +140,7 @@ class Levenshtein(_Distance):
 
 
         .. versionadded:: 0.4.1
+
         """
         ins_cost, del_cost, sub_cost, trans_cost = self._cost
 
@@ -220,6 +221,7 @@ class Levenshtein(_Distance):
 
 
         .. versionadded:: 0.4.1
+
         """
         d_mat = self._alignment_matrix(src, tar)
 

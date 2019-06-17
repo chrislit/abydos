@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._isg
+"""abydos.distance._isg.
 
 Bouchard & Pouyez's Indice de Similitude-Guth (ISG)
 """
@@ -68,7 +68,7 @@ class ISG(_Distance):
         **kwargs
             Arbitrary keyword arguments
 
-        .. versionadded:: 0.4.0
+        .. versionadded:: 0.4.1
 
         """
         super(ISG, self).__init__(**kwargs)
@@ -77,6 +77,22 @@ class ISG(_Distance):
 
     def _isg_i(self, src, tar):
         """Return an individual ISG similarity (not symmetric) for src to tar.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            The ISG similarity
+
+
+        .. versionadded:: 0.4.1
+
         """
 
         def _char_at(name, pos):

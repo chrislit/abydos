@@ -78,7 +78,7 @@ class Consonant(_Fingerprint):
             if variant > 2:
                 self._vowels.add('H')
         else:
-            self._vowels = set(_.upper() for _ in self._vowels)
+            self._vowels = {_.upper() for _ in self._vowels}
 
     def fingerprint(self, word):
         """Return the consonant coding.
