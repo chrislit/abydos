@@ -46,47 +46,48 @@ class GotohTestCases(unittest.TestCase):
 
     def test_gotoh_dist_abs(self):
         """Test abydos.distance.Gotoh.dist_abs."""
-        self.assertEqual(Gotoh().dist_abs('', ''), 0)
+        self.assertEqual(Gotoh().sim_score('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
         self.assertEqual(
-            Gotoh(1, 1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'), 0
+            Gotoh(1, 1, _sim_nw).sim_score('GATTACA', 'GCATGCU'), 0
         )
         self.assertGreaterEqual(
-            Gotoh(1, 0.5, _sim_nw).dist_abs('GATTACA', 'GCATGCU'),
-            NeedlemanWunsch(1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'),
+            Gotoh(1, 0.5, _sim_nw).sim_score('GATTACA', 'GCATGCU'),
+            NeedlemanWunsch(1, _sim_nw).sim_score('GATTACA', 'GCATGCU'),
         )
         self.assertEqual(
-            Gotoh(5, 5, _sim_wikipedia).dist_abs('AGACTAGTTAC', 'CGAGACGT'), 16
+            Gotoh(5, 5, _sim_wikipedia).sim_score('AGACTAGTTAC', 'CGAGACGT'),
+            16,
         )
         self.assertGreaterEqual(
-            Gotoh(5, 2, _sim_wikipedia).dist_abs('AGACTAGTTAC', 'CGAGACGT'),
-            NeedlemanWunsch(5, _sim_wikipedia).dist_abs(
+            Gotoh(5, 2, _sim_wikipedia).sim_score('AGACTAGTTAC', 'CGAGACGT'),
+            NeedlemanWunsch(5, _sim_wikipedia).sim_score(
                 'AGACTAGTTAC', 'CGAGACGT'
             ),
         )
 
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=5, skew=5)
         self.assertEqual(
-            Gotoh(5, 5, _sim_nw).dist_abs('CGATATCAG', 'TGACGSTGC'), -5
+            Gotoh(5, 5, _sim_nw).sim_score('CGATATCAG', 'TGACGSTGC'), -5
         )
         self.assertGreaterEqual(
-            Gotoh(5, 2, _sim_nw).dist_abs('CGATATCAG', 'TGACGSTGC'),
-            NeedlemanWunsch(5, _sim_nw).dist_abs('CGATATCAG', 'TGACGSTGC'),
+            Gotoh(5, 2, _sim_nw).sim_score('CGATATCAG', 'TGACGSTGC'),
+            NeedlemanWunsch(5, _sim_nw).sim_score('CGATATCAG', 'TGACGSTGC'),
         )
         self.assertEqual(
-            Gotoh(5, 5, _sim_nw).dist_abs('AGACTAGTTAC', 'TGACGSTGC'), -7
+            Gotoh(5, 5, _sim_nw).sim_score('AGACTAGTTAC', 'TGACGSTGC'), -7
         )
         self.assertGreaterEqual(
-            Gotoh(5, 2, _sim_nw).dist_abs('AGACTAGTTAC', 'TGACGSTGC'),
-            NeedlemanWunsch(5, _sim_nw).dist_abs('AGACTAGTTAC', 'TGACGSTGC'),
+            Gotoh(5, 2, _sim_nw).sim_score('AGACTAGTTAC', 'TGACGSTGC'),
+            NeedlemanWunsch(5, _sim_nw).sim_score('AGACTAGTTAC', 'TGACGSTGC'),
         )
         self.assertEqual(
-            Gotoh(5, 5, _sim_nw).dist_abs('AGACTAGTTAC', 'CGAGACGT'), -15
+            Gotoh(5, 5, _sim_nw).sim_score('AGACTAGTTAC', 'CGAGACGT'), -15
         )
         self.assertGreaterEqual(
-            Gotoh(5, 2, _sim_nw).dist_abs('AGACTAGTTAC', 'CGAGACGT'),
-            NeedlemanWunsch(5, _sim_nw).dist_abs('AGACTAGTTAC', 'CGAGACGT'),
+            Gotoh(5, 2, _sim_nw).sim_score('AGACTAGTTAC', 'CGAGACGT'),
+            NeedlemanWunsch(5, _sim_nw).sim_score('AGACTAGTTAC', 'CGAGACGT'),
         )
 
         # Test wrapper
@@ -100,16 +101,16 @@ class GotohTestCases(unittest.TestCase):
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         g22 = Gotoh(2, 2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(g22.dist_abs(NIALL[0], NIALL[i]), nw_vals[i])
+            self.assertEqual(g22.sim_score(NIALL[0], NIALL[i]), nw_vals[i])
         nw_vals2 = (5, 0, -2, 3, 1, 1, -2, -2, -1, -2, -3, -3, -2, -6, -6, -8)
         g21 = Gotoh(2, 1, _sim_nw)
         g205 = Gotoh(2, 0.5, _sim_nw)
         nw2 = NeedlemanWunsch(2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(g21.dist_abs(NIALL[0], NIALL[i]), nw_vals2[i])
+            self.assertEqual(g21.sim_score(NIALL[0], NIALL[i]), nw_vals2[i])
             self.assertGreaterEqual(
-                g205.dist_abs(NIALL[0], NIALL[i]),
-                nw2.dist_abs(NIALL[0], NIALL[i]),
+                g205.sim_score(NIALL[0], NIALL[i]),
+                nw2.sim_score(NIALL[0], NIALL[i]),
             )
 
 

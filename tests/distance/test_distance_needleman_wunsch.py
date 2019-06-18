@@ -134,14 +134,14 @@ class NeedlemanWunschTestCases(unittest.TestCase):
 
     def test_needleman_wunsch_dist_abs(self):
         """Test abydos.distance.NeedlemanWunsch.dist_abs."""
-        self.assertEqual(NeedlemanWunsch().dist_abs('', ''), 0)
+        self.assertEqual(NeedlemanWunsch().sim_score('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
         self.assertEqual(
-            NeedlemanWunsch(1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'), 0
+            NeedlemanWunsch(1, _sim_nw).sim_score('GATTACA', 'GCATGCU'), 0
         )
         self.assertEqual(
-            NeedlemanWunsch(5, _sim_wikipedia).dist_abs(
+            NeedlemanWunsch(5, _sim_wikipedia).sim_score(
                 'AGACTAGTTAC', 'CGAGACGT'
             ),
             16,
@@ -149,9 +149,9 @@ class NeedlemanWunschTestCases(unittest.TestCase):
 
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=5, skew=5)
         nw5 = NeedlemanWunsch(5, _sim_nw)
-        self.assertEqual(nw5.dist_abs('CGATATCAG', 'TGACGSTGC'), -5)
-        self.assertEqual(nw5.dist_abs('AGACTAGTTAC', 'TGACGSTGC'), -7)
-        self.assertEqual(nw5.dist_abs('AGACTAGTTAC', 'CGAGACGT'), -15)
+        self.assertEqual(nw5.sim_score('CGATATCAG', 'TGACGSTGC'), -5)
+        self.assertEqual(nw5.sim_score('AGACTAGTTAC', 'TGACGSTGC'), -7)
+        self.assertEqual(nw5.sim_score('AGACTAGTTAC', 'CGAGACGT'), -15)
 
         # test wrapper
         self.assertEqual(
@@ -164,7 +164,7 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         nw2 = NeedlemanWunsch(2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(nw2.dist_abs(NIALL[0], NIALL[i]), nw_vals[i])
+            self.assertEqual(nw2.sim_score(NIALL[0], NIALL[i]), nw_vals[i])
 
 
 if __name__ == '__main__':

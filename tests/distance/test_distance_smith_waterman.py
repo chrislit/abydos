@@ -46,23 +46,23 @@ class SmithWatermanTestCases(unittest.TestCase):
 
     def test_smith_waterman_dist_abs(self):
         """Test abydos.distance.SmithWaterman.dist_abs."""
-        self.assertEqual(SmithWaterman().dist_abs('', ''), 0)
+        self.assertEqual(SmithWaterman().sim_score('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
         self.assertEqual(
-            SmithWaterman(1, _sim_nw).dist_abs('GATTACA', 'GCATGCU'), 0
+            SmithWaterman(1, _sim_nw).sim_score('GATTACA', 'GCATGCU'), 0
         )
         self.assertEqual(
-            SmithWaterman(5, _sim_wikipedia).dist_abs(
+            SmithWaterman(5, _sim_wikipedia).sim_score(
                 'AGACTAGTTAC', 'CGAGACGT'
             ),
             26,
         )
 
         sw5 = SmithWaterman(5, _sim_nw)
-        self.assertEqual(sw5.dist_abs('CGATATCAG', 'TGACGSTGC'), 0)
-        self.assertEqual(sw5.dist_abs('AGACTAGTTAC', 'TGACGSTGC'), 1)
-        self.assertEqual(sw5.dist_abs('AGACTAGTTAC', 'CGAGACGT'), 0)
+        self.assertEqual(sw5.sim_score('CGATATCAG', 'TGACGSTGC'), 0)
+        self.assertEqual(sw5.sim_score('AGACTAGTTAC', 'TGACGSTGC'), 1)
+        self.assertEqual(sw5.sim_score('AGACTAGTTAC', 'CGAGACGT'), 0)
 
         # Test wrapper
         self.assertEqual(
@@ -74,7 +74,7 @@ class SmithWatermanTestCases(unittest.TestCase):
         sw_vals = (5, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 0)
         sw2 = SmithWaterman(2, _sim_nw)
         for i in range(len(NIALL)):
-            self.assertEqual(sw2.dist_abs(NIALL[0], NIALL[i]), sw_vals[i])
+            self.assertEqual(sw2.sim_score(NIALL[0], NIALL[i]), sw_vals[i])
 
 
 if __name__ == '__main__':

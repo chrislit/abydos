@@ -160,7 +160,7 @@ class NeedlemanWunsch(_Distance):
         if self._sim_func is None:
             self._sim_func = NeedlemanWunsch.sim_matrix
 
-    def dist_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Needleman-Wunsch score of two strings.
 
         Parameters
@@ -178,13 +178,13 @@ class NeedlemanWunsch(_Distance):
         Examples
         --------
         >>> cmp = NeedlemanWunsch()
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         2.0
-        >>> cmp.dist_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         1.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         -1.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -253,7 +253,7 @@ def needleman_wunsch(src, tar, gap_cost=1, sim_func=sim_ident):
     .. versionadded:: 0.1.0
 
     """
-    return NeedlemanWunsch(gap_cost, sim_func).dist_abs(src, tar)
+    return NeedlemanWunsch(gap_cost, sim_func).sim_score(src, tar)
 
 
 if __name__ == '__main__':

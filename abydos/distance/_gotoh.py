@@ -77,7 +77,7 @@ class Gotoh(NeedlemanWunsch):
         if self._sim_func is None:
             self._sim_func = NeedlemanWunsch.sim_matrix
 
-    def dist_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Gotoh score of two strings.
 
         Parameters
@@ -95,13 +95,13 @@ class Gotoh(NeedlemanWunsch):
         Examples
         --------
         >>> cmp = Gotoh()
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         2.0
-        >>> cmp.dist_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         1.0
-        >>> round(cmp.dist_abs('aluminum', 'Catalan'), 12)
+        >>> round(cmp.sim_score('aluminum', 'Catalan'), 12)
         -0.4
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         2.0
 
 
@@ -195,7 +195,7 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     .. versionadded:: 0.1.0
 
     """
-    return Gotoh(gap_open, gap_ext, sim_func).dist_abs(src, tar)
+    return Gotoh(gap_open, gap_ext, sim_func).sim_score(src, tar)
 
 
 if __name__ == '__main__':
