@@ -120,6 +120,41 @@ class SmithWaterman(NeedlemanWunsch):
                 d_mat[i, j] = max(0, match, delete, insert)
         return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
+    def sim(self, src, tar):
+        """Return the normalized Smith-Waterman score of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized Smith-Waterman score
+
+        Examples
+        --------
+        >>> cmp = SmithWaterman()
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+        >>> cmp.sim('Niall', 'Neil')
+        0.22360679774997896
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+        0.0
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        return max(0.0, self.sim_score(src, tar)) / (
+            self.sim_score(src, src) ** 0.5 * self.sim_score(tar, tar) ** 0.5
+        )
+
 
 @deprecated(
     deprecated_in='0.4.0',

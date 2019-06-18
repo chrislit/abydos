@@ -150,6 +150,41 @@ class Gotoh(NeedlemanWunsch):
         i, j = (n - 1 for n in d_mat.shape)
         return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
 
+    def sim(self, src, tar):
+        """Return the normalized Gotoh score of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized Gotoh score
+
+        Examples
+        --------
+        >>> cmp = Gotoh()
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+        >>> cmp.sim('Niall', 'Neil')
+        0.22360679774997896
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+        0.0
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        return max(0.0, self.sim_score(src, tar)) / (
+            self.sim_score(src, src) ** 0.5 * self.sim_score(tar, tar) ** 0.5
+        )
+
 
 @deprecated(
     deprecated_in='0.4.0',
