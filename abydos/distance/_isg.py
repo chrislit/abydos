@@ -96,8 +96,6 @@ class ISG(_Distance):
         """
 
         def _char_at(name, pos):
-            if pos < 0:
-                return None
             if pos >= len(name):
                 return None
             return name[pos]
