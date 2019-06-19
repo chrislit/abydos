@@ -40,6 +40,7 @@ class ISGTestCases(unittest.TestCase):
     """
 
     cmp = ISG()
+    cmp_full = ISG(full_guth=True)
 
     def test_inclusion_sim(self):
         """Test abydos.distance.ISG.sim."""
@@ -53,7 +54,7 @@ class ISGTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        # Tescases from paper
+        # Testcases from paper
         self.assertEqual(self.cmp.sim('alaire', 'alard'), 0.5714285714285714)
         self.assertEqual(self.cmp.sim('georges', 'george'), 0.8571428571428571)
         self.assertEqual(self.cmp.sim('emile', 'emilien'), 0.7142857142857143)
@@ -70,6 +71,45 @@ class ISGTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('leon', 'noel'), 0.3333333333333333)
         self.assertEqual(
             self.cmp.sim('norbert', 'bertran'), 0.16666666666666666
+        )
+
+        # Full Guth ruleset tests
+        self.assertEqual(
+            self.cmp_full.sim('alaire', 'alard'), 0.8333333333333334
+        )
+        self.assertEqual(
+            self.cmp_full.sim('georges', 'george'), 0.8571428571428571
+        )
+        self.assertEqual(
+            self.cmp_full.sim('emile', 'emilien'), 0.7142857142857143
+        )
+        self.assertEqual(self.cmp_full.sim('blanchet', 'blanchette'), 0.8)
+        self.assertEqual(
+            self.cmp_full.sim('marie', 'maria'), 0.6666666666666666
+        )
+        self.assertEqual(self.cmp_full.sim('filion', 'filguion'), 0.75)
+        self.assertEqual(
+            self.cmp_full.sim('daneau', 'dagneau'), 0.8571428571428571
+        )
+        self.assertEqual(self.cmp_full.sim('larouche', 'laroche'), 0.875)
+        self.assertEqual(
+            self.cmp_full.sim('alaire', 'dalaire'), 0.8571428571428571
+        )
+        self.assertEqual(
+            self.cmp_full.sim('donne', 'dionne'), 0.8333333333333334
+        )
+        self.assertEqual(
+            self.cmp_full.sim('audet', 'gaudet'), 0.8333333333333334
+        )
+        self.assertEqual(
+            self.cmp_full.sim('couet', 'caouet'), 0.8333333333333334
+        )
+        self.assertEqual(
+            self.cmp_full.sim('exulie', 'axilia'), 0.7142857142857143
+        )
+        self.assertEqual(self.cmp_full.sim('leon', 'noel'), 0.3333333333333333)
+        self.assertEqual(
+            self.cmp_full.sim('norbert', 'bertran'), 0.5555555555555556
         )
 
 
