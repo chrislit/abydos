@@ -106,7 +106,7 @@ class Extract(_Fingerprint):
         # uppercase & reverse
         word = word.upper()[::-1]
 
-        for letter in self._letter_list:
+        for letter in self._letter_list:  # pragma: no branch
             if len(word) < 5:
                 break
 
