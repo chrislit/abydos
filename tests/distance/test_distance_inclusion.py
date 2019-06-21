@@ -60,6 +60,10 @@ class InclusionTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('ANGELINE', 'ADELINE'), 1.0)
         self.assertEqual(self.cmp.dist('CASSEGRAIN', 'CASGRAIN'), 1.0)
 
+        # coverage
+        self.assertEqual(self.cmp.dist('abc', 'abcd'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'abc'), 0.0)
+
 
 if __name__ == '__main__':
     unittest.main()
