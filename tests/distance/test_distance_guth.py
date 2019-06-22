@@ -53,11 +53,16 @@ class GuthTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0.0)
 
-        # Tescases from paper
+        # Testcases from paper
         self.assertEqual(self.cmp.sim_score('Glawyn', 'Glavin'), 1.0)
         self.assertEqual(self.cmp.sim_score('Smears', 'Smares'), 1.0)
         self.assertEqual(self.cmp.sim_score('Giddings', 'Gittins'), 1.0)
         self.assertEqual(self.cmp.sim_score('Bokenham', 'Buckingham'), 0.0)
+
+        # coverage
+        self.assertAlmostEqual(
+            Guth(qval=2).sim_score('Giddings', 'Gittins'), 0.0
+        )
 
     def test_guth_sim(self):
         """Test abydos.distance.Guth.sim."""
@@ -71,11 +76,15 @@ class GuthTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        # Tescases from paper
+        # Testcases from paper
         self.assertAlmostEqual(self.cmp.sim('Glawyn', 'Glavin'), 0.8)
         self.assertAlmostEqual(self.cmp.sim('Smears', 'Smares'), 0.86666666666)
         self.assertAlmostEqual(self.cmp.sim('Giddings', 'Gittins'), 0.8)
         self.assertAlmostEqual(self.cmp.sim('Bokenham', 'Buckingham'), 0.65)
+
+        # coverage
+        self.assertAlmostEqual(Guth(qval=2).sim('Giddings', 'Gittins'), 0.6)
+        self.assertAlmostEqual(self.cmp.sim('abcfefed', 'abcfed'), 0.7)
 
 
 if __name__ == '__main__':
