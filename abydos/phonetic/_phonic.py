@@ -72,7 +72,7 @@ class PHONIC(_Phonetic):
         'Z': '0',
     }
 
-    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'TNMRLJKFPS'))
+    _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
 
     def __init__(self, max_length=5, zero_pad=True, extended=False):
         """Initialize PHONIC instance.
@@ -130,8 +130,14 @@ class PHONIC(_Phonetic):
         .. versionadded:: 0.4.1
 
         """
-        code = self.encode(word).rstrip('0')
-        return code[:1] + code[1:].translate(self._alphabetic)
+        save_pad = self._zero_pad
+        save_ext = self._extended
+        self._zero_pad = False
+        self._extended = True
+        code = self.encode(word)
+        self._zero_pad = save_pad
+        self._extended = save_ext
+        return code.translate(self._alphabetic)
 
     def encode(self, word):
         """Return the PHONIC code for a word.

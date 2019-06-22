@@ -48,6 +48,20 @@ class PHONICTestCases(unittest.TestCase):
         # test case from paper
         self.assertEqual(self.pa.encode('Phillips'), 'P8590')
 
+        # coverage
+        self.assertEqual(
+            PHONIC(max_length=-1, zero_pad=False, extended=True).encode(
+                'Phillips'
+            ),
+            '8590',
+        )
+        self.assertEqual(
+            PHONIC(max_length=-1, zero_pad=False, extended=True).encode_alpha(
+                'Phillips'
+            ),
+            'FLPS',
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
