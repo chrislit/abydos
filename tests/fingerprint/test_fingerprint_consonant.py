@@ -58,6 +58,9 @@ class ConsonantTestCases(unittest.TestCase):
             Consonant(variant=3, doubles=False).fingerprint('GARRETH'), 'GRT'
         )
 
+        # coverage
+        self.assertEqual(Consonant(vowels='R').fingerprint('ARROW'), 'AOW')
+
 
 if __name__ == '__main__':
     unittest.main()
