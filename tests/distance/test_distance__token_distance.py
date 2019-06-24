@@ -128,13 +128,14 @@ class TokenDistanceTestCases(unittest.TestCase):
             self.cmp_j_fuzzy.sim('abcd', 'efgh'), 0.1111111111111111
         )
 
-        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Nigel', 'Niall'), 0.6)
-        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Niall', 'Nigel'), 0.6)
-        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Colin', 'Coiln'), 1.0)
-        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Coiln', 'Colin'), 1.0)
+        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Colin', 'Coiln'), 0.6)
+        self.assertAlmostEqual(self.cmp_j_fuzzy.sim('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(
-            self.cmp_j_fuzzy.sim('ATCAACGAGT', 'AACGATTAG'), 0.9565217391304348
+            self.cmp_j_fuzzy.sim('ATCAACGAGT', 'AACGATTAG'), 0.68
         )
+        self.assertEqual(sum(self.cmp_j_fuzzy._union().values()), 11.0)
 
         self.assertAlmostEqual(
             Jaccard(intersection_type='fuzzy').sim('synonym', 'antonym'),
