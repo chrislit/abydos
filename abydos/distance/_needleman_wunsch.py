@@ -240,6 +240,8 @@ class NeedlemanWunsch(_Distance):
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 1.0
         return max(0.0, self.sim_score(src, tar)) / (
             self.sim_score(src, src) ** 0.5 * self.sim_score(tar, tar) ** 0.5
         )

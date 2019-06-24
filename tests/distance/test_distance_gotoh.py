@@ -44,8 +44,8 @@ class GotohTestCases(unittest.TestCase):
     abydos.distance.Gotoh
     """
 
-    def test_gotoh_dist_abs(self):
-        """Test abydos.distance.Gotoh.dist_abs."""
+    def test_gotoh_sim_score(self):
+        """Test abydos.distance.Gotoh.sim_score."""
         self.assertEqual(Gotoh().sim_score('', ''), 0)
 
         # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
@@ -95,8 +95,8 @@ class GotohTestCases(unittest.TestCase):
             gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_wikipedia), 16
         )
 
-    def test_gotoh_dist_abs_nialls(self):
-        """Test abydos.distance.Gotoh.dist_abs (Nialls set)."""
+    def test_gotoh_sim_score_nialls(self):
+        """Test abydos.distance.Gotoh.sim_score (Nialls set)."""
         # checked against http://ds9a.nl/nwunsch/ (mismatch=1, gap=2, skew=2)
         nw_vals = (5, 0, -2, 3, 1, 1, -2, -2, -1, -3, -3, -5, -3, -7, -7, -19)
         g22 = Gotoh(2, 2, _sim_nw)
@@ -112,6 +112,25 @@ class GotohTestCases(unittest.TestCase):
                 g205.sim_score(NIALL[0], NIALL[i]),
                 nw2.sim_score(NIALL[0], NIALL[i]),
             )
+
+    def test_gotoh_sim(self):
+        """Test abydos.distance.Gotoh.sim."""
+        self.assertEqual(Gotoh().sim('', ''), 1.0)
+
+        # https://en.wikipedia.org/wiki/Needleman–Wunsch_algorithm
+        self.assertEqual(Gotoh(1, 1, _sim_nw).sim('GATTACA', 'GCATGCU'), 0)
+        self.assertGreaterEqual(
+            Gotoh(1, 0.5, _sim_nw).sim('GATTACA', 'GCATGCU'),
+            NeedlemanWunsch(1, _sim_nw).sim('GATTACA', 'GCATGCU'),
+        )
+        self.assertEqual(
+            Gotoh(5, 5, _sim_wikipedia).sim('AGACTAGTTAC', 'CGAGACGT'),
+            0.19950186722152657,
+        )
+        self.assertGreaterEqual(
+            Gotoh(5, 2, _sim_wikipedia).sim('AGACTAGTTAC', 'CGAGACGT'),
+            NeedlemanWunsch(5, _sim_wikipedia).sim('AGACTAGTTAC', 'CGAGACGT'),
+        )
 
 
 if __name__ == '__main__':
