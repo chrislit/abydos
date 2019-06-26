@@ -118,13 +118,13 @@ class PHONIC(_Phonetic):
         --------
         >>> pe = PHONIC()
         >>> pe.encode_alpha('Christopher')
-        'CKLTN'
+        'JRSTF'
         >>> pe.encode_alpha('Niall')
-        'NMJ'
+        'NL'
         >>> pe.encode_alpha('Smith')
-        'STRN'
+        'SMT'
         >>> pe.encode_alpha('Schmidt')
-        'STKRN'
+        'SJMT'
 
 
         .. versionadded:: 0.4.1
