@@ -56,7 +56,15 @@ class Cosine(_TokenDistance):
             sim_{cosine} =
             \frac{a}{\sqrt{(a+b)(a+c)}}
 
+    Notes
+    -----
+    This measure is also known as the Fowlkes-Mallows index
+    :cite:`Fowlkes:1983` for two classes and G-measure, the geometric mean of
+    precision & recall.
+
+
     .. versionadded:: 0.3.6
+
     """
 
     def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
