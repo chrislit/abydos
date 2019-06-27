@@ -52,9 +52,11 @@ class Consonant(_Fingerprint):
         variant : int
             Selects between Taft's 3 variants, which assign to the vowel set
             one of:
+
                 1. A, E, I, O, & U
                 2. A, E, I, O, U, W, & Y
                 3. A, E, I, O, U, W, H, & Y
+
         doubles : bool
             If set to False, multiple consonants in a row are conflated to a
             single instance.
