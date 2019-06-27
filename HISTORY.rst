@@ -1,8 +1,33 @@
 Release History
 ---------------
 
+0.4.1 (2019-07-00) *distant dietrich*
++++++++++++++++++++++++++++++++++++++
 
-0.4.0 (2018-05-30) *dietrich*
+doi:
+
+Version 0.4.1 ...
+
+Changes:
+
+- Fuzzy intersections were corrected to avoid over-counting partial
+  intersection instances.
+- Levenshtein can now return an optimal alignment
+- Added the following distance measures:
+    - Indice de Similitude-Guth (ISG)
+    - INClusion Programme
+    - Guth
+    - Victorian Panel Study (VPS) score
+    - LIG3 similarity
+- Added the following fingerprint classes:
+    - Taft's Consonant coding
+    - Taft's Extract - letter list
+    - Taft's Extract - position & frequency
+    - L.A. County Sheriff's System
+- Added the following phonetic algorithms:
+    - PHONIC
+
+0.4.0 (2019-05-30) *dietrich*
 +++++++++++++++++++++++++++++
 
 doi:10.5281/zenodo.3235034
