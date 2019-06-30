@@ -51,11 +51,13 @@ class DiscountedLevenshtein(_Distance):
     """
 
     def __init__(
-            self,
-            mode='lev',
-            normalizer=max,
-            discount_from=1,
-            **kwargs
+        self,
+        mode='lev',
+        normalizer=max,
+        discount_from=1,
+        discount_func='log',
+        vowels='aeiou',
+        **kwargs
     ):
         """Initialize DiscountedLevenshtein instance.
 
@@ -78,10 +80,29 @@ class DiscountedLevenshtein(_Distance):
         discount_from : int or str
             If an int is supplied, this is the first character whose edit cost
             will be discounted. If the str ``vowels`` is supplied, discounting
-            will start with the first non-vowel after the first vowel.
-        discount_factor :
+            will start with the first non-vowel after the first vowel (the
+            first syllable coda).
+        discount_func : str or function
+            The two supported str arguments are ``log``, for a logarithmic
+            discount function, and ``exp`` for a exponential discount function.
+            See notes below for information on how to supply your own
+            discount function.
+        vowels : str
+            These are the letters to consider as vowels when discount_from is
+            set to ``vowels``. It defaults to the English vowels 'aeiou', but
+            it would be reasonable to localize this to other languages or to
+            add orthographic semi-vowels like 'y', 'w', and even 'h'.
         **kwargs
             Arbitrary keyword arguments
+
+        Notes
+        -----
+        This class is highly experimental and will need additional tuning.
+
+        The discount function can be passed as a callable function. It should
+        expect an integer as its only argument and return a float, ideally
+        less than or equal to 1.0. The argument represents the degree of
+        discounting to apply.
 
 
         .. versionadded:: 0.4.1
@@ -91,10 +112,21 @@ class DiscountedLevenshtein(_Distance):
         self._mode = mode
         self._normalizer = normalizer
         self._discount_from = discount_from
+        self._vowels = set(vowels.lower())
+        if callable(discount_func):
+            self._cost = discount_func
+        elif discount_func == 'exp':
+            self._cost = self._exp_discount
+        else:
+            self._cost = self._log_discount
 
     @staticmethod
-    def _cost(pos, discount_from=1):
-        return 1 / (log(1 + (pos - discount_from) / 5) + 1)
+    def _log_discount(discounts):
+        return 1 / (log(1 + discounts / 5) + 1)
+
+    @staticmethod
+    def _exp_discount(discounts):
+        return 1 / (discounts + 1) ** 0.2
 
     def _alignment_matrix(self, src, tar):
         """Return the Levenshtein alignment matrix.
@@ -119,55 +151,67 @@ class DiscountedLevenshtein(_Distance):
         tar_len = len(tar)
 
         if self._discount_from == 'vowels':
-            vowels = set('aeiou')
+            discount_from = [0, 0]
+
             src_voc = src.lower()
-            discount_from = 0
             for i in range(len(src_voc)):
-                if src_voc[i] in vowels:
-                    discount_from = i
+                if src_voc[i] in self._vowels:
+                    discount_from[0] = i
                     break
-            for i in range(discount_from, len(src_voc)):
-                if src_voc[i] not in vowels:
-                    discount_from = i
+            for i in range(discount_from[0], len(src_voc)):
+                if src_voc[i] not in self._vowels:
+                    discount_from[0] = i
                     break
+            else:
+                discount_from[0] += 1
+
+            tar_voc = tar.lower()
+            for i in range(len(tar_voc)):
+                if tar_voc[i] in self._vowels:
+                    discount_from[1] = i
+                    break
+            for i in range(discount_from[1], len(tar_voc)):
+                if tar_voc[i] not in self._vowels:
+                    discount_from[1] = i
+                    break
+            else:
+                discount_from[1] += 1
+
         elif isinstance(self._discount_from, int):
-            discount_from = self._discount_from
+            discount_from = [self._discount_from, self._discount_from]
         else:
-            discount_from = 1
+            discount_from = [1, 1]
 
         d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
-        for i in range(src_len + 1):
-            d_mat[i, 0] = i * self._cost(i, discount_from)
-        for j in range(tar_len + 1):
-            d_mat[0, j] = j * self._cost(j, discount_from)
+        for i in range(1, src_len + 1):
+            d_mat[i, 0] = d_mat[i - 1, 0] + self._cost(
+                max(0, i - discount_from[0])
+            )
+        for j in range(1, tar_len + 1):
+            d_mat[0, j] = d_mat[0, j - 1] + self._cost(
+                max(0, j - discount_from[1])
+            )
 
         for i in range(src_len):
+            i_extend = self._cost(max(0, i - discount_from[0]))
             for j in range(tar_len):
+                cost = min(i_extend, self._cost(max(0, j - discount_from[1])))
                 d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j]
-                    + self._cost(max(i, j), discount_from),  # ins
-                    d_mat[i, j + 1]
-                    + self._cost(max(i, j), discount_from),  # del
-                    d_mat[i, j]
-                    + (
-                        self._cost(max(i, j), discount_from)
-                        if src[i] != tar[j]
-                        else 0
-                    ),  # sub/==
+                    d_mat[i + 1, j] + cost,  # ins
+                    d_mat[i, j + 1] + cost,  # del
+                    d_mat[i, j] + (cost if src[i] != tar[j] else 0),  # sub/==
                 )
 
                 if self._mode == 'osa':
                     if (
-                            i + 1 > 1
-                            and j + 1 > 1
-                            and src[i] == tar[j - 1]
-                            and src[i - 1] == tar[j]
+                        i + 1 > 1
+                        and j + 1 > 1
+                        and src[i] == tar[j - 1]
+                        and src[i - 1] == tar[j]
                     ):
                         # transposition
                         d_mat[i + 1, j + 1] = min(
-                            d_mat[i + 1, j + 1],
-                            d_mat[i - 1, j - 1]
-                            + self._cost(max(i, j), discount_from),
+                            d_mat[i + 1, j + 1], d_mat[i - 1, j - 1] + cost
                         )
 
         return d_mat
@@ -299,11 +343,13 @@ class DiscountedLevenshtein(_Distance):
 
         if not src:
             return sum(
-                self._cost(pos, discount_from) for pos in range(tar_len)
+                self._cost(max(0, pos - discount_from))
+                for pos in range(tar_len)
             )
         if not tar:
             return sum(
-                self._cost(pos, discount_from) for pos in range(src_len)
+                self._cost(max(0, pos - discount_from))
+                for pos in range(src_len)
             )
 
         d_mat = self._alignment_matrix(src, tar)
@@ -365,11 +411,11 @@ class DiscountedLevenshtein(_Distance):
         normalize_term = self._normalizer(
             [
                 sum(
-                    self._cost(pos, discount_from)
+                    self._cost(max(0, pos - discount_from))
                     for pos in range(src_len)
                 ),
                 sum(
-                    self._cost(pos, discount_from)
+                    self._cost(max(0, pos - discount_from))
                     for pos in range(tar_len)
                 ),
             ]
