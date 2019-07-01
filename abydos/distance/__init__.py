@@ -39,7 +39,8 @@ These include traditional Levenshtein edit distance and related algorithms:
     - BI-SIM similarity (:py:class:`.BISIM`)
     - Discounted Levenshtein distance (:py:class:`.DiscountedLevenshtein`)
 
-Hamming distance (:py:class:`.Hamming`) and the closely related Modified
+Hamming distance (:py:class:`.Hamming`), Discounted Hamming distance
+(:py:class:`.DiscountedHamming`), and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
 provided.
 
@@ -416,6 +417,7 @@ from ._dice import Dice, dist_dice, sim_dice
 from ._dice_asymmetric_i import DiceAsymmetricI
 from ._dice_asymmetric_ii import DiceAsymmetricII
 from ._digby import Digby
+from ._discounted_hamming import DiscountedHamming
 from ._discounted_levenshtein import DiscountedLevenshtein
 from ._dispersion import Dispersion
 from ._distance import _Distance
@@ -659,6 +661,7 @@ __all__ = [
     'ALINE',
     'FlexMetric',
     'BISIM',
+    'DiscountedHamming',
     'DiscountedLevenshtein',
     'Hamming',
     'hamming',
