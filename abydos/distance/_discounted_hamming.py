@@ -134,8 +134,9 @@ class DiscountedHamming(_Distance):
             if found:
                 diff = found
             found = (
-                tar[max(0, pos - self._maxdist) : pos : -1].find(src[pos]) + 1
+                tar[max(0, pos - self._maxdist) : pos][::-1].find(src[pos]) + 1
             )
+
             if found and diff:
                 diff = min(diff, found)
             elif found:
