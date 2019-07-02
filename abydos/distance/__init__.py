@@ -39,8 +39,8 @@ These include traditional Levenshtein edit distance and related algorithms:
     - BI-SIM similarity (:py:class:`.BISIM`)
     - Discounted Levenshtein distance (:py:class:`.DiscountedLevenshtein`)
 
-Hamming distance (:py:class:`.Hamming`), Discounted Hamming distance
-(:py:class:`.DiscountedHamming`), and the closely related Modified
+Hamming distance (:py:class:`.Hamming`), Relaxed Hamming distance
+(:py:class:`.RelaxedHamming`), and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
 provided.
 
@@ -417,7 +417,6 @@ from ._dice import Dice, dist_dice, sim_dice
 from ._dice_asymmetric_i import DiceAsymmetricI
 from ._dice_asymmetric_ii import DiceAsymmetricII
 from ._digby import Digby
-from ._discounted_hamming import DiscountedHamming
 from ._discounted_levenshtein import DiscountedLevenshtein
 from ._dispersion import Dispersion
 from ._distance import _Distance
@@ -558,6 +557,7 @@ from ._ratcliff_obershelp import (
     sim_ratcliff_obershelp,
 )
 from ._rees_levenshtein import ReesLevenshtein
+from ._relaxed_hamming import RelaxedHamming
 from ._roberts import Roberts
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
@@ -661,7 +661,6 @@ __all__ = [
     'ALINE',
     'FlexMetric',
     'BISIM',
-    'DiscountedHamming',
     'DiscountedLevenshtein',
     'Hamming',
     'hamming',
@@ -670,6 +669,7 @@ __all__ = [
     'MLIPNS',
     'dist_mlipns',
     'sim_mlipns',
+    'RelaxedHamming',
     'Tichy',
     'BlockLevenshtein',
     'CormodeLZ',

@@ -18,7 +18,7 @@
 
 """abydos.distance._discounted_hamming.
 
-Discounted Hamming distance
+Relaxed Hamming distance
 """
 
 from __future__ import (
@@ -31,11 +31,11 @@ from __future__ import (
 from ._distance import _Distance
 from ..tokenizer import QGrams
 
-__all__ = ['DiscountedHamming']
+__all__ = ['RelaxedHamming']
 
 
-class DiscountedHamming(_Distance):
-    """Discounted Hamming distance.
+class RelaxedHamming(_Distance):
+    """Relaxed Hamming distance.
 
     This is a variant of Hamming distance in which positionally close matches
     are considered partially matching.
@@ -43,7 +43,7 @@ class DiscountedHamming(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, tokenizer=None, maxdist=2, **kwargs):
+    def __init__(self, tokenizer=None, maxdist=2, discount=0.2, **kwargs):
         """Initialize DiscountedHamming instance.
 
         Parameters
@@ -51,8 +51,10 @@ class DiscountedHamming(_Distance):
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
         maxdist : int
-            The maximum distance to consider for discounting. (4 is the maximum
-            for this value, under the current implementation.
+            The maximum distance to consider for discounting.
+        discount : float
+            The discount factor multiplied by the distance from the source
+            string position.
         **kwargs
             Arbitrary keyword arguments
 
@@ -67,14 +69,15 @@ class DiscountedHamming(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        super(DiscountedHamming, self).__init__(**kwargs)
+        super(RelaxedHamming, self).__init__(**kwargs)
 
         self.params['tokenizer'] = tokenizer
         if 'qval' in self.params:
             self.params['tokenizer'] = QGrams(
                 qval=self.params['qval'], start_stop='$#', skip=0, scaler=None
             )
-        self._maxdist = min(4, maxdist)
+        self._maxdist = maxdist
+        self._discount = discount
 
     def dist_abs(self, src, tar):
         """Return the discounted Hamming distance between two strings.
@@ -89,11 +92,11 @@ class DiscountedHamming(_Distance):
         Returns
         -------
         float
-            Discounted Hamming distance
+            Relaxed Hamming distance
 
         Examples
         --------
-        >>> cmp = DiscountedHamming()
+        >>> cmp = RelaxedHamming()
         >>> cmp.dist_abs('cat', 'hat')
         0.8666666666666667
         >>> cmp.dist_abs('Niall', 'Neil')
@@ -143,14 +146,14 @@ class DiscountedHamming(_Distance):
                 diff = found
 
             if diff:
-                score += 0.2 * diff
+                score += min(1.0, self._discount * diff)
             else:
                 score += 1.0
 
         return score
 
     def dist(self, src, tar):
-        """Return the normalized discounted Hamming distance between strings.
+        """Return the normalized relaxed Hamming distance between strings.
 
         Parameters
         ----------
@@ -162,11 +165,11 @@ class DiscountedHamming(_Distance):
         Returns
         -------
         float
-            Normalized discounted Hamming distance
+            Normalized relaxed Hamming distance
 
         Examples
         --------
-        >>> cmp = DiscountedHamming()
+        >>> cmp = RelaxedHamming()
         >>> round(cmp.dist('cat', 'hat'), 12)
         0.333333333333
         >>> cmp.dist('Niall', 'Neil')
