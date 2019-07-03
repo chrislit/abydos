@@ -79,7 +79,7 @@ class DiscountedLevenshtein(_Distance):
             good option is the sum function.
         discount_from : int or str
             If an int is supplied, this is the first character whose edit cost
-            will be discounted. If the str ``vowels`` is supplied, discounting
+            will be discounted. If the str ``coda`` is supplied, discounting
             will start with the first non-vowel after the first vowel (the
             first syllable coda).
         discount_func : str or function
@@ -89,7 +89,7 @@ class DiscountedLevenshtein(_Distance):
             discount function.
         vowels : str
             These are the letters to consider as vowels when discount_from is
-            set to ``vowels``. It defaults to the English vowels 'aeiou', but
+            set to ``coda``. It defaults to the English vowels 'aeiou', but
             it would be reasonable to localize this to other languages or to
             add orthographic semi-vowels like 'y', 'w', and even 'h'.
         **kwargs
@@ -150,7 +150,7 @@ class DiscountedLevenshtein(_Distance):
         src_len = len(src)
         tar_len = len(tar)
 
-        if self._discount_from == 'vowels':
+        if self._discount_from == 'coda':
             discount_from = [0, 0]
 
             src_voc = src.lower()
