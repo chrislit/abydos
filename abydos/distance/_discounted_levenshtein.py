@@ -238,17 +238,17 @@ class DiscountedLevenshtein(_Distance):
         >>> cmp.alignment('cat', 'hat')
         (1.0, 'cat', 'hat')
         >>> cmp.alignment('Niall', 'Neil')
-        (3.0, 'Niall', 'Neil-')
+        (2.526064024369237, 'N-iall', 'Neil--')
         >>> cmp.alignment('aluminum', 'Catalan')
-        (7.0, '-aluminum', 'Catalan--')
+        (5.053867269967515, '-aluminum', 'Catalan--')
         >>> cmp.alignment('ATCG', 'TAGC')
-        (3.0, 'ATCG-', '-TAGC')
+        (2.594032108779918, 'ATCG-', '-TAGC')
 
         >>> cmp = DiscountedLevenshtein(mode='osa')
         >>> cmp.alignment('ATCG', 'TAGC')
-        (2.0, 'ATCG', 'TAGC')
+        (1.7482385137517997, 'ATCG', 'TAGC')
         >>> cmp.alignment('ACTG', 'TAGC')
-        (4.0, 'ACTG', 'TAGC')
+        (3.342270622531718, '-ACTG', 'TAGC-')
 
 
         .. versionadded:: 0.4.1
@@ -314,17 +314,17 @@ class DiscountedLevenshtein(_Distance):
         >>> cmp.dist_abs('cat', 'hat')
         1
         >>> cmp.dist_abs('Niall', 'Neil')
-        3
+        2.526064024369237
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        7
+        5.053867269967515
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3
+        2.594032108779918
 
         >>> cmp = DiscountedLevenshtein(mode='osa')
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        2
+        1.7482385137517997
         >>> cmp.dist_abs('ACTG', 'TAGC')
-        4
+        3.342270622531718
 
 
         .. versionadded:: 0.4.1
@@ -384,14 +384,14 @@ class DiscountedLevenshtein(_Distance):
         Examples
         --------
         >>> cmp = DiscountedLevenshtein()
-        >>> round(cmp.dist('cat', 'hat'), 12)
-        0.333333333333
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.6
+        >>> cmp.dist('cat', 'hat')
+        0.3513958291799864
+        >>> cmp.dist('Niall', 'Neil')
+        0.5909885886270658
         >>> cmp.dist('aluminum', 'Catalan')
-        0.875
+        0.8348163322045603
         >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        0.7217609721523955
 
 
         .. versionadded:: 0.4.1

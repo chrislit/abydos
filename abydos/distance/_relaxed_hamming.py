@@ -98,11 +98,11 @@ class RelaxedHamming(_Distance):
         --------
         >>> cmp = RelaxedHamming()
         >>> cmp.dist_abs('cat', 'hat')
-        0.8666666666666667
+        1.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.8800000000000001
+        1.4
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.4
+        6.4
         >>> cmp.dist_abs('ATCG', 'TAGC')
         0.8
 
@@ -173,11 +173,11 @@ class RelaxedHamming(_Distance):
         >>> round(cmp.dist('cat', 'hat'), 12)
         0.333333333333
         >>> cmp.dist('Niall', 'Neil')
-        0.6
+        0.27999999999999997
         >>> cmp.dist('aluminum', 'Catalan')
-        1.0
+        0.8
         >>> cmp.dist('ATCG', 'TAGC')
-        1.0
+        0.2
 
 
         .. versionadded:: 0.4.1
