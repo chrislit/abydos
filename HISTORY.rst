@@ -19,6 +19,8 @@ Changes:
     - Guth
     - Victorian Panel Study (VPS) score
     - LIG3 similarity
+    - Discounted Levenshtein
+    - Relaxed Hamming
 - Added the following fingerprint classes:
     - Taft's Consonant coding
     - Taft's Extract - letter list
