@@ -62,6 +62,15 @@ class RelaxedHammingTestCases(unittest.TestCase):
             self.cmp.dist('hamming', 'hamstring'), 0.37777777777
         )
 
+        # coverage
+        self.assertAlmostEqual(
+            RelaxedHamming(qval=2).dist('Nigel', 'Niall'), 0.5
+        )
+        self.assertAlmostEqual(
+            RelaxedHamming(qval=2).dist('Nigal', 'Niall'), 0.3666666666666667
+        )
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall\1'), 0.5)
+
     def test_relaxed_hamming_dist_abs(self):
         """Test abydos.distance.RelaxedHamming.dist_abs."""
         # Base cases
