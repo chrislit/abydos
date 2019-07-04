@@ -129,16 +129,24 @@ class RelaxedHamming(_Distance):
 
         score = 0
         for pos in range(len(src)):
-            if src[pos] == tar[pos : pos + 1]:
+            if src[pos] == tar[pos : pos + 1][0]:
                 continue
 
-            diff = 0
-            found = tar[pos + 1 : pos + self._maxdist + 1].find(src[pos]) + 1
-            if found:
-                diff = found
-            found = (
-                tar[max(0, pos - self._maxdist) : pos][::-1].find(src[pos]) + 1
-            )
+            try:
+                diff = (
+                    tar[pos + 1 : pos + self._maxdist + 1].index(src[pos]) + 1
+                )
+            except ValueError:
+                diff = 0
+            try:
+                found = (
+                    tar[max(0, pos - self._maxdist) : pos][::-1].index(
+                        src[pos]
+                    )
+                    + 1
+                )
+            except ValueError:
+                found = 0
 
             if found and diff:
                 diff = min(diff, found)
@@ -185,7 +193,13 @@ class RelaxedHamming(_Distance):
         """
         if src == tar:
             return 0.0
-        return self.dist_abs(src, tar) / max(len(src), len(tar))
+        score = self.dist_abs(src, tar)
+
+        if self.params['tokenizer']:
+            src = self.params['tokenizer'].tokenize(src).get_list()
+            tar = self.params['tokenizer'].tokenize(tar).get_list()
+
+        return score / max(len(src), len(tar))
 
 
 if __name__ == '__main__':
