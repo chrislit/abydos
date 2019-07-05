@@ -50,6 +50,7 @@ The fingerprint package implements string fingerprints such as:
           (:py:class:`.ExtractPositionFrequency`)
 
     - L.A. County Sheriff's System (:py:class:`.LACSS`)
+    - Library of Congress Cutter table encoding (:py:class:`.LCCutter`)
 
 Each fingerprint class has a ``fingerprint`` method that takes a string and
 returns the string's fingerprint:
@@ -84,6 +85,7 @@ from ._fingerprint import (
     _Fingerprint,
 )
 from ._lacss import LACSS
+from ._lc_cutter import LCCutter
 from ._occurrence import Occurrence, occurrence_fingerprint
 from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
 from ._omission_key import OmissionKey, omission_key
@@ -125,6 +127,7 @@ __all__ = [
     'Extract',
     'ExtractPositionFrequency',
     'LACSS',
+    'LCCutter',
 ]
 
 
