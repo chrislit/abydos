@@ -49,6 +49,7 @@ class ExtractTestCases(unittest.TestCase):
         # Test cases from paper
         self.assertEqual(self.fp.fingerprint('Johnson'), 'JHNS')
 
+        self.assertEqual(Extract(letter_list=2).fingerprint('Johnson'), 'JHNN')
         self.assertEqual(
             Extract(letter_list='ETASIONRHCDLPMFBUWGYKVJQZX').fingerprint(
                 'Johnson'

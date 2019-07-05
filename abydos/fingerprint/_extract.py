@@ -67,7 +67,8 @@ class Extract(_Fingerprint):
         self._letter_list = letter_list
         if isinstance(self._letter_list, int) and 1 <= self._letter_list <= 4:
             self._letter_list = list(letter_lists[self._letter_list - 1])
-        elif hasattr(self._letter_list, '__iter__'):
+        elif hasattr(self._letter_list, '__getitem__'):
+            # TODO: revert the above to __iter__ after removing Py2.7 support
             self._letter_list = list(self._letter_list)
         else:
             self._letter_list = list(letter_lists[0])
