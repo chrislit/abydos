@@ -63,9 +63,9 @@ class LCCutter(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        # Require a max_length of at least 4 and not more than 64
+        # Require a max_length of at least 2 and not more than 64
         if max_length != -1:
-            self._max_length = min(max(4, max_length), 64)
+            self._max_length = min(max(2, max_length), 64)
         else:
             self._max_length = 64
 
@@ -166,7 +166,7 @@ class LCCutter(_Fingerprint):
                     break
             code.append(str(cval))
 
-        return ''.join(code)[: self._max_length]
+        return ''.join(code[: self._max_length])
 
 
 if __name__ == '__main__':
