@@ -34,35 +34,40 @@ __all__ = ['LCCutter']
 
 
 class LCCutter(_Fingerprint):
-    """LCCutter table encoding.
+    """Library of Congress Cutter table encoding.
 
-
+    This is based on the Library of Congress Cutter table encoding scheme, as
+    described at https://www.loc.gov/aba/pcc/053/table.html :cite:`LOC:2013`.
+    Handling for numerals is not included.
 
     .. versionadded:: 0.4.1
     """
 
     _vowels = set('AEIOU')
-    _after_initial_vowel = ['C', 'K', 'M', 'O', 'Q', 'R', 'T', 'Z']
-    _after_initial_s = ['C', 'D', 'G', 'L', 'S', 'U', 'Z']
+    _after_initial_vowel = ['C', 'K', 'M', 'O', 'Q', 'R', 'T']
+    _after_initial_s = ['C', 'D', 'G', 'L', 'S', 'T', 'U']
+    _after_initial_qu = ['D', 'H', 'N', 'Q', 'S', 'X']
+    _after_initial_cons = ['D', 'H', 'N', 'Q', 'T', 'X']
 
-    _after_initial_qu = ['D', 'H', 'N', 'Q', 'S', 'X', 'Z']
-    _after_initial_cons = ['D', 'H', 'N', 'Q', 'T', 'X', 'Z']
+    _expansions = ['D', 'H', 'L', 'O', 'S', 'V']
 
-    _expansions = ['D', 'H', 'L', 'O', 'S', 'V', 'Z']
-
-    def __init__(self, variant=1):
-        """Initialize LCCutter instance.
+    def __init__(self, max_length=64):
+        """Initialize Extract instance.
 
         Parameters
         ----------
-        variant : int
+        max_length : int
+            The length of the code returned (defaults to 64)
 
 
         .. versionadded:: 0.4.1
 
         """
-        super(_Fingerprint, self).__init__()
-        self._variant = variant
+        # Require a max_length of at least 4 and not more than 64
+        if max_length != -1:
+            self._max_length = min(max(4, max_length), 64)
+        else:
+            self._max_length = 64
 
     def fingerprint(self, word):
         """Return the consonant coding.
@@ -81,33 +86,87 @@ class LCCutter(_Fingerprint):
         --------
         >>> cf = LCCutter()
         >>> cf.fingerprint('hat')
-        'HT'
+        'H38'
         >>> cf.fingerprint('niall')
-        'NLL'
+        'N5355'
         >>> cf.fingerprint('colin')
-        'CLN'
+        'C6556'
         >>> cf.fingerprint('atcg')
-        'ATCG'
+        'A834'
         >>> cf.fingerprint('entreatment')
-        'ENTRTMNT'
+        'E5874386468'
 
 
         .. versionadded:: 0.4.1
 
         """
-        if word:
-            return ''
-        if len(word) == 1:
-            return word.upper()
-
         # uppercase
-        uc = word.upper()
+        uc = ''.join(letter for letter in word.upper() if letter.isalpha())
+
+        if not uc:
+            return ''
+
+        code = uc[0]
+
+        # length 1
+        if len(uc) == 1:
+            return code
+
+        # length 2+
+        code = [code]
 
         # first cutter
+        pos = 1
         if uc[0] in self._vowels:
+            cval = 2
+            for letter in self._after_initial_vowel:
+                if uc[1] > letter:
+                    cval += 1
+                else:
+                    break
+        elif uc[0] == 'S':
+            cval = 2
+            for letter in self._after_initial_s:
+                if uc[1] > letter:
+                    cval += 1
+                elif uc[1] == 'C' and uc[1:3] < 'CI':
+                    cval += 1
+                    pos += 1
+                    break
+                else:
+                    break
+        elif uc[0:2] == 'QU':
+            cval = 3
+            pos += 1
+            for letter in self._after_initial_qu:
+                if uc[2:3] > letter:
+                    cval += 1
+                else:
+                    break
+        elif 'QA' <= uc[0:2] <= 'QT':
+            cval = 2
+        else:
+            cval = 3
+            for letter in self._after_initial_cons:
+                if uc[1] > letter:
+                    cval += 1
+                else:
+                    break
+        code.append(str(cval))
 
+        # length 3+
+        for ch in uc[pos + 1 :]:
+            if len(code) >= self._max_length:
+                break
+            cval = 3
+            for letter in self._expansions:
+                if ch > letter:
+                    cval += 1
+                else:
+                    break
+            code.append(str(cval))
 
-        return word
+        return ''.join(code)[: self._max_length]
 
 
 if __name__ == '__main__':
