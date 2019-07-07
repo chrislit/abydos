@@ -48,6 +48,7 @@ including:
       :py:class:`.PSHPSoundexLast`)
     - Dolby Code (:py:class:`.Dolby`)
     - NRL English-to-phoneme (:py:class:`.NRL`)
+    - Ainsworth grapheme to phoneme (:py:class:`.Ainsworth`)
     - Beider-Morse Phonetic Matching (:py:class:`.BeiderMorse`)
 
 There are also language-specific phonetic algorithms for German:
@@ -109,6 +110,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._ainsworth import Ainsworth
 from ._alpha_sis import AlphaSIS, alpha_sis
 from ._beider_morse import BeiderMorse, bmpm
 from ._caverphone import Caverphone, caverphone
@@ -251,6 +253,7 @@ __all__ = [
     'Waahlin',
     'Norphone',
     'norphone',
+    'Ainsworth',
 ]
 
 
