@@ -113,7 +113,7 @@ class Covington(_Distance):
         return self.alignments(src, tar, 1)[0][-1]
 
     def dist(self, src, tar):
-        """Return the Covington distance of two strings.
+        """Return the normalized Covington distance of two strings.
 
         Parameters
         ----------
@@ -125,7 +125,7 @@ class Covington(_Distance):
         Returns
         -------
         float
-            Covington distance
+            Normalized Covington distance
 
         Examples
         --------
@@ -151,7 +151,7 @@ class Covington(_Distance):
         return self.dist_abs(src, tar) / normalizer
 
     def alignments(self, src, tar, top_n=None):
-        """Return the Covington distance of two strings.
+        """Return the Covington alignments of two strings.
 
         Parameters
         ----------
