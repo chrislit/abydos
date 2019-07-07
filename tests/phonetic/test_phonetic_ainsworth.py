@@ -42,7 +42,7 @@ class AinsworthTestCases(unittest.TestCase):
     pa = Ainsworth()
 
     def test_ainsworth_encode(self):
-        """Test abydos.phonetic.Ainsworth.encode"""
+        """Test abydos.phonetic.Ainsworth.encode."""
         self.assertEqual(self.pa.encode(''), '')
 
         self.assertEqual(self.pa.encode('a'), 'ə')
