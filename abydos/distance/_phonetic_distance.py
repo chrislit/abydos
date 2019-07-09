@@ -29,6 +29,9 @@ from __future__ import (
 )
 
 from ._distance import _Distance
+from ..fingerprint._fingerprint import _Fingerprint
+from ..phonetic._phonetic import _Phonetic
+from ..stemmer._stemmer import _Stemmer
 
 __all__ = ['PhoneticDistance']
 
@@ -52,7 +55,7 @@ class PhoneticDistance(_Distance):
     """
 
     def __init__(
-        self, transforms=None, metric=None, **kwargs
+        self, transforms=None, metric=None, encode_alpha=False, **kwargs
     ):
         """Initialize PhoneticDistance instance.
 
@@ -68,6 +71,9 @@ class PhoneticDistance(_Distance):
             inputs' distance or similarity after being transformed. If omitted,
             the strings will be compared for identify (returning 0.0 if
             identical, otherwise 1.0, when distance is computed).
+        encode_alpha : bool
+            Set to true to use the encode_alpha method of phonetic algoritms
+            whenever possible.
         **kwargs
             Arbitrary keyword arguments
 
@@ -77,6 +83,43 @@ class PhoneticDistance(_Distance):
         """
         super(PhoneticDistance, self).__init__(**kwargs)
         self.transforms = transforms
+        if self.transforms:
+            if hasattr(self.transforms, '__iter__'):
+                self.transforms = list(self.transforms)
+                for i, t in enumerate(self.transforms):
+                    if isinstance(t, (_Phonetic, _Fingerprint, _Stemmer)):
+                        continue
+                    elif type(t) == 'type' and issubclass(
+                        t, (_Phonetic, _Fingerprint, _Stemmer)
+                    ):
+                        self.transforms[i] = t()
+                    else:
+                        raise TypeError('Unknown type ' + str(type(t)))
+            else:
+                if isinstance(
+                    self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
+                ):
+                    self.transforms = [self.transforms]
+                elif type(self.transforms) == 'type' and issubclass(
+                    self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
+                ):
+                    self.transforms = [self.transforms()]
+                else:
+                    raise TypeError(
+                        'Unknown type ' + str(type(self.transforms))
+                    )
+
+        for i, t in enumerate(self.transforms):
+            if isinstance(t, _Phonetic):
+                if encode_alpha:
+                    self.transforms[i] = self.transforms[i].encode_alpha
+                else:
+                    self.transforms[i] = self.transforms[i].encode
+            elif isinstance(t, _Fingerprint):
+                self.transforms[i] = self.transforms[i].fingerprint
+            elif isinstance(t, _Stemmer):
+                self.transforms[i] = self.transforms[i].stem
+
         self.metric = metric
 
     def dist_abs(self, src, tar):
