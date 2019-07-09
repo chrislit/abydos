@@ -46,9 +46,9 @@ class PhoneticDistance(_Distance):
     A simple example would be to create a 'Soundex distance':
 
     >>> soundex = PhoneticDistance(transforms=Soundex())
-    >>> soundex.dist(..., ...)
+    >>> soundex.dist('Ashcraft', 'Ashcroft')
     1.0
-    >>> soundex.dist(..., ...)
+    >>> soundex.dist('Robert', 'Ashcraft')
     0.0
 
     .. versionadded:: 0.4.1
