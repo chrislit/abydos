@@ -86,15 +86,15 @@ class PhoneticDistance(_Distance):
         if self.transforms:
             if hasattr(self.transforms, '__iter__'):
                 self.transforms = list(self.transforms)
-                for i, t in enumerate(self.transforms):
-                    if isinstance(t, (_Phonetic, _Fingerprint, _Stemmer)):
+                for i, trans in enumerate(self.transforms):
+                    if isinstance(trans, (_Phonetic, _Fingerprint, _Stemmer)):
                         continue
-                    elif type(t) == 'type' and issubclass(
-                        t, (_Phonetic, _Fingerprint, _Stemmer)
+                    elif type(trans) == 'type' and issubclass(
+                        trans, (_Phonetic, _Fingerprint, _Stemmer)
                     ):
-                        self.transforms[i] = t()
+                        self.transforms[i] = trans()
                     else:
-                        raise TypeError('Unknown type ' + str(type(t)))
+                        raise TypeError('Unknown type ' + str(type(trans)))
             else:
                 if isinstance(
                     self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
@@ -109,15 +109,15 @@ class PhoneticDistance(_Distance):
                         'Unknown type ' + str(type(self.transforms))
                     )
 
-        for i, t in enumerate(self.transforms):
-            if isinstance(t, _Phonetic):
+        for i, trans in enumerate(self.transforms):
+            if isinstance(trans, _Phonetic):
                 if encode_alpha:
                     self.transforms[i] = self.transforms[i].encode_alpha
                 else:
                     self.transforms[i] = self.transforms[i].encode
-            elif isinstance(t, _Fingerprint):
+            elif isinstance(trans, _Fingerprint):
                 self.transforms[i] = self.transforms[i].fingerprint
-            elif isinstance(t, _Stemmer):
+            elif isinstance(trans, _Stemmer):
                 self.transforms[i] = self.transforms[i].stem
 
         self.metric = metric
@@ -159,7 +159,10 @@ class PhoneticDistance(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        pass
+        for trans in self.transforms:
+            src = trans(src)
+            tar = trans(tar)
+        return self.metric.dist_abs(src, tar)
 
     def dist(self, src, tar):
         """Return the normalized Phonetic distance.
@@ -192,7 +195,10 @@ class PhoneticDistance(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        pass
+        for trans in self.transforms:
+            src = trans(src)
+            tar = trans(tar)
+        return self.metric.dist(src, tar)
 
 
 if __name__ == '__main__':
