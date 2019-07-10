@@ -70,7 +70,7 @@ class LCCutter(_Fingerprint):
             self._max_length = 64
 
     def fingerprint(self, word):
-        """Return the consonant coding.
+        """Return the Library of Congress Cutter table encoding of a word.
 
         Parameters
         ----------
