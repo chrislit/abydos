@@ -43,6 +43,7 @@ class BWTRLE_F(_Fingerprint):
 
     .. versionadded:: 0.4.1
     """
+
     def __init__(self, terminator='\0'):
         """Initialize BWTRLE_F instance.
 

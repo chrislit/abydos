@@ -121,9 +121,7 @@ class PhoneticDistance(_Distance):
                 self.transforms[i] = self.transforms[i].stem
 
         self.metric = metric
-        if type(self.metric) == 'type' and issubclass(
-            self.metric, _Distance
-        ):
+        if type(self.metric) == 'type' and issubclass(self.metric, _Distance):
             self.transforms = [self.metric()]
         elif not isinstance(self.metric, _Distance):
             raise TypeError('Unknown type ' + str(type(self.metric)))

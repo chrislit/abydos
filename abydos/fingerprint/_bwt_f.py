@@ -42,6 +42,7 @@ class BWT_F(_Fingerprint):
 
     .. versionadded:: 0.4.1
     """
+
     def __init__(self, terminator='\0'):
         """Initialize BWT_F instance.
 
