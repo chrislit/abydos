@@ -37,7 +37,7 @@ __all__ = ['BWT_F']
 class BWT_F(_Fingerprint):
     """Burrows-Wheeler transform fingerprint.
 
-    This is a wrapper of the BWT class in Abydos.compression, which provides
+    This is a wrapper of the BWT class in abydos.compression, which provides
     the same interface as other descendants of _Fingerprint.
 
     .. versionadded:: 0.4.1

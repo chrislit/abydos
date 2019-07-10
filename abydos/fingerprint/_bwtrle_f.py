@@ -38,7 +38,7 @@ __all__ = ['BWTRLE_F']
 class BWTRLE_F(_Fingerprint):
     """Burrows-Wheeler transform plus run-length encoding fingerprint.
 
-    This is a wrapper of the BWT and RLE classes in Abydos.compression, which
+    This is a wrapper of the BWT and RLE classes in abydos.compression, which
     provides the same interface as other descendants of _Fingerprint.
 
     .. versionadded:: 0.4.1
