@@ -62,12 +62,12 @@ class PhoneticDistance(_Distance):
 
         Parameters
         ----------
-        transforms : list or _Phonetic or _Stemmer or _Fingerprint
+        transforms : list or _Phonetic or _Stemmer or _Fingerprint or type
             An instance of a subclass of _Phonetic, _Stemmer, or _Fingerprint,
             or a list (or other iterable) of such instances to apply to each
             input word before computing their distance or similarity. If
             omitted, no transformations will be performed.
-        metric : _Distance
+        metric : _Distance or type
             An instance of a subclass of _Distance, used for computing the
             inputs' distance or similarity after being transformed. If omitted,
             the strings will be compared for identify (returning 0.0 if
