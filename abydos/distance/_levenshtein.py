@@ -366,7 +366,7 @@ class Levenshtein(_Distance):
 
         """
         if src == tar:
-            return 0
+            return 0.0
         ins_cost, del_cost = self._cost[:2]
 
         src_len = len(src)
