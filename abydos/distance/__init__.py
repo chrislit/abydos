@@ -309,6 +309,13 @@ Three similarity measures from SeatGeek's FuzzyWuzzy:
     - FuzzyWuzzy Token Sort similarity (:py:class:`FuzzyWuzzyTokenSort`)
     - FuzzyWuzzy Token Set similarity (:py:class:`FuzzyWuzzyTokenSet`)
 
+A convenience class, allowing one to pass a list of string transforms (phonetic
+algorithms, string transforms, and/or stemmers) and, optionally, a string
+distance measure to compute the similarity/distance of two strings that have
+undergone each transform, is provided in:
+
+    - Phonetic distance (:py:class:`.PhoneticDistance`)
+
 The remaining distance measures & metrics include:
 
     - Western Airlines' Match Rating Algorithm comparison
@@ -543,6 +550,7 @@ from ._pearson_ii import PearsonII
 from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
+from ._phonetic_distance import PhoneticDistance
 from ._positional_q_gram_dice import PositionalQGramDice
 from ._positional_q_gram_jaccard import PositionalQGramJaccard
 from ._positional_q_gram_overlap import PositionalQGramOverlap
@@ -958,6 +966,7 @@ __all__ = [
     'FuzzyWuzzyPartialString',
     'FuzzyWuzzyTokenSort',
     'FuzzyWuzzyTokenSet',
+    'PhoneticDistance',
     'MRA',
     'mra_compare',
     'dist_mra',
