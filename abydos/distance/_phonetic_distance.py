@@ -87,33 +87,21 @@ class PhoneticDistance(_Distance):
         if self.transforms:
             if isinstance(self.transforms, (list, tuple)):
                 self.transforms = list(self.transforms)
-                for i, trans in enumerate(self.transforms):
-                    if isinstance(trans, (_Phonetic, _Fingerprint, _Stemmer)):
-                        continue
-                    elif isinstance(trans, type) and issubclass(
-                        trans, (_Phonetic, _Fingerprint, _Stemmer)
-                    ):
-                        self.transforms[i] = trans()
-                    else:
-                        raise TypeError(
-                            '{} has unknown type {}'.format(trans, type(trans))
-                        )
             else:
-                if isinstance(
-                    self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
+                self.transforms = [self.transforms]
+
+            for i, trans in enumerate(self.transforms):
+                if isinstance(trans, (_Phonetic, _Fingerprint, _Stemmer)):
+                    continue
+                elif isinstance(trans, type) and issubclass(
+                    trans, (_Phonetic, _Fingerprint, _Stemmer)
                 ):
-                    self.transforms = [self.transforms]
-                elif isinstance(self.transforms, type) and issubclass(
-                    self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
-                ):
-                    self.transforms = [self.transforms()]
+                    self.transforms[i] = trans()
+                elif callable(trans):
+                    continue
                 else:
                     raise TypeError(
-                        str(
-                            '{} has unknown type {}'.format(
-                                self.transforms, type(self.transforms)
-                            )
-                        )
+                        '{} has unknown type {}'.format(trans, type(trans))
                     )
 
             for i, trans in enumerate(self.transforms):
@@ -126,6 +114,7 @@ class PhoneticDistance(_Distance):
                     self.transforms[i] = self.transforms[i].fingerprint
                 elif isinstance(trans, _Stemmer):
                     self.transforms[i] = self.transforms[i].stem
+
         else:
             self.transforms = []
 

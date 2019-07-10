@@ -106,6 +106,9 @@ class PhoneticDistanceTestCases(unittest.TestCase):
         self.assertRaises(TypeError, PhoneticDistance, ['hello!'])
         self.assertRaises(TypeError, PhoneticDistance, 3.14)
         self.assertRaises(TypeError, PhoneticDistance, metric=3.14)
+        self.assertEqual(
+            PhoneticDistance(lambda s: s.lower()).dist('ONE', 'one'), 0.0
+        )
 
     def test_phonetic_distance_dist_abs(self):
         """Test abydos.distance.PhoneticDistance.dist_abs."""
