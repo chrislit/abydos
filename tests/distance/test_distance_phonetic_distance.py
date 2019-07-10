@@ -42,10 +42,14 @@ class PhoneticDistanceTestCases(unittest.TestCase):
     abydos.distance.PhoneticDistance
     """
 
-    sdx = PhoneticDistance(transforms=Soundex())
+    sdx = PhoneticDistance(transforms=Soundex)
     sdx_lev = PhoneticDistance(transforms=Soundex(), metric=Levenshtein())
+    # Having mixed instantiated & uninstantiated classes is... weird... but
+    # this covers another line of code.
     three_jaro = PhoneticDistance(
-        transforms=[Porter2, Metaphone, OmissionKey], metric=JaroWinkler
+        transforms=[Porter2, Metaphone, OmissionKey()],
+        metric=JaroWinkler,
+        encode_alpha=True,
     )
 
     def test_phonetic_distance_dist(self):
@@ -96,6 +100,12 @@ class PhoneticDistanceTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.three_jaro.dist('ATCAACGAGT', 'AACGATTAG'), 0.0
         )
+
+        # More tests to complete coverage
+        self.assertEqual(PhoneticDistance().dist('a', 'ab'), 1.0)
+        self.assertRaises(TypeError, PhoneticDistance, ['hello!'])
+        self.assertRaises(TypeError, PhoneticDistance, 3.14)
+        self.assertRaises(TypeError, PhoneticDistance, metric=3.14)
 
     def test_phonetic_distance_dist_abs(self):
         """Test abydos.distance.PhoneticDistance.dist_abs."""
