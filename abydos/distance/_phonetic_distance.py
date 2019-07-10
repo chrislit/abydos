@@ -85,7 +85,7 @@ class PhoneticDistance(_Distance):
         super(PhoneticDistance, self).__init__(**kwargs)
         self.transforms = transforms
         if self.transforms:
-            if hasattr(self.transforms, '__iter__'):
+            if isinstance(self.transforms, (list, tuple)):
                 self.transforms = list(self.transforms)
                 for i, trans in enumerate(self.transforms):
                     if isinstance(trans, (_Phonetic, _Fingerprint, _Stemmer)):
@@ -116,16 +116,18 @@ class PhoneticDistance(_Distance):
                         )
                     )
 
-        for i, trans in enumerate(self.transforms):
-            if isinstance(trans, _Phonetic):
-                if encode_alpha:
-                    self.transforms[i] = self.transforms[i].encode_alpha
-                else:
-                    self.transforms[i] = self.transforms[i].encode
-            elif isinstance(trans, _Fingerprint):
-                self.transforms[i] = self.transforms[i].fingerprint
-            elif isinstance(trans, _Stemmer):
-                self.transforms[i] = self.transforms[i].stem
+            for i, trans in enumerate(self.transforms):
+                if isinstance(trans, _Phonetic):
+                    if encode_alpha:
+                        self.transforms[i] = self.transforms[i].encode_alpha
+                    else:
+                        self.transforms[i] = self.transforms[i].encode
+                elif isinstance(trans, _Fingerprint):
+                    self.transforms[i] = self.transforms[i].fingerprint
+                elif isinstance(trans, _Stemmer):
+                    self.transforms[i] = self.transforms[i].stem
+        else:
+            self.transforms = []
 
         self.metric = metric
         if self.metric:
