@@ -58,7 +58,7 @@ class BWT_F(_Fingerprint):
         self._bwt = _BWT(terminator)
 
     def fingerprint(self, word):
-        """Return the Burrows-Wheeler transform of a word.
+        r"""Return the Burrows-Wheeler transform of a word.
 
         Parameters
         ----------
@@ -74,15 +74,15 @@ class BWT_F(_Fingerprint):
         --------
         >>> fp = BWT_F()
         >>> fp.fingerprint('hat')
-        'H38'
+        'th\x00a'
         >>> fp.fingerprint('niall')
-        'N5355'
+        'linla\x00'
         >>> fp.fingerprint('colin')
-        'C6556'
+        'n\x00loic'
         >>> fp.fingerprint('atcg')
-        'A834'
+        'g\x00tca'
         >>> fp.fingerprint('entreatment')
-        'E5874386468'
+        'term\x00teetnan'
 
 
         .. versionadded:: 0.4.1
