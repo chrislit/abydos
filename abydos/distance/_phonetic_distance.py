@@ -45,11 +45,12 @@ class PhoneticDistance(_Distance):
 
     A simple example would be to create a 'Soundex distance':
 
+    >>> from abydos.phonetic import Soundex
     >>> soundex = PhoneticDistance(transforms=Soundex())
     >>> soundex.dist('Ashcraft', 'Ashcroft')
-    1.0
-    >>> soundex.dist('Robert', 'Ashcraft')
     0.0
+    >>> soundex.dist('Robert', 'Ashcraft')
+    1.0
 
     .. versionadded:: 0.4.1
     """
@@ -89,24 +90,24 @@ class PhoneticDistance(_Distance):
                 for i, trans in enumerate(self.transforms):
                     if isinstance(trans, (_Phonetic, _Fingerprint, _Stemmer)):
                         continue
-                    elif type(trans) == 'type' and issubclass(
+                    elif isinstance(trans, type) and issubclass(
                         trans, (_Phonetic, _Fingerprint, _Stemmer)
                     ):
                         self.transforms[i] = trans()
                     else:
-                        raise TypeError('Unknown type ' + str(type(trans)))
+                        raise TypeError('{} has unknown type {}'.format(trans, type(trans)))
             else:
                 if isinstance(
                     self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
                 ):
                     self.transforms = [self.transforms]
-                elif type(self.transforms) == 'type' and issubclass(
+                elif isinstance(self.transforms, type) and issubclass(
                     self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
                 ):
                     self.transforms = [self.transforms()]
                 else:
                     raise TypeError(
-                        'Unknown type ' + str(type(self.transforms))
+                        str('{} has unknown type {}'.format(self.transforms, type(self.transforms)))
                     )
 
         for i, trans in enumerate(self.transforms):
@@ -121,10 +122,11 @@ class PhoneticDistance(_Distance):
                 self.transforms[i] = self.transforms[i].stem
 
         self.metric = metric
-        if type(self.metric) == 'type' and issubclass(self.metric, _Distance):
-            self.transforms = [self.metric()]
-        elif not isinstance(self.metric, _Distance):
-            raise TypeError('Unknown type ' + str(type(self.metric)))
+        if self.metric:
+            if isinstance(self.metric, type) and issubclass(self.metric, _Distance):
+                self.metric = self.metric()
+            elif not isinstance(self.metric, _Distance):
+                raise TypeError('{} has unknown type {}'.format(self.metric, type(self.metric)))
 
     def dist_abs(self, src, tar):
         """Return the Phonetic distance.
@@ -138,20 +140,32 @@ class PhoneticDistance(_Distance):
 
         Returns
         -------
-        float
+        float or int
             The Phonetic distance
 
         Examples
         --------
-        >>> cmp = PhoneticDistance()
+        >>> from abydos.phonetic import Soundex
+        >>> cmp = PhoneticDistance(Soundex())
         >>> cmp.dist_abs('cat', 'hat')
-        0.666666666667
+        1
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.4
+        0
         >>> cmp.dist_abs('Colin', 'Cuilen')
-        0.166666666667
+        0
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        1
+
+        >>> from abydos.distance import Levenshtein
+        >>> cmp = PhoneticDistance(transforms=[Soundex], metric=Levenshtein)
+        >>> cmp.dist_abs('cat', 'hat')
+        1
+        >>> cmp.dist_abs('Niall', 'Neil')
+        0
+        >>> cmp.dist_abs('Colin', 'Cuilen')
+        0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        3
 
 
         .. versionadded:: 0.4.1
@@ -160,7 +174,10 @@ class PhoneticDistance(_Distance):
         for trans in self.transforms:
             src = trans(src)
             tar = trans(tar)
-        return self.metric.dist_abs(src, tar)
+        if self.metric:
+            return self.metric.dist_abs(src, tar)
+        else:
+            return int(src != tar)
 
     def dist(self, src, tar):
         """Return the normalized Phonetic distance.
@@ -179,15 +196,27 @@ class PhoneticDistance(_Distance):
 
         Examples
         --------
-        >>> cmp = PhoneticDistance()
+        >>> from abydos.phonetic import Soundex
+        >>> cmp = PhoneticDistance(Soundex())
         >>> cmp.dist('cat', 'hat')
-        0.666666666667
+        1.0
         >>> cmp.dist('Niall', 'Neil')
-        0.4
-        >>> cmp.dist('Colin', 'Cuilen')
-        0.166666666667
-        >>> cmp.dist('ATCG', 'TAGC')
         0.0
+        >>> cmp.dist('Colin', 'Cuilen')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        1.0
+
+        >>> from abydos.distance import Levenshtein
+        >>> cmp = PhoneticDistance(transforms=[Soundex], metric=Levenshtein)
+        >>> cmp.dist('cat', 'hat')
+        0.25
+        >>> cmp.dist('Niall', 'Neil')
+        0.0
+        >>> cmp.dist('Colin', 'Cuilen')
+        0.0
+        >>> cmp.dist('ATCG', 'TAGC')
+        0.75
 
 
         .. versionadded:: 0.4.1
@@ -196,7 +225,10 @@ class PhoneticDistance(_Distance):
         for trans in self.transforms:
             src = trans(src)
             tar = trans(tar)
-        return self.metric.dist(src, tar)
+        if self.metric:
+            return self.metric.dist(src, tar)
+        else:
+            return float(src != tar)
 
 
 if __name__ == '__main__':
