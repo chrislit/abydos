@@ -60,6 +60,11 @@ class AinsworthTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('ooze'), 'uz')
         self.assertEqual(self.pa.encode('parallelogram'), 'pɑɔlɛlogræm')
 
+        # Examples showing behavior when encountering unhandled characters
+        self.assertEqual(self.pa.encode('Schluss'), 'sklus')
+        self.assertEqual(self.pa.encode('Schlüsse'), 'sklsɛ')
+        self.assertEqual(self.pa.encode('Schluß'), 'sklu')
+
 
 if __name__ == '__main__':
     unittest.main()
