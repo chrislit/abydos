@@ -53,8 +53,8 @@ The fingerprint package implements string fingerprints such as:
 
     - Library of Congress Cutter table encoding (:py:class:`.LCCutter`)
 
-    - Burrows-Wheeler transform (:py:class:`.BWT_F`) and run-length encoded
-      Burrows-Wheeler transform (:py:class:`.BWTRLE_F`)
+    - Burrows-Wheeler transform (:py:class:`.BWTF`) and run-length encoded
+      Burrows-Wheeler transform (:py:class:`.BWTRLEF`)
 
 Each fingerprint class has a ``fingerprint`` method that takes a string and
 returns the string's fingerprint:
@@ -76,8 +76,8 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._bwt_f import BWT_F
-from ._bwtrle_f import BWTRLE_F
+from ._bwt_f import BWTF
+from ._bwtrle_f import BWTRLEF
 from ._consonant import Consonant
 from ._count import Count, count_fingerprint
 from ._extract import Extract
@@ -134,8 +134,8 @@ __all__ = [
     'ExtractPositionFrequency',
     'LACSS',
     'LCCutter',
-    'BWT_F',
-    'BWTRLE_F',
+    'BWTF',
+    'BWTRLEF',
 ]
 
 

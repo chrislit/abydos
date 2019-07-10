@@ -30,11 +30,10 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import PhoneticDistance
-from abydos.phonetic import Metaphone, Soundex
+from abydos.distance import JaroWinkler, Levenshtein, PhoneticDistance
 from abydos.fingerprint import OmissionKey
+from abydos.phonetic import Metaphone, Soundex
 from abydos.stemmer import Porter2
-from abydos.distance import JaroWinkler, Levenshtein
 
 
 class PhoneticDistanceTestCases(unittest.TestCase):
@@ -45,7 +44,9 @@ class PhoneticDistanceTestCases(unittest.TestCase):
 
     sdx = PhoneticDistance(transforms=Soundex())
     sdx_lev = PhoneticDistance(transforms=Soundex(), metric=Levenshtein())
-    three_jaro = PhoneticDistance(transforms=[Porter2, Metaphone, OmissionKey], metric=JaroWinkler)
+    three_jaro = PhoneticDistance(
+        transforms=[Porter2, Metaphone, OmissionKey], metric=JaroWinkler
+    )
 
     def test_phonetic_distance_dist(self):
         """Test abydos.distance.PhoneticDistance.dist."""
@@ -62,9 +63,7 @@ class PhoneticDistanceTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.sdx.dist('Niall', 'Nigel'), 1.0)
         self.assertAlmostEqual(self.sdx.dist('Colin', 'Coiln'), 0.0)
         self.assertAlmostEqual(self.sdx.dist('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(
-            self.sdx.dist('ATCAACGAGT', 'AACGATTAG'), 1.0
-        )
+        self.assertAlmostEqual(self.sdx.dist('ATCAACGAGT', 'AACGATTAG'), 1.0)
 
         self.assertEqual(self.sdx_lev.dist('', ''), 0.0)
         self.assertEqual(self.sdx_lev.dist('a', ''), 0.25)
@@ -113,9 +112,7 @@ class PhoneticDistanceTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.sdx.dist_abs('Niall', 'Nigel'), 1)
         self.assertAlmostEqual(self.sdx.dist_abs('Colin', 'Coiln'), 0)
         self.assertAlmostEqual(self.sdx.dist_abs('Coiln', 'Colin'), 0)
-        self.assertAlmostEqual(
-            self.sdx.dist_abs('ATCAACGAGT', 'AACGATTAG'), 1
-        )
+        self.assertAlmostEqual(self.sdx.dist_abs('ATCAACGAGT', 'AACGATTAG'), 1)
 
         self.assertEqual(self.sdx_lev.dist_abs('', ''), 0)
         self.assertEqual(self.sdx_lev.dist_abs('a', ''), 1)
@@ -132,6 +129,7 @@ class PhoneticDistanceTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.sdx_lev.dist_abs('ATCAACGAGT', 'AACGATTAG'), 2
         )
+
 
 if __name__ == '__main__':
     unittest.main()

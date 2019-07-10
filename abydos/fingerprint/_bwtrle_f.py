@@ -28,14 +28,14 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._fingerprint import _Fingerprint
 from ..compression import BWT as _BWT
 from ..compression import RLE as _RLE
-from ._fingerprint import _Fingerprint
 
-__all__ = ['BWTRLE_F']
+__all__ = ['BWTRLEF']
 
 
-class BWTRLE_F(_Fingerprint):
+class BWTRLEF(_Fingerprint):
     """Burrows-Wheeler transform plus run-length encoding fingerprint.
 
     This is a wrapper of the BWT and RLE classes in abydos.compression, which
@@ -45,7 +45,7 @@ class BWTRLE_F(_Fingerprint):
     """
 
     def __init__(self, terminator='\0'):
-        """Initialize BWTRLE_F instance.
+        """Initialize BWTRLEF instance.
 
         Parameters
         ----------
@@ -74,7 +74,7 @@ class BWTRLE_F(_Fingerprint):
 
         Examples
         --------
-        >>> fp = BWTRLE_F()
+        >>> fp = BWTRLEF()
         >>> fp.fingerprint('hat')
         'th\x00a'
         >>> fp.fingerprint('niall')

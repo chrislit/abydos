@@ -95,7 +95,9 @@ class PhoneticDistance(_Distance):
                     ):
                         self.transforms[i] = trans()
                     else:
-                        raise TypeError('{} has unknown type {}'.format(trans, type(trans)))
+                        raise TypeError(
+                            '{} has unknown type {}'.format(trans, type(trans))
+                        )
             else:
                 if isinstance(
                     self.transforms, (_Phonetic, _Fingerprint, _Stemmer)
@@ -107,7 +109,11 @@ class PhoneticDistance(_Distance):
                     self.transforms = [self.transforms()]
                 else:
                     raise TypeError(
-                        str('{} has unknown type {}'.format(self.transforms, type(self.transforms)))
+                        str(
+                            '{} has unknown type {}'.format(
+                                self.transforms, type(self.transforms)
+                            )
+                        )
                     )
 
         for i, trans in enumerate(self.transforms):
@@ -123,10 +129,16 @@ class PhoneticDistance(_Distance):
 
         self.metric = metric
         if self.metric:
-            if isinstance(self.metric, type) and issubclass(self.metric, _Distance):
+            if isinstance(self.metric, type) and issubclass(
+                self.metric, _Distance
+            ):
                 self.metric = self.metric()
             elif not isinstance(self.metric, _Distance):
-                raise TypeError('{} has unknown type {}'.format(self.metric, type(self.metric)))
+                raise TypeError(
+                    '{} has unknown type {}'.format(
+                        self.metric, type(self.metric)
+                    )
+                )
 
     def dist_abs(self, src, tar):
         """Return the Phonetic distance.

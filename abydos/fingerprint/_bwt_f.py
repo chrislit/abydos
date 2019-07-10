@@ -28,13 +28,13 @@ from __future__ import (
     unicode_literals,
 )
 
-from ..compression import BWT as _BWT
 from ._fingerprint import _Fingerprint
+from ..compression import BWT as _BWT
 
-__all__ = ['BWT_F']
+__all__ = ['BWTF']
 
 
-class BWT_F(_Fingerprint):
+class BWTF(_Fingerprint):
     """Burrows-Wheeler transform fingerprint.
 
     This is a wrapper of the BWT class in abydos.compression, which provides
@@ -44,7 +44,7 @@ class BWT_F(_Fingerprint):
     """
 
     def __init__(self, terminator='\0'):
-        """Initialize BWT_F instance.
+        """Initialize BWTF instance.
 
         Parameters
         ----------
@@ -72,7 +72,7 @@ class BWT_F(_Fingerprint):
 
         Examples
         --------
-        >>> fp = BWT_F()
+        >>> fp = BWTF()
         >>> fp.fingerprint('hat')
         'th\x00a'
         >>> fp.fingerprint('niall')

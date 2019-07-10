@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.fingerprint.test_fingerprint_bwt_f.
+"""abydos.tests.fingerprint.test_fingerprint_bwtf.
 
-This module contains unit tests for abydos.fingerprint.BWT_F
+This module contains unit tests for abydos.fingerprint.BWTF
 """
 
 from __future__ import (
@@ -30,20 +30,21 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import BWT_F
+from abydos.fingerprint import BWTF
 
 
-class BWT_FTestCases(unittest.TestCase):
+class BWTFTestCases(unittest.TestCase):
     """Test BWT fingerprint.
 
-    abydos.fingerprint.BWT_F
+    abydos.fingerprint.BWTF
     """
-    bwt = BWT_F()
-    bwt_pipe = BWT_F('|')
-    bwt_dollar = BWT_F('$')
 
-    def test_consonant_bwt_f(self):
-        """Test abydos.fingerprint.BWT_F."""
+    bwt = BWTF()
+    bwt_pipe = BWTF('|')
+    bwt_dollar = BWTF('$')
+
+    def test_consonant_bwtf(self):
+        """Test abydos.fingerprint.BWTF."""
         # Examples from Wikipedia entry on BWT
         self.assertEqual(self.bwt.fingerprint(''), '\x00')
         self.assertEqual(self.bwt_pipe.fingerprint('^BANANA'), 'BNN^AA|A')

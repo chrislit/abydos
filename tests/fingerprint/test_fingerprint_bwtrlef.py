@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.fingerprint.test_fingerprint_bwtrle_f.
+"""abydos.tests.fingerprint.test_fingerprint_bwtrlef.
 
-This module contains unit tests for abydos.fingerprint.BWTRLE_F
+This module contains unit tests for abydos.fingerprint.BWTRLEF
 """
 
 from __future__ import (
@@ -30,20 +30,21 @@ from __future__ import (
 
 import unittest
 
-from abydos.fingerprint import BWTRLE_F
+from abydos.fingerprint import BWTRLEF
 
 
-class BWTRLE_FTestCases(unittest.TestCase):
+class BWTRLEFTestCases(unittest.TestCase):
     """Test BWT+RLE fingerprint.
 
-    abydos.fingerprint.BWTRLE_F
+    abydos.fingerprint.BWTRLEF
     """
-    bwtrle = BWTRLE_F()
+
+    bwtrle = BWTRLEF()
 
     bws = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW'
 
-    def test_consonant_bwtrle_f(self):
-        """Test abydos.fingerprint.BWTRLE_F."""
+    def test_consonant_bwtrlef(self):
+        """Test abydos.fingerprint.BWTRLEF."""
         # Base case
         self.assertEqual(self.bwtrle.fingerprint(''), '\x00')
 
@@ -51,7 +52,9 @@ class BWTRLE_FTestCases(unittest.TestCase):
         self.assertEqual(
             self.bwtrle.fingerprint(self.bws), 'WWBWWB45WB\x003WB10WB'
         )
-        self.assertEqual(self.bwtrle.fingerprint('Schifffahrt'), 't\x00fSfficahhr')
+        self.assertEqual(
+            self.bwtrle.fingerprint('Schifffahrt'), 't\x00fSfficahhr'
+        )
 
 
 if __name__ == '__main__':
