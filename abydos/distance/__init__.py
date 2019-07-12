@@ -37,8 +37,10 @@ These include traditional Levenshtein edit distance and related algorithms:
     - ALINE distance (:py:class:`.ALINE`)
     - FlexMetric distance (:py:class:`.FlexMetric`)
     - BI-SIM similarity (:py:class:`.BISIM`)
+    - Discounted Levenshtein distance (:py:class:`.DiscountedLevenshtein`)
 
-Hamming distance (:py:class:`.Hamming`) and the closely related Modified
+Hamming distance (:py:class:`.Hamming`), Relaxed Hamming distance
+(:py:class:`.RelaxedHamming`), and the closely related Modified
 Language-Independent Product Name Search distance (:py:class:`.MLIPNS`) are
 provided.
 
@@ -307,6 +309,13 @@ Three similarity measures from SeatGeek's FuzzyWuzzy:
     - FuzzyWuzzy Token Sort similarity (:py:class:`FuzzyWuzzyTokenSort`)
     - FuzzyWuzzy Token Set similarity (:py:class:`FuzzyWuzzyTokenSet`)
 
+A convenience class, allowing one to pass a list of string transforms (phonetic
+algorithms, string transforms, and/or stemmers) and, optionally, a string
+distance measure to compute the similarity/distance of two strings that have
+undergone each transform, is provided in:
+
+    - Phonetic distance (:py:class:`.PhoneticDistance`)
+
 The remaining distance measures & metrics include:
 
     - Western Airlines' Match Rating Algorithm comparison
@@ -319,6 +328,11 @@ The remaining distance measures & metrics include:
     - Typo distance (:py:class:`.Typo`)
     - Synoname (:py:class:`.Synoname`)
     - Ozbay metric (:py:class:`.Ozbay`)
+    - Indice de Similitude-Guth (:py:class:`.ISG`)
+    - INClusion Programme (:py:class:`.Inclusion`)
+    - Guth (:py:class:`.Guth`)
+    - Victorian Panel Study (:py:class:`.VPS`)
+    - LIG3 (:py:class:`.LIG3`)
 
 Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
 which return a measure that is normalized to the range :math:`[0, 1]`. The
@@ -410,6 +424,7 @@ from ._dice import Dice, dist_dice, sim_dice
 from ._dice_asymmetric_i import DiceAsymmetricI
 from ._dice_asymmetric_ii import DiceAsymmetricII
 from ._digby import Digby
+from ._discounted_levenshtein import DiscountedLevenshtein
 from ._dispersion import Dispersion
 from ._distance import _Distance
 from ._doolittle import Doolittle
@@ -443,6 +458,7 @@ from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
 from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
 from ._gotoh import Gotoh, gotoh
 from ._gower_legendre import GowerLegendre
+from ._guth import Guth
 from ._guttman_lambda_a import GuttmanLambdaA
 from ._guttman_lambda_b import GuttmanLambdaB
 from ._gwet_ac import GwetAC
@@ -455,7 +471,9 @@ from ._hellinger import Hellinger
 from ._higuera_mico import HigueraMico
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
+from ._inclusion import Inclusion
 from ._indel import Indel, dist_indel, indel, sim_indel
+from ._isg import ISG
 from ._iterative_substring import IterativeSubString
 from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from ._jaccard_nm import JaccardNM
@@ -493,6 +511,7 @@ from ._levenshtein import (
     levenshtein,
     sim_levenshtein,
 )
+from ._lig3 import LIG3
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
@@ -531,6 +550,7 @@ from ._pearson_ii import PearsonII
 from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
+from ._phonetic_distance import PhoneticDistance
 from ._positional_q_gram_dice import PositionalQGramDice
 from ._positional_q_gram_jaccard import PositionalQGramJaccard
 from ._positional_q_gram_overlap import PositionalQGramOverlap
@@ -545,6 +565,7 @@ from ._ratcliff_obershelp import (
     sim_ratcliff_obershelp,
 )
 from ._rees_levenshtein import ReesLevenshtein
+from ._relaxed_hamming import RelaxedHamming
 from ._roberts import Roberts
 from ._rogers_tanimoto import RogersTanimoto
 from ._rogot_goldberg import RogotGoldberg
@@ -605,6 +626,7 @@ from ._unknown_k import UnknownK
 from ._unknown_l import UnknownL
 from ._unknown_m import UnknownM
 from ._upholt import Upholt
+from ._vps import VPS
 from ._warrens_i import WarrensI
 from ._warrens_ii import WarrensII
 from ._warrens_iii import WarrensIII
@@ -647,6 +669,7 @@ __all__ = [
     'ALINE',
     'FlexMetric',
     'BISIM',
+    'DiscountedLevenshtein',
     'Hamming',
     'hamming',
     'dist_hamming',
@@ -654,6 +677,7 @@ __all__ = [
     'MLIPNS',
     'dist_mlipns',
     'sim_mlipns',
+    'RelaxedHamming',
     'Tichy',
     'BlockLevenshtein',
     'CormodeLZ',
@@ -942,6 +966,7 @@ __all__ = [
     'FuzzyWuzzyPartialString',
     'FuzzyWuzzyTokenSort',
     'FuzzyWuzzyTokenSet',
+    'PhoneticDistance',
     'MRA',
     'mra_compare',
     'dist_mra',
@@ -971,6 +996,11 @@ __all__ = [
     'Synoname',
     'synoname',
     'Ozbay',
+    'ISG',
+    'Inclusion',
+    'Guth',
+    'VPS',
+    'LIG3',
 ]
 
 

@@ -27,7 +27,7 @@ Abydos
     :target: https://circleci.com/gh/chrislit/abydos/tree/master
     :alt: Circle-CI Build Status
 
-.. |azure| image:: https://dev.azure.com/chrislit/abydos/_apis/build/status/chrislit.abydos
+.. |azure| image:: https://dev.azure.com/chrislit/abydos/_apis/build/status/chrislit.abydos?branchName=master
     :target: https://dev.azure.com/chrislit/abydos/_build/latest?definitionId=1
     :alt: Azure Pipelines Build Status
 
@@ -71,11 +71,11 @@ Abydos
     :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
     :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-8.86/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-8.87/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-0-brightgreen.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-1-green.svg
     :target: #
     :alt: flake8 Errors
 
@@ -83,7 +83,7 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,797-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-42,187-blue.svg
     :target: #
     :alt: SLOCCount
 

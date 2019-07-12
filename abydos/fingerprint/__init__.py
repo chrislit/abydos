@@ -42,6 +42,19 @@ The fingerprint package implements string fingerprints such as:
 
     - The Synoname toolcode (:py:class:`.SynonameToolcode`)
 
+    - Taft's codings:
+
+        - Consonant coding (:py:class:`.Consonant`)
+        - Extract - letter list (:py:class:`.Extract`)
+        - Extract - position & frequency
+          (:py:class:`.ExtractPositionFrequency`)
+
+    - L.A. County Sheriff's System (:py:class:`.LACSS`)
+
+    - Library of Congress Cutter table encoding (:py:class:`.LCCutter`)
+
+    - Burrows-Wheeler transform (:py:class:`.BWTF`) and run-length encoded
+      Burrows-Wheeler transform (:py:class:`.BWTRLEF`)
 
 Each fingerprint class has a ``fingerprint`` method that takes a string and
 returns the string's fingerprint:
@@ -63,7 +76,12 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._bwtf import BWTF
+from ._bwtrlef import BWTRLEF
+from ._consonant import Consonant
 from ._count import Count, count_fingerprint
+from ._extract import Extract
+from ._extract_position_frequency import ExtractPositionFrequency
 from ._fingerprint import (
     MOST_COMMON_LETTERS,
     MOST_COMMON_LETTERS_CG,
@@ -72,6 +90,8 @@ from ._fingerprint import (
     MOST_COMMON_LETTERS_EN_LC,
     _Fingerprint,
 )
+from ._lacss import LACSS
+from ._lc_cutter import LCCutter
 from ._occurrence import Occurrence, occurrence_fingerprint
 from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
 from ._omission_key import OmissionKey, omission_key
@@ -109,6 +129,13 @@ __all__ = [
     'position_fingerprint',
     'SynonameToolcode',
     'synoname_toolcode',
+    'Consonant',
+    'Extract',
+    'ExtractPositionFrequency',
+    'LACSS',
+    'LCCutter',
+    'BWTF',
+    'BWTRLEF',
 ]
 
 

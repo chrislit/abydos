@@ -169,7 +169,7 @@ class GoodmanKruskalTauA(_TokenDistance):
         num = fp + sp - (a + b) ** 2 - (c + d) ** 2
         if num > 1e-14:
             return num / (1 - (a + b) ** 2 - (c + d) ** 2)
-        return 0.0
+        return 0.0  # pragma: no cover
 
 
 if __name__ == '__main__':

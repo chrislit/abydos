@@ -75,7 +75,7 @@ class SmithWaterman(NeedlemanWunsch):
         if self._sim_func is None:
             self._sim_func = NeedlemanWunsch.sim_matrix
 
-    def dist_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Smith-Waterman score of two strings.
 
         Parameters
@@ -93,13 +93,13 @@ class SmithWaterman(NeedlemanWunsch):
         Examples
         --------
         >>> cmp = SmithWaterman()
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         2.0
-        >>> cmp.dist_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         1.0
-        >>> cmp.dist_abs('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.dist_abs('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         1.0
 
 
@@ -119,6 +119,43 @@ class SmithWaterman(NeedlemanWunsch):
                 insert = d_mat[i, j - 1] - self._gap_cost
                 d_mat[i, j] = max(0, match, delete, insert)
         return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
+
+    def sim(self, src, tar):
+        """Return the normalized Smith-Waterman score of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized Smith-Waterman score
+
+        Examples
+        --------
+        >>> cmp = SmithWaterman()
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+        >>> cmp.sim('Niall', 'Neil')
+        0.22360679774997896
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+        0.0
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        if src == tar:
+            return 1.0
+        return max(0.0, self.sim_score(src, tar)) / (
+            self.sim_score(src, src) ** 0.5 * self.sim_score(tar, tar) ** 0.5
+        )
 
 
 @deprecated(
@@ -163,7 +200,7 @@ def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
     .. versionadded:: 0.1.0
 
     """
-    return SmithWaterman(gap_cost, sim_func).dist_abs(src, tar)
+    return SmithWaterman(gap_cost, sim_func).sim_score(src, tar)
 
 
 if __name__ == '__main__':

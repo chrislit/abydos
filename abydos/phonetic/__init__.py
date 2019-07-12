@@ -35,6 +35,7 @@ including:
     - Phonex (:py:class:`.Phonex`)
     - Phonem (:py:class:`.Phonem`)
     - Phonix (:py:class:`.Phonix`)
+    - PHONIC (:py:class:`.PHONIC`)
     - Standardized Phonetic Frequency Code (:py:class:`.SPFC`)
     - Statistics Canada (:py:class:`.StatisticsCanada`)
     - LEIN (:py:class:`.LEIN`)
@@ -47,6 +48,7 @@ including:
       :py:class:`.PSHPSoundexLast`)
     - Dolby Code (:py:class:`.Dolby`)
     - NRL English-to-phoneme (:py:class:`.NRL`)
+    - Ainsworth grapheme to phoneme (:py:class:`.Ainsworth`)
     - Beider-Morse Phonetic Matching (:py:class:`.BeiderMorse`)
 
 There are also language-specific phonetic algorithms for German:
@@ -108,6 +110,7 @@ from __future__ import (
     unicode_literals,
 )
 
+from ._ainsworth import Ainsworth
 from ._alpha_sis import AlphaSIS, alpha_sis
 from ._beider_morse import BeiderMorse, bmpm
 from ._caverphone import Caverphone, caverphone
@@ -140,6 +143,7 @@ from ._phonet import Phonet, phonet
 from ._phonetic import _Phonetic
 from ._phonetic_spanish import PhoneticSpanish, phonetic_spanish
 from ._phonex import Phonex, phonex
+from ._phonic import PHONIC
 from ._phonix import Phonix, phonix
 from ._pshp_soundex_first import PSHPSoundexFirst, pshp_soundex_first
 from ._pshp_soundex_last import PSHPSoundexLast, pshp_soundex_last
@@ -179,6 +183,7 @@ __all__ = [
     'lein',
     'Phonex',
     'phonex',
+    'PHONIC',
     'Phonix',
     'phonix',
     'PSHPSoundexFirst',
@@ -248,6 +253,7 @@ __all__ = [
     'Waahlin',
     'Norphone',
     'norphone',
+    'Ainsworth',
 ]
 
 

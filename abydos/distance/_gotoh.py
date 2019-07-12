@@ -77,7 +77,7 @@ class Gotoh(NeedlemanWunsch):
         if self._sim_func is None:
             self._sim_func = NeedlemanWunsch.sim_matrix
 
-    def dist_abs(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Gotoh score of two strings.
 
         Parameters
@@ -95,13 +95,13 @@ class Gotoh(NeedlemanWunsch):
         Examples
         --------
         >>> cmp = Gotoh()
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         2.0
-        >>> cmp.dist_abs('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         1.0
-        >>> round(cmp.dist_abs('aluminum', 'Catalan'), 12)
+        >>> round(cmp.sim_score('aluminum', 'Catalan'), 12)
         -0.4
-        >>> cmp.dist_abs('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         2.0
 
 
@@ -150,6 +150,43 @@ class Gotoh(NeedlemanWunsch):
         i, j = (n - 1 for n in d_mat.shape)
         return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
 
+    def sim(self, src, tar):
+        """Return the normalized Gotoh score of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized Gotoh score
+
+        Examples
+        --------
+        >>> cmp = Gotoh()
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+        >>> cmp.sim('Niall', 'Neil')
+        0.22360679774997896
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
+        0.0
+        >>> cmp.sim('cat', 'hat')
+        0.6666666666666667
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        if src == tar:
+            return 1.0
+        return max(0.0, self.sim_score(src, tar)) / (
+            self.sim_score(src, src) ** 0.5 * self.sim_score(tar, tar) ** 0.5
+        )
+
 
 @deprecated(
     deprecated_in='0.4.0',
@@ -195,7 +232,7 @@ def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
     .. versionadded:: 0.1.0
 
     """
-    return Gotoh(gap_open, gap_ext, sim_func).dist_abs(src, tar)
+    return Gotoh(gap_open, gap_ext, sim_func).sim_score(src, tar)
 
 
 if __name__ == '__main__':

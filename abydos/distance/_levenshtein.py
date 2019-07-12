@@ -123,6 +123,145 @@ class Levenshtein(_Distance):
             else 1
         )
 
+    def _alignment_matrix(self, src, tar):
+        """Return the Levenshtein alignment matrix.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        numpy.ndarray
+            The alignment matrix
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        ins_cost, del_cost, sub_cost, trans_cost = self._cost
+
+        src_len = len(src)
+        tar_len = len(tar)
+        max_len = max(src_len, tar_len)
+
+        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+        for i in range(src_len + 1):
+            d_mat[i, 0] = i * self._taper(i, max_len) * del_cost
+        for j in range(tar_len + 1):
+            d_mat[0, j] = j * self._taper(j, max_len) * ins_cost
+
+        for i in range(src_len):
+            for j in range(tar_len):
+                d_mat[i + 1, j + 1] = min(
+                    d_mat[i + 1, j]
+                    + ins_cost * self._taper(1 + max(i, j), max_len),  # ins
+                    d_mat[i, j + 1]
+                    + del_cost * self._taper(1 + max(i, j), max_len),  # del
+                    d_mat[i, j]
+                    + (
+                        sub_cost * self._taper(1 + max(i, j), max_len)
+                        if src[i] != tar[j]
+                        else 0
+                    ),  # sub/==
+                )
+
+                if self._mode == 'osa':
+                    if (
+                        i + 1 > 1
+                        and j + 1 > 1
+                        and src[i] == tar[j - 1]
+                        and src[i - 1] == tar[j]
+                    ):
+                        # transposition
+                        d_mat[i + 1, j + 1] = min(
+                            d_mat[i + 1, j + 1],
+                            d_mat[i - 1, j - 1]
+                            + trans_cost * self._taper(1 + max(i, j), max_len),
+                        )
+
+        return d_mat
+
+    def alignment(self, src, tar):
+        """Return the Levenshtein alignment of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        tuple
+            A tuple containing the Levenshtein distance and the two strings,
+            aligned.
+
+        Examples
+        --------
+        >>> cmp = Levenshtein()
+        >>> cmp.alignment('cat', 'hat')
+        (1.0, 'cat', 'hat')
+        >>> cmp.alignment('Niall', 'Neil')
+        (3.0, 'Niall', 'Neil-')
+        >>> cmp.alignment('aluminum', 'Catalan')
+        (7.0, '-aluminum', 'Catalan--')
+        >>> cmp.alignment('ATCG', 'TAGC')
+        (3.0, 'ATCG-', '-TAGC')
+
+        >>> cmp = Levenshtein(mode='osa')
+        >>> cmp.alignment('ATCG', 'TAGC')
+        (2.0, 'ATCG', 'TAGC')
+        >>> cmp.alignment('ACTG', 'TAGC')
+        (4.0, 'ACTG', 'TAGC')
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        d_mat = self._alignment_matrix(src, tar)
+
+        src_aligned = []
+        tar_aligned = []
+
+        src_pos = len(src)
+        tar_pos = len(tar)
+
+        distance = d_mat[src_pos, tar_pos]
+
+        while src_pos and tar_pos:
+            up = d_mat[src_pos, tar_pos - 1]
+            left = d_mat[src_pos - 1, tar_pos]
+            diag = d_mat[src_pos - 1, tar_pos - 1]
+
+            if diag <= min(up, left):
+                src_pos -= 1
+                tar_pos -= 1
+                src_aligned.append(src[src_pos])
+                tar_aligned.append(tar[tar_pos])
+            elif up <= left:
+                tar_pos -= 1
+                src_aligned.append('-')
+                tar_aligned.append(tar[tar_pos])
+            else:
+                src_pos -= 1
+                src_aligned.append(src[src_pos])
+                tar_aligned.append('-')
+        while tar_pos:
+            tar_pos -= 1
+            tar_aligned.append(tar[tar_pos])
+            src_aligned.append('-')
+        while src_pos:
+            src_pos -= 1
+            src_aligned.append(src[src_pos])
+            tar_aligned.append('-')
+
+        return distance, ''.join(src_aligned[::-1]), ''.join(tar_aligned[::-1])
+
     def dist_abs(self, src, tar):
         """Return the Levenshtein distance between two strings.
 
@@ -179,40 +318,7 @@ class Levenshtein(_Distance):
                 del_cost * self._taper(pos, max_len) for pos in range(src_len)
             )
 
-        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
-        for i in range(src_len + 1):
-            d_mat[i, 0] = i * self._taper(i, max_len) * del_cost
-        for j in range(tar_len + 1):
-            d_mat[0, j] = j * self._taper(j, max_len) * ins_cost
-
-        for i in range(src_len):
-            for j in range(tar_len):
-                d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j]
-                    + ins_cost * self._taper(1 + max(i, j), max_len),  # ins
-                    d_mat[i, j + 1]
-                    + del_cost * self._taper(1 + max(i, j), max_len),  # del
-                    d_mat[i, j]
-                    + (
-                        sub_cost * self._taper(1 + max(i, j), max_len)
-                        if src[i] != tar[j]
-                        else 0
-                    ),  # sub/==
-                )
-
-                if self._mode == 'osa':
-                    if (
-                        i + 1 > 1
-                        and j + 1 > 1
-                        and src[i] == tar[j - 1]
-                        and src[i - 1] == tar[j]
-                    ):
-                        # transposition
-                        d_mat[i + 1, j + 1] = min(
-                            d_mat[i + 1, j + 1],
-                            d_mat[i - 1, j - 1]
-                            + trans_cost * self._taper(1 + max(i, j), max_len),
-                        )
+        d_mat = self._alignment_matrix(src, tar)
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
@@ -260,7 +366,7 @@ class Levenshtein(_Distance):
 
         """
         if src == tar:
-            return 0
+            return 0.0
         ins_cost, del_cost = self._cost[:2]
 
         src_len = len(src)
