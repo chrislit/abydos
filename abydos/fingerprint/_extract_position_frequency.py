@@ -109,7 +109,7 @@ class ExtractPositionFrequency(_Fingerprint):
 
         """
         # uppercase & reverse
-        word = word.upper()
+        word = [_ for _ in word.upper() if _ in self._frequency]
         scores = [[] for _ in range(len(word))]
 
         pos = 0
