@@ -26,8 +26,11 @@ Changes:
     - Taft's Extract - letter list
     - Taft's Extract - position & frequency
     - L.A. County Sheriff's System
+    - Library of Congres Cutter table encoding
 - Added the following phonetic algorithms:
+    - Ainsworth's grapheme-to-phoneme
     - PHONIC
+
 
 0.4.0 (2019-05-30) *dietrich*
 +++++++++++++++++++++++++++++
