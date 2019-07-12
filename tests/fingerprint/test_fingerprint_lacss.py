@@ -48,6 +48,7 @@ class LACSSTestCases(unittest.TestCase):
 
         # Test cases from paper
         self.assertEqual(self.fp.fingerprint('Williams'), '8312716')
+        self.assertEqual(self.fp.fingerprint('2AB2'), '2449489')
 
 
 if __name__ == '__main__':
