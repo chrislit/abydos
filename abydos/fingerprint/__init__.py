@@ -76,8 +76,8 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._bwt_f import BWTF
-from ._bwtrle_f import BWTRLEF
+from ._bwtf import BWTF
+from ._bwtrlef import BWTRLEF
 from ._consonant import Consonant
 from ._count import Count, count_fingerprint
 from ._extract import Extract

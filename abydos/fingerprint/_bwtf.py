@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.fingerprint._bwtrle.
+"""abydos.fingerprint._bwtf.
 
-Burrows-Wheeler transform plus run-length encoding fingerprint
+Burrows-Wheeler transform fingerprint
 """
 
 from __future__ import (
@@ -30,22 +30,21 @@ from __future__ import (
 
 from ._fingerprint import _Fingerprint
 from ..compression import BWT as _BWT
-from ..compression import RLE as _RLE
 
-__all__ = ['BWTRLEF']
+__all__ = ['BWTF']
 
 
-class BWTRLEF(_Fingerprint):
-    """Burrows-Wheeler transform plus run-length encoding fingerprint.
+class BWTF(_Fingerprint):
+    """Burrows-Wheeler transform fingerprint.
 
-    This is a wrapper of the BWT and RLE classes in abydos.compression, which
-    provides the same interface as other descendants of _Fingerprint.
+    This is a wrapper of the BWT class in abydos.compression, which provides
+    the same interface as other descendants of _Fingerprint.
 
     .. versionadded:: 0.4.1
     """
 
     def __init__(self, terminator='\0'):
-        """Initialize BWTRLEF instance.
+        """Initialize BWTF instance.
 
         Parameters
         ----------
@@ -57,10 +56,9 @@ class BWTRLEF(_Fingerprint):
 
         """
         self._bwt = _BWT(terminator)
-        self._rle = _RLE()
 
     def fingerprint(self, word):
-        r"""Return the run-length encoded Burrows-Wheeler transform of a word.
+        r"""Return the Burrows-Wheeler transform of a word.
 
         Parameters
         ----------
@@ -70,11 +68,11 @@ class BWTRLEF(_Fingerprint):
         Returns
         -------
         str
-            The run-length encoded Burrows-Wheeler transform of a word
+            The Burrows-Wheeler transform of a word
 
         Examples
         --------
-        >>> fp = BWTRLEF()
+        >>> fp = BWTF()
         >>> fp.fingerprint('hat')
         'th\x00a'
         >>> fp.fingerprint('niall')
@@ -90,7 +88,7 @@ class BWTRLEF(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        return self._rle.encode(self._bwt.encode(word))
+        return self._bwt.encode(word)
 
 
 if __name__ == '__main__':
