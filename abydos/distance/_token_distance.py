@@ -575,7 +575,12 @@ class _TokenDistance(_Distance):
                 if sim >= self.params['threshold']:
                     pair[(src_tok, tar_tok)] = sim
 
-        for src_tok, tar_tok in sorted(pair, key=pair.get, reverse=True):
+        ordered_keys = [(pair[_], _[0], _[1]) for _ in pair]
+        ordered_keys.sort(key=lambda x: x[2])
+        ordered_keys.sort(key=lambda x: x[1])
+        ordered_keys.sort(key=lambda x: x[0], reverse=True)
+
+        for _, src_tok, tar_tok in ordered_keys:
             pairings = min(src_only[src_tok], tar_only[tar_tok])
             if pairings:
                 sim = pair[(src_tok, tar_tok)]
