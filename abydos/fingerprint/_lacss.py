@@ -84,14 +84,23 @@ class LACSS(_Fingerprint):
 
         # remove vowels
         word = word[:1] + ''.join(_ for _ in word[1:] if _ not in 'AEIOUWHY')
-        word += (12 - len(word)) * 'A'
+        word += 12 * 'A'
 
         # step 1
-        code = self._t2[word[:1]] * 10
+        code = 0
+        i = 0
+        while (not code) and (i < len(word)):
+            if word[i] in self._t2:
+                code = self._t2[word[i]] * 10
+            i += 1
 
-        for letter in word[1:12]:
-            code *= 10
-            code += self._t1[letter]
+        letters = 11
+        while letters and i < len(word):
+            if word[i] in self._t1:
+                code *= 10
+                code += self._t1[word[i]]
+                letters -= 1
+            i += 1
 
         code *= 3
         code = str(int(code ** 0.5))
