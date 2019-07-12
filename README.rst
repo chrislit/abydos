@@ -108,7 +108,7 @@ Abydos
     :alt: Libraries.io SourceRank
 
 .. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3235034.svg
-    :target: https://doi.org/10.5281/zenodo.1490537
+    :target: https://doi.org/10.5281/zenodo.3235034
     :alt: Zenodo
 
 .. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
