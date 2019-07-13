@@ -642,6 +642,7 @@ class UEALite(_Stemmer):
         var : str
             Variant rules to use:
 
+                - ``standard`` to use the original (Java-version) rules
                 - ``Adams`` to use Jason Adams' rules
                 - ``Perl`` to use the original Perl rules
 
