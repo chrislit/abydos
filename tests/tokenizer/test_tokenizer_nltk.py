@@ -37,17 +37,12 @@ try:
 except ImportError:  # pragma: no cover
     TweetTokenizer = None
 
-from six import PY2
-
 
 class NLTKTokenizerTestCases(unittest.TestCase):
     """Test abydos.tokenizer.NLTKTokenizer."""
 
     def test_nltk_tokenizer(self):
         """Test abydos.tokenizer.NLTKTokenizer."""
-        if PY2:  # skip tests of NLTK on Python 2.7
-            return
-
         if TweetTokenizer is None:  # pragma: no cover
             return
 
@@ -63,6 +58,7 @@ class NLTKTokenizerTestCases(unittest.TestCase):
             sorted(tok.tokenize('NEILSEN').get_list()), sorted(['NEILSEN'])
         )
 
+        tok = NLTKTokenizer(nltk_tokenizer=TweetTokenizer)
         tweet1 = 'Big night of basketball - @Warriors chasing 73 and a\
         farewell for an all-timer, @KobeBryant. NBA fans feeling like:'
         self.assertEqual(
@@ -131,7 +127,7 @@ class NLTKTokenizerTestCases(unittest.TestCase):
         )
 
         with self.assertRaises(TypeError):
-            NLTKTokenizer(nltk_tokenizer=TweetTokenizer)
+            NLTKTokenizer(nltk_tokenizer='TweetTokenizer')
 
 
 if __name__ == '__main__':

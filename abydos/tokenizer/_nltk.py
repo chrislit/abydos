@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from inspect import isclass
+
 from ._tokenizer import _Tokenizer
 
 
@@ -60,10 +62,14 @@ class NLTKTokenizer(_Tokenizer):
         """
         super(NLTKTokenizer, self).__init__(scaler)
 
-        if 'nltk.tokenize' in str(type(nltk_tokenizer)) and hasattr(
-            nltk_tokenizer, 'tokenize'
+        if (
+            hasattr(nltk_tokenizer, 'tokenize')
+            and 'nltk.tokenize' in nltk_tokenizer.__module__
         ):
-            self.nltk_tokenizer = nltk_tokenizer
+            if isclass(nltk_tokenizer):
+                self.nltk_tokenizer = nltk_tokenizer()
+            else:
+                self.nltk_tokenizer = nltk_tokenizer
         else:
             raise TypeError(
                 'nltk_tokenizer must be an initialized tokenizer from the'
