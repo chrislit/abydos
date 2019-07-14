@@ -40,30 +40,30 @@ from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 algorithms = {}
 
 for name, obj in getmembers(ad):
-    if isclass(obj) and name[0] != "_":
-        if name in {"Synoname", "Covington", "Gotoh"}:
+    if isclass(obj) and name[0] != '_':
+        if name in {'Synoname', 'Covington', 'Gotoh'}:
             continue
         cls = obj()
-        if "dist_abs" in obj.__dict__ and "Method disabled" not in getsource(
+        if 'dist_abs' in obj.__dict__ and 'Method disabled' not in getsource(
             obj.dist_abs
         ):
-            algorithms[name.lower() + "_dist_abs"] = cls.dist_abs
-        if "sim_score" in obj.__dict__ and "Method disabled" not in getsource(
+            algorithms[name.lower() + '_dist_abs'] = cls.dist_abs
+        if 'sim_score' in obj.__dict__ and 'Method disabled' not in getsource(
             obj.sim_score
         ):
-            algorithms[name.lower() + "_sim_score"] = cls.sim_score
-        if "dist" in obj.__dict__ and "Method disabled" not in getsource(
+            algorithms[name.lower() + '_sim_score'] = cls.sim_score
+        if 'dist' in obj.__dict__ and 'Method disabled' not in getsource(
             obj.dist
         ):
-            algorithms[name.lower() + "_dist"] = cls.dist
-        if "sim" in obj.__dict__ and "Method disabled" not in getsource(
+            algorithms[name.lower() + '_dist'] = cls.dist
+        if 'sim' in obj.__dict__ and 'Method disabled' not in getsource(
             obj.sim
         ):
-            algorithms[name.lower() + "_sim"] = cls.sim
+            algorithms[name.lower() + '_sim'] = cls.sim
 
 # corrections and additions
-algorithms["typo_dist_abs"] = ad.Typo(failsafe=True).dist_abs
-algorithms["typo_dist"] = ad.Typo(failsafe=True).dist
+algorithms['typo_dist_abs'] = ad.Typo(failsafe=True).dist_abs
+algorithms['typo_dist'] = ad.Typo(failsafe=True).dist
 
 
 class BigListOfNaughtyStringsTestCases(unittest.TestCase):
@@ -79,10 +79,10 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
     def fuzz_test_blns(self):
         """Test each distance measure against the BLNS set."""
         blns = []
-        with codecs.open(_corpus_file("blns.txt"), encoding="UTF-8") as nsf:
+        with codecs.open(_corpus_file('blns.txt'), encoding='UTF-8') as nsf:
             for line in nsf:
                 line = line[:-1]
-                if line and line[0] != "#":
+                if line and line[0] != '#':
                     blns.append(line)
 
         for algo in algorithms:
@@ -91,7 +91,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
                     algorithms[algo](ns, ns[: min(1, len(ns) - 2)])
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for BLNS: {} & {}'.format(
+                        "Exception '{}' thrown by {} for BLNS: {} & {}".format(
                             inst, algo, ns, ns[: min(1, len(ns) - 1)]
                         )
                     )
@@ -104,7 +104,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
 
     basewords = []
     with codecs.open(
-        _corpus_file("basewords.txt"), encoding="UTF-8"
+        _corpus_file('basewords.txt'), encoding='UTF-8'
     ) as basewords_file:
         for line in basewords_file:
             line = line[:-1]
@@ -127,7 +127,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](chosen, fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for words: {} & {}'.format(
+                        "Exception '{}' thrown by {} for words: {} & {}".format(
                             inst, algo, chosen, fuzzed
                         )
                     )
@@ -135,11 +135,11 @@ class FuzzedWordsTestCases(unittest.TestCase):
     def fuzz_test_fuzz_bmpsmp_letter(self):
         """Fuzz test distance measures against alphabetic BMP+SMP fuzz."""
         for _ in range(self.reps):
-            chosen = "".join(
-                _random_char(0x1FFFF, " LETTER ")
+            chosen = ''.join(
+                _random_char(0x1FFFF, ' LETTER ')
                 for _ in range(0, randint(8, 16))
             )
-            fuzzed = _fuzz(chosen, fuzziness=0.5, must_be=" LETTER ")
+            fuzzed = _fuzz(chosen, fuzziness=0.5, must_be=' LETTER ')
 
             if EXTREME_TEST:
                 algs = list(algorithms.keys())
@@ -151,11 +151,11 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](chosen, fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for words: {} & {}'.format(
+                        "Exception '{}' thrown by {} for words: {} & {}".format(
                             inst, algo, chosen, fuzzed
                         )
                     )
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
