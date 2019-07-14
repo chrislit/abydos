@@ -91,10 +91,6 @@ def _random_char(below=0x10FFFF, must_be=None):
     str
         A character
 
-    Raises
-    ------
-    ValueError
-
     """
     while True:
         char = unichr(randint(0, below))  # noqa: S311
@@ -106,7 +102,7 @@ def _random_char(below=0x10FFFF, must_be=None):
             pass
 
 
-def _fuzz(word, fuzziness=0.2):
+def _fuzz(word, fuzziness=0.2, must_be=None):
     """Fuzz a word with noise.
 
     Parameters
@@ -115,6 +111,8 @@ def _fuzz(word, fuzziness=0.2):
         A word to fuzz
     fuzziness : float
         How fuzzy to make the word
+    must_be : str
+        A required part of the character name
 
     Returns
     -------
@@ -131,9 +129,13 @@ def _fuzz(word, fuzziness=0.2):
                 if random() > 0.5:  # noqa: S311
                     new_word.append(choice(printable))  # noqa: S311
                 elif random() > 0.8:  # noqa: S311
-                    new_word.append(unichr(randint(0, 0x10FFFF)))  # noqa: S311
+                    new_word.append(
+                        _random_char(0x10FFFF, must_be)
+                    )  # noqa: S311
                 else:
-                    new_word.append(unichr(randint(0, 0xFFFF)))  # noqa: S311
+                    new_word.append(
+                        _random_char(0xFFFF, must_be)
+                    )  # noqa: S311
                 if random() > 0.5:  # noqa: S311
                     new_word.append(ch)
         new_word = ''.join(new_word)
