@@ -2,7 +2,8 @@ FAQ
 ---
 
 
-Q. Why is the library licensed under GPL3+? Can you change the license to BSD/MIT/other?
+Q. Why is the library licensed under GPL3+? Can you change the license
+   to BSD/MIT/other?
 
 Q. What is the purpose of this library?
 
