@@ -33,10 +33,10 @@ import unittest
 from random import choice, randint, sample
 
 from abydos.stemmer import (
-    Caumanns,
     CLEFGerman,
     CLEFGermanPlus,
     CLEFSwedish,
+    Caumanns,
     Lovins,
     PaiceHusk,
     Porter,
