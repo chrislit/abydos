@@ -48,22 +48,24 @@ from abydos.tokenizer import (
     WordpunctTokenizer,
 )
 
+from nltk import TweetTokenizer
+
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 algorithms = {
-    'corvcluster': COrVClusterTokenizer.tokenize,
-    'cvcluster': CVClusterTokenizer.tokenize,
-    'character': CharacterTokenizer.tokenize,
-    'legalipy': LegaliPyTokenizer.tokenize,
-    'nltk': NLTKTokenizer.tokenize,
-    'qgrams': QGrams.tokenize,
-    'qskipgrams': QSkipgrams.tokenize,
-    'regexp': RegexpTokenizer.tokenize,
-    'saps': SAPSTokenizer.tokenize,
-    'sonoripy': SonoriPyTokenizer.tokenize,
-    'vccluster': VCClusterTokenizer.tokenize,
-    'whitespace': WhitespaceTokenizer.tokenize,
-    'wordpunct': WordpunctTokenizer.tokenize,
+    'corvcluster': COrVClusterTokenizer().tokenize,
+    'cvcluster': CVClusterTokenizer().tokenize,
+    'character': CharacterTokenizer().tokenize,
+    'legalipy': LegaliPyTokenizer().tokenize,
+    'nltk': NLTKTokenizer(nltk_tokenizer=TweetTokenizer()).tokenize,
+    'qgrams': QGrams().tokenize,
+    'qskipgrams': QSkipgrams().tokenize,
+    'regexp': RegexpTokenizer().tokenize,
+    'saps': SAPSTokenizer().tokenize,
+    'sonoripy': SonoriPyTokenizer().tokenize,
+    'vccluster': VCClusterTokenizer().tokenize,
+    'whitespace': WhitespaceTokenizer().tokenize,
+    'wordpunct': WordpunctTokenizer().tokenize,
 }
 
 
