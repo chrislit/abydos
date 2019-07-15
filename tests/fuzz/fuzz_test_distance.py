@@ -51,11 +51,16 @@ for name, obj in getmembers(ad):
             'NeedlemanWunsch',
         }:
             continue
-        if PY2 and name in {'NCDpaq9a', 'NCDlzss', 'NCDlzma'}:
+        if PY2 and name in {
+            'NCDpaq9a',
+            'NCDlzss',
+            'NCDlzma',
+            'ReesLevenshtein',
+            'MinHash',
+        }:
             continue
 
         cls = obj()
-
         if 'dist_abs' in obj.__dict__ and 'Method disabled' not in getsource(
             obj.dist_abs
         ):
