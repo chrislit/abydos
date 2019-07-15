@@ -35,15 +35,27 @@ from random import choice, randint, sample
 
 import abydos.distance as ad
 
+from six import PY2
+
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 algorithms = {}
 
 for name, obj in getmembers(ad):
     if isclass(obj) and name[0] != '_':
-        if name in {'Synoname', 'Covington', 'Gotoh'}:
+        if name in {
+            'Synoname',
+            'Covington',
+            'Gotoh',
+            'SmithWaterman',
+            'NeedlemanWunsch',
+        }:
             continue
+        if PY2 and name in {'NCDpaq9a', 'NCDlzss', 'NCDlzma'}:
+            continue
+
         cls = obj()
+
         if 'dist_abs' in obj.__dict__ and 'Method disabled' not in getsource(
             obj.dist_abs
         ):
@@ -91,7 +103,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
                     algorithms[algo](ns, ns[: min(1, len(ns) - 2)])
                 except Exception as inst:
                     self.fail(
-                        "Exception '{}' thrown by {} for BLNS: {} & {}".format(
+                        'Exception "{}" thrown by {} for BLNS: {} & {}'.format(
                             inst, algo, ns, ns[: min(1, len(ns) - 1)]
                         )
                     )
@@ -127,7 +139,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](chosen, fuzzed)
                 except Exception as inst:
                     self.fail(
-                        "Exception '{}' thrown by {} for words: {} & {}".format(
+                        'Exception "{}" thrown by {} for words: {} & {}'.format(
                             inst, algo, chosen, fuzzed
                         )
                     )
@@ -151,7 +163,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](chosen, fuzzed)
                 except Exception as inst:
                     self.fail(
-                        "Exception '{}' thrown by {} for words: {} & {}".format(
+                        'Exception "{}" thrown by {} for words: {} & {}'.format(
                             inst, algo, chosen, fuzzed
                         )
                     )
