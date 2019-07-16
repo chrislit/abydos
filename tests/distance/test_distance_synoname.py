@@ -50,7 +50,7 @@ class SynonameTestCases(unittest.TestCase):
             self.cmp._synoname_strip_punct('abcdefg'), 'abcdefg'  # noqa: SF01
         )
         self.assertEqual(
-            self.cmp._synoname_strip_punct('a\'b-c,d!e:f%g'),  # noqa: SF01
+            self.cmp._synoname_strip_punct("a'b-c,d!e:f%g"),  # noqa: SF01
             'abcdefg',
         )
 

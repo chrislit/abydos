@@ -30,7 +30,7 @@ from __future__ import (
 
 import codecs
 import unittest
-from inspect import getmembers, getdoc, isclass
+from inspect import getdoc, getmembers, isclass
 from random import choice, randint, sample
 
 import abydos.distance as ad
