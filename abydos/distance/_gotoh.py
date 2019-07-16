@@ -121,11 +121,13 @@ class Gotoh(NeedlemanWunsch):
             d_mat[i, 0] = float('-inf')
             p_mat[i, 0] = -self._gap_open - self._gap_ext * (i - 1)
             q_mat[i, 0] = float('-inf')
-            q_mat[i, 1] = -self._gap_open
+            if len(tar) > 1:
+                q_mat[i, 1] = -self._gap_open
         for j in range(1, len(tar) + 1):
             d_mat[0, j] = float('-inf')
             p_mat[0, j] = float('-inf')
-            p_mat[1, j] = -self._gap_open
+            if len(src) > 1:
+                p_mat[1, j] = -self._gap_open
             q_mat[0, j] = -self._gap_open - self._gap_ext * (j - 1)
 
         for i in range(1, len(src) + 1):
