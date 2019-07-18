@@ -137,7 +137,7 @@ class SokalSneathIII(_TokenDistance):
         c = self._tar_only_card()
         d = self._total_complement_card()
 
-        if a+d > 0 and b+c == 0:
+        if a + d > 0 and b + c == 0:
             return float('inf')
         return (a + d) / (b + c)
 

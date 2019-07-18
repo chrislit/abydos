@@ -71,7 +71,6 @@ class SokalSneathIIITestCases(unittest.TestCase):
             self.cmp.sim_score('Kirisits', 'Kiritsis'), float('inf')
         )
 
-
     def test_sokal_sneath_iii_dist(self):
         """Test abydos.distance.SokalSneathIII.dist."""
         self.assertRaises(NotImplementedError, self.cmp.dist)
