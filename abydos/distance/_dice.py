@@ -40,7 +40,7 @@ class Dice(Tversky):
     r"""Sørensen–Dice coefficient.
 
     For two sets X and Y, the Sørensen–Dice coefficient
-    :cite:`Dice:1945,Sorensen:1948,Bray:1957,Czekanowski:1909,Motyka:1950` is
+    :cite:`Dice:1945,Sorensen:1948,Czekanowski:1909,Motyka:1950` is
 
         .. math::
 
@@ -52,6 +52,9 @@ class Dice(Tversky):
     This is identical to the Tanimoto similarity coefficient
     :cite:`Tanimoto:1958` and the Tversky index :cite:`Tversky:1977` for
     :math:`\alpha = \beta = 0.5`.
+
+    In the Ruby text library this is identified as White similarity, after
+    :cite:`White:Nd`.
 
     In :ref:`2x2 confusion table terms <confusion_table>`, where a+b+c+d=n,
     this is
