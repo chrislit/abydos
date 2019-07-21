@@ -258,6 +258,11 @@ class _TokenDistance(_Distance):
             'complement': self._norm_complement,
         }
 
+        # initialize values for soft intersection
+        self._soft_intersection_precalc = None
+        self._soft_src_only = None
+        self._soft_tar_only = None
+
     def _norm_none(self, x, _squares, _pop):
         return x
 
@@ -334,6 +339,11 @@ class _TokenDistance(_Distance):
         ):
             self.normalizer = self._norm_dict[self.params['normalizer']]
 
+        # clear values for soft intersection
+        self._soft_intersection_precalc = None
+        self._soft_src_only = None
+        self._soft_tar_only = None
+
         return self
 
     def _get_tokens(self):
@@ -342,6 +352,19 @@ class _TokenDistance(_Distance):
 
     def _src_card(self):
         r"""Return the cardinality of the tokens in the source set."""
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self.normalizer(
+                sum(
+                    abs(val)
+                    for val in (
+                        self._soft_intersection_precalc + self._soft_src_only
+                    ).values()
+                ),
+                2,
+                self._population_card_value,
+            )
         return self.normalizer(
             sum(abs(val) for val in self._src_tokens.values()),
             2,
@@ -353,6 +376,10 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self._soft_src_only
         src_only = self._src_tokens - self._intersection()
         if self.params['intersection_type'] != 'crisp':
             src_only -= self._intersection() - self._crisp_intersection()
@@ -368,6 +395,19 @@ class _TokenDistance(_Distance):
 
     def _tar_card(self):
         r"""Return the cardinality of the tokens in the target set."""
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self.normalizer(
+                sum(
+                    abs(val)
+                    for val in (
+                        self._soft_intersection_precalc + self._soft_tar_only
+                    ).values()
+                ),
+                2,
+                self._population_card_value,
+            )
         return self.normalizer(
             sum(abs(val) for val in self._tar_tokens.values()),
             2,
@@ -379,6 +419,10 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self._soft_tar_only
         tar_only = self._tar_tokens - self._intersection()
         if self.params['intersection_type'] != 'crisp':
             tar_only -= self._intersection() - self._crisp_intersection()
@@ -415,6 +459,14 @@ class _TokenDistance(_Distance):
         In the case of multisets, this counts values in the interesection
         twice. In the case of sets, this is identical to the union.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return (
+                self._soft_tar_only
+                + self._soft_src_only
+                + 2 * self._soft_intersection_precalc
+            )
         return self._src_tokens + self._tar_tokens
 
     def _total_card(self):
@@ -476,6 +528,14 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return (
+                self._soft_tar_only
+                + self._soft_src_only
+                + self._soft_intersection_precalc
+            )
         union = self._total() - self._intersection()
         if self.params['intersection_type'] != 'crisp':
             union -= self._intersection() - self._crisp_intersection()
@@ -491,6 +551,12 @@ class _TokenDistance(_Distance):
 
     def _difference(self):
         """Return the difference of the tokens, supporting negative values."""
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            _src_copy = Counter(self._soft_src_only)
+            _src_copy.subtract(self._soft_tar_only)
+            return _src_copy
         _src_copy = Counter(self._src_tokens)
         _src_copy.subtract(self._tar_tokens)
         return _src_copy
@@ -502,7 +568,7 @@ class _TokenDistance(_Distance):
         """
         return self._src_tokens & self._tar_tokens
 
-    def _soft_src_tar_int(self):
+    def _soft_intersection(self):
         """Return the soft source, target, & intersection tokens & weights.
 
         This implements the soft intersection defined by :cite:`Russ:2014` in
@@ -588,7 +654,7 @@ member function, such as Levenshtein."
                         int_val,
                     ) = _token_src_tar_int(src_tok, tar_tok)
 
-                    src_new[src_tok] += src_val*pairings
+                    src_new[src_tok] += src_val * pairings
                     tar_new[tar_tok] += tar_val * pairings
                     intersection[src_tok] += int_val * pairings
 
@@ -602,14 +668,12 @@ member function, such as Levenshtein."
         src_only += src_new
         tar_only += tar_new
 
-        return src_only, tar_only, intersection
+        # Save src_only/tar_only to the instance for retrieval later.
+        self._soft_src_only = src_only
+        self._soft_tar_only = tar_only
+        self._soft_intersection_precalc = intersection
 
-    def _soft_intersection(self):
-        """Return the soft intersection of the tokens in src and tar.
-
-        This implements the soft intersection defined by :cite:`Russ:2014`.
-        """
-        return self._soft_src_tar_int()[2]
+        return intersection
 
     def _fuzzy_intersection(self):
         r"""Return the fuzzy intersection of the tokens in src and tar.
