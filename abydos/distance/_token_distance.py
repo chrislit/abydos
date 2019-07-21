@@ -502,14 +502,24 @@ class _TokenDistance(_Distance):
         """
         return self._src_tokens & self._tar_tokens
 
-    def _soft_intersection(self):
-        """Return the soft intersection of the tokens in src and tar.
+    def _soft_src_tar_int(self):
+        """Return the soft source, target, & intersection tokens & weights.
 
-        This implements the soft intersection defined by :cite:`Russ:2014`.
+        This implements the soft intersection defined by :cite:`Russ:2014` in
+        a way that can reproduce the results in the paper.
         """
+        if not hasattr(self.params['metric'], 'alignment'):
+            raise TypeError(
+                "Soft similarity requires a 'metric' with an alignment \
+member function, such as Levenshtein."
+            )
+
         intersection = self._crisp_intersection()
         src_only = self._src_tokens - self._tar_tokens
         tar_only = self._tar_tokens - self._src_tokens
+
+        src_new = Counter()
+        tar_new = Counter()
 
         def _membership(src, tar):
             greater_length = max(len(src), len(tar))
@@ -520,6 +530,42 @@ class _TokenDistance(_Distance):
                 )
                 / greater_length
             )
+
+        def _token_src_tar_int(src, tar):
+            src_tok = []
+            tar_tok = []
+            int_tok = []
+
+            src_val = 0
+            tar_val = 0
+            int_val = 0
+
+            _cost, _src, _tar = self.params['metric'].alignment(src, tar)
+
+            for i in range(len(_src)):
+                if _src[i] == _tar[i]:
+                    src_tok.append('-')
+                    tar_tok.append('-')
+                    int_tok.append(_src[i])
+                    int_val += 1
+                else:
+                    src_tok.append(_src[i])
+                    if _src[i] != '-':
+                        src_val += 1
+                    tar_tok.append(_tar[i])
+                    if _tar[i] != '-':
+                        tar_val += 1
+                    int_tok.append('-')
+
+            src_val /= len(_src)
+            tar_val /= len(_src)
+            int_val /= len(_src)
+
+            src_tok = ''.join(src_tok).strip('-')
+            tar_tok = ''.join(tar_tok).strip('-')
+            int_tok = ''.join(int_tok).strip('-')
+
+            return src_tok, src_val, tar_tok, tar_val, int_tok, int_val
 
         # Dictionary ordering is important for reproducibility, so insertion
         # order needs to be controlled and retained.
@@ -533,17 +579,37 @@ class _TokenDistance(_Distance):
             if memberships[src_tok, tar_tok] > 0.0:
                 pairings = min(src_only[src_tok], tar_only[tar_tok])
                 if pairings:
-                    intersection[src_tok] += (
-                        memberships[src_tok, tar_tok] * pairings / 2
-                    )
-                    intersection[tar_tok] += (
-                        memberships[src_tok, tar_tok] * pairings / 2
-                    )
+                    (
+                        src_tok,
+                        src_val,
+                        tar_tok,
+                        tar_val,
+                        int_tok,
+                        int_val,
+                    ) = _token_src_tar_int(src_tok, tar_tok)
+
+                    src_new[src_tok] += src_val*pairings
+                    tar_new[tar_tok] += tar_val * pairings
+                    intersection[src_tok] += int_val * pairings
+
+                    # Remove pairings from src_only/tar_only
                     src_only[src_tok] -= pairings
                     tar_only[tar_tok] -= pairings
+
             del memberships[src_tok, tar_tok]
 
-        return intersection
+        # Add src_new/tar_new back into src_only/tar_only
+        src_only += src_new
+        tar_only += tar_new
+
+        return src_only, tar_only, intersection
+
+    def _soft_intersection(self):
+        """Return the soft intersection of the tokens in src and tar.
+
+        This implements the soft intersection defined by :cite:`Russ:2014`.
+        """
+        return self._soft_src_tar_int()[2]
 
     def _fuzzy_intersection(self):
         r"""Return the fuzzy intersection of the tokens in src and tar.
