@@ -505,8 +505,11 @@ class _TokenDistance(_Distance):
         """Return the cardinality of the population."""
         save_normalizer = self.normalizer
         self.normalizer = self._norm_none
+        save_intersection = self.params['intersection_type']
+        self.params['intersection_type'] = 'crisp'
         pop = self._total_card() + self._total_complement_card()
         self.normalizer = save_normalizer
+        self.params['intersection_type'] = save_intersection
         return pop
 
     def _population_card(self):
@@ -646,17 +649,17 @@ member function, such as Levenshtein."
                 pairings = min(src_only[src_tok], tar_only[tar_tok])
                 if pairings:
                     (
-                        src_tok,
+                        src_ntok,
                         src_val,
-                        tar_tok,
+                        tar_ntok,
                         tar_val,
-                        int_tok,
+                        int_ntok,
                         int_val,
                     ) = _token_src_tar_int(src_tok, tar_tok)
 
-                    src_new[src_tok] += src_val * pairings
-                    tar_new[tar_tok] += tar_val * pairings
-                    intersection[src_tok] += int_val * pairings
+                    src_new[src_ntok] += src_val * pairings
+                    tar_new[tar_ntok] += tar_val * pairings
+                    intersection[int_ntok] += int_val * pairings
 
                     # Remove pairings from src_only/tar_only
                     src_only[src_tok] -= pairings
