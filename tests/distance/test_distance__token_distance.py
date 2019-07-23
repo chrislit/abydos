@@ -109,11 +109,18 @@ class TokenDistanceTestCases(unittest.TestCase):
         )
 
         self.assertAlmostEqual(
-            Jaccard(intersection_type='soft', metric=JaroWinkler()).sim(
-                'synonym', 'antonym'
-            ),
-            0.777777777777,
+            Jaccard(
+                intersection_type='soft', tokenizer=WhitespaceTokenizer()
+            ).sim('junior system analyst', 'systems analyst'),
+            0.6190476190476191,
         )
+
+        with self.assertRaises(TypeError):
+            Jaccard(
+                intersection_type='soft',
+                metric=JaroWinkler(),
+                tokenizer=WhitespaceTokenizer(),
+            ).sim('junior system analyst', 'systems analyst')
 
     def test_fuzzy_jaccard_sim(self):
         """Test abydos.distance.Jaccard.sim (fuzzy)."""

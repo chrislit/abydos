@@ -224,7 +224,7 @@ class _TokenDistance(_Distance):
 
         if intersection_type == 'soft':
             if 'metric' not in self.params or self.params['metric'] is None:
-                self.params['metric'] = DamerauLevenshtein()
+                self.params['metric'] = Levenshtein()  # TODO: change to DL
             self._lcprefix = LCPrefix()
             self._intersection = self._soft_intersection
         elif intersection_type == 'fuzzy':
