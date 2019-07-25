@@ -321,7 +321,7 @@ class _TokenDistance(_Distance):
             self._src_tokens = (
                 self.params['tokenizer'].tokenize(src).get_counter()
             )
-        if isinstance(src, Counter):
+        if isinstance(tar, Counter):
             self._tar_tokens = tar
         else:
             self._tar_tokens = (
