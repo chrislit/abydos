@@ -333,6 +333,7 @@ The remaining distance measures & metrics include:
     - Guth (:py:class:`.Guth`)
     - Victorian Panel Study (:py:class:`.VPS`)
     - LIG3 (:py:class:`.LIG3`)
+    - String subsequence kernel (SSK) (:py:class:`.SSK`)
 
 Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
 which return a measure that is normalized to the range :math:`[0, 1]`. The
@@ -593,6 +594,7 @@ from ._sokal_sneath_iii import SokalSneathIII
 from ._sokal_sneath_iv import SokalSneathIV
 from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
+from ._ssk import SSK
 from ._steffensen import Steffensen
 from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
@@ -1001,6 +1003,7 @@ __all__ = [
     'Guth',
     'VPS',
     'LIG3',
+    'SSK',
 ]
 
 
