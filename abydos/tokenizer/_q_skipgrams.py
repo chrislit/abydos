@@ -47,7 +47,7 @@ class QSkipgrams(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', scaler=None, lambda_val=0.9):
+    def __init__(self, qval=2, start_stop='$#', scaler=None, ssk_lambda=0.9):
         """Initialize QSkipgrams.
 
         Parameters
@@ -75,7 +75,7 @@ class QSkipgrams(_Tokenizer):
                   sequences such as the Fibonacci sequence.
                 - 'SSK' : Applies weighting according to the substring kernel
                   rules of :cite:`Lodhi:2002`.
-        lambda_val : float
+        ssk_lambda : float
             A value in the range (0.0, 1.0) used for discouting gaps between
             characters according to the method described in :cite:`Lodhi:2002`.
 
@@ -143,7 +143,7 @@ class QSkipgrams(_Tokenizer):
             self.start_stop = ''
 
         self._string_ss = self._string
-        self._lambda = lambda_val
+        self._lambda = ssk_lambda
 
     def tokenize(self, string):
         """Tokenize the term and store it.
