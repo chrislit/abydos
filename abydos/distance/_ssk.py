@@ -75,7 +75,9 @@ class SSK(_TokenDistance):
         self.params['tokenizer'] = (
             tokenizer
             if tokenizer is not None
-            else QSkipgrams(qval=qval, start_stop='', scaler='SSK')
+            else QSkipgrams(
+                qval=qval, start_stop='', scaler='SSK', ssk_lambda=ssk_lambda
+            )
         )
 
     def sim_score(self, src, tar):
