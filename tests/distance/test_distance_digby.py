@@ -151,13 +151,6 @@ class DigbyTestCases(unittest.TestCase):
             self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -1.0
         )
 
-        self.assertEqual(
-            Digby(alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')).corr(
-                'a', 'eh'
-            ),
-            0.0,
-        )
-
 
 if __name__ == '__main__':
     unittest.main()

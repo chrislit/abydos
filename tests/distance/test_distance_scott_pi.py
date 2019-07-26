@@ -151,13 +151,6 @@ class ScottPiTestCases(unittest.TestCase):
             self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -0.3333333333
         )
 
-        self.assertEqual(
-            ScottPi(
-                alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')
-            ).corr('eh', 'a'),
-            0.0,
-        )
-
 
 if __name__ == '__main__':
     unittest.main()
