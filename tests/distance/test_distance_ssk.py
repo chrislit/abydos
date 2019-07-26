@@ -42,10 +42,10 @@ class SSKTestCases(unittest.TestCase):
     cmp = SSK()
     cmp_05 = SSK(ssk_lambda=0.05)
 
-    def test_saps_sim(self):
+    def test_ssk_sim(self):
         """Test abydos.distance.SSK.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 0.0)
+        self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
@@ -53,40 +53,52 @@ class SSKTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0666666667)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0666666667)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0666666667)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0666666667)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.341958748279)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.341958748279)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.875737900641)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.875737900641)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.4333333333
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.932931869
         )
 
         # Examples from paper
+        self.assertAlmostEqual(self.cmp.sim('cat', 'car'), 0.3558718861209964)
         self.assertAlmostEqual(
-            self.cmp.sim('cat', 'car'), 0.551724138
+            self.cmp_05.sim('cat', 'car'), 0.4993757802746567
         )
 
-    def test_saps_sim_score(self):
+    def test_ssk_sim_score(self):
         """Test abydos.distance.SSK.sim_score."""
         # Base cases
         self.assertEqual(self.cmp.sim_score('', ''), 0)
-        self.assertEqual(self.cmp.sim_score('a', ''), -3)
-        self.assertEqual(self.cmp.sim_score('', 'a'), -3)
-        self.assertEqual(self.cmp.sim_score('abc', ''), -7)
-        self.assertEqual(self.cmp.sim_score('', 'abc'), -7)
-        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 13)
-        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), -7)
+        self.assertEqual(self.cmp.sim_score('a', ''), 0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 0)
+        self.assertAlmostEqual(self.cmp.sim_score('abc', 'abc'), 1.843641)
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0)
 
-        self.assertAlmostEqual(self.cmp.sim_score('Nigel', 'Niall'), 1)
-        self.assertAlmostEqual(self.cmp.sim_score('Niall', 'Nigel'), 1)
-        self.assertAlmostEqual(self.cmp.sim_score('Colin', 'Coiln'), 1)
-        self.assertAlmostEqual(self.cmp.sim_score('Coiln', 'Colin'), 1)
         self.assertAlmostEqual(
-            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 13
+            self.cmp.sim_score('Nigel', 'Niall'), 2.3009630391
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('Niall', 'Nigel'), 2.3009630391
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('Colin', 'Coiln'), 4.7537994501
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('Coiln', 'Colin'), 4.7537994501
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 59.67083050606762
         )
 
         # Examples from paper
-        self.assertEqual(self.cmp.sim_score('cat', 'car'), 16)
+        self.assertEqual(self.cmp.sim_score('cat', 'car'), 0.6561000000000001)
+        self.assertEqual(
+            self.cmp_05.sim_score('cat', 'car'), 6.250000000000003e-06
+        )
 
 
 if __name__ == '__main__':

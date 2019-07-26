@@ -99,13 +99,13 @@ class SSK(_TokenDistance):
         --------
         >>> cmp = SSK()
         >>> cmp.dist_abs('cat', 'hat')
-        0.49743589743589733
+        0.6441281138790036
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.35914053833129245
+        0.5290992177869402
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.10798833377524023
+        0.862398428061774
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        -0.006418485237489689
+        0.38591004719395017
 
 
         .. versionadded:: 0.4.1
@@ -141,18 +141,21 @@ class SSK(_TokenDistance):
         --------
         >>> cmp = SSK()
         >>> cmp.sim('cat', 'hat')
-        0.7487179487179487
+        0.3558718861209964
         >>> cmp.sim('Niall', 'Neil')
-        0.6795702691656462
+        0.4709007822130597
         >>> cmp.sim('aluminum', 'Catalan')
-        0.5539941668876202
+        0.13760157193822603
         >>> cmp.sim('ATCG', 'TAGC')
-        0.49679075738125517
+        0.6140899528060498
 
 
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         src_wts = self._src_tokens
@@ -167,6 +170,8 @@ class SSK(_TokenDistance):
             * sum(tar_wts[token] * tar_wts[token] for token in tar_wts)
         ) ** 0.5
 
+        if not score:
+            return 0.0
         return score / norm
 
 
