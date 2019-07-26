@@ -116,9 +116,9 @@ class SSK(_TokenDistance):
         src_wts = self._src_tokens
         tar_wts = self._tar_tokens
 
-        score = 0.0
-        for token in src_wts & tar_wts:
-            score += src_wts[token] * tar_wts[token]
+        score = sum(
+            src_wts[token] * tar_wts[token] for token in src_wts & tar_wts
+        )
 
         return score
 
@@ -158,19 +158,16 @@ class SSK(_TokenDistance):
         src_wts = self._src_tokens
         tar_wts = self._tar_tokens
 
-        score = 0.0
-        for token in src_wts & tar_wts:
-            score += src_wts[token] * tar_wts[token]
+        score = sum(
+            src_wts[token] * tar_wts[token] for token in src_wts & tar_wts
+        )
 
-        norm_src = 0.0
-        for token in src_wts:
-            norm_src += src_wts[token] * src_wts[token]
+        norm = (
+            sum(src_wts[token] * src_wts[token] for token in src_wts)
+            * sum(tar_wts[token] * tar_wts[token] for token in tar_wts)
+        ) ** 0.5
 
-        norm_tar = 0.0
-        for token in tar_wts:
-            norm_tar += tar_wts[token] * tar_wts[token]
-
-        return score / (norm_src * norm_tar) ** 0.5
+        return score / norm
 
 
 if __name__ == '__main__':
