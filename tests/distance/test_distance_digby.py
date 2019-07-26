@@ -31,7 +31,6 @@ from __future__ import (
 import unittest
 
 from abydos.distance import Digby
-from abydos.tokenizer import QSkipgrams
 
 
 class DigbyTestCases(unittest.TestCase):

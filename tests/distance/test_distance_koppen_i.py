@@ -31,7 +31,6 @@ from __future__ import (
 import unittest
 
 from abydos.distance import KoppenI
-from abydos.tokenizer import QSkipgrams
 
 
 class KoppenITestCases(unittest.TestCase):

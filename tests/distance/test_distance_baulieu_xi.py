@@ -31,7 +31,6 @@ from __future__ import (
 import unittest
 
 from abydos.distance import BaulieuXI
-from abydos.tokenizer import QSkipgrams
 
 
 class BaulieuXITestCases(unittest.TestCase):

@@ -31,7 +31,6 @@ from __future__ import (
 import unittest
 
 from abydos.distance import ScottPi
-from abydos.tokenizer import QSkipgrams
 
 
 class ScottPiTestCases(unittest.TestCase):
