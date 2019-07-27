@@ -49,6 +49,11 @@ class SAPSTokenizer(_Tokenizer):
 
                 - None : no scaling
                 - 'set' : All non-zero values are set to 1.
+                - 'length' : Each token has weight equal to its length.
+                - 'length-log' : Each token has weight equal to the log of its
+                   length + 1.
+                - 'length-exp' : Each token has weight equal to e raised to its
+                   length.
                 - a callable function : The function is applied to each value
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer

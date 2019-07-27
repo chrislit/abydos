@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 from collections import Counter
+from math import exp, log1p
 
 __all__ = ['_Tokenizer']
 
@@ -49,6 +50,11 @@ class _Tokenizer(object):
 
                 - None : no scaling
                 - 'set' : All non-zero values are set to 1.
+                - 'length' : Each token has weight equal to its length.
+                - 'length-log' : Each token has weight equal to the log of its
+                   length + 1.
+                - 'length-exp' : Each token has weight equal to e raised to its
+                   length.
                 - a callable function : The function is applied to each value
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
@@ -79,6 +85,8 @@ class _Tokenizer(object):
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.4.1
+            Added 'length' and related scalers
 
         """
         if string is not None:
@@ -86,8 +94,14 @@ class _Tokenizer(object):
             self._ordered_tokens = [self._string]
             self._ordered_weights = [1]
 
-        if self._scaler in {'SSK'}:
+        if self._scaler in {'SSK', 'length', 'length-log', 'length-exp'}:
             self._tokens = Counter()
+            if self._scaler[:6] == 'length':
+                self._ordered_weights = [len(_) for _ in self._ordered_tokens]
+                if self._scaler == 'length-log':
+                    self._ordered_weights = [log1p(_) for _ in self._ordered_weights]
+                elif self._scaler == 'length-exp':
+                    self._ordered_weights = [exp(_) for _ in self._ordered_weights]
             for token, weight in zip(
                 self._ordered_tokens, self._ordered_weights
             ):
