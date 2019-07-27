@@ -329,7 +329,7 @@ class Levenshtein(_Distance):
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein
-        distance (calculated by any of the three supported methods) by the
+        distance (calculated by either of the two supported methods) by the
         greater of the number of characters in src times the cost of a delete
         and the number of characters in tar times the cost of an insert.
         For the case in which all operations have :math:`cost = 1`, this is
