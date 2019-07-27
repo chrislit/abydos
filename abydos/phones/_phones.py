@@ -813,7 +813,7 @@ def cmp_features(feat1, feat2, weights=None):
 
     """
     if feat1 < 0 or feat2 < 0:
-        return -1.0
+        return 0.0
     if feat1 == feat2:
         return 1.0
 
