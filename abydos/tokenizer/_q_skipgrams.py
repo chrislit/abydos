@@ -80,9 +80,11 @@ class QSkipgrams(_Tokenizer):
                   sequences such as the Fibonacci sequence.
                 - 'SSK' : Applies weighting according to the substring kernel
                   rules of :cite:`Lodhi:2002`.
-        ssk_lambda : float
+        ssk_lambda : float or Iterable
             A value in the range (0.0, 1.0) used for discouting gaps between
             characters according to the method described in :cite:`Lodhi:2002`.
+            To supply multiple values of lambda, provide an Iterable of numeric
+            values, such as (0.5, 0.05) or np.arange(0.05, 0.5, 0.05)
 
         Raises
         ------
@@ -148,7 +150,10 @@ class QSkipgrams(_Tokenizer):
             self.start_stop = ''
 
         self._string_ss = self._string
-        self._lambda = ssk_lambda
+        if isinstance(ssk_lambda, float):
+            self._lambda = (ssk_lambda,)
+        else:
+            self._lambda = tuple(ssk_lambda)
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -198,7 +203,10 @@ class QSkipgrams(_Tokenizer):
 
             if self._scaler == 'SSK':
                 self._ordered_weights += [
-                    self._lambda ** (t[-1][0] - t[0][0] + len(t) - 1)
+                    sum(
+                        l ** (t[-1][0] - t[0][0] + len(t) - 1)
+                        for l in self._lambda
+                    )
                     for t in combs
                 ]
             else:
