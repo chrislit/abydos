@@ -761,7 +761,7 @@ def get_feature(vector, feature):
     return retvec
 
 
-def cmp_features(feat1, feat2):
+def cmp_features(feat1, feat2, weights=None):
     """Compare features.
 
     This returns a number in the range [0, 1] representing a comparison of two
@@ -781,6 +781,15 @@ def cmp_features(feat1, feat2):
         A feature bundle
     feat2 : int
         A feature bundle
+    weights : None or list or tuple or dict
+        If None, all features are of equal significance and a simple normalized
+        hamming distance of the features is calculated. If a list or tuple
+        of numeric values is supplied, the values are inferred as the weights
+        for each feature, in order of the features listed in _FEATURE_MASK.
+        If a dict is supplied, its key values should match keys in
+        _FEATURE_MASK to which each weight (value) should be assigned. Missing
+        values in all cases are assigned a weight of 0 and will be omitted from
+        the comparison.
 
     Returns
     -------
@@ -799,6 +808,8 @@ def cmp_features(feat1, feat2):
     0.564516129032258
 
     .. versionadded:: 0.1.0
+    .. versionchanged:: 0.4.1
+        Added weights parameter for modifiable feature weighting
 
     """
     if feat1 < 0 or feat2 < 0:
@@ -806,15 +817,31 @@ def cmp_features(feat1, feat2):
     if feat1 == feat2:
         return 1.0
 
-    magnitude = len(_FEATURE_MASK)
+    # This should be handled some other way since this will take a long time
+    # when done repeatedly. Maybe convert to a class & save the weights list.
+    if weights:
+        if isinstance(weights, dict):
+            weights = [
+                weights[feature] if feature in weights else 0
+                for feature in sorted(
+                    _FEATURE_MASK, key=_FEATURE_MASK.get, reverse=True
+                )
+            ]
+        elif isinstance(weights, (list, tuple)):
+            weights = list(weights) + [0] * (len(_FEATURE_MASK) - len(weights))
+
+    magnitude = sum(weights) if weights else len(_FEATURE_MASK)
     featxor = feat1 ^ feat2
     diffbits = 0
-    # print(featxor)
+    i = 0
     while featxor:
         if featxor & 0b1:
-            diffbits += 1
+            diffbits += weights[i] if weights else 1
         featxor >>= 1
-    # print(diffbits)
+        if featxor & 0b1:
+            diffbits += weights[i] if weights else 1
+        featxor >>= 1
+        i += 1
     return 1 - (diffbits / (2 * magnitude))
 
 
