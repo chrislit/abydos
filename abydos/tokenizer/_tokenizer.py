@@ -99,9 +99,13 @@ class _Tokenizer(object):
             if self._scaler[:6] == 'length':
                 self._ordered_weights = [len(_) for _ in self._ordered_tokens]
                 if self._scaler == 'length-log':
-                    self._ordered_weights = [log1p(_) for _ in self._ordered_weights]
+                    self._ordered_weights = [
+                        log1p(_) for _ in self._ordered_weights
+                    ]
                 elif self._scaler == 'length-exp':
-                    self._ordered_weights = [exp(_) for _ in self._ordered_weights]
+                    self._ordered_weights = [
+                        exp(_) for _ in self._ordered_weights
+                    ]
             for token, weight in zip(
                 self._ordered_tokens, self._ordered_weights
             ):
