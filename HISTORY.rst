@@ -22,6 +22,7 @@ Changes:
     - Discounted Levenshtein
     - Relaxed Hamming
     - String subsequence kernel (SSK) similarity
+    - Phonetic edit distance
 - Added the following fingerprint classes:
     - Taft's Consonant coding
     - Taft's Extract - letter list

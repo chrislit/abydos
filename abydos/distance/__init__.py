@@ -38,6 +38,7 @@ These include traditional Levenshtein edit distance and related algorithms:
     - FlexMetric distance (:py:class:`.FlexMetric`)
     - BI-SIM similarity (:py:class:`.BISIM`)
     - Discounted Levenshtein distance (:py:class:`.DiscountedLevenshtein`)
+    - Phonetic edit distance (:py:class:`.PhoneticEditDistance`)
 
 Hamming distance (:py:class:`.Hamming`), Relaxed Hamming distance
 (:py:class:`.RelaxedHamming`), and the closely related Modified
@@ -552,6 +553,7 @@ from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
 from ._phonetic_distance import PhoneticDistance
+from ._phonetic_edit_distance import PhoneticEditDistance
 from ._positional_q_gram_dice import PositionalQGramDice
 from ._positional_q_gram_jaccard import PositionalQGramJaccard
 from ._positional_q_gram_overlap import PositionalQGramOverlap
@@ -672,6 +674,7 @@ __all__ = [
     'FlexMetric',
     'BISIM',
     'DiscountedLevenshtein',
+    'PhoneticEditDistance',
     'Hamming',
     'hamming',
     'dist_hamming',
