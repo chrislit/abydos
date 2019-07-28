@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -582,7 +582,7 @@ _FEATURE_MASK = {
     'delayed_release': 3,
 }
 
-
+# TODO: Write a version of this that returns a dict
 def ipa_to_features(ipa):
     """Convert IPA to features.
 
@@ -707,6 +707,7 @@ def get_feature(vector, feature):
     #           0 & 1 represent - & + and 0s are mapped to -
 
     if feature not in _FEATURE_MASK:
+        # TODO: formulate this on the basis of _FEATURE_MASK
         raise AttributeError(
             "feature must be one of: '"
             + "', '".join(
@@ -831,6 +832,7 @@ def cmp_features(feat1, feat2, weights=None):
             weights = list(weights) + [0] * (len(_FEATURE_MASK) - len(weights))
 
     magnitude = sum(weights) if weights else len(_FEATURE_MASK)
+
     featxor = feat1 ^ feat2
     diffbits = 0
     i = 0
@@ -843,7 +845,21 @@ def cmp_features(feat1, feat2, weights=None):
         featxor >>= 1
         i += 1
     return 1 - (diffbits / (2 * magnitude))
+    """
+    diff_feats = 0
+    i = 0
+    while feat1 or feat2:
+        f1 = feat1 & 0b11
+        f2 = feat2 & 0b11
+        if (not (0b11 in {f1, f2} and (f1 in {0b01, 0b10} or f2 in {0b01, 0b10}))) and (f1 != f2):
+            diff_feats += weights[i] if weights else 1
 
+        feat1 >>= 2
+        feat2 >>= 2
+        i += 1
+
+    return 1 - (diff_feats / magnitude)
+    """
 
 if __name__ == '__main__':
     import doctest
