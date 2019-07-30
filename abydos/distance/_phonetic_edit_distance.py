@@ -51,7 +51,7 @@ class PhoneticEditDistance(_Distance):
     def __init__(
         self,
         mode='lev',
-        cost=(1, 1, 1, 0.1),
+        cost=(0.3, 0.3, 1, 0.1),
         normalizer=max,
         weights=None,
         **kwargs
@@ -232,7 +232,7 @@ class PhoneticEditDistance(_Distance):
             up = d_mat[src_pos, tar_pos - 1]
             left = d_mat[src_pos - 1, tar_pos]
             diag = d_mat[src_pos - 1, tar_pos - 1]
-
+            print(up, left, diag)
             if diag <= min(up, left):
                 src_pos -= 1
                 tar_pos -= 1
