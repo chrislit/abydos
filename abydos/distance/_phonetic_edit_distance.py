@@ -159,7 +159,7 @@ class PhoneticEditDistance(_Distance):
                     d_mat[i, j]
                     + (
                         sub_cost
-                        * (1.0 - cmp_features(src[i], tar[i], self._weights))
+                        * (1.0 - cmp_features(src[i], tar[j], self._weights))
                         if src[i] != tar[j]
                         else 0
                     ),  # sub/==
