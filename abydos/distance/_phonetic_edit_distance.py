@@ -28,8 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
-from numpy import float as np_float
-from numpy import zeros as np_zeros
+import numpy as np
 
 from six.moves import range
 
@@ -145,18 +144,24 @@ class PhoneticEditDistance(_Distance):
         src = ipa_to_features(src)
         tar = ipa_to_features(tar)
 
-        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
-        for i in range(src_len + 1):
+        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
+        trace_mat = np.zeros(
+            (src_len + 1, tar_len + 1), dtype=np.dtype((np.int32, (2,)))
+        )
+        for i in range(1, src_len + 1):
             d_mat[i, 0] = i * del_cost
-        for j in range(tar_len + 1):
+            trace_mat[i, 0] = (i - 1, 0)
+        for j in range(1, tar_len + 1):
             d_mat[0, j] = j * ins_cost
+            trace_mat[0, j] = (0, j - 1)
 
         for i in range(src_len):
             for j in range(tar_len):
-                d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + ins_cost,  # ins
-                    d_mat[i, j + 1] + del_cost,  # del
-                    d_mat[i, j]
+                traces = ((i + 1, j), (i, j + 1), (i, j))
+                opts = (
+                    d_mat[traces[0]] + ins_cost,  # ins
+                    d_mat[traces[1]] + del_cost,  # del
+                    d_mat[traces[2]]
                     + (
                         sub_cost
                         * (1.0 - cmp_features(src[i], tar[j], self._weights))
@@ -164,6 +169,8 @@ class PhoneticEditDistance(_Distance):
                         else 0
                     ),  # sub/==
                 )
+                d_mat[i + 1, j + 1] = min(opts)
+                trace_mat[i + 1, j + 1] = traces[int(np.argmin(opts))]
 
                 if self._mode == 'osa':
                     if (
@@ -177,8 +184,9 @@ class PhoneticEditDistance(_Distance):
                             d_mat[i + 1, j + 1],
                             d_mat[i - 1, j - 1] + trans_cost,
                         )
+                        trace_mat[i + 1, j + 1] = (i, j)
 
-        return d_mat
+        return d_mat, trace_mat
 
     def alignment(self, src, tar):
         """Return the phonetic edit distance alignment of two strings.
@@ -218,7 +226,7 @@ class PhoneticEditDistance(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        d_mat = self._alignment_matrix(src, tar)
+        d_mat, trace_mat = self._alignment_matrix(src, tar)
 
         src_aligned = []
         tar_aligned = []
@@ -229,23 +237,18 @@ class PhoneticEditDistance(_Distance):
         distance = d_mat[src_pos, tar_pos]
 
         while src_pos and tar_pos:
-            up = d_mat[src_pos, tar_pos - 1]
-            left = d_mat[src_pos - 1, tar_pos]
-            diag = d_mat[src_pos - 1, tar_pos - 1]
-            print(up, left, diag)
-            if diag <= min(up, left):
-                src_pos -= 1
-                tar_pos -= 1
-                src_aligned.append(src[src_pos])
-                tar_aligned.append(tar[tar_pos])
-            elif up <= left:
-                tar_pos -= 1
-                src_aligned.append('-')
-                tar_aligned.append(tar[tar_pos])
-            else:
-                src_pos -= 1
-                src_aligned.append(src[src_pos])
+            src_trace, tar_trace = trace_mat[src_pos, tar_pos]
+            print(src_pos, tar_pos)
+            if src_pos != src_trace and tar_pos != tar_trace:
+                src_aligned.append(src[src_trace])
+                tar_aligned.append(tar[tar_trace])
+            elif src_pos != src_trace:
+                src_aligned.append(src[src_trace])
                 tar_aligned.append('-')
+            else:
+                src_aligned.append('-')
+                tar_aligned.append(tar[tar_trace])
+            src_pos, tar_pos = src_trace, tar_trace
         while tar_pos:
             tar_pos -= 1
             tar_aligned.append(tar[tar_pos])
@@ -306,7 +309,7 @@ class PhoneticEditDistance(_Distance):
         if not tar:
             return del_cost * src_len
 
-        d_mat = self._alignment_matrix(src, tar)
+        d_mat, trace_mat = self._alignment_matrix(src, tar)
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
