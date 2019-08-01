@@ -861,6 +861,7 @@ def cmp_features(feat1, feat2, weights=None):
     return 1 - (diff_feats / magnitude)
     """
 
+
 if __name__ == '__main__':
     import doctest
 
