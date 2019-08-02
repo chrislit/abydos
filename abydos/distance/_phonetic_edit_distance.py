@@ -50,7 +50,7 @@ class PhoneticEditDistance(_Distance):
     def __init__(
         self,
         mode='lev',
-        cost=(0.3, 0.3, 1, 0.1),
+        cost=(1, 1, 1, 0.1),
         normalizer=max,
         weights=None,
         **kwargs
