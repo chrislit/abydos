@@ -238,7 +238,6 @@ class PhoneticEditDistance(_Distance):
 
         while src_pos and tar_pos:
             src_trace, tar_trace = trace_mat[src_pos, tar_pos]
-            print(src_pos, tar_pos)
             if src_pos != src_trace and tar_pos != tar_trace:
                 src_aligned.append(src[src_trace])
                 tar_aligned.append(tar[tar_trace])
