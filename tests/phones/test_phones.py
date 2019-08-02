@@ -179,9 +179,9 @@ class PhonesTestCases(unittest.TestCase):
     def test_phones_cmp_features(self):
         """Test abydos.phones.cmp_features."""
         # # negatives
-        self.assertEqual(cmp_features(-1, 1826957425952336298), -1)
-        self.assertEqual(cmp_features(1826957425952336298, -1), -1)
-        self.assertEqual(cmp_features(-1, -1), -1)
+        self.assertEqual(cmp_features(-1, 1826957425952336298), 0)
+        self.assertEqual(cmp_features(1826957425952336298, -1), 0)
+        self.assertEqual(cmp_features(-1, -1), 0)
         # # equals
         self.assertEqual(cmp_features(0, 0), 1)
         self.assertEqual(
