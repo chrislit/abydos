@@ -50,13 +50,23 @@ class PhoneticEditDistanceTestCases(unittest.TestCase):
         self.assertEqual(self.ped.dist('abc', ''), 1.0)
         self.assertEqual(self.ped.dist('', 'abc'), 1.0)
         self.assertEqual(self.ped.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.ped.dist('abcd', 'efgh'), 1.0)
+        self.assertEqual(self.ped.dist('abcd', 'efgh'), 0.10483870967741934)
 
-        self.assertAlmostEqual(self.ped.dist('Nigel', 'Niall'), 1.0)
-        self.assertAlmostEqual(self.ped.dist('Niall', 'Nigel'), 1.0)
-        self.assertAlmostEqual(self.ped.dist('Colin', 'Coiln'), 0.0)
-        self.assertAlmostEqual(self.ped.dist('Coiln', 'Colin'), 0.0)
-        self.assertAlmostEqual(self.ped.dist('ATCAACGAGT', 'AACGATTAG'), 1.0)
+        self.assertAlmostEqual(
+            self.ped.dist('Nigel', 'Niall'), 0.1774193548387097
+        )
+        self.assertAlmostEqual(
+            self.ped.dist('Niall', 'Nigel'), 0.1774193548387097
+        )
+        self.assertAlmostEqual(
+            self.ped.dist('Colin', 'Coiln'), 0.1741935483870968
+        )
+        self.assertAlmostEqual(
+            self.ped.dist('Coiln', 'Colin'), 0.1741935483870968
+        )
+        self.assertAlmostEqual(
+            self.ped.dist('ATCAACGAGT', 'AACGATTAG'), 0.2370967741935484
+        )
 
     def test_phonetic_edit_distance_dist_abs(self):
         """Test abydos.distance.PhoneticEditDistance.dist_abs."""
@@ -64,16 +74,26 @@ class PhoneticEditDistanceTestCases(unittest.TestCase):
         self.assertEqual(self.ped.dist_abs('', ''), 0)
         self.assertEqual(self.ped.dist_abs('a', ''), 1)
         self.assertEqual(self.ped.dist_abs('', 'a'), 1)
-        self.assertEqual(self.ped.dist_abs('abc', ''), 1)
-        self.assertEqual(self.ped.dist_abs('', 'abc'), 1)
+        self.assertEqual(self.ped.dist_abs('abc', ''), 3)
+        self.assertEqual(self.ped.dist_abs('', 'abc'), 3)
         self.assertEqual(self.ped.dist_abs('abc', 'abc'), 0)
-        self.assertEqual(self.ped.dist_abs('abcd', 'efgh'), 1)
+        self.assertEqual(self.ped.dist_abs('abcd', 'efgh'), 0.4193548387096774)
 
-        self.assertAlmostEqual(self.ped.dist_abs('Nigel', 'Niall'), 1)
-        self.assertAlmostEqual(self.ped.dist_abs('Niall', 'Nigel'), 1)
-        self.assertAlmostEqual(self.ped.dist_abs('Colin', 'Coiln'), 0)
-        self.assertAlmostEqual(self.ped.dist_abs('Coiln', 'Colin'), 0)
-        self.assertAlmostEqual(self.ped.dist_abs('ATCAACGAGT', 'AACGATTAG'), 1)
+        self.assertAlmostEqual(
+            self.ped.dist_abs('Nigel', 'Niall'), 0.8870967741935485
+        )
+        self.assertAlmostEqual(
+            self.ped.dist_abs('Niall', 'Nigel'), 0.8870967741935485
+        )
+        self.assertAlmostEqual(
+            self.ped.dist_abs('Colin', 'Coiln'), 0.870967741935484
+        )
+        self.assertAlmostEqual(
+            self.ped.dist_abs('Coiln', 'Colin'), 0.870967741935484
+        )
+        self.assertAlmostEqual(
+            self.ped.dist_abs('ATCAACGAGT', 'AACGATTAG'), 2.370967741935484
+        )
 
 
 if __name__ == '__main__':
