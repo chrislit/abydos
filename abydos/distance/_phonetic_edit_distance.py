@@ -208,19 +208,19 @@ class PhoneticEditDistance(_Distance):
         --------
         >>> cmp = PhoneticEditDistance()
         >>> cmp.alignment('cat', 'hat')
-        (1.0, 'cat', 'hat')
+        (0.17741935483870974, 'cat', 'hat')
         >>> cmp.alignment('Niall', 'Neil')
-        (3.0, 'Niall', 'Neil-')
+        (1.161290322580645, 'Niall', 'Neil-')
         >>> cmp.alignment('aluminum', 'Catalan')
-        (7.0, '-aluminum', 'Catalan--')
+        (2.467741935483871, 'aluminum', '-Catalan')
         >>> cmp.alignment('ATCG', 'TAGC')
-        (3.0, 'ATCG-', '-TAGC')
+        (1.193548387096774, 'ATCG', 'TAGC')
 
         >>> cmp = PhoneticEditDistance(mode='osa')
         >>> cmp.alignment('ATCG', 'TAGC')
-        (2.0, 'ATCG', 'TAGC')
+        (0.2, 'ATCG', 'TAGC')
         >>> cmp.alignment('ACTG', 'TAGC')
-        (4.0, 'ACTG', 'TAGC')
+        (1.2580645161290323, 'ACTG', 'TAGC')
 
 
         .. versionadded:: 0.4.1
@@ -278,19 +278,19 @@ class PhoneticEditDistance(_Distance):
         --------
         >>> cmp = PhoneticEditDistance()
         >>> cmp.dist_abs('cat', 'hat')
-        1
+        0.17741935483870974
         >>> cmp.dist_abs('Niall', 'Neil')
-        3
+        1.161290322580645
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        7
+        2.467741935483871
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3
+        1.193548387096774
 
         >>> cmp = PhoneticEditDistance(mode='osa')
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        2
+        0.2
         >>> cmp.dist_abs('ACTG', 'TAGC')
-        4
+        1.2580645161290323
 
 
         .. versionadded:: 0.4.1
@@ -341,13 +341,13 @@ class PhoneticEditDistance(_Distance):
         --------
         >>> cmp = PhoneticEditDistance()
         >>> round(cmp.dist('cat', 'hat'), 12)
-        0.333333333333
+        0.059139784946
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.6
+        0.232258064516
         >>> cmp.dist('aluminum', 'Catalan')
-        0.875
+        0.3084677419354839
         >>> cmp.dist('ATCG', 'TAGC')
-        0.75
+        0.2983870967741935
 
 
         .. versionadded:: 0.4.1
