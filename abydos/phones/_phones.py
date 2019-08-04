@@ -851,7 +851,8 @@ def cmp_features(feat1, feat2, weights=None):
     while feat1 or feat2:
         f1 = feat1 & 0b11
         f2 = feat2 & 0b11
-        if (not (0b11 in {f1, f2} and (f1 in {0b01, 0b10} or f2 in {0b01, 0b10}))) and (f1 != f2):
+        if (not (0b11 in {f1, f2} and (f1 in {0b01, 0b10} or
+            f2 in {0b01, 0b10}))) and (f1 != f2):
             diff_feats += weights[i] if weights else 1
 
         feat1 >>= 2
