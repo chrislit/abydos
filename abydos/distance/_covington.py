@@ -171,10 +171,10 @@ class Covington(_Distance):
         Examples
         --------
         >>> cmp = Covington()
-        >>> cmp.alignments('hart', 'kordis', top_n=1)[0]
-        Alignment(src='hart--', tar='kordis', score=240)
-        >>> cmp.alignments('niy', 'genu', top_n=1)[0]
-        Alignment(src='--niy', tar='genu-', score=170)
+        >>> cmp.alignment('hart', 'kordis')
+        (240, 'hart--', 'kordis')
+        >>> cmp.alignment('niy', 'genu')
+        (170, '--niy', 'genu-')
 
 
         .. versionadded:: 0.4.1
