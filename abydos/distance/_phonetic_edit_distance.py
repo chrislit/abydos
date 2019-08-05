@@ -182,7 +182,7 @@ class PhoneticEditDistance(_Distance):
                             d_mat[i + 1, j + 1],
                             d_mat[i - 1, j - 1] + trans_cost,
                         )
-                        trace_mat[i + 1, j + 1] = (i, j)
+                        trace_mat[i + 1, j + 1] = 2
 
         return d_mat, trace_mat
 
