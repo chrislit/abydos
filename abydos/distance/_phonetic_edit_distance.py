@@ -145,15 +145,13 @@ class PhoneticEditDistance(_Distance):
         tar = ipa_to_features(tar)
 
         d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
-        trace_mat = np.zeros(
-            (src_len + 1, tar_len + 1), dtype=np.dtype((np.int32, (2,)))
-        )
+        trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(1, src_len + 1):
             d_mat[i, 0] = i * del_cost
-            trace_mat[i, 0] = (i - 1, 0)
+            trace_mat[i, 0] = 0
         for j in range(1, tar_len + 1):
             d_mat[0, j] = j * ins_cost
-            trace_mat[0, j] = (0, j - 1)
+            trace_mat[0, j] = 1
 
         for i in range(src_len):
             for j in range(tar_len):
@@ -170,7 +168,7 @@ class PhoneticEditDistance(_Distance):
                     ),  # sub/==
                 )
                 d_mat[i + 1, j + 1] = min(opts)
-                trace_mat[i + 1, j + 1] = traces[int(np.argmin(opts))]
+                trace_mat[i + 1, j + 1] = int(np.argmin(opts))
 
                 if self._mode == 'osa':
                     if (
@@ -237,7 +235,12 @@ class PhoneticEditDistance(_Distance):
         distance = d_mat[src_pos, tar_pos]
 
         while src_pos and tar_pos:
-            src_trace, tar_trace = trace_mat[src_pos, tar_pos]
+            src_trace, tar_trace = (
+                (src_pos, tar_pos - 1),
+                (src_pos - 1, tar_pos),
+                (src_pos - 1, tar_pos - 1),
+            )[trace_mat[src_pos, tar_pos]]
+
             if src_pos != src_trace and tar_pos != tar_trace:
                 src_aligned.append(src[src_trace])
                 tar_aligned.append(tar[tar_trace])
