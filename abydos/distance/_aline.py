@@ -1310,6 +1310,8 @@ class ALINE(_Distance):
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.4.1
+            Renamed from .alignment to .alignments
 
         """
 
