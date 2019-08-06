@@ -74,9 +74,9 @@ class Inclusion(_Distance):
         Examples
         --------
         >>> cmp = Inclusion()
-        >>> round(cmp.dist('cat', 'hat'), 12)
+        >>> cmp.dist('cat', 'hat')
         1.0
-        >>> round(cmp.dist('Niall', 'Neil'), 12)
+        >>> cmp.dist('Niall', 'Neil')
         1.0
         >>> cmp.dist('aluminum', 'Catalan')
         1.0
@@ -106,12 +106,12 @@ class Inclusion(_Distance):
             tar.pop(0)
             diff -= 1
         while src and src[-1] == '-':
-            src.pop(0)
-            tar.pop(0)
+            src.pop()
+            tar.pop()
             diff -= 1
         while tar and tar[-1] == '-':
-            src.pop(0)
-            tar.pop(0)
+            src.pop()
+            tar.pop()
             diff -= 1
 
         if diff > 1:
