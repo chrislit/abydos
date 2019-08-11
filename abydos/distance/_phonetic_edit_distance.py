@@ -32,13 +32,13 @@ import numpy as np
 
 from six.moves import range
 
-from ._distance import _Distance
+from ._levenshtein import Levenshtein
 from ..phones._phones import _FEATURE_MASK, cmp_features, ipa_to_features
 
 __all__ = ['PhoneticEditDistance']
 
 
-class PhoneticEditDistance(_Distance):
+class PhoneticEditDistance(Levenshtein):
     """Phonetic edit distance.
 
     This is a variation on Levenshtein edit distance, intended for strings in
@@ -117,7 +117,7 @@ class PhoneticEditDistance(_Distance):
                 )
         self._weights = weights
 
-    def _alignment_matrix(self, src, tar):
+    def _alignment_matrix(self, src, tar, backtrace=True):
         """Return the phonetic edit distance alignment matrix.
 
         Parameters
@@ -126,11 +126,13 @@ class PhoneticEditDistance(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
+        backtrace : bool
+            Return the backtrace matrix as well
 
         Returns
         -------
-        numpy.ndarray
-            The alignment matrix
+        numpy.ndarray or tuple(numpy.ndarray, numpy.ndarray)
+            The alignment matrix and (optionally) the backtrace matrix
 
 
         .. versionadded:: 0.4.1
@@ -145,13 +147,16 @@ class PhoneticEditDistance(_Distance):
         tar = ipa_to_features(tar)
 
         d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
-        trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
+        if backtrace:
+            trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(1, src_len + 1):
             d_mat[i, 0] = i * del_cost
-            trace_mat[i, 0] = 0
+            if backtrace:
+                trace_mat[i, 0] = 0
         for j in range(1, tar_len + 1):
             d_mat[0, j] = j * ins_cost
-            trace_mat[0, j] = 1
+            if backtrace:
+                trace_mat[0, j] = 1
 
         for i in range(src_len):
             for j in range(tar_len):
@@ -168,7 +173,8 @@ class PhoneticEditDistance(_Distance):
                     ),  # sub/==
                 )
                 d_mat[i + 1, j + 1] = min(opts)
-                trace_mat[i + 1, j + 1] = int(np.argmin(opts))
+                if backtrace:
+                    trace_mat[i + 1, j + 1] = int(np.argmin(opts))
 
                 if self._mode == 'osa':
                     if (
@@ -182,85 +188,11 @@ class PhoneticEditDistance(_Distance):
                             d_mat[i + 1, j + 1],
                             d_mat[i - 1, j - 1] + trans_cost,
                         )
-                        trace_mat[i + 1, j + 1] = 2
-
-        return d_mat, trace_mat
-
-    def alignment(self, src, tar):
-        """Return the phonetic edit distance alignment of two strings.
-
-        Parameters
-        ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
-
-        Returns
-        -------
-        tuple
-            A tuple containing the phonetic edit distance and the two strings,
-            aligned.
-
-        Examples
-        --------
-        >>> cmp = PhoneticEditDistance()
-        >>> cmp.alignment('cat', 'hat')
-        (0.17741935483870974, 'cat', 'hat')
-        >>> cmp.alignment('Niall', 'Neil')
-        (1.161290322580645, 'Niall', 'Neil-')
-        >>> cmp.alignment('aluminum', 'Catalan')
-        (2.467741935483871, 'aluminum', '-Catalan')
-        >>> cmp.alignment('ATCG', 'TAGC')
-        (1.193548387096774, 'ATCG', 'TAGC')
-
-        >>> cmp = PhoneticEditDistance(mode='osa')
-        >>> cmp.alignment('ATCG', 'TAGC')
-        (0.2, 'ATCG', 'TAGC')
-        >>> cmp.alignment('ACTG', 'TAGC')
-        (1.2580645161290323, 'ACTG', 'TAGC')
-
-
-        .. versionadded:: 0.4.1
-
-        """
-        d_mat, trace_mat = self._alignment_matrix(src, tar)
-
-        src_aligned = []
-        tar_aligned = []
-
-        src_pos = len(src)
-        tar_pos = len(tar)
-
-        distance = d_mat[src_pos, tar_pos]
-
-        while src_pos and tar_pos:
-            src_trace, tar_trace = (
-                (src_pos, tar_pos - 1),
-                (src_pos - 1, tar_pos),
-                (src_pos - 1, tar_pos - 1),
-            )[trace_mat[src_pos, tar_pos]]
-
-            if src_pos != src_trace and tar_pos != tar_trace:
-                src_aligned.append(src[src_trace])
-                tar_aligned.append(tar[tar_trace])
-            elif src_pos != src_trace:
-                src_aligned.append(src[src_trace])
-                tar_aligned.append('-')
-            else:
-                src_aligned.append('-')
-                tar_aligned.append(tar[tar_trace])
-            src_pos, tar_pos = src_trace, tar_trace
-        while tar_pos:
-            tar_pos -= 1
-            tar_aligned.append(tar[tar_pos])
-            src_aligned.append('-')
-        while src_pos:
-            src_pos -= 1
-            src_aligned.append(src[src_pos])
-            tar_aligned.append('-')
-
-        return distance, ''.join(src_aligned[::-1]), ''.join(tar_aligned[::-1])
+                        if backtrace:
+                            trace_mat[i + 1, j + 1] = 2
+        if backtrace:
+            return d_mat, trace_mat
+        return d_mat
 
     def dist_abs(self, src, tar):
         """Return the phonetic edit distance between two strings.
@@ -311,7 +243,7 @@ class PhoneticEditDistance(_Distance):
         if not tar:
             return del_cost * src_len
 
-        d_mat, trace_mat = self._alignment_matrix(src, tar)
+        d_mat = self._alignment_matrix(src, tar, backtrace=False)
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
