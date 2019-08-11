@@ -206,7 +206,8 @@ class DiscountedLevenshtein(Levenshtein):
                 opts = (
                     d_mat[traces[0]] + cost,  # ins
                     d_mat[traces[1]] + cost,  # del
-                    d_mat[traces[2]] + (cost if src[i] != tar[j] else 0),  # sub/==
+                    d_mat[traces[2]]
+                    + (cost if src[i] != tar[j] else 0),  # sub/==
                 )
                 d_mat[i + 1, j + 1] = min(opts)
                 if backtrace:

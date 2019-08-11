@@ -59,7 +59,7 @@ class DiscountedLevenshteinTestCases(unittest.TestCase):
         )
         self.assertEqual(
             self.cmp.alignment('Colin', 'Coiln'),
-            (1.5940321087799176, 'Coli-n', 'Co-iln')
+            (1.5940321087799176, 'Coli-n', 'Co-iln'),
         )
         self.assertEqual(
             self.cmp.alignment('Coiln', 'Colin'),
