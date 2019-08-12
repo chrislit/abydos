@@ -845,7 +845,7 @@ def cmp_features(feat1, feat2, weights=None):
             diffbits += weights[i] if weights else 1
         featxor >>= 1
         i += 1
-    return 1 - (diffbits / (2 * magnitude))
+    return 1 - (0 if not diffbits else (diffbits / (2 * magnitude)))
     """
     diff_feats = 0
     i = 0
