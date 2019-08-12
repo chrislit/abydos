@@ -103,18 +103,17 @@ class PhoneticEditDistance(Levenshtein):
         self._cost = cost
         self._normalizer = normalizer
 
-        if weights:
-            if isinstance(weights, dict):
-                weights = [
-                    weights[feature] if feature in weights else 0
-                    for feature in sorted(
-                        _FEATURE_MASK, key=_FEATURE_MASK.get, reverse=True
-                    )
-                ]
-            elif isinstance(weights, (list, tuple)):
-                weights = list(weights) + [0] * (
-                    len(_FEATURE_MASK) - len(weights)
+        if isinstance(weights, dict):
+            weights = [
+                weights[feature] if feature in weights else 0
+                for feature in sorted(
+                    _FEATURE_MASK, key=_FEATURE_MASK.get, reverse=True
                 )
+            ]
+        elif isinstance(weights, (list, tuple)):
+            weights = list(weights) + [0] * (
+                len(_FEATURE_MASK) - len(weights)
+            )
         self._weights = weights
 
     def _alignment_matrix(self, src, tar, backtrace=True):
