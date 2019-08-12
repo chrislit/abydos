@@ -111,9 +111,7 @@ class PhoneticEditDistance(Levenshtein):
                 )
             ]
         elif isinstance(weights, (list, tuple)):
-            weights = list(weights) + [0] * (
-                len(_FEATURE_MASK) - len(weights)
-            )
+            weights = list(weights) + [0] * (len(_FEATURE_MASK) - len(weights))
         self._weights = weights
 
     def _alignment_matrix(self, src, tar, backtrace=True):

@@ -50,9 +50,11 @@ class SSK(_TokenDistance):
         ----------
         tokenizer : _Tokenizer
             A tokenizer instance from the :py:mod:`abydos.tokenizer` package
-        ssk_lambda : float
+        ssk_lambda : float or Iterable
             A value in the range (0.0, 1.0) used for discouting gaps between
             characters according to the method described in :cite:`Lodhi:2002`.
+            To supply multiple values of lambda, provide an Iterable of numeric
+            values, such as (0.5, 0.05) or np.arange(0.05, 0.5, 0.05)
         **kwargs
             Arbitrary keyword arguments
 

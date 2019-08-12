@@ -177,6 +177,20 @@ Alignment(src='sit-', tar='-sed', score=300)]",
             "Alignment(src='sit', tar='sīt', score=10)",
         )
 
+    def test_covington_alignment(self):
+        """Test abydos.distance.Covington.alignment."""
+        if PY2:  # skip tests of alignment on Python 2.7
+            return
+
+        self.assertEqual(
+            self.cmp.alignment('doter', 'tugatir'), (210, '--doter', 'tugatir')
+        )
+        self.assertEqual(
+            self.cmp.alignment('sit', 'sedere'), (220, 'sit---', 'sedere')
+        )
+        self.assertEqual(self.cmp.alignment('sit', 'sed'), (90, 'sit', 'sed'))
+        self.assertEqual(self.cmp.alignment('sit', 'sīt'), (10, 'sit', 'sīt'))
+
 
 if __name__ == '__main__':
     unittest.main()

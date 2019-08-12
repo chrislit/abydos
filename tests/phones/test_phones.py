@@ -221,6 +221,15 @@ class PhonesTestCases(unittest.TestCase):
         self.assertGreater(cmp_esh_tesh, cmp_cced_tesh)
         self.assertGreater(cmp_esh_tesh, cmp_cced_esh)
 
+        # weight modification
+        self.assertEqual(cmp_features(cced, esh), 0.8709677419354839)
+        self.assertEqual(cmp_features(cced, esh, {'syllabic': 1}), 1)
+        self.assertEqual(
+            cmp_features(cced, esh, [1, 1, 1]), 0.6666666666666667
+        )
+        with self.assertRaises(TypeError):
+            cmp_features(cced, esh, 10)
+
 
 if __name__ == '__main__':
     unittest.main()

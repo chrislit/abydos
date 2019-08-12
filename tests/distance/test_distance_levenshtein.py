@@ -234,6 +234,29 @@ class LevenshteinTestCases(unittest.TestCase):
         # Test wrapper
         self.assertAlmostEqual(sim_levenshtein('abbc', 'abc'), 3 / 4)
 
+    def test_levenshtein_alignment(self):
+        """Test abydos.distance.Levenshtein.alignment."""
+        self.assertEqual(self.cmp.alignment('', ''), (0, '', ''))
+
+        self.assertEqual(self.cmp.alignment('a', 'a'), (0.0, 'a', 'a'))
+        self.assertEqual(self.cmp.alignment('ab', 'ab'), (0.0, 'ab', 'ab'))
+        self.assertEqual(self.cmp.alignment('', 'a'), (1.0, '-', 'a'))
+        self.assertEqual(self.cmp.alignment('', 'ab'), (2.0, '--', 'ab'))
+        self.assertEqual(self.cmp.alignment('a', 'c'), (1.0, 'a', 'c'))
+
+        self.assertEqual(self.cmp.alignment('abc', 'ac'), (1.0, 'abc', 'a-c'))
+        self.assertEqual(
+            self.cmp.alignment('abbc', 'ac'), (2.0, 'abbc', 'a--c')
+        )
+        self.assertEqual(
+            self.cmp.alignment('abbc', 'abc'), (1.0, 'abbc', 'ab-c')
+        )
+
+        self.assertEqual(
+            Levenshtein(mode='osa').alignment('Niall', 'Naill'),
+            (1.0, 'Niall', 'Naill'),
+        )
+
 
 if __name__ == '__main__':
     unittest.main()

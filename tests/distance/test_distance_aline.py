@@ -520,6 +520,47 @@ class ALINETestCases(unittest.TestCase):
             [(163.0, '‖ k ɒ g n ei t ‖', '‖ k o g n aː t ‖ us')],
         )
 
+    def test_aline_alignment(self):
+        """Test abydos.distance.ALINE.alignment."""
+        self.assertEqual(
+            self.cmp.alignment('ombre', 'om'), (50.0, '‖ o m ‖ bre', '‖ o m ‖')
+        )
+        self.assertEqual(
+            self.cmp.alignment('arbol', 'arbreC'),
+            (88.0, '‖ a r b o l ‖', '‖ a r b - r ‖ eC'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('pluFma', 'plum'),
+            (115.0, '‖ p l uF m ‖ a', '‖ p l u  m ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('kabetSa', 'kap'),
+            (75.0, '‖ k a b ‖ etSa', '‖ k a p ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('boka', 'busP'),
+            (68.5, '‖ b o k  ‖ a', '‖ b u sP ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('pye', 'pye'), (65.0, '‖ p y e ‖', '‖ p y e ‖')
+        )
+        self.assertEqual(
+            self.cmp.alignment('koratSon', 'koFr'),
+            (80.0, '‖ k o  r ‖ atSon', '‖ k oF r ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('ber', 'vwar'),
+            (60.5, '‖ b e  r ‖', '‖ v wa r ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('benir', 'veCnir'),
+            (115.5, '‖ b e  n i r ‖', '‖ v eC n i r ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('detSir', 'dir'),
+            (65.0, 'de ‖ tS i r ‖', '‖ d  i r ‖'),
+        )
+
     def test_aline_sim(self):
         """Test abydos.distance.ALINE.sim."""
         # Base cases

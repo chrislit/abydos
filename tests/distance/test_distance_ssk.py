@@ -32,6 +32,8 @@ import unittest
 
 from abydos.distance import SSK
 
+import numpy as np
+
 
 class SSKTestCases(unittest.TestCase):
     """Test SSK functions.
@@ -98,6 +100,25 @@ class SSKTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('cat', 'car'), 0.6561000000000001)
         self.assertEqual(
             self.cmp_05.sim_score('cat', 'car'), 6.250000000000003e-06
+        )
+
+        # multiple lambdas
+        self.assertEqual(
+            SSK(ssk_lambda=0.05).sim_score('Nigel', 'Niall'),
+            6.250822363281253e-06,
+        )
+        self.assertEqual(
+            SSK(ssk_lambda=0.5).sim_score('Nigel', 'Niall'), 0.0771484375
+        )
+        self.assertEqual(
+            SSK(ssk_lambda=np.arange(0.05, 0.5, 0.05)).sim_score(
+                'Nigel', 'Niall'
+            ),
+            0.5461411944067384,
+        )
+        self.assertEqual(
+            SSK(ssk_lambda=(0.05, 0.5)).sim_score('Nigel', 'Niall'),
+            0.07841429769736327,
         )
 
 

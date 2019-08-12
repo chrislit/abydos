@@ -821,7 +821,7 @@ def cmp_features(feat1, feat2, weights=None):
 
     # This should be handled some other way since this will take a long time
     # when done repeatedly. Maybe convert to a class & save the weights list.
-    if weights:
+    if weights is not None:
         if isinstance(weights, dict):
             weights = [
                 weights[feature] if feature in weights else 0
@@ -831,6 +831,8 @@ def cmp_features(feat1, feat2, weights=None):
             ]
         elif isinstance(weights, (list, tuple)):
             weights = list(weights) + [0] * (len(_FEATURE_MASK) - len(weights))
+        else:
+            raise TypeError('weights must be a dist, list, or tuple.')
 
     magnitude = sum(weights) if weights else len(_FEATURE_MASK)
 

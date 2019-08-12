@@ -95,6 +95,56 @@ class PhoneticEditDistanceTestCases(unittest.TestCase):
             self.ped.dist_abs('ATCAACGAGT', 'AACGATTAG'), 2.370967741935484
         )
 
+        self.assertEqual(
+            PhoneticEditDistance(weights={'syllabic': 1.0}).dist_abs(
+                'Nigel', 'Niall'
+            ),
+            0.0,
+        )
+        self.assertAlmostEqual(
+            PhoneticEditDistance(weights=(1, 1, 1)).dist_abs('Nigel', 'Niall'),
+            0.33333333333333326,
+        )
+        self.assertAlmostEqual(
+            PhoneticEditDistance(mode='osa').dist_abs('Niel', 'Neil'),
+            0.06451612903225801,
+        )
+
+    def test_phonetic_edit_distance_alignment(self):
+        """Test abydos.distance.PhoneticEditDistance.alignment."""
+        # Base cases
+        self.assertEqual(self.ped.alignment('', ''), (0.0, '', ''))
+        self.assertEqual(self.ped.alignment('a', ''), (1.0, 'a', '-'))
+        self.assertEqual(self.ped.alignment('', 'a'), (1.0, '-', 'a'))
+        self.assertEqual(self.ped.alignment('abc', ''), (3.0, 'abc', '---'))
+        self.assertEqual(self.ped.alignment('', 'abc'), (3.0, '---', 'abc'))
+        self.assertEqual(self.ped.alignment('abc', 'abc'), (0.0, 'abc', 'abc'))
+        self.assertEqual(
+            self.ped.alignment('abcd', 'efgh'),
+            (0.4193548387096774, 'abcd', 'efgh'),
+        )
+
+        self.assertEqual(
+            self.ped.alignment('Nigel', 'Niall'),
+            (0.8870967741935485, 'Nigel', 'Niall'),
+        )
+        self.assertEqual(
+            self.ped.alignment('Niall', 'Nigel'),
+            (0.8870967741935485, 'Niall', 'Nigel'),
+        )
+        self.assertEqual(
+            self.ped.alignment('Colin', 'Coiln'),
+            (0.870967741935484, 'Colin', 'Coiln'),
+        )
+        self.assertEqual(
+            self.ped.alignment('Coiln', 'Colin'),
+            (0.870967741935484, 'Coiln', 'Colin'),
+        )
+        self.assertEqual(
+            PhoneticEditDistance(mode='osa').alignment('Niel', 'Neil'),
+            (0.06451612903225801, 'Niel', 'Neil'),
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
