@@ -163,7 +163,6 @@ class Levenshtein(_Distance):
 
         for i in range(src_len):
             for j in range(tar_len):
-                traces = ((i + 1, j), (i, j + 1), (i, j))
                 opts = (
                     d_mat[i + 1, j]
                     + ins_cost * self._taper(1 + max(i, j), max_len),  # ins

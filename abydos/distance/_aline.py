@@ -1244,7 +1244,7 @@ class ALINE(_Distance):
     def alignment(self, src, tar):
         """Return the top ALINE alignment of two strings.
 
-        The ``top'' ALINE alignment is the first alignment with the best score.
+        The `top` ALINE alignment is the first alignment with the best score.
         The purpose of this function is to have a single tuple as a return
         value.
 
