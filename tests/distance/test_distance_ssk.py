@@ -116,7 +116,7 @@ class SSKTestCases(unittest.TestCase):
             ),
             0.5461411944067384,
         )
-        self.assertEqual(
+        self.assertAlmostEqual(
             SSK(ssk_lambda=(0.05, 0.5)).sim_score('Nigel', 'Niall'),
             0.07841429769736327,
         )
