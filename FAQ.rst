@@ -5,11 +5,34 @@ FAQ
 Q. Why is the library licensed under GPL3+? Can you change the license
    to BSD/MIT/other?
 
+A. GPL3 is the only license compatible with all of the various parts of
+   Abydos that have been ported to Python from other languages. For example,
+   the Beider-Morse Phonetic Matching algorithm implementation included in
+   Abydos was ported from their reference implementation in PHP, which is
+   itself licensed under GPL3.
+
+   Accordingly, it's not possible to change to a different license without
+   removing parts of the library. However, if you have a need for a specific
+   part of the library and can't use GPL3+ code, contact us and we may be able
+   to provide it separately or can give guidance on its underlying licensing
+   status.
+
 Q. What is the purpose of this library?
+
+A. 
 
 Q. Can you add this new feature?
 
+A. Maybe. Open an issue at https://github.com/chrislit/abydos/issues and
+   propose your new feature.
+
 Q. Can I contribute to the project?
+
+A. Absolutely. You can take on an unclaimed issue, report bugs, add new
+   classes, or whatever piques your interest. You are welcome to open an
+   issue at https://github.com/chrislit/abydos/issues proposing what you'd
+   like to work on, or you can submit a pull request if you have something
+   ready to contribute to the repository.
 
 Q. Will you add Metaphone 3?
 
