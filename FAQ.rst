@@ -19,12 +19,22 @@ A. GPL3 is the only license compatible with all of the various parts of
 
 Q. What is the purpose of this library?
 
-A. 
+A. Abydos is intended to facilitate any manner of string transformation and
+   comparison might be useful for string matching or record linkage. The two
+   most significant parts of the library are string distance/similarity
+   measures and phonetic algorithms/string fingerprint algorithms, but a large
+   collection of tokenizers, corpus classes, compression algorithms, &
+   phonetics functions support these and afford greater customization.
 
 Q. Can you add this new feature?
 
 A. Maybe. Open an issue at https://github.com/chrislit/abydos/issues and
    propose your new feature.
+
+   Additional string distance/similarity measures,
+   phonetic algorithms, string fingerprint algorithms, and string tokenizers
+   will certainly be added if possible -- but it's helpful to point them
+   out since we may not be aware of them.
 
 Q. Can I contribute to the project?
 
