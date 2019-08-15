@@ -46,6 +46,23 @@ A. Absolutely. You can take on an unclaimed issue, report bugs, add new
 
 Q. Will you add Metaphone 3?
 
-Q. Why have you included algorithm X when it is already a part of
-   NLTK/scipy/...?
+   No. Although Lawrence Philips (author of Metaphone, Double Metaphone, and
+   Metaphone 3) released Metaphone 3 version 2.1.3 under the BSD 3-clause
+   license as part of Google Refine, which became OpenRefine
+   (https://github.com/OpenRefine/OpenRefine/blob/master/main/src/com/google/refine/clustering/binning/Metaphone3.java),
+   he doesn't want that code used for ports to other languages or used in any
+   way outside of OpenRefine. In accordance with his wishes, no one has
+   released Metaphone 3 ports to other languages or included it other
+   libraries.
 
+Q. Why have you included algorithm X when it is already a part of
+   NLTK/SciPy/...?
+
+A. Abydos is a collection of algorithms with common class & function
+   interfaces and options. So, while NLTK has Levenshtein & Jaccard string
+   similarity measures, they don't allow for tunable edit costs or using
+   the tokenizer of your choice.
+
+Q. Are these really Frequently Asked Questions?
+
+A. No. Most of these questions have never been explicitly asked.
