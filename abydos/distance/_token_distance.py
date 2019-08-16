@@ -823,22 +823,22 @@ member function, such as Levenshtein."
                 assigned_cols = set()
 
                 for row in range(n):
-                    if (arr[row, :] == 0.0).sum() == 1:
-                        col = arr[row, :].argmin()
-                        if col not in allocated_cols:
+                    for col in range(n):
+                        if col not in allocated_cols and arr[row, col] == 0:
                             assignments[row, col] = orig_sim[row, col]
                             allocated_cols.add(col)
                             assigned_rows.add(row)
                             assigned_cols.add(col)
+                            break
 
                 for col in range(n):
-                    if (arr[:, col] == 0.0).sum() == 1:
-                        row = arr[:, col].argmin()
-                        if row not in allocated_rows:
+                    for row in range(n):
+                        if row not in allocated_rows and arr[row, col] == 0:
                             assignments[row, col] = orig_sim[row, col]
                             allocated_rows.add(row)
                             assigned_rows.add(row)
                             assigned_cols.add(col)
+                            break
 
                 if len(assignments) == n:
                     break
