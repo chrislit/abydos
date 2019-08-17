@@ -767,42 +767,47 @@ member function, such as Levenshtein."
 
         """
         intersection = self._crisp_intersection()
-        src_only = sorted(self._src_tokens - self._tar_tokens)
-        tar_only = sorted(self._tar_tokens - self._src_tokens)
+        src_only_tok = sorted(self._src_tokens - self._tar_tokens)
+        tar_only_tok = sorted(self._tar_tokens - self._src_tokens)
+        src_only = self._src_tokens - self._tar_tokens
+        tar_only = self._tar_tokens - self._src_tokens
+
+        def _assign_score(sim, row, col):
+            score = float(
+                (sim / 2)
+                * min(src_only[src_only_tok[col]], tar_only[tar_only_tok[row]])
+            )
+            intersection[src_only_tok[col]] += score
+            intersection[tar_only_tok[row]] += score
 
         if linear_sum_assignment and not (
             'internal_assignment_problem' in self.params
             and self.params['internal_assignment_problem']
         ):
-            arr = np_zeros((len(tar_only), len(src_only)))
+            arr = np_zeros((len(tar_only_tok), len(src_only_tok)))
 
-            for col in range(len(src_only)):
-                for row in range(len(tar_only)):
+            for col in range(len(src_only_tok)):
+                for row in range(len(tar_only_tok)):
                     arr[row, col] = self.params['metric'].dist(
-                        src_only[col], tar_only[row]
+                        src_only_tok[col], tar_only_tok[row]
                     )
 
             for row, col in zip(*linear_sum_assignment(arr)):
                 sim = 1.0 - arr[row, col]
                 if sim >= self.params['threshold']:
-                    intersection[src_only[col]] += (sim / 2) * (
-                        self._src_tokens - self._tar_tokens
-                    )[src_only[col]]
-                    intersection[tar_only[row]] += (sim / 2) * (
-                        self._tar_tokens - self._src_tokens
-                    )[tar_only[row]]
+                    _assign_score(sim, row, col)
         else:
-            n = max(len(tar_only), len(src_only))
+            n = max(len(tar_only_tok), len(src_only_tok))
             arr = np_zeros((n, n), dtype=float)
 
-            for col in range(len(src_only)):
-                for row in range(len(tar_only)):
+            for col in range(len(src_only_tok)):
+                for row in range(len(tar_only_tok)):
                     arr[row, col] = self.params['metric'].dist(
-                        src_only[col], tar_only[row]
+                        src_only_tok[col], tar_only_tok[row]
                     )
 
-            src_only += [''] * (n - len(src_only))
-            tar_only += [''] * (n - len(tar_only))
+            src_only_tok += [''] * (n - len(src_only_tok))
+            tar_only_tok += [''] * (n - len(tar_only_tok))
 
             orig_sim = 1 - np_copy(arr)
 
@@ -874,12 +879,7 @@ member function, such as Levenshtein."
             for row, col in assignments.keys():
                 sim = orig_sim[row, col]
                 if sim >= self.params['threshold']:
-                    intersection[src_only[col]] += (sim / 2) * (
-                        self._src_tokens - self._tar_tokens
-                    )[src_only[col]]
-                    intersection[tar_only[row]] += (sim / 2) * (
-                        self._tar_tokens - self._src_tokens
-                    )[tar_only[row]]
+                    _assign_score(sim, row, col)
 
         return intersection
 
