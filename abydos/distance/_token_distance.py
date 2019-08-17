@@ -812,11 +812,9 @@ member function, such as Levenshtein."
             orig_sim = 1 - np_copy(arr)
 
             # Step 1
-            for row in range(n):
-                arr[row, :] -= arr[row, :].min()
+            arr -= arr.min(axis=0)
             # Step 2
-            for col in range(n):
-                arr[:, col] -= arr[:, col].min()
+            arr -= arr.min(axis=1)
 
             while True:
                 # Step 3
