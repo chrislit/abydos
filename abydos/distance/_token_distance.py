@@ -797,7 +797,21 @@ member function, such as Levenshtein."
                 if sim >= self.params['threshold']:
                     _assign_score(sim, row, col)
         else:
-            pass
+            # Pre-preliminaries: create square the matrix of scores
+            n = max(len(src_only), len(tar_only))
+            arr = np_zeros((n, n), dtype=float)
+
+            for col in range(len(src_only)):
+                for row in range(len(tar_only)):
+                    arr[row, col] = self.params['metric'].dist(
+                        src_only[col], tar_only[row]
+                    )
+
+            src_only += [''] * (n - len(src_only))
+            tar_only += [''] * (n - len(tar_only))
+
+            orig_sim = 1 - np_copy(arr)
+
 
         return intersection
 
