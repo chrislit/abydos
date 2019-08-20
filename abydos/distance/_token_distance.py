@@ -797,6 +797,8 @@ member function, such as Levenshtein."
                 if sim >= self.params['threshold']:
                     _assign_score(sim, row, col)
         else:
+            # Quoted text below is from Munkres (1957), cited above.
+
             # Pre-preliminaries: create square the matrix of scores
             n = max(len(src_only), len(tar_only))
             arr = np_zeros((n, n), dtype=float)
@@ -811,6 +813,17 @@ member function, such as Levenshtein."
             tar_only += [''] * (n - len(tar_only))
 
             orig_sim = 1 - np_copy(arr)
+            # Preliminaries:
+            # P: "No lines are covered; no zeros are starred or primed."
+            # P: "Consider a row of matrix A; subtract from each element in
+            # this row the smallest element of this row. Do the same for each
+            # row of A."
+            for row in range(n):
+                arr[row, :] -= arr[row, :].min()
+            # P: "Then consider each column of the resulting matrix and
+            # subtract from each column its smallest entry."
+            for col in range(n):
+                arr[:, col] -= arr[:, col].min()
 
 
         return intersection
