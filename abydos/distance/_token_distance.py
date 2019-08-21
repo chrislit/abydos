@@ -33,6 +33,7 @@ from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
 
+import numpy as np
 from numpy import copy as np_copy
 from numpy import zeros as np_zeros
 
@@ -803,6 +804,13 @@ member function, such as Levenshtein."
             n = max(len(src_only), len(tar_only))
             arr = np_zeros((n, n), dtype=float)
 
+            # A marks array to indicate stars, primes, & covers
+            # bit 1 = starred
+            # bit 2 = primed
+            # bit 4 = covered row
+            # bit 8 = covered col
+            marks = np_zeros((n, n), dtype=np.int8)
+
             for col in range(len(src_only)):
                 for row in range(len(tar_only)):
                     arr[row, col] = self.params['metric'].dist(
@@ -825,6 +833,16 @@ member function, such as Levenshtein."
             for col in range(n):
                 arr[:, col] -= arr[:, col].min()
 
+            # P: "Consider a zero Z of the matrix. If there is no starred zero
+            # in its row and none in its column, star Z. Repeat, considering
+            # each zero in the matrix in turn. Then cover every column
+            # containing a starred zero.
+            for col in range(n):
+                for row in range(n):
+                    if arr[row, col] == 0:
+                        if sum(marks[row, :] & 1) == 0 and sum(marks[:, col] & 1) == 0:
+                            marks[row, col] |= 1
+                            marks[:, col] |= 8
 
         return intersection
 
