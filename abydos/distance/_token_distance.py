@@ -880,6 +880,22 @@ member function, such as Levenshtein."
                 if zeros == starred:
                     break
 
+            # Step 2:
+            # 2: "There is a sequence of alternating starred and primed zeros,
+            # constructed as follows: Let Z_0 denote the uncovered 0'. [There
+            # is only one.] Let Z_1 denote the 0* in Z_0's column (if any). Let
+            # Z_2 denote the 0' in Z_1's row (we must prove that it exists).
+            # Let Z_3 denote the 0* in Z_2's column (if any). Similarly
+            # continue until the sequence stops at a 0', Z_{2k}, which has no
+            # 0* in its column (this we must also prove).
+            # 2: "Unstar each starred zero of the sequence and star each primed
+            # zero of the sequence. [The resulting set of starred zeros is
+            # easily seen to be independent. It is larger by one than the
+            # previous set of independent starred zeros.] Erase all primes,
+            # uncover every row, and cover every column containing a 0*. If all
+            # columns are covered, the starred zeros form the desired
+            # independent set. Otherwise, return to Step 1.
+
         return intersection
 
     def _intersection_card(self):
