@@ -845,7 +845,10 @@ member function, such as Levenshtein."
             for col in range(n):
                 for row in range(n):
                     if arr[row, col] == 0:
-                        if sum(marks[row, :] & MUNKRES_STARRED) == 0 and sum(marks[:, col] & MUNKRES_STARRED) == 0:
+                        if (
+                            sum(marks[row, :] & MUNKRES_STARRED) == 0
+                            and sum(marks[:, col] & MUNKRES_STARRED) == 0
+                        ):
                             marks[row, col] |= MUNKRES_STARRED
                             marks[:, col] |= MUNKRES_COL_COVERED
 
