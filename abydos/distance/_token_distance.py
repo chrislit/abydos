@@ -806,9 +806,14 @@ member function, such as Levenshtein."
 
             # A marks array to indicate stars, primes, & covers
             # bit 1 = starred
+            MUNKRES_STARRED = 1
             # bit 2 = primed
+            MUNKRES_PRIMED = 2
             # bit 4 = covered row
+            MUNKRES_ROW_COVERED = 4
             # bit 8 = covered col
+            MUNKRES_COL_COVERED = 8
+            MUNKRES_COVERED = MUNKRES_COL_COVERED | MUNKRES_ROW_COVERED
             marks = np_zeros((n, n), dtype=np.int8)
 
             for col in range(len(src_only)):
@@ -840,9 +845,9 @@ member function, such as Levenshtein."
             for col in range(n):
                 for row in range(n):
                     if arr[row, col] == 0:
-                        if sum(marks[row, :] & 1) == 0 and sum(marks[:, col] & 1) == 0:
-                            marks[row, col] |= 1
-                            marks[:, col] |= 8
+                        if sum(marks[row, :] & MUNKRES_STARRED) == 0 and sum(marks[:, col] & MUNKRES_STARRED) == 0:
+                            marks[row, col] |= MUNKRES_STARRED
+                            marks[:, col] |= MUNKRES_COL_COVERED
 
         return intersection
 
