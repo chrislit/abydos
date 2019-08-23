@@ -871,8 +871,7 @@ member function, such as Levenshtein."
                             break
                         else:
                             marks[row, :] |= MUNKRES_ROW_COVERED
-                            for z_col in z_cols:
-                                marks[:, z_col] &= ~MUNKRES_COL_COVERED
+                            marks[:, z_cols[0]] &= ~MUNKRES_COL_COVERED
                 if not repeat:
                     break
 
