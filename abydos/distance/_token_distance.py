@@ -849,6 +849,35 @@ member function, such as Levenshtein."
                             marks[row, col] |= MUNKRES_STARRED
                             marks[:, col] |= MUNKRES_COL_COVERED
 
+            # Step 1:
+            # 1: "Choose a non-covered zero and prime it. Consider the row
+            # containing it. If there is no starred zero in this row, go at
+            # once to Step 2. If there is a starred zero Z in this row, cover
+            # this row and uncover the column of Z."
+            # 1: Repeat until all zeros are covered. Go to Step 3."
+            repeat = True
+            zeros = (arr == 0).nonzero()
+            zeros = tuple(zip(zeros[0], zeros[1]))
+            while True:
+                for row, col in zeros:
+                    if not (marks[row, col] & MUNKRES_COVERED):
+                        arr[row, col] |= MUNKRES_PRIMED
+                        z_cols = (marks[row, :] & MUNKRES_STARRED).nonzero()[0]
+                        if not z_cols.size:
+                            repeat = False
+                            break
+                        else:
+                            marks[row, :] |= MUNKRES_ROW_COVERED
+                            for z_col in z_cols:
+                                marks[:, z_col] &= ~MUNKRES_COL_COVERED
+                if not repeat:
+                    break
+
+                starred = (marks & MUNKRES_STARRED).nonzero()
+                starred = tuple(zip(starred[0], starred[1]))
+                if zeros == starred:
+                    break
+
         return intersection
 
     def _intersection_card(self):
