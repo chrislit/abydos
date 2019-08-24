@@ -888,13 +888,10 @@ member function, such as Levenshtein."
             # Let Z_3 denote the 0* in Z_2's column (if any). Similarly
             # continue until the sequence stops at a 0', Z_{2k}, which has no
             # 0* in its column.
-            zeros = (arr == 0).nonzero()
-            zeros = list(zip(zeros[0], zeros[1]))
             z_series = []
             for row, col in zeros:
                 if marks[row, col] == MUNKRES_PRIMED:
                     z_series.append((row, col))
-                    zeros.remove((row, col))
                     break
             while True:
                 col = z_series[-1][1]
