@@ -887,7 +887,28 @@ member function, such as Levenshtein."
             # Z_2 denote the 0' in Z_1's row (we must prove that it exists).
             # Let Z_3 denote the 0* in Z_2's column (if any). Similarly
             # continue until the sequence stops at a 0', Z_{2k}, which has no
-            # 0* in its column (this we must also prove).
+            # 0* in its column.
+            zeros = (arr == 0).nonzero()
+            zeros = list(zip(zeros[0], zeros[1]))
+            z_series = []
+            for row, col in zeros:
+                if marks[row, col] == MUNKRES_PRIMED:
+                    z_series.append((row, col))
+                    zeros.remove((row, col))
+                    break
+            while True:
+                col = z_series[-1][1]
+                row = set((arr[:, col] == 0).nonzero()) | set((marks[:, col] & MUNKRES_STARRED).nonzero())
+                if row:
+                    z_series.append((row, col))
+                else:
+                    break
+                col = set((arr[row, :] == 0).nonzero()) | set((marks[row, :] & MUNKRES_PRIMED).nonzero())
+                if col:
+                    z_series.append((row, col))
+                else:
+                    break
+
             # 2: "Unstar each starred zero of the sequence and star each primed
             # zero of the sequence. [The resulting set of starred zeros is
             # easily seen to be independent. It is larger by one than the
@@ -895,6 +916,7 @@ member function, such as Levenshtein."
             # uncover every row, and cover every column containing a 0*. If all
             # columns are covered, the starred zeros form the desired
             # independent set. Otherwise, return to Step 1.
+
 
         return intersection
 
