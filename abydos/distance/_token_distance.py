@@ -907,12 +907,20 @@ member function, such as Levenshtein."
                     break
 
             # 2: "Unstar each starred zero of the sequence and star each primed
-            # zero of the sequence. [The resulting set of starred zeros is
-            # easily seen to be independent. It is larger by one than the
-            # previous set of independent starred zeros.] Erase all primes,
-            # uncover every row, and cover every column containing a 0*. If all
-            # columns are covered, the starred zeros form the desired
-            # independent set. Otherwise, return to Step 1.
+            # zero of the sequence. Erase all primes, uncover every row, and
+            # cover every column containing a 0*."
+            marks &= ~(MUNKRES_PRIMED | MUNKRES_COVERED)
+            for row, col in z_series:
+                marks[row, col] ^= MUNKRES_STARRED
+                if marks[row, col] & MUNKRES_STARRED:
+                    marks[:, col] |= MUNKRES_COL_COVERED
+            # 2: "If all columns are covered, the starred zeros form the
+            # desired independent set. Otherwise, return to Step 1."
+            for col in range(n):
+                if not (marks[0, col] & MUNKRES_COL_COVERED):
+                    break
+            else:
+                break
 
 
         return intersection
