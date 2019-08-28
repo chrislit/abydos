@@ -844,8 +844,12 @@ member function, such as Levenshtein."
                 for row in range(n):
                     if arr[row, col] == 0:
                         if (
-                            np.count_nonzero(marks[row, :] & MUNKRES_STARRED) == 0
-                            and np.count_nonzero(marks[:, col] & MUNKRES_STARRED) == 0
+                            np.count_nonzero(marks[row, :] & MUNKRES_STARRED)
+                            == 0
+                            and np.count_nonzero(
+                                marks[:, col] & MUNKRES_STARRED
+                            )
+                            == 0
                         ):
                             marks[row, col] |= MUNKRES_STARRED
                             marks[:, col] |= MUNKRES_COL_COVERED
@@ -859,17 +863,19 @@ member function, such as Levenshtein."
             while step < 4:
                 if step == 1:
                     # Step 1:
-                    # 1: "Choose a non-covered zero and prime it. Consider the row
-                    # containing it. If there is no starred zero in this row, go at
-                    # once to Step 2. If there is a starred zero Z in this row, cover
-                    # this row and uncover the column of Z."
+                    # 1: "Choose a non-covered zero and prime it. Consider the
+                    # row containing it. If there is no starred zero in this
+                    # row, go at once to Step 2. If there is a starred zero Z
+                    # in this row, cover this row and uncover the column of Z."
                     # 1: Repeat until all zeros are covered. Go to Step 3."
                     zeros = tuple(zip(*((arr == 0).nonzero())))
                     while step == 1:
                         for row, col in zeros:
                             if not (marks[row, col] & MUNKRES_COVERED):
                                 marks[row, col] |= MUNKRES_PRIMED
-                                z_cols = (marks[row, :] & MUNKRES_STARRED).nonzero()[0]
+                                z_cols = (
+                                    marks[row, :] & MUNKRES_STARRED
+                                ).nonzero()[0]
                                 if not z_cols.size:
                                     step = 2
                                 else:
@@ -887,13 +893,14 @@ member function, such as Levenshtein."
 
                 if step == 2:
                     # Step 2:
-                    # 2: "There is a sequence of alternating starred and primed zeros,
-                    # constructed as follows: Let Z_0 denote the uncovered 0'. [There
-                    # is only one.] Let Z_1 denote the 0* in Z_0's column (if any). Let
-                    # Z_2 denote the 0' in Z_1's row (we must prove that it exists).
-                    # Let Z_3 denote the 0* in Z_2's column (if any). Similarly
-                    # continue until the sequence stops at a 0', Z_{2k}, which has no
-                    # 0* in its column.
+                    # 2: "There is a sequence of alternating starred and primed
+                    # zeros, constructed as follows: Let Z_0 denote the
+                    # uncovered 0'. [There is only one.] Let Z_1 denote the 0*
+                    # in Z_0's column (if any). Let Z_2 denote the 0' in Z_1's
+                    # row (we must prove that it exists). Let Z_3 denote the 0*
+                    # in Z_2's column (if any). Similarly continue until the
+                    # sequence stops at a 0', Z_{2k}, which has no 0* in its
+                    # column."
                     z_series = []
                     for row, col in zeros:
                         if marks[row, col] == MUNKRES_PRIMED:
@@ -901,41 +908,61 @@ member function, such as Levenshtein."
                             break
                     col = z_series[-1][1]
                     while True:
-                        row = tuple(set((arr[:, col] == 0).nonzero()[0]) & set((marks[:, col] & MUNKRES_STARRED).nonzero()[0]))
+                        row = tuple(
+                            set((arr[:, col] == 0).nonzero()[0])
+                            & set(
+                                (marks[:, col] & MUNKRES_STARRED).nonzero()[0]
+                            )
+                        )
                         if row:
                             row = row[0]
                             z_series.append((row, col))
-                            col = tuple(set((arr[row, :] == 0).nonzero()[0]) & set((marks[row, :] & MUNKRES_PRIMED).nonzero()[0]))[0]
+                            col = tuple(
+                                set((arr[row, :] == 0).nonzero()[0])
+                                & set(
+                                    (marks[row, :] & MUNKRES_PRIMED).nonzero()[
+                                        0
+                                    ]
+                                )
+                            )[0]
                             z_series.append((row, col))
                         else:
                             break
 
-                    # 2: "Unstar each starred zero of the sequence and star each primed
-                    # zero of the sequence. Erase all primes, uncover every row, and
-                    # cover every column containing a 0*."
+                    # 2: "Unstar each starred zero of the sequence and star
+                    # each primed zero of the sequence. Erase all primes,
+                    # uncover every row, and cover every column containing a
+                    # 0*."
                     marks &= ~(MUNKRES_PRIMED | MUNKRES_COVERED)
                     for row, col in z_series:
                         marks[row, col] ^= MUNKRES_STARRED
                         if marks[row, col] & MUNKRES_STARRED:
                             marks[:, col] |= MUNKRES_COL_COVERED
 
-                    # 2: "If all columns are covered, the starred zeros form the
-                    # desired independent set. Otherwise, return to Step 1."
-                    if np.count_nonzero(marks[0, :] & MUNKRES_COL_COVERED) == n:
+                    # 2: "If all columns are covered, the starred zeros form
+                    # the desired independent set. Otherwise, return to Step
+                    # 1."
+                    if (
+                        np.count_nonzero(marks[0, :] & MUNKRES_COL_COVERED)
+                        == n
+                    ):
                         step = 4
                     else:
                         step = 1
 
                 if step == 3:
                     # Step 3:
-                    # 3: "Let h denote the smallest non-covered element of the matrix;
-                    # it will be positive. Add h to each covered row; then subtract h
-                    # from each uncovered column."
+                    # 3: "Let h denote the smallest non-covered element of the
+                    # matrix; it will be positive. Add h to each covered row;
+                    # then subtract h from each uncovered column."
                     h_val = float('inf')
                     for col in range(n):
                         if not (marks[0, col] & MUNKRES_COL_COVERED):
                             for row in range(n):
-                                if not (marks[row, col] & MUNKRES_ROW_COVERED) and arr[row, col] < h_val:
+                                if (
+                                    not (marks[row, col] & MUNKRES_ROW_COVERED)
+                                    and arr[row, col] < h_val
+                                ):
                                     h_val = arr[row, col]
                     for row in range(n):
                         if not (marks[row, 0] & MUNKRES_ROW_COVERED):
@@ -944,8 +971,8 @@ member function, such as Levenshtein."
                         if marks[0, col] & MUNKRES_COL_COVERED:
                             arr[:, col] -= h_val
 
-                    # 3: "Return to Step 1, without altering any asterisks, primes, or
-                    # covered lines."
+                    # 3: "Return to Step 1, without altering any asterisks,
+                    # primes, or covered lines."
                     step = 1
 
         for row, col in tuple(zip(*((marks & MUNKRES_STARRED).nonzero()))):
