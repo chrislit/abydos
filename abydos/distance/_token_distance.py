@@ -831,12 +831,10 @@ member function, such as Levenshtein."
             # P: "Consider a row of matrix A; subtract from each element in
             # this row the smallest element of this row. Do the same for each
             # row of A."
-            for row in range(n):
-                arr[row, :] -= arr[row, :].min()
+            arr -= arr.min(axis=0)
             # P: "Then consider each column of the resulting matrix and
             # subtract from each column its smallest entry."
-            for col in range(n):
-                arr[:, col] -= arr[:, col].min()
+            arr -= arr.min(axis=1)
 
             # P: "Consider a zero Z of the matrix. If there is no starred zero
             # in its row and none in its column, star Z. Repeat, considering
