@@ -801,8 +801,17 @@ member function, such as Levenshtein."
             # Quoted text below is from Munkres (1957), cited above.
 
             # Pre-preliminaries: create square the matrix of scores
-            n = max(len(src_only), len(tar_only))
+            n = max(len(src_only_tok), len(tar_only_tok))
             arr = np_zeros((n, n), dtype=float)
+
+            for col in range(len(src_only_tok)):
+                for row in range(len(tar_only_tok)):
+                    arr[row, col] = self.params['metric'].dist(
+                        src_only_tok[col], tar_only_tok[row]
+                    )
+
+            src_only_tok += [''] * (n - len(src_only_tok))
+            tar_only_tok += [''] * (n - len(tar_only_tok))
 
             # A marks array to indicate stars, primes, & covers
             # bit 1 = starred
@@ -814,27 +823,18 @@ member function, such as Levenshtein."
             # bit 8 = covered col
             MUNKRES_COL_COVERED = 8
             MUNKRES_COVERED = MUNKRES_COL_COVERED | MUNKRES_ROW_COVERED
-            marks = np_zeros((n, n), dtype=np.int8)
+            marks = np.zeros((n, n), dtype=np.int8)
 
-            for col in range(len(src_only)):
-                for row in range(len(tar_only)):
-                    arr[row, col] = self.params['metric'].dist(
-                        src_only[col], tar_only[row]
-                    )
-
-            src_only += [''] * (n - len(src_only))
-            tar_only += [''] * (n - len(tar_only))
-
-            orig_sim = 1 - np_copy(arr)
+            orig_sim = 1 - np.copy(arr)
             # Preliminaries:
             # P: "No lines are covered; no zeros are starred or primed."
             # P: "Consider a row of matrix A; subtract from each element in
             # this row the smallest element of this row. Do the same for each
             # row of A."
-            arr -= arr.min(axis=0)
+            arr -= arr.min(axis=1, keepdims=True)
             # P: "Then consider each column of the resulting matrix and
             # subtract from each column its smallest entry."
-            arr -= arr.min(axis=1)
+            arr -= arr.min(axis=0, keepdims=True)
 
             # P: "Consider a zero Z of the matrix. If there is no starred zero
             # in its row and none in its column, star Z. Repeat, considering
@@ -878,10 +878,11 @@ member function, such as Levenshtein."
                                 ).nonzero()[0]
                                 if not z_cols.size:
                                     step = 2
+                                    break
                                 else:
                                     marks[row, :] |= MUNKRES_ROW_COVERED
                                     marks[:, z_cols[0]] &= ~MUNKRES_COL_COVERED
-                                break
+
                         if step != 1:
                             break
 
@@ -936,9 +937,9 @@ member function, such as Levenshtein."
                     marks &= ~(MUNKRES_PRIMED | MUNKRES_COVERED)
                     for row, col in z_series:
                         marks[row, col] ^= MUNKRES_STARRED
-                        if marks[row, col] & MUNKRES_STARRED:
+                    for col in range(n):
+                        if np.count_nonzero(marks[:, col] & MUNKRES_STARRED):
                             marks[:, col] |= MUNKRES_COL_COVERED
-
                     # 2: "If all columns are covered, the starred zeros form
                     # the desired independent set. Otherwise, return to Step
                     # 1."
@@ -965,25 +966,20 @@ member function, such as Levenshtein."
                                 ):
                                     h_val = arr[row, col]
                     for row in range(n):
-                        if not (marks[row, 0] & MUNKRES_ROW_COVERED):
+                        if marks[row, 0] & MUNKRES_ROW_COVERED:
                             arr[row, :] += h_val
                     for col in range(n):
-                        if marks[0, col] & MUNKRES_COL_COVERED:
+                        if not (marks[0, col] & MUNKRES_COL_COVERED):
                             arr[:, col] -= h_val
 
                     # 3: "Return to Step 1, without altering any asterisks,
                     # primes, or covered lines."
                     step = 1
 
-        for row, col in tuple(zip(*((marks & MUNKRES_STARRED).nonzero()))):
-            sim = orig_sim[row, col]
-            if sim >= self.params['threshold']:
-                intersection[src_only[col]] += (sim / 2) * (
-                    self._src_tokens - self._tar_tokens
-                )[src_only[col]]
-                intersection[tar_only[row]] += (sim / 2) * (
-                    self._tar_tokens - self._src_tokens
-                )[tar_only[row]]
+            for row, col in tuple(zip(*((marks & MUNKRES_STARRED).nonzero()))):
+                sim = orig_sim[row, col]
+                if sim >= self.params['threshold']:
+                    _assign_score(sim, row, col)
 
         return intersection
 
