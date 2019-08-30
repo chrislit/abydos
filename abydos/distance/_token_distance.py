@@ -837,10 +837,8 @@ member function, such as Levenshtein."
                 for row in range(n):
                     if arr[row, col] == 0:
                         if (
-                            np.count_nonzero(starred[row, :])
-                            == 0
-                            and np.count_nonzero(starred[:, col])
-                            == 0
+                            np.count_nonzero(starred[row, :]) == 0
+                            and np.count_nonzero(starred[:, col]) == 0
                         ):
                             starred[row, col] = True
                             col_covered[:, col] = True
@@ -862,11 +860,11 @@ member function, such as Levenshtein."
                     zeros = tuple(zip(*((arr == 0).nonzero())))
                     while step == 1:
                         for row, col in zeros:
-                            if not (col_covered[row, col] | row_covered[row, col]):
+                            if not (
+                                col_covered[row, col] | row_covered[row, col]
+                            ):
                                 primed[row, col] = True
-                                z_cols = (
-                                    starred[row, :]
-                                ).nonzero()[0]
+                                z_cols = (starred[row, :]).nonzero()[0]
                                 if not z_cols.size:
                                     step = 2
                                     break
@@ -878,7 +876,9 @@ member function, such as Levenshtein."
                             break
 
                         for row, col in zeros:
-                            if not (col_covered[row, col] | row_covered[row, col]):
+                            if not (
+                                col_covered[row, col] | row_covered[row, col]
+                            ):
                                 break
                         else:
                             step = 3
@@ -895,27 +895,23 @@ member function, such as Levenshtein."
                     # column."
                     z_series = []
                     for row, col in zeros:
-                        if primed[row, col] and not (row_covered[row, col] | col_covered[row, col]):
+                        if primed[row, col] and not (
+                            row_covered[row, col] | col_covered[row, col]
+                        ):
                             z_series.append((row, col))
                             break
                     col = z_series[-1][1]
                     while True:
                         row = tuple(
                             set((arr[:, col] == 0).nonzero()[0])
-                            & set(
-                                (starred[:, col]).nonzero()[0]
-                            )
+                            & set((starred[:, col]).nonzero()[0])
                         )
                         if row:
                             row = row[0]
                             z_series.append((row, col))
                             col = tuple(
                                 set((arr[row, :] == 0).nonzero()[0])
-                                & set(
-                                    (primed[row, :]).nonzero()[
-                                        0
-                                    ]
-                                )
+                                & set((primed[row, :]).nonzero()[0])
                             )[0]
                             z_series.append((row, col))
                         else:
@@ -936,10 +932,7 @@ member function, such as Levenshtein."
                     # 2: "If all columns are covered, the starred zeros form
                     # the desired independent set. Otherwise, return to Step
                     # 1."
-                    if (
-                        np.count_nonzero(col_covered[0, :])
-                        == n
-                    ):
+                    if np.count_nonzero(col_covered[0, :]) == n:
                         step = 4
                     else:
                         step = 1
