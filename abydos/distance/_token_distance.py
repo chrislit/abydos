@@ -815,8 +815,8 @@ member function, such as Levenshtein."
 
             starred = np.zeros((n, n), dtype=np.bool)
             primed = np.zeros((n, n), dtype=np.bool)
-            row_covered = np.zeros((n, n), dtype=np.bool)
-            col_covered = np.zeros((n, n), dtype=np.bool)
+            row_covered = np.zeros(n, dtype=np.bool)
+            col_covered = np.zeros(n, dtype=np.bool)
 
             orig_sim = 1 - np.copy(arr)
             # Preliminaries:
@@ -841,12 +841,12 @@ member function, such as Levenshtein."
                             and np.count_nonzero(starred[:, col]) == 0
                         ):
                             starred[row, col] = True
-                            col_covered[:, col] = True
+                            col_covered[col] = True
 
             step = 1
             # This is the simple case where independent assignments are obvious
             # and found without the rest of the algorithm.
-            if np.count_nonzero(col_covered[0, :]) == n:
+            if np.count_nonzero(col_covered) == n:
                 step = 4
 
             while step < 4:
@@ -860,25 +860,21 @@ member function, such as Levenshtein."
                     zeros = tuple(zip(*((arr == 0).nonzero())))
                     while step == 1:
                         for row, col in zeros:
-                            if not (
-                                col_covered[row, col] | row_covered[row, col]
-                            ):
+                            if not (col_covered[col] | row_covered[row]):
                                 primed[row, col] = True
                                 z_cols = (starred[row, :]).nonzero()[0]
                                 if not z_cols.size:
                                     step = 2
                                     break
                                 else:
-                                    row_covered[row, :] = True
-                                    col_covered[:, z_cols[0]] = False
+                                    row_covered[row] = True
+                                    col_covered[z_cols[0]] = False
 
                         if step != 1:
                             break
 
                         for row, col in zeros:
-                            if not (
-                                col_covered[row, col] | row_covered[row, col]
-                            ):
+                            if not (col_covered[col] | row_covered[row]):
                                 break
                         else:
                             step = 3
@@ -896,7 +892,7 @@ member function, such as Levenshtein."
                     z_series = []
                     for row, col in zeros:
                         if primed[row, col] and not (
-                            row_covered[row, col] | col_covered[row, col]
+                            row_covered[row] | col_covered[col]
                         ):
                             z_series.append((row, col))
                             break
@@ -922,17 +918,17 @@ member function, such as Levenshtein."
                     # uncover every row, and cover every column containing a
                     # 0*."
                     primed[:, :] = False
-                    row_covered[:, :] = False
-                    col_covered[:, :] = False
+                    row_covered[:] = False
+                    col_covered[:] = False
                     for row, col in z_series:
                         starred[row, col] = not starred[row, col]
                     for col in range(n):
                         if np.count_nonzero(starred[:, col]):
-                            col_covered[:, col] = True
+                            col_covered[col] = True
                     # 2: "If all columns are covered, the starred zeros form
                     # the desired independent set. Otherwise, return to Step
                     # 1."
-                    if np.count_nonzero(col_covered[0, :]) == n:
+                    if np.count_nonzero(col_covered) == n:
                         step = 4
                     else:
                         step = 1
@@ -944,25 +940,25 @@ member function, such as Levenshtein."
                     # then subtract h from each uncovered column."
                     h_val = float('inf')
                     for col in range(n):
-                        if not (col_covered[0, col]):
+                        if not (col_covered[col]):
                             for row in range(n):
                                 if (
-                                    not (row_covered[row, col])
+                                    not (row_covered[row])
                                     and arr[row, col] < h_val
                                 ):
                                     h_val = arr[row, col]
                     for row in range(n):
-                        if row_covered[row, 0]:
+                        if row_covered[row]:
                             arr[row, :] += h_val
                     for col in range(n):
-                        if not (col_covered[0, col]):
+                        if not (col_covered[col]):
                             arr[:, col] -= h_val
 
                     # 3: "Return to Step 1, without altering any asterisks,
                     # primes, or covered lines."
                     step = 1
 
-            for row, col in tuple(zip(*((starred).nonzero()))):
+            for row, col in tuple(zip(*(starred.nonzero()))):
                 sim = orig_sim[row, col]
                 if sim >= self.params['threshold']:
                     _assign_score(sim, row, col)
