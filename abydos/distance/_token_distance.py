@@ -34,15 +34,7 @@ from itertools import product
 from math import exp, log1p
 
 import numpy as np
-from numpy import copy as np_copy
 from numpy import zeros as np_zeros
-
-try:
-    from scipy.optimize import linear_sum_assignment
-except ImportError:  # pragma: no cover
-    # If the system lacks the scipy library, we'll fall back to our
-    # Python+Numpy implementation of the Hungarian algorithm
-    linear_sum_assignment = None
 
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
@@ -166,10 +158,6 @@ class _TokenDistance(_Distance):
                 - ``laplace`` : :math:`x+1`
                 - ``inverse`` : :math:`\frac{1}{x}`
                 - ``complement`` : :math:`n-x`, where n is the total population
-        internal_assignment_problem : bool
-            When using ``linkage`` as the intersection type (i.e. group
-            linkage), this forces use of the internal implementation to solve
-            the assignment problem, rather than scipy's linear_sum_assignment.
 
         .. versionadded:: 0.4.0
 
@@ -759,12 +747,14 @@ member function, such as Levenshtein."
 
         Most of this method is concerned with solving the assignment problem,
         in order to find the weight of the maximum weight bipartite matching.
-        If the system has SciPy installed, we use it's linear_sum_assignment
-        function to get the assignments. Otherwise, we use the Hungarian
-        algorithm of Munkres :cite:`Munkres:1957`, implemented in Python &
-        Numpy.
+        The Hungarian algorithm of Munkres :cite:`Munkres:1957`, implemented
+        below in Python & Numpy is used to solve the assignment problem since
+        it is roughly twice as fast as SciPy's implementation.
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.4.1
+            Corrected the Hungarian algorithm & optimized it so that SciPy's
+            version is no longer needed.
 
         """
         intersection = self._crisp_intersection()
@@ -773,195 +763,178 @@ member function, such as Levenshtein."
         src_only = self._src_tokens - self._tar_tokens
         tar_only = self._tar_tokens - self._src_tokens
 
-        def _assign_score(sim, row, col):
-            score = float(
-                (sim / 2)
-                * min(src_only[src_only_tok[col]], tar_only[tar_only_tok[row]])
-            )
-            intersection[src_only_tok[col]] += score
-            intersection[tar_only_tok[row]] += score
+        # Quoted text below is from Munkres (1957), cited above.
 
-        if linear_sum_assignment and not (
-            'internal_assignment_problem' in self.params
-            and self.params['internal_assignment_problem']
-        ):
-            arr = np_zeros((len(tar_only_tok), len(src_only_tok)))
+        # Pre-preliminaries: create square the matrix of scores
+        n = max(len(src_only_tok), len(tar_only_tok))
+        arr = np_zeros((n, n), dtype=float)
 
-            for col in range(len(src_only_tok)):
-                for row in range(len(tar_only_tok)):
-                    arr[row, col] = self.params['metric'].dist(
-                        src_only_tok[col], tar_only_tok[row]
-                    )
+        for col in range(len(src_only_tok)):
+            for row in range(len(tar_only_tok)):
+                arr[row, col] = self.params['metric'].dist(
+                    src_only_tok[col], tar_only_tok[row]
+                )
 
-            for row, col in zip(*linear_sum_assignment(arr)):
-                sim = 1.0 - arr[row, col]
-                if sim >= self.params['threshold']:
-                    _assign_score(sim, row, col)
-        else:
-            # Quoted text below is from Munkres (1957), cited above.
+        src_only_tok += [''] * (n - len(src_only_tok))
+        tar_only_tok += [''] * (n - len(tar_only_tok))
 
-            # Pre-preliminaries: create square the matrix of scores
-            n = max(len(src_only_tok), len(tar_only_tok))
-            arr = np_zeros((n, n), dtype=float)
+        starred = np.zeros((n, n), dtype=np.bool)
+        primed = np.zeros((n, n), dtype=np.bool)
+        row_covered = np.zeros(n, dtype=np.bool)
+        col_covered = np.zeros(n, dtype=np.bool)
 
-            for col in range(len(src_only_tok)):
-                for row in range(len(tar_only_tok)):
-                    arr[row, col] = self.params['metric'].dist(
-                        src_only_tok[col], tar_only_tok[row]
-                    )
+        orig_sim = 1 - np.copy(arr)
+        # Preliminaries:
+        # P: "No lines are covered; no zeros are starred or primed."
+        # P: "Consider a row of matrix A; subtract from each element in
+        # this row the smallest element of this row. Do the same for each
+        # row of A."
+        arr -= arr.min(axis=1, keepdims=True)
+        # P: "Then consider each column of the resulting matrix and
+        # subtract from each column its smallest entry."
+        arr -= arr.min(axis=0, keepdims=True)
 
-            src_only_tok += [''] * (n - len(src_only_tok))
-            tar_only_tok += [''] * (n - len(tar_only_tok))
+        # P: "Consider a zero Z of the matrix. If there is no starred zero
+        # in its row and none in its column, star Z. Repeat, considering
+        # each zero in the matrix in turn. Then cover every column
+        # containing a starred zero.
+        for col in range(n):
+            for row in range(n):
+                if arr[row, col] == 0:
+                    if (
+                        np.count_nonzero(starred[row, :]) == 0
+                        and np.count_nonzero(starred[:, col]) == 0
+                    ):
+                        starred[row, col] = True
+                        col_covered[col] = True
 
-            starred = np.zeros((n, n), dtype=np.bool)
-            primed = np.zeros((n, n), dtype=np.bool)
-            row_covered = np.zeros(n, dtype=np.bool)
-            col_covered = np.zeros(n, dtype=np.bool)
+        step = 1
+        # This is the simple case where independent assignments are obvious
+        # and found without the rest of the algorithm.
+        if np.count_nonzero(col_covered) == n:
+            step = 4
 
-            orig_sim = 1 - np.copy(arr)
-            # Preliminaries:
-            # P: "No lines are covered; no zeros are starred or primed."
-            # P: "Consider a row of matrix A; subtract from each element in
-            # this row the smallest element of this row. Do the same for each
-            # row of A."
-            arr -= arr.min(axis=1, keepdims=True)
-            # P: "Then consider each column of the resulting matrix and
-            # subtract from each column its smallest entry."
-            arr -= arr.min(axis=0, keepdims=True)
-
-            # P: "Consider a zero Z of the matrix. If there is no starred zero
-            # in its row and none in its column, star Z. Repeat, considering
-            # each zero in the matrix in turn. Then cover every column
-            # containing a starred zero.
-            for col in range(n):
-                for row in range(n):
-                    if arr[row, col] == 0:
-                        if (
-                            np.count_nonzero(starred[row, :]) == 0
-                            and np.count_nonzero(starred[:, col]) == 0
-                        ):
-                            starred[row, col] = True
-                            col_covered[col] = True
-
-            step = 1
-            # This is the simple case where independent assignments are obvious
-            # and found without the rest of the algorithm.
-            if np.count_nonzero(col_covered) == n:
-                step = 4
-
-            while step < 4:
-                if step == 1:
-                    # Step 1:
-                    # 1: "Choose a non-covered zero and prime it. Consider the
-                    # row containing it. If there is no starred zero in this
-                    # row, go at once to Step 2. If there is a starred zero Z
-                    # in this row, cover this row and uncover the column of Z."
-                    # 1: Repeat until all zeros are covered. Go to Step 3."
-                    zeros = tuple(zip(*((arr == 0).nonzero())))
-                    while step == 1:
-                        for row, col in zeros:
-                            if not (col_covered[col] | row_covered[row]):
-                                primed[row, col] = True
-                                z_cols = (starred[row, :]).nonzero()[0]
-                                if not z_cols.size:
-                                    step = 2
-                                    break
-                                else:
-                                    row_covered[row] = True
-                                    col_covered[z_cols[0]] = False
-
-                        if step != 1:
-                            break
-
-                        for row, col in zeros:
-                            if not (col_covered[col] | row_covered[row]):
-                                break
-                        else:
-                            step = 3
-
-                if step == 2:
-                    # Step 2:
-                    # 2: "There is a sequence of alternating starred and primed
-                    # zeros, constructed as follows: Let Z_0 denote the
-                    # uncovered 0'. [There is only one.] Let Z_1 denote the 0*
-                    # in Z_0's column (if any). Let Z_2 denote the 0' in Z_1's
-                    # row (we must prove that it exists). Let Z_3 denote the 0*
-                    # in Z_2's column (if any). Similarly continue until the
-                    # sequence stops at a 0', Z_{2k}, which has no 0* in its
-                    # column."
-                    z_series = []
+        while step < 4:
+            if step == 1:
+                # Step 1:
+                # 1: "Choose a non-covered zero and prime it. Consider the
+                # row containing it. If there is no starred zero in this
+                # row, go at once to Step 2. If there is a starred zero Z
+                # in this row, cover this row and uncover the column of Z."
+                # 1: Repeat until all zeros are covered. Go to Step 3."
+                zeros = tuple(zip(*((arr == 0).nonzero())))
+                while step == 1:
                     for row, col in zeros:
-                        if primed[row, col] and not (
-                            row_covered[row] | col_covered[col]
-                        ):
-                            z_series.append((row, col))
-                            break
-                    col = z_series[-1][1]
-                    while True:
-                        row = tuple(
-                            set((arr[:, col] == 0).nonzero()[0])
-                            & set((starred[:, col]).nonzero()[0])
-                        )
-                        if row:
-                            row = row[0]
-                            z_series.append((row, col))
-                            col = tuple(
-                                set((arr[row, :] == 0).nonzero()[0])
-                                & set((primed[row, :]).nonzero()[0])
-                            )[0]
-                            z_series.append((row, col))
-                        else:
-                            break
+                        if not (col_covered[col] | row_covered[row]):
+                            primed[row, col] = True
+                            z_cols = (starred[row, :]).nonzero()[0]
+                            if not z_cols.size:
+                                step = 2
+                                break
+                            else:
+                                row_covered[row] = True
+                                col_covered[z_cols[0]] = False
 
-                    # 2: "Unstar each starred zero of the sequence and star
-                    # each primed zero of the sequence. Erase all primes,
-                    # uncover every row, and cover every column containing a
-                    # 0*."
-                    primed[:, :] = False
-                    row_covered[:] = False
-                    col_covered[:] = False
-                    for row, col in z_series:
-                        starred[row, col] = not starred[row, col]
-                    for col in range(n):
-                        if np.count_nonzero(starred[:, col]):
-                            col_covered[col] = True
-                    # 2: "If all columns are covered, the starred zeros form
-                    # the desired independent set. Otherwise, return to Step
-                    # 1."
-                    if np.count_nonzero(col_covered) == n:
-                        step = 4
+                    if step != 1:
+                        break
+
+                    for row, col in zeros:
+                        if not (col_covered[col] | row_covered[row]):
+                            break
                     else:
-                        step = 1
+                        step = 3
 
-                if step == 3:
-                    # Step 3:
-                    # 3: "Let h denote the smallest non-covered element of the
-                    # matrix; it will be positive. Add h to each covered row;
-                    # then subtract h from each uncovered column."
-                    h_val = float('inf')
-                    for col in range(n):
-                        if not (col_covered[col]):
-                            for row in range(n):
-                                if (
-                                    not (row_covered[row])
-                                    and arr[row, col] < h_val
-                                ):
-                                    h_val = arr[row, col]
-                    for row in range(n):
-                        if row_covered[row]:
-                            arr[row, :] += h_val
-                    for col in range(n):
-                        if not (col_covered[col]):
-                            arr[:, col] -= h_val
+            if step == 2:
+                # Step 2:
+                # 2: "There is a sequence of alternating starred and primed
+                # zeros, constructed as follows: Let Z_0 denote the
+                # uncovered 0'. [There is only one.] Let Z_1 denote the 0*
+                # in Z_0's column (if any). Let Z_2 denote the 0' in Z_1's
+                # row (we must prove that it exists). Let Z_3 denote the 0*
+                # in Z_2's column (if any). Similarly continue until the
+                # sequence stops at a 0', Z_{2k}, which has no 0* in its
+                # column."
+                z_series = []
+                for row, col in zeros:
+                    if primed[row, col] and not (
+                        row_covered[row] | col_covered[col]
+                    ):
+                        z_series.append((row, col))
+                        break
+                col = z_series[-1][1]
+                while True:
+                    row = tuple(
+                        set((arr[:, col] == 0).nonzero()[0])
+                        & set((starred[:, col]).nonzero()[0])
+                    )
+                    if row:
+                        row = row[0]
+                        z_series.append((row, col))
+                        col = tuple(
+                            set((arr[row, :] == 0).nonzero()[0])
+                            & set((primed[row, :]).nonzero()[0])
+                        )[0]
+                        z_series.append((row, col))
+                    else:
+                        break
 
-                    # 3: "Return to Step 1, without altering any asterisks,
-                    # primes, or covered lines."
+                # 2: "Unstar each starred zero of the sequence and star
+                # each primed zero of the sequence. Erase all primes,
+                # uncover every row, and cover every column containing a
+                # 0*."
+                primed[:, :] = False
+                row_covered[:] = False
+                col_covered[:] = False
+                for row, col in z_series:
+                    starred[row, col] = not starred[row, col]
+                for col in range(n):
+                    if np.count_nonzero(starred[:, col]):
+                        col_covered[col] = True
+                # 2: "If all columns are covered, the starred zeros form
+                # the desired independent set. Otherwise, return to Step
+                # 1."
+                if np.count_nonzero(col_covered) == n:
+                    step = 4
+                else:
                     step = 1
 
-            for row, col in tuple(zip(*(starred.nonzero()))):
-                sim = orig_sim[row, col]
-                if sim >= self.params['threshold']:
-                    _assign_score(sim, row, col)
+            if step == 3:
+                # Step 3:
+                # 3: "Let h denote the smallest non-covered element of the
+                # matrix; it will be positive. Add h to each covered row;
+                # then subtract h from each uncovered column."
+                h_val = float('inf')
+                for col in range(n):
+                    if not (col_covered[col]):
+                        for row in range(n):
+                            if (
+                                not (row_covered[row])
+                                and arr[row, col] < h_val
+                            ):
+                                h_val = arr[row, col]
+                for row in range(n):
+                    if row_covered[row]:
+                        arr[row, :] += h_val
+                for col in range(n):
+                    if not (col_covered[col]):
+                        arr[:, col] -= h_val
+
+                # 3: "Return to Step 1, without altering any asterisks,
+                # primes, or covered lines."
+                step = 1
+
+        for row, col in tuple(zip(*(starred.nonzero()))):
+            sim = orig_sim[row, col]
+            if sim >= self.params['threshold']:
+                score = float(
+                    (sim / 2)
+                    * min(
+                        src_only[src_only_tok[col]],
+                        tar_only[tar_only_tok[row]],
+                    )
+                )
+                intersection[src_only_tok[col]] += score
+                intersection[tar_only_tok[row]] += score
 
         return intersection
 
