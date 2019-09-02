@@ -58,9 +58,6 @@ class TokenDistanceTestCases(unittest.TestCase):
         intersection_type='fuzzy', metric=DamerauLevenshtein(), threshold=0.4
     )
     cmp_j_linkage = Jaccard(intersection_type='linkage')
-    cmp_j_linkage_int = Jaccard(
-        intersection_type='linkage', internal_assignment_problem=True
-    )
 
     def test_crisp_jaccard_sim(self):
         """Test abydos.distance.Jaccard.sim (crisp)."""
@@ -168,33 +165,6 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_j_linkage.sim('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(
             self.cmp_j_linkage.sim('ATCAACGAGT', 'AACGATTAG'), 0.68
-        )
-
-        # Base cases
-        self.assertEqual(self.cmp_j_linkage_int.sim('', ''), 1.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('abc', 'abc'), 1.0)
-        self.assertEqual(
-            self.cmp_j_linkage_int.sim('abcd', 'efgh'), 0.1111111111111111
-        )
-
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Nigel', 'Niall'), 0.5
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Niall', 'Nigel'), 0.5
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Colin', 'Coiln'), 0.6
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Coiln', 'Colin'), 0.6
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('ATCAACGAGT', 'AACGATTAG'), 0.68
         )
 
         self.assertAlmostEqual(
