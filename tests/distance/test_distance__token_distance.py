@@ -347,12 +347,13 @@ class TokenDistanceTestCases(unittest.TestCase):
         sm._tokenize('ATCAACGAGT', 'AACGATTAG')  # noqa: SF01
         self.assertEqual(sm._total_complement_card(), 61)  # noqa: SF01
 
-        jac = Jaccard(
-            intersection_type='linkage', internal_assignment_problem=True
-        )
-        self.assertAlmostEqual(jac.sim('abandonned', 'abandoned'), 1.0)
         self.assertAlmostEqual(
-            jac.sim('abundacies', 'abundances'), 0.6296296296296297
+            self.cmp_j_linkage.sim('abandonned', 'abandoned'),
+            0.9090909090909091,
+        )
+        self.assertAlmostEqual(
+            self.cmp_j_linkage.sim('abundacies', 'abundances'),
+            0.6923076923076923,
         )
 
         # Some additional constructors needed to complete test coverage
