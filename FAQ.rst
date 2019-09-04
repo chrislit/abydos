@@ -63,6 +63,18 @@ A. Abydos is a collection of algorithms with common class & function
    similarity measures, they don't allow for tunable edit costs or using
    the tokenizer of your choice.
 
+Q. Are there similar projects for languages other than Python?
+
+A. Yes, there are libraries such as:
+
+    - Talisman_ for JavaScript
+    - Phonics_ for R (phonetic algorithms)
+    - stringmetric_ for Scala
+
+.. _Talisman: https://github.com/Yomguithereal/talisman
+.. _Phonics: https://github.com/howardjp/phonics
+.. _stringmetric: https://github.com/rockymadden/stringmetric
+
 Q. Are these really Frequently Asked Questions?
 
 A. No. Most of these questions have never been explicitly asked.
