@@ -29,7 +29,7 @@ from __future__ import (
 )
 
 from collections import Counter
-from math import exp, log1p
+from math import exp, log1p, log2
 
 __all__ = ['_Tokenizer']
 
@@ -55,6 +55,8 @@ class _Tokenizer(object):
                    length + 1.
                 - 'length-exp' : Each token has weight equal to e raised to its
                    length.
+                - 'entropy' : Weights are scaled to the (log_2) information
+                  entropy of each key's frequency.
                 - a callable function : The function is applied to each value
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
@@ -86,7 +88,7 @@ class _Tokenizer(object):
 
         .. versionadded:: 0.4.0
         .. versionchanged:: 0.4.1
-            Added 'length' and related scalers
+            Added 'length', 'entropy', and related scalers
 
         """
         if string is not None:
@@ -110,6 +112,15 @@ class _Tokenizer(object):
                 self._ordered_tokens, self._ordered_weights
             ):
                 self._tokens[token] += weight
+        elif self._scaler == 'entropy':
+            counts = Counter(self._ordered_tokens)
+            n = len(self._ordered_tokens)
+            self._tokens = {
+                key: -(val / n) * log2(val / n) for key, val in counts.items()
+            }
+            self._ordered_weights = [
+                self._tokens[tok] / counts[tok] for tok in self._ordered_tokens
+            ]
         else:
             self._tokens = Counter(self._ordered_tokens)
 
