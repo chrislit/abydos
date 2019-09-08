@@ -454,7 +454,8 @@ class _TokenDistance(_Distance):
             return (
                 self._soft_tar_only
                 + self._soft_src_only
-                + 2 * self._soft_intersection_precalc
+                + self._soft_intersection_precalc
+                + self._soft_intersection_precalc
             )
         return self._src_tokens + self._tar_tokens
 
