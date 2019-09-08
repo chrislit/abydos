@@ -384,6 +384,17 @@ class TokenDistanceTestCases(unittest.TestCase):
             Jaccard(tokenizer=CharacterTokenizer()).sim('abc', 'abcd'), 0.75
         )
 
+        cmp_j_soft = Jaccard(intersection_type='soft')
+        self.assertEqual(cmp_j_soft._src_card(), 0)
+        self.assertEqual(cmp_j_soft._tar_card(), 0)
+        self.assertEqual(cmp_j_soft._src_only(), Counter())
+        self.assertEqual(cmp_j_soft._tar_only(), Counter())
+        cmp_j_soft.sim('abcd', 'abcde')
+        self.assertEqual(cmp_j_soft._src_card(), 5)
+        self.assertEqual(cmp_j_soft._tar_card(), 6)
+        self.assertEqual(cmp_j_soft._src_only(), Counter({'#': 0.5}))
+        self.assertEqual(cmp_j_soft._tar_only(), Counter({'e#': 1, 'e': 0.5}))
+
 
 if __name__ == '__main__':
     unittest.main()
