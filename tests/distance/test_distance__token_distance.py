@@ -390,6 +390,8 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertEqual(cmp_j_soft._src_only(), Counter())
         self.assertEqual(cmp_j_soft._tar_only(), Counter())
         self.assertEqual(cmp_j_soft._total(), Counter())
+        self.assertEqual(cmp_j_soft._union(), Counter())
+        self.assertEqual(cmp_j_soft._difference(), Counter())
         cmp_j_soft.sim('abcd', 'abcde')
         self.assertEqual(cmp_j_soft._src_card(), 5)
         self.assertEqual(cmp_j_soft._tar_card(), 6)
@@ -409,6 +411,24 @@ class TokenDistanceTestCases(unittest.TestCase):
                     'd': 1.0,
                 }
             ),
+        )
+        self.assertEqual(
+            cmp_j_soft._union(),
+            Counter(
+                {
+                    'e#': 1,
+                    'e': 0.5,
+                    '#': 0.5,
+                    '$a': 1,
+                    'ab': 1,
+                    'bc': 1,
+                    'cd': 1,
+                    'd': 0.5,
+                }
+            ),
+        )
+        self.assertEqual(
+            cmp_j_soft._difference(), Counter({'#': 0.5, 'e#': -1, 'e': -0.5})
         )
 
 
