@@ -856,7 +856,7 @@ member function, such as Levenshtein."
                 # sequence stops at a 0', Z_{2k}, which has no 0* in its
                 # column."
                 z_series = []
-                for row, col in zeros:
+                for row, col in zeros:  # pragma: no branch
                     if primed[row, col] and not (
                         row_covered[row] | col_covered[col]
                     ):

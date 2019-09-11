@@ -111,6 +111,12 @@ class TokenDistanceTestCases(unittest.TestCase):
             ).sim('junior system analyst', 'systems analyst'),
             0.6190476190476191,
         )
+        self.assertAlmostEqual(
+            Jaccard(
+                intersection_type='soft', tokenizer=WhitespaceTokenizer()
+            ).sim('systems analyst', 'junior system analyst',),
+            0.6190476190476191,
+        )
 
         with self.assertRaises(TypeError):
             Jaccard(
