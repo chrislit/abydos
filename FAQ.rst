@@ -2,9 +2,8 @@ FAQ
 ===
 
 
-Why is the library licensed under GPL3+? Can you change the license to
-BSD/MIT/other?
-----------------------------------------------------------------------
+Why is the library licensed under GPL3+? Can you change the license to BSD/MIT/other?
+-------------------------------------------------------------------------------------
 
 GPL3 is the only license compatible with all of the various parts of
 Abydos that have been ported to Python from other languages. For example,
