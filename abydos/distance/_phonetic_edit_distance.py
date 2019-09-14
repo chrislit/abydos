@@ -50,7 +50,7 @@ class PhoneticEditDistance(Levenshtein):
     def __init__(
         self,
         mode='lev',
-        cost=(1, 1, 1, 0.1),
+        cost=(1, 1, 1, 0.33333),
         normalizer=max,
         weights=None,
         **kwargs
@@ -72,8 +72,8 @@ class PhoneticEditDistance(Levenshtein):
         cost : tuple
             A 4-tuple representing the cost of the four possible edits:
             inserts, deletes, substitutions, and transpositions, respectively
-            (by default: (1, 1, 1, 0.1)). Note that transpositions cost a
-            relatively low 0.1. If this were 1.0, no phones would ever be
+            (by default: (1, 1, 1, 0.33333)). Note that transpositions cost a
+            relatively low 0.33333. If this were 1.0, no phones would ever be
             transposed under the normal weighting, since even quite dissimilar
             phones such as [a] and [p] still agree in nearly 63% of their
             features.
