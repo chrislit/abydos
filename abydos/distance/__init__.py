@@ -92,8 +92,11 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Bennet's S correlation (:py:class:`.Bennet`)
     - Braun-Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
+    - Cao similarity (:py:class:`.Cao`)
+    - Chao similarity (:py:class:`.Chao`)
     - Chebyshev distance (:py:class:`.Chebyshev`)
     - Chord distance (:py:class:`.Chord`)
+    - Clark distance (:py:class:`.Clark`)
     - Clement similarity (:py:class:`.Clement`)
     - Cohen's Kappa similarity (:py:class:`.CohenKappa`)
     - Cole correlation (:py:class:`.Cole`)
@@ -132,6 +135,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Goodman & Kruskal's Tau A similarity (:py:class:`.GoodmanKruskalTauA`)
     - Goodman & Kruskal's Tau B similarity (:py:class:`.GoodmanKruskalTauB`)
     - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
+    - Gower's distance (:py:class:`.Gower`)
+    - Gower's Alternative distance (:py:class:`.GowerAlternative`)
     - Guttman Lambda A similarity (:py:class:`.GuttmanLambdaA`)
     - Guttman Lambda B similarity (:py:class:`.GuttmanLambdaB`)
     - Gwet's AC correlation (:py:class:`.GwetAC`)
@@ -140,6 +145,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hassanat distance (:py:class:`.Hassanat`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hellinger distance (:py:class:`.Hellinger`)
+    - Horn-Marisita similarity (:py:class:`.HornMarisita`)
     - Hurlbert correlation (:py:class:`.Hurlbert`)
     - Jaccard similarity (:py:class:`.Jaccard`) &
       Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
@@ -168,6 +174,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Lorentzian distance (:py:class:`.Lorentzian`)
     - Maarel correlation (:py:class:`.Maarel`)
     - Manhattan distance (:py:class:`.Manhattan`)
+    - Marisita similarity (:py:class:`.Marisita`)
     - marking distance (:py:class:`.Marking`)
     - marking metric (:py:class:`.MarkingMetric`)
     - MASI similarity (:py:class:`.MASI`)
@@ -178,6 +185,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - mean squared contingency correlation (:py:class:`.MSContingency`)
     - Michael similarity (:py:class:`.Michael`)
     - Michelet similarity (:py:class:`.Michelet`)
+    - Millar distance (:py:class:`.Millar`)
     - Minkowski distance (:py:class:`.Minkowski`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Mutual Information similarity (:py:class:`.MutualInformation`)
@@ -190,6 +198,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Pearson's Phi correlation (:py:class:`.PearsonPhi`)
     - Peirce correlation (:py:class:`.Peirce`)
     - q-gram distance (:py:class:`.QGram`)
+    - Raup-Crick distance (:py:class:`.RaupCrick`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
     - Russell & Rao similarity (:py:class:`.RussellRao`)
@@ -236,6 +245,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Warrens III correlation (:py:class:`.WarrensIII`)
     - Warrens IV similarity (:py:class:`.WarrensIV`)
     - Warrens V similarity (:py:class:`.WarrensV`)
+    - Weitzman distance (:py:class:`.Weitzman`)
     - Whittaker distance (:py:class:`.Whittaker`)
     - Yates' Chi-Squared similarity (:py:class:`.YatesChiSquared`)
     - Yule's Q correlation (:py:class:`.YuleQ`)
@@ -401,8 +411,11 @@ from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
+from ._cao import Cao
+from ._chao import Chao
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
+from ._clark import Clark
 from ._clement import Clement
 from ._cohen_kappa import CohenKappa
 from ._cole import Cole
@@ -459,6 +472,8 @@ from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
 from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
 from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
 from ._gotoh import Gotoh, gotoh
+from ._gower import Gower
+from ._gower_alternative import GowerAlternative
 from ._gower_legendre import GowerLegendre
 from ._guth import Guth
 from ._guttman_lambda_a import GuttmanLambdaA
@@ -471,6 +486,7 @@ from ._hassanat import Hassanat
 from ._hawkins_dotson import HawkinsDotson
 from ._hellinger import Hellinger
 from ._higuera_mico import HigueraMico
+from ._horn_marisita import HornMarisita
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
 from ._inclusion import Inclusion
@@ -517,6 +533,7 @@ from ._lig3 import LIG3
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._marisita import Marisita
 from ._marking import Marking
 from ._marking_metric import MarkingMetric
 from ._masi import MASI
@@ -526,6 +543,7 @@ from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
 from ._meta_levenshtein import MetaLevenshtein
 from ._michelet import Michelet
+from ._millar import Millar
 from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
@@ -567,6 +585,7 @@ from ._ratcliff_obershelp import (
     dist_ratcliff_obershelp,
     sim_ratcliff_obershelp,
 )
+from ._raup_crick import RaupCrick
 from ._rees_levenshtein import ReesLevenshtein
 from ._relaxed_hamming import RelaxedHamming
 from ._roberts import Roberts
@@ -637,6 +656,7 @@ from ._warrens_iii import WarrensIII
 from ._warrens_iv import WarrensIV
 from ._warrens_v import WarrensV
 from ._weighted_jaccard import WeightedJaccard
+from ._weitzman import Weitzman
 from ._whittaker import Whittaker
 from ._yates_chi_squared import YatesChiSquared
 from ._yjhhr import YJHHR
@@ -720,9 +740,12 @@ __all__ = [
     'Bennet',
     'BraunBlanquet',
     'Canberra',
+    'Cao',
+    'Chao',
     'Chebyshev',
     'chebyshev',
     'Chord',
+    'Clark',
     'Clement',
     'CohenKappa',
     'Cole',
@@ -767,6 +790,8 @@ __all__ = [
     'GoodmanKruskalLambdaR',
     'GoodmanKruskalTauA',
     'GoodmanKruskalTauB',
+    'Gower',
+    'GowerAlternative',
     'GowerLegendre',
     'GuttmanLambdaA',
     'GuttmanLambdaB',
@@ -776,6 +801,7 @@ __all__ = [
     'Hassanat',
     'HawkinsDotson',
     'Hellinger',
+    'HornMarisita',
     'Hurlbert',
     'Jaccard',
     'dist_jaccard',
@@ -805,11 +831,13 @@ __all__ = [
     'KulczynskiII',
     'Lorentzian',
     'Maarel',
+    'Marisita',
     'Manhattan',
     'manhattan',
     'dist_manhattan',
     'sim_manhattan',
     'Michelet',
+    'Millar',
     'Minkowski',
     'minkowski',
     'dist_minkowski',
@@ -833,6 +861,7 @@ __all__ = [
     'PearsonPhi',
     'Peirce',
     'QGram',
+    'RaupCrick',
     'ReesLevenshtein',
     'RogersTanimoto',
     'RogotGoldberg',
@@ -881,6 +910,7 @@ __all__ = [
     'WarrensIV',
     'WarrensV',
     'WeightedJaccard',
+    'Weitzman',
     'Whittaker',
     'YatesChiSquared',
     'YuleQ',
