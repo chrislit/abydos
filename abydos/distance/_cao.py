@@ -36,7 +36,7 @@ __all__ = ['Cao']
 class Cao(_Distance):
     r"""Cao similarity.
 
-    Cao similarity :cite:`CITATION`
+    Cao similarity :cite:`Cao:1997`
 
     .. versionadded:: 0.4.1
     """
