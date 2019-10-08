@@ -36,7 +36,7 @@ __all__ = ['Clark']
 class Clark(_Distance):
     r"""Clark distance.
 
-    Clark distance :cite:`CITATION`
+    Clark distance :cite:`Clark:1952`
 
     .. versionadded:: 0.4.1
     """
