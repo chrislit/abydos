@@ -36,7 +36,7 @@ __all__ = ['Gower']
 class Gower(_Distance):
     r"""Gower distance.
 
-    Gower distance :cite:`CITATION`
+    Gower distance :cite:`Gower:1971`
 
     .. versionadded:: 0.4.1
     """
