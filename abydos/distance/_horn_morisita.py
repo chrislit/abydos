@@ -36,7 +36,7 @@ __all__ = ['HornMorisita']
 class HornMorisita(_Distance):
     r"""Horn-Morisita similarity.
 
-    Horn-Morisita similarity :cite:`CITATION`
+    Horn-Morisita similarity :cite:`Horn:1966`
 
     .. versionadded:: 0.4.1
     """
