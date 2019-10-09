@@ -145,7 +145,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hassanat distance (:py:class:`.Hassanat`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hellinger distance (:py:class:`.Hellinger`)
-    - Horn-Marisita similarity (:py:class:`.HornMarisita`)
+    - Horn-Morisita similarity (:py:class:`.HornMorisita`)
     - Hurlbert correlation (:py:class:`.Hurlbert`)
     - Jaccard similarity (:py:class:`.Jaccard`) &
       Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
@@ -174,7 +174,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Lorentzian distance (:py:class:`.Lorentzian`)
     - Maarel correlation (:py:class:`.Maarel`)
     - Manhattan distance (:py:class:`.Manhattan`)
-    - Marisita similarity (:py:class:`.Marisita`)
+    - Morisita similarity (:py:class:`.Morisita`)
     - marking distance (:py:class:`.Marking`)
     - marking metric (:py:class:`.MarkingMetric`)
     - MASI similarity (:py:class:`.MASI`)
@@ -486,7 +486,7 @@ from ._hassanat import Hassanat
 from ._hawkins_dotson import HawkinsDotson
 from ._hellinger import Hellinger
 from ._higuera_mico import HigueraMico
-from ._horn_marisita import HornMarisita
+from ._horn_morisita import HornMorisita
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
 from ._inclusion import Inclusion
@@ -533,7 +533,7 @@ from ._lig3 import LIG3
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
-from ._marisita import Marisita
+from ._morisita import Morisita
 from ._marking import Marking
 from ._marking_metric import MarkingMetric
 from ._masi import MASI
@@ -801,7 +801,7 @@ __all__ = [
     'Hassanat',
     'HawkinsDotson',
     'Hellinger',
-    'HornMarisita',
+    'HornMorisita',
     'Hurlbert',
     'Jaccard',
     'dist_jaccard',
@@ -831,7 +831,7 @@ __all__ = [
     'KulczynskiII',
     'Lorentzian',
     'Maarel',
-    'Marisita',
+    'Morisita',
     'Manhattan',
     'manhattan',
     'dist_manhattan',

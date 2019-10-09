@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._horn_marisita.
+"""abydos.distance._horn_morisita.
 
-Horn-Marisita similarity
+Horn-Morisita similarity
 """
 
 from __future__ import (
@@ -30,19 +30,19 @@ from __future__ import (
 
 from ._distance import _Distance
 
-__all__ = ['HornMarisita']
+__all__ = ['HornMorisita']
 
 
-class HornMarisita(_Distance):
-    r"""Horn-Marisita similarity.
+class HornMorisita(_Distance):
+    r"""Horn-Morisita similarity.
 
-    Horn-Marisita similarity :cite:`CITATION`
+    Horn-Morisita similarity :cite:`CITATION`
 
     .. versionadded:: 0.4.1
     """
 
     def __init__(self, **kwargs):
-        """Initialize HornMarisita instance.
+        """Initialize HornMorisita instance.
 
         Parameters
         ----------
@@ -53,10 +53,10 @@ class HornMarisita(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        super(HornMarisita, self).__init__(**kwargs)
+        super(HornMorisita, self).__init__(**kwargs)
 
     def sim(self, src, tar):
-        """Return the Horn-Marisita similarity of two strings.
+        """Return the Horn-Morisita similarity of two strings.
 
         Parameters
         ----------
@@ -68,11 +68,11 @@ class HornMarisita(_Distance):
         Returns
         -------
         float
-            Horn-Marisita similarity
+            Horn-Morisita similarity
 
         Examples
         --------
-        >>> cmp = HornMarisita()
+        >>> cmp = HornMorisita()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._marisita.
+"""abydos.distance._morisita.
 
-Marisita similarity
+Morisita similarity
 """
 
 from __future__ import (
@@ -30,19 +30,19 @@ from __future__ import (
 
 from ._distance import _Distance
 
-__all__ = ['Marisita']
+__all__ = ['Morisita']
 
 
-class Marisita(_Distance):
-    r"""Marisita similarity.
+class Morisita(_Distance):
+    r"""Morisita similarity.
 
-    Marisita similarity :cite:`CITATION`
+    Morisita similarity :cite:`CITATION`
 
     .. versionadded:: 0.4.1
     """
 
     def __init__(self, **kwargs):
-        """Initialize Marisita instance.
+        """Initialize Morisita instance.
 
         Parameters
         ----------
@@ -53,10 +53,10 @@ class Marisita(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        super(Marisita, self).__init__(**kwargs)
+        super(Morisita, self).__init__(**kwargs)
 
     def sim(self, src, tar):
-        """Return the Marisita similarity of two strings.
+        """Return the Morisita similarity of two strings.
 
         Parameters
         ----------
@@ -68,11 +68,11 @@ class Marisita(_Distance):
         Returns
         -------
         float
-            Marisita similarity
+            Morisita similarity
 
         Examples
         --------
-        >>> cmp = Marisita()
+        >>> cmp = Morisita()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')
