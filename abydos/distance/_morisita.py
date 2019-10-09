@@ -36,7 +36,7 @@ __all__ = ['Morisita']
 class Morisita(_Distance):
     r"""Morisita similarity.
 
-    Morisita similarity :cite:`CITATION`
+    Morisita similarity :cite:`Morisita:1962`
 
     .. versionadded:: 0.4.1
     """
