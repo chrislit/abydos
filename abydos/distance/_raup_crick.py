@@ -36,7 +36,7 @@ __all__ = ['RaupCrick']
 class RaupCrick(_Distance):
     r"""Raup-Crick distance.
 
-    Raup-Crick distance :cite:`CITATION`
+    Raup-Crick distance :cite:`Raup:1979`
 
     .. versionadded:: 0.4.1
     """
