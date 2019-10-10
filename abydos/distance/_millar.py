@@ -36,7 +36,7 @@ __all__ = ['Millar']
 class Millar(_Distance):
     r"""Millar distance.
 
-    Millar distance :cite:`CITATION`
+    Millar distance :cite:`Anderson:2004`
 
     .. versionadded:: 0.4.1
     """
