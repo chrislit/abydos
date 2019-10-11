@@ -36,7 +36,7 @@ __all__ = ['Weitzman']
 class Weitzman(_Distance):
     r"""Weitzman distance.
 
-    Weitzman distance :cite:`CITATION`
+    Weitzman distance :cite:`Weitzman:1970`
 
     .. versionadded:: 0.4.1
     """
