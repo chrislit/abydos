@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from ._token_distance import _TokenDistance
 
 __all__ = ['Clark']
 
 
-class Clark(_Distance):
+class Clark(_TokenDistance):
     r"""Clark distance.
 
     Clark distance :cite:`Clark:1952`

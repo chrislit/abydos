@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from ._token_distance import _TokenDistance
 
 __all__ = ['Gower']
 
 
-class Gower(_Distance):
+class Gower(_TokenDistance):
     r"""Gower distance.
 
     Gower distance :cite:`Gower:1971`

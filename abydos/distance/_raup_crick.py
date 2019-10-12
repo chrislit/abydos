@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from ._token_distance import _TokenDistance
 
 __all__ = ['RaupCrick']
 
 
-class RaupCrick(_Distance):
+class RaupCrick(_TokenDistance):
     r"""Raup-Crick distance.
 
     Raup-Crick distance :cite:`Raup:1979`

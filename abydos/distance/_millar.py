@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from ._token_distance import _TokenDistance
 
 __all__ = ['Millar']
 
 
-class Millar(_Distance):
+class Millar(_TokenDistance):
     r"""Millar distance.
 
     Millar distance :cite:`Anderson:2004`

@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from ._token_distance import _TokenDistance
 
 __all__ = ['Cao']
 
 
-class Cao(_Distance):
+class Cao(_TokenDistance):
     r"""Cao similarity.
 
     Cao similarity :cite:`Cao:1997`

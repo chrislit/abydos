@@ -28,12 +28,12 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from ._token_distance import _TokenDistance
 
 __all__ = ['HornMorisita']
 
 
-class HornMorisita(_Distance):
+class HornMorisita(_TokenDistance):
     r"""Horn-Morisita similarity.
 
     Horn-Morisita similarity :cite:`Horn:1966`
