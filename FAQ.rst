@@ -28,7 +28,7 @@ collection of tokenizers, corpus classes, compression algorithms, &
 phonetics functions support these and afford greater customization.
 
 Can you add this new feature?
----------------
+-----------------------------
 
 Maybe. Open an issue at https://github.com/chrislit/abydos/issues and
 propose your new feature.
@@ -79,6 +79,26 @@ Yes, there are libraries such as:
 .. _Talisman: https://github.com/Yomguithereal/talisman
 .. _Phonics: https://github.com/howardjp/phonics
 .. _stringmetric: https://github.com/rockymadden/stringmetric
+
+What is the process for adding a new class to the library?
+----------------------------------------------------------
+
+The process of adding a new class follows roughly the following steps:
+
+    - Discover that a new (unimplemented) measure/algorithm/method exists
+    - Locate the original source of the algorithm (a journal article, a
+      reference implementation, etc.). And save the reference to it in
+      docs/abydos.bib.
+        - If the original source cannot be located for reference, use an
+          adequate secondary source and add its reference info to
+          docs/abydos.bib.
+    - Implement the class based on its description/reference implementation.
+    - Create a test class and add all examples and test cases from the
+      original source. Add other reliable test cases from other sources, if
+      they are available.
+    - Ensure that the class passes all test cases.
+    - Add test cases, as necessary, until test coverage reaches 100%, or as
+      close to 100% as possible.
 
 Are these really Frequently Asked Questions?
 --------------------------------------------
