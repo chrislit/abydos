@@ -18,7 +18,7 @@
 
 """abydos.distance._cao.
 
-Cao similarity
+Cao's CY dissimilarity.
 """
 
 from __future__ import (
@@ -28,15 +28,17 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log10
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Cao']
 
 
 class Cao(_TokenDistance):
-    r"""Cao similarity.
+    r"""Cao's CY dissimilarity.
 
-    Cao similarity :cite:`Cao:1997`
+    Cao dissimilarity :cite:`Cao:1997`
 
     .. versionadded:: 0.4.1
     """
@@ -56,7 +58,7 @@ class Cao(_TokenDistance):
         super(Cao, self).__init__(**kwargs)
 
     def sim(self, src, tar):
-        """Return the Cao similarity of two strings.
+        """Return Cao's CY similarity (CYs) of two strings.
 
         Parameters
         ----------
@@ -68,7 +70,7 @@ class Cao(_TokenDistance):
         Returns
         -------
         float
-            Cao similarity
+            Cao's CY similarity
 
         Examples
         --------
@@ -86,15 +88,57 @@ class Cao(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
+        pass
+
+    def dist_abs(self, src, tar):
+        """Return Cao's CY dissimilarity (CYd) of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Cao's CY dissimilarity
+
+        Examples
+        --------
+        >>> cmp = Cao()
+        >>> cmp.dist_abs('cat', 'hat')
+        0.0
+        >>> cmp.dist_abs('Niall', 'Neil')
+        0.0
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        0.0
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.1
+
+        """
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
+        src_only = self._src_only()
+        tar_only = self._tar_only()
+        alphabet = self._total().keys()
 
-        return 0.0
+        score = 0
+        for symbol in alphabet:
+            src_tok = min(0.1, src_only[symbol])
+            tar_tok = min(0.1, tar_only[symbol])
+            tok_sum = src_tok + tar_tok
+            score += (
+                tok_sum * log10(tok_sum / 2)
+                - src_tok * log10(tar_tok)
+                - tar_tok * log10(src_tok)
+            ) / tok_sum
+
+        return score / sum(self._total().values())
 
 
 if __name__ == '__main__':
