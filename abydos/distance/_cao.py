@@ -38,7 +38,17 @@ __all__ = ['Cao']
 class Cao(_TokenDistance):
     r"""Cao's CY dissimilarity.
 
-    Cao dissimilarity :cite:`Cao:1997`
+    Given :math:`X_{ij}` (the number of
+    individuals of speecies :math:`j` in sample :math:`i`), :math:`X_{kj}` (the
+    number of individuals of speecies :math:`j` in sample :math:`k`), and
+    :math:`N` (the total number of speecies present in both samples),
+    Cao dissimilarity (CYd) :cite:`Cao:1997` is:
+
+    .. math::
+
+        CYd = \frac{1}{N}\sum\Bigg(\frac{(X_{ij} + X_{kj})log_{10}\big(
+        \frac{X_{ij}+X_{kj}}{2}\big)-X_{ij}log_{10}X_{kj}-X_{kj}log_{10}X_{ij}}
+        {X_{ij}+X_{kj}}\Bigg)
 
     .. versionadded:: 0.4.1
     """
