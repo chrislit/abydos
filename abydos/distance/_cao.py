@@ -120,17 +120,17 @@ class Cao(_TokenDistance):
                     - 0.1 * log10(self._tar_tokens[symbol])
                 ) / (self._tar_tokens[symbol] + 0.1)
 
-        D_i = 0
-        D_k = 0
+        d_i = 0
+        d_k = 0
         for symbol in self._intersection().items():
-            D_i += self._src_tokens[symbol] - (in_both_samples / 2)
-            D_k += self._tar_tokens[symbol] - (in_both_samples / 2)
-        D_i /= in_both_samples / 2
-        D_k /= in_both_samples / 2
+            d_i += self._src_tokens[symbol] - (in_both_samples / 2)
+            d_k += self._tar_tokens[symbol] - (in_both_samples / 2)
+        d_i /= in_both_samples / 2
+        d_k /= in_both_samples / 2
 
         maximum_cyd += (in_both_samples / 2) * (
-            ((D_i + 1) * log10((D_i + 1) / 2) - log10(D_i)) / (D_i + 1)
-            + ((D_k + 1) * log10((D_k + 1) / 2) - log10(D_k)) / (D_k + 1)
+            ((d_i + 1) * log10((d_i + 1) / 2) - log10(d_i)) / (d_i + 1)
+            + ((d_k + 1) * log10((d_k + 1) / 2) - log10(d_k)) / (d_k + 1)
         )
 
         return 1 - (obsereved_cyd / maximum_cyd)
