@@ -80,16 +80,16 @@ class Cao(_TokenDistance):
     .. math::
 
         D_1 = \sum_{j=1}^b \Bigg(\frac{(X_{ij} + 0.1) log_{10} \big(
-        \frac{X_{ij}+0.1}{2}\big)-X_{ij}log{10}(0.1)-0.1log_{10}(X_{ij})}
+        \frac{X_{ij}+0.1}{2}\big)-X_{ij}log_{10}0.1-0.1log_{10}X_{ij}}
         {X_{ij}+0.1}\Bigg)
 
         D_2 = \sum_{j=1}^c \Bigg(\frac{(X_{kj} + 0.1) log_{10} \big(
-        \frac{X_{kj}+0.1}{2}\big)-X_{kj}log{10}(0.1)-0.1log_{10}(X_{kj})}
+        \frac{X_{kj}+0.1}{2}\big)-X_{kj}log_{10}0.1-0.1log_{10}X_{kj}}
         {X_{kj}+0.1}\Bigg)
 
         D_1 = \sum_{j=1}^a \frac{a}{2} \Bigg(\frac{(D_i + 1) log_{10}
         \big(\frac{D_i+1}{2}\big)-log_{10}(D_i)}{D_i+1} + \frac{(D_k + 1) log_{10}
-        \big(\frac{D_k+1}{2}\big)-log_{10}(D_k)}{D_k+1}\Bigg)
+        \big(\frac{D_k+1}{2}\big)-log_{10}D_k}{D_k+1}\Bigg)
 
     with
 
