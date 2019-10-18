@@ -88,7 +88,7 @@ class Cao(_TokenDistance):
         {X_{kj}+0.1}\Bigg)
 
         D_1 = \sum_{j=1}^a \frac{a}{2} \Bigg(\frac{(D_i + 1) log_{10}
-        \big(\frac{D_i+1}{2}\big)-log_{10}(D_i)}{D_i+1} + \frac{(D_k + 1) log_{10}
+        \big(\frac{D_i+1}{2}\big)-log_{10}D_i}{D_i+1} + \frac{(D_k + 1) log_{10}
         \big(\frac{D_k+1}{2}\big)-log_{10}D_k}{D_k+1}\Bigg)
 
     with
