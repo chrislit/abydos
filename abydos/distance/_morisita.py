@@ -36,7 +36,24 @@ __all__ = ['Morisita']
 class Morisita(_TokenDistance):
     r"""Morisita similarity.
 
-    Morisita similarity :cite:`Morisita:1962`
+    Morisita similarity :cite:`Morisita:1959`, following the description of
+    :cite:`Horn:1966`, given two populations X and Y drawn from S species,
+    is:
+
+    .. math::
+
+        C_{\lambda} = \frac{2\sum_{i=1}^S x_i y_i}{(\lambda_x + \lambda_y)XY}
+
+    where
+
+    .. math::
+
+        X = \sum_{i=1}^S x_i  ~~;~~  Y = \sum_{i=1}^S y_i
+
+    .. math::
+
+        \lambda_x = \frac{\sum_{i=1}^S x_i(x_i-1)}{X(X-1)} ~~;~~
+        \lambda_y = \frac{\sum_{i=1}^S y_i(y_i-1)}{Y(Y-1)}
 
     .. versionadded:: 0.4.1
     """
@@ -88,13 +105,26 @@ class Morisita(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
+        intersection = self._intersection()
 
-        return 0.0
+        src_card = self._src_card()
+        tar_card = self._tar_card()
+
+        src_lambda = 0
+        tar_lambda = 0
+        for val in self._src_tokens.values():
+            src_lambda += val*(val-1)
+        src_lambda /= (src_card*(src_card-1))
+        for val in self._tar_tokens.values():
+            tar_lambda += val*(val-1)
+        tar_lambda /= (tar_card * (tar_card - 1))
+
+        sim = 0
+        for symbol in intersection.keys():
+            sim += self._src_tokens[symbol]*self._tar_tokens[symbol]
+        sim *= 2/((src_lambda+tar_lambda)*src_card*tar_card)
+
+        return sim
 
 
 if __name__ == '__main__':
