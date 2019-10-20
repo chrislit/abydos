@@ -36,7 +36,27 @@ __all__ = ['HornMorisita']
 class HornMorisita(_TokenDistance):
     r"""Horn-Morisita similarity.
 
-    Horn-Morisita similarity :cite:`Horn:1966`
+    Horn-Morisita similarity :cite:`Horn:1966`, given two populations X and Y
+    drawn from S species, is:
+
+    .. math::
+
+        C_{\lambda} = \frac{2\sum_{i=1}^S x_i y_i}
+        {(\hat{\lambda}_x + \hat{\lambda}_y)XY}
+
+    where
+
+    .. math::
+
+        X = \sum_{i=1}^S x_i  ~~;~~  Y = \sum_{i=1}^S y_i
+
+    .. math::
+
+        \hat{\lambda}_x = \frac{\sum_{i=1}^S x_i^2}{X^2} ~~;~~
+        \hat{\lambda}_y = \frac{\sum_{i=1}^S y_i^2}{Y^2}
+
+    Observe that this is identical to Morisita similarity, except for the
+    definition of the :math:`\lambda` values in the denominator.
 
     .. versionadded:: 0.4.1
     """
@@ -88,13 +108,26 @@ class HornMorisita(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
+        intersection = self._intersection()
 
-        return 0.0
+        src_card = self._src_card()
+        tar_card = self._tar_card()
+
+        src_lambda = 0
+        tar_lambda = 0
+        for val in self._src_tokens.values():
+            src_lambda += val*val
+        src_lambda /= (src_card*src_card)
+        for val in self._tar_tokens.values():
+            tar_lambda += val*val
+        tar_lambda /= (tar_card * tar_card)
+
+        sim = 0
+        for symbol in intersection.keys():
+            sim += self._src_tokens[symbol]*self._tar_tokens[symbol]
+        sim *= 2/((src_lambda+tar_lambda)*src_card*tar_card)
+
+        return sim
 
 
 if __name__ == '__main__':
