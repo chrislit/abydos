@@ -18,7 +18,7 @@
 
 """abydos.distance._morisita.
 
-Morisita similarity
+Morisita index of overlap
 """
 
 from __future__ import (
@@ -34,14 +34,15 @@ __all__ = ['Morisita']
 
 
 class Morisita(_TokenDistance):
-    r"""Morisita similarity.
+    r"""Morisita index of overlap.
 
-    Morisita similarity :cite:`Morisita:1959`, following the description of
-    :cite:`Horn:1966`, given two populations X and Y drawn from S species,
+    Morisita index of overlap :cite:`Morisita:1959`, following the description
+    of :cite:`Horn:1966`, given two populations X and Y drawn from S species,
     is:
 
     .. math::
 
+        sim_{Morisita}(X, Y) =
         C_{\lambda} = \frac{2\sum_{i=1}^S x_i y_i}{(\lambda_x + \lambda_y)XY}
 
     where

@@ -18,7 +18,7 @@
 
 """abydos.distance._horn_morisita.
 
-Horn-Morisita similarity
+Horn-Morisita index of overlap
 """
 
 from __future__ import (
@@ -34,13 +34,14 @@ __all__ = ['HornMorisita']
 
 
 class HornMorisita(_TokenDistance):
-    r"""Horn-Morisita similarity.
+    r"""Horn-Morisita index of overlap.
 
-    Horn-Morisita similarity :cite:`Horn:1966`, given two populations X and Y
-    drawn from S species, is:
+    Horn-Morisita index of overlap :cite:`Horn:1966`, given two populations X
+    and Y drawn from S species, is:
 
     .. math::
 
+        sim_{Horn-Morisita}(X, Y) =
         C_{\lambda} = \frac{2\sum_{i=1}^S x_i y_i}
         {(\hat{\lambda}_x + \hat{\lambda}_y)XY}
 

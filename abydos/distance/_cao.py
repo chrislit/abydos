@@ -45,6 +45,7 @@ class Cao(_TokenDistance):
 
     .. math::
 
+        dist_{Cao}(X, Y) =
         CYd = \frac{1}{N}\sum\Bigg(\frac{(X_{ij} + X_{kj})log_{10}\big(
         \frac{X_{ij}+X_{kj}}{2}\big)-X_{ij}log_{10}X_{kj}-X_{kj}log_{10}X_{ij}}
         {X_{ij}+X_{kj}}\Bigg)
@@ -57,7 +58,7 @@ class Cao(_TokenDistance):
 
     .. math::
 
-        CYs = 1 - \frac{Observed~CYd}{Maximum~CYd}
+        sim_{Cao}(X, Y) = CYs = 1 - \frac{Observed~CYd}{Maximum~CYd}
 
     where
 
