@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import factorial
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['HendersonHeron']
@@ -89,12 +91,23 @@ class HendersonHeron(_TokenDistance):
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
+        ab = self._src_card()
+        ac = self._tar_card()
         n = self._population_unique_card()
 
-        return 0.0
+        return (
+            factorial(ab)
+            * factorial(ac)
+            * factorial(n - ab)
+            * factorial(n - ac)
+            / (
+                factorial(n)
+                * factorial(a)
+                * factorial(ab - a)
+                * factorial(ac - a)
+                * factorial((n - ac - ab + a))
+            )
+        )
 
 
 if __name__ == '__main__':
