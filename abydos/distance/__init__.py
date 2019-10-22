@@ -145,6 +145,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hassanat distance (:py:class:`.Hassanat`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hellinger distance (:py:class:`.Hellinger`)
+    - Henderson-Heron similarity (:py:class:`.HendersonHeron`)
     - Horn-Morisita similarity (:py:class:`.HornMorisita`)
     - Hurlbert correlation (:py:class:`.Hurlbert`)
     - Jaccard similarity (:py:class:`.Jaccard`) &
@@ -485,6 +486,7 @@ from ._harris_lahey import HarrisLahey
 from ._hassanat import Hassanat
 from ._hawkins_dotson import HawkinsDotson
 from ._hellinger import Hellinger
+from ._henderson_heron import HendersonHeron
 from ._higuera_mico import HigueraMico
 from ._horn_morisita import HornMorisita
 from ._hurlbert import Hurlbert
@@ -801,6 +803,7 @@ __all__ = [
     'Hassanat',
     'HawkinsDotson',
     'Hellinger',
+    'HendersonHeron',
     'HornMorisita',
     'Hurlbert',
     'Jaccard',
