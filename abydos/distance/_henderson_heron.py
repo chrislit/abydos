@@ -38,7 +38,14 @@ __all__ = ['HendersonHeron']
 class HendersonHeron(_TokenDistance):
     r"""Henderson-Heron similarity.
 
-    Henderson-Heron similarity :cite:`Henderson:1977`
+    For two sets X and Y and a population N, Henderson-Heron similarity
+    :cite:`Henderson:1977` is:
+
+    .. math:
+
+        sim_{Henderson-Heron}(X, Y) = \frac{|X|! |Y|! (|N| - |X|)!
+        (|N|- |Y|)!}{|N|! |X \cap Y|! (|X| - |X \cap Y|)!
+        (|Y| - |Y \cap X|)! (|N| - |X| - |Y| + |X \cap Y|)!}
 
     .. versionadded:: 0.4.1
     """

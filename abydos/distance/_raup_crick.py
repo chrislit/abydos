@@ -38,7 +38,22 @@ __all__ = ['RaupCrick']
 class RaupCrick(_TokenDistance):
     r"""Raup-Crick similarity.
 
-    Raup-Crick similarity :cite:`Raup:1979`
+    For two sets X and Y and a population N, Raup-Crick similarity
+    :cite:`Raup:1979` is:
+
+    .. math:
+
+        sim_{Raup-Crick}(X, Y) = \sum_{i=0}^{|X \cap Y|}
+        \frac{|X|! |Y|! (|N| - |X|)!
+        (|N|- |Y|)!}{|N|! |X \cap Y|! (|X| - i)!
+        (|Y| - i)! (|N| - |X| - |Y| + i)!}
+
+    Notes
+    -----
+
+    Observe that Raup-Crick similarity is related to Henderson-Heron similarity
+    in that the former is the sum of all Henderson-Heron similarities for an
+    intersection size ranging from 0 to the true intersection size.
 
     .. versionadded:: 0.4.1
     """
