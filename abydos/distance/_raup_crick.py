@@ -18,7 +18,7 @@
 
 """abydos.distance._raup_crick.
 
-Raup-Crick distance
+Raup-Crick similarity
 """
 
 from __future__ import (
@@ -28,15 +28,17 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import factorial
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['RaupCrick']
 
 
 class RaupCrick(_TokenDistance):
-    r"""Raup-Crick distance.
+    r"""Raup-Crick similarity.
 
-    Raup-Crick distance :cite:`Raup:1979`
+    Raup-Crick similarity :cite:`Raup:1979`
 
     .. versionadded:: 0.4.1
     """
@@ -55,8 +57,8 @@ class RaupCrick(_TokenDistance):
         """
         super(RaupCrick, self).__init__(**kwargs)
 
-    def dist(self, src, tar):
-        """Return the Raup-Crick distance of two strings.
+    def sim(self, src, tar):
+        """Return the Raup-Crick similarity of two strings.
 
         Parameters
         ----------
@@ -68,7 +70,7 @@ class RaupCrick(_TokenDistance):
         Returns
         -------
         float
-            Raup-Crick distance
+            Raup-Crick similarity
 
         Examples
         --------
@@ -89,12 +91,26 @@ class RaupCrick(_TokenDistance):
         self._tokenize(src, tar)
 
         a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
+        ab = self._src_card()
+        ac = self._tar_card()
         n = self._population_unique_card()
 
-        return 0.0
+        def _henderson_heron(ab, ac, a, n):
+            return (
+                factorial(ab)
+                * factorial(ac)
+                * factorial(n - ab)
+                * factorial(n - ac)
+                / (
+                    factorial(n)
+                    * factorial(a)
+                    * factorial(ab - a)
+                    * factorial(ac - a)
+                    * factorial((n - ac - ab + a))
+                )
+            )
+
+        return sum(_henderson_heron(ab, ac, i, n) for i in range(0, a + 1))
 
 
 if __name__ == '__main__':

@@ -199,7 +199,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Pearson's Phi correlation (:py:class:`.PearsonPhi`)
     - Peirce correlation (:py:class:`.Peirce`)
     - q-gram distance (:py:class:`.QGram`)
-    - Raup-Crick distance (:py:class:`.RaupCrick`)
+    - Raup-Crick similarity (:py:class:`.RaupCrick`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
     - Russell & Rao similarity (:py:class:`.RussellRao`)
