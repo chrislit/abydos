@@ -18,7 +18,7 @@
 
 """abydos.distance._clark.
 
-Clark distance
+Clark's coefficient of divergence
 """
 
 from __future__ import (
@@ -34,9 +34,15 @@ __all__ = ['Clark']
 
 
 class Clark(_TokenDistance):
-    r"""Clark distance.
+    r"""Clark's coefficient of divergence.
 
-    Clark distance :cite:`Clark:1952`
+    For two sets X and Y and a population N, Clark's coefficient of divergence
+    :cite:`Clark:1952` is:
+
+        .. math::
+
+            dist_{Clark}(X, Y) = \sqrt{\frac{\sum_{x=0}^{|N|}
+            \frac{x_i-y_i}{x_i+y_i}^2}{|N|}}
 
     .. versionadded:: 0.4.1
     """
@@ -56,7 +62,7 @@ class Clark(_TokenDistance):
         super(Clark, self).__init__(**kwargs)
 
     def dist(self, src, tar):
-        """Return the Clark distance of two strings.
+        """Return Clark's coefficient of divergence of two strings.
 
         Parameters
         ----------
@@ -68,7 +74,7 @@ class Clark(_TokenDistance):
         Returns
         -------
         float
-            Clark distance
+            Clark's coefficient of divergence
 
         Examples
         --------
@@ -88,13 +94,18 @@ class Clark(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
+        src_tok = self._src_tokens
+        tar_tok = self._tar_tokens
+        alphabet = set(src_tok.keys() + tar_tok.keys())
 
-        return 0.0
+        return (
+            sum(
+                ((src_tok[ltr] - tar_tok[ltr]) / (src_tok[ltr] + tar_tok[ltr]))
+                ** 2
+                for ltr in alphabet
+            )
+            / len(alphabet)
+        ) ** 0.5
 
 
 if __name__ == '__main__':
