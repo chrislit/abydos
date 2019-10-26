@@ -246,7 +246,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Warrens III correlation (:py:class:`.WarrensIII`)
     - Warrens IV similarity (:py:class:`.WarrensIV`)
     - Warrens V similarity (:py:class:`.WarrensV`)
-    - Weitzman distance (:py:class:`.Weitzman`)
     - Whittaker distance (:py:class:`.Whittaker`)
     - Yates' Chi-Squared similarity (:py:class:`.YatesChiSquared`)
     - Yule's Q correlation (:py:class:`.YuleQ`)
@@ -658,7 +657,6 @@ from ._warrens_iii import WarrensIII
 from ._warrens_iv import WarrensIV
 from ._warrens_v import WarrensV
 from ._weighted_jaccard import WeightedJaccard
-from ._weitzman import Weitzman
 from ._whittaker import Whittaker
 from ._yates_chi_squared import YatesChiSquared
 from ._yjhhr import YJHHR
@@ -913,7 +911,6 @@ __all__ = [
     'WarrensIV',
     'WarrensV',
     'WeightedJaccard',
-    'Weitzman',
     'Whittaker',
     'YatesChiSquared',
     'YuleQ',
