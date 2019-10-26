@@ -42,7 +42,7 @@ class Clark(_TokenDistance):
         .. math::
 
             dist_{Clark}(X, Y) = \sqrt{\frac{\sum_{x=0}^{|N|}
-            \frac{x_i-y_i}{x_i+y_i}^2}{|N|}}
+            \big(\frac{x_i-y_i}{x_i+y_i}\big)^2}{|N|}}
 
     .. versionadded:: 0.4.1
     """
