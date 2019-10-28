@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from math import log
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Millar']
@@ -88,12 +90,26 @@ class Millar(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        a = self._intersection_card()
-        b = self._src_only_card()
-        c = self._tar_only_card()
-        d = self._total_complement_card()
-        n = self._population_unique_card()
+        tar_tok = self._src_tokens
+        src_tok = self._tar_tokens
+        alphabet = set(src_tok.keys() + tar_tok.keys())
 
+        ln2 = log(2)
+        score = 0
+        for tok in alphabet:
+            sumlog = log(src_tok[tok] + tar_tok[tok])
+            src_val = 0
+            if src_tok[tok]:
+                src_val = src_tok[tok] * log(src_tok[tok] - sumlog)
+            tar_val = 0
+            if tar_tok[tok]:
+                tar_val = tar_tok[tok] * log(tar_tok[tok] - sumlog)
+            score += (
+                (src_tok[tok] + tar_tok[tok]) * ln2 + src_val + tar_val
+            ) / (src_tok[tok] + tar_tok[tok])
+
+        if score > 0:
+            return score
         return 0.0
 
 
