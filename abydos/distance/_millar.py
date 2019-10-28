@@ -92,21 +92,22 @@ class Millar(_TokenDistance):
 
         tar_tok = self._src_tokens
         src_tok = self._tar_tokens
-        alphabet = set(src_tok.keys() + tar_tok.keys())
+        alphabet = set(src_tok.keys() | tar_tok.keys())
 
-        ln2 = log(2)
+        log2 = log(2)
         score = 0
         for tok in alphabet:
-            sumlog = log(src_tok[tok] + tar_tok[tok])
+            n_k = src_tok[tok] + tar_tok[tok]
+
             src_val = 0
             if src_tok[tok]:
-                src_val = src_tok[tok] * log(src_tok[tok] - sumlog)
+                src_val = src_tok[tok] * log(src_tok[tok]/n_k)
+
             tar_val = 0
             if tar_tok[tok]:
-                tar_val = tar_tok[tok] * log(tar_tok[tok] - sumlog)
-            score += (
-                (src_tok[tok] + tar_tok[tok]) * ln2 + src_val + tar_val
-            ) / (src_tok[tok] + tar_tok[tok])
+                tar_val = tar_tok[tok] * log(tar_tok[tok]/n_k)
+
+            score += (src_val + tar_val + n_k * log2) / n_k
 
         if score > 0:
             return score
