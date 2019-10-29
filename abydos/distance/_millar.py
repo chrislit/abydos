@@ -18,7 +18,7 @@
 
 """abydos.distance._millar.
 
-Millar distance
+Millar's binomial deviance dissimilarity
 """
 
 from __future__ import (
@@ -36,9 +36,17 @@ __all__ = ['Millar']
 
 
 class Millar(_TokenDistance):
-    r"""Millar distance.
+    r"""Millar's binomial deviance dissimilarity.
 
-    Millar distance :cite:`Anderson:2004`
+    For two sets X and Y drawn from a population S, Millar's binomial deviance
+    dissimilarity :cite:`Anderson:2004` is:
+
+        .. math::
+
+            dist_{Millar}(X, Y) = \sum_{i=0}^{|S|} \frac{1}{x_i+y_i}
+            \bigg\{x_i log(\frac{x_i}{x_i+y_i}) + y_i log(\frac{y_i}{x_i+y_i})
+            - (x_i+y_i) log(\frac{1}{2})\bigg\}
+
 
     .. versionadded:: 0.4.1
     """
@@ -58,7 +66,7 @@ class Millar(_TokenDistance):
         super(Millar, self).__init__(**kwargs)
 
     def dist(self, src, tar):
-        """Return the Millar distance of two strings.
+        """Return Millar's binomial deviance dissimilarity of two strings.
 
         Parameters
         ----------
@@ -70,7 +78,7 @@ class Millar(_TokenDistance):
         Returns
         -------
         float
-            Millar distance
+            Millar's binomial deviance dissimilarity
 
         Examples
         --------
