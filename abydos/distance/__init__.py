@@ -135,8 +135,6 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Goodman & Kruskal's Tau A similarity (:py:class:`.GoodmanKruskalTauA`)
     - Goodman & Kruskal's Tau B similarity (:py:class:`.GoodmanKruskalTauB`)
     - Gower & Legendre similarity (:py:class:`.GowerLegendre`)
-    - Gower's distance (:py:class:`.Gower`)
-    - Gower's Alternative distance (:py:class:`.GowerAlternative`)
     - Guttman Lambda A similarity (:py:class:`.GuttmanLambdaA`)
     - Guttman Lambda B similarity (:py:class:`.GuttmanLambdaB`)
     - Gwet's AC correlation (:py:class:`.GwetAC`)
@@ -472,8 +470,6 @@ from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
 from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
 from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
 from ._gotoh import Gotoh, gotoh
-from ._gower import Gower
-from ._gower_alternative import GowerAlternative
 from ._gower_legendre import GowerLegendre
 from ._guth import Guth
 from ._guttman_lambda_a import GuttmanLambdaA
@@ -790,8 +786,6 @@ __all__ = [
     'GoodmanKruskalLambdaR',
     'GoodmanKruskalTauA',
     'GoodmanKruskalTauB',
-    'Gower',
-    'GowerAlternative',
     'GowerLegendre',
     'GuttmanLambdaA',
     'GuttmanLambdaB',
