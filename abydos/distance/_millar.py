@@ -98,8 +98,8 @@ class Millar(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        tar_tok = self._src_tokens
-        src_tok = self._tar_tokens
+        src_tok = self._src_tokens
+        tar_tok = self._tar_tokens
         alphabet = set(src_tok.keys() | tar_tok.keys())
 
         log2 = log(2)
