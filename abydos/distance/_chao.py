@@ -28,12 +28,14 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._distance import _Distance
+from collections import Counter
+
+from ._token_distance import _TokenDistance
 
 __all__ = ['Chao']
 
 
-class Chao(_Distance):
+class Chao(_TokenDistance):
     r"""Chao similarity.
 
     Chao similarity :cite:`Chao:2004`
@@ -86,6 +88,22 @@ class Chao(_Distance):
         .. versionadded:: 0.4.1
 
         """
+        self._tokenize(src, tar)
+
+        src_tok = self._src_tokens
+        tar_tok = self._tar_tokens
+
+        alphabet = set(src_tok.keys() | tar_tok.keys())
+
+        src_card = self._src_card()
+        tar_card = self._tar_card()
+
+        tar_prob = Counter()
+        src_prob = Counter()
+
+        for tok in self._intersection().keys():
+            src_prob = src_tok[tok] / src_card
+            tar_prob = tar_tok[tok] / tar_card
 
         return 0.0
 
