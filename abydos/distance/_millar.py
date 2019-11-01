@@ -109,11 +109,11 @@ class Millar(_TokenDistance):
 
             src_val = 0
             if src_tok[tok]:
-                src_val = src_tok[tok] * log(src_tok[tok]/n_k)
+                src_val = src_tok[tok] * log(src_tok[tok] / n_k)
 
             tar_val = 0
             if tar_tok[tok]:
-                tar_val = tar_tok[tok] * log(tar_tok[tok]/n_k)
+                tar_val = tar_tok[tok] * log(tar_tok[tok] / n_k)
 
             score += (src_val + tar_val + n_k * log2) / n_k
 
