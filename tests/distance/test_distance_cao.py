@@ -73,10 +73,18 @@ class CaoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.dist_abs('Nigel', 'Niall'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.dist_abs('Niall', 'Nigel'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 0.0114358323)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Nigel', 'Niall'), 0.0114358323
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Niall', 'Nigel'), 0.0114358323
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Colin', 'Coiln'), 0.0114358323
+        )
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('Coiln', 'Colin'), 0.0114358323
+        )
         self.assertAlmostEqual(
             self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
         )
