@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 from collections import Counter
+from random import sample
 
 from ._token_distance import _TokenDistance
 
@@ -94,17 +95,49 @@ class Chao(_TokenDistance):
         tar_tok = self._tar_tokens
 
         alphabet = set(src_tok.keys() | tar_tok.keys())
+        shared = self._intersection().keys()
 
-        src_card = self._src_card()
-        tar_card = self._tar_card()
+        src_card = self._src_card()  # n
+        tar_card = self._tar_card()  # m
 
+        tar_token_list = self.params['tokenizer'].get_list()
+        src_token_list = self.params['tokenizer'].tokenize(src).get_list()
+
+        src_sampled = Counter(sample(src_token_list, src_card))
+        tar_sampled = Counter(sample(tar_token_list, tar_card))
+        sample_intersection = src_sampled & tar_sampled
+        unseen_shared_species = shared - set(sample_intersection)
+
+        f_1_plus = sum(
+            1 if src_sampled[tok] == 1 and tar_sampled[tok] >= 1 else 0
+            for tok in sample_intersection
+        )
+        f_2_plus = sum(
+            1 if src_sampled[tok] == 2 and tar_sampled[tok] >= 1 else 0
+            for tok in sample_intersection
+        )
+        f_plus_1 = sum(
+            1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 1 else 0
+            for tok in sample_intersection
+        )
+        f_plus_2 = sum(
+            1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 2 else 0
+            for tok in sample_intersection
+        )
+
+        """
         tar_prob = Counter()
         src_prob = Counter()
 
-        for tok in self._intersection().keys():
-            src_prob = src_tok[tok] / src_card
-            tar_prob = tar_tok[tok] / tar_card
+        for tok in shared:
+            src_prob[tok] = src_tok[tok] / src_card
+            tar_prob[tok] = tar_tok[tok] / tar_card
 
+        U = sum(src_prob.values())
+        V = sum(tar_prob.values())
+
+        #return U*V/(U+V-U*V)
+        """
         return 0.0
 
 
