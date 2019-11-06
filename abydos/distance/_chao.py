@@ -91,22 +91,37 @@ class Chao(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        src_tok = self._src_tokens
-        tar_tok = self._tar_tokens
+        u_hat, v_hat = self._get_estimates(src, tar)
 
-        alphabet = set(src_tok.keys() | tar_tok.keys())
-        shared = self._intersection().keys()
+        return u_hat * v_hat / (u_hat + v_hat - u_hat * v_hat)
 
+    def _get_estimates(self, src, tar):
+        """Get the estimates U-hat & V-hat used for Chao's measures.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        tuple(float, float)
+            The estimates U-hat & V-hat
+
+        .. versionadded:: 0.4.1
+
+        """
         src_card = self._src_card()  # n
         tar_card = self._tar_card()  # m
 
-        tar_token_list = self.params['tokenizer'].get_list()
         src_token_list = self.params['tokenizer'].tokenize(src).get_list()
+        tar_token_list = self.params['tokenizer'].tokenize(tar).get_list()
 
         src_sampled = Counter(sample(src_token_list, src_card))
         tar_sampled = Counter(sample(tar_token_list, tar_card))
         sample_intersection = src_sampled & tar_sampled
-        unseen_shared_species = shared - set(sample_intersection)
 
         f_1_plus = sum(
             1 if src_sampled[tok] == 1 and tar_sampled[tok] >= 1 else 0
@@ -125,20 +140,34 @@ class Chao(_TokenDistance):
             for tok in sample_intersection
         )
 
-        """
-        tar_prob = Counter()
-        src_prob = Counter()
+        u_hat = sum(
+            src_sampled[tok] / src_card for tok in sample_intersection.keys()
+        )
+        u_hat += (
+            (tar_card - 1)
+            / tar_card
+            * f_plus_1
+            / (2 * f_plus_2)
+            * sum(
+                src_sampled[tok] / src_card * (tar_sampled[tok] == 1)
+                for tok in sample_intersection.keys()
+            )
+        )
+        v_hat = sum(
+            tar_sampled[tok] / tar_card for tok in sample_intersection.keys()
+        )
+        v_hat += (
+            (src_card - 1)
+            / src_card
+            * f_1_plus
+            / (2 * f_2_plus)
+            * sum(
+                tar_sampled[tok] / tar_card * (src_sampled[tok] == 1)
+                for tok in sample_intersection.keys()
+            )
+        )
 
-        for tok in shared:
-            src_prob[tok] = src_tok[tok] / src_card
-            tar_prob[tok] = tar_tok[tok] / tar_card
-
-        U = sum(src_prob.values())
-        V = sum(tar_prob.values())
-
-        #return U*V/(U+V-U*V)
-        """
-        return 0.0
+        return u_hat, v_hat
 
 
 if __name__ == '__main__':
