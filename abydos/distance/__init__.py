@@ -93,7 +93,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Braun-Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
     - Cao similarity (:py:class:`.Cao`)
-    - Chao similarity (:py:class:`.Chao`)
+    - Chao's Dice similarity (:py:class:`.ChaoDice`)
+    - Chao's Jaccard similarity (:py:class:`.ChaoJaccard`)
     - Chebyshev distance (:py:class:`.Chebyshev`)
     - Chord distance (:py:class:`.Chord`)
     - Clark distance (:py:class:`.Clark`)
@@ -410,7 +411,8 @@ from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
 from ._cao import Cao
-from ._chao import Chao
+from ._chao_dice import ChaoDice
+from ._chao_jaccard import ChaoJaccard
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
 from ._clark import Clark
@@ -737,7 +739,8 @@ __all__ = [
     'BraunBlanquet',
     'Canberra',
     'Cao',
-    'Chao',
+    'ChaoDice',
+    'ChaoJaccard',
     'Chebyshev',
     'chebyshev',
     'Chord',

@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.distance._chao.
+"""abydos.distance._chao_jaccard.
 
-Chao similarity
+Chao's Jaccard similarity
 """
 
 from __future__ import (
@@ -33,19 +33,19 @@ from random import sample
 
 from ._token_distance import _TokenDistance
 
-__all__ = ['Chao']
+__all__ = ['ChaoJaccard']
 
 
-class Chao(_TokenDistance):
-    r"""Chao similarity.
+class ChaoJaccard(_TokenDistance):
+    r"""Chao's Jaccard similarity.
 
-    Chao similarity :cite:`Chao:2004`
+    Chao's Jaccard similarity :cite:`Chao:2004`
 
     .. versionadded:: 0.4.1
     """
 
     def __init__(self, **kwargs):
-        """Initialize Chao instance.
+        """Initialize ChaoJaccard instance.
 
         Parameters
         ----------
@@ -56,10 +56,10 @@ class Chao(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
-        super(Chao, self).__init__(**kwargs)
+        super(ChaoJaccard, self).__init__(**kwargs)
 
     def sim(self, src, tar):
-        """Return the Chao similarity of two strings.
+        """Return Chao's Jaccard similarity of two strings.
 
         Parameters
         ----------
@@ -71,11 +71,11 @@ class Chao(_TokenDistance):
         Returns
         -------
         float
-            Chao similarity
+            Chao's Jaccard similarity
 
         Examples
         --------
-        >>> cmp = Chao()
+        >>> cmp = ChaoJaccard()
         >>> cmp.sim('cat', 'hat')
         0.0
         >>> cmp.sim('Niall', 'Neil')

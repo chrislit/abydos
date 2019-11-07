@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Abydos. If not, see <http://www.gnu.org/licenses/>.
 
-"""abydos.tests.distance.test_distance_chao.
+"""abydos.tests.distance.test_distance_chao_dice.
 
-This module contains unit tests for abydos.distance.Chao
+This module contains unit tests for abydos.distance.ChaoDice
 """
 
 from __future__ import (
@@ -30,19 +30,19 @@ from __future__ import (
 
 import unittest
 
-from abydos.distance import Chao
+from abydos.distance import ChaoDice
 
 
-class ChaoTestCases(unittest.TestCase):
-    """Test Chao functions.
+class ChaoDiceTestCases(unittest.TestCase):
+    """Test ChaoDice functions.
 
-    abydos.distance.Chao
+    abydos.distance.ChaoDice
     """
 
-    cmp = Chao()
+    cmp = ChaoDice()
 
     def test_inclusion_sim(self):
-        """Test abydos.distance.Chao.sim."""
+        """Test abydos.distance.ChaoDice.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
