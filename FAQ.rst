@@ -2,8 +2,8 @@ FAQ
 ===
 
 
-Why is the library licensed under GPL3+? Can you change the license to BSD/MIT/other?
--------------------------------------------------------------------------------------
+Why is the library licensed under GPL3+? Can you change the license?
+--------------------------------------------------------------------
 
 GPL3 is the only license compatible with all of the various parts of
 Abydos that have been ported to Python from other languages. For example,
@@ -89,9 +89,11 @@ The process of adding a new class follows roughly the following steps:
     - Locate the original source of the algorithm (a journal article, a
       reference implementation, etc.). And save the reference to it in
       docs/abydos.bib.
+
         - If the original source cannot be located for reference, use an
           adequate secondary source and add its reference info to
           docs/abydos.bib.
+
     - Implement the class based on its description/reference implementation.
     - Create a test class and add all examples and test cases from the
       original source. Add other reliable test cases from other sources, if
