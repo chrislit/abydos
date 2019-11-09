@@ -50,7 +50,6 @@ class RaupCrick(_TokenDistance):
 
     Notes
     -----
-
     Observe that Raup-Crick similarity is related to Henderson-Heron similarity
     in that the former is the sum of all Henderson-Heron similarities for an
     intersection size ranging from 0 to the true intersection size.
