@@ -89,19 +89,22 @@ class RaupCrick(_TokenDistance):
         Examples
         --------
         >>> cmp = RaupCrick()
-        >>> cmp.dist('cat', 'hat')
-        0.0
-        >>> cmp.dist('Niall', 'Neil')
-        0.0
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        >>> cmp.sim('cat', 'hat')
+        0.9999998002120004
+        >>> cmp.sim('Niall', 'Neil')
+        0.9999975146378747
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.9968397599851411
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.9684367974410505
 
 
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 1.0
+
         self._tokenize(src, tar)
 
         a = self._intersection_card()

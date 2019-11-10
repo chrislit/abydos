@@ -45,20 +45,20 @@ class RaupCrickTestCases(unittest.TestCase):
         """Test abydos.distance.RaupCrick.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
-        self.assertEqual(self.cmp.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim('a', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'a'), 1.0)
         self.assertEqual(self.cmp.sim('a', 'a'), 1.0)
-        self.assertEqual(self.cmp.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
+        self.assertEqual(self.cmp.sim('abc', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('abcd', 'efgh'), 0.9684367974)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0114358323)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9999999857)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9999999857)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9999999857)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9999999857)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.0
         )
 
 
