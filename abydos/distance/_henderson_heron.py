@@ -18,7 +18,7 @@
 
 """abydos.distance._henderson_heron.
 
-Henderson-Heron similarity
+Henderson-Heron dissimilarity
 """
 
 from __future__ import (
@@ -36,9 +36,9 @@ __all__ = ['HendersonHeron']
 
 
 class HendersonHeron(_TokenDistance):
-    r"""Henderson-Heron similarity.
+    r"""Henderson-Heron dissimilarity.
 
-    For two sets X and Y and a population N, Henderson-Heron similarity
+    For two sets X and Y and a population N, Henderson-Heron dissimilarity
     :cite:`Henderson:1977` is:
 
     .. math:
@@ -64,8 +64,8 @@ class HendersonHeron(_TokenDistance):
         """
         super(HendersonHeron, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
-        """Return the Henderson-Heron similarity of two strings.
+    def dist(self, src, tar):
+        """Return the Henderson-Heron dissimilarity of two strings.
 
         Parameters
         ----------
@@ -77,19 +77,19 @@ class HendersonHeron(_TokenDistance):
         Returns
         -------
         float
-            Henderson-Heron similarity
+            Henderson-Heron dissimilarity
 
         Examples
         --------
         >>> cmp = HendersonHeron()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.00011668873858680838
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.00048123075776606097
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.08534181060514882
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        0.9684367974410505
 
 
         .. versionadded:: 0.4.1
