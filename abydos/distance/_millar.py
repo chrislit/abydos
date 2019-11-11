@@ -65,7 +65,7 @@ class Millar(_TokenDistance):
         """
         super(Millar, self).__init__(**kwargs)
 
-    def dist(self, src, tar):
+    def dist_abs(self, src, tar):
         """Return Millar's binomial deviance dissimilarity of two strings.
 
         Parameters
@@ -83,14 +83,14 @@ class Millar(_TokenDistance):
         Examples
         --------
         >>> cmp = Millar()
-        >>> cmp.dist('cat', 'hat')
-        0.0
-        >>> cmp.dist('Niall', 'Neil')
-        0.0
-        >>> cmp.dist('aluminum', 'Catalan')
-        0.0
-        >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        >>> cmp.dist_abs('cat', 'hat')
+        2.772588722239781
+        >>> cmp.dist_abs('Niall', 'Neil')
+        4.852030263919617
+        >>> cmp.dist_abs('aluminum', 'Catalan')
+        9.704060527839234
+        >>> cmp.dist_abs('ATCG', 'TAGC')
+        6.931471805599453
 
 
         .. versionadded:: 0.4.1
