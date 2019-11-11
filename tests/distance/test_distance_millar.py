@@ -44,28 +44,28 @@ class MillarTestCases(unittest.TestCase):
     def test_inclusion_dist_abs(self):
         """Test abydos.distance.Millar.dist_abs."""
         self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('a', ''), 1.0)
-        self.assertEqual(self.cmp.dist_abs('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist_abs('a', ''), 1.3862943611198906)
+        self.assertEqual(self.cmp.dist_abs('', 'a'), 1.3862943611198906)
         self.assertEqual(self.cmp.dist_abs('a', 'a'), 0.0)
-        self.assertEqual(self.cmp.dist_abs('abc', ''), 1.0)
-        self.assertEqual(self.cmp.dist_abs('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist_abs('abc', ''), 2.772588722239781)
+        self.assertEqual(self.cmp.dist_abs('', 'abc'), 2.772588722239781)
         self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 1.0)
+        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 6.931471805599453)
 
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Nigel', 'Niall'), 0.0114358323
+            self.cmp.dist_abs('Nigel', 'Niall'), 4.1588830833596715
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Niall', 'Nigel'), 0.0114358323
+            self.cmp.dist_abs('Niall', 'Nigel'), 4.1588830833596715
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Colin', 'Coiln'), 0.0114358323
+            self.cmp.dist_abs('Colin', 'Coiln'), 4.1588830833596715
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Coiln', 'Colin'), 0.0114358323
+            self.cmp.dist_abs('Coiln', 'Colin'), 4.1588830833596715
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
+            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 4.852030263919617
         )
 
 
