@@ -57,9 +57,7 @@ class RaupCrickTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9999999857)
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.9999999857)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.9999999857)
-        self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.0
-        )
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 1.0)
 
 
 if __name__ == '__main__':
