@@ -73,7 +73,7 @@ class Morisita(_TokenDistance):
         """
         super(Morisita, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim_score(self, src, tar):
         """Return the Morisita similarity of two strings.
 
         Parameters
@@ -91,13 +91,13 @@ class Morisita(_TokenDistance):
         Examples
         --------
         >>> cmp = Morisita()
-        >>> cmp.sim('cat', 'hat')
-        0.0
-        >>> cmp.sim('Niall', 'Neil')
-        0.0
-        >>> cmp.sim('aluminum', 'Catalan')
-        0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('cat', 'hat')
+        0.25
+        >>> cmp.sim_score('Niall', 'Neil')
+        0.13333333333333333
+        >>> cmp.sim_score('aluminum', 'Catalan')
+        1.0
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
@@ -115,15 +115,23 @@ class Morisita(_TokenDistance):
         tar_lambda = 0
         for val in self._src_tokens.values():
             src_lambda += val * (val - 1)
-        src_lambda /= src_card * (src_card - 1)
+        if src_lambda:
+            src_lambda /= src_card * (src_card - 1)
         for val in self._tar_tokens.values():
             tar_lambda += val * (val - 1)
-        tar_lambda /= tar_card * (tar_card - 1)
+        if tar_lambda:
+            tar_lambda /= tar_card * (tar_card - 1)
 
         sim = 0
         for symbol in intersection.keys():
             sim += self._src_tokens[symbol] * self._tar_tokens[symbol]
-        sim *= 2 / ((src_lambda + tar_lambda) * src_card * tar_card)
+        sim *= 2
+        if src_card:
+            sim /= src_card
+        if tar_card:
+            sim /= tar_card
+        if src_lambda + tar_lambda:
+            sim /= src_lambda + tar_lambda
 
         return sim
 
