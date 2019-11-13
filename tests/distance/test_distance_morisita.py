@@ -44,29 +44,29 @@ class MorisitaTestCases(unittest.TestCase):
     def test_inclusion_sim_score(self):
         """Test abydos.distance.Morisita.sim_score."""
         # Base cases
-        self.assertEqual(self.cmp.sim_score('', ''), 1.0)
+        self.assertEqual(self.cmp.sim_score('', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('a', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim_score('a', 'a'), 1.0)
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 1.0)
+        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 0.5)
         self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0.0)
 
         self.assertAlmostEqual(
-            self.cmp.sim_score('Nigel', 'Niall'), 0.0114358323
+            self.cmp.sim_score('Nigel', 'Niall'), 0.1666666666
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Niall', 'Nigel'), 0.0114358323
+            self.cmp.sim_score('Niall', 'Nigel'), 0.1666666666
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Colin', 'Coiln'), 0.0114358323
+            self.cmp.sim_score('Colin', 'Coiln'), 0.1666666666
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('Coiln', 'Colin'), 0.0114358323
+            self.cmp.sim_score('Coiln', 'Colin'), 0.1666666666
         )
         self.assertAlmostEqual(
-            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.12727272727
         )
 
 
