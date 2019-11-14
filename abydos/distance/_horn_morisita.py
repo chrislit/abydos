@@ -95,11 +95,11 @@ class HornMorisita(_TokenDistance):
         --------
         >>> cmp = HornMorisita()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.5
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.3636363636363636
         >>> cmp.sim('aluminum', 'Catalan')
-        0.0
+        0.10650887573964497
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
@@ -118,15 +118,23 @@ class HornMorisita(_TokenDistance):
         tar_lambda = 0
         for val in self._src_tokens.values():
             src_lambda += val * val
-        src_lambda /= src_card * src_card
+        if src_lambda:
+            src_lambda /= src_card * src_card
         for val in self._tar_tokens.values():
             tar_lambda += val * val
-        tar_lambda /= tar_card * tar_card
+        if tar_lambda:
+            tar_lambda /= tar_card * tar_card
 
         sim = 0
         for symbol in intersection.keys():
             sim += self._src_tokens[symbol] * self._tar_tokens[symbol]
-        sim *= 2 / ((src_lambda + tar_lambda) * src_card * tar_card)
+        sim *= 2
+        if src_card:
+            sim /= src_card
+        if tar_card:
+            sim /= tar_card
+        if src_lambda + tar_lambda:
+            sim /= src_lambda + tar_lambda
 
         return sim
 

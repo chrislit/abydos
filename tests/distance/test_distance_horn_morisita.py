@@ -44,7 +44,7 @@ class HornMorisitaTestCases(unittest.TestCase):
     def test_inclusion_sim(self):
         """Test abydos.distance.HornMorisita.sim."""
         # Base cases
-        self.assertEqual(self.cmp.sim('', ''), 1.0)
+        self.assertEqual(self.cmp.sim('', ''), 0.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim('a', 'a'), 1.0)
@@ -53,12 +53,12 @@ class HornMorisitaTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0114358323)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.5)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.5)
         self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
+            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.6666666666667
         )
 
 
