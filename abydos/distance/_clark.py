@@ -80,18 +80,21 @@ class Clark(_TokenDistance):
         --------
         >>> cmp = Clark()
         >>> cmp.dist('cat', 'hat')
-        0.0
+        0.816496580927726
         >>> cmp.dist('Niall', 'Neil')
-        0.0
+        0.8819171036881969
         >>> cmp.dist('aluminum', 'Catalan')
-        0.0
+        0.9660917830792959
         >>> cmp.dist('ATCG', 'TAGC')
-        0.0
+        1.0
 
 
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         src_tok = self._src_tokens

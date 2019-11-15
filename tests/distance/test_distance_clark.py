@@ -44,21 +44,21 @@ class ClarkTestCases(unittest.TestCase):
     def test_inclusion_dist(self):
         """Test abydos.distance.Clark.dist."""
         # Base cases
-        self.assertEqual(self.cmp.dist('', ''), 1.0)
-        self.assertEqual(self.cmp.dist('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'a'), 0.0)
-        self.assertEqual(self.cmp.dist('a', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist('abc', ''), 0.0)
-        self.assertEqual(self.cmp.dist('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.dist('', ''), 0.0)
+        self.assertEqual(self.cmp.dist('a', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'a'), 1.0)
+        self.assertEqual(self.cmp.dist('a', 'a'), 0.0)
+        self.assertEqual(self.cmp.dist('abc', ''), 1.0)
+        self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
+        self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
+        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0114358323)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.8164965809)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.8164965809)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.8164965809)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.8164965809)
         self.assertAlmostEqual(
-            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
+            self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.707106781
         )
 
 
