@@ -90,7 +90,10 @@ class ChaoDice(ChaoJaccard):
 
         u_hat, v_hat = self._get_estimates(src, tar)
 
-        return 2 * u_hat * v_hat / (u_hat + v_hat)
+        num = u_hat * v_hat
+        if num:
+            return 2 * num / (u_hat + v_hat)
+        return 0.0
 
 
 if __name__ == '__main__':
