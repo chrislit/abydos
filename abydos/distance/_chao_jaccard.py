@@ -93,7 +93,10 @@ class ChaoJaccard(_TokenDistance):
 
         u_hat, v_hat = self._get_estimates(src, tar)
 
-        return u_hat * v_hat / (u_hat + v_hat - u_hat * v_hat)
+        num = u_hat * v_hat
+        if num:
+            return num / (u_hat + v_hat - u_hat * v_hat)
+        return 0.0
 
     def _get_estimates(self, src, tar):
         """Get the estimates U-hat & V-hat used for Chao's measures.
@@ -127,45 +130,60 @@ class ChaoJaccard(_TokenDistance):
             1 if src_sampled[tok] == 1 and tar_sampled[tok] >= 1 else 0
             for tok in sample_intersection
         )
-        f_2_plus = sum(
-            1 if src_sampled[tok] == 2 and tar_sampled[tok] >= 1 else 0
-            for tok in sample_intersection
+        f_2_plus = max(
+            sum(
+                1 if src_sampled[tok] == 2 and tar_sampled[tok] >= 1 else 0
+                for tok in sample_intersection
+            ),
+            1,
         )
         f_plus_1 = sum(
             1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 1 else 0
             for tok in sample_intersection
         )
-        f_plus_2 = sum(
-            1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 2 else 0
-            for tok in sample_intersection
+        f_plus_2 = max(
+            sum(
+                1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 2 else 0
+                for tok in sample_intersection
+            ),
+            1,
         )
 
-        u_hat = sum(
-            src_sampled[tok] / src_card for tok in sample_intersection.keys()
-        )
-        u_hat += (
-            (tar_card - 1)
-            / tar_card
-            * f_plus_1
-            / (2 * f_plus_2)
-            * sum(
-                src_sampled[tok] / src_card * (tar_sampled[tok] == 1)
+        u_hat = 0
+        if src_card:
+            u_hat += sum(
+                src_sampled[tok] / src_card
                 for tok in sample_intersection.keys()
             )
-        )
-        v_hat = sum(
-            tar_sampled[tok] / tar_card for tok in sample_intersection.keys()
-        )
-        v_hat += (
-            (src_card - 1)
-            / src_card
-            * f_1_plus
-            / (2 * f_2_plus)
-            * sum(
-                tar_sampled[tok] / tar_card * (src_sampled[tok] == 1)
+        if tar_card:
+            u_hat += (
+                (tar_card - 1)
+                / tar_card
+                * f_plus_1
+                / (2 * f_plus_2)
+                * sum(
+                    src_sampled[tok] / src_card * (tar_sampled[tok] == 1)
+                    for tok in sample_intersection.keys()
+                )
+            )
+
+        v_hat = 0
+        if tar_card:
+            v_hat += sum(
+                tar_sampled[tok] / tar_card
                 for tok in sample_intersection.keys()
             )
-        )
+        if src_card:
+            v_hat += (
+                (src_card - 1)
+                / src_card
+                * f_1_plus
+                / (2 * f_2_plus)
+                * sum(
+                    tar_sampled[tok] / tar_card * (src_sampled[tok] == 1)
+                    for tok in sample_intersection.keys()
+                )
+            )
 
         return u_hat, v_hat
 
