@@ -29,7 +29,7 @@ from __future__ import (
 )
 
 from collections import Counter
-from random import sample
+from random import choices
 
 from ._token_distance import _TokenDistance
 
@@ -90,6 +90,10 @@ class ChaoJaccard(_TokenDistance):
 
         """
         self._tokenize(src, tar)
+        self._intersection()
+
+        if self._intersection_card() == 0:
+            return 0.0
 
         u_hat, v_hat = self._get_estimates(src, tar)
 
@@ -122,8 +126,8 @@ class ChaoJaccard(_TokenDistance):
         src_token_list = self.params['tokenizer'].tokenize(src).get_list()
         tar_token_list = self.params['tokenizer'].tokenize(tar).get_list()
 
-        src_sampled = Counter(sample(src_token_list, src_card))
-        tar_sampled = Counter(sample(tar_token_list, tar_card))
+        src_sampled = Counter(choices(src_token_list, k=src_card))
+        tar_sampled = Counter(choices(tar_token_list, k=tar_card))
         sample_intersection = src_sampled & tar_sampled
 
         f_1_plus = sum(
