@@ -134,24 +134,23 @@ class ChaoJaccard(_TokenDistance):
             1 if src_sampled[tok] == 1 and tar_sampled[tok] >= 1 else 0
             for tok in sample_intersection
         )
-        f_2_plus = max(
-            sum(
-                1 if src_sampled[tok] == 2 and tar_sampled[tok] >= 1 else 0
-                for tok in sample_intersection
-            ),
-            1,
+        f_2_plus = sum(
+            1 if src_sampled[tok] == 2 and tar_sampled[tok] >= 1 else 0
+            for tok in sample_intersection
         )
+        if not f_2_plus:
+            f_2_plus = 1
+
         f_plus_1 = sum(
             1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 1 else 0
             for tok in sample_intersection
         )
-        f_plus_2 = max(
-            sum(
-                1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 2 else 0
-                for tok in sample_intersection
-            ),
-            1,
+        f_plus_2 = sum(
+            1 if src_sampled[tok] >= 1 and tar_sampled[tok] == 2 else 0
+            for tok in sample_intersection
         )
+        if not f_plus_2:
+            f_plus_2 = 1
 
         u_hat = 0
         if src_card:
