@@ -56,6 +56,39 @@ class ChaoDice(ChaoJaccard):
         super(ChaoDice, self).__init__(**kwargs)
 
     def sim(self, src, tar):
+        """Return the normalized Chao's Dice similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized Chao's Dice similarity
+
+        Examples
+        --------
+        >>> cmp = ChaoDice()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        return max(0.0, min(1.0, self.sim_score(src, tar)))
+
+    def sim_score(self, src, tar):
         """Return the Chao's Dice similarity of two strings.
 
         Parameters
@@ -73,13 +106,13 @@ class ChaoDice(ChaoJaccard):
         Examples
         --------
         >>> cmp = ChaoDice()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 

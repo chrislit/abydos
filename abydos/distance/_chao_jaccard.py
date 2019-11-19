@@ -59,6 +59,39 @@ class ChaoJaccard(_TokenDistance):
         super(ChaoJaccard, self).__init__(**kwargs)
 
     def sim(self, src, tar):
+        """Return normalized Chao's Jaccard similarity of two strings.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        float
+            Normalized Chao's Jaccard similarity
+
+        Examples
+        --------
+        >>> cmp = ChaoJaccard()
+        >>> cmp.sim('cat', 'hat')
+        0.0
+        >>> cmp.sim('Niall', 'Neil')
+        0.0
+        >>> cmp.sim('aluminum', 'Catalan')
+        0.0
+        >>> cmp.sim('ATCG', 'TAGC')
+        0.0
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        return max(0.0, min(1.0, self.sim_score(src, tar)))
+
+    def sim_score(self, src, tar):
         """Return Chao's Jaccard similarity of two strings.
 
         Parameters
@@ -76,13 +109,13 @@ class ChaoJaccard(_TokenDistance):
         Examples
         --------
         >>> cmp = ChaoJaccard()
-        >>> cmp.sim('cat', 'hat')
+        >>> cmp.sim_score('cat', 'hat')
         0.0
-        >>> cmp.sim('Niall', 'Neil')
+        >>> cmp.sim_score('Niall', 'Neil')
         0.0
-        >>> cmp.sim('aluminum', 'Catalan')
+        >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
-        >>> cmp.sim('ATCG', 'TAGC')
+        >>> cmp.sim_score('ATCG', 'TAGC')
         0.0
 
 
