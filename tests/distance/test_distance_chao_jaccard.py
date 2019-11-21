@@ -28,6 +28,7 @@ from __future__ import (
     unicode_literals,
 )
 
+import random
 import unittest
 
 from abydos.distance import ChaoJaccard
@@ -43,6 +44,8 @@ class ChaoJaccardTestCases(unittest.TestCase):
 
     def test_inclusion_sim(self):
         """Test abydos.distance.ChaoJaccard.sim."""
+        random.seed(0)
+
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
         self.assertEqual(self.cmp.sim('a', ''), 0.0)

@@ -75,6 +75,8 @@ class ChaoJaccard(_TokenDistance):
 
         Examples
         --------
+        >>> import random
+        >>> random.seed(0)
         >>> cmp = ChaoJaccard()
         >>> cmp.sim('cat', 'hat')
         0.0
@@ -108,6 +110,8 @@ class ChaoJaccard(_TokenDistance):
 
         Examples
         --------
+        >>> import random
+        >>> random.seed(0)
         >>> cmp = ChaoJaccard()
         >>> cmp.sim_score('cat', 'hat')
         0.0

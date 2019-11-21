@@ -72,6 +72,8 @@ class ChaoDice(ChaoJaccard):
 
         Examples
         --------
+        >>> import random
+        >>> random.seed(0)
         >>> cmp = ChaoDice()
         >>> cmp.sim('cat', 'hat')
         0.0
@@ -105,6 +107,8 @@ class ChaoDice(ChaoJaccard):
 
         Examples
         --------
+        >>> import random
+        >>> random.seed(0)
         >>> cmp = ChaoDice()
         >>> cmp.sim_score('cat', 'hat')
         0.0
