@@ -64,6 +64,32 @@ class ChaoJaccardTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.27137634
         )
 
+    def test_inclusion_sim_score(self):
+        """Test abydos.distance.ChaoJaccard.sim_score."""
+        random.seed(0)
+
+        # Base cases
+        self.assertEqual(self.cmp.sim_score('', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('a', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim_score('a', 'a'), 0.0)
+        self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
+        self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim_score('abc', 'abc'), 3.5714285714)
+        self.assertEqual(self.cmp.sim_score('abcd', 'efgh'), 0.0)
+
+        self.assertAlmostEqual(
+            self.cmp.sim_score('Nigel', 'Niall'), 0.4461538462
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('Niall', 'Nigel'), 0.3885505481
+        )
+        self.assertAlmostEqual(self.cmp.sim_score('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim_score('Coiln', 'Colin'), 0.44)
+        self.assertAlmostEqual(
+            self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.27137634
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
