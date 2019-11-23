@@ -76,9 +76,9 @@ class ChaoDice(ChaoJaccard):
         >>> random.seed(0)
         >>> cmp = ChaoDice()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.36666666666666664
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.27868852459016397
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')
@@ -111,9 +111,9 @@ class ChaoDice(ChaoJaccard):
         >>> random.seed(0)
         >>> cmp = ChaoDice()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.36666666666666664
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.27868852459016397
         >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
         >>> cmp.sim_score('ATCG', 'TAGC')

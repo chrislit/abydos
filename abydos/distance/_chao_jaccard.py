@@ -79,9 +79,9 @@ class ChaoJaccard(_TokenDistance):
         >>> random.seed(0)
         >>> cmp = ChaoJaccard()
         >>> cmp.sim('cat', 'hat')
-        0.0
+        0.22448979591836735
         >>> cmp.sim('Niall', 'Neil')
-        0.0
+        0.1619047619047619
         >>> cmp.sim('aluminum', 'Catalan')
         0.0
         >>> cmp.sim('ATCG', 'TAGC')
@@ -114,9 +114,9 @@ class ChaoJaccard(_TokenDistance):
         >>> random.seed(0)
         >>> cmp = ChaoJaccard()
         >>> cmp.sim_score('cat', 'hat')
-        0.0
+        0.22448979591836735
         >>> cmp.sim_score('Niall', 'Neil')
-        0.0
+        0.1619047619047619
         >>> cmp.sim_score('aluminum', 'Catalan')
         0.0
         >>> cmp.sim_score('ATCG', 'TAGC')
