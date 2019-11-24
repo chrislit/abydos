@@ -164,8 +164,8 @@ class Cao(_TokenDistance):
         obsereved_cyd = 0
         maximum_cyd = 0
         for symbol in alphabet:
-            src_tok = min(0.1, self._src_tokens[symbol])
-            tar_tok = min(0.1, self._tar_tokens[symbol])
+            src_tok = max(0.1, self._src_tokens[symbol])
+            tar_tok = max(0.1, self._tar_tokens[symbol])
             tok_sum = src_tok + tar_tok
             obsereved_cyd += (
                 tok_sum * log10(tok_sum / 2)
@@ -201,7 +201,7 @@ class Cao(_TokenDistance):
             + ((d_k + 1) * log10((d_k + 1) / 2) - log10(d_k)) / (d_k + 1)
         )
 
-        return 1 - (obsereved_cyd / maximum_cyd)
+        return max(0.0, min(1.0, 1 - (obsereved_cyd / maximum_cyd)))
 
     def dist_abs(self, src, tar):
         """Return Cao's CY dissimilarity (CYd) of two strings.
@@ -234,14 +234,17 @@ class Cao(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         alphabet = self._total().keys()
 
         score = 0
         for symbol in alphabet:
-            src_tok = min(0.1, self._src_tokens[symbol])
-            tar_tok = min(0.1, self._tar_tokens[symbol])
+            src_tok = max(0.1, self._src_tokens[symbol])
+            tar_tok = max(0.1, self._tar_tokens[symbol])
             tok_sum = src_tok + tar_tok
             score += (
                 tok_sum * log10(tok_sum / 2)
