@@ -159,15 +159,15 @@ class Cao(_TokenDistance):
         self._tokenize(src, tar)
 
         alphabet = self._total().keys()
-        in_both_samples = len(self._intersection().items())
+        in_both_samples_half = len(self._intersection().keys()) / 2
 
-        obsereved_cyd = 0
+        observed_cyd = 0
         maximum_cyd = 0
         for symbol in alphabet:
             src_tok = max(0.1, self._src_tokens[symbol])
             tar_tok = max(0.1, self._tar_tokens[symbol])
             tok_sum = src_tok + tar_tok
-            obsereved_cyd += (
+            observed_cyd += (
                 tok_sum * log10(tok_sum / 2)
                 - src_tok * log10(tar_tok)
                 - tar_tok * log10(src_tok)
@@ -190,18 +190,18 @@ class Cao(_TokenDistance):
 
         d_i = 0
         d_k = 0
-        for symbol in self._intersection().items():
-            d_i += self._src_tokens[symbol] - (in_both_samples / 2)
-            d_k += self._tar_tokens[symbol] - (in_both_samples / 2)
-        d_i /= in_both_samples / 2
-        d_k /= in_both_samples / 2
+        for symbol in self._intersection().keys():
+            d_i += self._src_tokens[symbol]
+            d_k += self._tar_tokens[symbol]
+        d_i = (d_i - in_both_samples_half) / in_both_samples_half
+        d_k = (d_k - in_both_samples_half) / in_both_samples_half
 
-        maximum_cyd += (in_both_samples / 2) * (
+        maximum_cyd += in_both_samples_half * (
             ((d_i + 1) * log10((d_i + 1) / 2) - log10(d_i)) / (d_i + 1)
             + ((d_k + 1) * log10((d_k + 1) / 2) - log10(d_k)) / (d_k + 1)
         )
 
-        return max(0.0, min(1.0, 1 - (obsereved_cyd / maximum_cyd)))
+        return max(0.0, min(1.0, 1 - (observed_cyd / maximum_cyd)))
 
     def dist_abs(self, src, tar):
         """Return Cao's CY dissimilarity (CYd) of two strings.
