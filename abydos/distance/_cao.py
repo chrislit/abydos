@@ -156,10 +156,17 @@ class Cao(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
+        if src == tar:
+            return 1.0
+        if not src or not tar:
+            return 0.0
+
         self._tokenize(src, tar)
 
         alphabet = self._total().keys()
         in_both_samples_half = len(self._intersection().keys()) / 2
+        if not in_both_samples_half:
+            return 0.0
 
         observed_cyd = 0
         maximum_cyd = 0
