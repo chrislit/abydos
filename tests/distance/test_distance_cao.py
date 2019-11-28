@@ -53,40 +53,40 @@ class CaoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0114358323)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0114358323)
-        self.assertAlmostEqual(
-            self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
-        )
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0)
 
     def test_inclusion_dist_abs(self):
         """Test abydos.distance.Cao.dist_abs."""
         # Base cases
-        self.assertEqual(self.cmp.dist_abs('', ''), 1.0)
-        self.assertEqual(self.cmp.dist_abs('a', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('', 'a'), 0.0)
-        self.assertEqual(self.cmp.dist_abs('a', 'a'), 1.0)
-        self.assertEqual(self.cmp.dist_abs('abc', ''), 0.0)
-        self.assertEqual(self.cmp.dist_abs('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.dist_abs('abcd', 'efgh'), 0.0)
+        self.assertEqual(self.cmp.dist_abs('', ''), 0.0)
+        self.assertAlmostEqual(self.cmp.dist_abs('a', ''), 0.649453598585)
+        self.assertAlmostEqual(self.cmp.dist_abs('', 'a'), 0.649453598585)
+        self.assertEqual(self.cmp.dist_abs('a', 'a'), 0.0)
+        self.assertAlmostEqual(self.cmp.dist_abs('abc', ''), 0.649453598585)
+        self.assertAlmostEqual(self.cmp.dist_abs('', 'abc'), 0.649453598585)
+        self.assertEqual(self.cmp.dist_abs('abc', 'abc'), 0.0)
+        self.assertAlmostEqual(
+            self.cmp.dist_abs('abcd', 'efgh'), 0.649453598585
+        )
 
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Nigel', 'Niall'), 0.0114358323
+            self.cmp.dist_abs('Nigel', 'Niall'), 0.324726799
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Niall', 'Nigel'), 0.0114358323
+            self.cmp.dist_abs('Niall', 'Nigel'), 0.324726799
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Colin', 'Coiln'), 0.0114358323
+            self.cmp.dist_abs('Colin', 'Coiln'), 0.324726799
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('Coiln', 'Colin'), 0.0114358323
+            self.cmp.dist_abs('Coiln', 'Colin'), 0.324726799
         )
         self.assertAlmostEqual(
-            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0.0139593909
+            self.cmp.dist_abs('ATCAACGAGT', 'AACGATTAG'), 0.21648453286
         )
 
 
