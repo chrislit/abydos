@@ -29,7 +29,14 @@ from __future__ import (
 )
 
 from collections import Counter
-from random import choices
+try:
+    from random import choices
+except:
+    from random import choice
+
+    def choices(population, k=1):
+        """Quick implementation of choices for Python < 3.6."""
+        return [choice(population) for _ in range(k)]
 
 from ._token_distance import _TokenDistance
 
