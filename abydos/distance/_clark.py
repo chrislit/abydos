@@ -99,7 +99,7 @@ class Clark(_TokenDistance):
 
         src_tok = self._src_tokens
         tar_tok = self._tar_tokens
-        alphabet = set(src_tok.keys() | tar_tok.keys())
+        alphabet = set(set(src_tok.keys()) | set(tar_tok.keys()))
 
         return (
             sum(
