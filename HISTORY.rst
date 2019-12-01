@@ -31,6 +31,7 @@ Changes:
     - Clark's coefficient of divergence
     - Chao's Jaccard similarity
     - Chao's Dice similarity
+    - Cao's CY similarity (CYs) and dissimilarity (CYd)
 - Added the following fingerprint classes:
     - Taft's Consonant coding
     - Taft's Extract - letter list
