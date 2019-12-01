@@ -31,7 +31,7 @@ from __future__ import (
 from collections import Counter
 try:
     from random import choices
-except:
+except ImportError:  # pragma: no cover
     from random import choice
 
     def choices(population, k=1):
