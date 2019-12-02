@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 from collections import Counter
+
 try:
     from random import choices
 except ImportError:  # pragma: no cover
@@ -37,6 +38,7 @@ except ImportError:  # pragma: no cover
     def choices(population, k=1):
         """Quick implementation of choices for Python < 3.6."""
         return [choice(population) for _ in range(k)]
+
 
 from ._token_distance import _TokenDistance
 
