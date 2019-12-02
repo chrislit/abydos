@@ -69,6 +69,10 @@ class MorisitaTestCases(unittest.TestCase):
             self.cmp.sim_score('ATCAACGAGT', 'AACGATTAG'), 0.12727272727
         )
 
+        self.assertAlmostEqual(
+            self.cmp.sim_score('sadklsalkdhsa', 'slksajdlkasj'), 1.44
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
