@@ -121,6 +121,48 @@ class Millar(_TokenDistance):
             return score
         return 0.0
 
+    def sim(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Millar dissimilarity.
+
+
+        .. versionadded:: 0.3.6
+
+        """
+        raise NotImplementedError('Method disabled for Millar dissimilarity.')
+
+    def dist(self, *args, **kwargs):
+        """Raise exception when called.
+
+        Parameters
+        ----------
+        *args
+            Variable length argument list
+        **kwargs
+            Arbitrary keyword arguments
+
+        Raises
+        ------
+        NotImplementedError
+            Method disabled for Millar dissimilarity.
+
+
+        .. versionadded:: 0.3.6
+
+        """
+        raise NotImplementedError('Method disabled for Millar dissimilarity.')
+
 
 if __name__ == '__main__':
     import doctest
