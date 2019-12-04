@@ -41,7 +41,7 @@ class MorisitaTestCases(unittest.TestCase):
 
     cmp = Morisita()
 
-    def test_inclusion_sim_score(self):
+    def test_morisita_sim_score(self):
         """Test abydos.distance.Morisita.sim_score."""
         # Base cases
         self.assertEqual(self.cmp.sim_score('', ''), 0.0)
@@ -72,6 +72,14 @@ class MorisitaTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp.sim_score('sadklsalkdhsa', 'slksajdlkasj'), 1.44
         )
+
+    def test_morisita_dist(self):
+        """Test abydos.distance.Morisita.dist."""
+        self.assertRaises(NotImplementedError, self.cmp.dist)
+
+    def test_morisita_sim(self):
+        """Test abydos.distance.Morisita.sim."""
+        self.assertRaises(NotImplementedError, self.cmp.sim)
 
 
 if __name__ == '__main__':
