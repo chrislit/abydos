@@ -41,7 +41,7 @@ class ClarkTestCases(unittest.TestCase):
 
     cmp = Clark()
 
-    def test_inclusion_dist(self):
+    def test_clark_dist(self):
         """Test abydos.distance.Clark.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 0.0)

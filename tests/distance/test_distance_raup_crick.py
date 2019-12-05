@@ -41,7 +41,7 @@ class RaupCrickTestCases(unittest.TestCase):
 
     cmp = RaupCrick()
 
-    def test_inclusion_sim(self):
+    def test_raup_crick_sim(self):
         """Test abydos.distance.RaupCrick.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)

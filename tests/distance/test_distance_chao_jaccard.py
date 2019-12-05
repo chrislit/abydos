@@ -42,7 +42,7 @@ class ChaoJaccardTestCases(unittest.TestCase):
 
     cmp = ChaoJaccard()
 
-    def test_inclusion_sim(self):
+    def test_chao_jaccard_sim(self):
         """Test abydos.distance.ChaoJaccard.sim."""
         random.seed(0)
 
@@ -64,7 +64,7 @@ class ChaoJaccardTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.27137634
         )
 
-    def test_inclusion_sim_score(self):
+    def test_chao_jaccard_sim_score(self):
         """Test abydos.distance.ChaoJaccard.sim_score."""
         random.seed(0)
 

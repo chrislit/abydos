@@ -41,7 +41,7 @@ class HendersonHeronTestCases(unittest.TestCase):
 
     cmp = HendersonHeron()
 
-    def test_inclusion_dist(self):
+    def test_henderson_heron_dist(self):
         """Test abydos.distance.HendersonHeron.dist."""
         # Base cases
         self.assertEqual(self.cmp.dist('', ''), 1.0)

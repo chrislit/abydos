@@ -41,7 +41,7 @@ class HornMorisitaTestCases(unittest.TestCase):
 
     cmp = HornMorisita()
 
-    def test_inclusion_sim(self):
+    def test_horn_morisita_sim(self):
         """Test abydos.distance.HornMorisita.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 0.0)

@@ -41,7 +41,7 @@ class VPSTestCases(unittest.TestCase):
 
     cmp = VPS()
 
-    def test_inclusion_sim(self):
+    def test_vps_sim(self):
         """Test abydos.distance.VPS.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
@@ -53,7 +53,7 @@ class VPSTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.0)
 
-        # Tescases from paper
+        # Testcases from paper
         self.assertEqual(
             self.cmp.sim('AINSCOMBE', 'ANSCOMB'), 0.5972222222222222
         )

@@ -41,7 +41,7 @@ class CaoTestCases(unittest.TestCase):
 
     cmp = Cao()
 
-    def test_inclusion_sim(self):
+    def test_cao_sim(self):
         """Test abydos.distance.Cao.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)
@@ -59,7 +59,7 @@ class CaoTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.0)
 
-    def test_inclusion_dist_abs(self):
+    def test_cao_dist_abs(self):
         """Test abydos.distance.Cao.dist_abs."""
         # Base cases
         self.assertEqual(self.cmp.dist_abs('', ''), 0.0)

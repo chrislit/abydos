@@ -42,7 +42,7 @@ class ChaoDiceTestCases(unittest.TestCase):
 
     cmp = ChaoDice()
 
-    def test_inclusion_sim(self):
+    def test_chao_dice_sim(self):
         """Test abydos.distance.ChaoDice.sim."""
         random.seed(0)
 
@@ -64,7 +64,7 @@ class ChaoDiceTestCases(unittest.TestCase):
             self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.67327824
         )
 
-    def test_inclusion_sim_score(self):
+    def test_chao_dice_sim_score(self):
         """Test abydos.distance.ChaoDice.sim_score."""
         random.seed(0)
 
