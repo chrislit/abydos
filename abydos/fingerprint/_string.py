@@ -91,7 +91,7 @@ class String(_Fingerprint):
         """
         phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
         phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
-        phrase = self._joiner.join(sorted(list(set(phrase.split()))))
+        phrase = self._joiner.join(sorted(set(phrase.split())))
         return phrase
 
 
