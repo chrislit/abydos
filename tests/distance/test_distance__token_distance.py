@@ -391,20 +391,24 @@ class TokenDistanceTestCases(unittest.TestCase):
         )
 
         cmp_j_soft = Jaccard(intersection_type='soft')
-        self.assertEqual(cmp_j_soft._src_card(), 0)
-        self.assertEqual(cmp_j_soft._tar_card(), 0)
-        self.assertEqual(cmp_j_soft._src_only(), Counter())
-        self.assertEqual(cmp_j_soft._tar_only(), Counter())
-        self.assertEqual(cmp_j_soft._total(), Counter())
-        self.assertEqual(cmp_j_soft._union(), Counter())
-        self.assertEqual(cmp_j_soft._difference(), Counter())
+        self.assertEqual(cmp_j_soft._src_card(), 0)  # noqa: SF01
+        self.assertEqual(cmp_j_soft._tar_card(), 0)  # noqa: SF01
+        self.assertEqual(cmp_j_soft._src_only(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._tar_only(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._total(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._union(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._difference(), Counter())  # noqa: SF01
         cmp_j_soft.sim('abcd', 'abcde')
-        self.assertEqual(cmp_j_soft._src_card(), 5)
-        self.assertEqual(cmp_j_soft._tar_card(), 6)
-        self.assertEqual(cmp_j_soft._src_only(), Counter({'#': 0.5}))
-        self.assertEqual(cmp_j_soft._tar_only(), Counter({'e#': 1, 'e': 0.5}))
+        self.assertEqual(cmp_j_soft._src_card(), 5)  # noqa: SF01
+        self.assertEqual(cmp_j_soft._tar_card(), 6)  # noqa: SF01
         self.assertEqual(
-            cmp_j_soft._total(),
+            cmp_j_soft._src_only(), Counter({'#': 0.5})  # noqa: SF01
+        )
+        self.assertEqual(
+            cmp_j_soft._tar_only(), Counter({'e#': 1, 'e': 0.5})  # noqa: SF01
+        )
+        self.assertEqual(
+            cmp_j_soft._total(),  # noqa: SF01
             Counter(
                 {
                     'e#': 1,
@@ -419,7 +423,7 @@ class TokenDistanceTestCases(unittest.TestCase):
             ),
         )
         self.assertEqual(
-            cmp_j_soft._union(),
+            cmp_j_soft._union(),  # noqa: SF01
             Counter(
                 {
                     'e#': 1,
@@ -434,7 +438,8 @@ class TokenDistanceTestCases(unittest.TestCase):
             ),
         )
         self.assertEqual(
-            cmp_j_soft._difference(), Counter({'#': 0.5, 'e#': -1, 'e': -0.5})
+            cmp_j_soft._difference(),  # noqa: SF01
+            Counter({'#': 0.5, 'e#': -1, 'e': -0.5}),
         )
 
 
