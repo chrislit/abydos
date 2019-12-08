@@ -532,7 +532,6 @@ from ._lig3 import LIG3
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
 from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
-from ._morisita import Morisita
 from ._marking import Marking
 from ._marking_metric import MarkingMetric
 from ._masi import MASI
@@ -547,6 +546,7 @@ from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._morisita import Morisita
 from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._ms_contingency import MSContingency

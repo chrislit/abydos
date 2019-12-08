@@ -29,7 +29,7 @@ from __future__ import (
 )
 
 from collections import Counter
-from math import exp, log1p, log
+from math import exp, log, log1p
 
 __all__ = ['_Tokenizer']
 
