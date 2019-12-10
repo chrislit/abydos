@@ -229,13 +229,13 @@ class Cao(_TokenDistance):
         --------
         >>> cmp = Cao()
         >>> cmp.dist_abs('cat', 'hat')
-        0.0
+        0.3247267992925765
         >>> cmp.dist_abs('Niall', 'Neil')
-        0.0
+        0.4132886536450973
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        0.0
+        0.5530666041976232
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.0
+        0.6494535985851531
 
 
         .. versionadded:: 0.4.1

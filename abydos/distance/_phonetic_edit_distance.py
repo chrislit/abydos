@@ -220,7 +220,7 @@ class PhoneticEditDistance(Levenshtein):
 
         >>> cmp = PhoneticEditDistance(mode='osa')
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        0.2
+        0.46236225806451603
         >>> cmp.dist_abs('ACTG', 'TAGC')
         1.2580645161290323
 
