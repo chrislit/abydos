@@ -38,7 +38,7 @@ __all__ = ['VPS']
 class VPS(_Distance):
     """Victorian Panel Study (VPS) score.
 
-    VPS score is presented in :cite:`Shurer:2007`.
+    VPS score is presented in :cite:`Schurer:2007`.
 
     .. versionadded:: 0.4.1
     """
