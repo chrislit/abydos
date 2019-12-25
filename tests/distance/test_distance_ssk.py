@@ -103,14 +103,14 @@ class SSKTestCases(unittest.TestCase):
         )
 
         # multiple lambdas
-        self.assertEqual(
+        self.assertAlmostEqual(
             SSK(ssk_lambda=0.05).sim_score('Nigel', 'Niall'),
             6.250822363281253e-06,
         )
-        self.assertEqual(
+        self.assertAlmostEqual(
             SSK(ssk_lambda=0.5).sim_score('Nigel', 'Niall'), 0.0771484375
         )
-        self.assertEqual(
+        self.assertAlmostEqual(
             SSK(ssk_lambda=np.arange(0.05, 0.5, 0.05)).sim_score(
                 'Nigel', 'Niall'
             ),
