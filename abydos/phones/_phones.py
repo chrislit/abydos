@@ -708,37 +708,10 @@ def get_feature(vector, feature):
     #           0 & 1 represent - & + and 0s are mapped to -
 
     if feature not in _FEATURE_MASK:
-        # TODO: formulate this on the basis of _FEATURE_MASK
         raise AttributeError(
-            "feature must be one of: '"
-            + "', '".join(
-                (
-                    'consonantal',
-                    'sonorant',
-                    'syllabic',
-                    'labial',
-                    'round',
-                    'coronal',
-                    'anterior',
-                    'distributed',
-                    'dorsal',
-                    'high',
-                    'low',
-                    'back',
-                    'tense',
-                    'pharyngeal',
-                    'ATR',
-                    'voice',
-                    'spread_glottis',
-                    'constricted_glottis',
-                    'continuant',
-                    'strident',
-                    'lateral',
-                    'delayed_release',
-                    'nasal',
-                )
+            "feature must be one of: '{}'".format(
+                "', '".join(_FEATURE_MASK.keys())
             )
-            + "'"
         )
 
     # each feature mask contains two bits, one each for - and +
