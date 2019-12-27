@@ -653,29 +653,37 @@ def get_feature(vector, feature):
     feature : str
         A feature name from the set:
 
+            - ``syllabic``
             - ``consonantal``
             - ``sonorant``
-            - ``syllabic``
+            - ``approximant``
             - ``labial``
             - ``round``
+            - ``protruded``
+            - ``compressed``
+            - ``labiodental``
             - ``coronal``
             - ``anterior``
             - ``distributed``
             - ``dorsal``
             - ``high``
             - ``low``
+            - ``front``
             - ``back``
             - ``tense``
             - ``pharyngeal``
-            - ``ATR``
+            - ``atr``
+            - ``rtr``
             - ``voice``
             - ``spread_glottis``
             - ``constricted_glottis``
+            - ``glottalic_suction``
+            - ``velaric_suction``
             - ``continuant``
+            - ``nasal``
             - ``strident``
             - ``lateral``
             - ``delayed_release``
-            - ``nasal``
 
     Returns
     -------
