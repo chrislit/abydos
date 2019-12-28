@@ -94,9 +94,19 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._phones import cmp_features, get_feature, ipa_to_features
+from ._phones import (
+    cmp_features,
+    get_feature,
+    ipa_to_features,
+    ipa_to_feature_dict,
+)
 
-__all__ = ['ipa_to_features', 'get_feature', 'cmp_features']
+__all__ = [
+    'ipa_to_features',
+    'ipa_to_feature_dict',
+    'get_feature',
+    'cmp_features',
+]
 
 
 if __name__ == '__main__':

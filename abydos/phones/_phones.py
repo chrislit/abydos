@@ -583,7 +583,6 @@ _FEATURE_MASK = {
 }
 
 
-# TODO: Write a version of this that returns a dict
 def ipa_to_features(ipa):
     """Convert IPA to features.
 
@@ -632,6 +631,163 @@ def ipa_to_features(ipa):
 
         if not found_match:
             features.append(-1)
+            pos += 1
+
+    return features
+
+
+def ipa_to_feature_dict(ipa):
+    """Convert IPA to a feature dict list.
+
+    This translates an IPA string of one or more phones to a list of dicts
+    representing the features of the string.
+
+    Parameters
+    ----------
+    ipa : str
+        The IPA representation of a phone or series of phones
+
+    Returns
+    -------
+    list of dicts
+        A representation of the features of the input string
+
+    Examples
+    --------
+    >>> ipa_to_feature_dict('mut')
+    [{'syllabic': '-',
+      'consonantal': '+',
+      'sonorant': '+',
+      'approximant': '-',
+      'labial': '+',
+      'round': '-',
+      'protruded': '-',
+      'compressed': '-',
+      'labiodental': '-',
+      'coronal': '-',
+      'anterior': '0',
+      'distributed': '0',
+      'dorsal': '-',
+      'high': '0',
+      'low': '0',
+      'front': '0',
+      'back': '0',
+      'tense': '0',
+      'pharyngeal': '-',
+      'atr': '0',
+      'rtr': '0',
+      'voice': '+',
+      'spread_glottis': '-',
+      'constricted_glottis': '-',
+      'glottalic_suction': '-',
+      'velaric_suction': '-',
+      'continuant': '-',
+      'nasal': '+',
+      'strident': '-',
+      'lateral': '-',
+      'delayed_release': '-'},
+     {'syllabic': '+',
+      'consonantal': '-',
+      'sonorant': '+',
+      'approximant': '+',
+      'labial': '+',
+      'round': '+',
+      'protruded': '-',
+      'compressed': '-',
+      'labiodental': '-',
+      'coronal': '-',
+      'anterior': '0',
+      'distributed': '0',
+      'dorsal': '+',
+      'high': '+',
+      'low': '-',
+      'front': '-',
+      'back': '+',
+      'tense': '+',
+      'pharyngeal': '+',
+      'atr': '+',
+      'rtr': '-',
+      'voice': '+',
+      'spread_glottis': '-',
+      'constricted_glottis': '-',
+      'glottalic_suction': '-',
+      'velaric_suction': '-',
+      'continuant': '+',
+      'nasal': '-',
+      'strident': '-',
+      'lateral': '-',
+      'delayed_release': '-'},
+     {'syllabic': '-',
+      'consonantal': '+',
+      'sonorant': '-',
+      'approximant': '-',
+      'labial': '-',
+      'round': '0',
+      'protruded': '0',
+      'compressed': '0',
+      'labiodental': '0',
+      'coronal': '+',
+      'anterior': '+',
+      'distributed': '-',
+      'dorsal': '-',
+      'high': '0',
+      'low': '0',
+      'front': '0',
+      'back': '0',
+      'tense': '0',
+      'pharyngeal': '-',
+      'atr': '0',
+      'rtr': '0',
+      'voice': '-',
+      'spread_glottis': '-',
+      'constricted_glottis': '-',
+      'glottalic_suction': '-',
+      'velaric_suction': '-',
+      'continuant': '-',
+      'nasal': '-',
+      'strident': '-',
+      'lateral': '-',
+      'delayed_release': '-'}]
+
+    .. versionadded:: 0.4.1
+
+    """
+    features = []
+    pos = 0
+    ipa = normalize('NFD', text_type(ipa.lower()))
+
+    maxsymlen = max(len(_) for _ in _PHONETIC_FEATURES)
+
+    while pos < len(ipa):
+        found_match = False
+        for i in range(maxsymlen, 0, -1):
+            if (
+                pos + i - 1 <= len(ipa)
+                and ipa[pos : pos + i] in _PHONETIC_FEATURES
+            ):
+                feature_int = _PHONETIC_FEATURES[ipa[pos : pos + i]]
+                feature_dict = {}
+                for feature in _FEATURE_MASK.keys():
+                    # each feature mask contains two bits, one each for - and +
+                    mask = _FEATURE_MASK[feature]
+                    # the lower bit represents +
+                    pos_mask = mask >> 1
+
+                    masked = feature_int & mask
+                    if masked == 0:
+                        feature_dict[feature] = '0'  # 0
+                    elif masked == mask:
+                        feature_dict[feature] = '+/-'  # +/-
+                    elif masked & pos_mask:
+                        feature_dict[feature] = '+'  # +
+                    else:
+                        feature_dict[feature] = '-'  # -
+                features.append(feature_dict)
+                pos += i
+                found_match = True
+
+        if not found_match:
+            features.append({})
             pos += 1
 
     return features
