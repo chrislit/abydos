@@ -35,7 +35,7 @@ from abydos.phones import (
     cmp_features,
     get_feature,
     ipa_to_features,
-    ipa_to_feature_dict,
+    ipa_to_feature_dicts,
 )
 
 
@@ -130,10 +130,10 @@ class PhonesTestCases(unittest.TestCase):
             [1826957412996131242, -1, 2783233463150095018],
         )
 
-    def test_phones_ipa_to_feature_dict(self):
-        """Test abydos.phones.ipa_to_feature_dict."""
+    def test_phones_ipa_to_feature_dicts(self):
+        """Test abydos.phones.ipa_to_feature_dicts."""
         self.assertEqual(
-            ipa_to_feature_dict('medçen'),
+            ipa_to_feature_dicts('medçen'),
             [
                 {
                     'syllabic': '-',
@@ -336,7 +336,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('axtuŋ'),
+            ipa_to_feature_dicts('axtuŋ'),
             [
                 {
                     'syllabic': '+',
@@ -506,7 +506,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('iç'),
+            ipa_to_feature_dicts('iç'),
             [
                 {
                     'syllabic': '+',
@@ -577,7 +577,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('bakofen'),
+            ipa_to_feature_dicts('bakofen'),
             [
                 {
                     'syllabic': '-',
@@ -813,7 +813,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('dʒuŋel'),
+            ipa_to_feature_dicts('dʒuŋel'),
             [
                 {
                     'syllabic': '-',
@@ -1016,7 +1016,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('kvatʃ'),
+            ipa_to_feature_dicts('kvatʃ'),
             [
                 {
                     'syllabic': '-',
@@ -1186,7 +1186,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('nitʃe'),
+            ipa_to_feature_dicts('nitʃe'),
             [
                 {
                     'syllabic': '-',
@@ -1356,7 +1356,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('klø'),
+            ipa_to_feature_dicts('klø'),
             [
                 {
                     'syllabic': '-',
@@ -1460,7 +1460,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('kybax'),
+            ipa_to_feature_dicts('kybax'),
             [
                 {
                     'syllabic': '-',
@@ -1630,7 +1630,7 @@ class PhonesTestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            ipa_to_feature_dict('i@c'),
+            ipa_to_feature_dicts('i@c'),
             [
                 {
                     'syllabic': '+',

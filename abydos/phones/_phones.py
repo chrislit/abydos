@@ -636,7 +636,7 @@ def ipa_to_features(ipa):
     return features
 
 
-def ipa_to_feature_dict(ipa):
+def ipa_to_feature_dicts(ipa):
     """Convert IPA to a feature dict list.
 
     This translates an IPA string of one or more phones to a list of dicts
@@ -654,7 +654,7 @@ def ipa_to_feature_dict(ipa):
 
     Examples
     --------
-    >>> ipa_to_feature_dict('mut')
+    >>> ipa_to_feature_dicts('mut')
     [{'syllabic': '-',
       'consonantal': '+',
       'sonorant': '+',

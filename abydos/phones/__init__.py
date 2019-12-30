@@ -98,12 +98,12 @@ from ._phones import (
     cmp_features,
     get_feature,
     ipa_to_features,
-    ipa_to_feature_dict,
+    ipa_to_feature_dicts,
 )
 
 __all__ = [
     'ipa_to_features',
-    'ipa_to_feature_dict',
+    'ipa_to_feature_dicts',
     'get_feature',
     'cmp_features',
 ]
