@@ -442,8 +442,8 @@ from __future__ import (
 from ._phones import (
     cmp_features,
     get_feature,
-    ipa_to_features,
     ipa_to_feature_dicts,
+    ipa_to_features,
 )
 
 __all__ = [
