@@ -96,6 +96,7 @@ later (GPLv3+)',
             'Topic :: Text Processing :: Linguistic',
             'Natural Language :: English',
         ],
+        long_description_content_type='text/x-rst',
         long_description='\n\n'.join(
             [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
         ),
