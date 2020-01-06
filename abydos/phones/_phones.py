@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -636,6 +636,163 @@ def ipa_to_features(ipa):
     return features
 
 
+def ipa_to_feature_dicts(ipa):
+    """Convert IPA to a feature dict list.
+
+    This translates an IPA string of one or more phones to a list of dicts
+    representing the features of the string.
+
+    Parameters
+    ----------
+    ipa : str
+        The IPA representation of a phone or series of phones
+
+    Returns
+    -------
+    list of dicts
+        A representation of the features of the input string
+
+    Examples
+    --------
+    >>> ipa_to_feature_dicts('mut')
+    [{'syllabic': '-',
+      'consonantal': '+',
+      'sonorant': '+',
+      'approximant': '-',
+      'labial': '+',
+      'round': '-',
+      'protruded': '-',
+      'compressed': '-',
+      'labiodental': '-',
+      'coronal': '-',
+      'anterior': '0',
+      'distributed': '0',
+      'dorsal': '-',
+      'high': '0',
+      'low': '0',
+      'front': '0',
+      'back': '0',
+      'tense': '0',
+      'pharyngeal': '-',
+      'atr': '0',
+      'rtr': '0',
+      'voice': '+',
+      'spread_glottis': '-',
+      'constricted_glottis': '-',
+      'glottalic_suction': '-',
+      'velaric_suction': '-',
+      'continuant': '-',
+      'nasal': '+',
+      'strident': '-',
+      'lateral': '-',
+      'delayed_release': '-'},
+     {'syllabic': '+',
+      'consonantal': '-',
+      'sonorant': '+',
+      'approximant': '+',
+      'labial': '+',
+      'round': '+',
+      'protruded': '-',
+      'compressed': '-',
+      'labiodental': '-',
+      'coronal': '-',
+      'anterior': '0',
+      'distributed': '0',
+      'dorsal': '+',
+      'high': '+',
+      'low': '-',
+      'front': '-',
+      'back': '+',
+      'tense': '+',
+      'pharyngeal': '+',
+      'atr': '+',
+      'rtr': '-',
+      'voice': '+',
+      'spread_glottis': '-',
+      'constricted_glottis': '-',
+      'glottalic_suction': '-',
+      'velaric_suction': '-',
+      'continuant': '+',
+      'nasal': '-',
+      'strident': '-',
+      'lateral': '-',
+      'delayed_release': '-'},
+     {'syllabic': '-',
+      'consonantal': '+',
+      'sonorant': '-',
+      'approximant': '-',
+      'labial': '-',
+      'round': '0',
+      'protruded': '0',
+      'compressed': '0',
+      'labiodental': '0',
+      'coronal': '+',
+      'anterior': '+',
+      'distributed': '-',
+      'dorsal': '-',
+      'high': '0',
+      'low': '0',
+      'front': '0',
+      'back': '0',
+      'tense': '0',
+      'pharyngeal': '-',
+      'atr': '0',
+      'rtr': '0',
+      'voice': '-',
+      'spread_glottis': '-',
+      'constricted_glottis': '-',
+      'glottalic_suction': '-',
+      'velaric_suction': '-',
+      'continuant': '-',
+      'nasal': '-',
+      'strident': '-',
+      'lateral': '-',
+      'delayed_release': '-'}]
+
+    .. versionadded:: 0.4.1
+
+    """
+    features = []
+    pos = 0
+    ipa = normalize('NFD', text_type(ipa.lower()))
+
+    maxsymlen = max(len(_) for _ in _PHONETIC_FEATURES)
+
+    while pos < len(ipa):
+        found_match = False
+        for i in range(maxsymlen, 0, -1):
+            if (
+                pos + i - 1 <= len(ipa)
+                and ipa[pos : pos + i] in _PHONETIC_FEATURES
+            ):
+                feature_int = _PHONETIC_FEATURES[ipa[pos : pos + i]]
+                feature_dict = {}
+                for feature in _FEATURE_MASK.keys():
+                    # each feature mask contains two bits, one each for - and +
+                    mask = _FEATURE_MASK[feature]
+                    # the lower bit represents +
+                    pos_mask = mask >> 1
+
+                    masked = feature_int & mask
+                    if masked == 0:
+                        feature_dict[feature] = '0'  # 0
+                    elif masked == mask:
+                        feature_dict[feature] = '+/-'  # +/-
+                    elif masked & pos_mask:
+                        feature_dict[feature] = '+'  # +
+                    else:
+                        feature_dict[feature] = '-'  # -
+                features.append(feature_dict)
+                pos += i
+                found_match = True
+
+        if not found_match:
+            features.append({})
+            pos += 1
+
+    return features
+
+
 def get_feature(vector, feature):
     """Get a feature vector.
 
@@ -652,29 +809,37 @@ def get_feature(vector, feature):
     feature : str
         A feature name from the set:
 
+            - ``syllabic``
             - ``consonantal``
             - ``sonorant``
-            - ``syllabic``
+            - ``approximant``
             - ``labial``
             - ``round``
+            - ``protruded``
+            - ``compressed``
+            - ``labiodental``
             - ``coronal``
             - ``anterior``
             - ``distributed``
             - ``dorsal``
             - ``high``
             - ``low``
+            - ``front``
             - ``back``
             - ``tense``
             - ``pharyngeal``
-            - ``ATR``
+            - ``atr``
+            - ``rtr``
             - ``voice``
             - ``spread_glottis``
             - ``constricted_glottis``
+            - ``glottalic_suction``
+            - ``velaric_suction``
             - ``continuant``
+            - ``nasal``
             - ``strident``
             - ``lateral``
             - ``delayed_release``
-            - ``nasal``
 
     Returns
     -------
@@ -708,35 +873,9 @@ def get_feature(vector, feature):
 
     if feature not in _FEATURE_MASK:
         raise AttributeError(
-            "feature must be one of: '"
-            + "', '".join(
-                (
-                    'consonantal',
-                    'sonorant',
-                    'syllabic',
-                    'labial',
-                    'round',
-                    'coronal',
-                    'anterior',
-                    'distributed',
-                    'dorsal',
-                    'high',
-                    'low',
-                    'back',
-                    'tense',
-                    'pharyngeal',
-                    'ATR',
-                    'voice',
-                    'spread_glottis',
-                    'constricted_glottis',
-                    'continuant',
-                    'strident',
-                    'lateral',
-                    'delayed_release',
-                    'nasal',
-                )
+            "feature must be one of: '{}'".format(
+                "', '".join(_FEATURE_MASK.keys())
             )
-            + "'"
         )
 
     # each feature mask contains two bits, one each for - and +
@@ -761,7 +900,7 @@ def get_feature(vector, feature):
     return retvec
 
 
-def cmp_features(feat1, feat2):
+def cmp_features(feat1, feat2, weights=None):
     """Compare features.
 
     This returns a number in the range [0, 1] representing a comparison of two
@@ -781,6 +920,15 @@ def cmp_features(feat1, feat2):
         A feature bundle
     feat2 : int
         A feature bundle
+    weights : None or list or tuple or dict
+        If None, all features are of equal significance and a simple normalized
+        hamming distance of the features is calculated. If a list or tuple
+        of numeric values is supplied, the values are inferred as the weights
+        for each feature, in order of the features listed in _FEATURE_MASK.
+        If a dict is supplied, its key values should match keys in
+        _FEATURE_MASK to which each weight (value) should be assigned. Missing
+        values in all cases are assigned a weight of 0 and will be omitted from
+        the comparison.
 
     Returns
     -------
@@ -799,23 +947,60 @@ def cmp_features(feat1, feat2):
     0.564516129032258
 
     .. versionadded:: 0.1.0
+    .. versionchanged:: 0.4.1
+        Added weights parameter for modifiable feature weighting
 
     """
     if feat1 < 0 or feat2 < 0:
-        return -1.0
+        return 0.0
     if feat1 == feat2:
         return 1.0
 
-    magnitude = len(_FEATURE_MASK)
+    # This should be handled some other way since this will take a long time
+    # when done repeatedly. Maybe convert to a class & save the weights list.
+    if weights is not None:
+        if isinstance(weights, dict):
+            weights = [
+                weights[feature] if feature in weights else 0
+                for feature in sorted(
+                    _FEATURE_MASK, key=_FEATURE_MASK.get, reverse=True
+                )
+            ]
+        elif isinstance(weights, (list, tuple)):
+            weights = list(weights) + [0] * (len(_FEATURE_MASK) - len(weights))
+        else:
+            raise TypeError('weights must be a dist, list, or tuple.')
+
+    magnitude = sum(weights) if weights else len(_FEATURE_MASK)
+
     featxor = feat1 ^ feat2
     diffbits = 0
-    # print(featxor)
+    i = 0
     while featxor:
         if featxor & 0b1:
-            diffbits += 1
+            diffbits += weights[i] if weights else 1
         featxor >>= 1
-    # print(diffbits)
-    return 1 - (diffbits / (2 * magnitude))
+        if featxor & 0b1:
+            diffbits += weights[i] if weights else 1
+        featxor >>= 1
+        i += 1
+    return 1 - (0 if not diffbits else (diffbits / (2 * magnitude)))
+    """
+    diff_feats = 0
+    i = 0
+    while feat1 or feat2:
+        f1 = feat1 & 0b11
+        f2 = feat2 & 0b11
+        if (not (0b11 in {f1, f2} and (f1 in {0b01, 0b10} or
+            f2 in {0b01, 0b10}))) and (f1 != f2):
+            diff_feats += weights[i] if weights else 1
+
+        feat1 >>= 2
+        feat2 >>= 2
+        i += 1
+
+    return 1 - (diff_feats / magnitude)
+    """
 
 
 if __name__ == '__main__':

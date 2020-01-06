@@ -24,6 +24,9 @@ functions. It has three functions:
     - :py:func:`.ipa_to_features` takes a string of IPA symbols and returns
       list of integers that represent the phonetic features bundled in the
       phone that the symbols represents.
+    - :py:func:`.ipa_to_feature_dicts` takes a string of IPA symbols and
+      returns list of human-readable dicts that represent the phonetic features
+      bundled in the phone that the symbols represents.
     - :py:func:`.get_feature` takes a list of feature bundles produced by
       :py:func:`.ipa_to_features` and a feature name and returns a list
       representing whether that feature is present in each component of the
@@ -64,6 +67,100 @@ An example using these functions on two different pronunciations of the word
  2711173160463936106,
  1828083331160779178,
  2693158721554917798]
+>>> ipa_to_feature_dicts('ʤɪn')
+[{'syllabic': '-',
+  'consonantal': '+',
+  'sonorant': '-',
+  'approximant': '-',
+  'labial': '-',
+  'round': '0',
+  'protruded': '0',
+  'compressed': '0',
+  'labiodental': '0',
+  'coronal': '+',
+  'anterior': '-',
+  'distributed': '+',
+  'dorsal': '+',
+  'high': '-',
+  'low': '-',
+  'front': '-',
+  'back': '-',
+  'tense': '-',
+  'pharyngeal': '-',
+  'atr': '0',
+  'rtr': '0',
+  'voice': '+',
+  'spread_glottis': '-',
+  'constricted_glottis': '-',
+  'glottalic_suction': '-',
+  'velaric_suction': '-',
+  'continuant': '+/-',
+  'nasal': '-',
+  'strident': '+',
+  'lateral': '-',
+  'delayed_release': '+'},
+ {'syllabic': '+',
+  'consonantal': '-',
+  'sonorant': '+',
+  'approximant': '+',
+  'labial': '+',
+  'round': '-',
+  'protruded': '-',
+  'compressed': '-',
+  'labiodental': '-',
+  'coronal': '-',
+  'anterior': '0',
+  'distributed': '0',
+  'dorsal': '+',
+  'high': '+',
+  'low': '-',
+  'front': '+',
+  'back': '-',
+  'tense': '-',
+  'pharyngeal': '+',
+  'atr': '-',
+  'rtr': '-',
+  'voice': '+',
+  'spread_glottis': '-',
+  'constricted_glottis': '-',
+  'glottalic_suction': '-',
+  'velaric_suction': '-',
+  'continuant': '+',
+  'nasal': '-',
+  'strident': '-',
+  'lateral': '-',
+  'delayed_release': '-'},
+ {'syllabic': '-',
+  'consonantal': '+',
+  'sonorant': '+',
+  'approximant': '-',
+  'labial': '-',
+  'round': '0',
+  'protruded': '0',
+  'compressed': '0',
+  'labiodental': '0',
+  'coronal': '+',
+  'anterior': '+',
+  'distributed': '-',
+  'dorsal': '-',
+  'high': '0',
+  'low': '0',
+  'front': '0',
+  'back': '0',
+  'tense': '0',
+  'pharyngeal': '-',
+  'atr': '0',
+  'rtr': '0',
+  'voice': '+',
+  'spread_glottis': '-',
+  'constricted_glottis': '-',
+  'glottalic_suction': '-',
+  'velaric_suction': '-',
+  'continuant': '-',
+  'nasal': '+',
+  'strident': '-',
+  'lateral': '-',
+  'delayed_release': '-'}]
 >>> get_feature(feat1, 'consonantal')
 [-1, 1, 1, -1, 1, -1, 1, -1, 1, -1, 1]
 >>> get_feature(feat1, 'nasal')
@@ -94,9 +191,19 @@ from __future__ import (
     unicode_literals,
 )
 
-from ._phones import cmp_features, get_feature, ipa_to_features
+from ._phones import (
+    cmp_features,
+    get_feature,
+    ipa_to_feature_dicts,
+    ipa_to_features,
+)
 
-__all__ = ['ipa_to_features', 'get_feature', 'cmp_features']
+__all__ = [
+    'ipa_to_features',
+    'ipa_to_feature_dicts',
+    'get_feature',
+    'cmp_features',
+]
 
 
 if __name__ == '__main__':

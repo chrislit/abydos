@@ -150,6 +150,39 @@ class Covington(_Distance):
 
         return self.dist_abs(src, tar) / normalizer
 
+    def alignment(self, src, tar):
+        """Return the top Covington alignment of two strings.
+
+        This returns only the top alignment in a standard
+        (score, source alignment, target alignment) tuple format.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        tuple(float, str, str)
+            Covington score & alignment
+
+        Examples
+        --------
+        >>> cmp = Covington()
+        >>> cmp.alignment('hart', 'kordis')
+        (240, 'hart--', 'kordis')
+        >>> cmp.alignment('niy', 'genu')
+        (170, '--niy', 'genu-')
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        alignment = self.alignments(src, tar, 1)[0]
+        return alignment.score, alignment.src, alignment.tar
+
     def alignments(self, src, tar, top_n=None):
         """Return the Covington alignments of two strings.
 

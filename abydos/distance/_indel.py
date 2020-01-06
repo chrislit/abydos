@@ -59,7 +59,7 @@ class Indel(Levenshtein):
 
         """
         super(Indel, self).__init__(
-            mode='lev', cost=(1, 1, 9999, 9999), **kwargs
+            mode='lev', cost=(1, 1, float('inf'), float('inf')), **kwargs
         )
 
     def dist(self, src, tar):

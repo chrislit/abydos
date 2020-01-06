@@ -33,15 +33,8 @@ from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
 
-from numpy import copy as np_copy
+import numpy as np
 from numpy import zeros as np_zeros
-
-try:
-    from scipy.optimize import linear_sum_assignment
-except ImportError:  # pragma: no cover
-    # If the system lacks the scipy library, we'll fall back to our
-    # Python+Numpy implementation of the Hungarian algorithm
-    linear_sum_assignment = None
 
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
@@ -165,10 +158,6 @@ class _TokenDistance(_Distance):
                 - ``laplace`` : :math:`x+1`
                 - ``inverse`` : :math:`\frac{1}{x}`
                 - ``complement`` : :math:`n-x`, where n is the total population
-        internal_assignment_problem : bool
-            When using ``linkage`` as the intersection type (i.e. group
-            linkage), this forces use of the internal implementation to solve
-            the assignment problem, rather than scipy's linear_sum_assignment.
 
         .. versionadded:: 0.4.0
 
@@ -224,7 +213,7 @@ class _TokenDistance(_Distance):
 
         if intersection_type == 'soft':
             if 'metric' not in self.params or self.params['metric'] is None:
-                self.params['metric'] = DamerauLevenshtein()
+                self.params['metric'] = Levenshtein()
             self._lcprefix = LCPrefix()
             self._intersection = self._soft_intersection
         elif intersection_type == 'fuzzy':
@@ -257,6 +246,11 @@ class _TokenDistance(_Distance):
             'inverse': self._norm_inverse,
             'complement': self._norm_complement,
         }
+
+        # initialize values for soft intersection
+        self._soft_intersection_precalc = None
+        self._soft_src_only = None
+        self._soft_tar_only = None
 
     def _norm_none(self, x, _squares, _pop):
         return x
@@ -316,7 +310,7 @@ class _TokenDistance(_Distance):
             self._src_tokens = (
                 self.params['tokenizer'].tokenize(src).get_counter()
             )
-        if isinstance(src, Counter):
+        if isinstance(tar, Counter):
             self._tar_tokens = tar
         else:
             self._tar_tokens = (
@@ -334,6 +328,11 @@ class _TokenDistance(_Distance):
         ):
             self.normalizer = self._norm_dict[self.params['normalizer']]
 
+        # clear values for soft intersection
+        self._soft_intersection_precalc = None
+        self._soft_src_only = None
+        self._soft_tar_only = None
+
         return self
 
     def _get_tokens(self):
@@ -342,6 +341,19 @@ class _TokenDistance(_Distance):
 
     def _src_card(self):
         r"""Return the cardinality of the tokens in the source set."""
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self.normalizer(
+                sum(
+                    abs(val)
+                    for val in (
+                        self._soft_intersection_precalc + self._soft_src_only
+                    ).values()
+                ),
+                2,
+                self._population_card_value,
+            )
         return self.normalizer(
             sum(abs(val) for val in self._src_tokens.values()),
             2,
@@ -353,6 +365,10 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self._soft_src_only
         src_only = self._src_tokens - self._intersection()
         if self.params['intersection_type'] != 'crisp':
             src_only -= self._intersection() - self._crisp_intersection()
@@ -368,6 +384,19 @@ class _TokenDistance(_Distance):
 
     def _tar_card(self):
         r"""Return the cardinality of the tokens in the target set."""
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self.normalizer(
+                sum(
+                    abs(val)
+                    for val in (
+                        self._soft_intersection_precalc + self._soft_tar_only
+                    ).values()
+                ),
+                2,
+                self._population_card_value,
+            )
         return self.normalizer(
             sum(abs(val) for val in self._tar_tokens.values()),
             2,
@@ -379,6 +408,10 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return self._soft_tar_only
         tar_only = self._tar_tokens - self._intersection()
         if self.params['intersection_type'] != 'crisp':
             tar_only -= self._intersection() - self._crisp_intersection()
@@ -415,6 +448,15 @@ class _TokenDistance(_Distance):
         In the case of multisets, this counts values in the interesection
         twice. In the case of sets, this is identical to the union.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return (
+                self._soft_tar_only
+                + self._soft_src_only
+                + self._soft_intersection_precalc
+                + self._soft_intersection_precalc
+            )
         return self._src_tokens + self._tar_tokens
 
     def _total_card(self):
@@ -453,8 +495,11 @@ class _TokenDistance(_Distance):
         """Return the cardinality of the population."""
         save_normalizer = self.normalizer
         self.normalizer = self._norm_none
+        save_intersection = self.params['intersection_type']
+        self.params['intersection_type'] = 'crisp'
         pop = self._total_card() + self._total_complement_card()
         self.normalizer = save_normalizer
+        self.params['intersection_type'] = save_intersection
         return pop
 
     def _population_card(self):
@@ -476,6 +521,14 @@ class _TokenDistance(_Distance):
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            return (
+                self._soft_tar_only
+                + self._soft_src_only
+                + self._soft_intersection_precalc
+            )
         union = self._total() - self._intersection()
         if self.params['intersection_type'] != 'crisp':
             union -= self._intersection() - self._crisp_intersection()
@@ -491,6 +544,12 @@ class _TokenDistance(_Distance):
 
     def _difference(self):
         """Return the difference of the tokens, supporting negative values."""
+        if self.params['intersection_type'] == 'soft':
+            if not self._soft_intersection_precalc:
+                self._intersection()
+            _src_copy = Counter(self._soft_src_only)
+            _src_copy.subtract(self._soft_tar_only)
+            return _src_copy
         _src_copy = Counter(self._src_tokens)
         _src_copy.subtract(self._tar_tokens)
         return _src_copy
@@ -503,13 +562,23 @@ class _TokenDistance(_Distance):
         return self._src_tokens & self._tar_tokens
 
     def _soft_intersection(self):
-        """Return the soft intersection of the tokens in src and tar.
+        """Return the soft source, target, & intersection tokens & weights.
 
-        This implements the soft intersection defined by :cite:`Russ:2014`.
+        This implements the soft intersection defined by :cite:`Russ:2014` in
+        a way that can reproduce the results in the paper.
         """
+        if not hasattr(self.params['metric'], 'alignment'):
+            raise TypeError(
+                "Soft similarity requires a 'metric' with an alignment \
+member function, such as Levenshtein."
+            )
+
         intersection = self._crisp_intersection()
         src_only = self._src_tokens - self._tar_tokens
         tar_only = self._tar_tokens - self._src_tokens
+
+        src_new = Counter()
+        tar_new = Counter()
 
         def _membership(src, tar):
             greater_length = max(len(src), len(tar))
@@ -520,6 +589,42 @@ class _TokenDistance(_Distance):
                 )
                 / greater_length
             )
+
+        def _token_src_tar_int(src, tar):
+            src_tok = []
+            tar_tok = []
+            int_tok = []
+
+            src_val = 0
+            tar_val = 0
+            int_val = 0
+
+            _cost, _src, _tar = self.params['metric'].alignment(src, tar)
+
+            for i in range(len(_src)):
+                if _src[i] == _tar[i]:
+                    src_tok.append('-')
+                    tar_tok.append('-')
+                    int_tok.append(_src[i])
+                    int_val += 1
+                else:
+                    src_tok.append(_src[i])
+                    if _src[i] != '-':
+                        src_val += 1
+                    tar_tok.append(_tar[i])
+                    if _tar[i] != '-':
+                        tar_val += 1
+                    int_tok.append('-')
+
+            src_val /= len(_src)
+            tar_val /= len(_src)
+            int_val /= len(_src)
+
+            src_tok = ''.join(src_tok).strip('-')
+            tar_tok = ''.join(tar_tok).strip('-')
+            int_tok = ''.join(int_tok).strip('-')
+
+            return src_tok, src_val, tar_tok, tar_val, int_tok, int_val
 
         # Dictionary ordering is important for reproducibility, so insertion
         # order needs to be controlled and retained.
@@ -533,15 +638,33 @@ class _TokenDistance(_Distance):
             if memberships[src_tok, tar_tok] > 0.0:
                 pairings = min(src_only[src_tok], tar_only[tar_tok])
                 if pairings:
-                    intersection[src_tok] += (
-                        memberships[src_tok, tar_tok] * pairings / 2
-                    )
-                    intersection[tar_tok] += (
-                        memberships[src_tok, tar_tok] * pairings / 2
-                    )
+                    (
+                        src_ntok,
+                        src_val,
+                        tar_ntok,
+                        tar_val,
+                        int_ntok,
+                        int_val,
+                    ) = _token_src_tar_int(src_tok, tar_tok)
+
+                    src_new[src_ntok] += src_val * pairings
+                    tar_new[tar_ntok] += tar_val * pairings
+                    intersection[int_ntok] += int_val * pairings
+
+                    # Remove pairings from src_only/tar_only
                     src_only[src_tok] -= pairings
                     tar_only[tar_tok] -= pairings
+
             del memberships[src_tok, tar_tok]
+
+        # Add src_new/tar_new back into src_only/tar_only
+        src_only += src_new
+        tar_only += tar_new
+
+        # Save src_only/tar_only to the instance for retrieval later.
+        self._soft_src_only = src_only
+        self._soft_tar_only = tar_only
+        self._soft_intersection_precalc = intersection
 
         return intersection
 
@@ -625,128 +748,194 @@ class _TokenDistance(_Distance):
 
         Most of this method is concerned with solving the assignment problem,
         in order to find the weight of the maximum weight bipartite matching.
-        If the system has SciPy installed, we use it's linear_sum_assignment
-        function to get the assignments. Otherwise, we use the Hungarian
-        algorithm of Munkres :cite:`Munkres:1957`, implemented in Python &
-        Numpy.
+        The Hungarian algorithm of Munkres :cite:`Munkres:1957`, implemented
+        below in Python & Numpy is used to solve the assignment problem since
+        it is roughly twice as fast as SciPy's implementation.
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.4.1
+            Corrected the Hungarian algorithm & optimized it so that SciPy's
+            version is no longer needed.
 
         """
         intersection = self._crisp_intersection()
-        src_only = sorted(self._src_tokens - self._tar_tokens)
-        tar_only = sorted(self._tar_tokens - self._src_tokens)
+        src_only_tok = sorted(self._src_tokens - self._tar_tokens)
+        tar_only_tok = sorted(self._tar_tokens - self._src_tokens)
+        src_only = self._src_tokens - self._tar_tokens
+        tar_only = self._tar_tokens - self._src_tokens
 
-        if linear_sum_assignment and not (
-            'internal_assignment_problem' in self.params
-            and self.params['internal_assignment_problem']
-        ):
-            arr = np_zeros((len(tar_only), len(src_only)))
+        # Quoted text below is from Munkres (1957), cited above.
 
-            for col in range(len(src_only)):
-                for row in range(len(tar_only)):
-                    arr[row, col] = self.params['metric'].dist(
-                        src_only[col], tar_only[row]
-                    )
+        # Pre-preliminaries: create square the matrix of scores
+        n = max(len(src_only_tok), len(tar_only_tok))
+        arr = np_zeros((n, n), dtype=float)
 
-            for row, col in zip(*linear_sum_assignment(arr)):
-                sim = 1.0 - arr[row, col]
-                if sim >= self.params['threshold']:
-                    intersection[src_only[col]] += (sim / 2) * (
-                        self._src_tokens - self._tar_tokens
-                    )[src_only[col]]
-                    intersection[tar_only[row]] += (sim / 2) * (
-                        self._tar_tokens - self._src_tokens
-                    )[tar_only[row]]
-        else:
-            n = max(len(tar_only), len(src_only))
-            arr = np_zeros((n, n), dtype=float)
+        for col in range(len(src_only_tok)):
+            for row in range(len(tar_only_tok)):
+                arr[row, col] = self.params['metric'].dist(
+                    src_only_tok[col], tar_only_tok[row]
+                )
 
-            for col in range(len(src_only)):
-                for row in range(len(tar_only)):
-                    arr[row, col] = self.params['metric'].dist(
-                        src_only[col], tar_only[row]
-                    )
+        src_only_tok += [''] * (n - len(src_only_tok))
+        tar_only_tok += [''] * (n - len(tar_only_tok))
 
-            src_only += [''] * (n - len(src_only))
-            tar_only += [''] * (n - len(tar_only))
+        starred = np.zeros((n, n), dtype=np.bool)
+        primed = np.zeros((n, n), dtype=np.bool)
+        row_covered = np.zeros(n, dtype=np.bool)
+        col_covered = np.zeros(n, dtype=np.bool)
 
-            orig_sim = 1 - np_copy(arr)
+        orig_sim = 1 - np.copy(arr)
+        # Preliminaries:
+        # P: "No lines are covered; no zeros are starred or primed."
+        # P: "Consider a row of matrix A; subtract from each element in
+        # this row the smallest element of this row. Do the same for each
+        # row of A."
+        arr -= arr.min(axis=1, keepdims=True)
+        # P: "Then consider each column of the resulting matrix and
+        # subtract from each column its smallest entry."
+        arr -= arr.min(axis=0, keepdims=True)
 
-            # Step 1
+        # P: "Consider a zero Z of the matrix. If there is no starred zero
+        # in its row and none in its column, star Z. Repeat, considering
+        # each zero in the matrix in turn. Then cover every column
+        # containing a starred zero.
+        for col in range(n):
             for row in range(n):
-                arr[row, :] -= arr[row, :].min()
-            # Step 2
-            for col in range(n):
-                arr[:, col] -= arr[:, col].min()
+                if arr[row, col] == 0:
+                    if (
+                        np.count_nonzero(starred[row, :]) == 0
+                        and np.count_nonzero(starred[:, col]) == 0
+                    ):
+                        starred[row, col] = True
+                        col_covered[col] = True
 
-            while True:
-                # Step 3
-                assignments = {}
+        step = 1
+        # This is the simple case where independent assignments are obvious
+        # and found without the rest of the algorithm.
+        if np.count_nonzero(col_covered) == n:
+            step = 4
 
-                allocated_cols = set()
-                allocated_rows = set()
-                assigned_rows = set()
-                assigned_cols = set()
+        while step < 4:
+            if step == 1:
+                # Step 1:
+                # 1: "Choose a non-covered zero and prime it. Consider the
+                # row containing it. If there is no starred zero in this
+                # row, go at once to Step 2. If there is a starred zero Z
+                # in this row, cover this row and uncover the column of Z."
+                # 1: Repeat until all zeros are covered. Go to Step 3."
+                zeros = tuple(zip(*((arr == 0).nonzero())))
+                while step == 1:
+                    for row, col in zeros:
+                        if not (col_covered[col] | row_covered[row]):
+                            primed[row, col] = True
+                            z_cols = (starred[row, :]).nonzero()[0]
+                            if not z_cols.size:
+                                step = 2
+                                break
+                            else:
+                                row_covered[row] = True
+                                col_covered[z_cols[0]] = False
 
-                for row in range(n):
-                    if (arr[row, :] == 0.0).sum() == 1:
-                        col = arr[row, :].argmin()
-                        if col not in allocated_cols:
-                            assignments[row, col] = orig_sim[row, col]
-                            allocated_cols.add(col)
-                            assigned_rows.add(row)
-                            assigned_cols.add(col)
+                    if step != 1:
+                        break
 
+                    for row, col in zeros:
+                        if not (col_covered[col] | row_covered[row]):
+                            break
+                    else:
+                        step = 3
+
+            if step == 2:
+                # Step 2:
+                # 2: "There is a sequence of alternating starred and primed
+                # zeros, constructed as follows: Let Z_0 denote the
+                # uncovered 0'. [There is only one.] Let Z_1 denote the 0*
+                # in Z_0's column (if any). Let Z_2 denote the 0' in Z_1's
+                # row (we must prove that it exists). Let Z_3 denote the 0*
+                # in Z_2's column (if any). Similarly continue until the
+                # sequence stops at a 0', Z_{2k}, which has no 0* in its
+                # column."
+                z_series = []
+                for row, col in zeros:  # pragma: no branch
+                    if primed[row, col] and not (
+                        row_covered[row] | col_covered[col]
+                    ):
+                        z_series.append((row, col))
+                        break
+                col = z_series[-1][1]
+                while True:
+                    row = tuple(
+                        set((arr[:, col] == 0).nonzero()[0])
+                        & set((starred[:, col]).nonzero()[0])
+                    )
+                    if row:
+                        row = row[0]
+                        z_series.append((row, col))
+                        col = tuple(
+                            set((arr[row, :] == 0).nonzero()[0])
+                            & set((primed[row, :]).nonzero()[0])
+                        )[0]
+                        z_series.append((row, col))
+                    else:
+                        break
+
+                # 2: "Unstar each starred zero of the sequence and star
+                # each primed zero of the sequence. Erase all primes,
+                # uncover every row, and cover every column containing a
+                # 0*."
+                primed[:, :] = False
+                row_covered[:] = False
+                col_covered[:] = False
+                for row, col in z_series:
+                    starred[row, col] = not starred[row, col]
                 for col in range(n):
-                    if (arr[:, col] == 0.0).sum() == 1:
-                        row = arr[:, col].argmin()
-                        if row not in allocated_rows:
-                            assignments[row, col] = orig_sim[row, col]
-                            allocated_rows.add(row)
-                            assigned_rows.add(row)
-                            assigned_cols.add(col)
+                    if np.count_nonzero(starred[:, col]):
+                        col_covered[col] = True
+                # 2: "If all columns are covered, the starred zeros form
+                # the desired independent set. Otherwise, return to Step
+                # 1."
+                if np.count_nonzero(col_covered) == n:
+                    step = 4
+                else:
+                    step = 1
 
-                if len(assignments) == n:
-                    break
-
-                marked_rows = {_ for _ in range(n) if _ not in assigned_rows}
-                marked_cols = set()
-                for row in sorted(set(marked_rows)):
-                    for col, mark in enumerate(arr[row, :] == 0.0):
-                        if mark:
-                            marked_cols.add(col)
-                            for row2 in range(n):
-                                if (row2, col) in assignments:
-                                    marked_rows.add(row2)
-
-                if n - len(marked_rows) + len(marked_cols) == n:
-                    # We have sufficient lines
-                    for col in range(n):
-                        row = arr[:, col].argmin()
-                        assignments[row, col] = orig_sim[row, col]
-                    break
-
-                # Step 4
-                min_val = arr[tuple(marked_rows), :][
-                    :, sorted(set(range(n)) - marked_cols)
-                ].min()
+            if step == 3:
+                # Step 3:
+                # 3: "Let h denote the smallest non-covered element of the
+                # matrix; it will be positive. Add h to each covered row;
+                # then subtract h from each uncovered column."
+                h_val = float('inf')
+                for col in range(n):
+                    if not (col_covered[col]):
+                        for row in range(n):
+                            if (
+                                not (row_covered[row])
+                                and arr[row, col] < h_val
+                            ):
+                                h_val = arr[row, col]
                 for row in range(n):
-                    for col in range(n):
-                        if row in marked_rows and col not in marked_cols:
-                            arr[row, col] -= min_val
-                        elif row not in marked_rows and col in marked_cols:
-                            arr[row, col] += min_val
+                    if row_covered[row]:
+                        arr[row, :] += h_val
+                for col in range(n):
+                    if not (col_covered[col]):
+                        arr[:, col] -= h_val
 
-            for row, col in assignments.keys():
-                sim = orig_sim[row, col]
-                if sim >= self.params['threshold']:
-                    intersection[src_only[col]] += (sim / 2) * (
-                        self._src_tokens - self._tar_tokens
-                    )[src_only[col]]
-                    intersection[tar_only[row]] += (sim / 2) * (
-                        self._tar_tokens - self._src_tokens
-                    )[tar_only[row]]
+                # 3: "Return to Step 1, without altering any asterisks,
+                # primes, or covered lines."
+                step = 1
+
+        for row, col in tuple(zip(*(starred.nonzero()))):
+            sim = orig_sim[row, col]
+            if sim >= self.params['threshold']:
+                score = float(
+                    (sim / 2)
+                    * min(
+                        src_only[src_only_tok[col]],
+                        tar_only[tar_only_tok[row]],
+                    )
+                )
+                intersection[src_only_tok[col]] += score
+                intersection[tar_only_tok[row]] += score
 
         return intersection
 

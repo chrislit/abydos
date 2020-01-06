@@ -186,6 +186,9 @@ class TokenizerTestCases(unittest.TestCase):
         for key in test_counter:
             self.assertAlmostEqual(test_counter[key], gold_standard[key])
 
+        nelson_entropy = QSkipgrams(scaler='entropy').tokenize('NELSON')
+        self.assertAlmostEqual(nelson_entropy.count(), 4.6644977792)
+
 
 if __name__ == '__main__':
     unittest.main()

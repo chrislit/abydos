@@ -28,6 +28,8 @@ from __future__ import (
     unicode_literals,
 )
 
+from inspect import isclass
+
 from ._tokenizer import _Tokenizer
 
 
@@ -47,6 +49,11 @@ class NLTKTokenizer(_Tokenizer):
 
                 - None : no scaling
                 - 'set' : All non-zero values are set to 1.
+                - 'length' : Each token has weight equal to its length.
+                - 'length-log' : Each token has weight equal to the log of its
+                   length + 1.
+                - 'length-exp' : Each token has weight equal to e raised to its
+                   length.
                 - a callable function : The function is applied to each value
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
@@ -60,10 +67,14 @@ class NLTKTokenizer(_Tokenizer):
         """
         super(NLTKTokenizer, self).__init__(scaler)
 
-        if 'nltk.tokenize' in str(type(nltk_tokenizer)) and hasattr(
-            nltk_tokenizer, 'tokenize'
+        if (
+            hasattr(nltk_tokenizer, 'tokenize')
+            and 'nltk.tokenize' in nltk_tokenizer.__module__
         ):
-            self.nltk_tokenizer = nltk_tokenizer
+            if isclass(nltk_tokenizer):
+                self.nltk_tokenizer = nltk_tokenizer()
+            else:
+                self.nltk_tokenizer = nltk_tokenizer
         else:
             raise TypeError(
                 'nltk_tokenizer must be an initialized tokenizer from the'

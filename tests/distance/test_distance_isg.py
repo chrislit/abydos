@@ -42,7 +42,7 @@ class ISGTestCases(unittest.TestCase):
     cmp = ISG()
     cmp_full = ISG(full_guth=True)
 
-    def test_inclusion_sim(self):
+    def test_isg_sim(self):
         """Test abydos.distance.ISG.sim."""
         # Base cases
         self.assertEqual(self.cmp.sim('', ''), 1.0)

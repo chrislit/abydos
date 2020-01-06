@@ -1241,7 +1241,44 @@ class ALINE(_Distance):
             self._phones = self.phones_kondrak
         self._normalizer = normalizer
 
-    def alignment(self, src, tar, score_only=False):
+    def alignment(self, src, tar):
+        """Return the top ALINE alignment of two strings.
+
+        The `top` ALINE alignment is the first alignment with the best score.
+        The purpose of this function is to have a single tuple as a return
+        value.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        tuple(float, str, str)
+            ALINE alignment and its score
+
+        Examples
+        --------
+        >>> cmp = ALINE()
+        >>> cmp.alignment('cat', 'hat')
+        (50.0, 'c ‖ a t ‖', 'h ‖ a t ‖')
+        >>> cmp.alignment('niall', 'neil')
+        (90.0, '‖ n i a ll ‖', '‖ n e i l  ‖')
+        >>> cmp.alignment('aluminum', 'catalan')
+        (81.5, '‖ a l u m ‖ inum', 'cat ‖ a l a n ‖')
+        >>> cmp.alignment('atcg', 'tagc')
+        (65.0, '‖ a t c ‖ g', 't ‖ a g c ‖')
+
+
+        .. versionadded:: 0.4.1
+
+        """
+        return self.alignments(src, tar)[0]
+
+    def alignments(self, src, tar, score_only=False):
         """Return the ALINE alignments of two strings.
 
         Parameters
@@ -1261,18 +1298,20 @@ class ALINE(_Distance):
         Examples
         --------
         >>> cmp = ALINE()
-        >>> cmp.alignment('cat', 'hat')
+        >>> cmp.alignments('cat', 'hat')
         [(50.0, 'c ‖ a t ‖', 'h ‖ a t ‖')]
-        >>> cmp.alignment('niall', 'neil')
+        >>> cmp.alignments('niall', 'neil')
         [(90.0, '‖ n i a ll ‖', '‖ n e i l  ‖')]
-        >>> cmp.alignment('aluminum', 'catalan')
+        >>> cmp.alignments('aluminum', 'catalan')
         [(81.5, '‖ a l u m ‖ inum', 'cat ‖ a l a n ‖')]
-        >>> cmp.alignment('atcg', 'tagc')
+        >>> cmp.alignments('atcg', 'tagc')
         [(65.0, '‖ a t c ‖ g', 't ‖ a g c ‖'), (65.0, 'a ‖ tc - g ‖',
         '‖ t  a g ‖ c')]
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.4.1
+            Renamed from .alignment to .alignments
 
         """
 
@@ -1615,7 +1654,7 @@ class ALINE(_Distance):
         """
         if src == '' and tar == '':
             return 1.0
-        return self.alignment(src, tar, score_only=True)
+        return self.alignments(src, tar, score_only=True)
 
     def sim(self, src, tar):
         """Return the normalized ALINE similarity of two strings.

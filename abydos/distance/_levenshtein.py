@@ -36,8 +36,7 @@ from sys import float_info
 
 from deprecation import deprecated
 
-from numpy import float as np_float
-from numpy import zeros as np_zeros
+import numpy as np
 
 from six.moves import range
 
@@ -123,7 +122,7 @@ class Levenshtein(_Distance):
             else 1
         )
 
-    def _alignment_matrix(self, src, tar):
+    def _alignment_matrix(self, src, tar, backtrace=True):
         """Return the Levenshtein alignment matrix.
 
         Parameters
@@ -132,11 +131,13 @@ class Levenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
+        backtrace : bool
+            Return the backtrace matrix as well
 
         Returns
         -------
-        numpy.ndarray
-            The alignment matrix
+        numpy.ndarray or tuple(numpy.ndarray, numpy.ndarray)
+            The alignment matrix and (optionally) the backtrace matrix
 
 
         .. versionadded:: 0.4.1
@@ -148,15 +149,21 @@ class Levenshtein(_Distance):
         tar_len = len(tar)
         max_len = max(src_len, tar_len)
 
-        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
+        if backtrace:
+            trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(src_len + 1):
             d_mat[i, 0] = i * self._taper(i, max_len) * del_cost
+            if backtrace:
+                trace_mat[i, 0] = 1
         for j in range(tar_len + 1):
             d_mat[0, j] = j * self._taper(j, max_len) * ins_cost
+            if backtrace:
+                trace_mat[0, j] = 0
 
         for i in range(src_len):
             for j in range(tar_len):
-                d_mat[i + 1, j + 1] = min(
+                opts = (
                     d_mat[i + 1, j]
                     + ins_cost * self._taper(1 + max(i, j), max_len),  # ins
                     d_mat[i, j + 1]
@@ -168,6 +175,9 @@ class Levenshtein(_Distance):
                         else 0
                     ),  # sub/==
                 )
+                d_mat[i + 1, j + 1] = min(opts)
+                if backtrace:
+                    trace_mat[i + 1, j + 1] = int(np.argmin(opts))
 
                 if self._mode == 'osa':
                     if (
@@ -182,7 +192,11 @@ class Levenshtein(_Distance):
                             d_mat[i - 1, j - 1]
                             + trans_cost * self._taper(1 + max(i, j), max_len),
                         )
+                        if backtrace:
+                            trace_mat[i + 1, j + 1] = 2
 
+        if backtrace:
+            return d_mat, trace_mat
         return d_mat
 
     def alignment(self, src, tar):
@@ -207,7 +221,7 @@ class Levenshtein(_Distance):
         >>> cmp.alignment('cat', 'hat')
         (1.0, 'cat', 'hat')
         >>> cmp.alignment('Niall', 'Neil')
-        (3.0, 'Niall', 'Neil-')
+        (3.0, 'N-iall', 'Nei-l-')
         >>> cmp.alignment('aluminum', 'Catalan')
         (7.0, '-aluminum', 'Catalan--')
         >>> cmp.alignment('ATCG', 'TAGC')
@@ -217,13 +231,13 @@ class Levenshtein(_Distance):
         >>> cmp.alignment('ATCG', 'TAGC')
         (2.0, 'ATCG', 'TAGC')
         >>> cmp.alignment('ACTG', 'TAGC')
-        (4.0, 'ACTG', 'TAGC')
+        (4.0, 'ACT-G-', '--TAGC')
 
 
         .. versionadded:: 0.4.1
 
         """
-        d_mat = self._alignment_matrix(src, tar)
+        d_mat, trace_mat = self._alignment_matrix(src, tar, backtrace=True)
 
         src_aligned = []
         tar_aligned = []
@@ -234,27 +248,27 @@ class Levenshtein(_Distance):
         distance = d_mat[src_pos, tar_pos]
 
         while src_pos and tar_pos:
-            up = d_mat[src_pos, tar_pos - 1]
-            left = d_mat[src_pos - 1, tar_pos]
-            diag = d_mat[src_pos - 1, tar_pos - 1]
 
-            if diag <= min(up, left):
-                src_pos -= 1
-                tar_pos -= 1
-                src_aligned.append(src[src_pos])
-                tar_aligned.append(tar[tar_pos])
-            elif up <= left:
-                tar_pos -= 1
-                src_aligned.append('-')
-                tar_aligned.append(tar[tar_pos])
-            else:
-                src_pos -= 1
-                src_aligned.append(src[src_pos])
+            src_trace, tar_trace = (
+                (src_pos, tar_pos - 1),
+                (src_pos - 1, tar_pos),
+                (src_pos - 1, tar_pos - 1),
+            )[trace_mat[src_pos, tar_pos]]
+
+            if src_pos != src_trace and tar_pos != tar_trace:
+                src_aligned.append(src[src_trace])
+                tar_aligned.append(tar[tar_trace])
+            elif src_pos != src_trace:
+                src_aligned.append(src[src_trace])
                 tar_aligned.append('-')
+            else:
+                src_aligned.append('-')
+                tar_aligned.append(tar[tar_trace])
+            src_pos, tar_pos = src_trace, tar_trace
         while tar_pos:
             tar_pos -= 1
-            tar_aligned.append(tar[tar_pos])
             src_aligned.append('-')
+            tar_aligned.append(tar[tar_pos])
         while src_pos:
             src_pos -= 1
             src_aligned.append(src[src_pos])
@@ -318,7 +332,7 @@ class Levenshtein(_Distance):
                 del_cost * self._taper(pos, max_len) for pos in range(src_len)
             )
 
-        d_mat = self._alignment_matrix(src, tar)
+        d_mat = self._alignment_matrix(src, tar, backtrace=False)
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
@@ -329,7 +343,7 @@ class Levenshtein(_Distance):
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein
-        distance (calculated by any of the three supported methods) by the
+        distance (calculated by either of the two supported methods) by the
         greater of the number of characters in src times the cost of a delete
         and the number of characters in tar times the cost of an insert.
         For the case in which all operations have :math:`cost = 1`, this is

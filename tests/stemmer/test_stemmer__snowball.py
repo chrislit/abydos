@@ -42,7 +42,7 @@ class SnowballTestCases(unittest.TestCase):
 
     stmr = _Snowball()
     stmr._vowels = set('aeiouy')  # noqa: SF01
-    stmr._codanonvowels = set('bcdfghjklmnpqrstvz\'')  # noqa: SF01
+    stmr._codanonvowels = set("bcdfghjklmnpqrstvz'")  # noqa: SF01
 
     def test_has_vowel(self):
         """Test abydos.stemmer._Snowball._has_vowel."""

@@ -42,30 +42,30 @@ class ALINETestCases(unittest.TestCase):
     cmp = ALINE()
     cmp_downey = ALINE(normalizer=lambda x: sum(x) / len(x))
 
-    def test_aline_alignment(self):
-        """Test abydos.distance.ALINE.alignment."""
+    def test_aline_alignments(self):
+        """Test abydos.distance.ALINE.alignments."""
         # test cases from Kondrak (2000)
         self.assertEqual(
-            self.cmp.alignment('driy', 'tres'),
+            self.cmp.alignments('driy', 'tres'),
             [(75.0, '‖ d r iy ‖', '‖ t r e  ‖ s')],
         )
         self.assertEqual(
-            self.cmp.alignment('blow', 'flare'),
+            self.cmp.alignments('blow', 'flare'),
             [(53.0, '‖ b l o ‖ w', '‖ f l a ‖ re')],
         )
         self.assertEqual(
-            self.cmp.alignment('ful', 'plenus'),
+            self.cmp.alignments('ful', 'plenus'),
             [(48.0, '‖ f u l ‖', '‖ p - l ‖ enus')],
         )
         self.assertEqual(
-            self.cmp.alignment('fiz', 'piskis'),
+            self.cmp.alignments('fiz', 'piskis'),
             [(63.0, '‖ f i z ‖', '‖ p i s ‖ kis')],
         )
         self.assertEqual(
-            self.cmp.alignment('ay', 'ego'), [(17.5, '‖ ay ‖', '‖ e  ‖ go')]
+            self.cmp.alignments('ay', 'ego'), [(17.5, '‖ ay ‖', '‖ e  ‖ go')]
         )
         self.assertEqual(
-            self.cmp.alignment('tuwz', 'dentis'),
+            self.cmp.alignments('tuwz', 'dentis'),
             [(75.0, '‖ t uw z ‖', 'den ‖ t i  s ‖')],
         )
 
@@ -73,310 +73,310 @@ class ALINETestCases(unittest.TestCase):
         # Some of these alignments are a little different from what's in the
         # thesis because of the differing encoding used.
         self.assertEqual(
-            self.cmp.alignment('jo', 'zPe'), [(29.0, '‖ j  o ‖', '‖ zP e ‖')]
+            self.cmp.alignments('jo', 'zPe'), [(29.0, '‖ j  o ‖', '‖ zP e ‖')]
         )
         self.assertEqual(
-            self.cmp.alignment('tu', 'tuF'), [(45.0, '‖ t u  ‖', '‖ t uF ‖')]
+            self.cmp.alignments('tu', 'tuF'), [(45.0, '‖ t u  ‖', '‖ t uF ‖')]
         )
         self.assertEqual(
-            self.cmp.alignment('nostros', 'nu'),
+            self.cmp.alignments('nostros', 'nu'),
             [(47.5, '‖ n o ‖ stros', '‖ n u ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('kyen', 'ki'),
+            self.cmp.alignments('kyen', 'ki'),
             [(47.5, '‖ k ye ‖ n', '‖ k i  ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('ke', 'kwa'), [(42.5, '‖ k e  ‖', '‖ k wa ‖')]
+            self.cmp.alignments('ke', 'kwa'), [(42.5, '‖ k e  ‖', '‖ k wa ‖')]
         )
         self.assertEqual(
-            self.cmp.alignment('todos', 'tu'),
+            self.cmp.alignments('todos', 'tu'),
             [(47.5, '‖ t o ‖ dos', '‖ t u ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('una', 'uFn'),
+            self.cmp.alignments('una', 'uFn'),
             [(45.0, '‖ u  n ‖ a', '‖ uF n ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('dos', 'doF'),
+            self.cmp.alignments('dos', 'doF'),
             [(45.0, '‖ d o  ‖ s', '‖ d oF ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('tres', 'trwa'),
+            self.cmp.alignments('tres', 'trwa'),
             [(77.5, '‖ t r e  ‖ s', '‖ t r wa ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('ombre', 'om'),
+            self.cmp.alignments('ombre', 'om'),
             [
                 (50.0, '‖ o m ‖ bre', '‖ o m ‖'),
                 (50.0, '‖ o mb ‖ re', '‖ o m  ‖'),
             ],
         )
         self.assertEqual(
-            self.cmp.alignment('arbol', 'arbreC'),
+            self.cmp.alignments('arbol', 'arbreC'),
             [(88.0, '‖ a r b o l ‖', '‖ a r b - r ‖ eC')],
         )
         self.assertEqual(
-            self.cmp.alignment('pluFma', 'plum'),
+            self.cmp.alignments('pluFma', 'plum'),
             [(115.0, '‖ p l uF m ‖ a', '‖ p l u  m ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('kabetSa', 'kap'),
+            self.cmp.alignments('kabetSa', 'kap'),
             [(75.0, '‖ k a b ‖ etSa', '‖ k a p ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('boka', 'busP'),
+            self.cmp.alignments('boka', 'busP'),
             [(68.5, '‖ b o k  ‖ a', '‖ b u sP ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('pye', 'pye'),
+            self.cmp.alignments('pye', 'pye'),
             [(65.0, '‖ p y e ‖', '‖ p y e ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('koratSon', 'koFr'),
+            self.cmp.alignments('koratSon', 'koFr'),
             [(80.0, '‖ k o  r ‖ atSon', '‖ k oF r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('ber', 'vwar'),
+            self.cmp.alignments('ber', 'vwar'),
             [(60.5, '‖ b e  r ‖', '‖ v wa r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('benir', 'veCnir'),
+            self.cmp.alignments('benir', 'veCnir'),
             [(115.5, '‖ b e  n i r ‖', '‖ v eC n i r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('detSir', 'dir'),
+            self.cmp.alignments('detSir', 'dir'),
             [
                 (65.0, 'de ‖ tS i r ‖', '‖ d  i r ‖'),
                 (65.0, '‖ d e tS i r ‖', '‖ d - -  i r ‖'),
             ],
         )
         self.assertEqual(
-            self.cmp.alignment('pobre', 'povreC'),
+            self.cmp.alignments('pobre', 'povreC'),
             [(115.5, '‖ p o b r e  ‖', '‖ p o v r eC ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('dSis', 'diHzes'),
+            self.cmp.alignments('dSis', 'diHzes'),
             [(77.5, '‖ dS i s ‖', 'diH ‖ z  e s ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('dSaFt', 'das'),
+            self.cmp.alignments('dSaFt', 'das'),
             [(62.5, '‖ dS aF t ‖', '‖ d  a  s ‖')],
         )
         # Different from paper:
         self.assertEqual(
-            self.cmp.alignment('wat', 'vas'),
+            self.cmp.alignments('wat', 'vas'),
             [(40.0, 'w ‖ a t ‖', 'v ‖ a s ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('nat', 'nixt'),
+            self.cmp.alignments('nat', 'nixt'),
             [
                 (62.5, '‖ n a - t ‖', '‖ n i x t ‖'),
                 (62.5, '‖ n a t  ‖', '‖ n i xt ‖'),
             ],
         )
         self.assertEqual(
-            self.cmp.alignment('logN', 'lagN'),
+            self.cmp.alignments('logN', 'lagN'),
             [(75.0, '‖ l o gN ‖', '‖ l a gN ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('maFn', 'man'),
+            self.cmp.alignments('maFn', 'man'),
             [(82.5, '‖ m aF n ‖', '‖ m a  n ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('flesP', 'flaysP'),
+            self.cmp.alignments('flesP', 'flaysP'),
             [(122.5, '‖ f l e  sP ‖', '‖ f l ay sP ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('bleCd', 'bluHt'),
+            self.cmp.alignments('bleCd', 'bluHt'),
             [(99.0, '‖ b l eC d ‖', '‖ b l uH t ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('fedSeCr', 'feHdeCr'),
+            self.cmp.alignments('fedSeCr', 'feHdeCr'),
             [(124.0, '‖ f e  dS eC r ‖', '‖ f eH d  eC r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('haFr', 'haHr'),
+            self.cmp.alignments('haFr', 'haHr'),
             [(81.5, '‖ h aF r ‖', '‖ h aH r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('ir', 'oHr'), [(41.5, '‖ i  r ‖', '‖ oH r ‖')]
+            self.cmp.alignments('ir', 'oHr'), [(41.5, '‖ i  r ‖', '‖ oH r ‖')]
         )
         self.assertEqual(
-            self.cmp.alignment('ay', 'awgeC'),
+            self.cmp.alignments('ay', 'awgeC'),
             [(20.0, '‖ a y ‖', '‖ a w ‖ geC')],
         )
         self.assertEqual(
-            self.cmp.alignment('nowz', 'naHzeC'),
+            self.cmp.alignments('nowz', 'naHzeC'),
             [(70.5, '‖ n ow z ‖', '‖ n aH z ‖ eC')],
         )
         self.assertEqual(
-            self.cmp.alignment('mawtS', 'munt'),
+            self.cmp.alignments('mawtS', 'munt'),
             [(62.5, '‖ m aw - tS ‖', '‖ m u  n t  ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('teCgN', 'tsugNeC'),
+            self.cmp.alignments('teCgN', 'tsugNeC'),
             [(75.0, '‖ t  eC gN ‖', '‖ ts u  gN ‖ eC')],
         )
         self.assertEqual(
-            self.cmp.alignment('fut', 'fuHs'),
+            self.cmp.alignments('fut', 'fuHs'),
             [(74.0, '‖ f u  t ‖', '‖ f uH s ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('niy', 'kniH'),
+            self.cmp.alignments('niy', 'kniH'),
             [(53.0, '‖ n iy ‖', 'k ‖ n iH ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('haFnd', 'hant'),
+            self.cmp.alignments('haFnd', 'hant'),
             [(107.5, '‖ h aF n d ‖', '‖ h a  n t ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('hart', 'herts'),
+            self.cmp.alignments('hart', 'herts'),
             [
                 (115.0, '‖ h a r t ‖', '‖ h e r t ‖ s'),
                 (115.0, '‖ h a r t  ‖', '‖ h e r ts ‖'),
             ],
         )
         self.assertEqual(
-            self.cmp.alignment('liveCr', 'leHbeCr'),
+            self.cmp.alignments('liveCr', 'leHbeCr'),
             [(109.5, '‖ l i  v eC r ‖', '‖ l eH b eC r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('aFnd', 'ante'),
+            self.cmp.alignments('aFnd', 'ante'),
             [(72.5, '‖ aF n d ‖', '‖ a  n t ‖ e')],
         )
         self.assertEqual(
-            self.cmp.alignment('aFt', 'ad'), [(37.5, '‖ aF t ‖', '‖ a  d ‖')]
+            self.cmp.alignments('aFt', 'ad'), [(37.5, '‖ aF t ‖', '‖ a  d ‖')]
         )
         self.assertEqual(
-            self.cmp.alignment('blow', 'flaHre'),
+            self.cmp.alignments('blow', 'flaHre'),
             [(52.0, '‖ b l o  ‖ w', '‖ f l aH ‖ re')],
         )
         # Different from paper:
         self.assertEqual(
-            self.cmp.alignment('ir', 'awris'),
+            self.cmp.alignments('ir', 'awris'),
             [(45.0, '‖ i r ‖', 'a ‖ w r ‖ is')],
         )
         self.assertEqual(
-            self.cmp.alignment('iyt', 'edere'),
+            self.cmp.alignments('iyt', 'edere'),
             [(40.0, '‖ iy t ‖', '‖ e  d ‖ ere')],
         )
         self.assertEqual(
-            self.cmp.alignment('fisS', 'piskis'),
+            self.cmp.alignments('fisS', 'piskis'),
             [(73.0, '‖ f i sS ‖', '‖ p i s  ‖ kis')],
         )
         self.assertEqual(
-            self.cmp.alignment('flow', 'fluere'),
+            self.cmp.alignments('flow', 'fluere'),
             [(92.5, '‖ f l ow ‖', '‖ f l u  ‖ ere')],
         )
         self.assertEqual(
-            self.cmp.alignment('star', 'steHlla'),
+            self.cmp.alignments('star', 'steHlla'),
             [(92.0, '‖ s t a  r ‖', '‖ s t eH l ‖ la')],
         )
         self.assertEqual(
-            self.cmp.alignment('ful', 'pleHnus'),
+            self.cmp.alignments('ful', 'pleHnus'),
             [(48.0, '‖ f u l ‖', '‖ p - l ‖ eHnus')],
         )
         self.assertEqual(
-            self.cmp.alignment('graFs', 'graHmen'),
+            self.cmp.alignments('graFs', 'graHmen'),
             [(81.5, '‖ g r aF ‖ s', '‖ g r aH ‖ men')],
         )
         self.assertEqual(
-            self.cmp.alignment('hart', 'kordis'),
+            self.cmp.alignments('hart', 'kordis'),
             [(70.0, '‖ h a r t ‖', '‖ k o r d ‖ is')],
         )
         self.assertEqual(
-            self.cmp.alignment('horn', 'kornuH'),
+            self.cmp.alignments('horn', 'kornuH'),
             [(90.0, '‖ h o r n ‖', '‖ k o r n ‖ uH')],
         )
         self.assertEqual(
-            self.cmp.alignment('ay', 'ego'), [(17.5, '‖ ay ‖', '‖ e  ‖ go')]
+            self.cmp.alignments('ay', 'ego'), [(17.5, '‖ ay ‖', '‖ e  ‖ go')]
         )
         self.assertEqual(
-            self.cmp.alignment('niy', 'genuH'),
+            self.cmp.alignments('niy', 'genuH'),
             [(44.0, '‖ n i  ‖ y', 'ge ‖ n uH ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('meCdSeCr', 'maHter'),
+            self.cmp.alignments('meCdSeCr', 'maHter'),
             [(109.0, '‖ m eC dS eC r ‖', '‖ m aH t  e  r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('mawnteCn', 'moHns'),
+            self.cmp.alignments('mawnteCn', 'moHns'),
             [(105.5, '‖ m aw n t ‖ eCn', '‖ m oH n s ‖')],
         )
         # The example below is different from the expected, but
         # (73.0, '‖ n ey m ‖', '‖ n oH m ‖ en') is the #2 alignment.
         # This is probably due to slightly differing weights/costs/features.
         self.assertEqual(
-            self.cmp.alignment('neym', 'noHmen'),
+            self.cmp.alignments('neym', 'noHmen'),
             [(80.5, '‖ n ey m ‖', 'noH ‖ m e  n ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('nyuw', 'nowus'),
+            self.cmp.alignments('nyuw', 'nowus'),
             [(70.0, '‖ n yu w  ‖', '‖ n o  wu ‖ s')],
         )
         self.assertEqual(
-            self.cmp.alignment('weCn', 'uHnus'),
+            self.cmp.alignments('weCn', 'uHnus'),
             [(48.0, '‖ weC n ‖', '‖ uH  n ‖ us')],
         )
         self.assertEqual(
-            self.cmp.alignment('rawnd', 'rotundus'),
+            self.cmp.alignments('rawnd', 'rotundus'),
             [(115.0, '‖ r a - w n d ‖', '‖ r o t u n d ‖ us')],
         )
         self.assertEqual(
-            self.cmp.alignment('sow', 'suere'),
+            self.cmp.alignments('sow', 'suere'),
             [(57.5, '‖ s ow ‖', '‖ s u  ‖ ere')],
         )
         self.assertEqual(
-            self.cmp.alignment('sit', 'seHdere'),
+            self.cmp.alignments('sit', 'seHdere'),
             [(66.5, '‖ s i  t ‖', '‖ s eH d ‖ ere')],
         )
         self.assertEqual(
-            self.cmp.alignment('tSriy', 'treHs'),
+            self.cmp.alignments('tSriy', 'treHs'),
             [(73.0, '‖ tS r iy ‖', '‖ t  r eH ‖ s')],
         )
         self.assertEqual(
-            self.cmp.alignment('tuwtS', 'dentis'),
+            self.cmp.alignments('tuwtS', 'dentis'),
             [(85.0, '‖ t uw tS ‖', 'den ‖ t i  s  ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('tSin', 'tenuis'),
+            self.cmp.alignments('tSin', 'tenuis'),
             [(67.5, '‖ tS i n ‖', '‖ t  e n ‖ uis')],
         )
         self.assertEqual(
-            self.cmp.alignment('kiHnwaHwa', 'kenuaq'),
+            self.cmp.alignments('kiHnwaHwa', 'kenuaq'),
             [(105.5, '‖ k iH n w aH ‖ wa', '‖ k e  n u a  ‖ q')],
         )
         self.assertEqual(
-            self.cmp.alignment('niHna', 'nenah'),
+            self.cmp.alignments('niHna', 'nenah'),
             [(91.5, '‖ n iH n a ‖', '‖ n e  n a ‖ h')],
         )
         self.assertEqual(
-            self.cmp.alignment('naHpeHwa', 'naHpeHw'),
+            self.cmp.alignments('naHpeHwa', 'naHpeHw'),
             [(115.0, '‖ n aH p eH w ‖ a', '‖ n aH p eH w ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('waHpimini', 'waHpemen'),
+            self.cmp.alignments('waHpimini', 'waHpemen'),
             [(150.0, '‖ w aH p i m i n ‖ i', '‖ w aH p e m e n ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('nameHsa', 'nameHqs'),
+            self.cmp.alignments('nameHsa', 'nameHqs'),
             [(125.0, '‖ n a m eH - s ‖ a', '‖ n a m eH q s ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('okimaHwa', 'okeHmaHw'),
+            self.cmp.alignments('okimaHwa', 'okeHmaHw'),
             [(121.5, '‖ o k i  m aH w ‖ a', '‖ o k eH m aH w ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('sPiHsPiHpa', 'seHqsep'),
+            self.cmp.alignments('sPiHsPiHpa', 'seHqsep'),
             [(97.0, '‖ sP iH - sP iH p ‖ a', '‖ s  eH q s  e  p ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('ahkohkwa', 'ahkeHh'),
+            self.cmp.alignments('ahkohkwa', 'ahkeHh'),
             [(124.0, '‖ a h k o  h ‖ kwa', '‖ a h k eH h ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('pemaHtesiweni', 'pemaHtesewen'),
+            self.cmp.alignments('pemaHtesiweni', 'pemaHtesewen'),
             [
                 (
                     257.5,
@@ -386,38 +386,38 @@ class ALINETestCases(unittest.TestCase):
             ],
         )
         self.assertEqual(
-            self.cmp.alignment('asenya', 'aqsen'),
+            self.cmp.alignments('asenya', 'aqsen'),
             [(90.0, '‖ a - s e n ‖ ya', '‖ a q s e n ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('didoHmi', 'doH'),
+            self.cmp.alignments('didoHmi', 'doH'),
             [(50.0, 'di ‖ d oH ‖ mi', '‖ d oH ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('tAugateEr', 'toxteCr'),
+            self.cmp.alignments('tAugateEr', 'toxteCr'),
             [(130.0, '‖ tA u g a t e  r ‖', '‖ t  o x - t eC r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('doteCr', 'tAugateEr'),
+            self.cmp.alignments('doteCr', 'tAugateEr'),
             [(112.5, '‖ d o t eC r ‖', 'tAu ‖ g a t e  r ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('ager', 'azPras'),
+            self.cmp.alignments('ager', 'azPras'),
             [(61.0, '‖ a g  e r ‖', '‖ a zP - r ‖ as')],
         )
         self.assertEqual(
-            self.cmp.alignment('bAaraHmi', 'pAero'),
+            self.cmp.alignments('bAaraHmi', 'pAero'),
             [(74.0, '‖ bA a r aH ‖ mi', '‖ pA e r o  ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('kentum', 'hekaton'),
+            self.cmp.alignments('kentum', 'hekaton'),
             [
                 (111.5, '‖ k e n t u m ‖', 'he ‖ k a - t o n ‖'),
                 (111.5, '‖ k e nt u m ‖', 'he ‖ k a t  o n ‖'),
             ],
         )
         self.assertEqual(
-            self.cmp.alignment('kentum', 'sateCm'),
+            self.cmp.alignments('kentum', 'sateCm'),
             [
                 (90.0, '‖ k e n t u  m ‖', '‖ s a - t eC m ‖'),
                 (90.0, '‖ k e nt u  m ‖', '‖ s a t  eC m ‖'),
@@ -426,98 +426,139 @@ class ALINETestCases(unittest.TestCase):
 
         # test cases from Downey, et al. (2008)
         self.assertEqual(
-            self.cmp.alignment('api', 'api'),
+            self.cmp.alignments('api', 'api'),
             [(65.0, '‖ a p i ‖', '‖ a p i ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('apik', 'apik'),
+            self.cmp.alignments('apik', 'apik'),
             [(100.0, '‖ a p i k ‖', '‖ a p i k ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('apila', 'apila'),
+            self.cmp.alignments('apila', 'apila'),
             [(115.0, '‖ a p i l a ‖', '‖ a p i l a ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('api', 'apik'),
+            self.cmp.alignments('api', 'apik'),
             [(65.0, '‖ a p i ‖', '‖ a p i ‖ k')],
         )
         self.assertEqual(
-            self.cmp.alignment('api', 'apila'),
+            self.cmp.alignments('api', 'apila'),
             [(65.0, '‖ a p i ‖', '‖ a p i ‖ la')],
         )
         self.assertEqual(
-            self.cmp.alignment('apik', 'apila'),
+            self.cmp.alignments('apik', 'apila'),
             [(65.0, '‖ a p i ‖ k', '‖ a p i ‖ la')],
         )
         self.assertEqual(
-            self.cmp.alignment('kalarita', 'kalarita'),
+            self.cmp.alignments('kalarita', 'kalarita'),
             [(200.0, '‖ k a l a r i t a ‖', '‖ k a l a r i t a ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('kalara', 'kalara'),
+            self.cmp.alignments('kalara', 'kalara'),
             [(150.0, '‖ k a l a r a ‖', '‖ k a l a r a ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('makebela', 'makebela'),
+            self.cmp.alignments('makebela', 'makebela'),
             [(200.0, '‖ m a k e b e l a ‖', '‖ m a k e b e l a ‖')],
         )
         # The following case has a different score, but the same alignment as
         # in Downey, et. al (2008)
         self.assertEqual(
-            self.cmp.alignment('kalarita', 'kalara'),
+            self.cmp.alignments('kalarita', 'kalara'),
             [(137.5, '‖ k a l a r i ‖ ta', '‖ k a l a r a ‖')],
         )
         self.assertEqual(
-            self.cmp.alignment('kalarita', 'makebela'),
+            self.cmp.alignments('kalarita', 'makebela'),
             [
                 (75.0, '‖ k - - a l a ‖ rita', 'ma ‖ k e b e l a ‖'),
                 (75.0, '‖ k a - - l a ‖ rita', 'ma ‖ k e b e l a ‖'),
             ],
         )
         self.assertEqual(
-            self.cmp.alignment('kalara', 'makebela'),
+            self.cmp.alignments('kalara', 'makebela'),
             [(82.0, '‖ k a l a r a ‖', 'ma ‖ k e b e l a ‖')],
         )
 
         # other alignment styles:
         cmp2 = ALINE(mode='local')
         self.assertEqual(
-            cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
+            cmp2.alignments('aHpakosiHs', 'waHpikonoHha'),
             [(120.0, '‖ aH p a k o s iH s ‖', 'w ‖ aH p i k o n oH h ‖ a')],
         )
         cmp2 = ALINE(mode='semi-global')
         self.assertEqual(
-            cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
+            cmp2.alignments('aHpakosiHs', 'waHpikonoHha'),
             [(120.0, '‖ aH p a k o s iH s ‖', 'w ‖ aH p i k o n oH h ‖ a')],
         )
         cmp2 = ALINE(mode='half-local')
         self.assertEqual(
-            cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
+            cmp2.alignments('aHpakosiHs', 'waHpikonoHha'),
             [(110.0, '‖ aH p a k o s iH s - ‖', 'w ‖ aH p i k o n oH h a ‖')],
         )
         cmp2 = ALINE(mode='global')
         self.assertEqual(
-            cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
+            cmp2.alignments('aHpakosiHs', 'waHpikonoHha'),
             [(106.5, '‖ aH  p a k o s iH s - ‖', '‖ waH p i k o n oH h a ‖')],
         )
         # The following just confirms that unknown values of mode use 'local'
         cmp2 = ALINE(mode='universal')
         self.assertEqual(
-            cmp2.alignment('aHpakosiHs', 'waHpikonoHha'),
+            cmp2.alignments('aHpakosiHs', 'waHpikonoHha'),
             [(120.0, '‖ aH p a k o s iH s ‖', 'w ‖ aH p i k o n oH h ‖ a')],
         )
         self.assertEqual(
-            cmp2.alignment('kan', 'kaABCDHn'),
+            cmp2.alignments('kan', 'kaABCDHn'),
             [(84.0, '‖ k a      n ‖', '‖ k aABCDH n ‖')],
         )
         self.assertEqual(
-            cmp2.alignment('kaABCDHn', 'kan'),
+            cmp2.alignments('kaABCDHn', 'kan'),
             [(84.0, '‖ k aABCDH n ‖', '‖ k a      n ‖')],
         )
         cmp2 = ALINE(phones='ipa')
         self.assertEqual(
-            cmp2.alignment('kɒgneit', 'kognaːtus'),
+            cmp2.alignments('kɒgneit', 'kognaːtus'),
             [(163.0, '‖ k ɒ g n ei t ‖', '‖ k o g n aː t ‖ us')],
+        )
+
+    def test_aline_alignment(self):
+        """Test abydos.distance.ALINE.alignment."""
+        self.assertEqual(
+            self.cmp.alignment('ombre', 'om'), (50.0, '‖ o m ‖ bre', '‖ o m ‖')
+        )
+        self.assertEqual(
+            self.cmp.alignment('arbol', 'arbreC'),
+            (88.0, '‖ a r b o l ‖', '‖ a r b - r ‖ eC'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('pluFma', 'plum'),
+            (115.0, '‖ p l uF m ‖ a', '‖ p l u  m ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('kabetSa', 'kap'),
+            (75.0, '‖ k a b ‖ etSa', '‖ k a p ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('boka', 'busP'),
+            (68.5, '‖ b o k  ‖ a', '‖ b u sP ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('pye', 'pye'), (65.0, '‖ p y e ‖', '‖ p y e ‖')
+        )
+        self.assertEqual(
+            self.cmp.alignment('koratSon', 'koFr'),
+            (80.0, '‖ k o  r ‖ atSon', '‖ k oF r ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('ber', 'vwar'),
+            (60.5, '‖ b e  r ‖', '‖ v wa r ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('benir', 'veCnir'),
+            (115.5, '‖ b e  n i r ‖', '‖ v eC n i r ‖'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('detSir', 'dir'),
+            (65.0, 'de ‖ tS i r ‖', '‖ d  i r ‖'),
         )
 
     def test_aline_sim(self):

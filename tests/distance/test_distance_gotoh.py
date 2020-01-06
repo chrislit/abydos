@@ -90,6 +90,12 @@ class GotohTestCases(unittest.TestCase):
             NeedlemanWunsch(5, _sim_nw).sim_score('AGACTAGTTAC', 'CGAGACGT'),
         )
 
+        # Test cases where one of the strings has length 1
+        self.assertAlmostEqual(Gotoh().sim_score('', 'a'), -1.0)
+        self.assertAlmostEqual(Gotoh().sim_score('abc', 'a'), -0.4)
+        self.assertAlmostEqual(Gotoh().sim_score('a', ''), -1.0)
+        self.assertAlmostEqual(Gotoh().sim_score('a', 'abc'), -0.4)
+
         # Test wrapper
         self.assertEqual(
             gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_wikipedia), 16

@@ -58,9 +58,6 @@ class TokenDistanceTestCases(unittest.TestCase):
         intersection_type='fuzzy', metric=DamerauLevenshtein(), threshold=0.4
     )
     cmp_j_linkage = Jaccard(intersection_type='linkage')
-    cmp_j_linkage_int = Jaccard(
-        intersection_type='linkage', internal_assignment_problem=True
-    )
 
     def test_crisp_jaccard_sim(self):
         """Test abydos.distance.Jaccard.sim (crisp)."""
@@ -109,11 +106,24 @@ class TokenDistanceTestCases(unittest.TestCase):
         )
 
         self.assertAlmostEqual(
-            Jaccard(intersection_type='soft', metric=JaroWinkler()).sim(
-                'synonym', 'antonym'
-            ),
-            0.777777777777,
+            Jaccard(
+                intersection_type='soft', tokenizer=WhitespaceTokenizer()
+            ).sim('junior system analyst', 'systems analyst'),
+            0.6190476190476191,
         )
+        self.assertAlmostEqual(
+            Jaccard(
+                intersection_type='soft', tokenizer=WhitespaceTokenizer()
+            ).sim('systems analyst', 'junior system analyst'),
+            0.6190476190476191,
+        )
+
+        with self.assertRaises(TypeError):
+            Jaccard(
+                intersection_type='soft',
+                metric=JaroWinkler(),
+                tokenizer=WhitespaceTokenizer(),
+            ).sim('junior system analyst', 'systems analyst')
 
     def test_fuzzy_jaccard_sim(self):
         """Test abydos.distance.Jaccard.sim (fuzzy)."""
@@ -161,33 +171,6 @@ class TokenDistanceTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_j_linkage.sim('Coiln', 'Colin'), 0.6)
         self.assertAlmostEqual(
             self.cmp_j_linkage.sim('ATCAACGAGT', 'AACGATTAG'), 0.68
-        )
-
-        # Base cases
-        self.assertEqual(self.cmp_j_linkage_int.sim('', ''), 1.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('a', ''), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('', 'a'), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('abc', ''), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('', 'abc'), 0.0)
-        self.assertEqual(self.cmp_j_linkage_int.sim('abc', 'abc'), 1.0)
-        self.assertEqual(
-            self.cmp_j_linkage_int.sim('abcd', 'efgh'), 0.1111111111111111
-        )
-
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Nigel', 'Niall'), 0.5
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Niall', 'Nigel'), 0.6
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Colin', 'Coiln'), 0.5625
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('Coiln', 'Colin'), 0.6
-        )
-        self.assertAlmostEqual(
-            self.cmp_j_linkage_int.sim('ATCAACGAGT', 'AACGATTAG'), 0.75
         )
 
         self.assertAlmostEqual(
@@ -370,12 +353,13 @@ class TokenDistanceTestCases(unittest.TestCase):
         sm._tokenize('ATCAACGAGT', 'AACGATTAG')  # noqa: SF01
         self.assertEqual(sm._total_complement_card(), 61)  # noqa: SF01
 
-        jac = Jaccard(
-            intersection_type='linkage', internal_assignment_problem=True
-        )
-        self.assertAlmostEqual(jac.sim('abandonned', 'abandoned'), 1.0)
         self.assertAlmostEqual(
-            jac.sim('abundacies', 'abundances'), 0.6296296296296297
+            self.cmp_j_linkage.sim('abandonned', 'abandoned'),
+            0.9090909090909091,
+        )
+        self.assertAlmostEqual(
+            self.cmp_j_linkage.sim('abundacies', 'abundances'),
+            0.6923076923076923,
         )
 
         # Some additional constructors needed to complete test coverage
@@ -404,6 +388,58 @@ class TokenDistanceTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             Jaccard(tokenizer=CharacterTokenizer()).sim('abc', 'abcd'), 0.75
+        )
+
+        cmp_j_soft = Jaccard(intersection_type='soft')
+        self.assertEqual(cmp_j_soft._src_card(), 0)  # noqa: SF01
+        self.assertEqual(cmp_j_soft._tar_card(), 0)  # noqa: SF01
+        self.assertEqual(cmp_j_soft._src_only(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._tar_only(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._total(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._union(), Counter())  # noqa: SF01
+        self.assertEqual(cmp_j_soft._difference(), Counter())  # noqa: SF01
+        cmp_j_soft.sim('abcd', 'abcde')
+        self.assertEqual(cmp_j_soft._src_card(), 5)  # noqa: SF01
+        self.assertEqual(cmp_j_soft._tar_card(), 6)  # noqa: SF01
+        self.assertEqual(
+            cmp_j_soft._src_only(), Counter({'#': 0.5})  # noqa: SF01
+        )
+        self.assertEqual(
+            cmp_j_soft._tar_only(), Counter({'e#': 1, 'e': 0.5})  # noqa: SF01
+        )
+        self.assertEqual(
+            cmp_j_soft._total(),  # noqa: SF01
+            Counter(
+                {
+                    'e#': 1,
+                    'e': 0.5,
+                    '#': 0.5,
+                    '$a': 2,
+                    'ab': 2,
+                    'bc': 2,
+                    'cd': 2,
+                    'd': 1.0,
+                }
+            ),
+        )
+        self.assertEqual(
+            cmp_j_soft._union(),  # noqa: SF01
+            Counter(
+                {
+                    'e#': 1,
+                    'e': 0.5,
+                    '#': 0.5,
+                    '$a': 1,
+                    'ab': 1,
+                    'bc': 1,
+                    'cd': 1,
+                    'd': 0.5,
+                }
+            ),
+        )
+        self.assertEqual(
+            cmp_j_soft._difference(),  # noqa: SF01
+            Counter({'#': 0.5, 'e#': -1, 'e': -0.5}),
         )
 
 

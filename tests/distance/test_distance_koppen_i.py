@@ -31,7 +31,6 @@ from __future__ import (
 import unittest
 
 from abydos.distance import KoppenI
-from abydos.tokenizer import QSkipgrams
 
 
 class KoppenITestCases(unittest.TestCase):
@@ -149,13 +148,6 @@ class KoppenITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_no_d.corr('Coiln', 'Colin'), -1.0)
         self.assertAlmostEqual(
             self.cmp_no_d.corr('ATCAACGAGT', 'AACGATTAG'), -1.0
-        )
-
-        self.assertEqual(
-            KoppenI(
-                alphabet=0, tokenizer=QSkipgrams(qval=2, scaler='SSK')
-            ).corr('eh', 'a'),
-            0.0,
         )
 
 

@@ -30,17 +30,16 @@ from __future__ import (
 
 from math import log
 
-from numpy import float as np_float
-from numpy import zeros as np_zeros
+import numpy as np
 
 from six.moves import range
 
-from ._distance import _Distance
+from ._levenshtein import Levenshtein
 
 __all__ = ['DiscountedLevenshtein']
 
 
-class DiscountedLevenshtein(_Distance):
+class DiscountedLevenshtein(Levenshtein):
     """Discounted Levenshtein distance.
 
     This is a variant of Levenshtein distance for which edits later in a string
@@ -128,7 +127,7 @@ class DiscountedLevenshtein(_Distance):
     def _exp_discount(discounts):
         return 1 / (discounts + 1) ** 0.2
 
-    def _alignment_matrix(self, src, tar):
+    def _alignment_matrix(self, src, tar, backtrace=True):
         """Return the Levenshtein alignment matrix.
 
         Parameters
@@ -137,11 +136,13 @@ class DiscountedLevenshtein(_Distance):
             Source string for comparison
         tar : str
             Target string for comparison
+        backtrace : bool
+            Return the backtrace matrix as well
 
         Returns
         -------
-        numpy.ndarray
-            The alignment matrix
+        numpy.ndarray or tuple(numpy.ndarray, numpy.ndarray)
+            The alignment matrix and (optionally) the backtrace matrix
 
 
         .. versionadded:: 0.4.1
@@ -182,25 +183,35 @@ class DiscountedLevenshtein(_Distance):
         else:
             discount_from = [1, 1]
 
-        d_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
+        if backtrace:
+            trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(1, src_len + 1):
             d_mat[i, 0] = d_mat[i - 1, 0] + self._cost(
                 max(0, i - discount_from[0])
             )
+            if backtrace:
+                trace_mat[i, 0] = 1
         for j in range(1, tar_len + 1):
             d_mat[0, j] = d_mat[0, j - 1] + self._cost(
                 max(0, j - discount_from[1])
             )
-
+            if backtrace:
+                trace_mat[0, j] = 0
         for i in range(src_len):
             i_extend = self._cost(max(0, i - discount_from[0]))
             for j in range(tar_len):
+                traces = ((i + 1, j), (i, j + 1), (i, j))
                 cost = min(i_extend, self._cost(max(0, j - discount_from[1])))
-                d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + cost,  # ins
-                    d_mat[i, j + 1] + cost,  # del
-                    d_mat[i, j] + (cost if src[i] != tar[j] else 0),  # sub/==
+                opts = (
+                    d_mat[traces[0]] + cost,  # ins
+                    d_mat[traces[1]] + cost,  # del
+                    d_mat[traces[2]]
+                    + (cost if src[i] != tar[j] else 0),  # sub/==
                 )
+                d_mat[i + 1, j + 1] = min(opts)
+                if backtrace:
+                    trace_mat[i + 1, j + 1] = int(np.argmin(opts))
 
                 if self._mode == 'osa':
                     if (
@@ -213,85 +224,11 @@ class DiscountedLevenshtein(_Distance):
                         d_mat[i + 1, j + 1] = min(
                             d_mat[i + 1, j + 1], d_mat[i - 1, j - 1] + cost
                         )
-
+                        if backtrace:
+                            trace_mat[i + 1, j + 1] = 2
+        if backtrace:
+            return d_mat, trace_mat
         return d_mat
-
-    def alignment(self, src, tar):
-        """Return the Levenshtein alignment of two strings.
-
-        Parameters
-        ----------
-        src : str
-            Source string for comparison
-        tar : str
-            Target string for comparison
-
-        Returns
-        -------
-        tuple
-            A tuple containing the Levenshtein distance and the two strings,
-            aligned.
-
-        Examples
-        --------
-        >>> cmp = DiscountedLevenshtein()
-        >>> cmp.alignment('cat', 'hat')
-        (1.0, 'cat', 'hat')
-        >>> cmp.alignment('Niall', 'Neil')
-        (2.526064024369237, 'N-iall', 'Neil--')
-        >>> cmp.alignment('aluminum', 'Catalan')
-        (5.053867269967515, '-aluminum', 'Catalan--')
-        >>> cmp.alignment('ATCG', 'TAGC')
-        (2.594032108779918, 'ATCG-', '-TAGC')
-
-        >>> cmp = DiscountedLevenshtein(mode='osa')
-        >>> cmp.alignment('ATCG', 'TAGC')
-        (1.7482385137517997, 'ATCG', 'TAGC')
-        >>> cmp.alignment('ACTG', 'TAGC')
-        (3.342270622531718, '-ACTG', 'TAGC-')
-
-
-        .. versionadded:: 0.4.1
-
-        """
-        d_mat = self._alignment_matrix(src, tar)
-
-        src_aligned = []
-        tar_aligned = []
-
-        src_pos = len(src)
-        tar_pos = len(tar)
-
-        distance = d_mat[src_pos, tar_pos]
-
-        while src_pos and tar_pos:
-            up = d_mat[src_pos, tar_pos - 1]
-            left = d_mat[src_pos - 1, tar_pos]
-            diag = d_mat[src_pos - 1, tar_pos - 1]
-
-            if diag <= min(up, left):
-                src_pos -= 1
-                tar_pos -= 1
-                src_aligned.append(src[src_pos])
-                tar_aligned.append(tar[tar_pos])
-            elif up <= left:
-                tar_pos -= 1
-                src_aligned.append('-')
-                tar_aligned.append(tar[tar_pos])
-            else:
-                src_pos -= 1
-                src_aligned.append(src[src_pos])
-                tar_aligned.append('-')
-        while tar_pos:
-            tar_pos -= 1
-            tar_aligned.append(tar[tar_pos])
-            src_aligned.append('-')
-        while src_pos:
-            src_pos -= 1
-            src_aligned.append(src[src_pos])
-            tar_aligned.append('-')
-
-        return distance, ''.join(src_aligned[::-1]), ''.join(tar_aligned[::-1])
 
     def dist_abs(self, src, tar):
         """Return the Levenshtein distance between two strings.
@@ -305,7 +242,7 @@ class DiscountedLevenshtein(_Distance):
 
         Returns
         -------
-        int (may return a float if cost has float values)
+        float (may return a float if cost has float values)
             The Levenshtein distance between src & tar
 
         Examples
@@ -334,7 +271,7 @@ class DiscountedLevenshtein(_Distance):
         tar_len = len(tar)
 
         if src == tar:
-            return 0
+            return 0.0
 
         if isinstance(self._discount_from, int):
             discount_from = self._discount_from
@@ -352,7 +289,7 @@ class DiscountedLevenshtein(_Distance):
                 for pos in range(src_len)
             )
 
-        d_mat = self._alignment_matrix(src, tar)
+        d_mat = self._alignment_matrix(src, tar, backtrace=False)
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])

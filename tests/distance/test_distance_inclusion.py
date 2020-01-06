@@ -53,7 +53,7 @@ class InclusionTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 1.0)
 
-        # Tescases from paper
+        # Testcases from paper
         self.assertEqual(self.cmp.dist('ALINE', 'LINA'), 0.0)
         self.assertEqual(self.cmp.dist('ADELINE', 'LINA'), 0.0)
         self.assertEqual(self.cmp.dist('DIONNE', 'DONNE'), 0.0)

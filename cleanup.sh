@@ -16,4 +16,6 @@ find . -type f -name '*~' -delete
 find . -type f -name '.*~' -delete
 find . -type f -name '*.pyc' -delete
 find . -type f -name '*.log' -delete
+find . -type f -name '*.sav' -delete
+find . -type f -name '*.bak' -delete
 find . -type d -name '__pycache__' -delete

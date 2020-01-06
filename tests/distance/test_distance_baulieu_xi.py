@@ -31,7 +31,6 @@ from __future__ import (
 import unittest
 
 from abydos.distance import BaulieuXI
-from abydos.tokenizer import QSkipgrams
 
 
 class BaulieuXITestCases(unittest.TestCase):
@@ -60,13 +59,6 @@ class BaulieuXITestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.0076824584)
         self.assertAlmostEqual(
             self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.009009009
-        )
-
-        self.assertEqual(
-            BaulieuXI(
-                alphabet=None, tokenizer=QSkipgrams(qval=2, scaler='SSK')
-            ).dist('a', 'eh'),
-            0.0,
         )
 
     def test_baulieu_xi_sim(self):

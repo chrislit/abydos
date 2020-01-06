@@ -44,6 +44,31 @@ class DiscountedLevenshteinTestCases(unittest.TestCase):
 
     def test_discounted_levenshtein_aligmnent(self):
         """Test abydos.distance.DiscountedLevenshtein.alignment."""
+        self.assertEqual(self.cmp.alignment('', ''), (0, '', ''))
+
+        self.assertEqual(self.cmp.alignment('a', 'a'), (0.0, 'a', 'a'))
+        self.assertEqual(self.cmp.alignment('ab', 'ab'), (0.0, 'ab', 'ab'))
+        self.assertEqual(self.cmp.alignment('', 'a'), (1.0, '-', 'a'))
+        self.assertEqual(
+            self.cmp.alignment('', 'ab'), (1.845793595028118, '--', 'ab')
+        )
+        self.assertEqual(self.cmp.alignment('a', 'c'), (1.0, 'a', 'c'))
+
+        self.assertEqual(self.cmp.alignment('abc', 'ac'), (1.0, 'abc', 'a-c'))
+        self.assertEqual(
+            self.cmp.alignment('abbc', 'ac'),
+            (1.845793595028118, 'abbc', 'a--c'),
+        )
+        self.assertEqual(
+            self.cmp.alignment('abbc', 'abc'),
+            (0.8457935950281179, 'abbc', 'ab-c'),
+        )
+
+        self.assertEqual(
+            DiscountedLevenshtein(mode='osa').alignment('Niall', 'Naill'),
+            (0.8457935950281179, 'Niall', 'Naill'),
+        )
+
         self.assertEqual(
             self.cmp.alignment('abcd', 'efgh'),
             (3.594032108779918, 'abcd', 'efgh'),
@@ -59,11 +84,11 @@ class DiscountedLevenshteinTestCases(unittest.TestCase):
         )
         self.assertEqual(
             self.cmp.alignment('Colin', 'Coiln'),
-            (1.5940321087799176, 'Colin-', 'Co-iln'),
+            (1.5940321087799176, 'Coli-n', 'Co-iln'),
         )
         self.assertEqual(
             self.cmp.alignment('Coiln', 'Colin'),
-            (1.5940321087799176, 'Coiln-', 'Co-lin'),
+            (1.5940321087799176, 'Coil-n', 'Co-lin'),
         )
         self.assertEqual(
             self.cmp.alignment('cccColin', 'Colin'),

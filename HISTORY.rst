@@ -21,6 +21,17 @@ Changes:
     - LIG3 similarity
     - Discounted Levenshtein
     - Relaxed Hamming
+    - String subsequence kernel (SSK) similarity
+    - Phonetic edit distance
+    - Henderson-Heron dissimilarity
+    - Raup-Crick similarity
+    - Millar's binomial deviance dissimilarity
+    - Morisita similarity
+    - Horn-Morisita similarity
+    - Clark's coefficient of divergence
+    - Chao's Jaccard similarity
+    - Chao's Dice similarity
+    - Cao's CY similarity (CYs) and dissimilarity (CYd)
 - Added the following fingerprint classes:
     - Taft's Consonant coding
     - Taft's Extract - letter list

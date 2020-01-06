@@ -35,13 +35,13 @@ from numpy import zeros as np_zeros
 
 from six.moves import range
 
+from ._distance import _Distance
 from ._lcsstr import LCSstr
-from ._levenshtein import Levenshtein
 
 __all__ = ['ShapiraStorerI']
 
 
-class ShapiraStorerI(Levenshtein):
+class ShapiraStorerI(_Distance):
     """Shapira & Storer I edit distance with block moves, greedy algorithm.
 
     Shapira & Storer's greedy edit distance :cite:`Shapira:2007` is similar to
@@ -65,7 +65,7 @@ class ShapiraStorerI(Levenshtein):
 
     _lcs = LCSstr()
 
-    def __init__(self, prime=False, **kwargs):
+    def __init__(self, cost=(1, 1), prime=False, **kwargs):
         """Initialize ShapiraStorerI instance.
 
         Parameters
@@ -79,6 +79,7 @@ class ShapiraStorerI(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
+        self._cost = cost
         self._prime = prime
         super(ShapiraStorerI, self).__init__(**kwargs)
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2019 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -99,7 +99,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
     errors resulting from unanticipated input.
     """
 
-    def test_blns(self):
+    def fuzz_test_blns(self):
         """Test each fingerprint algorithm against the BLNS set."""
         blns = []
         with codecs.open(_corpus_file('blns.txt'), encoding='UTF-8') as nsf:

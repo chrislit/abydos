@@ -47,7 +47,7 @@ class QSkipgrams(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', scaler=None, lambda_val=0.9):
+    def __init__(self, qval=2, start_stop='$#', scaler=None, ssk_lambda=0.9):
         """Initialize QSkipgrams.
 
         Parameters
@@ -69,15 +69,22 @@ class QSkipgrams(_Tokenizer):
 
                 - None : no scaling
                 - 'set' : All non-zero values are set to 1.
+                - 'length' : Each token has weight equal to its length.
+                - 'length-log' : Each token has weight equal to the log of its
+                   length + 1.
+                - 'length-exp' : Each token has weight equal to e raised to its
+                   length.
                 - a callable function : The function is applied to each value
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
                 - 'SSK' : Applies weighting according to the substring kernel
                   rules of :cite:`Lodhi:2002`.
-        lambda_val : float
+        ssk_lambda : float or Iterable
             A value in the range (0.0, 1.0) used for discouting gaps between
             characters according to the method described in :cite:`Lodhi:2002`.
+            To supply multiple values of lambda, provide an Iterable of numeric
+            values, such as (0.5, 0.05) or np.arange(0.05, 0.5, 0.05)
 
         Raises
         ------
@@ -143,7 +150,10 @@ class QSkipgrams(_Tokenizer):
             self.start_stop = ''
 
         self._string_ss = self._string
-        self._lambda = lambda_val
+        if isinstance(ssk_lambda, float):
+            self._lambda = (ssk_lambda,)
+        else:
+            self._lambda = tuple(ssk_lambda)
 
     def tokenize(self, string):
         """Tokenize the term and store it.
@@ -193,7 +203,10 @@ class QSkipgrams(_Tokenizer):
 
             if self._scaler == 'SSK':
                 self._ordered_weights += [
-                    self._lambda ** (t[-1][0] - t[0][0] + len(t) - 1)
+                    sum(
+                        l ** (t[-1][0] - t[0][0] + len(t) - 1)
+                        for l in self._lambda
+                    )
                     for t in combs
                 ]
             else:

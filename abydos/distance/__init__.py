@@ -38,6 +38,7 @@ These include traditional Levenshtein edit distance and related algorithms:
     - FlexMetric distance (:py:class:`.FlexMetric`)
     - BI-SIM similarity (:py:class:`.BISIM`)
     - Discounted Levenshtein distance (:py:class:`.DiscountedLevenshtein`)
+    - Phonetic edit distance (:py:class:`.PhoneticEditDistance`)
 
 Hamming distance (:py:class:`.Hamming`), Relaxed Hamming distance
 (:py:class:`.RelaxedHamming`), and the closely related Modified
@@ -91,8 +92,12 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Bennet's S correlation (:py:class:`.Bennet`)
     - Braun-Blanquet similarity (:py:class:`.BraunBlanquet`)
     - Canberra distance (:py:class:`.Canberra`)
+    - Cao similarity (:py:class:`.Cao`)
+    - Chao's Dice similarity (:py:class:`.ChaoDice`)
+    - Chao's Jaccard similarity (:py:class:`.ChaoJaccard`)
     - Chebyshev distance (:py:class:`.Chebyshev`)
     - Chord distance (:py:class:`.Chord`)
+    - Clark distance (:py:class:`.Clark`)
     - Clement similarity (:py:class:`.Clement`)
     - Cohen's Kappa similarity (:py:class:`.CohenKappa`)
     - Cole correlation (:py:class:`.Cole`)
@@ -139,6 +144,8 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Hassanat distance (:py:class:`.Hassanat`)
     - Hawkins & Dotson similarity (:py:class:`.HawkinsDotson`)
     - Hellinger distance (:py:class:`.Hellinger`)
+    - Henderson-Heron similarity (:py:class:`.HendersonHeron`)
+    - Horn-Morisita similarity (:py:class:`.HornMorisita`)
     - Hurlbert correlation (:py:class:`.Hurlbert`)
     - Jaccard similarity (:py:class:`.Jaccard`) &
       Tanimoto coefficient (:py:meth:`.Jaccard.tanimoto_coeff`)
@@ -167,6 +174,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Lorentzian distance (:py:class:`.Lorentzian`)
     - Maarel correlation (:py:class:`.Maarel`)
     - Manhattan distance (:py:class:`.Manhattan`)
+    - Morisita similarity (:py:class:`.Morisita`)
     - marking distance (:py:class:`.Marking`)
     - marking metric (:py:class:`.MarkingMetric`)
     - MASI similarity (:py:class:`.MASI`)
@@ -177,6 +185,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - mean squared contingency correlation (:py:class:`.MSContingency`)
     - Michael similarity (:py:class:`.Michael`)
     - Michelet similarity (:py:class:`.Michelet`)
+    - Millar distance (:py:class:`.Millar`)
     - Minkowski distance (:py:class:`.Minkowski`)
     - Mountford similarity (:py:class:`.Mountford`)
     - Mutual Information similarity (:py:class:`.MutualInformation`)
@@ -189,6 +198,7 @@ A large set of multi-set token-based distance metrics are provided, including:
     - Pearson's Phi correlation (:py:class:`.PearsonPhi`)
     - Peirce correlation (:py:class:`.Peirce`)
     - q-gram distance (:py:class:`.QGram`)
+    - Raup-Crick similarity (:py:class:`.RaupCrick`)
     - Rogers & Tanimoto similarity (:py:class:`.RogersTanimoto`)
     - Rogot & Goldberg similarity (:py:class:`.RogotGoldberg`)
     - Russell & Rao similarity (:py:class:`.RussellRao`)
@@ -333,6 +343,7 @@ The remaining distance measures & metrics include:
     - Guth (:py:class:`.Guth`)
     - Victorian Panel Study (:py:class:`.VPS`)
     - LIG3 (:py:class:`.LIG3`)
+    - String subsequence kernel (SSK) (:py:class:`.SSK`)
 
 Most of the distance and similarity measures have ``sim`` and ``dist`` methods,
 which return a measure that is normalized to the range :math:`[0, 1]`. The
@@ -399,8 +410,12 @@ from ._block_levenshtein import BlockLevenshtein
 from ._brainerd_robinson import BrainerdRobinson
 from ._braun_blanquet import BraunBlanquet
 from ._canberra import Canberra
+from ._cao import Cao
+from ._chao_dice import ChaoDice
+from ._chao_jaccard import ChaoJaccard
 from ._chebyshev import Chebyshev, chebyshev
 from ._chord import Chord
+from ._clark import Clark
 from ._clement import Clement
 from ._cohen_kappa import CohenKappa
 from ._cole import Cole
@@ -468,7 +483,9 @@ from ._harris_lahey import HarrisLahey
 from ._hassanat import Hassanat
 from ._hawkins_dotson import HawkinsDotson
 from ._hellinger import Hellinger
+from ._henderson_heron import HendersonHeron
 from ._higuera_mico import HigueraMico
+from ._horn_morisita import HornMorisita
 from ._hurlbert import Hurlbert
 from ._ident import Ident, dist_ident, sim_ident
 from ._inclusion import Inclusion
@@ -524,10 +541,12 @@ from ._mcconnaughey import McConnaughey
 from ._mcewen_michael import McEwenMichael
 from ._meta_levenshtein import MetaLevenshtein
 from ._michelet import Michelet
+from ._millar import Millar
 from ._minhash import MinHash
 from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
 from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
 from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._morisita import Morisita
 from ._mountford import Mountford
 from ._mra import MRA, dist_mra, mra_compare, sim_mra
 from ._ms_contingency import MSContingency
@@ -551,6 +570,7 @@ from ._pearson_iii import PearsonIII
 from ._pearson_phi import PearsonPhi
 from ._peirce import Peirce
 from ._phonetic_distance import PhoneticDistance
+from ._phonetic_edit_distance import PhoneticEditDistance
 from ._positional_q_gram_dice import PositionalQGramDice
 from ._positional_q_gram_jaccard import PositionalQGramJaccard
 from ._positional_q_gram_overlap import PositionalQGramOverlap
@@ -564,6 +584,7 @@ from ._ratcliff_obershelp import (
     dist_ratcliff_obershelp,
     sim_ratcliff_obershelp,
 )
+from ._raup_crick import RaupCrick
 from ._rees_levenshtein import ReesLevenshtein
 from ._relaxed_hamming import RelaxedHamming
 from ._roberts import Roberts
@@ -593,6 +614,7 @@ from ._sokal_sneath_iii import SokalSneathIII
 from ._sokal_sneath_iv import SokalSneathIV
 from ._sokal_sneath_v import SokalSneathV
 from ._sorgenfrei import Sorgenfrei
+from ._ssk import SSK
 from ._steffensen import Steffensen
 from ._stiles import Stiles
 from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
@@ -670,6 +692,7 @@ __all__ = [
     'FlexMetric',
     'BISIM',
     'DiscountedLevenshtein',
+    'PhoneticEditDistance',
     'Hamming',
     'hamming',
     'dist_hamming',
@@ -715,9 +738,13 @@ __all__ = [
     'Bennet',
     'BraunBlanquet',
     'Canberra',
+    'Cao',
+    'ChaoDice',
+    'ChaoJaccard',
     'Chebyshev',
     'chebyshev',
     'Chord',
+    'Clark',
     'Clement',
     'CohenKappa',
     'Cole',
@@ -771,6 +798,8 @@ __all__ = [
     'Hassanat',
     'HawkinsDotson',
     'Hellinger',
+    'HendersonHeron',
+    'HornMorisita',
     'Hurlbert',
     'Jaccard',
     'dist_jaccard',
@@ -800,11 +829,13 @@ __all__ = [
     'KulczynskiII',
     'Lorentzian',
     'Maarel',
+    'Morisita',
     'Manhattan',
     'manhattan',
     'dist_manhattan',
     'sim_manhattan',
     'Michelet',
+    'Millar',
     'Minkowski',
     'minkowski',
     'dist_minkowski',
@@ -828,6 +859,7 @@ __all__ = [
     'PearsonPhi',
     'Peirce',
     'QGram',
+    'RaupCrick',
     'ReesLevenshtein',
     'RogersTanimoto',
     'RogotGoldberg',
@@ -1001,6 +1033,7 @@ __all__ = [
     'Guth',
     'VPS',
     'LIG3',
+    'SSK',
 ]
 
 
