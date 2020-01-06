@@ -39,6 +39,26 @@ jobs:
       Python38Windows:
         python.version: '3.8'
         imageName: 'windows-latest'
+      Python27Windowsx86:
+        python.version: '2.7'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python35Windowsx86:
+        python.version: '3.5'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python36Windowsx86:
+        python.version: '3.6'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python37Windowsx86:
+        python.version: '3.7'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python38Windowsx86:
+        python.version: '3.8'
+        imageName: 'windows-latest'
+        architecture: 'x86'
       Python27MacOS:
         python.version: '2.7'
         imageName: 'macOS-latest'
@@ -63,7 +83,7 @@ jobs:
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '$(python.version)'
-      architecture: 'x64'
+      architecture: '$(architecture)'
 
   - script: python -m pip install --upgrade pip && pip install -r requirements.txt && pip install -r requirements-test.txt
     displayName: 'Install dependencies'
