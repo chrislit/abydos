@@ -21,6 +21,7 @@ install:
   - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7) travis_retry pip install paq lzss;; esac
   - travis_retry pip install coveralls
   - travis_retry pip install -r requirements.txt
+  - travis_retry pip install nltk syllabipy
   - travis_retry python setup.py install
 
 # Run test
