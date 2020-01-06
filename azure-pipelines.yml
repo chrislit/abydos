@@ -54,21 +54,6 @@ jobs:
       Python38MacOS:
         python.version: '3.8'
         imageName: 'macOS-latest'
-      Python27Win1803:
-        python.version: '2.7'
-        imageName: 'win1803'
-      Python35Win1803:
-        python.version: '3.5'
-        imageName: 'win1803'
-      Python36Win1803:
-        python.version: '3.6'
-        imageName: 'win1803'
-      Python37Win1803:
-        python.version: '3.7'
-        imageName: 'win1803'
-      Python38Win1803:
-        python.version: '3.8'
-        imageName: 'win1803'
     maxParallel: 10
 
   pool:
