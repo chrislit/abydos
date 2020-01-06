@@ -10,6 +10,8 @@ Version 0.4.1 ...
 
 Changes:
 
+- Support for Python 3.4 was removed. (3.4 reached end-of-life on March 18,
+  2019)
 - Fuzzy intersections were corrected to avoid over-counting partial
   intersection instances.
 - Levenshtein can now return an optimal alignment
