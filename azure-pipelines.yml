@@ -11,49 +11,49 @@ jobs:
     matrix:
       Python27Linux:
         python.version: '2.7'
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
       Python35Linux:
         python.version: '3.5'
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
       Python36Linux:
         python.version: '3.6'
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
       Python37Linux:
         python.version: '3.7'
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
       Python38Linux:
         python.version: '3.8'
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
       Python27Windows:
         python.version: '2.7'
-        imageName: 'vs2017-win2016'
+        imageName: 'windows-latest'
       Python35Windows:
         python.version: '3.5'
-        imageName: 'vs2017-win2016'
+        imageName: 'windows-latest'
       Python36Windows:
         python.version: '3.6'
-        imageName: 'vs2017-win2016'
+        imageName: 'windows-latest'
       Python37Windows:
         python.version: '3.7'
-        imageName: 'vs2017-win2016'
+        imageName: 'windows-latest'
       Python38Windows:
         python.version: '3.8'
-        imageName: 'vs2017-win2016'
+        imageName: 'windows-latest'
       Python27MacOS:
         python.version: '2.7'
-        imageName: 'macos-10.13'
+        imageName: 'macOS-latest'
       Python35MacOS:
         python.version: '3.5'
-        imageName: 'macos-10.13'
+        imageName: 'macOS-latest'
       Python36MacOS:
         python.version: '3.6'
-        imageName: 'macos-10.13'
+        imageName: 'macOS-latest'
       Python37MacOS:
         python.version: '3.7'
-        imageName: 'macos-10.13'
+        imageName: 'macOS-latest'
       Python38MacOS:
         python.version: '3.8'
-        imageName: 'macos-10.13'
+        imageName: 'macOS-latest'
     maxParallel: 4
 
   pool:
