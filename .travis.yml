@@ -7,6 +7,7 @@ python:
   - 3.6
   - 3.7
   - 3.8
+  - nightly
 
 notifications:
   email: false
@@ -14,8 +15,8 @@ notifications:
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
-  - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7|3.8) travis_retry pip install cython;; esac
-  - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7|3.8) travis_retry pip install paq lzss;; esac
+  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; travis_retry pip install cython;; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; travis_retry pip install paq lzss;; fi
   - travis_retry pip install coveralls
   - travis_retry pip install -r requirements.txt
   - travis_retry pip install -r requirements-test.txt
