@@ -12,33 +12,43 @@ jobs:
       Python27Linux:
         python.version: '2.7'
         imageName: 'ubuntu-latest'
+        architecture: 'x64'
       Python35Linux:
         python.version: '3.5'
         imageName: 'ubuntu-latest'
+        architecture: 'x64'
       Python36Linux:
         python.version: '3.6'
         imageName: 'ubuntu-latest'
+        architecture: 'x64'
       Python37Linux:
         python.version: '3.7'
         imageName: 'ubuntu-latest'
+        architecture: 'x64'
       Python38Linux:
         python.version: '3.8'
         imageName: 'ubuntu-latest'
+        architecture: 'x64'
       Python27Windows:
         python.version: '2.7'
         imageName: 'windows-latest'
+        architecture: 'x64'
       Python35Windows:
         python.version: '3.5'
         imageName: 'windows-latest'
+        architecture: 'x64'
       Python36Windows:
         python.version: '3.6'
         imageName: 'windows-latest'
+        architecture: 'x64'
       Python37Windows:
         python.version: '3.7'
         imageName: 'windows-latest'
+        architecture: 'x64'
       Python38Windows:
         python.version: '3.8'
         imageName: 'windows-latest'
+        architecture: 'x64'
       Python27Windowsx86:
         python.version: '2.7'
         imageName: 'windows-latest'
@@ -62,18 +72,23 @@ jobs:
       Python27MacOS:
         python.version: '2.7'
         imageName: 'macOS-latest'
+        architecture: 'x64'
       Python35MacOS:
         python.version: '3.5'
         imageName: 'macOS-latest'
+        architecture: 'x64'
       Python36MacOS:
         python.version: '3.6'
         imageName: 'macOS-latest'
+        architecture: 'x64'
       Python37MacOS:
         python.version: '3.7'
         imageName: 'macOS-latest'
+        architecture: 'x64'
       Python38MacOS:
         python.version: '3.8'
         imageName: 'macOS-latest'
+        architecture: 'x64'
     maxParallel: 10
 
   pool:
