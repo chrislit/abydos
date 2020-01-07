@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@ from __future__ import (
 )
 
 import random
+import sys
 import unittest
 
 from abydos.distance import ChaoJaccard
@@ -44,6 +45,9 @@ class ChaoJaccardTestCases(unittest.TestCase):
 
     def test_chao_jaccard_sim(self):
         """Test abydos.distance.ChaoJaccard.sim."""
+        # Skip testing for Python <= 3.5
+        if sys.version_info[0:2] < (3, 6):
+            return
         random.seed(0)
 
         # Base cases
@@ -66,6 +70,10 @@ class ChaoJaccardTestCases(unittest.TestCase):
 
     def test_chao_jaccard_sim_score(self):
         """Test abydos.distance.ChaoJaccard.sim_score."""
+        # Skip testing for Python <= 3.5
+        if sys.version_info[0:2] < (3, 6):
+            return
+
         random.seed(0)
 
         # Base cases

@@ -1,16 +1,21 @@
 language: python
 
+jobs:
+  include:
+    - os: linux
+      arch: arm64
+      python: 3.7
+    - os: linux
+      arch: ppc64le
+      python: 3.7
+
+dist: xenial
 python:
   - 2.7
-  - 3.4
   - 3.5
   - 3.6
-
-matrix:
-  include:
-    - python: 3.7
-      dist: xenial
-      sudo: true
+  - 3.7
+  - 3.8
 
 notifications:
   email: false
@@ -18,11 +23,11 @@ notifications:
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
-  - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7) travis_retry pip install cython;; esac
-  - case "$TRAVIS_PYTHON_VERSION" in 3.5|3.6|3.7) travis_retry pip install paq lzss;; esac
+  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; then travis_retry pip install cython; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; then travis_retry pip install paq lzss; fi
   - travis_retry pip install coveralls
   - travis_retry pip install -r requirements.txt
-  - travis_retry pip install -r requirements-dev.txt
+  - travis_retry pip install -r requirements-test.txt
   - travis_retry python setup.py install
 
 # Run test

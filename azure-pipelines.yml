@@ -5,28 +5,102 @@
 
 jobs:
 
-- job: 'Test_Linux'
-  pool:
-    vmImage: 'ubuntu-16.04'
+- job: 'Test'
+
   strategy:
     matrix:
-      Python27:
+      Python27Linux:
         python.version: '2.7'
-      Python35:
+        imageName: 'ubuntu-latest'
+        architecture: 'x64'
+      Python35Linux:
         python.version: '3.5'
-      Python36:
+        imageName: 'ubuntu-latest'
+        architecture: 'x64'
+      Python36Linux:
         python.version: '3.6'
-      Python37:
+        imageName: 'ubuntu-latest'
+        architecture: 'x64'
+      Python37Linux:
         python.version: '3.7'
-    maxParallel: 4
+        imageName: 'ubuntu-latest'
+        architecture: 'x64'
+      Python38Linux:
+        python.version: '3.8'
+        imageName: 'ubuntu-latest'
+        architecture: 'x64'
+      Python27Windows:
+        python.version: '2.7'
+        imageName: 'windows-latest'
+        architecture: 'x64'
+      Python35Windows:
+        python.version: '3.5'
+        imageName: 'windows-latest'
+        architecture: 'x64'
+      Python36Windows:
+        python.version: '3.6'
+        imageName: 'windows-latest'
+        architecture: 'x64'
+      Python37Windows:
+        python.version: '3.7'
+        imageName: 'windows-latest'
+        architecture: 'x64'
+      Python38Windows:
+        python.version: '3.8'
+        imageName: 'windows-latest'
+        architecture: 'x64'
+      Python27Windowsx86:
+        python.version: '2.7'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python35Windowsx86:
+        python.version: '3.5'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python36Windowsx86:
+        python.version: '3.6'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python37Windowsx86:
+        python.version: '3.7'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python38Windowsx86:
+        python.version: '3.8'
+        imageName: 'windows-latest'
+        architecture: 'x86'
+      Python27MacOS:
+        python.version: '2.7'
+        imageName: 'macOS-latest'
+        architecture: 'x64'
+      Python35MacOS:
+        python.version: '3.5'
+        imageName: 'macOS-latest'
+        architecture: 'x64'
+      Python36MacOS:
+        python.version: '3.6'
+        imageName: 'macOS-latest'
+        architecture: 'x64'
+      Python37MacOS:
+        python.version: '3.7'
+        imageName: 'macOS-latest'
+        architecture: 'x64'
+      Python38MacOS:
+        python.version: '3.8'
+        imageName: 'macOS-latest'
+        architecture: 'x64'
+    maxParallel: 10
+
+  pool:
+    vmImage: $(imageName)
 
   steps:
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '$(python.version)'
-      architecture: 'x64'
+      architecture: '$(architecture)'
 
-  - script: python -m pip install --upgrade pip && pip install -r requirements.txt && pip install -r requirements-dev.txt
+  - script: python -m pip install --upgrade pip && pip install -r requirements.txt && pip install -r requirements-test.txt
     displayName: 'Install dependencies'
 
   - script: |
@@ -46,102 +120,3 @@ jobs:
       codeCoverageTool: Cobertura
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
       reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
-
-- job: 'Test_Windows'
-  pool:
-    vmImage: 'vs2017-win2016'
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.7'
-      Python35:
-        python.version: '3.5'
-      Python36:
-        python.version: '3.6'
-      Python37:
-        python.version: '3.7'
-    maxParallel: 4
-
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-      architecture: 'x64'
-
-  - script: python -m pip install --upgrade pip && pip install -r requirements.txt && pip install -r requirements-dev.txt
-    displayName: 'Install dependencies'
-
-  - script: |
-      pip install pytest
-      pip install pytest-cov
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=abydos --cov-report=xml --cov-report=html
-    displayName: 'pytest'
-
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: '**/test-results.xml'
-      testRunTitle: 'Python $(python.version)'
-    condition: succeededOrFailed()
-
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-      reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
-
-
-- job: 'Test_MacOS'
-  pool:
-    vmImage: 'macOS-10.13'
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.7'
-      Python35:
-        python.version: '3.5'
-      Python36:
-        python.version: '3.6'
-      Python37:
-        python.version: '3.7'
-    maxParallel: 4
-
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-      architecture: 'x64'
-
-  - script: python -m pip install --upgrade pip && pip install -r requirements.txt  && pip install -r requirements-dev.txt
-    displayName: 'Install dependencies'
-
-  - script: |
-      pip install pytest
-      pip install pytest-cov
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=abydos --cov-report=xml --cov-report=html
-    displayName: 'pytest'
-
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: '**/test-results.xml'
-      testRunTitle: 'Python $(python.version)'
-    condition: succeededOrFailed()
-
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-      reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
-
-- job: 'Publish'
-  dependsOn: 'Test_Linux'
-  pool:
-    vmImage: 'Ubuntu 16.04'
-
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.x'
-      architecture: 'x64'
-
-  - script: python setup.py sdist
-    displayName: 'Build sdist'

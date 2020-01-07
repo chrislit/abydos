@@ -71,11 +71,11 @@ Abydos
     :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
     :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-8.87/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.0/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-1-green.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-0-brightgreen.svg
     :target: #
     :alt: flake8 Errors
 
@@ -83,7 +83,7 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-42,187-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-43,113-blue.svg
     :target: #
     :alt: SLOCCount
 
@@ -107,8 +107,8 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3235034.svg
-    :target: https://doi.org/10.5281/zenodo.3235034
+.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3600548
+    :target: https://doi.org/10.5281/zenodo.3600548
     :alt: Zenodo
 
 .. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
@@ -164,7 +164,7 @@ Abydos
 
 |
 | `Abydos NLP/IR library <https://github.com/chrislit/abydos>`_
-| Copyright 2014-2019 by Christopher C. Little
+| Copyright 2014-2020 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics,
 stemmers, and string fingerprinters including:
@@ -315,7 +315,7 @@ To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
-It should run on Python 2.7 and Python 3.5-3.7.
+It should run on Python 2.7 and Python 3.5-3.8.
 
 Testing & Contributing
 ======================
@@ -324,10 +324,10 @@ To run the whole test-suite just call tox::
 
     tox
 
-The tox setup has the following environments: black, py36, py27, doctest,
-py36-regression, py27-regression, py36-fuzz, py27-fuzz, pylint, pycodestyle,
-pydocstyle, flake8, doc8, badges, docs, & dist. So if you only want to generate
-documentation (in HTML, EPUB, & PDF formats), just call::
+The tox setup has the following environments: black, py37, py27, doctest,
+py37-regression, py27-regression, py37-fuzz, py27-fuzz, pylint, pydocstyle,
+flake8, doc8, docs, sloccount, badges, & build. So if you only want to
+generate documentation (in HTML, EPUB, & PDF formats), just call::
 
     tox -e docs
 

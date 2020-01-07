@@ -1,15 +1,15 @@
 Release History
 ---------------
 
-0.4.1 (2019-07-00) *distant dietrich*
+0.4.1 (2020-01-07) *distant dietrich*
 +++++++++++++++++++++++++++++++++++++
 
-doi:
-
-Version 0.4.1 ...
+doi:10.5281/zenodo.3600548
 
 Changes:
 
+- Support for Python 3.4 was removed. (3.4 reached end-of-life on March 18,
+  2019)
 - Fuzzy intersections were corrected to avoid over-counting partial
   intersection instances.
 - Levenshtein can now return an optimal alignment

@@ -1,0 +1,5 @@
+# Library dependencies for the Python code.  You need to install these with
+# `pip install -r requirements-test.txt` before you can run this.
+
+nltk
+syllabipy
