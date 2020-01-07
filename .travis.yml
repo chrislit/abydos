@@ -9,8 +9,7 @@ jobs:
       arch: ppc64le
       python: 3.7
     - os: osx
-      osx_image: xcode11
-      python: 3.6
+      python: 3.5
 
 dist: xenial
 python:
