@@ -8,8 +8,6 @@ jobs:
     - os: linux
       arch: ppc64le
       python: 3.7
-    - os: osx
-      python: 3.5
 
 dist: xenial
 python:
