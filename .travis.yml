@@ -9,14 +9,27 @@ python:
   - 3.8
   - nightly
 
+jobs:
+  include:
+    - os: osx
+    - os: windows
+    - os: linux
+      arch: amd64
+    - os: linux
+      arch: ppc64le
+    - os: linux
+      arch: s390x
+    - os: linux
+      arch: arm64
+
 notifications:
   email: false
 
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; travis_retry pip install cython;; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; travis_retry pip install paq lzss;; fi
+  - if ![[ $TRAVIS_PYTHON_VERSION == 2* ]]; travis_retry pip install cython;; fi
+  - if ![[ $TRAVIS_PYTHON_VERSION == 2* ]]; travis_retry pip install paq lzss;; fi
   - travis_retry pip install coveralls
   - travis_retry pip install -r requirements.txt
   - travis_retry pip install -r requirements-test.txt
