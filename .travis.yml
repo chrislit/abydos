@@ -12,14 +12,16 @@ python:
 jobs:
   include:
     - os: osx
-    - os: linux
-      arch: amd64
+      python: 3.7
     - os: linux
       arch: ppc64le
+      python: 3.7
     - os: linux
       arch: s390x
+      python: 3.7
     - os: linux
       arch: arm64
+      python: 3.7
 
 notifications:
   email: false
@@ -27,8 +29,8 @@ notifications:
 # Install packages
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; then travis_retry pip install cython;; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; then travis_retry pip install paq lzss;; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then travis_retry pip install cython;; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then travis_retry pip install paq lzss;; fi
   - travis_retry pip install coveralls
   - travis_retry pip install -r requirements.txt
   - travis_retry pip install -r requirements-test.txt
