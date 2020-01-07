@@ -1,12 +1,10 @@
 Release History
 ---------------
 
-0.4.1 (2019-07-00) *distant dietrich*
+0.4.1 (2020-01-07) *distant dietrich*
 +++++++++++++++++++++++++++++++++++++
 
-doi:
-
-Version 0.4.1 ...
+doi:10.5281/zenodo.3600548
 
 Changes:
 
