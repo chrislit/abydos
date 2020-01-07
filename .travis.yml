@@ -10,15 +10,16 @@ jobs:
       python: 3.7
     - os: osx
       python: 3.6
-
-dist: xenial
-python:
-  - 2.7
-  - 3.5
-  - 3.6
-  - 3.7
-  - 3.8
-  - nightly
+    - os: linux
+      arch: amd64
+      dist: xenial
+      python:
+        - 2.7
+        - 3.5
+        - 3.6
+        - 3.7
+        - 3.8
+        - nightly
 
 notifications:
   email: false
