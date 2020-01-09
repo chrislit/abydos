@@ -19,7 +19,7 @@
 Tulloss' U similarity
 """
 
-from math import log
+from math import log2
 
 from ._token_distance import _TokenDistance
 
@@ -124,7 +124,7 @@ class TullossU(_TokenDistance):
         b = self._src_only_card()
         c = self._tar_only_card()
 
-        return log(1 + (min(b, c) + a) / (max(b, c) + a), 2)
+        return log2(1 + (min(b, c) + a) / (max(b, c) + a))
 
 
 if __name__ == '__main__':
