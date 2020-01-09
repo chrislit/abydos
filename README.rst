@@ -83,7 +83,7 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,611-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,610-blue.svg
     :target: #
     :alt: SLOCCount
 
