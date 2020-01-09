@@ -19,7 +19,7 @@
 This module contains unit tests for abydos.distance.Jaccard
 """
 
-import math
+from math import log2
 import unittest
 
 from abydos.distance import Jaccard, dist_jaccard, sim_jaccard, tanimoto
@@ -159,7 +159,7 @@ class TanimotoTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.tanimoto_coeff('nelson', ''), float('-inf'))
         self.assertEqual(self.cmp.tanimoto_coeff('', 'neilsen'), float('-inf'))
         self.assertAlmostEqual(
-            self.cmp.tanimoto_coeff('nelson', 'neilsen'), math.log(4 / 11, 2)
+            self.cmp.tanimoto_coeff('nelson', 'neilsen'), log2(4 / 11)
         )
 
         self.assertEqual(self.cmp_q2.tanimoto_coeff('', ''), 0)
@@ -171,7 +171,7 @@ class TanimotoTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             self.cmp_q2.tanimoto_coeff('nelson', 'neilsen'),
-            math.log(4 / 11, 2),
+            log2(4 / 11),
         )
 
         # supplied q-gram tests
@@ -201,7 +201,7 @@ class TanimotoTestCases(unittest.TestCase):
                 QGrams().tokenize('nelson').get_counter(),
                 QGrams().tokenize('neilsen').get_counter(),
             ),
-            math.log(4 / 11, 2),
+            log2(4 / 11),
         )
 
         # non-q-gram tests
@@ -213,15 +213,15 @@ class TanimotoTestCases(unittest.TestCase):
             self.cmp_ws.tanimoto_coeff('', 'the quick'), float('-inf')
         )
         self.assertAlmostEqual(
-            self.cmp_ws.tanimoto_coeff(NONQ_FROM, NONQ_TO), math.log(1 / 3, 2)
+            self.cmp_ws.tanimoto_coeff(NONQ_FROM, NONQ_TO), log2(1 / 3)
         )
         self.assertAlmostEqual(
-            self.cmp_ws.tanimoto_coeff(NONQ_TO, NONQ_FROM), math.log(1 / 3, 2)
+            self.cmp_ws.tanimoto_coeff(NONQ_TO, NONQ_FROM), log2(1 / 3)
         )
 
         # Test wrapper
         self.assertAlmostEqual(
-            tanimoto('nelson', 'neilsen'), math.log(4 / 11, 2)
+            tanimoto('nelson', 'neilsen'), log2(4 / 11)
         )
 
 
