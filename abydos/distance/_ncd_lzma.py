@@ -40,6 +40,23 @@ class NCDlzma(_Distance):
     .. versionadded:: 0.3.6
     """
 
+    _level = 6
+
+    def __init__(self, level=6, **kwargs):
+        """Initialize LZMA compressor.
+
+        Parameters
+        ----------
+        level : int
+            The compression level (0 to 9)
+
+
+        .. versionadded:: 0.5.0
+
+        """
+        super().__init__(**kwargs)
+        self._level = level
+
     def dist(self, src, tar):
         """Return the NCD between two strings using LZMA compression.
 
@@ -54,11 +71,6 @@ class NCDlzma(_Distance):
         -------
         float
             Compression distance
-
-        Raises
-        ------
-        ValueError
-            Install the PylibLZMA module in order to use LZMA
 
         Examples
         --------
@@ -84,10 +96,10 @@ class NCDlzma(_Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        src_comp = lzma.compress(src)[14:]
-        tar_comp = lzma.compress(tar)[14:]
-        concat_comp = lzma.compress(src + tar)[14:]
-        concat_comp2 = lzma.compress(tar + src)[14:]
+        src_comp = lzma.compress(src, preset=self._level)[14:]
+        tar_comp = lzma.compress(tar, preset=self._level)[14:]
+        concat_comp = lzma.compress(src + tar, preset=self._level)[14:]
+        concat_comp2 = lzma.compress(tar + src, preset=self._level)[14:]
 
         return (
             min(len(concat_comp), len(concat_comp2))
