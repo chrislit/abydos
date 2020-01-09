@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 # Copyright 2015-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
