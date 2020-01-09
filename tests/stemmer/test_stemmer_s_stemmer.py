@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.stemmer.SStemmer
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.stemmer import SStemmer, s_stemmer

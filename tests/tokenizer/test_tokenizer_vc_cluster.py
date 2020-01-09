@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.tokenizer.VCClusterTokenizer
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.tokenizer import VCClusterTokenizer

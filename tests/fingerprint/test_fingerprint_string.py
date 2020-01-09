@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.fingerprint.String
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.fingerprint import String, str_fingerprint

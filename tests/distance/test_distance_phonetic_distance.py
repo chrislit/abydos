@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.PhoneticDistance
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import JaroWinkler, Levenshtein, PhoneticDistance

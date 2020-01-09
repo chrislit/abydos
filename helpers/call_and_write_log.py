@@ -31,13 +31,6 @@ not included as part of the distributed Abydos package itself. Accordingly,
 I'm suppressing security warnings from flake8.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import sys
 from subprocess import call  # noqa: S404
 

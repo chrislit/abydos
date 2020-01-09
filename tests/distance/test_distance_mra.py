@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.MRA
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import MRA, dist_mra, mra_compare, sim_mra

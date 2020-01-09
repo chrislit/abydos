@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.JaroWinkler
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler

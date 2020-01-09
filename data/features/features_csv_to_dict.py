@@ -38,13 +38,6 @@ The CSV document is of the format
 Lines beginning with # are interpreted as comments
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import codecs
 import getopt
 import sys

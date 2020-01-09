@@ -21,13 +21,6 @@
 This module contains fuzz tests for abydos.phonetic
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import codecs
 import unittest
 from random import choice, randint, sample

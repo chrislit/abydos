@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.NCDbz2
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import NCDbz2, dist_ncd_bz2, sim_ncd_bz2

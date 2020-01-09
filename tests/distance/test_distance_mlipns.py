@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.MLIPNS
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import MLIPNS, dist_mlipns, sim_mlipns

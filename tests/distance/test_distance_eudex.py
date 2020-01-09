@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.Eudex
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import Eudex, dist_eudex, eudex_hamming, sim_eudex

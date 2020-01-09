@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.stemmer._Snowball
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 # noinspection PyProtectedMember

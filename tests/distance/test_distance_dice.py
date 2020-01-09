@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.Dice
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import Dice, dist_dice, sim_dice

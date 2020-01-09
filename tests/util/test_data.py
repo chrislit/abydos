@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.util._prod
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import shutil
 import tempfile
 import unittest

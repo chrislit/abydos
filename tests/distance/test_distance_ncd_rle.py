@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.NCDrle
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import NCDrle, dist_ncd_rle, sim_ncd_rle

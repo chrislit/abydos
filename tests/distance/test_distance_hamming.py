@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.Hamming
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import Hamming, dist_hamming, hamming, sim_hamming

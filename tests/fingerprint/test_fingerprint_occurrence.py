@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.fingerprint.Occurrence
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.fingerprint import Occurrence, occurrence_fingerprint

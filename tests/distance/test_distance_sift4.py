@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.Sift4
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import Sift4, dist_sift4, sift4_common, sim_sift4

@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.compression.RLE
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.compression import BWT, RLE, rle_decode, rle_encode

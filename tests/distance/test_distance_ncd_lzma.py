@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.NCDlzma
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import NCDlzma, dist_ncd_lzma, sim_ncd_lzma

@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.phonetic.MRA
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.phonetic import MRA, mra

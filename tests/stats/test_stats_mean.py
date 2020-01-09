@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.stats mean functions
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 from math import isnan
 

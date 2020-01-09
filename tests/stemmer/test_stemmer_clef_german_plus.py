@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.stemmer.CLEFGermanPlus
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.stemmer import CLEFGermanPlus, clef_german_plus

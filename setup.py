@@ -21,13 +21,6 @@
 setuptools configuration file for Abydos
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from codecs import open
 from os import path
 

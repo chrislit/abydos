@@ -21,13 +21,6 @@
 This module contains unit tests for abydos.distance.BaulieuIII
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import BaulieuIII
