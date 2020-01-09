@@ -170,8 +170,7 @@ class TanimotoTestCases(unittest.TestCase):
             self.cmp_q2.tanimoto_coeff('', 'neilsen'), float('-inf')
         )
         self.assertAlmostEqual(
-            self.cmp_q2.tanimoto_coeff('nelson', 'neilsen'),
-            log2(4 / 11),
+            self.cmp_q2.tanimoto_coeff('nelson', 'neilsen'), log2(4 / 11),
         )
 
         # supplied q-gram tests
@@ -220,9 +219,7 @@ class TanimotoTestCases(unittest.TestCase):
         )
 
         # Test wrapper
-        self.assertAlmostEqual(
-            tanimoto('nelson', 'neilsen'), log2(4 / 11)
-        )
+        self.assertAlmostEqual(tanimoto('nelson', 'neilsen'), log2(4 / 11))
 
 
 if __name__ == '__main__':

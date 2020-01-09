@@ -107,8 +107,7 @@ class _Tokenizer(object):
             counts = Counter(self._ordered_tokens)
             n = len(self._ordered_tokens)
             self._tokens = {
-                key: -(val / n) * log2(val / n)
-                for key, val in counts.items()
+                key: -(val / n) * log2(val / n) for key, val in counts.items()
             }
             self._ordered_weights = [
                 self._tokens[tok] / counts[tok] for tok in self._ordered_tokens
