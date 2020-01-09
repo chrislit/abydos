@@ -20,7 +20,7 @@ _Tokenizer base class
 """
 
 from collections import Counter
-from math import exp, log, log1p
+from math import exp, log1p, log2
 
 __all__ = ['_Tokenizer']
 
@@ -107,7 +107,7 @@ class _Tokenizer(object):
             counts = Counter(self._ordered_tokens)
             n = len(self._ordered_tokens)
             self._tokens = {
-                key: -(val / n) * log(val / n, 2)
+                key: -(val / n) * log2(val / n)
                 for key, val in counts.items()
             }
             self._ordered_weights = [
