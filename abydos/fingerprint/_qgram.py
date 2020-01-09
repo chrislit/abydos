@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._fingerprint import _Fingerprint
 from .. import __version__
 from ..tokenizer import QGrams
@@ -92,7 +90,7 @@ class QGram(_Fingerprint):
             Encapsulated in class
 
         """
-        phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
+        phrase = unicode_normalize('NFKD', phrase.strip().lower())
         phrase = ''.join(c for c in phrase if c.isalnum())
         phrase = self._tokenizer.tokenize(phrase).get_set()
         phrase = self._joiner.join(sorted(phrase))

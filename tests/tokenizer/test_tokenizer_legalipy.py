@@ -23,8 +23,6 @@ import unittest
 
 from abydos.tokenizer import LegaliPyTokenizer
 
-from six import PY2
-
 from .. import _corpus_file
 
 
@@ -33,8 +31,6 @@ class LegaliPyTokenizerTestCases(unittest.TestCase):
 
     def test_legalipy_tokenizer(self):
         """Test abydos.tokenizer.LegaliPyTokenizer."""
-        if PY2:  # skip tests of SyllabiPy on Python 2.7
-            return
         try:
             from syllabipy.legalipy import LegaliPy  # noqa: F401
         except ImportError:  # pragma: no cover

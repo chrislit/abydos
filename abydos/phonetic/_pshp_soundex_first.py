@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -161,7 +159,7 @@ class PSHPSoundexFirst(_Phonetic):
             Encapsulated in class
 
         """
-        fname = unicode_normalize('NFKD', text_type(fname.upper()))
+        fname = unicode_normalize('NFKD', fname.upper())
         fname = fname.replace('ß', 'SS')
         fname = ''.join(c for c in fname if c in self._uc_set)
 

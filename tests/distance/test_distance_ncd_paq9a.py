@@ -23,8 +23,6 @@ import unittest
 
 from abydos.distance import NCDpaq9a
 
-from six import PY2
-
 
 class NCDpaq9aTestCases(unittest.TestCase):
     """Test NCDpaq9a functions.
@@ -36,8 +34,6 @@ class NCDpaq9aTestCases(unittest.TestCase):
 
     def test_ncd_paq9a_dist(self):
         """Test abydos.distance.NCDpaq9a.dist."""
-        if PY2:  # skip tests since paq9a isn't supported on Python 2.7
-            return
         try:
             import paq  # noqa: F401
         except ImportError:  # pragma: no cover
@@ -62,9 +58,6 @@ class NCDpaq9aTestCases(unittest.TestCase):
 
     def test_ncd_paq9a_sim(self):
         """Test abydos.distance.NCDpaq9a.sim."""
-        if PY2:  # skip tests since paq9a isn't supported on Python 2.7
-            return
-
         try:
             import paq  # noqa: F401
         except ImportError:  # pragma: no cover

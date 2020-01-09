@@ -26,8 +26,6 @@ from random import choice, randint, sample
 
 import abydos.distance as ad
 
-from six import PY2
-
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
 algorithms = {}
@@ -40,14 +38,6 @@ for name, obj in getmembers(ad):
             'Gotoh',
             'SmithWaterman',
             'NeedlemanWunsch',
-        }:
-            continue
-        if PY2 and name in {
-            'NCDpaq9a',
-            'NCDlzss',
-            'NCDlzma',
-            'ReesLevenshtein',
-            'MinHash',
         }:
             continue
 

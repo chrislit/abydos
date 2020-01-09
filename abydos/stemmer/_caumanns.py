@@ -23,7 +23,6 @@ from unicodedata import normalize
 
 from deprecation import deprecated
 
-from six import text_type
 from ._stemmer import _Stemmer
 from .. import __version__
 
@@ -77,7 +76,7 @@ class Caumanns(_Stemmer):
             return ''
 
         upper_initial = word[0].isupper()
-        word = normalize('NFC', text_type(word.lower()))
+        word = normalize('NFC', word.lower())
 
         # # Part 2: Substitution
         # 1. Change umlauts to corresponding vowels & ß to ss

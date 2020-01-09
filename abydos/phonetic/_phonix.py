@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -400,7 +398,7 @@ class Phonix(_Phonetic):
 
         sdx = ''
 
-        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = unicode_normalize('NFKD', word.upper())
         word = word.replace('ß', 'SS')
         word = ''.join(c for c in word if c in self._uc_set)
         if word:

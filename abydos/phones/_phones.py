@@ -22,7 +22,6 @@ functions.
 
 from unicodedata import normalize
 
-from six import text_type
 __all__ = ['cmp_features', 'get_feature', 'ipa_to_features']
 
 
@@ -603,7 +602,7 @@ def ipa_to_features(ipa):
     """
     features = []
     pos = 0
-    ipa = normalize('NFD', text_type(ipa.lower()))
+    ipa = normalize('NFD', ipa.lower())
 
     maxsymlen = max(len(_) for _ in _PHONETIC_FEATURES)
 
@@ -743,7 +742,7 @@ def ipa_to_feature_dicts(ipa):
     """
     features = []
     pos = 0
-    ipa = normalize('NFD', text_type(ipa.lower()))
+    ipa = normalize('NFD', ipa.lower())
 
     maxsymlen = max(len(_) for _ in _PHONETIC_FEATURES)
 

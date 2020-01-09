@@ -27,8 +27,6 @@ from abydos.distance import Jaccard, MetaLevenshtein
 from abydos.tokenizer import QGrams
 from abydos.util import download_package, package_path
 
-from six import PY2
-
 
 class MetaLevenshteinTestCases(unittest.TestCase):
     """Test MetaLevenshtein functions.
@@ -122,9 +120,6 @@ class MetaLevenshteinTestCases(unittest.TestCase):
 
     def test_meta_levenshtein_corpus(self):
         """Test abydos.distance.MetaLevenshtein with corpus."""
-        if PY2:  # disable testing in Py2.7; the pickled data isn't supported
-            return
-
         q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))
         download_package('en_qgram', silent=True)
         q3_corpus.load_corpus(

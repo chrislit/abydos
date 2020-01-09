@@ -21,8 +21,6 @@ Wåhlin phonetic encoding
 
 from unicodedata import normalize as unicode_normalize
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 
 __all__ = ['Waahlin']
@@ -197,7 +195,7 @@ class Waahlin(_Phonetic):
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
-        word = unicode_normalize('NFC', text_type(word.upper()))
+        word = unicode_normalize('NFC', word.upper())
         word = word.replace('ß', 'SS')
         if not word:
             return ''

@@ -23,8 +23,6 @@ from unicodedata import normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._snowball import _Snowball
 from .. import __version__
 
@@ -94,7 +92,7 @@ class SnowballDanish(_Snowball):
 
         """
         # lowercase, normalize, and compose
-        word = normalize('NFC', text_type(word.lower()))
+        word = normalize('NFC', word.lower())
 
         r1_start = min(max(3, self._sb_r1(word)), len(word))
 

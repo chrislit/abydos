@@ -21,8 +21,6 @@ Davidson's Consonant Code.
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -98,7 +96,7 @@ class Davidson(_Phonetic):
             Encapsulated in class
 
         """
-        lname = text_type(lname.upper())
+        lname = lname.upper()
         code = self._delete_consecutive_repeats(
             lname[:1] + lname[1:].translate(self._trans)
         )

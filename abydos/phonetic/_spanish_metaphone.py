@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -116,7 +114,7 @@ class SpanishMetaphone(_Phonetic):
             """
             return pos < len(word) and word[pos] in {'A', 'E', 'I', 'O', 'U'}
 
-        word = unicode_normalize('NFC', text_type(word.upper()))
+        word = unicode_normalize('NFC', word.upper())
 
         meta_key = ''
         pos = 0

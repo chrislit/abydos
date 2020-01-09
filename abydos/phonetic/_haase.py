@@ -24,7 +24,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -178,7 +177,7 @@ class Haase(_Phonetic):
                 return True
             return False
 
-        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = unicode_normalize('NFKD', word.upper())
         word = word.replace('ß', 'SS')
 
         word = word.replace('Ä', 'AE')

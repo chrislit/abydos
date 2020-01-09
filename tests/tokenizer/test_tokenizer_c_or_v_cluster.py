@@ -23,8 +23,6 @@ import unittest
 
 from abydos.tokenizer import COrVClusterTokenizer
 
-from six import PY2
-
 
 class COrVClusterTokenizerTestCases(unittest.TestCase):
     """Test abydos.tokenizer.COrVClusterTokenizer."""
@@ -68,13 +66,12 @@ class COrVClusterTokenizerTestCases(unittest.TestCase):
             sorted(tok.tokenize('caterpillars').get_list()),
             sorted(['c', 'a', 't', 'e', 'rp', 'i', 'll', 'a', 'rs']),
         )
-        if not PY2:
-            self.assertEqual(
-                sorted(tok.tokenize('Götterdämmerung').get_list()),
-                sorted(
-                    ['G', 'ö', 'tt', 'e', 'rd', 'ä', 'mm', 'e', 'r', 'u', 'ng']
-                ),
-            )
+        self.assertEqual(
+            sorted(tok.tokenize('Götterdämmerung').get_list()),
+            sorted(
+                ['G', 'ö', 'tt', 'e', 'rd', 'ä', 'mm', 'e', 'r', 'u', 'ng']
+            ),
+        )
 
         tok = COrVClusterTokenizer(consonants='ptkbdgmn', vowels='aeiouwy')
         self.assertEqual(

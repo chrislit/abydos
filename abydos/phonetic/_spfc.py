@@ -23,7 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -189,7 +188,7 @@ class SPFC(_Phonetic):
             return ''
 
         names = []
-        if isinstance(word, (str, text_type)):
+        if isinstance(word, str):
             names = word.split('.', 1)
             if len(names) != 2:
                 names = word.split(' ', 1)
@@ -204,7 +203,7 @@ class SPFC(_Phonetic):
 
         names = [
             unicode_normalize(
-                'NFKD', text_type(_.strip().replace('ß', 'SS').upper())
+                'NFKD', _.strip().replace('ß', 'SS').upper()
             )
             for _ in names
         ]

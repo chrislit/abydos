@@ -23,7 +23,6 @@ from unicodedata import normalize
 
 from deprecation import deprecated
 
-from six import text_type
 from ._stemmer import _Stemmer
 from .. import __version__
 
@@ -165,7 +164,7 @@ class Schinke(_Stemmer):
             Encapsulated in class
 
         """
-        word = normalize('NFKD', text_type(word.lower()))
+        word = normalize('NFKD', word.lower())
         word = ''.join(
             c
             for c in word

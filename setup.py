@@ -89,6 +89,6 @@ later (GPLv3+)',
         long_description='\n\n'.join(
             [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
         ),
-        install_requires=['numpy', 'six', 'deprecation'],
+        install_requires=['numpy', 'deprecation'],
         python_requires='~=3.5',
     )

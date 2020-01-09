@@ -58,6 +58,4 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.5"
-
 numpy = ">=1.7"
-six = ">=1.3"

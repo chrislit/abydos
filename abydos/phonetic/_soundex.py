@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -185,7 +183,7 @@ class Soundex(_Phonetic):
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
-        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = unicode_normalize('NFKD', word.upper())
         word = word.replace('ß', 'SS')
 
         if self._var == 'Census':

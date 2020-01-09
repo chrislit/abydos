@@ -27,7 +27,6 @@ from deprecation import deprecated
 from numpy import float as np_float
 from numpy import zeros as np_zeros
 
-from six import text_type
 from ._distance import _Distance
 from .. import __version__
 
@@ -178,8 +177,8 @@ class Editex(_Distance):
             return r_cost(ch1, ch2)
 
         # convert both src & tar to NFKD normalized unicode
-        src = unicode_normalize('NFKD', text_type(src.upper()))
-        tar = unicode_normalize('NFKD', text_type(tar.upper()))
+        src = unicode_normalize('NFKD', src.upper())
+        tar = unicode_normalize('NFKD', tar.upper())
         # convert ß to SS (for Python2)
         src = src.replace('ß', 'SS')
         tar = tar.replace('ß', 'SS')

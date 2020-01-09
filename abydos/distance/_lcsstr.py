@@ -70,7 +70,6 @@ class LCSstr(_Distance):
         Modifications include:
 
             - conversion to a numpy array in place of a list of lists
-            - conversion to Python 2/3-safe range from xrange via six
 
         Parameters
         ----------

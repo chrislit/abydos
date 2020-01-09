@@ -28,7 +28,6 @@ from unicodedata import normalize
 
 from deprecation import deprecated
 
-from six import PY3, text_type
 from ._beider_morse_data import (
     BMDATA,
     L_ANY,
@@ -57,9 +56,6 @@ from ._phonetic import _Phonetic
 from .. import __version__
 
 __all__ = ['BeiderMorse', 'bmpm']
-
-if PY3:
-    long = int
 
 _LANG_DICT = {
     'any': L_ANY,
@@ -719,7 +715,7 @@ class BeiderMorse(_Phonetic):
                     'No closing square bracket: text=('
                     + text
                     + ') strip=('
-                    + text_type(strip)
+                    + str(strip)
                     + ')'
                 )
             attrib &= int(text[bracket_start + 1 : bracket_end])
@@ -906,10 +902,10 @@ class BeiderMorse(_Phonetic):
             sum(_LANG_DICT[_] for _ in BMDATA[name_mode]['languages']) - 1
         )
         lang_choices = 0
-        if isinstance(language_arg, (int, float, long)):
+        if isinstance(language_arg, (int, float)):
             self._lang_choices = int(language_arg)
-        elif language_arg != '' and isinstance(language_arg, (text_type, str)):
-            for lang in text_type(language_arg).lower().split(','):
+        elif language_arg != '' and isinstance(language_arg, str):
+            for lang in language_arg.lower().split(','):
                 if lang in _LANG_DICT and (_LANG_DICT[lang] & all_langs):
                     lang_choices += _LANG_DICT[lang]
                 elif not filter_langs:
@@ -978,7 +974,7 @@ class BeiderMorse(_Phonetic):
             Encapsulated in class
 
         """
-        word = normalize('NFC', text_type(word.strip().lower()))
+        word = normalize('NFC', word.strip().lower())
 
         # Language choices are either all incompatible with the name mode or
         # no choices were given, so try to autodetect

@@ -23,7 +23,6 @@ from unicodedata import normalize
 
 from deprecation import deprecated
 
-from six import text_type
 from ._snowball import _Snowball
 from .. import __version__
 
@@ -101,7 +100,7 @@ class SnowballDutch(_Snowball):
         """
         # lowercase, normalize, decompose, filter umlauts & acutes out, and
         # compose
-        word = normalize('NFC', text_type(word.lower()))
+        word = normalize('NFC', word.lower())
         word = word.translate(self._accented)
 
         for i in range(len(word)):

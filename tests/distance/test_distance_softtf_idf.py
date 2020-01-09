@@ -27,8 +27,6 @@ from abydos.distance import Levenshtein, SoftTFIDF
 from abydos.tokenizer import QGrams
 from abydos.util import download_package, package_path
 
-from six import PY2
-
 
 class SoftTFIDFTestCases(unittest.TestCase):
     """Test SoftTFIDF functions.
@@ -87,9 +85,6 @@ class SoftTFIDFTestCases(unittest.TestCase):
 
     def test_softtf_idf_corpus(self):
         """Test abydos.distance.SoftTFIDF.sim & .dist with corpus."""
-        if PY2:  # disable testing in Py2.7; the pickled data isn't supported
-            return
-
         download_package('en_qgram', silent=True)
 
         q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))

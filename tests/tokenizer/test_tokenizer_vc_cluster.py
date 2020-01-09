@@ -23,8 +23,6 @@ import unittest
 
 from abydos.tokenizer import VCClusterTokenizer
 
-from six import PY2
-
 
 class VCClusterTokenizerTestCases(unittest.TestCase):
     """Test abydos.tokenizer.VCClusterTokenizer."""
@@ -68,11 +66,10 @@ class VCClusterTokenizerTestCases(unittest.TestCase):
             sorted(tok.tokenize('caterpillars').get_list()),
             sorted(['c', 'at', 'erp', 'ill', 'ars']),
         )
-        if not PY2:
-            self.assertEqual(
-                sorted(tok.tokenize('Götterdämmerung').get_list()),
-                sorted(['G', 'ött', 'erd', 'ämm', 'er', 'ung']),
-            )
+        self.assertEqual(
+            sorted(tok.tokenize('Götterdämmerung').get_list()),
+            sorted(['G', 'ött', 'erd', 'ämm', 'er', 'ung']),
+        )
 
         tok = VCClusterTokenizer(consonants='ptkbdgmn', vowels='aeiouwy')
         self.assertEqual(

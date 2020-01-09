@@ -23,8 +23,6 @@ from unicodedata import normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._stemmer import _Stemmer
 from .. import __version__
 
@@ -71,7 +69,7 @@ class CLEFGerman(_Stemmer):
 
         """
         # lowercase, normalize, and compose
-        word = normalize('NFC', text_type(word.lower()))
+        word = normalize('NFC', word.lower())
 
         # remove umlauts
         word = word.translate(self._umlauts)

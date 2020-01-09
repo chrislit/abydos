@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -358,7 +356,7 @@ class DaitchMokotoff(_Phonetic):
         dms = ['']  # initialize empty code list
 
         # uppercase, normalize, decompose, and filter non-A-Z
-        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = unicode_normalize('NFKD', word.upper())
         word = word.replace('ß', 'SS')
         word = ''.join(c for c in word if c in self._uc_set)
 
@@ -392,11 +390,11 @@ class DaitchMokotoff(_Phonetic):
 
                     # Build the code strings
                     if isinstance(dm_val, tuple):
-                        dms = [_ + text_type(dm_val[0]) for _ in dms] + [
-                            _ + text_type(dm_val[1]) for _ in dms
+                        dms = [_ + str(dm_val[0]) for _ in dms] + [
+                            _ + str(dm_val[1]) for _ in dms
                         ]
                     else:
-                        dms = [_ + text_type(dm_val) for _ in dms]
+                        dms = [_ + str(dm_val) for _ in dms]
                     pos += len(sstr)
                     break
 

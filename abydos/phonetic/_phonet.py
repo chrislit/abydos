@@ -24,7 +24,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -1736,7 +1735,7 @@ class Phonet(_Phonetic):
 
         _initialize_phonet(self._lang)
 
-        word = unicode_normalize('NFKC', text_type(word))
+        word = unicode_normalize('NFKC', word)
         return _phonet(word, self._mode, self._lang)
 
 

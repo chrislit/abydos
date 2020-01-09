@@ -23,7 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -125,7 +124,7 @@ class Phonex(_Phonetic):
             Encapsulated in class
 
         """
-        name = unicode_normalize('NFKD', text_type(word.upper()))
+        name = unicode_normalize('NFKD', word.upper())
         name = name.replace('ß', 'SS')
 
         name_code = last = ''

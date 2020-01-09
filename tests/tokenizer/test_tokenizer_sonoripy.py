@@ -23,17 +23,12 @@ import unittest
 
 from abydos.tokenizer import SonoriPyTokenizer
 
-from six import PY2
-
 
 class SonoriPyTokenizerTestCases(unittest.TestCase):
     """Test abydos.tokenizer.SonoriPyTokenizer."""
 
     def test_sonoripy_tokenizer(self):
         """Test abydos.tokenizer.SonoriPyTokenizer."""
-        if PY2:  # skip tests of SyllabiPy on Python 2.7
-            return
-
         try:
             from syllabipy.sonoripy import SonoriPy  # noqa: F401
         except ImportError:  # pragma: no cover

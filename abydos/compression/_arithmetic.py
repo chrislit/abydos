@@ -24,12 +24,7 @@ from fractions import Fraction
 
 from deprecation import deprecated
 
-from six import PY3, text_type
-
 from .. import __version__
-
-if PY3:
-    long = int
 
 __all__ = ['Arithmetic', 'ac_decode', 'ac_encode', 'ac_train']
 
@@ -140,7 +135,6 @@ class Arithmetic(object):
             Encapsulated in class
 
         """
-        text = text_type(text)
         if '\x00' in text:
             text = text.replace('\x00', ' ')
         counts = Counter(text)
@@ -187,7 +181,6 @@ class Arithmetic(object):
             Encapsulated in class
 
         """
-        text = text_type(text)
         if '\x00' in text:
             text = text.replace('\x00', ' ')
         minval = Fraction(0)
@@ -204,7 +197,7 @@ class Arithmetic(object):
         # gives me the minimum number of bits needed to resolve
         # down to the end-of-data character.
         delta = (maxval - minval) / 2
-        nbits = long(0)
+        nbits = int(0)
         while delta < 1:
             nbits += 1
             delta *= 2
@@ -244,7 +237,7 @@ class Arithmetic(object):
             Encapsulated in class
 
         """
-        val = Fraction(longval, long(1) << nbits)
+        val = Fraction(longval, int(1) << nbits)
         letters = []
 
         probs_items = [

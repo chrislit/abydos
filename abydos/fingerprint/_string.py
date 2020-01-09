@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._fingerprint import _Fingerprint
 from .. import __version__
 
@@ -80,7 +78,7 @@ class String(_Fingerprint):
             Encapsulated in class
 
         """
-        phrase = unicode_normalize('NFKD', text_type(phrase.strip().lower()))
+        phrase = unicode_normalize('NFKD', phrase.strip().lower())
         phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
         phrase = self._joiner.join(sorted(set(phrase.split())))
         return phrase

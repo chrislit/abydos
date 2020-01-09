@@ -46,8 +46,6 @@ from abydos.phonetic._beider_morse_data import (
     L_TURKISH,
 )
 
-from six import text_type
-
 from .. import ALLOW_RANDOM, _corpus_file, _one_in
 
 
@@ -79,7 +77,7 @@ class BeiderMorseTestCases(unittest.TestCase):
             for name_mode in ('gen', 'ash', 'sep'):
                 for match_mode in ('approx', 'exact'):
                     for concat in (False, True):
-                        if isinstance(langs, text_type) and (
+                        if isinstance(langs, str) and (
                             (name_mode == 'ash' and 'italian' in langs)
                             or (name_mode == 'sep' and 'english' in langs)
                         ):

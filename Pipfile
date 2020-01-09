@@ -12,5 +12,4 @@ syllabipy = "*"
 
 [packages]
 numpy = "*"
-six = "*"
 deprecation = "*"

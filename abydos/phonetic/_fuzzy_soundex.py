@@ -23,8 +23,6 @@ from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._phonetic import _Phonetic
 from .. import __version__
 
@@ -134,7 +132,7 @@ class FuzzySoundex(_Phonetic):
             Encapsulated in class
 
         """
-        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = unicode_normalize('NFKD', word.upper())
         word = word.replace('ß', 'SS')
 
         if not word:

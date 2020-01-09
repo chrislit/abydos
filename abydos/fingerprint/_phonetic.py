@@ -21,8 +21,6 @@ phonetic fingerprint
 
 from deprecation import deprecated
 
-from six import text_type
-
 from ._string import String
 from .. import __version__
 from ..phonetic import DoubleMetaphone, double_metaphone
@@ -100,7 +98,7 @@ class Phonetic(String):
                 word = self._phonetic_algorithm.encode(word)
             else:
                 word = self._phonetic_algorithm(word)
-            if not isinstance(word, text_type) and hasattr(word, '__iter__'):
+            if not isinstance(word, str) and hasattr(word, '__iter__'):
                 word = word[0]
             phonetic += word + self._joiner
         phonetic = phonetic[: -len(self._joiner)]

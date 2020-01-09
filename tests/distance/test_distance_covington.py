@@ -23,8 +23,6 @@ import unittest
 
 from abydos.distance import Covington
 
-from six import PY2
-
 
 class CovingtonTestCases(unittest.TestCase):
     """Test Covington functions.
@@ -97,9 +95,6 @@ class CovingtonTestCases(unittest.TestCase):
 
     def test_covington_alignments(self):
         """Test abydos.distance.Covington.alignments."""
-        if PY2:  # skip tests of alignments on Python 2.7
-            return
-
         self.assertEqual(
             repr(self.cmp.alignments('yo', 'ze', top_n=1)[0]),
             "Alignment(src='yo', tar='ze', score=130)",
@@ -170,9 +165,6 @@ Alignment(src='sit-', tar='-sed', score=300)]",
 
     def test_covington_alignment(self):
         """Test abydos.distance.Covington.alignment."""
-        if PY2:  # skip tests of alignment on Python 2.7
-            return
-
         self.assertEqual(
             self.cmp.alignment('doter', 'tugatir'), (210, '--doter', 'tugatir')
         )
