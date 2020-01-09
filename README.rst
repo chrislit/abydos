@@ -287,8 +287,6 @@ Required libraries:
 Optional libraries (all available on PyPI, some available on conda or
 conda-forge):
 
-- SciPy
-- PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
 - `SyllabiPy <http://syllabipy.com/>`_
 - `NLTK <https://www.nltk.org/>`_
 - `PyLZSS <https://github.com/rumbah/pylzss>`_
@@ -315,7 +313,7 @@ To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
-It should run on Python 2.7 and Python 3.5-3.8.
+It should run on Python 3.5-3.8.
 
 Testing & Contributing
 ======================
@@ -324,10 +322,10 @@ To run the whole test-suite just call tox::
 
     tox
 
-The tox setup has the following environments: black, py37, py27, doctest,
-py37-regression, py27-regression, py37-fuzz, py27-fuzz, pylint, pydocstyle,
-flake8, doc8, docs, sloccount, badges, & build. So if you only want to
-generate documentation (in HTML, EPUB, & PDF formats), just call::
+The tox setup has the following environments: black, py37, doctest,
+regression, fuzz, pylint, pydocstyle, flake8, doc8, docs, sloccount, badges, &
+build. So if you only want to generate documentation (in HTML, EPUB, & PDF
+formats), just call::
 
     tox -e docs
 
