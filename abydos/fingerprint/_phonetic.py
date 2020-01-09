@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,16 +19,7 @@
 phonetic fingerprint
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
-
-from six import text_type
 
 from ._string import String
 from .. import __version__
@@ -109,7 +98,7 @@ class Phonetic(String):
                 word = self._phonetic_algorithm.encode(word)
             else:
                 word = self._phonetic_algorithm(word)
-            if not isinstance(word, text_type) and hasattr(word, '__iter__'):
+            if not isinstance(word, str) and hasattr(word, '__iter__'):
                 word = word[0]
             phonetic += word + self._joiner
         phonetic = phonetic[: -len(self._joiner)]

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
@@ -20,13 +18,6 @@
 
 Taft's extract letter list coding
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from ._fingerprint import _Fingerprint
 
@@ -67,7 +58,7 @@ class Extract(_Fingerprint):
         self._letter_list = letter_list
         if isinstance(self._letter_list, int) and 1 <= self._letter_list <= 4:
             self._letter_list = list(letter_lists[self._letter_list - 1])
-        elif hasattr(self._letter_list, '__getitem__'):
+        elif hasattr(self._letter_list, '__iter__'):
             self._letter_list = list(self._letter_list)
         else:
             self._letter_list = list(letter_lists[0])

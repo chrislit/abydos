@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 This module contains unit tests for abydos.distance.Gotoh
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import Gotoh, NeedlemanWunsch, gotoh
-
-from six.moves import range
 
 from .test_distance_needleman_wunsch import _sim_nw, _sim_wikipedia
 from .. import NIALL

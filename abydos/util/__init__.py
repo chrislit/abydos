@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -25,13 +23,6 @@ Abydos, including:
 
 These functions are not intended for use by users.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from ._data import (
     data_path,

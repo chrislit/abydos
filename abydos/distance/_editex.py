@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2019 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,13 +19,6 @@
 editex
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from sys import float_info
 from unicodedata import normalize as unicode_normalize
 
@@ -35,9 +26,6 @@ from deprecation import deprecated
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
-
-from six import text_type
-from six.moves import range
 
 from ._distance import _Distance
 from .. import __version__
@@ -189,11 +177,8 @@ class Editex(_Distance):
             return r_cost(ch1, ch2)
 
         # convert both src & tar to NFKD normalized unicode
-        src = unicode_normalize('NFKD', text_type(src.upper()))
-        tar = unicode_normalize('NFKD', text_type(tar.upper()))
-        # convert ß to SS (for Python2)
-        src = src.replace('ß', 'SS')
-        tar = tar.replace('ß', 'SS')
+        src = unicode_normalize('NFKD', src.upper())
+        tar = unicode_normalize('NFKD', tar.upper())
 
         src_len = len(src)
         tar_len = len(tar)

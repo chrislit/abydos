@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,19 +20,10 @@
 This module contains fuzz tests for Abydos
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os
 import unicodedata
 from random import choice, randint, random
 from string import printable
-
-from six import unichr
 
 from .. import EXTREME_TEST as SUPER_EXTREME_TEST
 from .. import _corpus_file as _super_corpus_file
@@ -93,7 +82,7 @@ def _random_char(below=0x10FFFF, must_be=None):
 
     """
     while True:
-        char = unichr(randint(0, below))  # noqa: S311
+        char = chr(randint(0, below))  # noqa: S311
         try:
             name = unicodedata.name(char)
             if must_be is None or must_be in name:

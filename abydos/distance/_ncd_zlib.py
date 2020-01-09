@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 NCD using zlib
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import zlib
 
@@ -48,7 +39,7 @@ class NCDzlib(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION):
+    def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION, **kwargs):
         """Initialize zlib compressor.
 
         Parameters
@@ -60,6 +51,7 @@ class NCDzlib(_Distance):
         .. versionadded:: 0.3.6
 
         """
+        super().__init__(**kwargs)
         self._level = level
 
     def dist(self, src, tar):

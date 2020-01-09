@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,16 +19,7 @@
 Davidson's Consonant Code.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
-
-from six import text_type
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -107,7 +96,7 @@ class Davidson(_Phonetic):
             Encapsulated in class
 
         """
-        lname = text_type(lname.upper())
+        lname = lname.upper()
         code = self._delete_consecutive_repeats(
             lname[:1] + lname[1:].translate(self._trans)
         )

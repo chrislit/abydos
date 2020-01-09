@@ -3,3 +3,5 @@
 
 nltk
 syllabipy
+lzss
+paq

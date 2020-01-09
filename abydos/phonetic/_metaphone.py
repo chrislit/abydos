@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,16 +19,7 @@
 Metaphone
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
-
-from six.moves import range
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -109,7 +98,6 @@ class Metaphone(_Phonetic):
         """
         # As in variable sound--those modified by adding an "h"
         ename = ''.join(c for c in word.upper() if c.isalnum())
-        ename = ename.replace('ß', 'SS')
 
         # Delete non-alphanumeric characters and make all caps
         if not ename:

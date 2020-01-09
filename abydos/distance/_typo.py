@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,13 +19,6 @@
 Typo edit distance functions.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from itertools import chain
 from math import log
 
@@ -35,8 +26,6 @@ from deprecation import deprecated
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
-
-from six.moves import range
 
 from ._distance import _Distance
 from .. import __version__
@@ -287,7 +276,7 @@ class Typo(_Distance):
             .. versionadded:: 0.3.0
 
             """
-            for row in kb_array:  # pragma: no branch
+            for row in kb_array:  # pragma: no branch  # noqa: R503
                 if char in row:
                     return kb_array.index(row), row.index(char)
 

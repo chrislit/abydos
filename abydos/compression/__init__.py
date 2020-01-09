@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -38,13 +36,6 @@ performed by creating a :py:class:`.BWT` object and then calling
 ----
 
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from ._arithmetic import Arithmetic, ac_decode, ac_encode, ac_train
 from ._bwt import BWT, bwt_decode, bwt_encode

@@ -8,26 +8,27 @@ jobs:
     - os: linux
       arch: ppc64le
       python: 3.7
-
-dist: xenial
-python:
-  - 2.7
-  - 3.5
-  - 3.6
-  - 3.7
-  - 3.8
+    - os: linux
+      dist: xenial
+      python: 3.5
+    - os: linux
+      dist: xenial
+      python: 3.6
+    - os: linux
+      dist: xenial
+      python: 3.7
+    - os: linux
+      dist: xenial
+      python: 3.8
 
 notifications:
   email: false
 
 # Install packages
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then travis_retry pip install pyliblzma; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; then travis_retry pip install cython; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 2* ]]; then travis_retry pip install paq lzss; fi
-  - travis_retry pip install coveralls
-  - travis_retry pip install -r requirements.txt
-  - travis_retry pip install -r requirements-test.txt
+  - travis_retry python -m pip install --upgrade pip
+  - travis_retry pip install cython
+  - travis_retry pip install paq lzss coveralls -r requirements.txt -r requirements-test.txt
   - travis_retry python setup.py install
 
 # Run test

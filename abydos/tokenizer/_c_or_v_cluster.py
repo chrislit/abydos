@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -25,13 +23,6 @@ separate units and non-letter characters are added as their own units.
 Following this, words are further divided into strings of consonants only and
 strings of vowels only.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import re
 import unicodedata

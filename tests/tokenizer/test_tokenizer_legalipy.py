@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 This module contains unit tests for abydos.tokenizer.QGrams
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.tokenizer import LegaliPyTokenizer
-
-from six import PY2
 
 from .. import _corpus_file
 
@@ -42,8 +31,6 @@ class LegaliPyTokenizerTestCases(unittest.TestCase):
 
     def test_legalipy_tokenizer(self):
         """Test abydos.tokenizer.LegaliPyTokenizer."""
-        if PY2:  # skip tests of SyllabiPy on Python 2.7
-            return
         try:
             from syllabipy.legalipy import LegaliPy  # noqa: F401
         except ImportError:  # pragma: no cover

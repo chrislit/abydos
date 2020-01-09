@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,14 +19,7 @@
 Mutual Information similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from math import log
+from math import log2
 
 from ._token_distance import _TokenDistance
 
@@ -130,7 +121,7 @@ class MutualInformation(_TokenDistance):
         >>> cmp.sim_score('aluminum', 'Catalan')
         3.428560943378589
         >>> cmp.sim_score('ATCG', 'TAGC')
-        -4.700439718141093
+        -4.700439718141092
 
 
         .. versionadded:: 0.4.0
@@ -143,7 +134,7 @@ class MutualInformation(_TokenDistance):
         apc = self._tar_card()
         n = self._population_unique_card()
 
-        return log((1 + a * n) / (1 + apb * apc), 2)
+        return log2((1 + a * n) / (1 + apb * apc))
 
     def sim(self, src, tar):
         """Return the normalized Mutual Information similarity of two strings.
@@ -164,13 +155,13 @@ class MutualInformation(_TokenDistance):
         --------
         >>> cmp = MutualInformation()
         >>> cmp.sim('cat', 'hat')
-        0.9336092530889809
+        0.933609253088981
         >>> cmp.sim('Niall', 'Neil')
-        0.891168488172523
+        0.8911684881725231
         >>> cmp.sim('aluminum', 'Catalan')
         0.7600321183863901
         >>> cmp.sim('ATCG', 'TAGC')
-        0.1752299652353853
+        0.17522996523538537
 
 
         .. versionadded:: 0.4.0

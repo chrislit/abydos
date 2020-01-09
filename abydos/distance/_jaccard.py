@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2019 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,14 +19,7 @@
 Jaccard similarity coefficient, distance, & Tanimoto coefficient
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from math import log
+from math import log2
 
 from deprecation import deprecated
 
@@ -183,7 +174,7 @@ class Jaccard(Tversky):
         """
         coeff = self.sim(src, tar)
         if coeff != 0:
-            return log(coeff, 2)
+            return log2(coeff)
 
         return float('-inf')
 

@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # This file is based on Alexander Beider and Stephen P. Morse's implementation
@@ -28,13 +26,6 @@ Matching (BMPM) algorithm
 DO NOT EDIT - This document is automatically generated from the reference
 implementation in PHP.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 L_NONE = 0
 L_ANY = 2 ** 0

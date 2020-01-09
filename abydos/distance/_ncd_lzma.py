@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,24 +19,13 @@
 NCD using LZMA
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
+import lzma
 
 from deprecation import deprecated
 
 from ._distance import _Distance
 from .. import __version__
 
-try:
-    import lzma
-except ImportError:  # pragma: no cover
-    # If the system lacks the lzma library, that's fine, but lzma compression
-    # similarity won't be supported.
-    lzma = None
 
 __all__ = ['NCDlzma', 'dist_ncd_lzma', 'sim_ncd_lzma']
 
@@ -52,6 +39,23 @@ class NCDlzma(_Distance):
 
     .. versionadded:: 0.3.6
     """
+
+    _level = 6
+
+    def __init__(self, level=6, **kwargs):
+        """Initialize LZMA compressor.
+
+        Parameters
+        ----------
+        level : int
+            The compression level (0 to 9)
+
+
+        .. versionadded:: 0.5.0
+
+        """
+        super().__init__(**kwargs)
+        self._level = level
 
     def dist(self, src, tar):
         """Return the NCD between two strings using LZMA compression.
@@ -67,11 +71,6 @@ class NCDlzma(_Distance):
         -------
         float
             Compression distance
-
-        Raises
-        ------
-        ValueError
-            Install the PylibLZMA module in order to use LZMA
 
         Examples
         --------
@@ -97,15 +96,10 @@ class NCDlzma(_Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        if lzma is not None:
-            src_comp = lzma.compress(src)[14:]
-            tar_comp = lzma.compress(tar)[14:]
-            concat_comp = lzma.compress(src + tar)[14:]
-            concat_comp2 = lzma.compress(tar + src)[14:]
-        else:  # pragma: no cover
-            raise ValueError(
-                'Install the PylibLZMA module in order to use LZMA'
-            )
+        src_comp = lzma.compress(src, preset=self._level)[14:]
+        tar_comp = lzma.compress(tar, preset=self._level)[14:]
+        concat_comp = lzma.compress(src + tar, preset=self._level)[14:]
+        concat_comp2 = lzma.compress(tar + src, preset=self._level)[14:]
 
         return (
             min(len(concat_comp), len(concat_comp2))

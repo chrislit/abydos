@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 American Soundex
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -194,8 +183,7 @@ class Soundex(_Phonetic):
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
-        word = unicode_normalize('NFKD', text_type(word.upper()))
-        word = word.replace('ß', 'SS')
+        word = unicode_normalize('NFKD', word.upper())
 
         if self._var == 'Census':
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:

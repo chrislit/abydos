@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -26,13 +24,6 @@ Following this, words are further divided into strings of consisting of
 consonants then vowels (without limit of either). But, crucially, a vowel to
 consonant transition marks the start of a new token.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import re
 import unicodedata

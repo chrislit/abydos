@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
@@ -20,13 +18,6 @@
 
 This module contains unit tests for abydos.tokenizer.QGrams
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import unittest
 from collections import Counter

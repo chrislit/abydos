@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 Clark's coefficient of divergence
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from ._token_distance import _TokenDistance
 
@@ -99,7 +90,7 @@ class Clark(_TokenDistance):
 
         src_tok = self._src_tokens
         tar_tok = self._tar_tokens
-        alphabet = set(set(src_tok.keys()) | set(tar_tok.keys()))
+        alphabet = set(src_tok.keys() | tar_tok.keys())
 
         return (
             sum(

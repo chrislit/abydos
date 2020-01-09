@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 This module contains unit tests for abydos.distance.NCDpaq9a
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import NCDpaq9a
-
-from six import PY2
 
 
 class NCDpaq9aTestCases(unittest.TestCase):
@@ -45,8 +34,6 @@ class NCDpaq9aTestCases(unittest.TestCase):
 
     def test_ncd_paq9a_dist(self):
         """Test abydos.distance.NCDpaq9a.dist."""
-        if PY2:  # skip tests since paq9a isn't supported on Python 2.7
-            return
         try:
             import paq  # noqa: F401
         except ImportError:  # pragma: no cover
@@ -71,9 +58,6 @@ class NCDpaq9aTestCases(unittest.TestCase):
 
     def test_ncd_paq9a_sim(self):
         """Test abydos.distance.NCDpaq9a.sim."""
-        if PY2:  # skip tests since paq9a isn't supported on Python 2.7
-            return
-
         try:
             import paq  # noqa: F401
         except ImportError:  # pragma: no cover

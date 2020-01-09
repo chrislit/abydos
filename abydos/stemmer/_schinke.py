@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,19 +19,9 @@
 Schinke Latin stemmer.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize
 
 from deprecation import deprecated
-
-from six import text_type
-from six.moves import range
 
 from ._stemmer import _Stemmer
 from .. import __version__
@@ -176,7 +164,7 @@ class Schinke(_Stemmer):
             Encapsulated in class
 
         """
-        word = normalize('NFKD', text_type(word.lower()))
+        word = normalize('NFKD', word.lower())
         word = ''.join(
             c
             for c in word

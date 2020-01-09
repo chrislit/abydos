@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,13 +19,6 @@
 This module contains unit tests for abydos.distance.SoftTFIDF
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os
 import unittest
 
@@ -35,8 +26,6 @@ from abydos.corpus import UnigramCorpus
 from abydos.distance import Levenshtein, SoftTFIDF
 from abydos.tokenizer import QGrams
 from abydos.util import download_package, package_path
-
-from six import PY2
 
 
 class SoftTFIDFTestCases(unittest.TestCase):
@@ -96,9 +85,6 @@ class SoftTFIDFTestCases(unittest.TestCase):
 
     def test_softtf_idf_corpus(self):
         """Test abydos.distance.SoftTFIDF.sim & .dist with corpus."""
-        if PY2:  # disable testing in Py2.7; the pickled data isn't supported
-            return
-
         download_package('en_qgram', silent=True)
 
         q3_corpus = UnigramCorpus(word_tokenizer=QGrams(qval=3))

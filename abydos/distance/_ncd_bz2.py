@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 NCD using bzip2
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import bz2
 
@@ -50,7 +41,7 @@ class NCDbz2(_Distance):
 
     _level = 9
 
-    def __init__(self, level=9):
+    def __init__(self, level=9, **kwargs):
         """Initialize bzip2 compressor.
 
         Parameters
@@ -64,6 +55,7 @@ class NCDbz2(_Distance):
             Encapsulated in class
 
         """
+        super().__init__(**kwargs)
         self._level = level
 
     def dist(self, src, tar):

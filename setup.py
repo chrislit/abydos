@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 setuptools configuration file for Abydos
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from codecs import open
 from os import path
@@ -78,13 +69,12 @@ if __name__ == '__main__':
         license='GPLv3+',
         classifiers=[
             'Programming Language :: Python',
-            'Programming Language :: Python :: 2',
-            'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
             'Programming Language :: Python :: 3.5',
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
-            'Development Status :: 4 - Beta',
+            'Programming Language :: Python :: 3.8',
+            'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Developers',
             'License :: OSI Approved :: GNU General Public License v3 or \
 later (GPLv3+)',
@@ -99,11 +89,6 @@ later (GPLv3+)',
         long_description='\n\n'.join(
             [readfile(f) for f in ('README.rst', 'HISTORY.rst', 'AUTHORS.rst')]
         ),
-        install_requires=['numpy', 'six', 'deprecation'],
-        extras_require={
-            ':python_version >= "2.7" and python_version < "2.8"': [
-                'pyliblzma>=0.5.3,<0.6.0'
-            ]
-        },
-        python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
+        install_requires=['numpy', 'deprecation'],
+        python_requires='~=3.5',
     )

@@ -1,7 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+#!/usr/bin/env python3
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -37,13 +35,6 @@ The CSV document is of the format
 
 Lines beginning with # are interpreted as comments
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import codecs
 import getopt
@@ -90,8 +81,8 @@ def main(argv):
             return '10'
         elif num == '1':  # +
             return '01'
-        elif num == '2':  # ± (segmental) or copy from base (non-segmental)
-            return '11'
+        # '2' -> ± (segmental) or copy from base (non-segmental)
+        return '11'
 
     def init_termdicts():
         """Initialize the terms dict.

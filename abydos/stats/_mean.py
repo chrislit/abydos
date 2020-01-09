@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2019 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,17 +20,8 @@ The stats._mean module defines functions for calculating means and other
 measures of central tendencies.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import math
 from collections import Counter
-
-from six.moves import range
 
 from ..util._prod import _prod
 

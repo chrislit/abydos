@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,15 +19,8 @@
 _Tokenizer base class
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from collections import Counter
-from math import exp, log, log1p
+from math import exp, log1p, log2
 
 __all__ = ['_Tokenizer']
 
@@ -116,8 +107,7 @@ class _Tokenizer(object):
             counts = Counter(self._ordered_tokens)
             n = len(self._ordered_tokens)
             self._tokens = {
-                key: -(val / n) * log(val / n, 2)
-                for key, val in counts.items()
+                key: -(val / n) * log2(val / n) for key, val in counts.items()
             }
             self._ordered_weights = [
                 self._tokens[tok] / counts[tok] for tok in self._ordered_tokens

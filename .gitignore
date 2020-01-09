@@ -3,6 +3,7 @@ cover/
 dist/
 flake8/
 abydos.egg-info/
+venv/
 .settings/
 *.bak
 *.pyc
@@ -10,5 +11,5 @@ abydos.egg-info/
 .coverage
 .idea/
 .tox/
-binder/.ipynb_checkpoints
-binder/Untitled*
+.ipynb_checkpoints
+Untitled*.ipynb

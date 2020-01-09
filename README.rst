@@ -71,7 +71,7 @@ Abydos
     :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
     :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.0/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.09/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
 
@@ -83,7 +83,7 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-43,113-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,610-blue.svg
     :target: #
     :alt: SLOCCount
 
@@ -281,14 +281,11 @@ Installation
 Required libraries:
 
 - NumPy
-- six
 - deprecation
 
 Optional libraries (all available on PyPI, some available on conda or
 conda-forge):
 
-- SciPy
-- PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
 - `SyllabiPy <http://syllabipy.com/>`_
 - `NLTK <https://www.nltk.org/>`_
 - `PyLZSS <https://github.com/rumbah/pylzss>`_
@@ -315,7 +312,7 @@ To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
-It should run on Python 2.7 and Python 3.5-3.8.
+It should run on Python 3.5-3.8.
 
 Testing & Contributing
 ======================
@@ -324,10 +321,10 @@ To run the whole test-suite just call tox::
 
     tox
 
-The tox setup has the following environments: black, py37, py27, doctest,
-py37-regression, py27-regression, py37-fuzz, py27-fuzz, pylint, pydocstyle,
-flake8, doc8, docs, sloccount, badges, & build. So if you only want to
-generate documentation (in HTML, EPUB, & PDF formats), just call::
+The tox setup has the following environments: black, py37, doctest,
+regression, fuzz, pylint, pydocstyle, flake8, doc8, docs, sloccount, badges, &
+build. So if you only want to generate documentation (in HTML, EPUB, & PDF
+formats), just call::
 
     tox -e docs
 

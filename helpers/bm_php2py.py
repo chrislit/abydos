@@ -1,7 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+#!/usr/bin/env python3
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -32,13 +30,6 @@ It reads the BMPM reference implementation and generates the file
 The file _beider_morse.py may still need manual changes to be made after this
 script is run.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import codecs
 import re
@@ -309,7 +300,7 @@ def _run_script():
     outfile = codecs.open(outfilename, 'w', 'utf-8')
 
     outfile.write(
-        '# -*- coding: utf-8 -*-\n\n# Copyright 2014-2018 by \
+        '# Copyright 2014-2020 by \
 Christopher C. Little.\n# This file is part of Abydos.\n#\n# This file is \
 based on Alexander Beider and Stephen P. Morse\'s implementation\n# of the \
 Beider-Morse Phonetic Matching (BMPM) System, available at\n# \

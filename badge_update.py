@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-# Copyright 2015-2018 by Christopher C. Little.
+# Copyright 2015-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -19,7 +17,7 @@
 
 """badge_update.py.
 
-This updates the Pylint, pycodestyle, pydocstyle & flake8 badges in README.rst.
+This updates the Pylint, pydocstyle, flake8, & SLOCCount badges in README.rst.
 """
 
 import os.path

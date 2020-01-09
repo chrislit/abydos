@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2019 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,14 +19,6 @@
 The stats._pairwise module implements pairwise statistical algorithms.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from six.moves import range
 
 from ._mean import amean, hmean, std
 from ..distance._levenshtein import sim_levenshtein as sim

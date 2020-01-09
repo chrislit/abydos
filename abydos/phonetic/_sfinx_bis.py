@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 SfinxBis
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -288,7 +277,6 @@ class SfinxBis(_Phonetic):
 
             lokal_ordet = lokal_ordet.replace('Ð', 'ETH')
             lokal_ordet = lokal_ordet.replace('Þ', 'TH')
-            lokal_ordet = lokal_ordet.replace('ß', 'SS')
 
             return lokal_ordet
 
@@ -359,8 +347,7 @@ class SfinxBis(_Phonetic):
             return lokal_ordet
 
         # Steg 1, Versaler
-        word = unicode_normalize('NFC', text_type(word.upper()))
-        word = word.replace('ß', 'SS')
+        word = unicode_normalize('NFC', word.upper())
         word = word.replace('-', ' ')
 
         # Steg 2, Ta bort adelsprefix

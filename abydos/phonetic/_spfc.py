@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,19 +19,9 @@
 Standardized Phonetic Frequency Code (SPFC) algorithm
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
-from six.moves import range
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -200,7 +188,7 @@ class SPFC(_Phonetic):
             return ''
 
         names = []
-        if isinstance(word, (str, text_type)):
+        if isinstance(word, str):
             names = word.split('.', 1)
             if len(names) != 2:
                 names = word.split(' ', 1)
@@ -213,12 +201,7 @@ class SPFC(_Phonetic):
         else:
             _raise_word_ex()
 
-        names = [
-            unicode_normalize(
-                'NFKD', text_type(_.strip().replace('ß', 'SS').upper())
-            )
-            for _ in names
-        ]
+        names = [unicode_normalize('NFKD', _.strip().upper()) for _ in names]
         code = ''
 
         def _steps_one_to_three(name):

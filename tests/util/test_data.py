@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,13 +19,6 @@
 This module contains unit tests for abydos.util._prod
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import shutil
 import tempfile
 import unittest
@@ -39,8 +30,6 @@ from abydos.util._data import (
     package_path,
 )
 
-from six import PY2
-
 
 class DataTestCases(unittest.TestCase):
     """Test cases for abydos.util._prod."""
@@ -50,9 +39,6 @@ class DataTestCases(unittest.TestCase):
 
     def test_data(self):
         """Test abydos.util._data."""
-        if PY2:  # disable testing in Py2.7; the pickled data isn't supported
-            return
-
         self.assertTrue(isinstance(list_installed_packages(), list))
         self.assertTrue(isinstance(list_available_packages(), tuple))
         self.assertTrue(

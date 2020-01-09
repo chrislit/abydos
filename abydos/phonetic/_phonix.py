@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 Phonix
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -409,8 +398,7 @@ class Phonix(_Phonetic):
 
         sdx = ''
 
-        word = unicode_normalize('NFKD', text_type(word.upper()))
-        word = word.replace('ß', 'SS')
+        word = unicode_normalize('NFKD', word.upper())
         word = ''.join(c for c in word if c in self._uc_set)
         if word:
             for trans in self._substitutions:

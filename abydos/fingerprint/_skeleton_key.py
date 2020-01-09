@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 skeleton key
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
 
 from ._fingerprint import _Fingerprint
 from .. import __version__
@@ -80,7 +69,7 @@ class SkeletonKey(_Fingerprint):
             Encapsulated in class
 
         """
-        word = unicode_normalize('NFKD', text_type(word.upper()))
+        word = unicode_normalize('NFKD', word.upper())
         word = ''.join(c for c in word if c in self._letters)
         start = word[0:1]
         consonant_part = ''

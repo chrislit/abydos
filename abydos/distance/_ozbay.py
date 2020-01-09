@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 Ozbay metric
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from . import Jaccard, LCSstr, Levenshtein
 from ._distance import _Distance

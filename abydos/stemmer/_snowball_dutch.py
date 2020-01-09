@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,19 +19,9 @@
 Snowball Dutch stemmer
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize
 
 from deprecation import deprecated
-
-from six import text_type
-from six.moves import range
 
 from ._snowball import _Snowball
 from .. import __version__
@@ -112,7 +100,7 @@ class SnowballDutch(_Snowball):
         """
         # lowercase, normalize, decompose, filter umlauts & acutes out, and
         # compose
-        word = normalize('NFC', text_type(word.lower()))
+        word = normalize('NFC', word.lower())
         word = word.translate(self._accented)
 
         for i in range(len(word)):

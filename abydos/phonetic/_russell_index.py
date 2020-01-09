@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 Robert C. Russell's Index
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -98,8 +87,7 @@ class RussellIndex(_Phonetic):
             Encapsulated in class
 
         """
-        word = unicode_normalize('NFKD', text_type(word.upper()))
-        word = word.replace('ß', 'SS')
+        word = unicode_normalize('NFKD', word.upper())
         word = word.replace('GH', '')  # discard gh (rule 3)
         word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
 
@@ -150,7 +138,7 @@ class RussellIndex(_Phonetic):
             Encapsulated in class
 
         """
-        num = ''.join(c for c in text_type(num) if c in self._num_set)
+        num = ''.join(c for c in str(num) if c in self._num_set)
         if num:
             return num.translate(self._num_trans)
         return ''

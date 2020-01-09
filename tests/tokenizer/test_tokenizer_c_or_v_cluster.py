@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 This module contains unit tests for abydos.tokenizer.COrVClusterTokenizer
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.tokenizer import COrVClusterTokenizer
-
-from six import PY2
 
 
 class COrVClusterTokenizerTestCases(unittest.TestCase):
@@ -77,13 +66,12 @@ class COrVClusterTokenizerTestCases(unittest.TestCase):
             sorted(tok.tokenize('caterpillars').get_list()),
             sorted(['c', 'a', 't', 'e', 'rp', 'i', 'll', 'a', 'rs']),
         )
-        if not PY2:
-            self.assertEqual(
-                sorted(tok.tokenize('Götterdämmerung').get_list()),
-                sorted(
-                    ['G', 'ö', 'tt', 'e', 'rd', 'ä', 'mm', 'e', 'r', 'u', 'ng']
-                ),
-            )
+        self.assertEqual(
+            sorted(tok.tokenize('Götterdämmerung').get_list()),
+            sorted(
+                ['G', 'ö', 'tt', 'e', 'rd', 'ä', 'mm', 'e', 'r', 'u', 'ng']
+            ),
+        )
 
         tok = COrVClusterTokenizer(consonants='ptkbdgmn', vowels='aeiouwy')
         self.assertEqual(

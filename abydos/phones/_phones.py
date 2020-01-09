@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
@@ -22,17 +20,7 @@ The phones module implements phonetic feature coding, decoding, and comparison
 functions.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize
-
-from six import text_type
-from six.moves import range
 
 __all__ = ['cmp_features', 'get_feature', 'ipa_to_features']
 
@@ -614,7 +602,7 @@ def ipa_to_features(ipa):
     """
     features = []
     pos = 0
-    ipa = normalize('NFD', text_type(ipa.lower()))
+    ipa = normalize('NFD', ipa.lower())
 
     maxsymlen = max(len(_) for _ in _PHONETIC_FEATURES)
 
@@ -754,7 +742,7 @@ def ipa_to_feature_dicts(ipa):
     """
     features = []
     pos = 0
-    ipa = normalize('NFD', text_type(ipa.lower()))
+    ipa = normalize('NFD', ipa.lower())
 
     maxsymlen = max(len(_) for _ in _PHONETIC_FEATURES)
 
@@ -973,19 +961,8 @@ def cmp_features(feat1, feat2, weights=None):
 
     magnitude = sum(weights) if weights else len(_FEATURE_MASK)
 
-    featxor = feat1 ^ feat2
-    diffbits = 0
-    i = 0
-    while featxor:
-        if featxor & 0b1:
-            diffbits += weights[i] if weights else 1
-        featxor >>= 1
-        if featxor & 0b1:
-            diffbits += weights[i] if weights else 1
-        featxor >>= 1
-        i += 1
-    return 1 - (0 if not diffbits else (diffbits / (2 * magnitude)))
     """
+    # Alternate implementation
     diff_feats = 0
     i = 0
     while feat1 or feat2:
@@ -1001,6 +978,19 @@ def cmp_features(feat1, feat2, weights=None):
 
     return 1 - (diff_feats / magnitude)
     """
+
+    featxor = feat1 ^ feat2
+    diffbits = 0
+    i = 0
+    while featxor:
+        if featxor & 0b1:
+            diffbits += weights[i] if weights else 1
+        featxor >>= 1
+        if featxor & 0b1:
+            diffbits += weights[i] if weights else 1
+        featxor >>= 1
+        i += 1
+    return 1 - (0 if not diffbits else (diffbits / (2 * magnitude)))
 
 
 if __name__ == '__main__':

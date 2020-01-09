@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,16 +19,9 @@
 This module contains unit tests for abydos.distance.MarkingMetric
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
-from math import log
+from math import log2
 
 from abydos.distance import MarkingMetric
 
@@ -109,7 +100,7 @@ class MarkingMetricTestCases(unittest.TestCase):
         )
 
         # Examples from paper
-        self.assertEqual(self.cmp.dist_abs('abba', 'a'), log(3, 2))
+        self.assertEqual(self.cmp.dist_abs('abba', 'a'), log2(3))
         self.assertEqual(self.cmp.dist_abs('baab', 'a'), 2.0)
         # The following are from the example on p. 196 of the paper, but are
         # there given in reverse order.

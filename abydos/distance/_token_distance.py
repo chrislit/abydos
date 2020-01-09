@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
@@ -21,13 +19,6 @@
 The distance._token_distance._TokenDistance module implements abstract class
 _TokenDistance.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from collections import Counter, OrderedDict
 from itertools import product

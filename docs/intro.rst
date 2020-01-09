@@ -14,7 +14,7 @@ Abydos
 
 |
 | `Abydos NLP/IR library <https://github.com/chrislit/abydos>`_
-| Copyright 2014-2018 by Christopher C. Little
+| Copyright 2014-2020 by Christopher C. Little
 
 Abydos is a library of phonetic algorithms, string distance measures & metrics,
 stemmers, and string fingerprinters.
@@ -26,12 +26,16 @@ Installation
 
 Required libraries:
 
-- Numpy
-- Six
+- NumPy
+- deprecation
 
-Recommended libraries:
+Optional libraries (all available on PyPI, some available on conda or
+conda-forge):
 
-- PylibLZMA   (Python 2 only--for LZMA compression string distance metric)
+- `SyllabiPy <http://syllabipy.com/>`_
+- `NLTK <https://www.nltk.org/>`_
+- `PyLZSS <https://github.com/rumbah/pylzss>`_
+- `paq <https://github.com/observerss/paq>`_
 
 
 To install Abydos (master) from Github source::
@@ -54,7 +58,7 @@ To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
-It should run on Python 2.7 and Python 3.3-3.7.
+It should run on Python 3.5-3.8.
 
 Testing & Contributing
 ======================
@@ -63,10 +67,10 @@ To run the whole test-suite just call tox::
 
     tox
 
-The tox setup has the following environments: black, py36, py27, doctest,
-py36-regression, py27-regression, py36-fuzz, py27-fuzz, pylint, pycodestyle,
-pydocstyle, flake8, doc8, badges, docs, & dist. So if you only want to generate
-documentation (in HTML, EPUB, & PDF formats), just call::
+The tox setup has the following environments: black, py37, doctest,
+regression, fuzz, pylint, pydocstyle, flake8, doc8, docs, sloccount, badges, &
+build. So if you only want to generate documentation (in HTML, EPUB, & PDF
+formats), just call::
 
     tox -e docs
 

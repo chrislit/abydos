@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -27,13 +25,6 @@ http://www.nltk.org/_modules/nltk/data.html, because they seem to have the
 issues figured out, because I don't want to expend the effort to re-invent a
 solution, and because their license (Apache) allows for it.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import os
 import re
@@ -188,7 +179,7 @@ def _default_download_dir():
     """
     # Check if we are on GAE where we cannot write into filesystem.
     if 'APPENGINE_RUNTIME' in os.environ:  # pragma: no cover
-        return
+        return None
 
     # Check if we have sufficient permissions to install in a
     # variety of system-wide locations.

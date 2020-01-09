@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,20 +19,10 @@
 phonet algorithm (a.k.a. Hannoveraner Phonetik), intended chiefly for German
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from collections import Counter
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
-from six.moves import range
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -1747,7 +1735,7 @@ class Phonet(_Phonetic):
 
         _initialize_phonet(self._lang)
 
-        word = unicode_normalize('NFKC', text_type(word))
+        word = unicode_normalize('NFKC', word)
         return _phonet(word, self._mode, self._lang)
 
 

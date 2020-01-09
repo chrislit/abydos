@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,19 +19,10 @@
 Shapira & Storer I edit distance with block moves, greedy algorithm
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from collections import Counter
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
-
-from six.moves import range
 
 from ._distance import _Distance
 from ._lcsstr import LCSstr

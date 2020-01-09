@@ -1,7 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+#!/usr/bin/env python3
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -30,13 +28,6 @@ Although this isn't a terribly secure script, it's only used in development and
 not included as part of the distributed Abydos package itself. Accordingly,
 I'm suppressing security warnings from flake8.
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import sys
 from subprocess import call  # noqa: S404

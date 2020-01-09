@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 MRA personal numeric identifier (PNI).
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from deprecation import deprecated
 
@@ -79,7 +70,6 @@ class MRA(_Phonetic):
         if not word:
             return word
         word = word.upper()
-        word = word.replace('ß', 'SS')
         word = word[0] + ''.join(
             c for c in word[1:] if c not in self._uc_v_set
         )

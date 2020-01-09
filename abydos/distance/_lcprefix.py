@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,16 +19,7 @@
 Longest common prefix
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from os.path import commonprefix
-
-from six import text_type
 
 from ._distance import _Distance
 
@@ -114,10 +103,10 @@ class LCPrefix(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        strings = [text_type(src), text_type(tar)]
+        strings = [src, tar]
         for arg in args:
-            if isinstance(arg, (str, text_type)):
-                strings.append(text_type(arg))
+            if isinstance(arg, str):
+                strings.append(arg)
             else:
                 raise TypeError('All arguments must be of type str')
 

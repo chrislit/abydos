@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 Spanish Metaphone
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
 
 from deprecation import deprecated
-
-from six import text_type
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -125,7 +114,7 @@ class SpanishMetaphone(_Phonetic):
             """
             return pos < len(word) and word[pos] in {'A', 'E', 'I', 'O', 'U'}
 
-        word = unicode_normalize('NFC', text_type(word.upper()))
+        word = unicode_normalize('NFC', word.upper())
 
         meta_key = ''
         pos = 0

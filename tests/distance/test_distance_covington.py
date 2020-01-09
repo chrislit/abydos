@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,9 @@
 This module contains unit tests for abydos.distance.Covington
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import unittest
 
 from abydos.distance import Covington
-
-from six import PY2
 
 
 class CovingtonTestCases(unittest.TestCase):
@@ -106,9 +95,6 @@ class CovingtonTestCases(unittest.TestCase):
 
     def test_covington_alignments(self):
         """Test abydos.distance.Covington.alignments."""
-        if PY2:  # skip tests of alignments on Python 2.7
-            return
-
         self.assertEqual(
             repr(self.cmp.alignments('yo', 'ze', top_n=1)[0]),
             "Alignment(src='yo', tar='ze', score=130)",
@@ -179,9 +165,6 @@ Alignment(src='sit-', tar='-sed', score=300)]",
 
     def test_covington_alignment(self):
         """Test abydos.distance.Covington.alignment."""
-        if PY2:  # skip tests of alignment on Python 2.7
-            return
-
         self.assertEqual(
             self.cmp.alignment('doter', 'tugatir'), (210, '--doter', 'tugatir')
         )

@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2018 by Christopher C. Little.
+# Copyright 2018-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,16 +19,7 @@
 Wåhlin phonetic encoding
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize as unicode_normalize
-
-from six import text_type
 
 from ._phonetic import _Phonetic
 
@@ -206,8 +195,7 @@ class Waahlin(_Phonetic):
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
-        word = unicode_normalize('NFC', text_type(word.upper()))
-        word = word.replace('ß', 'SS')
+        word = unicode_normalize('NFC', word.upper())
         if not word:
             return ''
 

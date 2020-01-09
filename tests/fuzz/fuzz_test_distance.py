@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,21 +19,12 @@
 This module contains fuzz tests for abydos.tokenizer
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import codecs
 import unittest
 from inspect import getdoc, getmembers, isclass
 from random import choice, randint, sample
 
 import abydos.distance as ad
-
-from six import PY2
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
@@ -49,14 +38,6 @@ for name, obj in getmembers(ad):
             'Gotoh',
             'SmithWaterman',
             'NeedlemanWunsch',
-        }:
-            continue
-        if PY2 and name in {
-            'NCDpaq9a',
-            'NCDlzss',
-            'NCDlzma',
-            'ReesLevenshtein',
-            'MinHash',
         }:
             continue
 

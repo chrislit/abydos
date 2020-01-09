@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2019 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,18 +19,8 @@
 The NGram class is a container for an n-gram corpus
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from codecs import open as c_open
 from collections import Counter
-
-from six import text_type
-from six.moves import range
 
 from ._corpus import Corpus
 
@@ -183,8 +171,8 @@ class NGramCorpus(object):
             return corpus[None]
 
         # support strings or lists/tuples by splitting strings
-        if isinstance(ngram, (text_type, str)):
-            ngram = text_type(ngram).split()
+        if isinstance(ngram, str):
+            ngram = ngram.split()
 
         # if ngram is not empty, check whether the next element is in the
         # corpus; if so, recurse--if not, return 0

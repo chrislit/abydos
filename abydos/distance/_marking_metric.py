@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,14 +19,7 @@
 Ehrenfeucht & Haussler's marking metric
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from math import log
+from math import log2
 
 from ._marking import Marking
 
@@ -88,11 +79,11 @@ class MarkingMetric(Marking):
         >>> cmp.dist_abs('cat', 'hat')
         2.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        3.5849625007211565
+        3.584962500721156
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        4.584962500721157
+        4.584962500721156
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3.1699250014423126
+        3.169925001442312
         >>> cmp.dist_abs('cbaabdcb', 'abcba')
         2.584962500721156
 
@@ -102,7 +93,7 @@ class MarkingMetric(Marking):
         """
         diff1 = super(MarkingMetric, self).dist_abs(src, tar)
         diff2 = super(MarkingMetric, self).dist_abs(tar, src)
-        return log((diff1 + 1) * (diff2 + 1), 2)
+        return log2((diff1 + 1) * (diff2 + 1))
 
     def dist(self, src, tar):
         """Return the normalized marking distance of two strings.
@@ -139,7 +130,7 @@ class MarkingMetric(Marking):
         """
         score = self.dist_abs(src, tar)
         if score:
-            return score / log((len(src) + 1) * (len(tar) + 1), 2)
+            return score / log2((len(src) + 1) * (len(tar) + 1))
         return 0.0
 
 

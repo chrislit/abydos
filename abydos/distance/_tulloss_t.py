@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 Tulloss' T similarity
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 from ._token_distance import _TokenDistance
 from ._tulloss_r import TullossR
@@ -129,9 +120,9 @@ class TullossT(_TokenDistance):
         >>> cmp.sim('cat', 'hat')
         0.5363348766461724
         >>> cmp.sim('Niall', 'Neil')
-        0.37408737056893265
+        0.3740873705689327
         >>> cmp.sim('aluminum', 'Catalan')
-        0.12293007830952692
+        0.1229300783095269
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 

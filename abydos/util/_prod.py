@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,16 +20,8 @@ The util._prod module defines _prod, which computes the product of a collection
 of numbers (akin to sum, but for product).
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
+from functools import reduce
 from operator import mul
-
-from six.moves import reduce
 
 __all__ = []
 

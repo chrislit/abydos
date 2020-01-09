@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -21,19 +19,10 @@
 Gotoh score
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
-
-from six.moves import range
 
 from ._ident import sim_ident
 from ._needleman_wunsch import NeedlemanWunsch

@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2019 by Christopher C. Little.
+# Copyright 2019-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -20,13 +18,6 @@
 
 This module contains unit tests for abydos.distance.MutualInformation
 """
-
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import unittest
 
@@ -51,7 +42,9 @@ class MutualInformationTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim('', 'abc'), 0.0)
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
-        self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.1752299652353853)
+        self.assertAlmostEqual(
+            self.cmp.sim('abcd', 'efgh'), 0.17522996523538537
+        )
 
         self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.9284965499)
         self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.9284965499)
@@ -74,7 +67,9 @@ class MutualInformationTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', ''), 1.0)
         self.assertEqual(self.cmp.dist('', 'abc'), 1.0)
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
-        self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.8247700347646147)
+        self.assertAlmostEqual(
+            self.cmp.dist('abcd', 'efgh'), 0.8247700347646146
+        )
 
         self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.0715034501)
         self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.0715034501)
@@ -92,9 +87,11 @@ class MutualInformationTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim_score('', 'a'), 0.0)
         self.assertEqual(self.cmp.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp.sim_score('', 'abc'), 0.0)
-        self.assertEqual(self.cmp.sim_score('abc', 'abc'), 7.527706972593264)
-        self.assertEqual(
-            self.cmp.sim_score('abcd', 'efgh'), -4.700439718141093
+        self.assertAlmostEqual(
+            self.cmp.sim_score('abc', 'abc'), 7.527706972593263
+        )
+        self.assertAlmostEqual(
+            self.cmp.sim_score('abcd', 'efgh'), -4.700439718141092
         )
 
         self.assertAlmostEqual(
@@ -120,8 +117,8 @@ class MutualInformationTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_no_d.sim_score('abc', ''), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('', 'abc'), 0.0)
         self.assertEqual(self.cmp_no_d.sim_score('abc', 'abc'), 0.0)
-        self.assertEqual(
-            self.cmp_no_d.sim_score('abcd', 'efgh'), -4.700439718141093
+        self.assertAlmostEqual(
+            self.cmp_no_d.sim_score('abcd', 'efgh'), -4.700439718141092
         )
 
         self.assertAlmostEqual(

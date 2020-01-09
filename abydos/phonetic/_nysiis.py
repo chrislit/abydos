@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2014-2018 by Christopher C. Little.
+# Copyright 2014-2020 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
@@ -22,16 +20,7 @@ New York State Identification and Intelligence System (NYSIIS) phonetic
 encoding
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
-
-from six.moves import range
 
 from ._phonetic import _Phonetic
 from .. import __version__
@@ -118,7 +107,6 @@ class NYSIIS(_Phonetic):
         """
 
         word = ''.join(c for c in word.upper() if c.isalpha())
-        word = word.replace('ß', 'SS')
 
         # exit early if there are no alphas
         if not word:
