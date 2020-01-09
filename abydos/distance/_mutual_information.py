@@ -19,7 +19,7 @@
 Mutual Information similarity
 """
 
-from math import log
+from math import log2
 
 from ._token_distance import _TokenDistance
 
@@ -134,7 +134,7 @@ class MutualInformation(_TokenDistance):
         apc = self._tar_card()
         n = self._population_unique_card()
 
-        return log((1 + a * n) / (1 + apb * apc), 2)
+        return log2((1 + a * n) / (1 + apb * apc))
 
     def sim(self, src, tar):
         """Return the normalized Mutual Information similarity of two strings.
