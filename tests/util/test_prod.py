@@ -23,9 +23,6 @@ import unittest
 
 from abydos.util._prod import _prod
 
-from six.moves import range
-
-
 class ProdTestCases(unittest.TestCase):
     """Test cases for abydos.util._prod."""
 

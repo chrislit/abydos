@@ -23,8 +23,6 @@ from codecs import open as c_open
 from collections import Counter
 
 from six import text_type
-from six.moves import range
-
 from ._corpus import Corpus
 
 __all__ = ['NGramCorpus']

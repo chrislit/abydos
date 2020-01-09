@@ -22,8 +22,6 @@ encoding
 
 from deprecation import deprecated
 
-from six.moves import range
-
 from ._phonetic import _Phonetic
 from .. import __version__
 

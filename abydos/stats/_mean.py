@@ -23,8 +23,6 @@ measures of central tendencies.
 import math
 from collections import Counter
 
-from six.moves import range
-
 from ..util._prod import _prod
 
 __all__ = [

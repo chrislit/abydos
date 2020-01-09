@@ -21,8 +21,6 @@ Sift4 Simplest approximate string distance
 
 from deprecation import deprecated
 
-from six.moves import range
-
 from ._sift4 import Sift4
 from .. import __version__
 

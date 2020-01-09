@@ -21,8 +21,6 @@ Phonetic edit distance
 
 import numpy as np
 
-from six.moves import range
-
 from ._levenshtein import Levenshtein
 from ..phones._phones import _FEATURE_MASK, cmp_features, ipa_to_features
 

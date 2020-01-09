@@ -24,8 +24,6 @@ from unicodedata import normalize as unicode_normalize
 from deprecation import deprecated
 
 from six import text_type
-from six.moves import range
-
 from ._phonetic import _Phonetic
 from .. import __version__
 

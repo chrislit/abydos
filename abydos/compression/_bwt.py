@@ -21,8 +21,6 @@ Burrows-Wheeler Transform encoder/decoder
 
 from deprecation import deprecated
 
-from six.moves import range
-
 from .. import __version__
 
 __all__ = ['BWT', 'bwt_decode', 'bwt_encode']

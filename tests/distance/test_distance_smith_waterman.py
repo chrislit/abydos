@@ -23,8 +23,6 @@ import unittest
 
 from abydos.distance import SmithWaterman, smith_waterman
 
-from six.moves import range
-
 from .test_distance_needleman_wunsch import _sim_nw, _sim_wikipedia
 from .. import NIALL
 

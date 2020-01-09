@@ -22,7 +22,7 @@ of numbers (akin to sum, but for product).
 
 from operator import mul
 
-from six.moves import reduce
+from functools import reduce
 
 __all__ = []
 

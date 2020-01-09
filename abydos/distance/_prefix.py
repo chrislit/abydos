@@ -21,8 +21,6 @@ Prefix similarity & distance
 
 from deprecation import deprecated
 
-from six.moves import range
-
 from ._distance import _Distance
 from .. import __version__
 

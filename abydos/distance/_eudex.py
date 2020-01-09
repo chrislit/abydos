@@ -23,8 +23,6 @@ from types import GeneratorType
 
 from deprecation import deprecated
 
-from six.moves import range
-
 from ._distance import _Distance
 from .. import __version__
 from ..phonetic import eudex

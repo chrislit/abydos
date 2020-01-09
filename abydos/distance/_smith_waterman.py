@@ -24,8 +24,6 @@ from deprecation import deprecated
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
-from six.moves import range
-
 from ._ident import sim_ident
 from ._needleman_wunsch import NeedlemanWunsch
 from .. import __version__

@@ -23,8 +23,6 @@ from unicodedata import normalize
 
 from deprecation import deprecated
 
-from six.moves import range
-
 from ._snowball import _Snowball
 from .. import __version__
 

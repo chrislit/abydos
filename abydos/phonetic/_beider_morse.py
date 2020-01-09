@@ -29,8 +29,6 @@ from unicodedata import normalize
 from deprecation import deprecated
 
 from six import PY3, text_type
-from six.moves import range
-
 from ._beider_morse_data import (
     BMDATA,
     L_ANY,

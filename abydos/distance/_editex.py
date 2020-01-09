@@ -28,8 +28,6 @@ from numpy import float as np_float
 from numpy import zeros as np_zeros
 
 from six import text_type
-from six.moves import range
-
 from ._distance import _Distance
 from .. import __version__
 

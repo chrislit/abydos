@@ -21,8 +21,6 @@ QGrams multi-set class
 
 from collections import Iterable
 
-from six.moves import range
-
 from ._tokenizer import _Tokenizer
 
 __all__ = ['QGrams']

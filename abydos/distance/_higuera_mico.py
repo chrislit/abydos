@@ -21,8 +21,6 @@ The Higuera-Micó contextual normalized edit distance
 
 from numpy import full as np_full
 
-from six.moves import range
-
 from ._distance import _Distance
 
 __all__ = ['HigueraMico']

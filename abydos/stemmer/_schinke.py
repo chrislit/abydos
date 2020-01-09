@@ -24,8 +24,6 @@ from unicodedata import normalize
 from deprecation import deprecated
 
 from six import text_type
-from six.moves import range
-
 from ._stemmer import _Stemmer
 from .. import __version__
 

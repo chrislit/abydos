@@ -23,8 +23,6 @@ from math import log
 
 import numpy as np
 
-from six.moves import range
-
 from ._levenshtein import Levenshtein
 
 __all__ = ['DiscountedLevenshtein']

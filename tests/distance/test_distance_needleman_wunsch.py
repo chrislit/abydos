@@ -23,8 +23,6 @@ import unittest
 
 from abydos.distance import NeedlemanWunsch, needleman_wunsch
 
-from six.moves import range
-
 from .. import NIALL
 
 

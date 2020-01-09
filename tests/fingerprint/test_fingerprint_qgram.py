@@ -23,8 +23,6 @@ import unittest
 
 from abydos.fingerprint import QGram, qgram_fingerprint
 
-from six.moves import range
-
 from .. import NIALL
 
 

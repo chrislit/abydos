@@ -19,8 +19,6 @@
 Sift4 Extended approximate string distance
 """
 
-from six.moves import range
-
 from ._distance import _Distance
 from ._sift4 import Sift4
 from ..tokenizer import CharacterTokenizer

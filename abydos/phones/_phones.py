@@ -23,8 +23,6 @@ functions.
 from unicodedata import normalize
 
 from six import text_type
-from six.moves import range
-
 __all__ = ['cmp_features', 'get_feature', 'ipa_to_features']
 
 

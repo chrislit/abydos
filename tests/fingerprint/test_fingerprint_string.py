@@ -23,9 +23,6 @@ import unittest
 
 from abydos.fingerprint import String, str_fingerprint
 
-from six.moves import range
-
-
 class StringTestCases(unittest.TestCase):
     """Test string fingerprint functions.
 

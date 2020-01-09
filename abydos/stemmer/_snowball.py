@@ -19,8 +19,6 @@
 Snowball Stemmer base class
 """
 
-from six.moves import range
-
 from ._stemmer import _Stemmer
 
 __all__ = ['_Snowball']

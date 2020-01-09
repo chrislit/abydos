@@ -23,8 +23,6 @@ from re import match as re_match
 
 from deprecation import deprecated
 
-from six.moves import range
-
 from ._stemmer import _Stemmer
 from .. import __version__
 
