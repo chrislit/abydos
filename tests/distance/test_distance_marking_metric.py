@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.MarkingMetric
 
 import unittest
 
-from math import log
+from math import log2
 
 from abydos.distance import MarkingMetric
 
@@ -100,7 +100,7 @@ class MarkingMetricTestCases(unittest.TestCase):
         )
 
         # Examples from paper
-        self.assertEqual(self.cmp.dist_abs('abba', 'a'), log(3, 2))
+        self.assertEqual(self.cmp.dist_abs('abba', 'a'), log2(3))
         self.assertEqual(self.cmp.dist_abs('baab', 'a'), 2.0)
         # The following are from the example on p. 196 of the paper, but are
         # there given in reverse order.
