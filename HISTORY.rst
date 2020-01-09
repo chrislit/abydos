@@ -1,6 +1,16 @@
 Release History
 ---------------
 
+0.5.0 (2020-00-00) *ecgtheow*
++++++++++++++++++++++++++++++
+
+doi:10.5281/zenodo.
+
+Changes:
+
+- Support for Python 2.7 was removed.
+
+
 0.4.1 (2020-01-07) *distant dietrich*
 +++++++++++++++++++++++++++++++++++++
 
