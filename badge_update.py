@@ -17,7 +17,7 @@
 
 """badge_update.py.
 
-This updates the Pylint, pycodestyle, pydocstyle & flake8 badges in README.rst.
+This updates the Pylint, pydocstyle, flake8, & SLOCCount badges in README.rst.
 """
 
 import os.path
