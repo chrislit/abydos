@@ -23,13 +23,6 @@ import unittest
 
 from abydos.distance import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
 
-try:
-    import lzma
-except ImportError:  # pragma: no cover
-    # If the system lacks the lzma library, that's fine, but lzma compression
-    # similarity won't be supported.
-    lzma = None
-
 
 class CompressionTestCases(unittest.TestCase):
     """Test compression distance functions.
@@ -37,28 +30,25 @@ class CompressionTestCases(unittest.TestCase):
     abydos.distance.NCDlzma
     """
 
-    if lzma is not None:
-        cmp = NCDlzma()
+    cmp = NCDlzma()
 
     def test_ncd_lzma_dist(self):
         """Test abydos.distance.NCDlzma.dist."""
-        if lzma is not None:
-            self.assertEqual(self.cmp.dist('', ''), 0)
-            self.assertAlmostEqual(self.cmp.dist('a', ''), 0.6086956521739)
-            self.assertAlmostEqual(self.cmp.dist('abcdefg', 'fg'), 0.16)
+        self.assertEqual(self.cmp.dist('', ''), 0)
+        self.assertAlmostEqual(self.cmp.dist('a', ''), 0.6086956521739)
+        self.assertAlmostEqual(self.cmp.dist('abcdefg', 'fg'), 0.16)
 
-            # Test wrapper
-            self.assertAlmostEqual(dist_ncd_lzma('abcdefg', 'fg'), 0.16)
+        # Test wrapper
+        self.assertAlmostEqual(dist_ncd_lzma('abcdefg', 'fg'), 0.16)
 
     def test_ncd_lzma_sim(self):
         """Test abydos.distance.NCDlzma.sim."""
-        if lzma is not None:
-            self.assertEqual(self.cmp.sim('', ''), 1)
-            self.assertAlmostEqual(self.cmp.sim('a', ''), 0.391304347826)
-            self.assertAlmostEqual(self.cmp.sim('abcdefg', 'fg'), 0.84)
+        self.assertEqual(self.cmp.sim('', ''), 1)
+        self.assertAlmostEqual(self.cmp.sim('a', ''), 0.391304347826)
+        self.assertAlmostEqual(self.cmp.sim('abcdefg', 'fg'), 0.84)
 
-            # Test wrapper
-            self.assertAlmostEqual(sim_ncd_lzma('abcdefg', 'fg'), 0.84)
+        # Test wrapper
+        self.assertAlmostEqual(sim_ncd_lzma('abcdefg', 'fg'), 0.84)
 
 
 if __name__ == '__main__':

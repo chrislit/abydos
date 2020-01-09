@@ -19,17 +19,13 @@
 NCD using LZMA
 """
 
+import lzma
+
 from deprecation import deprecated
 
 from ._distance import _Distance
 from .. import __version__
 
-try:
-    import lzma
-except ImportError:  # pragma: no cover
-    # If the system lacks the lzma library, that's fine, but lzma compression
-    # similarity won't be supported.
-    lzma = None
 
 __all__ = ['NCDlzma', 'dist_ncd_lzma', 'sim_ncd_lzma']
 
@@ -88,15 +84,10 @@ class NCDlzma(_Distance):
         src = src.encode('utf-8')
         tar = tar.encode('utf-8')
 
-        if lzma is not None:
-            src_comp = lzma.compress(src)[14:]
-            tar_comp = lzma.compress(tar)[14:]
-            concat_comp = lzma.compress(src + tar)[14:]
-            concat_comp2 = lzma.compress(tar + src)[14:]
-        else:  # pragma: no cover
-            raise ValueError(
-                'Install the PylibLZMA module in order to use LZMA'
-            )
+        src_comp = lzma.compress(src)[14:]
+        tar_comp = lzma.compress(tar)[14:]
+        concat_comp = lzma.compress(src + tar)[14:]
+        concat_comp2 = lzma.compress(tar + src)[14:]
 
         return (
             min(len(concat_comp), len(concat_comp2))
