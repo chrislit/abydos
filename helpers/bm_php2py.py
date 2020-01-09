@@ -300,7 +300,7 @@ def _run_script():
     outfile = codecs.open(outfilename, 'w', 'utf-8')
 
     outfile.write(
-        '# Copyright 2014-2018 by \
+        '# Copyright 2014-2020 by \
 Christopher C. Little.\n# This file is part of Abydos.\n#\n# This file is \
 based on Alexander Beider and Stephen P. Morse\'s implementation\n# of the \
 Beider-Morse Phonetic Matching (BMPM) System, available at\n# \
