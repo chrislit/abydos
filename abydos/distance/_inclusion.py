@@ -21,13 +21,6 @@
 Bouchard & Pouyez's INClusion Programme
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
 

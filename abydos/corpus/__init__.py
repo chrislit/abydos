@@ -53,13 +53,6 @@ an :py:class:`.NGramCorpus` and calculate TF values:
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._corpus import Corpus
 from ._ngram_corpus import NGramCorpus
 from ._unigram_corpus import UnigramCorpus

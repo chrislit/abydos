@@ -21,13 +21,6 @@
 Chao's Dice similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._chao_jaccard import ChaoJaccard
 
 __all__ = ['ChaoDice']

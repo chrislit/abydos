@@ -25,13 +25,6 @@
 Beider-Morse Phonetic Matching (BMPM) algorithm
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from re import search
 from unicodedata import normalize
 

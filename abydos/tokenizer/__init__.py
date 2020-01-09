@@ -93,13 +93,6 @@ Finally, an NLTK tokenizer is provided:
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._c_or_v_cluster import COrVClusterTokenizer
 from ._character import CharacterTokenizer
 from ._cv_cluster import CVClusterTokenizer

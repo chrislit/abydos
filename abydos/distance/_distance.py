@@ -21,13 +21,6 @@
 The distance._distance module implements abstract class _Distance.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 __all__ = ['_Distance']
 
 

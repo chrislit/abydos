@@ -21,13 +21,6 @@
 Rouge-L similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from . import LCSseq
 from ._distance import _Distance
 

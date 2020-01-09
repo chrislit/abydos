@@ -21,13 +21,6 @@
 Ozbay metric
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from . import Jaccard, LCSstr, Levenshtein
 from ._distance import _Distance
 from ..tokenizer import QGrams

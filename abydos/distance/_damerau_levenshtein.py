@@ -21,13 +21,6 @@
 Damerau-Levenshtein distance
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from sys import maxsize
 
 from deprecation import deprecated

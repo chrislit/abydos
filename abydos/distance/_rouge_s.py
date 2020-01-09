@@ -21,13 +21,6 @@
 Rouge-S similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._distance import _Distance
 from ..tokenizer import QSkipgrams
 from ..util._ncr import _ncr

@@ -72,13 +72,6 @@ form:
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._caumanns import Caumanns, caumanns
 from ._clef_german import CLEFGerman, clef_german
 from ._clef_german_plus import CLEFGermanPlus, clef_german_plus

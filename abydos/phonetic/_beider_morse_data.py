@@ -29,13 +29,6 @@ DO NOT EDIT - This document is automatically generated from the reference
 implementation in PHP.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 L_NONE = 0
 L_ANY = 2 ** 0
 L_ARABIC = 2 ** 1

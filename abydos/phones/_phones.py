@@ -22,13 +22,6 @@ The phones module implements phonetic feature coding, decoding, and comparison
 functions.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize
 
 from six import text_type

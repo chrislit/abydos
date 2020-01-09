@@ -26,13 +26,6 @@ Abydos, including:
 These functions are not intended for use by users.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._data import (
     data_path,
     download_package,

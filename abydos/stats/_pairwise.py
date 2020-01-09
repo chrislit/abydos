@@ -21,13 +21,6 @@
 The stats._pairwise module implements pairwise statistical algorithms.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from six.moves import range
 
 from ._mean import amean, hmean, std

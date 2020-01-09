@@ -21,13 +21,6 @@
 Gilbert & Wells similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from math import factorial, log, pi
 from sys import float_info
 

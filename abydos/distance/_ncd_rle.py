@@ -21,13 +21,6 @@
 NCD using RLE
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
 
 from ._distance import _Distance

@@ -21,13 +21,6 @@
 Rees-Levenshtein distance
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 

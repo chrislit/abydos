@@ -21,13 +21,6 @@
 Unigram Corpus
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import pickle  # noqa: S403
 from codecs import open as c_open
 from collections import Counter, defaultdict

@@ -21,13 +21,6 @@
 Wordpunct tokenizer (analogous to NLTK's workpunct tokenizer)
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._regexp import RegexpTokenizer
 
 __all__ = ['WordpunctTokenizer']

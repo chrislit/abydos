@@ -21,13 +21,6 @@
 Yujian-Bo normalized Levenshtein distance
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._levenshtein import Levenshtein
 
 __all__ = ['YujianBo']

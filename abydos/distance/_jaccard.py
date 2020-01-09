@@ -21,13 +21,6 @@
 Jaccard similarity coefficient, distance, & Tanimoto coefficient
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from math import log
 
 from deprecation import deprecated

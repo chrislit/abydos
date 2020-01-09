@@ -21,13 +21,6 @@
 Library of Congress Cutter table encoding
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._fingerprint import _Fingerprint
 
 __all__ = ['LCCutter']

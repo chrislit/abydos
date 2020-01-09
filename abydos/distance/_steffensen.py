@@ -21,13 +21,6 @@
 Steffensen similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from numpy import array as np_array
 
 from ._token_distance import _TokenDistance

@@ -103,13 +103,6 @@ encoding, as demonstrated below:
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._ainsworth import Ainsworth
 from ._alpha_sis import AlphaSIS, alpha_sis
 from ._beider_morse import BeiderMorse, bmpm

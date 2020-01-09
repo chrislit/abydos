@@ -21,13 +21,6 @@
 phonet algorithm (a.k.a. Hannoveraner Phonetik), intended chiefly for German
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from collections import Counter
 from unicodedata import normalize as unicode_normalize
 

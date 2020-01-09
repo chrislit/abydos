@@ -21,13 +21,6 @@
 Gini II correlation
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from sys import float_info
 
 from ._token_distance import _TokenDistance

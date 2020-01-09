@@ -27,13 +27,6 @@ vowels then consonants (without limit of either). But, crucially, a consonant
 to vowel transition marks the start of a new token.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import re
 import unicodedata
 

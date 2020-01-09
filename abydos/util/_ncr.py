@@ -21,13 +21,6 @@
 The util._ncr module defines _ncr, which computes n Choose r.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from math import factorial, gamma
 
 __all__ = []

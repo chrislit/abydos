@@ -21,13 +21,6 @@
 Shapira & Storer I edit distance with block moves, greedy algorithm
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from collections import Counter
 
 from numpy import int as np_int

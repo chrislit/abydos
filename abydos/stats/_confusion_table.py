@@ -34,13 +34,6 @@ calculating the following data based on a confusion table:
     - significance & Matthews correlation coefficient calculation
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import math
 
 from deprecation import deprecated

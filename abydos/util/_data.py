@@ -28,13 +28,6 @@ issues figured out, because I don't want to expend the effort to re-invent a
 solution, and because their license (Apache) allows for it.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os
 import re
 import sys

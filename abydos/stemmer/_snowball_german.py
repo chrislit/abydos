@@ -21,13 +21,6 @@
 Snowball German stemmer
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from unicodedata import normalize
 
 from deprecation import deprecated

@@ -21,13 +21,6 @@
 editex
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from sys import float_info
 from unicodedata import normalize as unicode_normalize
 

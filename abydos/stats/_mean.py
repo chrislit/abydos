@@ -22,13 +22,6 @@ The stats._mean module defines functions for calculating means and other
 measures of central tendencies.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import math
 from collections import Counter
 

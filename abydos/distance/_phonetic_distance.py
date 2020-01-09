@@ -21,13 +21,6 @@
 Phonetic distance.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._distance import _Distance
 from ..fingerprint._fingerprint import _Fingerprint
 from ..phonetic._phonetic import _Phonetic

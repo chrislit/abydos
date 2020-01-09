@@ -184,13 +184,6 @@ An example using these functions on two different pronunciations of the word
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._phones import (
     cmp_features,
     get_feature,

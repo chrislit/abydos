@@ -21,13 +21,6 @@
 _Tokenizer base class
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from collections import Counter
 from math import exp, log, log1p
 

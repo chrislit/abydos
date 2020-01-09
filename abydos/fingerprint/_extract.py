@@ -21,13 +21,6 @@
 Taft's extract letter list coding
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._fingerprint import _Fingerprint
 
 __all__ = ['Extract']

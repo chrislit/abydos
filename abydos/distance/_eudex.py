@@ -21,13 +21,6 @@
 eudex distance functions
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from types import GeneratorType
 
 from deprecation import deprecated

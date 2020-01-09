@@ -21,13 +21,6 @@
 Smith-Waterman score
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
 
 from numpy import float32 as np_float32

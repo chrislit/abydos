@@ -21,13 +21,6 @@
 The phonetic._phonetic module implements abstract class Phonetic.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from itertools import groupby
 
 __all__ = ['_Phonetic']

@@ -21,13 +21,6 @@
 Cisłak & Grabowski's occurrence halved fingerprint
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
 
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint

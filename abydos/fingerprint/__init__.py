@@ -69,13 +69,6 @@ returns the string's fingerprint:
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._bwtf import BWTF
 from ._bwtrlef import BWTRLEF
 from ._consonant import Consonant

@@ -21,13 +21,6 @@
 BI-SIM similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from numpy import float as np_float
 from numpy import zeros as np_zeros
 

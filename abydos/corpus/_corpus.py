@@ -22,13 +22,6 @@ The Corpus class is a container for linguistic corpora and includes various
 functions for corpus statistics, language modeling, etc.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from math import log
 
 __all__ = ['Corpus']

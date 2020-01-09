@@ -367,13 +367,6 @@ class:
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._aline import ALINE
 from ._ample import AMPLE
 from ._anderberg import Anderberg

@@ -21,13 +21,6 @@
 NCD using BWT plus RLE
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
 
 from ._ncd_rle import NCDrle

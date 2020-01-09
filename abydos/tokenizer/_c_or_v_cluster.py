@@ -26,13 +26,6 @@ Following this, words are further divided into strings of consonants only and
 strings of vowels only.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import re
 import unicodedata
 

@@ -21,13 +21,6 @@
 The distance.hamming module implements Hamming and related distance functions.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from deprecation import deprecated
 
 from ._distance import _Distance

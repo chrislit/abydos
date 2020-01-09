@@ -21,13 +21,6 @@
 The NGram class is a container for an n-gram corpus
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from codecs import open as c_open
 from collections import Counter
 

@@ -21,13 +21,6 @@
 The Higuera-Micó contextual normalized edit distance
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from numpy import full as np_full
 
 from six.moves import range

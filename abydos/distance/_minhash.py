@@ -21,13 +21,6 @@
 MinHash similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from hashlib import sha512
 
 import numpy as np

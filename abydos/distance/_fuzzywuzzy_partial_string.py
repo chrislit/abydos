@@ -21,13 +21,6 @@
 FuzzyWuzzy Partial String similarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from difflib import SequenceMatcher
 
 from ._distance import _Distance

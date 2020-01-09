@@ -21,13 +21,6 @@
 Henderson-Heron dissimilarity
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from math import factorial
 
 from ._token_distance import _TokenDistance

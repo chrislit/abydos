@@ -39,13 +39,6 @@ performed by creating a :py:class:`.BWT` object and then calling
 
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from ._arithmetic import Arithmetic, ac_decode, ac_encode, ac_train
 from ._bwt import BWT, bwt_decode, bwt_encode
 from ._rle import RLE, rle_decode, rle_encode

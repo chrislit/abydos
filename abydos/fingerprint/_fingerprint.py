@@ -22,13 +22,6 @@ The fingerprint._Fingerprint module implements abstract class Fingerprint
 and defines contants for most common letters.
 """
 
-from __future__ import (
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 __all__ = ['_Fingerprint']
 
 # fmt: off
