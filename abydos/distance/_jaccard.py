@@ -19,7 +19,7 @@
 Jaccard similarity coefficient, distance, & Tanimoto coefficient
 """
 
-from math import log
+from math import log2
 
 from deprecation import deprecated
 
@@ -174,7 +174,7 @@ class Jaccard(Tversky):
         """
         coeff = self.sim(src, tar)
         if coeff != 0:
-            return log(coeff, 2)
+            return log2(coeff)
 
         return float('-inf')
 
