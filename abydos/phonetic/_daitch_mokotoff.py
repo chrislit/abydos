@@ -357,7 +357,6 @@ class DaitchMokotoff(_Phonetic):
 
         # uppercase, normalize, decompose, and filter non-A-Z
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
         word = ''.join(c for c in word if c in self._uc_set)
 
         # Nothing to convert, return base case

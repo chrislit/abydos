@@ -127,7 +127,6 @@ class SoundD(_Phonetic):
 
         """
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
         word = ''.join(c for c in word if c in self._uc_set)
 
         if word[:2] in {'KN', 'GN', 'PN', 'AC', 'WR'}:

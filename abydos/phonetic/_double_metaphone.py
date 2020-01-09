@@ -233,7 +233,6 @@ class DoubleMetaphone(_Phonetic):
         last = length - 1
 
         word = word.upper()
-        word = word.replace('ß', 'SS')
 
         # Pad the original string so that we can index beyond the edge of the
         # world

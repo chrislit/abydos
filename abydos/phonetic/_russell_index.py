@@ -88,7 +88,6 @@ class RussellIndex(_Phonetic):
 
         """
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
         word = word.replace('GH', '')  # discard gh (rule 3)
         word = word.rstrip('SZ')  # discard /[sz]$/ (rule 3)
 

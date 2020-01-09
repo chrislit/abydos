@@ -133,7 +133,6 @@ class Koelner(_Phonetic):
         sdx = ''
 
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
 
         word = word.replace('Ä', 'AE')
         word = word.replace('Ö', 'OE')

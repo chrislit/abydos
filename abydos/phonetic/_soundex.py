@@ -184,7 +184,6 @@ class Soundex(_Phonetic):
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
 
         if self._var == 'Census':
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:

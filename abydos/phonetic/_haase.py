@@ -178,7 +178,6 @@ class Haase(_Phonetic):
             return False
 
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
 
         word = word.replace('Ä', 'AE')
         word = word.replace('Ö', 'OE')

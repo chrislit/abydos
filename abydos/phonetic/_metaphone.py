@@ -98,7 +98,6 @@ class Metaphone(_Phonetic):
         """
         # As in variable sound--those modified by adding an "h"
         ename = ''.join(c for c in word.upper() if c.isalnum())
-        ename = ename.replace('ß', 'SS')
 
         # Delete non-alphanumeric characters and make all caps
         if not ename:

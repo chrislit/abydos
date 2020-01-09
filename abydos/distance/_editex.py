@@ -179,9 +179,6 @@ class Editex(_Distance):
         # convert both src & tar to NFKD normalized unicode
         src = unicode_normalize('NFKD', src.upper())
         tar = unicode_normalize('NFKD', tar.upper())
-        # convert ß to SS (for Python2)
-        src = src.replace('ß', 'SS')
-        tar = tar.replace('ß', 'SS')
 
         src_len = len(src)
         tar_len = len(tar)

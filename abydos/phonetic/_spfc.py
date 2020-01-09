@@ -202,7 +202,7 @@ class SPFC(_Phonetic):
             _raise_word_ex()
 
         names = [
-            unicode_normalize('NFKD', _.strip().replace('ß', 'SS').upper())
+            unicode_normalize('NFKD', _.strip().upper())
             for _ in names
         ]
         code = ''

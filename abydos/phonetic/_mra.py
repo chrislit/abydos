@@ -70,7 +70,6 @@ class MRA(_Phonetic):
         if not word:
             return word
         word = word.upper()
-        word = word.replace('ß', 'SS')
         word = word[0] + ''.join(
             c for c in word[1:] if c not in self._uc_v_set
         )

@@ -107,7 +107,6 @@ class NYSIIS(_Phonetic):
         """
 
         word = ''.join(c for c in word.upper() if c.isalpha())
-        word = word.replace('ß', 'SS')
 
         # exit early if there are no alphas
         if not word:

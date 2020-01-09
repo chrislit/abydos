@@ -277,7 +277,6 @@ class SfinxBis(_Phonetic):
 
             lokal_ordet = lokal_ordet.replace('Ð', 'ETH')
             lokal_ordet = lokal_ordet.replace('Þ', 'TH')
-            lokal_ordet = lokal_ordet.replace('ß', 'SS')
 
             return lokal_ordet
 
@@ -349,7 +348,6 @@ class SfinxBis(_Phonetic):
 
         # Steg 1, Versaler
         word = unicode_normalize('NFC', word.upper())
-        word = word.replace('ß', 'SS')
         word = word.replace('-', ' ')
 
         # Steg 2, Ta bort adelsprefix

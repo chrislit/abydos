@@ -160,7 +160,6 @@ class PSHPSoundexFirst(_Phonetic):
 
         """
         fname = unicode_normalize('NFKD', fname.upper())
-        fname = fname.replace('ß', 'SS')
         fname = ''.join(c for c in fname if c in self._uc_set)
 
         # special rules

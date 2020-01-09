@@ -399,7 +399,6 @@ class Phonix(_Phonetic):
         sdx = ''
 
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
         word = ''.join(c for c in word if c in self._uc_set)
         if word:
             for trans in self._substitutions:

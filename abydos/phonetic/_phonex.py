@@ -125,7 +125,6 @@ class Phonex(_Phonetic):
 
         """
         name = unicode_normalize('NFKD', word.upper())
-        name = name.replace('ß', 'SS')
 
         name_code = last = ''
 

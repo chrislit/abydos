@@ -158,7 +158,6 @@ class RethSchek(_Phonetic):
         word = word.replace('Ä', 'AE')
         word = word.replace('Ö', 'OE')
         word = word.replace('Ü', 'UE')
-        word = word.replace('ß', 'SS')
 
         # Main loop, using above replacements table
         pos = 0

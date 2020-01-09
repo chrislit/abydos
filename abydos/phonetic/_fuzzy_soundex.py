@@ -133,7 +133,6 @@ class FuzzySoundex(_Phonetic):
 
         """
         word = unicode_normalize('NFKD', word.upper())
-        word = word.replace('ß', 'SS')
 
         if not word:
             if self._zero_pad:

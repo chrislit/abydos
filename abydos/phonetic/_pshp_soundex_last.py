@@ -136,7 +136,6 @@ class PSHPSoundexLast(_Phonetic):
 
         """
         lname = unicode_normalize('NFKD', lname.upper())
-        lname = lname.replace('ß', 'SS')
         lname = ''.join(c for c in lname if c in self._uc_set)
 
         # A. Prefix treatment
