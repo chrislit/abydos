@@ -179,7 +179,7 @@ def _default_download_dir():
     """
     # Check if we are on GAE where we cannot write into filesystem.
     if 'APPENGINE_RUNTIME' in os.environ:  # pragma: no cover
-        return
+        return None
 
     # Check if we have sufficient permissions to install in a
     # variety of system-wide locations.

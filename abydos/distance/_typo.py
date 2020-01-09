@@ -279,6 +279,7 @@ class Typo(_Distance):
             for row in kb_array:  # pragma: no branch
                 if char in row:
                     return kb_array.index(row), row.index(char)
+            return -1, -1
 
         def _euclidean_keyboard_distance(char1, char2):
             row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))

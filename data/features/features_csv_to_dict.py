@@ -81,8 +81,8 @@ def main(argv):
             return '10'
         elif num == '1':  # +
             return '01'
-        elif num == '2':  # ± (segmental) or copy from base (non-segmental)
-            return '11'
+        # '2' -> ± (segmental) or copy from base (non-segmental)
+        return '11'
 
     def init_termdicts():
         """Initialize the terms dict.
