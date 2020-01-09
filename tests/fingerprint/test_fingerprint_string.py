@@ -23,6 +23,7 @@ import unittest
 
 from abydos.fingerprint import String, str_fingerprint
 
+
 class StringTestCases(unittest.TestCase):
     """Test string fingerprint functions.
 

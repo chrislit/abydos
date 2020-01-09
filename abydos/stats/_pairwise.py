@@ -20,7 +20,6 @@ The stats._pairwise module implements pairwise statistical algorithms.
 """
 
 
-
 from ._mean import amean, hmean, std
 from ..distance._levenshtein import sim_levenshtein as sim
 
