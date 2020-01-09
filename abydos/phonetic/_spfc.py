@@ -201,10 +201,7 @@ class SPFC(_Phonetic):
         else:
             _raise_word_ex()
 
-        names = [
-            unicode_normalize('NFKD', _.strip().upper())
-            for _ in names
-        ]
+        names = [unicode_normalize('NFKD', _.strip().upper()) for _ in names]
         code = ''
 
         def _steps_one_to_three(name):
