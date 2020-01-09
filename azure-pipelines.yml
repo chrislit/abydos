@@ -84,7 +84,7 @@ jobs:
       versionSpec: '$(python.version)'
       architecture: '$(architecture)'
 
-  - script: python -m pip install --upgrade pip && pip install cython && pip install cython -r requirements.txt nltk syllabipy paq
+  - script: python -m pip install --upgrade pip && pip install cython && pip install cython -r requirements.txt nltk syllabipy
     displayName: 'Install dependencies'
 
   - script: |
