@@ -39,7 +39,7 @@ class NCDzlib(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION):
+    def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION, **kwargs):
         """Initialize zlib compressor.
 
         Parameters
@@ -51,6 +51,7 @@ class NCDzlib(_Distance):
         .. versionadded:: 0.3.6
 
         """
+        super().__init__(**kwargs)
         self._level = level
 
     def dist(self, src, tar):

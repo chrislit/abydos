@@ -41,7 +41,7 @@ class NCDbz2(_Distance):
 
     _level = 9
 
-    def __init__(self, level=9):
+    def __init__(self, level=9, **kwargs):
         """Initialize bzip2 compressor.
 
         Parameters
@@ -55,6 +55,7 @@ class NCDbz2(_Distance):
             Encapsulated in class
 
         """
+        super().__init__(**kwargs)
         self._level = level
 
     def dist(self, src, tar):
