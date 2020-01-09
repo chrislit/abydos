@@ -121,7 +121,7 @@ class MutualInformation(_TokenDistance):
         >>> cmp.sim_score('aluminum', 'Catalan')
         3.428560943378589
         >>> cmp.sim_score('ATCG', 'TAGC')
-        -4.700439718141093
+        -4.700439718141092
 
 
         .. versionadded:: 0.4.0
@@ -155,13 +155,13 @@ class MutualInformation(_TokenDistance):
         --------
         >>> cmp = MutualInformation()
         >>> cmp.sim('cat', 'hat')
-        0.9336092530889809
+        0.933609253088981
         >>> cmp.sim('Niall', 'Neil')
-        0.891168488172523
+        0.8911684881725231
         >>> cmp.sim('aluminum', 'Catalan')
         0.7600321183863901
         >>> cmp.sim('ATCG', 'TAGC')
-        0.1752299652353853
+        0.17522996523538537
 
 
         .. versionadded:: 0.4.0

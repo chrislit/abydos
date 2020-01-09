@@ -79,11 +79,11 @@ class MarkingMetric(Marking):
         >>> cmp.dist_abs('cat', 'hat')
         2.0
         >>> cmp.dist_abs('Niall', 'Neil')
-        3.5849625007211565
+        3.584962500721156
         >>> cmp.dist_abs('aluminum', 'Catalan')
-        4.584962500721157
+        4.584962500721156
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        3.1699250014423126
+        3.169925001442312
         >>> cmp.dist_abs('cbaabdcb', 'abcba')
         2.584962500721156
 

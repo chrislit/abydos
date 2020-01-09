@@ -120,9 +120,9 @@ class TullossT(_TokenDistance):
         >>> cmp.sim('cat', 'hat')
         0.5363348766461724
         >>> cmp.sim('Niall', 'Neil')
-        0.37408737056893265
+        0.3740873705689327
         >>> cmp.sim('aluminum', 'Catalan')
-        0.12293007830952692
+        0.1229300783095269
         >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
