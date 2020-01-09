@@ -20,9 +20,8 @@ The util._prod module defines _prod, which computes the product of a collection
 of numbers (akin to sum, but for product).
 """
 
-from operator import mul
-
 from functools import reduce
+from operator import mul
 
 __all__ = []
 
