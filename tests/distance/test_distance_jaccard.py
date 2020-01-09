@@ -19,8 +19,8 @@
 This module contains unit tests for abydos.distance.Jaccard
 """
 
-from math import log2
 import unittest
+from math import log2
 
 from abydos.distance import Jaccard, dist_jaccard, sim_jaccard, tanimoto
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
