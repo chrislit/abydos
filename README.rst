@@ -71,7 +71,7 @@ Abydos
     :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
     :alt: FOSSA Status
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.0/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.08/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
 
@@ -83,7 +83,7 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-43,113-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,614-blue.svg
     :target: #
     :alt: SLOCCount
 
