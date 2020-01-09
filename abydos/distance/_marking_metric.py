@@ -19,7 +19,7 @@
 Ehrenfeucht & Haussler's marking metric
 """
 
-from math import log
+from math import log2
 
 from ._marking import Marking
 
@@ -93,7 +93,7 @@ class MarkingMetric(Marking):
         """
         diff1 = super(MarkingMetric, self).dist_abs(src, tar)
         diff2 = super(MarkingMetric, self).dist_abs(tar, src)
-        return log((diff1 + 1) * (diff2 + 1), 2)
+        return log2((diff1 + 1) * (diff2 + 1))
 
     def dist(self, src, tar):
         """Return the normalized marking distance of two strings.
@@ -130,7 +130,7 @@ class MarkingMetric(Marking):
         """
         score = self.dist_abs(src, tar)
         if score:
-            return score / log((len(src) + 1) * (len(tar) + 1), 2)
+            return score / log2((len(src) + 1) * (len(tar) + 1))
         return 0.0
 
 
