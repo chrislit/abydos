@@ -32,10 +32,9 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install cython
+            python3 -m pip install --upgrade pip
             echo "tox" >> requirements.txt
-            pip install -r requirements.txt
-            pip install -r requirements-test.txt
+            pip install cython -r requirements.txt -r requirements-test.txt
 
       - save_cache:
           paths:

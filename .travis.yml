@@ -21,11 +21,8 @@ notifications:
 
 # Install packages
 install:
-  - travis_retry pip install cython
-  - travis_retry pip install paq lzss
-  - travis_retry pip install coveralls
-  - travis_retry pip install -r requirements.txt
-  - travis_retry pip install -r requirements-test.txt
+  - travis_retry python -m pip install --upgrade pip
+  - travis_retry pip install cython paq lzss coveralls -r requirements.txt -r requirements-test.txt
   - travis_retry python setup.py install
 
 # Run test
