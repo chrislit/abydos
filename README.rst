@@ -281,7 +281,6 @@ Installation
 Required libraries:
 
 - NumPy
-- six
 - deprecation
 
 Optional libraries (all available on PyPI, some available on conda or
