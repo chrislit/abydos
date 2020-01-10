@@ -107,8 +107,8 @@ Abydos
     :target: https://libraries.io/pypi/abydos
     :alt: Libraries.io SourceRank
 
-.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3600548.svg
-    :target: https://doi.org/10.5281/zenodo.3600548
+.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3603514.svg
+    :target: https://doi.org/10.5281/zenodo.3603514
     :alt: Zenodo
 
 .. |openhub| image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
