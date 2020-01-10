@@ -6,13 +6,13 @@ Abydos
 +------------------+------------------------------------------------------+
 | Code Quality     | |codeclimate| |scrutinizer| |codacy| |codefactor|    |
 +------------------+------------------------------------------------------+
-| Dependencies     | |requires| |snyk| |pyup|                             |
+| Dependencies     | |requires| |snyk| |pyup| |cii|                       |
 +------------------+------------------------------------------------------+
 | Local Analysis   | |pylint| |flake8| |pydocstyle| |sloccount| |black|   |
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
-| Contribution     | |cii| |openhub| |gh-commits| |gh-issues| |gh-stars|  |
+| Contribution     | |openhub| |gh-commits| |gh-issues| |gh-stars|  |
 +------------------+------------------------------------------------------+
 | PyPI             | |pypi| |pypi-dl| |pypi-ver|                          |
 +------------------+------------------------------------------------------+
@@ -67,6 +67,10 @@ Abydos
     :target: https://pyup.io/repos/github/chrislit/abydos/
     :alt: Updates
 
+.. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
+    :target: https://bestpractices.coreinfrastructure.org/projects/1598
+    :alt: CII Best Practices
+
 .. |pylint| image:: https://img.shields.io/badge/Pylint-9.09/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
@@ -106,10 +110,6 @@ Abydos
 .. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3600548.svg
     :target: https://doi.org/10.5281/zenodo.3600548
     :alt: Zenodo
-
-.. |cii| image:: https://bestpractices.coreinfrastructure.org/projects/1598/badge
-    :target: https://bestpractices.coreinfrastructure.org/projects/1598
-    :alt: CII Best Practices
 
 .. |openhub| image:: https://www.openhub.net/p/abydosnlp/widgets/project_thin_badge.gif
     :target: https://www.openhub.net/p/abydosnlp
