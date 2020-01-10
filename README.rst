@@ -6,7 +6,7 @@ Abydos
 +------------------+------------------------------------------------------+
 | Code Quality     | |codeclimate| |scrutinizer| |codacy| |codefactor|    |
 +------------------+------------------------------------------------------+
-| Dependencies     | |requires| |snyk| |pyup| |fossa|                     |
+| Dependencies     | |requires| |snyk| |pyup|                             |
 +------------------+------------------------------------------------------+
 | Local Analysis   | |pylint| |flake8| |pydocstyle| |sloccount| |black|   |
 +------------------+------------------------------------------------------+
@@ -66,10 +66,6 @@ Abydos
 .. |pyup| image:: https://pyup.io/repos/github/chrislit/abydos/shield.svg
     :target: https://pyup.io/repos/github/chrislit/abydos/
     :alt: Updates
-
-.. |fossa| image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchrislit%2Fabydos.svg?type=shield
-    :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield
-    :alt: FOSSA Status
 
 .. |pylint| image:: https://img.shields.io/badge/Pylint-9.09/10-yellowgreen.svg
     :target: #
