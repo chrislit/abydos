@@ -19,12 +19,9 @@
 Metaphone
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Metaphone', 'metaphone']
+__all__ = ['Metaphone']
 
 
 class Metaphone(_Phonetic):
@@ -260,47 +257,6 @@ class Metaphone(_Phonetic):
                 metaph += 'S'
 
         return metaph
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Metaphone.encode method instead.',
-)
-def metaphone(word, max_length=-1):
-    """Return the Metaphone code for a word.
-
-    This is a wrapper for :py:meth:`Metaphone.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The maximum length of the returned Metaphone code (defaults to 64, but
-        in Philips' original implementation this was 4)
-
-    Returns
-    -------
-    str
-        The Metaphone value
-
-    Examples
-    --------
-    >>> metaphone('Christopher')
-    'KRSTFR'
-    >>> metaphone('Niall')
-    'NL'
-    >>> metaphone('Smith')
-    'SM0'
-    >>> metaphone('Schmidt')
-    'SKMTT'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Metaphone(max_length).encode(word)
 
 
 if __name__ == '__main__':

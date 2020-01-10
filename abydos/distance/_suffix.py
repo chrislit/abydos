@@ -19,12 +19,9 @@
 Suffix similarity & distance
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Suffix', 'dist_suffix', 'sim_suffix']
+__all__ = ['Suffix']
 
 
 class Suffix(_Distance):
@@ -80,86 +77,6 @@ class Suffix(_Distance):
             if min_word[-i:] == max_word[-i:]:
                 return i / min_len
         return 0.0
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Suffix.sim method instead.',
-)
-def sim_suffix(src, tar):
-    """Return the suffix similarity of two strings.
-
-    This is a wrapper for :py:meth:`Suffix.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Suffix similarity
-
-    Examples
-    --------
-    >>> sim_suffix('cat', 'hat')
-    0.6666666666666666
-    >>> sim_suffix('Niall', 'Neil')
-    0.25
-    >>> sim_suffix('aluminum', 'Catalan')
-    0.0
-    >>> sim_suffix('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Suffix().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Suffix.dist method instead.',
-)
-def dist_suffix(src, tar):
-    """Return the suffix distance between two strings.
-
-    This is a wrapper for :py:meth:`Suffix.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Suffix distance
-
-    Examples
-    --------
-    >>> dist_suffix('cat', 'hat')
-    0.33333333333333337
-    >>> dist_suffix('Niall', 'Neil')
-    0.75
-    >>> dist_suffix('aluminum', 'Catalan')
-    1.0
-    >>> dist_suffix('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Suffix().dist(src, tar)
 
 
 if __name__ == '__main__':

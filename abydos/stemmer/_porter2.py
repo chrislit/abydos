@@ -21,12 +21,9 @@ Porter2 (Snowball English) stemmer
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._snowball import _Snowball
-from .. import __version__
 
-__all__ = ['Porter2', 'porter2']
+__all__ = ['Porter2']
 
 
 class Porter2(_Snowball):
@@ -386,48 +383,6 @@ class Porter2(_Snowball):
                 word = word[:i] + 'y' + word[i + 1 :]
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Porter2.stem method instead.',
-)
-def porter2(word, early_english=False):
-    """Return the Porter2 (Snowball English) stem.
-
-    This is a wrapper for :py:meth:`Porter2.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-    early_english : bool
-        Set to True in order to remove -eth & -est (2nd & 3rd person singular
-        verbal agreement suffixes)
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> porter2('reading')
-    'read'
-    >>> porter2('suspension')
-    'suspens'
-    >>> porter2('elusiveness')
-    'elus'
-
-    >>> porter2('eateth', early_english=True)
-    'eat'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Porter2(early_english).stem(word)
 
 
 if __name__ == '__main__':

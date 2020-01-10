@@ -19,12 +19,9 @@
 Euclidean distance & similarity
 """
 
-from deprecation import deprecated
-
 from ._minkowski import Minkowski
-from .. import __version__
 
-__all__ = ['Euclidean', 'dist_euclidean', 'euclidean', 'sim_euclidean']
+__all__ = ['Euclidean']
 
 
 class Euclidean(Minkowski):
@@ -154,141 +151,6 @@ class Euclidean(Minkowski):
 
         """
         return self.dist_abs(src, tar, normalized=True)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Euclidean.dist_abs method instead.',
-)
-def euclidean(src, tar, qval=2, normalized=False, alphabet=0):
-    """Return the Euclidean distance between two strings.
-
-    This is a wrapper for :py:meth:`Euclidean.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    normalized : bool
-        Normalizes to [0, 1] if True
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float: The Euclidean distance
-
-    Examples
-    --------
-    >>> euclidean('cat', 'hat')
-    2.0
-    >>> round(euclidean('Niall', 'Neil'), 12)
-    2.645751311065
-    >>> euclidean('Colin', 'Cuilen')
-    3.0
-    >>> round(euclidean('ATCG', 'TAGC'), 12)
-    3.162277660168
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Euclidean(alphabet=alphabet, qval=qval).dist_abs(
-        src, tar, normalized=normalized
-    )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Euclidean.dist method instead.',
-)
-def dist_euclidean(src, tar, qval=2, alphabet=0):
-    """Return the normalized Euclidean distance between two strings.
-
-    This is a wrapper for :py:meth:`Euclidean.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The normalized Euclidean distance
-
-    Examples
-    --------
-    >>> round(dist_euclidean('cat', 'hat'), 12)
-    0.57735026919
-    >>> round(dist_euclidean('Niall', 'Neil'), 12)
-    0.683130051064
-    >>> round(dist_euclidean('Colin', 'Cuilen'), 12)
-    0.727606875109
-    >>> dist_euclidean('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Euclidean(alphabet=alphabet, qval=qval).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Euclidean.sim method instead.',
-)
-def sim_euclidean(src, tar, qval=2, alphabet=0):
-    """Return the normalized Euclidean similarity of two strings.
-
-    This is a wrapper for :py:meth:`Euclidean.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The normalized Euclidean similarity
-
-    Examples
-    --------
-    >>> round(sim_euclidean('cat', 'hat'), 12)
-    0.42264973081
-    >>> round(sim_euclidean('Niall', 'Neil'), 12)
-    0.316869948936
-    >>> round(sim_euclidean('Colin', 'Cuilen'), 12)
-    0.272393124891
-    >>> sim_euclidean('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Euclidean(alphabet=alphabet, qval=qval).sim(src, tar)
 
 
 if __name__ == '__main__':

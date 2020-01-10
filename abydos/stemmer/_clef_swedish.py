@@ -19,12 +19,9 @@
 CLEF Swedish stemmer
 """
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['CLEFSwedish', 'clef_swedish']
+__all__ = ['CLEFSwedish']
 
 
 class CLEFSwedish(_Stemmer):
@@ -81,42 +78,6 @@ class CLEFSwedish(_Stemmer):
             if wlen > end_len and word[-end_len:] in _endings[end_len]:
                 return word[:-end_len]
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the CLEFSwedish.stem method instead.',
-)
-def clef_swedish(word):
-    """Return CLEF Swedish stem.
-
-    This is a wrapper for :py:meth:`CLEFSwedish.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> clef_swedish('undervisa')
-    'undervis'
-    >>> clef_swedish('suspension')
-    'suspensio'
-    >>> clef_swedish('visshet')
-    'viss'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return CLEFSwedish().stem(word)
 
 
 if __name__ == '__main__':

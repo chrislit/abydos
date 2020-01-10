@@ -21,12 +21,9 @@ CLEF German stemmer
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['CLEFGerman', 'clef_german']
+__all__ = ['CLEFGerman']
 
 
 class CLEFGerman(_Stemmer):
@@ -87,42 +84,6 @@ class CLEFGerman(_Stemmer):
             if word[-1] in {'e', 'n', 'r', 's'}:
                 return word[:-1]
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the CLEFGerman.stem method instead.',
-)
-def clef_german(word):
-    """Return CLEF German stem.
-
-    This is a wrapper for :py:meth:`CLEFGerman.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> clef_german('lesen')
-    'lese'
-    >>> clef_german('graues')
-    'grau'
-    >>> clef_german('buchstabieren')
-    'buchstabier'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return CLEFGerman().stem(word)
 
 
 if __name__ == '__main__':

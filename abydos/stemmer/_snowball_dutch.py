@@ -21,12 +21,9 @@ Snowball Dutch stemmer
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._snowball import _Snowball
-from .. import __version__
 
-__all__ = ['SnowballDutch', 'sb_dutch']
+__all__ = ['SnowballDutch']
 
 
 class SnowballDutch(_Snowball):
@@ -214,42 +211,6 @@ class SnowballDutch(_Snowball):
                 word = word[:i] + 'i' + word[i + 1 :]
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SnowballDutch.stem method instead.',
-)
-def sb_dutch(word):
-    """Return Snowball Dutch stem.
-
-    This is a wrapper for :py:meth:`SnowballDutch.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> sb_dutch('lezen')
-    'lez'
-    >>> sb_dutch('opschorting')
-    'opschort'
-    >>> sb_dutch('ongrijpbaarheid')
-    'ongrijp'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return SnowballDutch().stem(word)
 
 
 if __name__ == '__main__':

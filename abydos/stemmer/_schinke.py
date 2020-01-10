@@ -21,12 +21,9 @@ Schinke Latin stemmer.
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['Schinke', 'schinke']
+__all__ = ['Schinke']
 
 
 class Schinke(_Stemmer):
@@ -257,46 +254,6 @@ class Schinke(_Stemmer):
                 break
 
         return {'n': noun, 'v': verb}
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Schinke.stem method instead.',
-)
-def schinke(word):
-    """Return the stem of a word according to the Schinke stemmer.
-
-    This is a wrapper for :py:meth:`Schinke.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> schinke('atque')
-    {'n': 'atque', 'v': 'atque'}
-    >>> schinke('census')
-    {'n': 'cens', 'v': 'censu'}
-    >>> schinke('virum')
-    {'n': 'uir', 'v': 'uiru'}
-    >>> schinke('populusque')
-    {'n': 'popul', 'v': 'populu'}
-    >>> schinke('senatus')
-    {'n': 'senat', 'v': 'senatu'}
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Schinke().stem(word)
 
 
 if __name__ == '__main__':
