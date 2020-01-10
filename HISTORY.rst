@@ -1,10 +1,20 @@
 Release History
 ---------------
 
-0.5.0 (2020-00-00) *ecgtheow*
+0.6.0 (2020-00-00) *f*
 +++++++++++++++++++++++++++++
 
 doi:10.5281/zenodo.
+
+Changes:
+
+- The deprecated function-based API wrappers were removed.
+
+
+0.5.0 (2020-01-09) *ecgtheow*
++++++++++++++++++++++++++++++
+
+doi:10.5281/zenodo.3603514
 
 Changes:
 
