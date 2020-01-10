@@ -128,6 +128,8 @@ warranted.
       tracks whether there are security vulnerabilities in any dependencies.
     - `Pyup.io <https://pyup.io/repos/github/chrislit/abydos/>`_ tracks updates
       and security vulnerabilities in dependencies.
+    - `CII Best Practices <https://bestpractices.coreinfrastructure.org/en/projects/1598>`_
+      identifies compliance with Core Infrastructure Initiative best practices.
 
 - Local Analysis
 
@@ -156,8 +158,6 @@ warranted.
 
 - Contribution
 
-    - `CII Best Practices <https://bestpractices.coreinfrastructure.org/en/projects/1598>`_
-      identifies compliance with Core Infrastructure Initiative best practices.
     - `OpenHub <https://www.openhub.net/p/abydosnlp>`_ tracks project activity
       and KLOC and estimates project value.
     - The commit activity shows commit rate.
