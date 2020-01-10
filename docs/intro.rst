@@ -128,8 +128,6 @@ warranted.
       tracks whether there are security vulnerabilities in any dependencies.
     - `Pyup.io <https://pyup.io/repos/github/chrislit/abydos/>`_ tracks updates
       and security vulnerabilities in dependencies.
-    - `FOSSA <https://app.fossa.io/projects/git%2Bgithub.com%2Fchrislit%2Fabydos?ref=badge_shield>`_
-      checks license compliance.
 
 - Local Analysis
 
