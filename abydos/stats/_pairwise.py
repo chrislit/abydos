@@ -21,7 +21,7 @@ The stats._pairwise module implements pairwise statistical algorithms.
 
 
 from ._mean import amean, hmean, std
-from ..distance._levenshtein import sim_levenshtein as sim
+from ..distance._levenshtein import Levenshtein as sim
 
 __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 

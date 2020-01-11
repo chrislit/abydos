@@ -22,7 +22,7 @@ eudex distance functions
 from types import GeneratorType
 
 from ._distance import _Distance
-from ..phonetic import eudex
+from ..phonetic import Eudex as EudexPhonetic
 
 __all__ = ['Eudex']
 
@@ -34,6 +34,8 @@ class Eudex(_Distance):
 
     .. versionadded:: 0.3.6
     """
+
+    _phonetic_alg = EudexPhonetic()
 
     @staticmethod
     def gen_fibonacci():
@@ -190,9 +192,9 @@ class Eudex(_Distance):
         """
 
         # Calculate the eudex hashes and XOR them
-        xored = eudex(src, max_length=self._max_length) ^ eudex(
-            tar, max_length=self._max_length
-        )
+        xored = self._phonetic_alg.encode(
+            src, max_length=self._max_length
+        ) ^ self._phonetic_alg.encode(tar, max_length=self._max_length)
 
         # Simple hamming distance (all bits are equal)
         if not self._weights:

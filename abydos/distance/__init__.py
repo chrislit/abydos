@@ -920,7 +920,7 @@ __all__ = [
 ]
 
 
-def sim(src, tar, method=sim_levenshtein):
+def sim(src, tar, method=None):
     """Return a similarity of two strings.
 
     This is a generalized function for calling other similarity functions.
@@ -932,7 +932,7 @@ def sim(src, tar, method=sim_levenshtein):
     tar : str
         Target string for comparison
     method : function
-        Specifies the similarity metric (:py:func:`sim_levenshtein` by default)
+        Specifies the similarity metric (:py:meth:`Levenshtein.sim` by default)
 
     Returns
     -------
@@ -958,13 +958,15 @@ def sim(src, tar, method=sim_levenshtein):
     .. versionadded:: 0.1.0
 
     """
+    if method is None:
+        method = Levenshtein().sim
     if callable(method):
         return method(src, tar)
     else:
         raise AttributeError('Unknown similarity function: ' + str(method))
 
 
-def dist(src, tar, method=sim_levenshtein):
+def dist(src, tar, method=None):
     """Return a distance between two strings.
 
     This is a generalized function for calling other distance functions.
@@ -976,7 +978,7 @@ def dist(src, tar, method=sim_levenshtein):
     tar : str
         Target string for comparison
     method : function
-        Specifies the similarity metric (:py:func:`sim_levenshtein` by default)
+        Specifies the similarity metric (:py:meth:`Levenshtein.sim` by default)
         -- Note that this takes a similarity metric function, not a distance
         metric function.
 
@@ -1004,6 +1006,8 @@ def dist(src, tar, method=sim_levenshtein):
     .. versionadded:: 0.1.0
 
     """
+    if method is None:
+        method = Levenshtein().sim
     if callable(method):
         return 1 - method(src, tar)
     else:

@@ -22,8 +22,8 @@ Synoname.
 from collections import Iterable
 
 from ._distance import _Distance
-from ._levenshtein import levenshtein
-from ._ratcliff_obershelp import sim_ratcliff_obershelp
+from ._levenshtein import Levenshtein
+from ._ratcliff_obershelp import RatcliffObershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname_toolcode import SynonameToolcode
@@ -38,6 +38,9 @@ class Synoname(_Distance):
 
     .. versionadded:: 0.3.6
     """
+
+    _lev = Levenshtein()
+    _ratcliff_obershelp = RatcliffObershelp()
 
     _stc = SynonameToolcode()
 
@@ -604,7 +607,7 @@ class Synoname(_Distance):
                     if full_tar.startswith(intro):
                         full_tar = full_tar[len(intro) :]
 
-            loc_ratio = sim_ratcliff_obershelp(full_src, full_tar)
+            loc_ratio = self._ratcliff_obershelp.sim(full_src, full_tar)
             return loc_ratio >= self._char_approx_min, loc_ratio
 
         approx_c_result, ca_ratio = _approx_c()
@@ -612,38 +615,41 @@ class Synoname(_Distance):
         if self._tests & self._test_dict['exact'] and fn_equal and ln_equal:
             return _fmt_retval(self._match_type_dict['exact'])
         if self._tests & self._test_dict['omission']:
-            if (
-                fn_equal
-                and levenshtein(src_ln, tar_ln, cost=(1, 1, 99, 99)) == 1
-            ):
+            (
+                self._lev.ins_cost,
+                self._lev.del_cost,
+                self._lev.sub_cost,
+                self._lev.trans_cost,
+            ) = (1, 1, 99, 99)
+            self._lev._mode = 'lev'
+            if fn_equal and self._lev.dist_abs(src_ln, tar_ln) == 1:
                 if not roman_conflict:
                     return _fmt_retval(self._match_type_dict['omission'])
-            elif (
-                ln_equal
-                and levenshtein(src_fn, tar_fn, cost=(1, 1, 99, 99)) == 1
-            ):
+            elif ln_equal and self._lev.dist_abs(src_fn, tar_fn) == 1:
                 return _fmt_retval(self._match_type_dict['omission'])
         if self._tests & self._test_dict['substitution']:
-            if (
-                fn_equal
-                and levenshtein(src_ln, tar_ln, cost=(99, 99, 1, 99)) == 1
-            ):
+            (
+                self._lev.ins_cost,
+                self._lev.del_cost,
+                self._lev.sub_cost,
+                self._lev.trans_cost,
+            ) = (99, 99, 1, 99)
+            self._lev._mode = 'lev'
+            if fn_equal and self._lev.dist_abs(src_ln, tar_ln) == 1:
                 return _fmt_retval(self._match_type_dict['substitution'])
-            elif (
-                ln_equal
-                and levenshtein(src_fn, tar_fn, cost=(99, 99, 1, 99)) == 1
-            ):
+            elif ln_equal and self._lev.dist_abs(src_fn, tar_fn) == 1:
                 return _fmt_retval(self._match_type_dict['substitution'])
         if self._tests & self._test_dict['transposition']:
-            if fn_equal and (
-                levenshtein(src_ln, tar_ln, mode='osa', cost=(99, 99, 99, 1))
-                == 1
-            ):
+            (
+                self._lev.ins_cost,
+                self._lev.del_cost,
+                self._lev.sub_cost,
+                self._lev.trans_cost,
+            ) = (99, 99, 99, 1)
+            self._lev._mode = 'osa'
+            if fn_equal and (self._lev.dist_abs(src_ln, tar_ln) == 1):
                 return _fmt_retval(self._match_type_dict['transposition'])
-            elif ln_equal and (
-                levenshtein(src_fn, tar_fn, mode='osa', cost=(99, 99, 99, 1))
-                == 1
-            ):
+            elif ln_equal and (self._lev.dist_abs(src_fn, tar_fn) == 1):
                 return _fmt_retval(self._match_type_dict['transposition'])
         if self._tests & self._test_dict['punctuation']:
             np_src_fn = self._synoname_strip_punct(src_fn)
@@ -676,22 +682,21 @@ class Synoname(_Distance):
                     if src_initials == tar_initials:
                         return _fmt_retval(self._match_type_dict['initials'])
                     initial_diff = abs(len(src_initials) - len(tar_initials))
+                    (
+                        self._lev.ins_cost,
+                        self._lev.del_cost,
+                        self._lev.sub_cost,
+                        self._lev.trans_cost,
+                    ) = (1, 99, 99, 99)
+                    self._lev._mode = 'lev'
                     if initial_diff and (
                         (
                             initial_diff
-                            == levenshtein(
-                                src_initials,
-                                tar_initials,
-                                cost=(1, 99, 99, 99),
-                            )
+                            == self._lev.dist_abs(src_initials, tar_initials,)
                         )
                         or (
                             initial_diff
-                            == levenshtein(
-                                tar_initials,
-                                src_initials,
-                                cost=(1, 99, 99, 99),
-                            )
+                            == self._lev.dist_abs(tar_initials, src_initials,)
                         )
                     ):
                         return _fmt_retval(self._match_type_dict['initials'])

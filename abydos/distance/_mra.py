@@ -20,7 +20,7 @@ The Match Rating Algorithm's distance measure
 """
 
 from ._distance import _Distance
-from ..phonetic import mra
+from ..phonetic import MRA as MRAPhonetic
 
 __all__ = ['MRA']
 
@@ -33,6 +33,8 @@ class MRA(_Distance):
 
     .. versionadded:: 0.3.6
     """
+
+    _phonetic_alg = MRAPhonetic()
 
     def dist_abs(self, src, tar):
         """Return the MRA comparison rating of two strings.
@@ -71,8 +73,8 @@ class MRA(_Distance):
             return 6
         if src == '' or tar == '':
             return 0
-        src = list(mra(src))
-        tar = list(mra(tar))
+        src = list(self._phonetic_alg.encode(src))
+        tar = list(self._phonetic_alg.encode(tar))
 
         if abs(len(src) - len(tar)) > 2:
             return 0
