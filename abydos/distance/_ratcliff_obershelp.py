@@ -24,9 +24,7 @@ from numpy import zeros as np_zeros
 
 from ._distance import _Distance
 
-__all__ = [
-    'RatcliffObershelp'
-]
+__all__ = ['RatcliffObershelp']
 
 
 class RatcliffObershelp(_Distance):

@@ -23,9 +23,7 @@ from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
 
-__all__ = [
-    'RussellIndex'
-]
+__all__ = ['RussellIndex']
 
 
 class RussellIndex(_Phonetic):

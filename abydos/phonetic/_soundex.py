@@ -23,7 +23,9 @@ from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
 
-__all__ = ['Soundex',]
+__all__ = [
+    'Soundex',
+]
 
 
 class Soundex(_Phonetic):
