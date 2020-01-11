@@ -21,12 +21,9 @@ NCD using bzip2
 
 import bz2
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['NCDbz2', 'dist_ncd_bz2', 'sim_ncd_bz2']
+__all__ = ['NCDbz2']
 
 
 class NCDbz2(_Distance):
@@ -106,86 +103,6 @@ class NCDbz2(_Distance):
             min(len(concat_comp), len(concat_comp2))
             - min(len(src_comp), len(tar_comp))
         ) / max(len(src_comp), len(tar_comp))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NCDbz2.dist method instead.',
-)
-def dist_ncd_bz2(src, tar):
-    """Return the NCD between two strings using bzip2 compression.
-
-    This is a wrapper for :py:meth:`NCDbz2.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Compression distance
-
-    Examples
-    --------
-    >>> dist_ncd_bz2('cat', 'hat')
-    0.06666666666666667
-    >>> dist_ncd_bz2('Niall', 'Neil')
-    0.03125
-    >>> dist_ncd_bz2('aluminum', 'Catalan')
-    0.17647058823529413
-    >>> dist_ncd_bz2('ATCG', 'TAGC')
-    0.03125
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDbz2().dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NCDbz2.sim method instead.',
-)
-def sim_ncd_bz2(src, tar):
-    """Return the NCD similarity between two strings using bzip2 compression.
-
-    This is a wrapper for :py:meth:`NCDbz2.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Compression similarity
-
-    Examples
-    --------
-    >>> sim_ncd_bz2('cat', 'hat')
-    0.9333333333333333
-    >>> sim_ncd_bz2('Niall', 'Neil')
-    0.96875
-    >>> sim_ncd_bz2('aluminum', 'Catalan')
-    0.8235294117647058
-    >>> sim_ncd_bz2('ATCG', 'TAGC')
-    0.96875
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDbz2().sim(src, tar)
 
 
 if __name__ == '__main__':

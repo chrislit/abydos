@@ -19,12 +19,9 @@
 Synoname toolcode
 """
 
-from deprecation import deprecated
-
 from ._fingerprint import _Fingerprint
-from .. import __version__
 
-__all__ = ['SynonameToolcode', 'synoname_toolcode']
+__all__ = ['SynonameToolcode']
 
 
 class SynonameToolcode(_Fingerprint):
@@ -493,57 +490,6 @@ class SynonameToolcode(_Fingerprint):
                     toolcode[9] += full_name[loc : loc + len(match)]
 
         return lname, fname, ''.join(toolcode)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SynonameToolcode.fingerprint method instead.',
-)
-def synoname_toolcode(lname, fname='', qual='', normalize=0):
-    """Build the Synoname toolcode.
-
-    This is a wrapper for :py:meth:`SynonameToolcode.fingerprint`.
-
-    Parameters
-    ----------
-    lname : str
-        Last name
-    fname : str
-        First name (can be blank)
-    qual : str
-        Qualifier
-    normalize : int
-        Normalization mode (0, 1, or 2)
-
-    Returns
-    -------
-    tuple
-        The transformed names and the synoname toolcode
-
-    Examples
-    --------
-    >>> synoname_toolcode('hat')
-    ('hat', '', '0000000003$$h')
-    >>> synoname_toolcode('niall')
-    ('niall', '', '0000000005$$n')
-    >>> synoname_toolcode('colin')
-    ('colin', '', '0000000005$$c')
-    >>> synoname_toolcode('atcg')
-    ('atcg', '', '0000000004$$a')
-    >>> synoname_toolcode('entreatment')
-    ('entreatment', '', '0000000011$$e')
-
-    >>> synoname_toolcode('Ste.-Marie', 'Count John II', normalize=2)
-    ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
-    >>> synoname_toolcode('Michelangelo IV', '', 'Workshop of')
-    ('michelangelo iv', '', '3000550015$055b$mi')
-
-    .. versionadded:: 0.3.0
-
-    """
-    return SynonameToolcode().fingerprint(lname, fname, qual, normalize)
 
 
 if __name__ == '__main__':

@@ -25,14 +25,11 @@ based on Levenshtein distance, including:
 
 from sys import float_info
 
-from deprecation import deprecated
-
 import numpy as np
 
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Levenshtein', 'dist_levenshtein', 'levenshtein', 'sim_levenshtein']
+__all__ = ['Levenshtein']
 
 
 class Levenshtein(_Distance):
@@ -394,170 +391,6 @@ class Levenshtein(_Distance):
             )
 
         return self.dist_abs(src, tar) / normalize_term
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Levenshtein.dist_abs method instead.',
-)
-def levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
-    """Return the Levenshtein distance between two strings.
-
-    This is a wrapper of :py:meth:`Levenshtein.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    mode : str
-        Specifies a mode for computing the Levenshtein distance:
-
-            - ``lev`` (default) computes the ordinary Levenshtein distance, in
-              which edits may include inserts, deletes, and substitutions
-            - ``osa`` computes the Optimal String Alignment distance, in which
-              edits may include inserts, deletes, substitutions, and
-              transpositions but substrings may only be edited once
-
-    cost : tuple
-        A 4-tuple representing the cost of the four possible edits: inserts,
-        deletes, substitutions, and transpositions, respectively (by default:
-        (1, 1, 1, 1))
-
-    Returns
-    -------
-    int (may return a float if cost has float values)
-        The Levenshtein distance between src & tar
-
-    Examples
-    --------
-    >>> levenshtein('cat', 'hat')
-    1
-    >>> levenshtein('Niall', 'Neil')
-    3
-    >>> levenshtein('aluminum', 'Catalan')
-    7
-    >>> levenshtein('ATCG', 'TAGC')
-    3
-
-    >>> levenshtein('ATCG', 'TAGC', mode='osa')
-    2
-    >>> levenshtein('ACTG', 'TAGC', mode='osa')
-    4
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Levenshtein(mode=mode, cost=cost).dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Levenshtein.dist method instead.',
-)
-def dist_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
-    """Return the normalized Levenshtein distance between two strings.
-
-    This is a wrapper of :py:meth:`Levenshtein.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    mode : str
-        Specifies a mode for computing the Levenshtein distance:
-
-            - ``lev`` (default) computes the ordinary Levenshtein distance, in
-              which edits may include inserts, deletes, and substitutions
-            - ``osa`` computes the Optimal String Alignment distance, in which
-              edits may include inserts, deletes, substitutions, and
-              transpositions but substrings may only be edited once
-
-    cost : tuple
-        A 4-tuple representing the cost of the four possible edits: inserts,
-        deletes, substitutions, and transpositions, respectively (by default:
-        (1, 1, 1, 1))
-
-    Returns
-    -------
-    float
-        The Levenshtein distance between src & tar
-
-    Examples
-    --------
-    >>> round(dist_levenshtein('cat', 'hat'), 12)
-    0.333333333333
-    >>> round(dist_levenshtein('Niall', 'Neil'), 12)
-    0.6
-    >>> dist_levenshtein('aluminum', 'Catalan')
-    0.875
-    >>> dist_levenshtein('ATCG', 'TAGC')
-    0.75
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Levenshtein(mode=mode, cost=cost).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Levenshtein.sim method instead.',
-)
-def sim_levenshtein(src, tar, mode='lev', cost=(1, 1, 1, 1)):
-    """Return the Levenshtein similarity of two strings.
-
-    This is a wrapper of :py:meth:`Levenshtein.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    mode : str
-        Specifies a mode for computing the Levenshtein distance:
-
-            - ``lev`` (default) computes the ordinary Levenshtein distance, in
-              which edits may include inserts, deletes, and substitutions
-            - ``osa`` computes the Optimal String Alignment distance, in which
-              edits may include inserts, deletes, substitutions, and
-              transpositions but substrings may only be edited once
-
-    cost : tuple
-        A 4-tuple representing the cost of the four possible edits: inserts,
-        deletes, substitutions, and transpositions, respectively (by default:
-        (1, 1, 1, 1))
-
-    Returns
-    -------
-    float
-        The Levenshtein similarity between src & tar
-
-    Examples
-    --------
-    >>> round(sim_levenshtein('cat', 'hat'), 12)
-    0.666666666667
-    >>> round(sim_levenshtein('Niall', 'Neil'), 12)
-    0.4
-    >>> sim_levenshtein('aluminum', 'Catalan')
-    0.125
-    >>> sim_levenshtein('ATCG', 'TAGC')
-    0.25
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Levenshtein(mode=mode, cost=cost).sim(src, tar)
 
 
 if __name__ == '__main__':

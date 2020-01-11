@@ -19,16 +19,12 @@
 Gotoh score
 """
 
-from deprecation import deprecated
-
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
-from ._ident import sim_ident
 from ._needleman_wunsch import NeedlemanWunsch
-from .. import __version__
 
-__all__ = ['Gotoh', 'gotoh']
+__all__ = ['Gotoh']
 
 
 class Gotoh(NeedlemanWunsch):
@@ -177,53 +173,6 @@ class Gotoh(NeedlemanWunsch):
         return max(0.0, self.sim_score(src, tar)) / (
             self.sim_score(src, src) ** 0.5 * self.sim_score(tar, tar) ** 0.5
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Gotoh.dist_abs method instead.',
-)
-def gotoh(src, tar, gap_open=1, gap_ext=0.4, sim_func=sim_ident):
-    """Return the Gotoh score of two strings.
-
-    This is a wrapper for :py:meth:`Gotoh.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    gap_open : float
-        The cost of an open alignment gap (1 by default)
-    gap_ext : float
-        The cost of an alignment gap extension (0.4 by default)
-    sim_func : function
-        A function that returns the similarity of two characters (identity
-        similarity by default)
-
-    Returns
-    -------
-    float
-        Gotoh score
-
-    Examples
-    --------
-    >>> gotoh('cat', 'hat')
-    2.0
-    >>> gotoh('Niall', 'Neil')
-    1.0
-    >>> round(gotoh('aluminum', 'Catalan'), 12)
-    -0.4
-    >>> gotoh('cat', 'hat')
-    2.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Gotoh(gap_open, gap_ext, sim_func).sim_score(src, tar)
 
 
 if __name__ == '__main__':

@@ -19,12 +19,9 @@
 Identity similarity & distance
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Ident', 'dist_ident', 'sim_ident']
+__all__ = ['Ident']
 
 
 class Ident(_Distance):
@@ -66,79 +63,6 @@ class Ident(_Distance):
 
         """
         return 1.0 if src == tar else 0.0
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Ident.sim method instead.',
-)
-def sim_ident(src, tar):
-    """Return the identity similarity of two strings.
-
-    This is a wrapper for :py:meth:`Ident.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Identity similarity
-
-
-    Examples
-    --------
-    >>> sim_ident('cat', 'hat')
-    0.0
-    >>> sim_ident('cat', 'cat')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Ident().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Ident.dist method instead.',
-)
-def dist_ident(src, tar):
-    """Return the identity distance between two strings.
-
-    This is a wrapper for :py:meth:`Ident.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Identity distance
-
-    Examples
-    --------
-    >>> dist_ident('cat', 'hat')
-    1.0
-    >>> dist_ident('cat', 'cat')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Ident().dist(src, tar)
 
 
 if __name__ == '__main__':

@@ -19,12 +19,9 @@
 Eudex phonetic hash
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Eudex', 'eudex']
+__all__ = ['Eudex']
 
 
 class Eudex(_Phonetic):
@@ -241,48 +238,6 @@ class Eudex(_Phonetic):
             hash_value = (hash_value << 8) | val
 
         return hash_value
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Eudex.encode method instead.',
-)
-def eudex(word, max_length=8):
-    """Return the eudex phonetic hash of a word.
-
-    This is a wrapper for :py:meth:`Eudex.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length in bits of the code returned (default 8)
-
-    Returns
-    -------
-    int
-        The eudex hash
-
-    Examples
-    --------
-    >>> eudex('Colin')
-    432345564238053650
-    >>> eudex('Christopher')
-    433648490138894409
-    >>> eudex('Niall')
-    648518346341351840
-    >>> eudex('Smith')
-    720575940412906756
-    >>> eudex('Schmidt')
-    720589151732307997
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Eudex(max_length).encode(word)
 
 
 if __name__ == '__main__':

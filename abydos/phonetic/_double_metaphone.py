@@ -19,12 +19,9 @@
 Double Metaphone
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['DoubleMetaphone', 'double_metaphone']
+__all__ = ['DoubleMetaphone']
 
 
 class DoubleMetaphone(_Phonetic):
@@ -1009,47 +1006,6 @@ class DoubleMetaphone(_Phonetic):
             secondary = ''
 
         return primary, secondary
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the DoubleMetaphone.encode method instead.',
-)
-def double_metaphone(word, max_length=-1):
-    """Return the Double Metaphone code for a word.
-
-    This is a wrapper for :py:meth:`DoubleMetaphone.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The maximum length of the returned Double Metaphone codes (defaults to
-        unlimited, but in Philips' original implementation this was 4)
-
-    Returns
-    -------
-    tuple
-        The Double Metaphone value(s)
-
-    Examples
-    --------
-    >>> double_metaphone('Christopher')
-    ('KRSTFR', '')
-    >>> double_metaphone('Niall')
-    ('NL', '')
-    >>> double_metaphone('Smith')
-    ('SM0', 'XMT')
-    >>> double_metaphone('Schmidt')
-    ('XMT', 'SMT')
-
-    .. versionadded:: 0.1.0
-
-    """
-    return DoubleMetaphone(max_length).encode(word)
 
 
 if __name__ == '__main__':

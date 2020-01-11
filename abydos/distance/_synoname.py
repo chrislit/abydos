@@ -21,17 +21,14 @@ Synoname.
 
 from collections import Iterable
 
-from deprecation import deprecated
-
 from ._distance import _Distance
 from ._levenshtein import levenshtein
 from ._ratcliff_obershelp import sim_ratcliff_obershelp
-from .. import __version__
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname_toolcode import SynonameToolcode
 
-__all__ = ['Synoname', 'synoname']
+__all__ = ['Synoname']
 
 
 class Synoname(_Distance):
@@ -762,68 +759,6 @@ class Synoname(_Distance):
 
         """
         return self.dist_abs(src, tar, force_numeric=True) / 14
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Synoname.dist_abs method instead.',
-)
-def synoname(
-    src,
-    tar,
-    word_approx_min=0.3,
-    char_approx_min=0.73,
-    tests=2 ** 12 - 1,
-    ret_name=False,
-):
-    """Return the Synoname similarity type of two words.
-
-    This is a wrapper for :py:meth:`Synoname.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    word_approx_min : float
-        The minimum word approximation value to signal a 'word_approx' match
-    char_approx_min : float
-        The minimum character approximation value to signal a 'char_approx'
-        match
-    tests : int or Iterable
-        Either an integer indicating tests to perform or a list of test names
-        to perform (defaults to performing all tests)
-    ret_name : bool
-        If True, returns the match name rather than its integer equivalent
-
-    Returns
-    -------
-    int (or str if ret_name is True)
-        Synoname value
-
-    Examples
-    --------
-    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
-    2
-    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
-    ... ret_name=True)
-    'omission'
-    >>> synoname(('Dore', 'Gustave', ''),
-    ... ('Dore', 'Paul Gustave Louis Christophe', ''), ret_name=True)
-    'inclusion'
-    >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
-    ... ret_name=True)
-    'word_approx'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Synoname(
-        word_approx_min, char_approx_min, tests, ret_name
-    ).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

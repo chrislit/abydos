@@ -21,12 +21,9 @@ omission key
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._fingerprint import _Fingerprint
-from .. import __version__
 
-__all__ = ['OmissionKey', 'omission_key']
+__all__ = ['OmissionKey']
 
 
 class OmissionKey(_Fingerprint):
@@ -85,42 +82,6 @@ class OmissionKey(_Fingerprint):
                 key += char
 
         return key
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the OmissionKey.fingerprint method instead.',
-)
-def omission_key(word):
-    """Return the omission key.
-
-    This is a wrapper for :py:meth:`OmissionKey.fingerprint`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform into its omission key
-
-    Returns
-    -------
-    str
-        The omission key
-
-    Examples
-    --------
-    >>> omission_key('The quick brown fox jumped over the lazy dog.')
-    'JKQXZVWYBFMGPDHCLNTREUIOA'
-    >>> omission_key('Christopher')
-    'PHCTSRIOE'
-    >>> omission_key('Niall')
-    'LNIA'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return OmissionKey().fingerprint(word)
 
 
 if __name__ == '__main__':

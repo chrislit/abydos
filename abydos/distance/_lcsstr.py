@@ -19,15 +19,12 @@
 Longest common substring
 """
 
-from deprecation import deprecated
-
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['LCSstr', 'dist_lcsstr', 'lcsstr', 'sim_lcsstr']
+__all__ = ['LCSstr']
 
 
 class LCSstr(_Distance):
@@ -161,126 +158,6 @@ class LCSstr(_Distance):
         return len(self.lcsstr(src, tar)) / self._normalizer(
             [len(src), len(tar)]
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the LCSstr.lcsstr method instead.',
-)
-def lcsstr(src, tar):
-    """Return the longest common substring of two strings.
-
-    This is a wrapper for :py:meth:`LCSstr.lcsstr`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    str
-        The longest common substring
-
-    Examples
-    --------
-    >>> lcsstr('cat', 'hat')
-    'at'
-    >>> lcsstr('Niall', 'Neil')
-    'N'
-    >>> lcsstr('aluminum', 'Catalan')
-    'al'
-    >>> lcsstr('ATCG', 'TAGC')
-    'A'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return LCSstr().lcsstr(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the LCSstr.sim method instead.',
-)
-def sim_lcsstr(src, tar):
-    """Return the longest common substring similarity of two strings.
-
-    This is a wrapper for :py:meth:`LCSstr.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        LCSstr similarity
-
-    Examples
-    --------
-    >>> sim_lcsstr('cat', 'hat')
-    0.6666666666666666
-    >>> sim_lcsstr('Niall', 'Neil')
-    0.2
-    >>> sim_lcsstr('aluminum', 'Catalan')
-    0.25
-    >>> sim_lcsstr('ATCG', 'TAGC')
-    0.25
-
-    .. versionadded:: 0.1.0
-
-    """
-    return LCSstr().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the LCSstr.dist method instead.',
-)
-def dist_lcsstr(src, tar):
-    """Return the longest common substring distance between two strings.
-
-    This is a wrapper for :py:meth:`LCSstr.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        LCSstr distance
-
-    Examples
-    --------
-    >>> dist_lcsstr('cat', 'hat')
-    0.33333333333333337
-    >>> dist_lcsstr('Niall', 'Neil')
-    0.8
-    >>> dist_lcsstr('aluminum', 'Catalan')
-    0.75
-    >>> dist_lcsstr('ATCG', 'TAGC')
-    0.75
-
-    .. versionadded:: 0.1.0
-
-    """
-    return LCSstr().dist(src, tar)
 
 
 if __name__ == '__main__':

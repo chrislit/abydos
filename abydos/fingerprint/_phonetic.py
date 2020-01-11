@@ -19,15 +19,12 @@
 phonetic fingerprint
 """
 
-from deprecation import deprecated
-
 from ._string import String
-from .. import __version__
-from ..phonetic import DoubleMetaphone, double_metaphone
+from ..phonetic import DoubleMetaphone
 from ..phonetic._phonetic import _Phonetic
 
 
-__all__ = ['Phonetic', 'phonetic_fingerprint']
+__all__ = ['Phonetic']
 
 
 class Phonetic(String):
@@ -103,57 +100,6 @@ class Phonetic(String):
             phonetic += word + self._joiner
         phonetic = phonetic[: -len(self._joiner)]
         return super(Phonetic, self).fingerprint(phonetic)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Phonetic.fingerprint method instead.',
-)
-def phonetic_fingerprint(
-    phrase, phonetic_algorithm=double_metaphone, joiner=' ', *args, **kwargs
-):
-    """Return the phonetic fingerprint of a phrase.
-
-    This is a wrapper for :py:meth:`Phonetic.fingerprint`.
-
-    Parameters
-    ----------
-    phrase : str
-        The string from which to calculate the phonetic fingerprint
-    phonetic_algorithm : function
-        A phonetic algorithm that takes a string and returns a string
-        (presumably a phonetic representation of the original string). By
-        default, this function uses :py:func:`.double_metaphone`.
-    joiner : str
-        The string that will be placed between each word
-    *args
-        Variable length argument list
-    **kwargs
-        Arbitrary keyword arguments
-
-    Returns
-    -------
-    str
-        The phonetic fingerprint of the phrase
-
-    Examples
-    --------
-    >>> phonetic_fingerprint('The quick brown fox jumped over the lazy dog.')
-    '0 afr fks jmpt kk ls prn tk'
-
-    >>> from abydos.phonetic import soundex
-    >>> phonetic_fingerprint('The quick brown fox jumped over the lazy dog.',
-    ... phonetic_algorithm=soundex)
-    'b650 d200 f200 j513 l200 o160 q200 t000'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Phonetic(
-        lambda phrase: phonetic_algorithm(phrase, *args, **kwargs), joiner
-    ).fingerprint(phrase)
 
 
 if __name__ == '__main__':

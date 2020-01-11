@@ -19,13 +19,10 @@
 The Match Rating Algorithm's distance measure
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 from ..phonetic import mra
 
-__all__ = ['MRA', 'dist_mra', 'mra_compare', 'sim_mra']
+__all__ = ['MRA']
 
 
 class MRA(_Distance):
@@ -146,126 +143,6 @@ class MRA(_Distance):
 
         """
         return mra_compare(src, tar) / 6
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MRA.dist_abs method instead.',
-)
-def mra_compare(src, tar):
-    """Return the MRA comparison rating of two strings.
-
-    This is a wrapper for :py:meth:`MRA.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    int
-        MRA comparison rating
-
-    Examples
-    --------
-    >>> mra_compare('cat', 'hat')
-    5
-    >>> mra_compare('Niall', 'Neil')
-    6
-    >>> mra_compare('aluminum', 'Catalan')
-    0
-    >>> mra_compare('ATCG', 'TAGC')
-    5
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MRA().dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MRA.sim method instead.',
-)
-def sim_mra(src, tar):
-    """Return the normalized MRA similarity of two strings.
-
-    This is a wrapper for :py:meth:`MRA.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Normalized MRA similarity
-
-    Examples
-    --------
-    >>> sim_mra('cat', 'hat')
-    0.8333333333333334
-    >>> sim_mra('Niall', 'Neil')
-    1.0
-    >>> sim_mra('aluminum', 'Catalan')
-    0.0
-    >>> sim_mra('ATCG', 'TAGC')
-    0.8333333333333334
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MRA().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MRA.dist method instead.',
-)
-def dist_mra(src, tar):
-    """Return the normalized MRA distance between two strings.
-
-    This is a wrapper for :py:meth:`MRA.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Normalized MRA distance
-
-    Examples
-    --------
-    >>> dist_mra('cat', 'hat')
-    0.16666666666666663
-    >>> dist_mra('Niall', 'Neil')
-    0.0
-    >>> dist_mra('aluminum', 'Catalan')
-    1.0
-    >>> dist_mra('ATCG', 'TAGC')
-    0.16666666666666663
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MRA().dist(src, tar)
 
 
 if __name__ == '__main__':

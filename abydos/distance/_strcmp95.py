@@ -21,12 +21,9 @@ The strcmp95 algorithm variant of Jaro-Winkler distance
 
 from collections import defaultdict
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Strcmp95', 'dist_strcmp95', 'sim_strcmp95']
+__all__ = ['Strcmp95']
 
 
 class Strcmp95(_Distance):
@@ -268,98 +265,6 @@ class Strcmp95(_Distance):
                     )
 
         return weight
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Strcmp95.sim method instead.',
-)
-def sim_strcmp95(src, tar, long_strings=False):
-    """Return the strcmp95 similarity of two strings.
-
-    This is a wrapper for :py:meth:`Strcmp95.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    long_strings : bool
-        Set to True to increase the probability of a match when the number of
-        matched characters is large. This option allows for a little more
-        tolerance when the strings are large. It is not an appropriate test
-        when comparing fixed length fields such as phone and social security
-        numbers.
-
-    Returns
-    -------
-    float
-        Strcmp95 similarity
-
-    Examples
-    --------
-    >>> sim_strcmp95('cat', 'hat')
-    0.7777777777777777
-    >>> sim_strcmp95('Niall', 'Neil')
-    0.8454999999999999
-    >>> sim_strcmp95('aluminum', 'Catalan')
-    0.6547619047619048
-    >>> sim_strcmp95('ATCG', 'TAGC')
-    0.8333333333333334
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Strcmp95(long_strings).sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Strcmp95.dist method instead.',
-)
-def dist_strcmp95(src, tar, long_strings=False):
-    """Return the strcmp95 distance between two strings.
-
-    This is a wrapper for :py:meth:`Strcmp95.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    long_strings : bool
-        Set to True to increase the probability of a match when the number of
-        matched characters is large. This option allows for a little more
-        tolerance when the strings are large. It is not an appropriate test
-        when comparing fixed length fields such as phone and social security
-        numbers.
-
-    Returns
-    -------
-    float
-        Strcmp95 distance
-
-    Examples
-    --------
-    >>> round(dist_strcmp95('cat', 'hat'), 12)
-    0.222222222222
-    >>> round(dist_strcmp95('Niall', 'Neil'), 12)
-    0.1545
-    >>> round(dist_strcmp95('aluminum', 'Catalan'), 12)
-    0.345238095238
-    >>> round(dist_strcmp95('ATCG', 'TAGC'), 12)
-    0.166666666667
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Strcmp95(long_strings).dist(src, tar)
 
 
 if __name__ == '__main__':

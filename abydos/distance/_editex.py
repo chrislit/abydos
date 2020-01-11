@@ -22,15 +22,12 @@ editex
 from sys import float_info
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from numpy import float as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Editex', 'dist_editex', 'editex', 'sim_editex']
+__all__ = ['Editex']
 
 
 class Editex(_Distance):
@@ -294,141 +291,6 @@ class Editex(_Distance):
                 src_len * mismatch_cost, tar_len * mismatch_cost
             )
         return self.dist_abs(src, tar) / normalize_term
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Editex.dist_abs method instead.',
-)
-def editex(src, tar, cost=(0, 1, 2), local=False):
-    """Return the Editex distance between two strings.
-
-    This is a wrapper for :py:meth:`Editex.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    cost : tuple
-        A 3-tuple representing the cost of the four possible edits: match,
-        same-group, and mismatch respectively (by default: (0, 1, 2))
-    local : bool
-        If True, the local variant of Editex is used
-
-    Returns
-    -------
-    int
-        Editex distance
-
-    Examples
-    --------
-    >>> editex('cat', 'hat')
-    2
-    >>> editex('Niall', 'Neil')
-    2
-    >>> editex('aluminum', 'Catalan')
-    12
-    >>> editex('ATCG', 'TAGC')
-    6
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Editex(cost, local).dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Editex.dist method instead.',
-)
-def dist_editex(src, tar, cost=(0, 1, 2), local=False):
-    """Return the normalized Editex distance between two strings.
-
-    This is a wrapper for :py:meth:`Editex.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    cost : tuple
-        A 3-tuple representing the cost of the four possible edits: match,
-        same-group, and mismatch respectively (by default: (0, 1, 2))
-    local : bool
-        If True, the local variant of Editex is used
-
-    Returns
-    -------
-    int
-        Normalized Editex distance
-
-    Examples
-    --------
-    >>> round(dist_editex('cat', 'hat'), 12)
-    0.333333333333
-    >>> round(dist_editex('Niall', 'Neil'), 12)
-    0.2
-    >>> dist_editex('aluminum', 'Catalan')
-    0.75
-    >>> dist_editex('ATCG', 'TAGC')
-    0.75
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Editex(cost, local).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Editex.sim method instead.',
-)
-def sim_editex(src, tar, cost=(0, 1, 2), local=False):
-    """Return the normalized Editex similarity of two strings.
-
-    This is a wrapper for :py:meth:`Editex.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    cost : tuple
-        A 3-tuple representing the cost of the four possible edits: match,
-        same-group, and mismatch respectively (by default: (0, 1, 2))
-    local : bool
-        If True, the local variant of Editex is used
-
-    Returns
-    -------
-    int
-        Normalized Editex similarity
-
-    Examples
-    --------
-    >>> round(sim_editex('cat', 'hat'), 12)
-    0.666666666667
-    >>> round(sim_editex('Niall', 'Neil'), 12)
-    0.8
-    >>> sim_editex('aluminum', 'Catalan')
-    0.25
-    >>> sim_editex('ATCG', 'TAGC')
-    0.25
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Editex(cost, local).sim(src, tar)
 
 
 if __name__ == '__main__':

@@ -21,12 +21,9 @@ SfinxBis
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['SfinxBis', 'sfinxbis']
+__all__ = ['SfinxBis']
 
 
 class SfinxBis(_Phonetic):
@@ -408,51 +405,6 @@ class SfinxBis(_Phonetic):
             ordlista = [ordet[: self._max_length] for ordet in ordlista]
 
         return tuple(ordlista)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SfinxBis.encode method instead.',
-)
-def sfinxbis(word, max_length=-1):
-    """Return the SfinxBis code for a word.
-
-    This is a wrapper for :py:meth:`SfinxBis.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to unlimited)
-
-    Returns
-    -------
-    tuple
-        The SfinxBis value
-
-    Examples
-    --------
-    >>> sfinxbis('Christopher')
-    ('K68376',)
-    >>> sfinxbis('Niall')
-    ('N4',)
-    >>> sfinxbis('Smith')
-    ('S53',)
-    >>> sfinxbis('Schmidt')
-    ('S53',)
-
-    >>> sfinxbis('Johansson')
-    ('J585',)
-    >>> sfinxbis('Sjöberg')
-    ('#162',)
-
-    .. versionadded:: 0.1.0
-
-    """
-    return SfinxBis(max_length).encode(word)
 
 
 if __name__ == '__main__':

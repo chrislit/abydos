@@ -19,12 +19,9 @@
 Davidson's Consonant Code.
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Davidson', 'davidson']
+__all__ = ['Davidson']
 
 
 class Davidson(_Phonetic):
@@ -106,55 +103,6 @@ class Davidson(_Phonetic):
             code += fname[:1].upper()
 
         return code
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Davidson.encode method instead.',
-)
-def davidson(lname, fname='.', omit_fname=False):
-    """Return Davidson's Consonant Code.
-
-    This is a wrapper for :py:meth:`Davidson.encode`.
-
-    Parameters
-    ----------
-    lname : str
-        Last name (or word) to be encoded
-    fname : str
-        First name (optional), of which the first character is included in the
-        code.
-    omit_fname : bool
-        Set to True to completely omit the first character of the first name
-
-    Returns
-    -------
-    str
-        Davidson's Consonant Code
-
-    Example
-    -------
-    >>> davidson('Gough')
-    'G   .'
-    >>> davidson('pneuma')
-    'PNM .'
-    >>> davidson('knight')
-    'KNGT.'
-    >>> davidson('trice')
-    'TRC .'
-    >>> davidson('judge')
-    'JDG .'
-    >>> davidson('Smith', 'James')
-    'SMT J'
-    >>> davidson('Wasserman', 'Tabitha')
-    'WSRMT'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Davidson(omit_fname).encode(lname, fname)
 
 
 if __name__ == '__main__':

@@ -19,13 +19,10 @@
 NCD using RLE
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 from ..compression import RLE
 
-__all__ = ['NCDrle', 'dist_ncd_rle', 'sim_ncd_rle']
+__all__ = ['NCDrle']
 
 
 class NCDrle(_Distance):
@@ -85,86 +82,6 @@ class NCDrle(_Distance):
             min(len(concat_comp), len(concat_comp2))
             - min(len(src_comp), len(tar_comp))
         ) / max(len(src_comp), len(tar_comp))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NCDrle.dist method instead.',
-)
-def dist_ncd_rle(src, tar):
-    """Return the NCD between two strings using RLE.
-
-    This is a wrapper for :py:meth:`NCDrle.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Compression distance
-
-    Examples
-    --------
-    >>> dist_ncd_rle('cat', 'hat')
-    1.0
-    >>> dist_ncd_rle('Niall', 'Neil')
-    1.0
-    >>> dist_ncd_rle('aluminum', 'Catalan')
-    1.0
-    >>> dist_ncd_rle('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDrle().dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NCDrle.sim method instead.',
-)
-def sim_ncd_rle(src, tar):
-    """Return the NCD similarity between two strings using RLE.
-
-    This is a wrapper for :py:meth:`NCDrle.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Compression similarity
-
-    Examples
-    --------
-    >>> sim_ncd_rle('cat', 'hat')
-    0.0
-    >>> sim_ncd_rle('Niall', 'Neil')
-    0.0
-    >>> sim_ncd_rle('aluminum', 'Catalan')
-    0.0
-    >>> sim_ncd_rle('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDrle().sim(src, tar)
 
 
 if __name__ == '__main__':

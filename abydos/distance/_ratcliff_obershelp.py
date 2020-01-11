@@ -19,18 +19,13 @@
 Ratcliff-Obershelp similarity
 """
 
-from deprecation import deprecated
-
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from .. import __version__
 
 __all__ = [
-    'RatcliffObershelp',
-    'dist_ratcliff_obershelp',
-    'sim_ratcliff_obershelp',
+    'RatcliffObershelp'
 ]
 
 
@@ -166,86 +161,6 @@ class RatcliffObershelp(_Distance):
         elif not src or not tar:
             return 0.0
         return 2 * _sstr_matches(src, tar) / (len(src) + len(tar))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RatcliffObershelp.sim method instead.',
-)
-def sim_ratcliff_obershelp(src, tar):
-    """Return the Ratcliff-Obershelp similarity of two strings.
-
-    This is a wrapper for :py:meth:`RatcliffObershelp.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Ratcliff-Obershelp similarity
-
-    Examples
-    --------
-    >>> round(sim_ratcliff_obershelp('cat', 'hat'), 12)
-    0.666666666667
-    >>> round(sim_ratcliff_obershelp('Niall', 'Neil'), 12)
-    0.666666666667
-    >>> round(sim_ratcliff_obershelp('aluminum', 'Catalan'), 12)
-    0.4
-    >>> sim_ratcliff_obershelp('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.1.0
-
-    """
-    return RatcliffObershelp().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RatcliffObershelp.dist method instead.',
-)
-def dist_ratcliff_obershelp(src, tar):
-    """Return the Ratcliff-Obershelp distance between two strings.
-
-    This is a wrapper for :py:meth:`RatcliffObershelp.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Ratcliff-Obershelp distance
-
-    Examples
-    --------
-    >>> round(dist_ratcliff_obershelp('cat', 'hat'), 12)
-    0.333333333333
-    >>> round(dist_ratcliff_obershelp('Niall', 'Neil'), 12)
-    0.333333333333
-    >>> round(dist_ratcliff_obershelp('aluminum', 'Catalan'), 12)
-    0.6
-    >>> dist_ratcliff_obershelp('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.1.0
-
-    """
-    return RatcliffObershelp().dist(src, tar)
 
 
 if __name__ == '__main__':

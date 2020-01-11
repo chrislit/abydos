@@ -19,12 +19,9 @@
 Indel distance
 """
 
-from deprecation import deprecated
-
 from ._levenshtein import Levenshtein
-from .. import __version__
 
-__all__ = ['Indel', 'dist_indel', 'indel', 'sim_indel']
+__all__ = ['Indel']
 
 
 class Indel(Levenshtein):
@@ -90,126 +87,6 @@ class Indel(Levenshtein):
         if src == tar:
             return 0.0
         return self.dist_abs(src, tar) / (len(src) + len(tar))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Indel.dist_abs method instead.',
-)
-def indel(src, tar):
-    """Return the indel distance between two strings.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    int
-        Indel distance
-
-    Examples
-    --------
-    >>> indel('cat', 'hat')
-    2
-    >>> indel('Niall', 'Neil')
-    3
-    >>> indel('Colin', 'Cuilen')
-    5
-    >>> indel('ATCG', 'TAGC')
-    4
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Indel().dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Indel.dist method instead.',
-)
-def dist_indel(src, tar):
-    """Return the normalized indel distance between two strings.
-
-    This is equivalent to normalized Levenshtein distance, when only inserts
-    and deletes are possible.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Normalized indel distance
-
-    Examples
-    --------
-    >>> round(dist_indel('cat', 'hat'), 12)
-    0.333333333333
-    >>> round(dist_indel('Niall', 'Neil'), 12)
-    0.333333333333
-    >>> round(dist_indel('Colin', 'Cuilen'), 12)
-    0.454545454545
-    >>> dist_indel('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Indel().dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Indel.sim method instead.',
-)
-def sim_indel(src, tar):
-    """Return the normalized indel similarity of two strings.
-
-    This is equivalent to normalized Levenshtein similarity, when only inserts
-    and deletes are possible.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Normalized indel similarity
-
-    Examples
-    --------
-    >>> round(sim_indel('cat', 'hat'), 12)
-    0.666666666667
-    >>> round(sim_indel('Niall', 'Neil'), 12)
-    0.666666666667
-    >>> round(sim_indel('Colin', 'Cuilen'), 12)
-    0.545454545455
-    >>> sim_indel('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Indel().sim(src, tar)
 
 
 if __name__ == '__main__':

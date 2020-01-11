@@ -21,12 +21,9 @@ string fingerprint
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._fingerprint import _Fingerprint
-from .. import __version__
 
-__all__ = ['String', 'str_fingerprint']
+__all__ = ['String']
 
 
 class String(_Fingerprint):
@@ -82,40 +79,6 @@ class String(_Fingerprint):
         phrase = ''.join([c for c in phrase if c.isalnum() or c.isspace()])
         phrase = self._joiner.join(sorted(set(phrase.split())))
         return phrase
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the String.fingerprint method instead.',
-)
-def str_fingerprint(phrase, joiner=' '):
-    """Return string fingerprint.
-
-    This is a wrapper for :py:meth:`String.fingerprint`.
-
-    Parameters
-    ----------
-    phrase : str
-        The string from which to calculate the fingerprint
-    joiner : str
-        The string that will be placed between each word
-
-    Returns
-    -------
-    str
-        The fingerprint of the phrase
-
-    Example
-    -------
-    >>> str_fingerprint('The quick brown fox jumped over the lazy dog.')
-    'brown dog fox jumped lazy over quick the'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return String(joiner).fingerprint(phrase)
 
 
 if __name__ == '__main__':

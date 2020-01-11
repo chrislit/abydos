@@ -21,12 +21,9 @@ Cosine similarity & distance
 
 from math import sqrt
 
-from deprecation import deprecated
-
 from ._token_distance import _TokenDistance
-from .. import __version__
 
-__all__ = ['Cosine', 'dist_cosine', 'sim_cosine']
+__all__ = ['Cosine']
 
 
 class Cosine(_TokenDistance):
@@ -138,90 +135,6 @@ class Cosine(_TokenDistance):
         if num:
             return num / sqrt(self._src_card() * self._tar_card())
         return 0.0
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Cosine.sim method instead.',
-)
-def sim_cosine(src, tar, qval=2):
-    r"""Return the cosine similarity of two strings.
-
-    This is a wrapper for :py:meth:`Cosine.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-
-    Returns
-    -------
-    float
-        Cosine similarity
-
-    Examples
-    --------
-    >>> sim_cosine('cat', 'hat')
-    0.5
-    >>> sim_cosine('Niall', 'Neil')
-    0.3651483716701107
-    >>> sim_cosine('aluminum', 'Catalan')
-    0.11785113019775793
-    >>> sim_cosine('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Cosine(qval=qval).sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Cosine.dist method instead.',
-)
-def dist_cosine(src, tar, qval=2):
-    """Return the cosine distance between two strings.
-
-    This is a wrapper for :py:meth:`Cosine.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-
-    Returns
-    -------
-    float
-        Cosine distance
-
-    Examples
-    --------
-    >>> dist_cosine('cat', 'hat')
-    0.5
-    >>> dist_cosine('Niall', 'Neil')
-    0.6348516283298893
-    >>> dist_cosine('aluminum', 'Catalan')
-    0.882148869802242
-    >>> dist_cosine('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Cosine(qval=qval).dist(src, tar)
 
 
 if __name__ == '__main__':

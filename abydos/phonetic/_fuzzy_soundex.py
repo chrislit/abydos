@@ -21,12 +21,9 @@ Fuzzy Soundex
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['FuzzySoundex', 'fuzzy_soundex']
+__all__ = ['FuzzySoundex']
 
 
 class FuzzySoundex(_Phonetic):
@@ -200,48 +197,6 @@ class FuzzySoundex(_Phonetic):
             sdx += '0' * self._max_length
 
         return sdx[: self._max_length]
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the FuzzySoundex.encode method instead.',
-)
-def fuzzy_soundex(word, max_length=5, zero_pad=True):
-    """Return the Fuzzy Soundex code for a word.
-
-    This is a wrapper for :py:meth:`FuzzySoundex.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 4)
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The Fuzzy Soundex value
-
-    Examples
-    --------
-    >>> fuzzy_soundex('Christopher')
-    'K6931'
-    >>> fuzzy_soundex('Niall')
-    'N4000'
-    >>> fuzzy_soundex('Smith')
-    'S5300'
-    >>> fuzzy_soundex('Smith')
-    'S5300'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return FuzzySoundex(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

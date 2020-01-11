@@ -19,12 +19,9 @@
 MRA personal numeric identifier (PNI).
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['MRA', 'mra']
+__all__ = ['MRA']
 
 
 class MRA(_Phonetic):
@@ -77,44 +74,6 @@ class MRA(_Phonetic):
         if len(word) > 6:
             word = word[:3] + word[-3:]
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MRA.encode method instead.',
-)
-def mra(word):
-    """Return the MRA personal numeric identifier (PNI) for a word.
-
-    This is a wrapper for :py:meth:`MRA.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The MRA PNI
-
-    Examples
-    --------
-    >>> mra('Christopher')
-    'CHRPHR'
-    >>> mra('Niall')
-    'NL'
-    >>> mra('Smith')
-    'SMTH'
-    >>> mra('Schmidt')
-    'SCHMDT'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MRA().encode(word)
 
 
 if __name__ == '__main__':

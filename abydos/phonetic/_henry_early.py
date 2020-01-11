@@ -21,12 +21,9 @@ an early version of Henry Code
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['HenryEarly', 'henry_early']
+__all__ = ['HenryEarly']
 
 
 class HenryEarly(_Phonetic):
@@ -249,48 +246,6 @@ class HenryEarly(_Phonetic):
             code = code[: self._max_length]
 
         return code
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the HenryEarly.encode method instead.',
-)
-def henry_early(word, max_length=3):
-    """Calculate the early version of the Henry code for a word.
-
-    This is a wrapper for :py:meth:`HenryEarly.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 3)
-
-    Returns
-    -------
-    str
-        The early Henry code
-
-    Examples
-    --------
-    >>> henry_early('Marchand')
-    'MRC'
-    >>> henry_early('Beaulieu')
-    'BL'
-    >>> henry_early('Beaumont')
-    'BM'
-    >>> henry_early('Legrand')
-    'LGR'
-    >>> henry_early('Pelletier')
-    'PLT'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return HenryEarly(max_length).encode(word)
 
 
 if __name__ == '__main__':

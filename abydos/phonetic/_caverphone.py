@@ -19,12 +19,9 @@
 Caverphone phonetic algorithm
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Caverphone', 'caverphone']
+__all__ = ['Caverphone']
 
 
 class Caverphone(_Phonetic):
@@ -256,55 +253,6 @@ class Caverphone(_Phonetic):
             word = word[:6]
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Caverphone.encode method instead.',
-)
-def caverphone(word, version=2):
-    """Return the Caverphone code for a word.
-
-    This is a wrapper for :py:meth:`Caverphone.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    version : int
-        The version of Caverphone to employ for encoding (defaults to 2)
-
-    Returns
-    -------
-    str
-        The Caverphone value
-
-    Examples
-    --------
-    >>> caverphone('Christopher')
-    'KRSTFA1111'
-    >>> caverphone('Niall')
-    'NA11111111'
-    >>> caverphone('Smith')
-    'SMT1111111'
-    >>> caverphone('Schmidt')
-    'SKMT111111'
-
-    >>> caverphone('Christopher', 1)
-    'KRSTF1'
-    >>> caverphone('Niall', 1)
-    'N11111'
-    >>> caverphone('Smith', 1)
-    'SMT111'
-    >>> caverphone('Schmidt', 1)
-    'SKMT11'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Caverphone(version).encode(word)
 
 
 if __name__ == '__main__':

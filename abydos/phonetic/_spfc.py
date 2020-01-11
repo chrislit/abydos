@@ -21,12 +21,9 @@ Standardized Phonetic Frequency Code (SPFC) algorithm
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['SPFC', 'spfc']
+__all__ = ['SPFC']
 
 
 class SPFC(_Phonetic):
@@ -283,54 +280,6 @@ class SPFC(_Phonetic):
                 code += '0'
 
         return code
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SPFC.encode method instead.',
-)
-def spfc(word):
-    """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
-
-    This is a wrapper for :py:meth:`SPFC.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The SPFC value
-
-    Examples
-    --------
-    >>> spfc('Christopher Smith')
-    '01160'
-    >>> spfc('Christopher Schmidt')
-    '01160'
-    >>> spfc('Niall Smith')
-    '01660'
-    >>> spfc('Niall Schmidt')
-    '01660'
-
-    >>> spfc('L.Smith')
-    '01960'
-    >>> spfc('R.Miller')
-    '65490'
-
-    >>> spfc(('L', 'Smith'))
-    '01960'
-    >>> spfc(('R', 'Miller'))
-    '65490'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return SPFC().encode(word)
 
 
 if __name__ == '__main__':

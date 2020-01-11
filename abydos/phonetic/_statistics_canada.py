@@ -21,12 +21,9 @@ Statistics Canada phonetic encoding
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['StatisticsCanada', 'statistics_canada']
+__all__ = ['StatisticsCanada']
 
 
 class StatisticsCanada(_Phonetic):
@@ -103,46 +100,6 @@ class StatisticsCanada(_Phonetic):
         code = code.replace(' ', '')
 
         return code[: self._max_length]
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the StatisticsCanada.encode method instead.',
-)
-def statistics_canada(word, max_length=4):
-    """Return the Statistics Canada code for a word.
-
-    This is a wrapper for :py:meth:`StatisticsCanada.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The maximum length (default 4) of the code to return
-
-    Returns
-    -------
-    str
-        The Statistics Canada name code value
-
-    Examples
-    --------
-    >>> statistics_canada('Christopher')
-    'CHRS'
-    >>> statistics_canada('Niall')
-    'NL'
-    >>> statistics_canada('Smith')
-    'SMTH'
-    >>> statistics_canada('Schmidt')
-    'SCHM'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return StatisticsCanada(max_length).encode(word)
 
 
 if __name__ == '__main__':

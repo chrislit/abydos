@@ -19,12 +19,9 @@
 Length similarity & distance
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Length', 'dist_length', 'sim_length']
+__all__ = ['Length']
 
 
 class Length(_Distance):
@@ -76,88 +73,6 @@ class Length(_Distance):
         return (
             len(src) / len(tar) if len(src) < len(tar) else len(tar) / len(src)
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Length.sim method instead.',
-)
-def sim_length(src, tar):
-    """Return the length similarity of two strings.
-
-    This is a wrapper for :py:meth:`Length.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Length similarity
-
-    Examples
-    --------
-    >>> sim_length('cat', 'hat')
-    1.0
-    >>> sim_length('Niall', 'Neil')
-    0.8
-    >>> sim_length('aluminum', 'Catalan')
-    0.875
-    >>> sim_length('ATCG', 'TAGC')
-    1.0
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Length().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Length.dist method instead.',
-)
-def dist_length(src, tar):
-    """Return the length distance between two strings.
-
-    This is a wrapper for :py:meth:`Length.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Length distance
-
-    Examples
-    --------
-    >>> dist_length('cat', 'hat')
-    0.0
-    >>> dist_length('Niall', 'Neil')
-    0.19999999999999996
-    >>> dist_length('aluminum', 'Catalan')
-    0.125
-    >>> dist_length('ATCG', 'TAGC')
-    0.0
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Length().dist(src, tar)
 
 
 if __name__ == '__main__':

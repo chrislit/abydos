@@ -21,12 +21,9 @@ Phonetic Spanish
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['PhoneticSpanish', 'phonetic_spanish']
+__all__ = ['PhoneticSpanish']
 
 
 class PhoneticSpanish(_Phonetic):
@@ -141,48 +138,6 @@ class PhoneticSpanish(_Phonetic):
             sdx = (sdx + ('0' * self._max_length))[: self._max_length]
 
         return sdx
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the PhoneticSpanish.encode method instead.',
-)
-def phonetic_spanish(word, max_length=-1):
-    """Return the PhoneticSpanish coding of word.
-
-    This is a wrapper for :py:meth:`PhoneticSpanish.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to unlimited)
-
-    Returns
-    -------
-    str
-        The PhoneticSpanish code
-
-    Examples
-    --------
-    >>> phonetic_spanish('Perez')
-    '094'
-    >>> phonetic_spanish('Martinez')
-    '69364'
-    >>> phonetic_spanish('Gutierrez')
-    '83994'
-    >>> phonetic_spanish('Santiago')
-    '4638'
-    >>> phonetic_spanish('Nicolás')
-    '6454'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return PhoneticSpanish(max_length).encode(word)
 
 
 if __name__ == '__main__':

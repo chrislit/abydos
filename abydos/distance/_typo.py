@@ -22,16 +22,13 @@ Typo edit distance functions.
 from itertools import chain
 from math import log
 
-from deprecation import deprecated
-
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from .. import __version__
 
 
-__all__ = ['Typo', 'dist_typo', 'sim_typo', 'typo']
+__all__ = ['Typo']
 
 
 class Typo(_Distance):
@@ -365,184 +362,6 @@ class Typo(_Distance):
         return self.dist_abs(src, tar) / (
             max(len(src) * del_cost, len(tar) * ins_cost)
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Typo.dist_abs method instead.',
-)
-def typo(src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'):
-    """Return the typo distance between two strings.
-
-    This is a wrapper for :py:meth:`Typo.typo`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    metric : str
-        Supported values include: ``euclidean``, ``manhattan``,
-        ``log-euclidean``, and ``log-manhattan``
-    cost : tuple
-        A 4-tuple representing the cost of the four possible edits: inserts,
-        deletes, substitutions, and shift, respectively (by default:
-        (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-        significantly less than the cost of an insertion & deletion unless a
-        log metric is used.
-    layout : str
-        Name of the keyboard layout to use (Currently supported:
-        ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
-
-    Returns
-    -------
-    float
-        Typo distance
-
-    Examples
-    --------
-    >>> typo('cat', 'hat')
-    1.5811388
-    >>> typo('Niall', 'Neil')
-    2.8251407
-    >>> typo('Colin', 'Cuilen')
-    3.4142137
-    >>> typo('ATCG', 'TAGC')
-    2.5
-
-    >>> typo('cat', 'hat', metric='manhattan')
-    2.0
-    >>> typo('Niall', 'Neil', metric='manhattan')
-    3.0
-    >>> typo('Colin', 'Cuilen', metric='manhattan')
-    3.5
-    >>> typo('ATCG', 'TAGC', metric='manhattan')
-    2.5
-
-    >>> typo('cat', 'hat', metric='log-manhattan')
-    0.804719
-    >>> typo('Niall', 'Neil', metric='log-manhattan')
-    2.2424533
-    >>> typo('Colin', 'Cuilen', metric='log-manhattan')
-    2.2424533
-    >>> typo('ATCG', 'TAGC', metric='log-manhattan')
-    2.3465736
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Typo(metric, cost, layout).dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Typo.dist method instead.',
-)
-def dist_typo(
-    src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
-):
-    """Return the normalized typo distance between two strings.
-
-    This is a wrapper for :py:meth:`Typo.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    metric : str
-        Supported values include: ``euclidean``, ``manhattan``,
-        ``log-euclidean``, and ``log-manhattan``
-    cost : tuple
-        A 4-tuple representing the cost of the four possible edits: inserts,
-        deletes, substitutions, and shift, respectively (by default:
-        (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-        significantly less than the cost of an insertion & deletion unless a
-        log metric is used.
-    layout : str
-        Name of the keyboard layout to use (Currently supported:
-        ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
-
-    Returns
-    -------
-    float
-        Normalized typo distance
-
-    Examples
-    --------
-    >>> round(dist_typo('cat', 'hat'), 12)
-    0.527046283086
-    >>> round(dist_typo('Niall', 'Neil'), 12)
-    0.565028142929
-    >>> round(dist_typo('Colin', 'Cuilen'), 12)
-    0.569035609563
-    >>> dist_typo('ATCG', 'TAGC')
-    0.625
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Typo(metric, cost, layout).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Typo.sim method instead.',
-)
-def sim_typo(
-    src, tar, metric='euclidean', cost=(1, 1, 0.5, 0.5), layout='QWERTY'
-):
-    """Return the normalized typo similarity between two strings.
-
-    This is a wrapper for :py:meth:`Typo.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    metric : str
-        Supported values include: ``euclidean``, ``manhattan``,
-        ``log-euclidean``, and ``log-manhattan``
-    cost : tuple
-        A 4-tuple representing the cost of the four possible edits: inserts,
-        deletes, substitutions, and shift, respectively (by default:
-        (1, 1, 0.5, 0.5)) The substitution & shift costs should be
-        significantly less than the cost of an insertion & deletion unless a
-        log metric is used.
-    layout : str
-        Name of the keyboard layout to use (Currently supported:
-        ``QWERTY``, ``Dvorak``, ``AZERTY``, ``QWERTZ``)
-
-    Returns
-    -------
-    float
-        Normalized typo similarity
-
-    Examples
-    --------
-    >>> round(sim_typo('cat', 'hat'), 12)
-    0.472953716914
-    >>> round(sim_typo('Niall', 'Neil'), 12)
-    0.434971857071
-    >>> round(sim_typo('Colin', 'Cuilen'), 12)
-    0.430964390437
-    >>> sim_typo('ATCG', 'TAGC')
-    0.375
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Typo(metric, cost, layout).sim(src, tar)
 
 
 if __name__ == '__main__':

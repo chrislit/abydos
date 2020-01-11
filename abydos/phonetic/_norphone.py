@@ -19,12 +19,9 @@
 Norphone
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Norphone', 'norphone']
+__all__ = ['Norphone']
 
 
 class Norphone(_Phonetic):
@@ -153,46 +150,6 @@ class Norphone(_Phonetic):
         code = self._delete_consecutive_repeats(code)
 
         return code
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Norphone.encode method instead.',
-)
-def norphone(word):
-    """Return the Norphone code.
-
-    This is a wrapper for :py:meth:`Norphone.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The Norphone code
-
-    Examples
-    --------
-    >>> norphone('Hansen')
-    'HNSN'
-    >>> norphone('Larsen')
-    'LRSN'
-    >>> norphone('Aagaard')
-    'ÅKRT'
-    >>> norphone('Braaten')
-    'BRTN'
-    >>> norphone('Sandvik')
-    'SNVK'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Norphone().encode(word)
 
 
 if __name__ == '__main__':

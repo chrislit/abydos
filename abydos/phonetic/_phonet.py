@@ -22,12 +22,9 @@ phonet algorithm (a.k.a. Hannoveraner Phonetik), intended chiefly for German
 from collections import Counter
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Phonet', 'phonet']
+__all__ = ['Phonet']
 
 
 class Phonet(_Phonetic):
@@ -1737,66 +1734,6 @@ class Phonet(_Phonetic):
 
         word = unicode_normalize('NFKC', word)
         return _phonet(word, self._mode, self._lang)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Phonet.encode method instead.',
-)
-def phonet(word, mode=1, lang='de'):
-    """Return the phonet code for a word.
-
-    This is a wrapper for :py:meth:`Phonet.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    mode : int
-        The ponet variant to employ (1 or 2)
-    lang : str
-        ``de`` (default) for German, ``none`` for no language
-
-    Returns
-    -------
-    str
-        The phonet value
-
-    Examples
-    --------
-    >>> phonet('Christopher')
-    'KRISTOFA'
-    >>> phonet('Niall')
-    'NIAL'
-    >>> phonet('Smith')
-    'SMIT'
-    >>> phonet('Schmidt')
-    'SHMIT'
-
-    >>> phonet('Christopher', mode=2)
-    'KRIZTUFA'
-    >>> phonet('Niall', mode=2)
-    'NIAL'
-    >>> phonet('Smith', mode=2)
-    'ZNIT'
-    >>> phonet('Schmidt', mode=2)
-    'ZNIT'
-
-    >>> phonet('Christopher', lang='none')
-    'CHRISTOPHER'
-    >>> phonet('Niall', lang='none')
-    'NIAL'
-    >>> phonet('Smith', lang='none')
-    'SMITH'
-    >>> phonet('Schmidt', lang='none')
-    'SCHMIDT'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Phonet(mode, lang).encode(word)
 
 
 if __name__ == '__main__':

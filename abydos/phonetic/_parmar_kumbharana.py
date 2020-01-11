@@ -19,12 +19,9 @@
 Parmar-Kumbharana phonetic algorithm
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['ParmarKumbharana', 'parmar_kumbharana']
+__all__ = ['ParmarKumbharana']
 
 
 class ParmarKumbharana(_Phonetic):
@@ -105,46 +102,6 @@ class ParmarKumbharana(_Phonetic):
 
         word = word[:1] + word[1:].translate(self._del_trans)  # Rule 6
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the ParmarKumbharana.encode method instead.',
-)
-def parmar_kumbharana(word):
-    """Return the Parmar-Kumbharana encoding of a word.
-
-    This is a wrapper for :py:meth:`ParmarKumbharana.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The Parmar-Kumbharana encoding
-
-    Examples
-    --------
-    >>> parmar_kumbharana('Gough')
-    'GF'
-    >>> parmar_kumbharana('pneuma')
-    'NM'
-    >>> parmar_kumbharana('knight')
-    'NT'
-    >>> parmar_kumbharana('trice')
-    'TRS'
-    >>> parmar_kumbharana('judge')
-    'JJ'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return ParmarKumbharana().encode(word)
 
 
 if __name__ == '__main__':

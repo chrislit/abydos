@@ -19,12 +19,9 @@
 Prefix similarity & distance
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Prefix', 'dist_prefix', 'sim_prefix']
+__all__ = ['Prefix']
 
 
 class Prefix(_Distance):
@@ -80,86 +77,6 @@ class Prefix(_Distance):
             if min_word[:i] == max_word[:i]:
                 return i / min_len
         return 0.0
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Prefix.sim method instead.',
-)
-def sim_prefix(src, tar):
-    """Return the prefix similarity of two strings.
-
-    This is a wrapper for :py:meth:`Prefix.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Prefix similarity
-
-    Examples
-    --------
-    >>> sim_prefix('cat', 'hat')
-    0.0
-    >>> sim_prefix('Niall', 'Neil')
-    0.25
-    >>> sim_prefix('aluminum', 'Catalan')
-    0.0
-    >>> sim_prefix('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Prefix().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Prefix.dist method instead.',
-)
-def dist_prefix(src, tar):
-    """Return the prefix distance between two strings.
-
-    This is a wrapper for :py:meth:`Prefix.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Prefix distance
-
-    Examples
-    --------
-    >>> dist_prefix('cat', 'hat')
-    1.0
-    >>> dist_prefix('Niall', 'Neil')
-    0.75
-    >>> dist_prefix('aluminum', 'Catalan')
-    1.0
-    >>> dist_prefix('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Prefix().dist(src, tar)
 
 
 if __name__ == '__main__':

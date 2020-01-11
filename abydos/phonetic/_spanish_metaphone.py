@@ -21,12 +21,9 @@ Spanish Metaphone
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['SpanishMetaphone', 'spanish_metaphone']
+__all__ = ['SpanishMetaphone']
 
 
 class SpanishMetaphone(_Phonetic):
@@ -247,52 +244,6 @@ class SpanishMetaphone(_Phonetic):
             meta_key = meta_key.replace('S', 'Z')
 
         return meta_key
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SpanishMetaphone.encode method instead.',
-)
-def spanish_metaphone(word, max_length=6, modified=False):
-    """Return the Spanish Metaphone of a word.
-
-    This is a wrapper for :py:meth:`SpanishMetaphone.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 6)
-    modified : bool
-        Set to True to use del Pilar Angeles & Bailón-Miguel's modified version
-        of the algorithm
-
-    Returns
-    -------
-    str
-        The Spanish Metaphone code
-
-    Examples
-    --------
-    >>> spanish_metaphone('Perez')
-    'PRZ'
-    >>> spanish_metaphone('Martinez')
-    'MRTNZ'
-    >>> spanish_metaphone('Gutierrez')
-    'GTRRZ'
-    >>> spanish_metaphone('Santiago')
-    'SNTG'
-    >>> spanish_metaphone('Nicolás')
-    'NKLS'
-
-
-    .. versionadded:: 0.3.0
-
-    """
-    return SpanishMetaphone(max_length, modified).encode(word)
 
 
 if __name__ == '__main__':

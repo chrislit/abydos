@@ -21,12 +21,9 @@ skeleton key
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._fingerprint import _Fingerprint
-from .. import __version__
 
-__all__ = ['SkeletonKey', 'skeleton_key']
+__all__ = ['SkeletonKey']
 
 
 class SkeletonKey(_Fingerprint):
@@ -86,42 +83,6 @@ class SkeletonKey(_Fingerprint):
                     consonant_part += char
         # return the first char followed by consonants followed by vowels
         return start + consonant_part + vowel_part
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SkeletonKey.fingerprint method instead.',
-)
-def skeleton_key(word):
-    """Return the skeleton key.
-
-    This is a wrapper for :py:meth:`SkeletonKey.fingerprint`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform into its skeleton key
-
-    Returns
-    -------
-    str
-        The skeleton key
-
-    Examples
-    --------
-    >>> skeleton_key('The quick brown fox jumped over the lazy dog.')
-    'THQCKBRWNFXJMPDVLZYGEUIOA'
-    >>> skeleton_key('Christopher')
-    'CHRSTPIOE'
-    >>> skeleton_key('Niall')
-    'NLIA'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return SkeletonKey().fingerprint(word)
 
 
 if __name__ == '__main__':

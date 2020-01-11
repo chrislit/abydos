@@ -19,13 +19,10 @@
 NCD using BWT plus RLE
 """
 
-from deprecation import deprecated
-
 from ._ncd_rle import NCDrle
-from .. import __version__
 from ..compression import BWT
 
-__all__ = ['NCDbwtrle', 'dist_ncd_bwtrle', 'sim_ncd_bwtrle']
+__all__ = ['NCDbwtrle']
 
 
 class NCDbwtrle(NCDrle):
@@ -85,80 +82,6 @@ class NCDbwtrle(NCDrle):
             min(len(concat_comp), len(concat_comp2))
             - min(len(src_comp), len(tar_comp))
         ) / max(len(src_comp), len(tar_comp))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NCDbwtrle.dist method instead.',
-)
-def dist_ncd_bwtrle(src, tar):
-    """Return the NCD between two strings using BWT plus RLE.
-
-    This is a wrapper for :py:meth:`NCDbwtrle.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Compression distance
-
-    Examples
-    --------
-    >>> dist_ncd_bwtrle('cat', 'hat')
-    0.75
-    >>> dist_ncd_bwtrle('Niall', 'Neil')
-    0.8333333333333334
-    >>> dist_ncd_bwtrle('aluminum', 'Catalan')
-    1.0
-    >>> dist_ncd_bwtrle('ATCG', 'TAGC')
-    0.8
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDbwtrle().dist(src, tar)
-
-
-def sim_ncd_bwtrle(src, tar):
-    """Return the NCD similarity between two strings using BWT plus RLE.
-
-    This is a wrapper for :py:meth:`NCDbwtrle.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Compression similarity
-
-    Examples
-    --------
-    >>> sim_ncd_bwtrle('cat', 'hat')
-    0.25
-    >>> sim_ncd_bwtrle('Niall', 'Neil')
-    0.16666666666666663
-    >>> sim_ncd_bwtrle('aluminum', 'Catalan')
-    0.0
-    >>> sim_ncd_bwtrle('ATCG', 'TAGC')
-    0.19999999999999996
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDbwtrle().sim(src, tar)
 
 
 if __name__ == '__main__':

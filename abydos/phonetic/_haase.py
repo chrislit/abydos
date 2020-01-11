@@ -22,12 +22,9 @@ Haase Phonetik
 from itertools import product
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Haase', 'haase_phonetik']
+__all__ = ['Haase']
 
 
 class Haase(_Phonetic):
@@ -293,48 +290,6 @@ class Haase(_Phonetic):
             return tuple(encoded_single)
 
         return encoded
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Haase.encode method instead.',
-)
-def haase_phonetik(word, primary_only=False):
-    """Return the Haase Phonetik code for a word.
-
-    This is a wrapper for :py:meth:`Haase.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    primary_only : bool
-        If True, only the primary code is returned
-
-    Returns
-    -------
-    tuple
-        The Haase Phonetik value as a numeric string
-
-    Examples
-    --------
-    >>> haase_phonetik('Joachim')
-    ('9496',)
-    >>> haase_phonetik('Christoph')
-    ('4798293', '8798293')
-    >>> haase_phonetik('Jörg')
-    ('974',)
-    >>> haase_phonetik('Smith')
-    ('8692',)
-    >>> haase_phonetik('Schmidt')
-    ('8692', '4692')
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Haase(primary_only).encode(word)
 
 
 if __name__ == '__main__':

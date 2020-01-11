@@ -19,12 +19,9 @@
 Overlap similarity & distance
 """
 
-from deprecation import deprecated
-
 from ._token_distance import _TokenDistance
-from .. import __version__
 
-__all__ = ['Overlap', 'dist_overlap', 'sim_overlap']
+__all__ = ['Overlap']
 
 
 class Overlap(_TokenDistance):
@@ -128,90 +125,6 @@ class Overlap(_TokenDistance):
         return self._intersection_card() / min(
             self._src_card(), self._tar_card()
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Overlap.sim method instead.',
-)
-def sim_overlap(src, tar, qval=2):
-    r"""Return the overlap coefficient of two strings.
-
-    This is a wrapper for :py:meth:`Overlap.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-
-    Returns
-    -------
-    float
-        Overlap similarity
-
-    Examples
-    --------
-    >>> sim_overlap('cat', 'hat')
-    0.5
-    >>> sim_overlap('Niall', 'Neil')
-    0.4
-    >>> sim_overlap('aluminum', 'Catalan')
-    0.125
-    >>> sim_overlap('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Overlap(qval=qval).sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Overlap.dist method instead.',
-)
-def dist_overlap(src, tar, qval=2):
-    """Return the overlap distance between two strings.
-
-    This is a wrapper for :py:meth:`Overlap.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-
-    Returns
-    -------
-    float
-        Overlap distance
-
-    Examples
-    --------
-    >>> dist_overlap('cat', 'hat')
-    0.5
-    >>> dist_overlap('Niall', 'Neil')
-    0.6
-    >>> dist_overlap('aluminum', 'Catalan')
-    0.875
-    >>> dist_overlap('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Overlap(qval=qval).dist(src, tar)
 
 
 if __name__ == '__main__':

@@ -21,16 +21,10 @@ Kölner Phonetik
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
 __all__ = [
     'Koelner',
-    'koelner_phonetik',
-    'koelner_phonetik_alpha',
-    'koelner_phonetik_num_to_alpha',
 ]
 
 
@@ -261,122 +255,6 @@ class Koelner(_Phonetic):
 
         """
         return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Koelner.encode method instead.',
-)
-def koelner_phonetik(word):
-    """Return the Kölner Phonetik (numeric output) code for a word.
-
-    This is a wrapper for :py:meth:`Koelner.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The Kölner Phonetik value as a numeric string
-
-    Example
-    -------
-    >>> koelner_phonetik('Christopher')
-    '478237'
-    >>> koelner_phonetik('Niall')
-    '65'
-    >>> koelner_phonetik('Smith')
-    '862'
-    >>> koelner_phonetik('Schmidt')
-    '862'
-    >>> koelner_phonetik('Müller')
-    '657'
-    >>> koelner_phonetik('Zimmermann')
-    '86766'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Koelner().encode(word)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Koelner._to_alpha method instead.',
-)
-def koelner_phonetik_num_to_alpha(num):
-    """Convert a Kölner Phonetik code from numeric to alphabetic.
-
-    This is a wrapper for :py:meth:`Koelner._to_alpha`.
-
-    Parameters
-    ----------
-    num : str or int
-        A numeric Kölner Phonetik representation
-
-    Returns
-    -------
-    str
-        An alphabetic representation of the same word
-
-    Examples
-    --------
-    >>> koelner_phonetik_num_to_alpha('862')
-    'SNT'
-    >>> koelner_phonetik_num_to_alpha('657')
-    'NLR'
-    >>> koelner_phonetik_num_to_alpha('86766')
-    'SNRNN'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Koelner()._to_alpha(num)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Koelner.encode_alpha method instead.',
-)
-def koelner_phonetik_alpha(word):
-    """Return the Kölner Phonetik (alphabetic output) code for a word.
-
-    This is a wrapper for :py:meth:`Koelner.encode_alpha`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The Kölner Phonetik value as an alphabetic string
-
-    Examples
-    --------
-    >>> koelner_phonetik_alpha('Smith')
-    'SNT'
-    >>> koelner_phonetik_alpha('Schmidt')
-    'SNT'
-    >>> koelner_phonetik_alpha('Müller')
-    'NLR'
-    >>> koelner_phonetik_alpha('Zimmermann')
-    'SNRNN'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Koelner().encode_alpha(word)
 
 
 if __name__ == '__main__':

@@ -21,12 +21,9 @@ NRL English-to-phoneme algorithm
 
 from re import match as re_match
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['NRL', 'nrl']
+__all__ = ['NRL']
 
 
 class NRL(_Phonetic):
@@ -519,49 +516,6 @@ class NRL(_Phonetic):
                 pos += 1
 
         return pron
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NRL.encode method instead.',
-)
-def nrl(word):
-    """Return the Naval Research Laboratory phonetic encoding of a word.
-
-    This is a wrapper for :py:meth:`NRL.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The NRL phonetic encoding
-
-    Examples
-    --------
-    >>> nrl('the')
-    'DHAX'
-    >>> nrl('round')
-    'rAWnd'
-    >>> nrl('quick')
-    'kwIHk'
-    >>> nrl('eaten')
-    'IYtEHn'
-    >>> nrl('Smith')
-    'smIHTH'
-    >>> nrl('Larsen')
-    'lAArsEHn'
-
-
-    .. versionadded:: 0.3.0
-
-    """
-    return NRL().encode(word)
 
 
 if __name__ == '__main__':
