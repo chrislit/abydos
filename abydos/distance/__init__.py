@@ -371,7 +371,7 @@ from ._anderberg import Anderberg
 from ._andres_marzo_delta import AndresMarzoDelta
 from ._average_linkage import AverageLinkage
 from ._azzoo import AZZOO
-from ._bag import Bag, bag, dist_bag, sim_bag
+from ._bag import Bag
 from ._baroni_urbani_buser_i import BaroniUrbaniBuserI
 from ._baroni_urbani_buser_ii import BaroniUrbaniBuserII
 from ._batagelj_bren import BatageljBren
@@ -390,7 +390,7 @@ from ._baulieu_xii import BaulieuXII
 from ._baulieu_xiii import BaulieuXIII
 from ._baulieu_xiv import BaulieuXIV
 from ._baulieu_xv import BaulieuXV
-from ._baystat import Baystat, dist_baystat, sim_baystat
+from ._baystat import Baystat
 from ._benini_i import BeniniI
 from ._benini_ii import BeniniII
 from ._bennet import Bennet
@@ -404,7 +404,7 @@ from ._canberra import Canberra
 from ._cao import Cao
 from ._chao_dice import ChaoDice
 from ._chao_jaccard import ChaoJaccard
-from ._chebyshev import Chebyshev, chebyshev
+from ._chebyshev import Chebyshev
 from ._chord import Chord
 from ._clark import Clark
 from ._clement import Clement
@@ -417,16 +417,11 @@ from ._consonni_todeschini_iii import ConsonniTodeschiniIII
 from ._consonni_todeschini_iv import ConsonniTodeschiniIV
 from ._consonni_todeschini_v import ConsonniTodeschiniV
 from ._cormode_lz import CormodeLZ
-from ._cosine import Cosine, dist_cosine, sim_cosine
+from ._cosine import Cosine
 from ._covington import Covington
-from ._damerau_levenshtein import (
-    DamerauLevenshtein,
-    damerau_levenshtein,
-    dist_damerau,
-    sim_damerau,
-)
+from ._damerau_levenshtein import DamerauLevenshtein
 from ._dennis import Dennis
-from ._dice import Dice, dist_dice, sim_dice
+from ._dice import Dice
 from ._dice_asymmetric_i import DiceAsymmetricI
 from ._dice_asymmetric_ii import DiceAsymmetricII
 from ._digby import Digby
@@ -435,9 +430,9 @@ from ._dispersion import Dispersion
 from ._distance import _Distance
 from ._doolittle import Doolittle
 from ._dunning import Dunning
-from ._editex import Editex, dist_editex, editex, sim_editex
-from ._euclidean import Euclidean, dist_euclidean, euclidean, sim_euclidean
-from ._eudex import Eudex, dist_eudex, eudex_hamming, sim_eudex
+from ._editex import Editex
+from ._euclidean import Euclidean
+from ._eudex import Eudex
 from ._eyraud import Eyraud
 from ._fager_mcgowan import FagerMcGowan
 from ._faith import Faith
@@ -462,14 +457,14 @@ from ._goodman_kruskal_lambda import GoodmanKruskalLambda
 from ._goodman_kruskal_lambda_r import GoodmanKruskalLambdaR
 from ._goodman_kruskal_tau_a import GoodmanKruskalTauA
 from ._goodman_kruskal_tau_b import GoodmanKruskalTauB
-from ._gotoh import Gotoh, gotoh
+from ._gotoh import Gotoh
 from ._gower_legendre import GowerLegendre
 from ._guth import Guth
 from ._guttman_lambda_a import GuttmanLambdaA
 from ._guttman_lambda_b import GuttmanLambdaB
 from ._gwet_ac import GwetAC
 from ._hamann import Hamann
-from ._hamming import Hamming, dist_hamming, hamming, sim_hamming
+from ._hamming import Hamming
 from ._harris_lahey import HarrisLahey
 from ._hassanat import Hassanat
 from ._hawkins_dotson import HawkinsDotson
@@ -478,14 +473,14 @@ from ._henderson_heron import HendersonHeron
 from ._higuera_mico import HigueraMico
 from ._horn_morisita import HornMorisita
 from ._hurlbert import Hurlbert
-from ._ident import Ident, dist_ident, sim_ident
+from ._ident import Ident
 from ._inclusion import Inclusion
-from ._indel import Indel, dist_indel, indel, sim_indel
+from ._indel import Indel
 from ._isg import ISG
 from ._iterative_substring import IterativeSubString
-from ._jaccard import Jaccard, dist_jaccard, sim_jaccard, tanimoto
+from ._jaccard import Jaccard
 from ._jaccard_nm import JaccardNM
-from ._jaro_winkler import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from ._jaro_winkler import JaroWinkler
 from ._jensen_shannon import JensenShannon
 from ._johnson import Johnson
 from ._kendall_tau import KendallTau
@@ -509,20 +504,15 @@ from ._kuhns_xii import KuhnsXII
 from ._kulczynski_i import KulczynskiI
 from ._kulczynski_ii import KulczynskiII
 from ._lcprefix import LCPrefix
-from ._lcsseq import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
-from ._lcsstr import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
+from ._lcsseq import LCSseq
+from ._lcsstr import LCSstr
 from ._lcsuffix import LCSuffix
-from ._length import Length, dist_length, sim_length
-from ._levenshtein import (
-    Levenshtein,
-    dist_levenshtein,
-    levenshtein,
-    sim_levenshtein,
-)
+from ._length import Length
+from ._levenshtein import Levenshtein
 from ._lig3 import LIG3
 from ._lorentzian import Lorentzian
 from ._maarel import Maarel
-from ._manhattan import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from ._manhattan import Manhattan
 from ._marking import Marking
 from ._marking_metric import MarkingMetric
 from ._masi import MASI
@@ -534,24 +524,24 @@ from ._meta_levenshtein import MetaLevenshtein
 from ._michelet import Michelet
 from ._millar import Millar
 from ._minhash import MinHash
-from ._minkowski import Minkowski, dist_minkowski, minkowski, sim_minkowski
-from ._mlipns import MLIPNS, dist_mlipns, sim_mlipns
-from ._monge_elkan import MongeElkan, dist_monge_elkan, sim_monge_elkan
+from ._minkowski import Minkowski
+from ._mlipns import MLIPNS
+from ._monge_elkan import MongeElkan
 from ._morisita import Morisita
 from ._mountford import Mountford
-from ._mra import MRA, dist_mra, mra_compare, sim_mra
+from ._mra import MRA
 from ._ms_contingency import MSContingency
 from ._mutual_information import MutualInformation
-from ._ncd_arith import NCDarith, dist_ncd_arith, sim_ncd_arith
-from ._ncd_bwtrle import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
-from ._ncd_bz2 import NCDbz2, dist_ncd_bz2, sim_ncd_bz2
-from ._ncd_lzma import NCDlzma, dist_ncd_lzma, sim_ncd_lzma
+from ._ncd_arith import NCDarith
+from ._ncd_bwtrle import NCDbwtrle
+from ._ncd_bz2 import NCDbz2
+from ._ncd_lzma import NCDlzma
 from ._ncd_lzss import NCDlzss
 from ._ncd_paq9a import NCDpaq9a
-from ._ncd_rle import NCDrle, dist_ncd_rle, sim_ncd_rle
-from ._ncd_zlib import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
-from ._needleman_wunsch import NeedlemanWunsch, needleman_wunsch
-from ._overlap import Overlap, dist_overlap, sim_overlap
+from ._ncd_rle import NCDrle
+from ._ncd_zlib import NCDzlib
+from ._needleman_wunsch import NeedlemanWunsch
+from ._overlap import Overlap
 from ._ozbay import Ozbay
 from ._pattern import Pattern
 from ._pearson_chi_squared import PearsonChiSquared
@@ -565,16 +555,12 @@ from ._phonetic_edit_distance import PhoneticEditDistance
 from ._positional_q_gram_dice import PositionalQGramDice
 from ._positional_q_gram_jaccard import PositionalQGramJaccard
 from ._positional_q_gram_overlap import PositionalQGramOverlap
-from ._prefix import Prefix, dist_prefix, sim_prefix
+from ._prefix import Prefix
 from ._q_gram import QGram
 from ._quantitative_cosine import QuantitativeCosine
 from ._quantitative_dice import QuantitativeDice
 from ._quantitative_jaccard import QuantitativeJaccard
-from ._ratcliff_obershelp import (
-    RatcliffObershelp,
-    dist_ratcliff_obershelp,
-    sim_ratcliff_obershelp,
-)
+from ._ratcliff_obershelp import RatcliffObershelp
 from ._raup_crick import RaupCrick
 from ._rees_levenshtein import ReesLevenshtein
 from ._relaxed_hamming import RelaxedHamming
@@ -590,12 +576,12 @@ from ._saps import SAPS
 from ._scott_pi import ScottPi
 from ._shape import Shape
 from ._shapira_storer_i import ShapiraStorerI
-from ._sift4 import Sift4, dist_sift4, sift4_common, sim_sift4
+from ._sift4 import Sift4
 from ._sift4_extended import Sift4Extended
-from ._sift4_simplest import Sift4Simplest, sift4_simplest
+from ._sift4_simplest import Sift4Simplest
 from ._single_linkage import SingleLinkage
 from ._size import Size
-from ._smith_waterman import SmithWaterman, smith_waterman
+from ._smith_waterman import SmithWaterman
 from ._soft_cosine import SoftCosine
 from ._softtf_idf import SoftTFIDF
 from ._sokal_michener import SokalMichener
@@ -608,10 +594,10 @@ from ._sorgenfrei import Sorgenfrei
 from ._ssk import SSK
 from ._steffensen import Steffensen
 from ._stiles import Stiles
-from ._strcmp95 import Strcmp95, dist_strcmp95, sim_strcmp95
+from ._strcmp95 import Strcmp95
 from ._stuart_tau import StuartTau
-from ._suffix import Suffix, dist_suffix, sim_suffix
-from ._synoname import Synoname, synoname
+from ._suffix import Suffix
+from ._synoname import Synoname
 from ._tarantula import Tarantula
 from ._tarwid import Tarwid
 from ._tetrachoric import Tetrachoric
@@ -622,8 +608,8 @@ from ._tulloss_r import TullossR
 from ._tulloss_s import TullossS
 from ._tulloss_t import TullossT
 from ._tulloss_u import TullossU
-from ._tversky import Tversky, dist_tversky, sim_tversky
-from ._typo import Typo, dist_typo, sim_typo, typo
+from ._tversky import Tversky
+from ._typo import Typo
 from ._unigram_subtuple import UnigramSubtuple
 from ._unknown_a import UnknownA
 from ._unknown_b import UnknownB
@@ -660,22 +646,13 @@ __all__ = [
     'sim',
     'dist',
     'Levenshtein',
-    'levenshtein',
-    'dist_levenshtein',
-    'sim_levenshtein',
     'DamerauLevenshtein',
-    'damerau_levenshtein',
-    'dist_damerau',
-    'sim_damerau',
     'ShapiraStorerI',
     'Marking',
     'MarkingMetric',
     'YujianBo',
     'HigueraMico',
     'Indel',
-    'indel',
-    'dist_indel',
-    'sim_indel',
     'SAPS',
     'MetaLevenshtein',
     'Covington',
@@ -685,22 +662,13 @@ __all__ = [
     'DiscountedLevenshtein',
     'PhoneticEditDistance',
     'Hamming',
-    'hamming',
-    'dist_hamming',
-    'sim_hamming',
     'MLIPNS',
-    'dist_mlipns',
-    'sim_mlipns',
     'RelaxedHamming',
     'Tichy',
     'BlockLevenshtein',
     'CormodeLZ',
     'JaroWinkler',
-    'dist_jaro_winkler',
-    'sim_jaro_winkler',
     'Strcmp95',
-    'dist_strcmp95',
-    'sim_strcmp95',
     'IterativeSubString',
     'AMPLE',
     'AZZOO',
@@ -733,7 +701,6 @@ __all__ = [
     'ChaoDice',
     'ChaoJaccard',
     'Chebyshev',
-    'chebyshev',
     'Chord',
     'Clark',
     'Clement',
@@ -745,12 +712,8 @@ __all__ = [
     'ConsonniTodeschiniIV',
     'ConsonniTodeschiniV',
     'Cosine',
-    'dist_cosine',
-    'sim_cosine',
     'Dennis',
     'Dice',
-    'dist_dice',
-    'sim_dice',
     'DiceAsymmetricI',
     'DiceAsymmetricII',
     'Digby',
@@ -758,9 +721,6 @@ __all__ = [
     'Doolittle',
     'Dunning',
     'Euclidean',
-    'euclidean',
-    'dist_euclidean',
-    'sim_euclidean',
     'Eyraud',
     'FagerMcGowan',
     'Faith',
@@ -793,9 +753,6 @@ __all__ = [
     'HornMorisita',
     'Hurlbert',
     'Jaccard',
-    'dist_jaccard',
-    'sim_jaccard',
-    'tanimoto',
     'JaccardNM',
     'Johnson',
     'KendallTau',
@@ -822,15 +779,9 @@ __all__ = [
     'Maarel',
     'Morisita',
     'Manhattan',
-    'manhattan',
-    'dist_manhattan',
-    'sim_manhattan',
     'Michelet',
     'Millar',
     'Minkowski',
-    'minkowski',
-    'dist_minkowski',
-    'sim_minkowski',
     'MASI',
     'Matusita',
     'MaxwellPilliner',
@@ -840,8 +791,6 @@ __all__ = [
     'MutualInformation',
     'MSContingency',
     'Overlap',
-    'dist_overlap',
-    'sim_overlap',
     'Pattern',
     'PearsonHeronII',
     'PearsonII',
@@ -876,8 +825,6 @@ __all__ = [
     'TullossT',
     'TullossU',
     'Tversky',
-    'dist_tversky',
-    'sim_tversky',
     'UnigramSubtuple',
     'UnknownA',
     'UnknownB',
@@ -915,13 +862,8 @@ __all__ = [
     'SingleLinkage',
     'CompleteLinkage',
     'Bag',
-    'bag',
-    'dist_bag',
-    'sim_bag',
     'SoftCosine',
     'MongeElkan',
-    'dist_monge_elkan',
-    'sim_monge_elkan',
     'TFIDF',
     'SoftTFIDF',
     'JensenShannon',
@@ -936,54 +878,23 @@ __all__ = [
     'PositionalQGramJaccard',
     'PositionalQGramOverlap',
     'NeedlemanWunsch',
-    'needleman_wunsch',
     'SmithWaterman',
-    'smith_waterman',
     'Gotoh',
-    'gotoh',
     'LCSseq',
-    'lcsseq',
-    'dist_lcsseq',
-    'sim_lcsseq',
     'LCSstr',
-    'lcsstr',
-    'dist_lcsstr',
-    'sim_lcsstr',
     'LCPrefix',
     'LCSuffix',
     'RatcliffObershelp',
-    'dist_ratcliff_obershelp',
-    'sim_ratcliff_obershelp',
     'Ident',
-    'dist_ident',
-    'sim_ident',
     'Length',
-    'dist_length',
-    'sim_length',
     'Prefix',
-    'dist_prefix',
-    'sim_prefix',
     'Suffix',
-    'dist_suffix',
-    'sim_suffix',
     'NCDzlib',
-    'dist_ncd_zlib',
-    'sim_ncd_zlib',
     'NCDbz2',
-    'dist_ncd_bz2',
-    'sim_ncd_bz2',
     'NCDlzma',
-    'dist_ncd_lzma',
-    'sim_ncd_lzma',
     'NCDarith',
-    'dist_ncd_arith',
-    'sim_ncd_arith',
     'NCDbwtrle',
-    'dist_ncd_bwtrle',
-    'sim_ncd_bwtrle',
     'NCDrle',
-    'dist_ncd_rle',
-    'sim_ncd_rle',
     'NCDpaq9a',
     'NCDlzss',
     'FuzzyWuzzyPartialString',
@@ -991,33 +902,14 @@ __all__ = [
     'FuzzyWuzzyTokenSet',
     'PhoneticDistance',
     'MRA',
-    'mra_compare',
-    'dist_mra',
-    'sim_mra',
     'Editex',
-    'editex',
-    'dist_editex',
-    'sim_editex',
     'Baystat',
-    'dist_baystat',
-    'sim_baystat',
     'Eudex',
-    'eudex_hamming',
-    'dist_eudex',
-    'sim_eudex',
     'Sift4',
     'Sift4Simplest',
     'Sift4Extended',
-    'sift4_common',
-    'sift4_simplest',
-    'dist_sift4',
-    'sim_sift4',
     'Typo',
-    'typo',
-    'dist_typo',
-    'sim_typo',
     'Synoname',
-    'synoname',
     'Ozbay',
     'ISG',
     'Inclusion',

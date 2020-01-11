@@ -70,60 +70,44 @@ form:
 
 """
 
-from ._caumanns import Caumanns, caumanns
-from ._clef_german import CLEFGerman, clef_german
-from ._clef_german_plus import CLEFGermanPlus, clef_german_plus
-from ._clef_swedish import CLEFSwedish, clef_swedish
-from ._lovins import Lovins, lovins
-from ._paice_husk import PaiceHusk, paice_husk
-from ._porter import Porter, porter
-from ._porter2 import Porter2, porter2
-from ._s_stemmer import SStemmer, s_stemmer
-from ._schinke import Schinke, schinke
+from ._caumanns import Caumanns
+from ._clef_german import CLEFGerman
+from ._clef_german_plus import CLEFGermanPlus
+from ._clef_swedish import CLEFSwedish
+from ._lovins import Lovins
+from ._paice_husk import PaiceHusk
+from ._porter import Porter
+from ._porter2 import Porter2
+from ._s_stemmer import SStemmer
+from ._schinke import Schinke
 from ._snowball import _Snowball
-from ._snowball_danish import SnowballDanish, sb_danish
-from ._snowball_dutch import SnowballDutch, sb_dutch
-from ._snowball_german import SnowballGerman, sb_german
-from ._snowball_norwegian import SnowballNorwegian, sb_norwegian
-from ._snowball_swedish import SnowballSwedish, sb_swedish
+from ._snowball_danish import SnowballDanish
+from ._snowball_dutch import SnowballDutch
+from ._snowball_german import SnowballGerman
+from ._snowball_norwegian import SnowballNorwegian
+from ._snowball_swedish import SnowballSwedish
 from ._stemmer import _Stemmer
-from ._uea_lite import UEALite, uealite
+from ._uea_lite import UEALite
 
 __all__ = [
     '_Stemmer',
     '_Snowball',
     'Lovins',
-    'lovins',
     'PaiceHusk',
-    'paice_husk',
     'UEALite',
-    'uealite',
     'SStemmer',
-    's_stemmer',
     'Caumanns',
-    'caumanns',
     'Schinke',
-    'schinke',
     'Porter',
-    'porter',
     'Porter2',
-    'porter2',
     'SnowballDanish',
-    'sb_danish',
     'SnowballDutch',
-    'sb_dutch',
     'SnowballGerman',
-    'sb_german',
     'SnowballNorwegian',
-    'sb_norwegian',
     'SnowballSwedish',
-    'sb_swedish',
     'CLEFGerman',
-    'clef_german',
     'CLEFGermanPlus',
-    'clef_german_plus',
     'CLEFSwedish',
-    'clef_swedish',
 ]
 
 

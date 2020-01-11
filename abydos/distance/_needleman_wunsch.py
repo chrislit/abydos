@@ -19,16 +19,12 @@
 Needleman-Wunsch score
 """
 
-from deprecation import deprecated
-
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from ._ident import sim_ident
-from .. import __version__
 
-__all__ = ['NeedlemanWunsch', 'needleman_wunsch']
+__all__ = ['NeedlemanWunsch']
 
 
 class NeedlemanWunsch(_Distance):
