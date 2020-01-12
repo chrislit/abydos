@@ -71,7 +71,7 @@ Abydos
     :target: https://bestpractices.coreinfrastructure.org/projects/1598
     :alt: CII Best Practices
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.09/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.06/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
 
@@ -83,7 +83,7 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,610-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-38,326-blue.svg
     :target: #
     :alt: SLOCCount
 
