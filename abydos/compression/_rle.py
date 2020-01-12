@@ -21,8 +21,6 @@ Run-Length Encoding encoder/decoder
 
 from itertools import groupby
 
-from ._bwt import BWT
-
 __all__ = ['RLE']
 
 
