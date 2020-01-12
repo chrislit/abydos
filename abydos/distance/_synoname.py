@@ -615,23 +615,23 @@ class Synoname(_Distance):
         if self._tests & self._test_dict['exact'] and fn_equal and ln_equal:
             return _fmt_retval(self._match_type_dict['exact'])
         if self._tests & self._test_dict['omission']:
-            self._lev._cost = (1, 1, 99, 99)
-            self._lev._mode = 'lev'
+            self._lev._cost = (1, 1, 99, 99)  # noqa: SF01
+            self._lev._mode = 'lev'  # noqa: SF01
             if fn_equal and self._lev.dist_abs(src_ln, tar_ln) == 1:
                 if not roman_conflict:
                     return _fmt_retval(self._match_type_dict['omission'])
             elif ln_equal and self._lev.dist_abs(src_fn, tar_fn) == 1:
                 return _fmt_retval(self._match_type_dict['omission'])
         if self._tests & self._test_dict['substitution']:
-            self._lev._cost = (99, 99, 1, 99)
-            self._lev._mode = 'lev'
+            self._lev._cost = (99, 99, 1, 99)  # noqa: SF01
+            self._lev._mode = 'lev'  # noqa: SF01
             if fn_equal and self._lev.dist_abs(src_ln, tar_ln) == 1:
                 return _fmt_retval(self._match_type_dict['substitution'])
             elif ln_equal and self._lev.dist_abs(src_fn, tar_fn) == 1:
                 return _fmt_retval(self._match_type_dict['substitution'])
         if self._tests & self._test_dict['transposition']:
-            self._lev._cost = (99, 99, 99, 1)
-            self._lev._mode = 'osa'
+            self._lev._cost = (99, 99, 99, 1)  # noqa: SF01
+            self._lev._mode = 'osa'  # noqa: SF01
             if fn_equal and (self._lev.dist_abs(src_ln, tar_ln) == 1):
                 return _fmt_retval(self._match_type_dict['transposition'])
             elif ln_equal and (self._lev.dist_abs(src_fn, tar_fn) == 1):
@@ -667,8 +667,8 @@ class Synoname(_Distance):
                     if src_initials == tar_initials:
                         return _fmt_retval(self._match_type_dict['initials'])
                     initial_diff = abs(len(src_initials) - len(tar_initials))
-                    self._lev._cost = (1, 99, 99, 99)
-                    self._lev._mode = 'lev'
+                    self._lev._cost = (1, 99, 99, 99)  # noqa: SF01
+                    self._lev._mode = 'lev'  # noqa: SF01
                     if initial_diff and (
                         (
                             initial_diff
