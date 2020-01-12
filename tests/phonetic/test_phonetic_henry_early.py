@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.HenryEarly
 
 import unittest
 
-from abydos.phonetic import HenryEarly, henry_early
+from abydos.phonetic import HenryEarly
 
 
 class HenryEarlyTestCases(unittest.TestCase):
@@ -97,9 +97,6 @@ class HenryEarlyTestCases(unittest.TestCase):
         self.assertEqual(
             HenryEarly(max_length=-1).encode('Christopher'), 'KRXF'
         )
-
-        # Test wrapper
-        self.assertEqual(henry_early('Gausselin'), 'GSL')
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Indel
 
 import unittest
 
-from abydos.distance import Indel, dist_indel, indel, sim_indel
+from abydos.distance import Indel
 
 
 class IndelTestCases(unittest.TestCase):
@@ -47,9 +47,6 @@ class IndelTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.8)
         self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.8)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_indel('Colin', 'Coiln'), 0.8)
-
     def test_indel_dist(self):
         """Test abydos.distance.Indel.dist."""
         # Base cases
@@ -65,9 +62,6 @@ class IndelTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.2)
         self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.2)
 
-        # Test wrapper
-        self.assertAlmostEqual(dist_indel('Colin', 'Coiln'), 0.2)
-
     def test_indel_dist_abs(self):
         """Test abydos.distance.Indel.dist_abs."""
         # Base cases
@@ -82,9 +76,6 @@ class IndelTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist_abs('Niall', 'Nigel'), 4)
         self.assertAlmostEqual(self.cmp.dist_abs('Colin', 'Coiln'), 2)
         self.assertAlmostEqual(self.cmp.dist_abs('Coiln', 'Colin'), 2)
-
-        # Test wrapper
-        self.assertAlmostEqual(indel('Colin', 'Coiln'), 2)
 
 
 if __name__ == '__main__':

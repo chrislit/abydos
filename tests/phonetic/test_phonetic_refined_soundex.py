@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.RefinedSoundex
 
 import unittest
 
-from abydos.phonetic import RefinedSoundex, refined_soundex
+from abydos.phonetic import RefinedSoundex
 
 
 class RefinedSoundexTestCases(unittest.TestCase):
@@ -233,9 +233,6 @@ class RefinedSoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Caren'), 'CRN')
         self.assertEqual(self.pa.encode_alpha('Hairs'), 'HRK')
         self.assertEqual(self.pa.encode_alpha('Lamperd'), 'LNPRT')
-
-        # Test wrapper
-        self.assertEqual(refined_soundex('Braz'), 'B95')
 
 
 if __name__ == '__main__':

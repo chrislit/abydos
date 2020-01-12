@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Overlap
 
 import unittest
 
-from abydos.distance import Overlap, dist_overlap, sim_overlap
+from abydos.distance import Overlap
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -86,9 +86,6 @@ class OverlapTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 4 / 7)
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 4 / 7)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_overlap('nelson', 'neilsen'), 4 / 7)
-
     def test_overlap_dist(self):
         """Test abydos.distance.Overlap.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -137,9 +134,6 @@ class OverlapTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 3 / 7)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 3 / 7)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_overlap('nelson', 'neilsen'), 3 / 7)
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Norphone
 
 import unittest
 
-from abydos.phonetic import Norphone, norphone
+from abydos.phonetic import Norphone
 
 
 class NorphoneTestCases(unittest.TestCase):
@@ -372,9 +372,6 @@ class NorphoneTestCases(unittest.TestCase):
         for encoded, names in reddit_tests:
             for name in names:
                 self.assertEqual(encoded, self.pa.encode(name))
-
-        # Test wrapper
-        self.assertEqual(norphone('Århus'), 'ÅRHS')
 
 
 if __name__ == '__main__':

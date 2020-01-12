@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Tversky
 
 import unittest
 
-from abydos.distance import Tversky, dist_tversky, sim_tversky
+from abydos.distance import Tversky
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -151,9 +151,6 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 1 / 3)
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 1 / 3)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_tversky('nelson', 'neilsen'), 4 / 11)
-
     def test_tversky_dist(self):
         """Test abydos.distance.Tversky.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -267,9 +264,6 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 2 / 3)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 2 / 3)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_tversky('nelson', 'neilsen'), 7 / 11)
 
 
 if __name__ == '__main__':

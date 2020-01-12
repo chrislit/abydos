@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.StatisticsCanada
 
 import unittest
 
-from abydos.phonetic import StatisticsCanada, statistics_canada
+from abydos.phonetic import StatisticsCanada
 
 
 class StatisticsCanadaTestCases(unittest.TestCase):
@@ -63,9 +63,6 @@ class StatisticsCanadaTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Guillaume'), 'GLM')
         self.assertEqual(self.pa.encode('Arlène'), 'ARLN')
         self.assertEqual(self.pa.encode('Lüdenscheidt'), 'LDNS')
-
-        # Test wrapper
-        self.assertEqual(statistics_canada('Daves'), 'DVS')
 
 
 if __name__ == '__main__':

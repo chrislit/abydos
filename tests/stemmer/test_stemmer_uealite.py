@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.UEALite
 
 import unittest
 
-from abydos.stemmer import UEALite, uealite
+from abydos.stemmer import UEALite
 
 from .. import _corpus_file
 
@@ -181,9 +181,6 @@ class UEALiteTestCases(unittest.TestCase):
         )
         self.assertEqual(self.stmr.stem('abcDefGhij'), 'abcDefGhij')
         self.assertEqual(self.stmr.stem('Tophat'), 'Tophat')
-
-        # Test wrapper
-        self.assertEqual(uealite('debited'), 'debit')
 
     def test_uealite_wsj_set(self):
         """Test abydos.stemmer.UEALite (WSJ testset)."""

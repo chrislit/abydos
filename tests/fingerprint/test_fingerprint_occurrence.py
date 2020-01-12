@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.Occurrence
 
 import unittest
 
-from abydos.fingerprint import Occurrence, occurrence_fingerprint
+from abydos.fingerprint import Occurrence
 
 
 class OccurrenceFingerprintTestCases(unittest.TestCase):
@@ -51,12 +51,6 @@ class OccurrenceFingerprintTestCases(unittest.TestCase):
         self.assertEqual(
             Occurrence(64).fingerprint('instance'),
             0b11101110000100000000000000000000 << 32,
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            occurrence_fingerprint('instance', 32),
-            0b11101110000100000000000000000000,
         )
 
 

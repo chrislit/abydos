@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Ident
 
 import unittest
 
-from abydos.distance import Ident, dist_ident, sim_ident
+from abydos.distance import Ident
 
 
 class IdentTestCases(unittest.TestCase):
@@ -42,9 +42,6 @@ class IdentTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abcd', 'dcba'), 0)
         self.assertEqual(self.cmp.sim('abc', 'cba'), 0)
 
-        # Test wrapper
-        self.assertEqual(sim_ident('abcd', 'dcba'), 0)
-
     def test_ident_dist(self):
         """Test abydos.distance.Ident.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -54,9 +51,6 @@ class IdentTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abcd', 'abcd'), 0)
         self.assertEqual(self.cmp.dist('abcd', 'dcba'), 1)
         self.assertEqual(self.cmp.dist('abc', 'cba'), 1)
-
-        # Test wrapper
-        self.assertEqual(dist_ident('abcd', 'dcba'), 1)
 
 
 if __name__ == '__main__':

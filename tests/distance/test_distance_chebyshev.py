@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Chebyshev
 
 import unittest
 
-from abydos.distance import Chebyshev, chebyshev
+from abydos.distance import Chebyshev
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -85,9 +85,6 @@ class ChebyshevTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist_abs('', 'the quick'), 1)
         self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_FROM, NONQ_TO), 1)
         self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_TO, NONQ_FROM), 1)
-
-        # Test wrapper
-        self.assertAlmostEqual(chebyshev('nelson', 'neilsen', 2), 1)
 
     def test_chebyshev_dist(self):
         """Test abydos.distance.Chebyshev.dist."""

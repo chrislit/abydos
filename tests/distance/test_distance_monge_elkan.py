@@ -21,12 +21,7 @@ This module contains unit tests for abydos.distance.MongeElkan
 
 import unittest
 
-from abydos.distance import (
-    Jaccard,
-    MongeElkan,
-    dist_monge_elkan,
-    sim_monge_elkan,
-)
+from abydos.distance import Jaccard, MongeElkan
 
 
 class MongeElkanTestCases(unittest.TestCase):
@@ -57,9 +52,6 @@ class MongeElkanTestCases(unittest.TestCase):
 
         self.assertEqual(self.cmp_jac.sim('Njall', 'Neil'), 29 / 60)
 
-        # Test wrapper
-        self.assertEqual(sim_monge_elkan('Niall', 'Neal'), 3 / 4)
-
     def test_monge_elkan_dist(self):
         """Test abydos.distance.MongeElkan.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -74,9 +66,6 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Njall'), 1 / 6)
         self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Niel'), 9 / 40)
         self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Nigel'), 7 / 24)
-
-        # Test wrapper
-        self.assertEqual(dist_monge_elkan('Niall', 'Neal'), 1 / 4)
 
 
 if __name__ == '__main__':

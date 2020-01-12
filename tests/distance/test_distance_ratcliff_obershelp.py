@@ -22,11 +22,7 @@ This module contains unit tests for abydos.distance.RatcliffObershelp
 import unittest
 from difflib import SequenceMatcher
 
-from abydos.distance import (
-    RatcliffObershelp,
-    dist_ratcliff_obershelp,
-    sim_ratcliff_obershelp,
-)
+from abydos.distance import RatcliffObershelp
 
 from .. import _corpus_file
 
@@ -96,12 +92,6 @@ class RatcliffObershelpTestCases(unittest.TestCase):
                     SequenceMatcher(None, word1, word2).ratio(),
                 )
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_ratcliff_obershelp('alexandre', 'aleksander'),
-            0.7368421052631579,
-        )
-
     def test_ratcliff_obershelp_dist(self):
         """Test abydos.distance.RatcliffObershelp.dist."""
         # https://github.com/rockymadden/stringmetric/blob/master/core/src/test/scala/com/rockymadden/stringmetric/similarity/RatcliffObershelpMetricSpec.scala
@@ -129,12 +119,6 @@ class RatcliffObershelpTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             self.cmp.dist('abefglmo', 'abcefglmn'), 0.1764705882352941
-        )
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_ratcliff_obershelp('alexandre', 'aleksander'),
-            0.2631578947368421,
         )
 
 

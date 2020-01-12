@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.DaitchMokotoff
 
 import unittest
 
-from abydos.phonetic import DaitchMokotoff, dm_soundex
+from abydos.phonetic import DaitchMokotoff
 
 
 class DaitchMokotoffTestCases(unittest.TestCase):
@@ -148,9 +148,6 @@ class DaitchMokotoffTestCases(unittest.TestCase):
         self.assertEqual(
             self.pa.encode_alpha('Chernowitz'), {'KRNPS', 'SRNPS'}
         )
-
-        # Test wrapper
-        self.assertEqual(dm_soundex('Augsburg'), {'054795'})
 
 
 if __name__ == '__main__':

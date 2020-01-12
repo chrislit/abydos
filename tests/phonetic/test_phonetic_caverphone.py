@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Caverphone
 
 import unittest
 
-from abydos.phonetic import Caverphone, Metaphone, Soundex, caverphone
+from abydos.phonetic import Caverphone, Metaphone, Soundex
 
 from .. import _corpus_file
 
@@ -303,9 +303,6 @@ class CaverphoneTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Mcclifferty'), 'MKLFTA')
         self.assertEqual(self.pa.encode_alpha('Killen'), 'KLN')
         self.assertEqual(self.pa.encode_alpha('Whittle'), 'WTA')
-
-        # Test wrapper
-        self.assertEqual(caverphone('Maclaverty'), 'MKLFTA1111')
 
     def test_caverphone2_encode_php_testset(self):
         """Test abydos.phonetic.Caverphone (PHP version testset)."""

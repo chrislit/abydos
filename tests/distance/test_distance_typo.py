@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Typo
 
 import unittest
 
-from abydos.distance import Typo, dist_typo, sim_typo, typo
+from abydos.distance import Typo
 
 
 class TypoTestCases(unittest.TestCase):
@@ -65,11 +65,6 @@ class TypoTestCases(unittest.TestCase):
 
         self.assertRaises(ValueError, self.cmp.dist_abs, 'asdf', 'Ösdf')
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            typo('asdf', 'asdt', metric='log-euclidean'), 0.4406868
-        )
-
     def test_typo_sim(self):
         """Test abydos.distance.Typo.sim."""
         # Base cases
@@ -96,12 +91,6 @@ class TypoTestCases(unittest.TestCase):
             1 - (0.54930615 / 4),
         )
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_typo('asdf', 'asdt', metric='log-euclidean'),
-            1 - (0.4406868 / 4),
-        )
-
     def test_typo_dist(self):
         """Test abydos.distance.Typo.dist."""
         # Base cases
@@ -124,11 +113,6 @@ class TypoTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             Typo(metric='log-manhattan').dist('asdf', 'asdt'), 0.54930615 / 4
-        )
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_typo('asdf', 'asdt', metric='log-euclidean'), 0.4406868 / 4
         )
 
 

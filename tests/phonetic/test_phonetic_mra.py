@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.MRA
 
 import unittest
 
-from abydos.phonetic import MRA, mra
+from abydos.phonetic import MRA
 
 
 class MraTestCases(unittest.TestCase):
@@ -48,9 +48,6 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Christopher'), 'CHRPHR')
         self.assertEqual(self.pa.encode('Dickensianistic'), 'DCKSTC')
         self.assertEqual(self.pa.encode('Acetylcholinesterase'), 'ACTTRS')
-
-        # Test wrapper
-        self.assertEqual(mra('Byrne'), 'BYRN')
 
 
 if __name__ == '__main__':

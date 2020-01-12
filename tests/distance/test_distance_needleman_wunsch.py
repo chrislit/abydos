@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.NeedlemanWunsch
 
 import unittest
 
-from abydos.distance import NeedlemanWunsch, needleman_wunsch
+from abydos.distance import NeedlemanWunsch
 
 from .. import NIALL
 
@@ -141,11 +141,6 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         self.assertEqual(nw5.sim_score('CGATATCAG', 'TGACGSTGC'), -5)
         self.assertEqual(nw5.sim_score('AGACTAGTTAC', 'TGACGSTGC'), -7)
         self.assertEqual(nw5.sim_score('AGACTAGTTAC', 'CGAGACGT'), -15)
-
-        # test wrapper
-        self.assertEqual(
-            needleman_wunsch('AGACTAGTTAC', 'CGAGACGT', 5, _sim_nw), -15
-        )
 
     def test_needleman_wunsch_dist_abs_nialls(self):
         """Test abydos.distance.NeedlemanWunsch.dist_abs (Nialls set)."""

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.MRA
 
 import unittest
 
-from abydos.distance import MRA, dist_mra, mra_compare, sim_mra
+from abydos.distance import MRA
 
 
 class MraTestCases(unittest.TestCase):
@@ -50,9 +50,6 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('abcdefik', 'abcdefgh'), 3)
         self.assertEqual(self.cmp.dist_abs('xyz', 'abc'), 0)
 
-        # Test wrapper
-        self.assertEqual(mra_compare('Byrne', 'Boern'), 5)
-
     def test_mra_sim(self):
         """Test abydos.distance.MRA.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -71,9 +68,6 @@ class MraTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abcdefik', 'abcdefgh'), 3 / 6)
         self.assertEqual(self.cmp.sim('xyz', 'abc'), 0)
 
-        # Test wrapper
-        self.assertEqual(sim_mra('Byrne', 'Boern'), 5 / 6)
-
     def test_mra_dist(self):
         """Test abydos.distance.MRA.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -91,9 +85,6 @@ class MraTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('ab', 'ac'), 1 / 6)
         self.assertAlmostEqual(self.cmp.dist('abcdefik', 'abcdefgh'), 3 / 6)
         self.assertEqual(self.cmp.dist('xyz', 'abc'), 1)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_mra('Byrne', 'Boern'), 1 / 6)
 
 
 if __name__ == '__main__':

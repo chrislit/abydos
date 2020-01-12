@@ -22,7 +22,7 @@ This module contains unit tests for abydos.stemmer.SnowballDutch
 import codecs
 import unittest
 
-from abydos.stemmer import SnowballDutch, sb_dutch
+from abydos.stemmer import SnowballDutch
 
 from .. import _corpus_file
 
@@ -57,9 +57,6 @@ class SnowballDutchTestCases(unittest.TestCase):
 
         # missed branch test cases
         self.assertEqual(self.stmr.stem('zondulielijk'), 'zondulie')
-
-        # Test wrapper
-        self.assertEqual(sb_dutch('zondulielijk'), 'zondulie')
 
 
 if __name__ == '__main__':

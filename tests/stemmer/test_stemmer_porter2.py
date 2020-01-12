@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.Porter2
 
 import unittest
 
-from abydos.stemmer import Porter2, porter2
+from abydos.stemmer import Porter2
 
 
 from .. import _corpus_file
@@ -66,9 +66,6 @@ class Porter2TestCases(unittest.TestCase):
         self.assertEqual(self.stmr.stem('tably'), 'tabli')
         self.assertEqual(self.stmr.stem('sizer'), 'sizer')
         self.assertEqual(self.stmr.stem('livity'), 'liviti')
-
-        # Test wrapper
-        self.assertEqual(porter2('capitalism'), 'capit')
 
     def test_porter2_early_english(self):
         """Test abydos.stemmer.Porter2 (early English)."""

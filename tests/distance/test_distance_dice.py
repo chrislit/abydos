@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Dice
 
 import unittest
 
-from abydos.distance import Dice, dist_dice, sim_dice
+from abydos.distance import Dice
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -86,9 +86,6 @@ class DiceTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 1 / 2)
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 1 / 2)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_dice('nelson', 'neilsen'), 8 / 15)
-
     def test_dice_dist(self):
         """Test abydos.distance.Dice.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -137,9 +134,6 @@ class DiceTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 1 / 2)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 1 / 2)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_dice('nelson', 'neilsen'), 7 / 15)
 
 
 if __name__ == '__main__':

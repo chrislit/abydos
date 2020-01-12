@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.JaroWinkler
 
 import unittest
 
-from abydos.distance import JaroWinkler, dist_jaro_winkler, sim_jaro_winkler
+from abydos.distance import JaroWinkler
 
 
 class JaroWinklerTestCases(unittest.TestCase):
@@ -95,14 +95,6 @@ class JaroWinklerTestCases(unittest.TestCase):
             0.97083333,
         )
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_jaro_winkler('DIXON', 'DICKSONX', mode='jaro'), 0.76666666
-        )
-        self.assertAlmostEqual(
-            sim_jaro_winkler('DIXON', 'DICKSONX', mode='winkler'), 0.81333333
-        )
-
     def test_dist_jaro_winkler(self):
         """Test abydos.distance.JaroWinkler.dist."""
         self.assertEqual(self.jaro.dist('', ''), 0)
@@ -140,14 +132,6 @@ class JaroWinklerTestCases(unittest.TestCase):
         )
 
         self.assertAlmostEqual(self.jaro_winkler.dist('ABCD', 'EFGH'), 1.0)
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_jaro_winkler('DIXON', 'DICKSONX', mode='jaro'), 0.23333333
-        )
-        self.assertAlmostEqual(
-            dist_jaro_winkler('DIXON', 'DICKSONX', mode='winkler'), 0.18666666
-        )
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.LEIN
 
 import unittest
 
-from abydos.phonetic import LEIN, lein
+from abydos.phonetic import LEIN
 
 
 class LeinTestCases(unittest.TestCase):
@@ -113,9 +113,6 @@ class LeinTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Devies'), 'DPK')
         self.assertEqual(self.pa.encode_alpha('Sand'), 'SNT')
         self.assertEqual(self.pa.encode_alpha('Sandau'), 'SNT')
-
-        # Test wrapper
-        self.assertEqual(lein('Dubose'), 'D450')
 
 
 if __name__ == '__main__':

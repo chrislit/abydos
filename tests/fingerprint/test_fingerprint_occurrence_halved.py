@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.OccurrenceHalved
 
 import unittest
 
-from abydos.fingerprint import OccurrenceHalved, occurrence_halved_fingerprint
+from abydos.fingerprint import OccurrenceHalved
 
 
 class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
@@ -51,12 +51,6 @@ class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
         self.assertEqual(
             OccurrenceHalved(64).fingerprint('instance'),
             0b01100100101110000000000100000000 << 32,
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            occurrence_halved_fingerprint('instance', 32),
-            0b01100100101110000000000100000000,
         )
 
 

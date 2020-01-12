@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Synoname
 
 import unittest
 
-from abydos.distance import Synoname, synoname
+from abydos.distance import Synoname
 
 
 class SynonameTestCases(unittest.TestCase):
@@ -407,15 +407,6 @@ class SynonameTestCases(unittest.TestCase):
                 ('Brueghel', 'Pietter', ''), ('Bruegghel', 'Pieter', '')
             ),
             'char_approx',
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            synoname(
-                ('Master of Brueghel II', 'Pieter', 'Workshop of'),
-                ('Master known as the Brueghel II', 'Pieter', 'Workshop of'),
-            ),
-            10,
         )
 
     def test_synoname_dist(self):

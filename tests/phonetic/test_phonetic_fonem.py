@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.FONEM
 
 import unittest
 
-from abydos.phonetic import FONEM, fonem
+from abydos.phonetic import FONEM
 
 
 class FONEMTestCases(unittest.TestCase):
@@ -166,9 +166,6 @@ class FONEMTestCases(unittest.TestCase):
         )
         for name, encoding in test_cases:
             self.assertEqual(self.pa.encode(name), encoding)
-
-        # Test wrapper
-        self.assertEqual(fonem('MARCEAU'), 'MARSO')
 
 
 if __name__ == '__main__':

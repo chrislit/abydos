@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.PSHPSoundexFirst
 
 import unittest
 
-from abydos.phonetic import PSHPSoundexFirst, pshp_soundex_first
+from abydos.phonetic import PSHPSoundexFirst
 
 
 class PSHPSoundexTestCases(unittest.TestCase):
@@ -66,9 +66,6 @@ class PSHPSoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Knabe'), 'NP')
         self.assertEqual(self.pa.encode_alpha('Phil'), 'FL')
         self.assertEqual(self.pa.encode_alpha('Wieland'), 'VL')
-
-        # Test wrapper
-        self.assertEqual(pshp_soundex_first('Giles'), 'J400')
 
 
 if __name__ == '__main__':

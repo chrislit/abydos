@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.SoundD
 
 import unittest
 
-from abydos.phonetic import SoundD, sound_d
+from abydos.phonetic import SoundD
 
 
 class SoundDTestCases(unittest.TestCase):
@@ -59,9 +59,6 @@ class SoundDTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('anywhere'), 'NR')
         self.assertEqual(self.pa.encode_alpha('adenosine'), 'TNKN')
         self.assertEqual(self.pa.encode_alpha('judge'), 'KK')
-
-        # Test wrapper
-        self.assertEqual(sound_d('knight'), '5300')
 
 
 if __name__ == '__main__':

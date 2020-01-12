@@ -22,7 +22,7 @@ This module contains unit tests for abydos.distance.Jaccard
 import unittest
 from math import log2
 
-from abydos.distance import Jaccard, dist_jaccard, sim_jaccard, tanimoto
+from abydos.distance import Jaccard
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -87,9 +87,6 @@ class JaccardTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 1 / 3)
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 1 / 3)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_jaccard('nelson', 'neilsen'), 4 / 11)
-
     def test_jaccard_dist(self):
         """Test abydos.distance.Jaccard.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -138,10 +135,6 @@ class JaccardTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 2 / 3)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 2 / 3)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_jaccard('nelson', 'neilsen'), 7 / 11)
-
 
 class TanimotoTestCases(unittest.TestCase):
     """Test Tanimoto functions.
@@ -217,9 +210,6 @@ class TanimotoTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_ws.tanimoto_coeff(NONQ_TO, NONQ_FROM), log2(1 / 3)
         )
-
-        # Test wrapper
-        self.assertAlmostEqual(tanimoto('nelson', 'neilsen'), log2(4 / 11))
 
 
 if __name__ == '__main__':

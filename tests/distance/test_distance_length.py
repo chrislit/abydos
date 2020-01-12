@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Length
 
 import unittest
 
-from abydos.distance import Length, dist_length, sim_length
+from abydos.distance import Length
 
 
 class LengthTestCases(unittest.TestCase):
@@ -46,9 +46,6 @@ class LengthTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('ab', 'dcba'), 0.5)
         self.assertEqual(self.cmp.sim('abcd', 'ba'), 0.5)
 
-        # Test wrapper
-        self.assertEqual(sim_length('abcd', 'cba'), 0.75)
-
     def test_length_dist(self):
         """Test abydos.distance.Length.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -62,9 +59,6 @@ class LengthTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abcd', 'cba'), 0.25)
         self.assertEqual(self.cmp.dist('ab', 'dcba'), 0.5)
         self.assertEqual(self.cmp.dist('abcd', 'ba'), 0.5)
-
-        # Test wrapper
-        self.assertEqual(dist_length('abcd', 'cba'), 0.25)
 
 
 if __name__ == '__main__':

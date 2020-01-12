@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.PhoneticSpanish
 
 import unittest
 
-from abydos.phonetic import PhoneticSpanish, phonetic_spanish
+from abydos.phonetic import PhoneticSpanish
 
 
 class PhoneticSpanishTestCases(unittest.TestCase):
@@ -55,9 +55,6 @@ class PhoneticSpanishTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Haya'), 'FL')
         self.assertEqual(self.pa.encode_alpha('Cielo'), 'SL')
         self.assertEqual(self.pa.encode_alpha('Sielo'), 'SL')
-
-        # Test wrapper
-        self.assertEqual(phonetic_spanish('Giraldo'), '8953')
 
 
 if __name__ == '__main__':

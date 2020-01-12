@@ -22,7 +22,7 @@ This module contains unit tests for abydos.compression.Arithmetic
 import unittest
 from fractions import Fraction
 
-from abydos.compression import Arithmetic, ac_decode, ac_encode, ac_train
+from abydos.compression import Arithmetic
 
 from .. import NIALL
 
@@ -72,8 +72,6 @@ class ArithmeticCoderTestCases(unittest.TestCase):
 
         self.coder.train('\x00'.join(NIALL))
         self.assertEqual(niall_probs_new, self.coder.get_probs())
-        # Test wrapper
-        self.assertEqual(ac_train(' '.join(sorted(NIALL))), self.niall_probs)
 
     def test_arithmetic_encode(self):
         """Test abydos.compression.Arithmetic.encode."""
@@ -90,8 +88,6 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertRaises(KeyError, self.coder.encode, 'NIALL')
         self.coder.set_probs({'\x00': (0, 1)})
         self.assertEqual(self.coder.encode(''), (1, 1))
-        # Test wrapper
-        self.assertEqual(ac_encode('Niall', self.niall_probs), (3911665, 23))
 
     def test_arithmetic_decode(self):
         """Test abydos.compression.Arithmetic.decode."""
@@ -109,8 +105,6 @@ class ArithmeticCoderTestCases(unittest.TestCase):
         self.assertEqual(self.coder.decode(0, 0), '')
         self.coder.set_probs({'\x00': (0, 1)})
         self.assertEqual(self.coder.decode(1, 1), '')
-        # Test wrapper
-        self.assertEqual(ac_decode(3911665, 23, self.niall_probs), 'Niall')
 
 
 if __name__ == '__main__':

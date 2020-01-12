@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.SpanishMetaphone
 
 import unittest
 
-from abydos.phonetic import SpanishMetaphone, spanish_metaphone
+from abydos.phonetic import SpanishMetaphone
 
 
 class SpanishMetaphoneTestCases(unittest.TestCase):
@@ -167,9 +167,6 @@ class SpanishMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('hola'), 'OL')
         self.assertEqual(self.pa.encode('aqi'), 'AK')
         self.assertEqual(self.pa.encode('hjordis'), 'HJRDS')
-
-        # Test wrapper
-        self.assertEqual(spanish_metaphone('complicado'), 'KMPLKD')
 
 
 if __name__ == '__main__':

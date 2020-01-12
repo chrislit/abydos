@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Minkowski
 
 import unittest
 
-from abydos.distance import Minkowski, dist_minkowski, minkowski, sim_minkowski
+from abydos.distance import Minkowski
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -130,9 +130,6 @@ class MinkowskiTestCases(unittest.TestCase):
             Minkowski(pval=float('inf')).dist_abs('nelsonian', 'neilsen'), 1.0
         )
 
-        # Test wrapper
-        self.assertAlmostEqual(minkowski('nelson', 'neilsen'), 7)
-
     def test_minkowski_sim(self):
         """Test abydos.distance.Minkowski.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -182,9 +179,6 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 1 / 2)
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 1 / 2)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_minkowski('nelson', 'neilsen'), 8 / 15)
-
     def test_minkowski_dist(self):
         """Test abydos.distance.Minkowski.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -233,9 +227,6 @@ class MinkowskiTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 1 / 2)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 1 / 2)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_minkowski('nelson', 'neilsen'), 7 / 15)
 
 
 if __name__ == '__main__':

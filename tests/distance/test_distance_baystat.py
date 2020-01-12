@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Baystat
 
 import unittest
 
-from abydos.distance import Baystat, dist_baystat, sim_baystat
+from abydos.distance import Baystat
 
 
 class BaystatTestCases(unittest.TestCase):
@@ -63,9 +63,6 @@ class BaystatTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(self.cmp.sim('ZIMMER', 'ZIMMERMANN'), 0.6)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.8)
-
     def test_baystat_dist(self):
         """Test abydos.distance.Baystat.dist."""
         # Base cases
@@ -90,9 +87,6 @@ class BaystatTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('ZIMMERMANN', 'SEMMERMANN'), 0.2)
         self.assertAlmostEqual(self.cmp.dist('ZIMMERMANN', 'ZIMMERER'), 0.4)
         self.assertAlmostEqual(self.cmp.dist('ZIMMERMANN', 'ZIMMER'), 0.4)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_baystat('ZIMMERMANN', 'SEMMERMANN'), 0.2)
 
 
 if __name__ == '__main__':

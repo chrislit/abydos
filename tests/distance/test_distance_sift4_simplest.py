@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Sift4Simplest
 
 import unittest
 
-from abydos.distance import Sift4Simplest, sift4_simplest
+from abydos.distance import Sift4Simplest
 
 
 class Sift4TestCases(unittest.TestCase):
@@ -83,9 +83,6 @@ class Sift4TestCases(unittest.TestCase):
             ),
             20,
         )
-
-        # Test wrapper
-        self.assertEqual(sift4_simplest('xabxcdxxefxgx', 'abcdefg'), 10)
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.RogerRoot
 
 import unittest
 
-from abydos.phonetic import RogerRoot, roger_root
+from abydos.phonetic import RogerRoot
 
 
 class RogerRootTestCases(unittest.TestCase):
@@ -143,9 +143,6 @@ class RogerRootTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('STANLEY'), 'STNL')
         self.assertEqual(self.pa.encode_alpha('CHALMAN'), 'JLMN')
         self.assertEqual(self.pa.encode_alpha('CHING'), 'JNK')
-
-        # Test wrapper
-        self.assertEqual(roger_root('BROWNER'), '09424')
 
 
 if __name__ == '__main__':

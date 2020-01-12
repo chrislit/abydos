@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Eudex
 
 import unittest
 
-from abydos.distance import Eudex, dist_eudex, eudex_hamming, sim_eudex
+from abydos.distance import Eudex
 
 
 def _yield_1():
@@ -74,9 +74,6 @@ class EudexTestCases(unittest.TestCase):
             self.cmp.dist_abs('Niall', 'Colin', normalized=True), 0.25686274
         )
 
-        # Test wrapper
-        self.assertEqual(eudex_hamming('Niall', 'Neil', 'fibonacci'), 2)
-
     def test_eudex_dist(self):
         """Test abydos.distance.Eudex.dist."""
         # Base cases
@@ -103,11 +100,6 @@ class EudexTestCases(unittest.TestCase):
         with self.assertRaises(ValueError):
             Eudex('veryLarge').dist_abs('Niall', 'Colin')
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_eudex('Niall', 'Neil', 'fibonacci'), 0.00287356
-        )
-
     def test_eudex_sim(self):
         """Test abydos.distance.Eudex.sim."""
         # Base cases
@@ -129,11 +121,6 @@ class EudexTestCases(unittest.TestCase):
         self.assertAlmostEqual(Eudex(None).sim('Niall', 'Colin'), 0.83333333)
         self.assertAlmostEqual(
             Eudex('fibonacci').sim('Niall', 'Colin'), 0.79022989
-        )
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_eudex('Niall', 'Neil', 'fibonacci'), 0.99712644
         )
 
 

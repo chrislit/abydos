@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.suffix
 
 import unittest
 
-from abydos.distance import Suffix, dist_suffix, sim_suffix
+from abydos.distance import Suffix
 
 
 class SuffixTestCases(unittest.TestCase):
@@ -63,9 +63,6 @@ class SuffixTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('xxxaa', 'yaa'), 2 / 3)
         self.assertEqual(self.cmp.sim('xxxxaa', 'yyyaa'), 2 / 5)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_suffix('xxxaa', 'yaa'), 2 / 3)
-
     def test_suffix_dist(self):
         """Test abydos.distance.Suffix.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -96,9 +93,6 @@ class SuffixTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('xxxa', 'aaa'), 2 / 3)
         self.assertAlmostEqual(self.cmp.dist('xxxaa', 'yaa'), 1 / 3)
         self.assertEqual(self.cmp.dist('xxxxaa', 'yyyaa'), 3 / 5)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_suffix('xxxaa', 'yaa'), 1 / 3)
 
 
 if __name__ == '__main__':

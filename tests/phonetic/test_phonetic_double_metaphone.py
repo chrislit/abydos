@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.DoubleMetaphone
 
 import unittest
 
-from abydos.phonetic import DoubleMetaphone, double_metaphone
+from abydos.phonetic import DoubleMetaphone
 
 
 class DoubleMetaphoneTestCases(unittest.TestCase):
@@ -284,9 +284,6 @@ class DoubleMetaphoneTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('catherine'), ('KÞRN', 'KTRN'))
         self.assertEqual(self.pa.encode_alpha('geoff'), ('JF', 'KF'))
         self.assertEqual(self.pa.encode_alpha('Bosworth'), ('PSRÞ', 'PSRT'))
-
-        # Test wrapper
-        self.assertEqual(double_metaphone('cambrillo'), ('KMPRL', 'KMPR'))
 
     def test_double_metaphone_surnames(self):
         """Test abydos.phonetic.DoubleMetaphone (surname data)."""

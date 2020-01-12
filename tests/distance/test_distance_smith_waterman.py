@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.SmithWaterman
 
 import unittest
 
-from abydos.distance import SmithWaterman, smith_waterman
+from abydos.distance import SmithWaterman
 
 from .test_distance_needleman_wunsch import _sim_nw, _sim_wikipedia
 from .. import NIALL
@@ -52,11 +52,6 @@ class SmithWatermanTestCases(unittest.TestCase):
         self.assertEqual(sw5.sim_score('CGATATCAG', 'TGACGSTGC'), 0)
         self.assertEqual(sw5.sim_score('AGACTAGTTAC', 'TGACGSTGC'), 1)
         self.assertEqual(sw5.sim_score('AGACTAGTTAC', 'CGAGACGT'), 0)
-
-        # Test wrapper
-        self.assertEqual(
-            smith_waterman('AGACTAGTTAC', 'CGAGACGT', 5, _sim_wikipedia), 26
-        )
 
     def test_smith_waterman_sim_score_nialls(self):
         """Test abydos.distance.SmithWaterman.sim_score (Nialls set)."""

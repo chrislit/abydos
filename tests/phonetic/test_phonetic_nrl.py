@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.NRL
 
 import unittest
 
-from abydos.phonetic import NRL, nrl
+from abydos.phonetic import NRL
 
 
 class NRLTestCases(unittest.TestCase):
@@ -344,9 +344,6 @@ class NRLTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('ðæt'), 'ÐÆt')
         self.assertEqual(self.pa.encode('wünschen'), 'wÜnsCHEHn')
         self.assertEqual(self.pa.encode('øl'), 'Øl')
-
-        # Test wrapper
-        self.assertEqual(nrl('exciting'), 'EHkssAYtIHNG')
 
 
 if __name__ == '__main__':

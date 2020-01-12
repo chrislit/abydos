@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.Phonetic
 
 import unittest
 
-from abydos.fingerprint import Phonetic, phonetic_fingerprint
+from abydos.fingerprint import Phonetic
 from abydos.phonetic import Phonet, Soundex
 
 
@@ -54,12 +54,6 @@ class PhoneticTestCases(unittest.TestCase):
         )
         self.assertEqual(
             self.fp_soundex.fingerprint(' '.join(NIALL)),
-            'k540 m254 n240 n242 n400 o540 u000',
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            phonetic_fingerprint(' '.join(NIALL), self.soundex.encode),
             'k540 m254 n240 n242 n400 o540 u000',
         )
 

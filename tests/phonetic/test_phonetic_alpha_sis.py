@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.AlphaSIS
 
 import unittest
 
-from abydos.phonetic import AlphaSIS, alpha_sis
+from abydos.phonetic import AlphaSIS
 
 
 class AlphaSISTestCases(unittest.TestCase):
@@ -64,9 +64,6 @@ class AlphaSISTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Kant')[0], 'KNT')
         self.assertEqual(self.pa.encode_alpha('Knuth')[0], 'NT')
         self.assertEqual(self.pa.encode_alpha('Harper')[0], 'HRPR')
-
-        # Test wrapper
-        self.assertEqual(alpha_sis('Livingston')[0], '05827012000000')
 
 
 if __name__ == '__main__':

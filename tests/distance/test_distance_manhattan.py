@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Manhattan
 
 import unittest
 
-from abydos.distance import Manhattan, dist_manhattan, manhattan, sim_manhattan
+from abydos.distance import Manhattan
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -86,9 +86,6 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_FROM, NONQ_TO), 8)
         self.assertAlmostEqual(self.cmp_ws.dist_abs(NONQ_TO, NONQ_FROM), 8)
 
-        # Test wrapper
-        self.assertAlmostEqual(manhattan('nelson', 'neilsen'), 7)
-
     def test_manhattan_sim(self):
         """Test abydos.distance.Manhattan.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -138,9 +135,6 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_FROM, NONQ_TO), 1 / 2)
         self.assertAlmostEqual(self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 1 / 2)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_manhattan('nelson', 'neilsen'), 8 / 15)
-
     def test_manhattan_dist(self):
         """Test abydos.distance.Manhattan.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -189,9 +183,6 @@ class ManhattanTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_ws.dist('', 'the quick'), 1)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 1 / 2)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 1 / 2)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_manhattan('nelson', 'neilsen'), 7 / 15)
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Prefix
 
 import unittest
 
-from abydos.distance import Prefix, dist_prefix, sim_prefix
+from abydos.distance import Prefix
 
 
 class PrefixTestCases(unittest.TestCase):
@@ -63,9 +63,6 @@ class PrefixTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('xxxaa', 'yaa'), 0)
         self.assertEqual(self.cmp.sim('xxxxaa', 'yyyaa'), 0)
 
-        # Test wrapper
-        self.assertEqual(sim_prefix('aaxxxx', 'aayyy'), 2 / 5)
-
     def test_prefix_dist(self):
         """Test abydos.distance.Prefix.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -96,9 +93,6 @@ class PrefixTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('xxxa', 'aaa'), 1)
         self.assertEqual(self.cmp.dist('xxxaa', 'yaa'), 1)
         self.assertEqual(self.cmp.dist('xxxxaa', 'yyyaa'), 1)
-
-        # Test wrapper
-        self.assertEqual(dist_prefix('aaxxxx', 'aayyy'), 3 / 5)
 
 
 if __name__ == '__main__':

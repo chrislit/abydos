@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Euclidean
 
 import unittest
 
-from abydos.distance import Euclidean, dist_euclidean, euclidean, sim_euclidean
+from abydos.distance import Euclidean
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -94,9 +94,6 @@ class EuclideanTestCases(unittest.TestCase):
             self.cmp_ws.dist_abs(NONQ_TO, NONQ_FROM), 8 ** 0.5
         )
 
-        # Test wrapper
-        self.assertAlmostEqual(euclidean('nelson', 'neilsen'), 7 ** 0.5)
-
     def test_euclidean_sim(self):
         """Test abydos.distance.Euclidean.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -154,11 +151,6 @@ class EuclideanTestCases(unittest.TestCase):
             self.cmp_ws.sim(NONQ_TO, NONQ_FROM), 1 - 8 ** 0.5 / 24 ** 0.5
         )
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_euclidean('nelson', 'neilsen'), 1 - 7 ** 0.5 / 23 ** 0.5
-        )
-
     def test_euclidean_dist(self):
         """Test abydos.distance.Euclidean.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -214,11 +206,6 @@ class EuclideanTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 8 ** 0.5 / 24 ** 0.5
-        )
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_euclidean('nelson', 'neilsen'), 7 ** 0.5 / 23 ** 0.5
         )
 
 

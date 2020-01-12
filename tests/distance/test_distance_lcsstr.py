@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.LCSstr
 
 import unittest
 
-from abydos.distance import LCSstr, dist_lcsstr, lcsstr, sim_lcsstr
+from abydos.distance import LCSstr
 
 
 class LCSstrTestCases(unittest.TestCase):
@@ -85,9 +85,6 @@ ACTGCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT',
             'TGGCGAGTATGG',
         )
 
-        # Test wrapper
-        self.assertEqual(lcsstr('ABC', 'BCD'), 'BC')
-
     def test_lcsstr_sim(self):
         """Test abydos.distance.LCSstr.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -125,9 +122,6 @@ ACTGCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT',
         self.assertAlmostEqual(self.cmp.sim('cc', 'bbbbcccccc'), 2 / 10)
         self.assertAlmostEqual(self.cmp.sim('ccc', 'bcbb'), 1 / 4)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_lcsstr('ABC', 'BCD'), 2 / 3)
-
     def test_lcsstr_dist(self):
         """Test abydos.distance.LCSstr.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -164,9 +158,6 @@ ACTGCCTGGGAAAAGATCGGCAGCCACGGTGGCGAGTATGGCGCCGAGGCCGT',
         self.assertAlmostEqual(self.cmp.dist('aaa', 'aa'), 1 / 3)
         self.assertAlmostEqual(self.cmp.dist('cc', 'bbbbcccccc'), 8 / 10)
         self.assertAlmostEqual(self.cmp.dist('ccc', 'bcbb'), 3 / 4)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_lcsstr('ABC', 'BCD'), 1 / 3)
 
 
 if __name__ == '__main__':
