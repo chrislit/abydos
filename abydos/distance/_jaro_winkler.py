@@ -117,22 +117,24 @@ class JaroWinkler(_Distance):
 
         Examples
         --------
-        >>> round(sim_jaro_winkler('cat', 'hat'), 12)
+        >>> cmp = JaroWinkler()
+        >>> round(cmp.sim('cat', 'hat'), 12)
         0.777777777778
-        >>> round(sim_jaro_winkler('Niall', 'Neil'), 12)
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
         0.805
-        >>> round(sim_jaro_winkler('aluminum', 'Catalan'), 12)
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
         0.60119047619
-        >>> round(sim_jaro_winkler('ATCG', 'TAGC'), 12)
+        >>> round(cmp.sim('ATCG', 'TAGC'), 12)
         0.833333333333
 
-        >>> round(sim_jaro_winkler('cat', 'hat', mode='jaro'), 12)
+        >>> cmp = JaroWinkler(mode='jaro')
+        >>> round(cmp.sim('cat', 'hat'), 12)
         0.777777777778
-        >>> round(sim_jaro_winkler('Niall', 'Neil', mode='jaro'), 12)
+        >>> round(cmp.sim('Niall', 'Neil'), 12)
         0.783333333333
-        >>> round(sim_jaro_winkler('aluminum', 'Catalan', mode='jaro'), 12)
+        >>> round(cmp.sim('aluminum', 'Catalan'), 12)
         0.60119047619
-        >>> round(sim_jaro_winkler('ATCG', 'TAGC', mode='jaro'), 12)
+        >>> round(cmp.sim('ATCG', 'TAGC'), 12)
         0.833333333333
 
 

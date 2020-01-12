@@ -56,11 +56,11 @@ class CLEFGermanPlus(_Stemmer):
         Examples
         --------
         >>> stmr = CLEFGermanPlus()
-        >>> clef_german_plus('lesen')
+        >>> stmr.stem('lesen')
         'les'
-        >>> clef_german_plus('graues')
+        >>> stmr.stem('graues')
         'grau'
-        >>> clef_german_plus('buchstabieren')
+        >>> stmr.stem('buchstabieren')
         'buchstabi'
 
 

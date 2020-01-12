@@ -77,13 +77,14 @@ class MLIPNS(_Distance):
 
         Examples
         --------
-        >>> sim_mlipns('cat', 'hat')
+        >>> cmp = MLIPNS()
+        >>> cmp.sim('cat', 'hat')
         1.0
-        >>> sim_mlipns('Niall', 'Neil')
+        >>> cmp.sim('Niall', 'Neil')
         0.0
-        >>> sim_mlipns('aluminum', 'Catalan')
+        >>> cmp.sim('aluminum', 'Catalan')
         0.0
-        >>> sim_mlipns('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
 

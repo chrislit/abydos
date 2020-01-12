@@ -68,15 +68,16 @@ class Position(_Fingerprint):
 
         Examples
         --------
-        >>> bin(position_fingerprint('hat'))
+        >>> pf = Position()
+        >>> bin(pf.fingerprint('hat'))
         '0b1110100011111111'
-        >>> bin(position_fingerprint('niall'))
+        >>> bin(pf.fingerprint('niall'))
         '0b1111110101110010'
-        >>> bin(position_fingerprint('colin'))
+        >>> bin(pf.fingerprint('colin'))
         '0b1111111110010111'
-        >>> bin(position_fingerprint('atcg'))
+        >>> bin(pf.fingerprint('atcg'))
         '0b1110010001111111'
-        >>> bin(position_fingerprint('entreatment'))
+        >>> bin(pf.fingerprint('entreatment'))
         '0b101011111111'
 
 

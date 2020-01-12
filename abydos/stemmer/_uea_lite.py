@@ -656,15 +656,16 @@ class UEALite(_Stemmer):
 
         Examples
         --------
-        >>> uealite('readings')
+        >>> stmr = UEALite()
+        >>> stmr.stem('readings')
         'read'
-        >>> uealite('insulted')
+        >>> stmr.stem('insulted')
         'insult'
-        >>> uealite('cussed')
+        >>> stmr.stem('cussed')
         'cuss'
-        >>> uealite('fancies')
+        >>> stmr.stem('fancies')
         'fancy'
-        >>> uealite('eroded')
+        >>> stmr.stem('eroded')
         'erode'
 
 

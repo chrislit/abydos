@@ -47,11 +47,12 @@ class CLEFSwedish(_Stemmer):
 
         Examples
         --------
-        >>> clef_swedish('undervisa')
+        >>> stmr = CLEFSwedish()
+        >>> stmr.stem('undervisa')
         'undervis'
-        >>> clef_swedish('suspension')
+        >>> stmr.stem('suspension')
         'suspensio'
-        >>> clef_swedish('visshet')
+        >>> stmr.stem('visshet')
         'viss'
 
 
