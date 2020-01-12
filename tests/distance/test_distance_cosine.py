@@ -97,7 +97,6 @@ class CosineSimilarityTestCases(unittest.TestCase):
 
         self.assertEqual(self.cmp_q2.sim('eh', 'a'), 0.0)
 
-
     def test_cosine_dist(self):
         """Test abydos.distance.Cosine.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)

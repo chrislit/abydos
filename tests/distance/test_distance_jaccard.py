@@ -136,6 +136,7 @@ class JaccardTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_FROM, NONQ_TO), 2 / 3)
         self.assertAlmostEqual(self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 2 / 3)
 
+
 class TanimotoTestCases(unittest.TestCase):
     """Test Tanimoto functions.
 
