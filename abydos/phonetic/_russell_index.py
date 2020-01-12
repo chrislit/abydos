@@ -98,43 +98,6 @@ class RussellIndex(_Phonetic):
         # return as an int
         return int(sdx) if sdx else float('NaN')
 
-    def _to_alpha(self, num):
-        """Convert the Russell Index integer to an alphabetic string.
-
-        This follows Robert C. Russell's Index algorithm, as described in
-        :cite:`Russell:1917`.
-
-        Parameters
-        ----------
-        num : int
-            A Russell Index integer value
-
-        Returns
-        -------
-        str
-            The Russell Index as an alphabetic string
-
-        Examples
-        --------
-        >>> pe = RussellIndex()
-        >>> pe._to_alpha(3813428)
-        'CRACDBR'
-        >>> pe._to_alpha(715)
-        'NAL'
-        >>> pe._to_alpha(3614)
-        'CMAD'
-
-
-        .. versionadded:: 0.1.0
-        .. versionchanged:: 0.3.6
-            Encapsulated in class
-
-        """
-        num = ''.join(c for c in str(num) if c in self._num_set)
-        if num:
-            return num.translate(self._num_trans)
-        return ''
-
     def encode_alpha(self, word):
         """Return the Russell Index (alphabetic output) for the word.
 
@@ -169,8 +132,9 @@ class RussellIndex(_Phonetic):
             Encapsulated in class
 
         """
-        if word:
-            return self._to_alpha(self.encode(word))
+        num = ''.join(c for c in str(self.encode(word)) if c in self._num_set)
+        if num:
+            return num.translate(self._num_trans)
         return ''
 
 

@@ -191,38 +191,6 @@ class Koelner(_Phonetic):
 
         return sdx
 
-    def _to_alpha(self, num):
-        """Convert a Kölner Phonetik code from numeric to alphabetic.
-
-        Parameters
-        ----------
-        num : str or int
-            A numeric Kölner Phonetik representation
-
-        Returns
-        -------
-        str
-            An alphabetic representation of the same word
-
-        Examples
-        --------
-        >>> pe = Koelner()
-        >>> pe._to_alpha('862')
-        'SNT'
-        >>> pe._to_alpha('657')
-        'NLR'
-        >>> pe._to_alpha('86766')
-        'SNRNN'
-
-
-        .. versionadded:: 0.1.0
-        .. versionchanged:: 0.3.6
-            Encapsulated in class
-
-        """
-        num = ''.join(c for c in num if c in self._num_set)
-        return num.translate(self._num_trans)
-
     def encode_alpha(self, word):
         """Return the Kölner Phonetik (alphabetic output) code for a word.
 
@@ -254,7 +222,8 @@ class Koelner(_Phonetic):
             Encapsulated in class
 
         """
-        return self._to_alpha(self.encode(word))
+        num = ''.join(c for c in self.encode(word) if c in self._num_set)
+        return num.translate(self._num_trans)
 
 
 if __name__ == '__main__':

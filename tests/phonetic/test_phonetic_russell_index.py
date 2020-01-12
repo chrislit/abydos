@@ -52,18 +52,6 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Mack'), 613)
         self.assertEqual(self.pa.encode('Knack'), 3713)
 
-    def test_russel_index_n2a(self):
-        """Test abydos.phonetic.RussellIndex._to_alpha."""
-        self.assertEqual(self.pa._to_alpha(0), '')  # noqa: SF01
-        self.assertEqual(self.pa._to_alpha(''), '')  # noqa: SF01
-        self.assertEqual(self.pa._to_alpha(float('NaN')), '')  # noqa: SF01
-        self.assertEqual(
-            self.pa._to_alpha(123456789), 'ABCDLMNR'  # noqa: SF01
-        )
-        self.assertEqual(
-            self.pa._to_alpha('0123456789'), 'ABCDLMNR'  # noqa: SF01
-        )
-
     def test_russel_index_alpha(self):
         """Test abydos.phonetic.RussellIndex.encode_alpha."""
         self.assertEqual(self.pa.encode_alpha(''), '')
