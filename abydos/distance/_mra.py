@@ -20,7 +20,7 @@ The Match Rating Algorithm's distance measure
 """
 
 from ._distance import _Distance
-from ..phonetic import MRA as MRAPhonetic
+from ..phonetic import MRA as MRAPhonetic  # noqa: N811
 
 __all__ = ['MRA']
 
