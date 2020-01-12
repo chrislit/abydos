@@ -35,8 +35,6 @@ class Eudex(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    _phonetic_alg = EudexPhonetic()
-
     @staticmethod
     def gen_fibonacci():
         """Yield the next Fibonacci number.
@@ -123,6 +121,7 @@ class Eudex(_Distance):
         super(Eudex, self).__init__(**kwargs)
         self._weights = weights
         self._max_length = max_length
+        self._phonetic_alg = EudexPhonetic(max_length=max_length)
 
     def dist_abs(self, src, tar, normalized=False):
         """Calculate the distance between the Eudex hashes of two terms.
@@ -192,9 +191,7 @@ class Eudex(_Distance):
         """
 
         # Calculate the eudex hashes and XOR them
-        xored = self._phonetic_alg.encode(
-            src, max_length=self._max_length
-        ) ^ self._phonetic_alg.encode(tar, max_length=self._max_length)
+        xored = self._phonetic_alg.encode(src) ^ self._phonetic_alg.encode(tar)
 
         # Simple hamming distance (all bits are equal)
         if not self._weights:

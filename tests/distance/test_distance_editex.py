@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Editex
 
 import unittest
 
-from abydos.distance import Editex, dist_editex, editex, sim_editex
+from abydos.distance import Editex
 
 
 class EditexTestCases(unittest.TestCase):

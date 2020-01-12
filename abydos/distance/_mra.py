@@ -144,7 +144,7 @@ class MRA(_Distance):
             Encapsulated in class
 
         """
-        return mra_compare(src, tar) / 6
+        return self.dist_abs(src, tar) / 6
 
 
 if __name__ == '__main__':

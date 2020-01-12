@@ -254,7 +254,7 @@ class Koelner(_Phonetic):
             Encapsulated in class
 
         """
-        return koelner_phonetik_num_to_alpha(koelner_phonetik(word))
+        return self._to_alpha(self.encode(word))
 
 
 if __name__ == '__main__':
