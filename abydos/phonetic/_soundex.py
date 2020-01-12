@@ -129,7 +129,7 @@ class Soundex(_Phonetic):
         code = self.encode(word).rstrip('0')
         return code[:1] + code[1:].translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word, **kwargs):
         """Return the Soundex code for a word.
 
         Parameters
@@ -182,40 +182,18 @@ class Soundex(_Phonetic):
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', word.upper())
 
-        if self._var == 'Census':
+        if self._var == 'Census' and (
+            'recurse' not in kwargs or kwargs['recurse'] is not False
+        ):
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:
                 return (
-                    soundex(
-                        word,
-                        self._max_length,
-                        'American',
-                        self._reverse,
-                        self._zero_pad,
-                    ),
-                    soundex(
-                        word[3:],
-                        self._max_length,
-                        'American',
-                        self._reverse,
-                        self._zero_pad,
-                    ),
+                    self.encode(word, recurse=False),
+                    self.encode(word[3:], recurse=False),
                 )
             if word[:2] in {'DE', 'DI', 'LA', 'LE'} and len(word) > 3:
                 return (
-                    soundex(
-                        word,
-                        self._max_length,
-                        'American',
-                        self._reverse,
-                        self._zero_pad,
-                    ),
-                    soundex(
-                        word[2:],
-                        self._max_length,
-                        'American',
-                        self._reverse,
-                        self._zero_pad,
-                    ),
+                    self.encode(word, recurse=False),
+                    self.encode(word[2:], recurse=False),
                 )
             # Otherwise, proceed as usual (var='American' mode, ostensibly)
 
