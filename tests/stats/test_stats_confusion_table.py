@@ -666,14 +666,6 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(CATSNDOGS_TABLE.f1_score(), 2 / 3)
         self.assertAlmostEqual(WORKED_EG_TABLE.f1_score(), 4 / 23)
 
-    def test_f_measure(self):
-        """Test abydos.stats.ConfusionTable.f_measure."""
-        self.assertEqual(UNIT_TABLE.f_measure(), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.f_measure()))
-        self.assertAlmostEqual(SCALE_TABLE.f_measure(), 2 / 9)
-        self.assertAlmostEqual(CATSNDOGS_TABLE.f_measure(), 2 / 3)
-        self.assertAlmostEqual(WORKED_EG_TABLE.f_measure(), 4 / 23)
-
     def test_jaccard(self):
         """Test abydos.stats.ConfusionTable.jaccard."""
         self.assertEqual(UNIT_TABLE.jaccard(), 1 / 3)
@@ -681,18 +673,6 @@ class StatisticalMeasureTestCases(unittest.TestCase):
         self.assertAlmostEqual(SCALE_TABLE.jaccard(), 1 / 8)
         self.assertAlmostEqual(CATSNDOGS_TABLE.jaccard(), 0.5)
         self.assertAlmostEqual(WORKED_EG_TABLE.jaccard(), 20 / 210)
-
-    def test_g_measure(self):
-        """Test abydos.stats.ConfusionTable.g_measure."""
-        self.assertEqual(UNIT_TABLE.g_measure(), 0.5)
-        self.assertTrue(isnan(NULL_TABLE.g_measure()))
-        self.assertAlmostEqual(SCALE_TABLE.g_measure(), 0.22360679774997899)
-        self.assertAlmostEqual(
-            CATSNDOGS_TABLE.g_measure(), 0.66815310478106094
-        )
-        self.assertAlmostEqual(
-            WORKED_EG_TABLE.g_measure(), 0.25819888974716115
-        )
 
     def test_d_measure(self):
         """Test abydos.stats.ConfusionTable.d_measure."""
