@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.ParmarKumbharana
 
 import unittest
 
-from abydos.phonetic import ParmarKumbharana, parmar_kumbharana
+from abydos.phonetic import ParmarKumbharana
 
 
 class ParmarKumbharanaTestCases(unittest.TestCase):
@@ -94,9 +94,6 @@ class ParmarKumbharanaTestCases(unittest.TestCase):
         )
         for word, encoding in test_cases:
             self.assertEqual(self.pa.encode(word), encoding)
-
-        # Test wrapper
-        self.assertEqual(parmar_kumbharana('Centre'), 'SNTR')
 
 
 if __name__ == '__main__':

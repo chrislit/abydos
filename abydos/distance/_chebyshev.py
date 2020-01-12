@@ -19,12 +19,9 @@
 Chebyshev distance
 """
 
-from deprecation import deprecated
-
 from ._minkowski import Minkowski
-from .. import __version__
 
-__all__ = ['Chebyshev', 'chebyshev']
+__all__ = ['Chebyshev']
 
 
 class Chebyshev(Minkowski):
@@ -161,54 +158,6 @@ class Chebyshev(Minkowski):
 
         """
         raise NotImplementedError('Method disabled for Chebyshev distance.')
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Chebyshev.dist_abs method instead.',
-)
-def chebyshev(src, tar, qval=2, alphabet=0):
-    r"""Return the Chebyshev distance between two strings.
-
-    This is a wrapper for the :py:meth:`Chebyshev.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The Chebyshev distance
-
-    Examples
-    --------
-    >>> chebyshev('cat', 'hat')
-    1.0
-    >>> chebyshev('Niall', 'Neil')
-    1.0
-    >>> chebyshev('Colin', 'Cuilen')
-    1.0
-    >>> chebyshev('ATCG', 'TAGC')
-    1.0
-    >>> chebyshev('ATCG', 'TAGC', qval=1)
-    0.0
-    >>> chebyshev('ATCGATTCGGAATTTC', 'TAGCATAATCGCCG', qval=1)
-    3.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Chebyshev(alphabet=alphabet, qval=qval).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

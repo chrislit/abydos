@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.QGram
 
 import unittest
 
-from abydos.fingerprint import QGram, qgram_fingerprint
+from abydos.fingerprint import QGram
 
 from .. import NIALL
 
@@ -81,9 +81,6 @@ xoyv',
         )
         for i in range(len(NIALL)):
             self.assertEqual(self.fp.fingerprint(NIALL[i]), qgram_fp_niall[i])
-
-        # Test wrapper
-        self.assertEqual(qgram_fingerprint(NIALL[0]), qgram_fp_niall[0])
 
 
 if __name__ == '__main__':

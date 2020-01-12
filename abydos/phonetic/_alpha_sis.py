@@ -21,12 +21,9 @@ IBM's Alpha Search Inquiry System coding
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['AlphaSIS', 'alpha_sis']
+__all__ = ['AlphaSIS']
 
 
 class AlphaSIS(_Phonetic):
@@ -294,46 +291,6 @@ class AlphaSIS(_Phonetic):
             (_ + ('0' * self._max_length))[: self._max_length] for _ in alpha
         )
         return tuple(alpha)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the AlphaSIS.encode method instead.',
-)
-def alpha_sis(word, max_length=14):
-    """Return the IBM Alpha Search Inquiry System code for a word.
-
-    This is a wrapper for :py:meth:`AlphaSIS.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 14)
-
-    Returns
-    -------
-    tuple
-        The Alpha-SIS value
-
-    Examples
-    --------
-    >>> alpha_sis('Christopher')
-    ('06401840000000', '07040184000000', '04018400000000')
-    >>> alpha_sis('Niall')
-    ('02500000000000',)
-    >>> alpha_sis('Smith')
-    ('03100000000000',)
-    >>> alpha_sis('Schmidt')
-    ('06310000000000',)
-
-    .. versionadded:: 0.1.0
-
-    """
-    return AlphaSIS(max_length).encode(word)
 
 
 if __name__ == '__main__':

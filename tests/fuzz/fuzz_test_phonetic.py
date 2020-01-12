@@ -113,9 +113,6 @@ algorithms = {
     'henry_early': HenryEarly().encode,
     'henry_early_ml8': HenryEarly(max_length=8).encode,
     'koelner_phonetik': koelner.encode,
-    'koelner_phonetik_num_to_alpha': (
-        lambda _: koelner._to_alpha(koelner.encode(_))  # noqa: SF01
-    ),
     'koelner_phonetik_alpha': koelner.encode_alpha,
     'lein': LEIN().encode,
     'lein_nopad_ml8': LEIN(max_length=8, zero_pad=False).encode,
@@ -160,9 +157,6 @@ algorithms = {
     'roger_root': RogerRoot().encode,
     'roger_root_nopad_ml8': RogerRoot(max_length=8, zero_pad=False).encode,
     'russell_index': russell.encode,
-    'russell_index_num_to_alpha': (
-        lambda _: russell._to_alpha(russell.encode(_))  # noqa: SF01
-    ),
     'russell_index_alpha': russell.encode_alpha,
     'sfinxbis': lambda _: ', '.join(sfinxbis.encode(_)),
     'sfinxbis_ml6': lambda _: ', '.join(sfinxbis_6.encode(_)),

@@ -21,12 +21,9 @@ Roger Root phonetic algorithm
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['RogerRoot', 'roger_root']
+__all__ = ['RogerRoot']
 
 
 class RogerRoot(_Phonetic):
@@ -246,48 +243,6 @@ class RogerRoot(_Phonetic):
             code += '0' * self._max_length
 
         return code[: self._max_length]
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RogerRoot.encode method instead.',
-)
-def roger_root(word, max_length=5, zero_pad=True):
-    """Return the Roger Root code for a word.
-
-    This is a wrapper for :py:meth:`RogerRoot.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The maximum length (default 5) of the code to return
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The Roger Root code
-
-    Examples
-    --------
-    >>> roger_root('Christopher')
-    '06401'
-    >>> roger_root('Niall')
-    '02500'
-    >>> roger_root('Smith')
-    '00310'
-    >>> roger_root('Schmidt')
-    '06310'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return RogerRoot(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

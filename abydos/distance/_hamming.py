@@ -19,12 +19,9 @@
 Hamming distance
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Hamming', 'dist_hamming', 'hamming', 'sim_hamming']
+__all__ = ['Hamming']
 
 
 class Hamming(_Distance):
@@ -158,144 +155,6 @@ class Hamming(_Distance):
         if src == tar:
             return 0.0
         return self.dist_abs(src, tar) / max(len(src), len(tar))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Hamming.dist_abs method instead.',
-)
-def hamming(src, tar, diff_lens=True):
-    """Return the Hamming distance between two strings.
-
-    This is a wrapper for :py:meth:`Hamming.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    diff_lens : bool
-        If True (default), this returns the Hamming distance for those
-        characters that have a matching character in both strings plus the
-        difference in the strings' lengths. This is equivalent to extending the
-        shorter string with obligatorily non-matching characters. If False, an
-        exception is raised in the case of strings of unequal lengths.
-
-    Returns
-    -------
-    int
-        The Hamming distance between src & tar
-
-    Examples
-    --------
-    >>> hamming('cat', 'hat')
-    1
-    >>> hamming('Niall', 'Neil')
-    3
-    >>> hamming('aluminum', 'Catalan')
-    8
-    >>> hamming('ATCG', 'TAGC')
-    4
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Hamming(diff_lens).dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Hamming.dist method instead.',
-)
-def dist_hamming(src, tar, diff_lens=True):
-    """Return the normalized Hamming distance between two strings.
-
-    This is a wrapper for :py:meth:`Hamming.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    diff_lens : bool
-        If True (default), this returns the Hamming distance for those
-        characters that have a matching character in both strings plus the
-        difference in the strings' lengths. This is equivalent to extending the
-        shorter string with obligatorily non-matching characters. If False, an
-        exception is raised in the case of strings of unequal lengths.
-
-    Returns
-    -------
-    float
-        The normalized Hamming distance
-
-    Examples
-    --------
-    >>> round(dist_hamming('cat', 'hat'), 12)
-    0.333333333333
-    >>> dist_hamming('Niall', 'Neil')
-    0.6
-    >>> dist_hamming('aluminum', 'Catalan')
-    1.0
-    >>> dist_hamming('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Hamming(diff_lens).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Hamming.sim method instead.',
-)
-def sim_hamming(src, tar, diff_lens=True):
-    """Return the normalized Hamming similarity of two strings.
-
-    This is a wrapper for :py:meth:`Hamming.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    diff_lens : bool
-        If True (default), this returns the Hamming distance for those
-        characters that have a matching character in both strings plus the
-        difference in the strings' lengths. This is equivalent to extending the
-        shorter string with obligatorily non-matching characters. If False, an
-        exception is raised in the case of strings of unequal lengths.
-
-    Returns
-    -------
-    float
-        The normalized Hamming similarity
-
-    Examples
-    --------
-    >>> round(sim_hamming('cat', 'hat'), 12)
-    0.666666666667
-    >>> sim_hamming('Niall', 'Neil')
-    0.4
-    >>> sim_hamming('aluminum', 'Catalan')
-    0.0
-    >>> sim_hamming('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Hamming(diff_lens).sim(src, tar)
 
 
 if __name__ == '__main__':

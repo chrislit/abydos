@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Bag
 
 import unittest
 
-from abydos.distance import Bag, bag, dist_bag, sim_bag
+from abydos.distance import Bag
 from abydos.tokenizer import SAPSTokenizer
 
 
@@ -47,9 +47,6 @@ class BagTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('abcdefg', 'hijklm'), 7)
         self.assertEqual(self.cmp.dist_abs('abcdefg', 'hijklmno'), 8)
 
-        # Test wrapper
-        self.assertEqual(bag('nelson', 'neilsen'), 2)
-
     def test_bag_sim(self):
         """Test abydos.distance.Bag.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -66,9 +63,6 @@ class BagTestCases(unittest.TestCase):
 
         self.assertEqual(Bag(tokenizer=SAPSTokenizer()).sim('DNA', 'RNA'), 0.5)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_bag('nelson', 'neilsen'), 5 / 7)
-
     def test_bag_dist(self):
         """Test abydos.distance.Bag.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -82,9 +76,6 @@ class BagTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('aluminum', 'Catalan'), 5 / 8)
         self.assertEqual(self.cmp.dist('abcdefg', 'hijklm'), 1)
         self.assertEqual(self.cmp.dist('abcdefg', 'hijklmno'), 1)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_bag('nelson', 'neilsen'), 2 / 7)
 
 
 if __name__ == '__main__':

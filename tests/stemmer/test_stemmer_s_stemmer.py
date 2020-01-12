@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.SStemmer
 
 import unittest
 
-from abydos.stemmer import SStemmer, s_stemmer
+from abydos.stemmer import SStemmer
 
 
 class SStemmerTestCases(unittest.TestCase):
@@ -54,9 +54,6 @@ class SStemmerTestCases(unittest.TestCase):
         self.assertEqual(self.stmr.stem('portemonnaies'), 'portemonnaie')
         self.assertEqual(self.stmr.stem('foes'), 'foe')
         self.assertEqual(self.stmr.stem('sundaes'), 'sundae')
-
-        # Test wrapper
-        self.assertEqual(s_stemmer('panels'), 'panel')
 
 
 if __name__ == '__main__':

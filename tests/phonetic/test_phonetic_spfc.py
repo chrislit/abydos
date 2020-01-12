@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.SPFC
 
 import unittest
 
-from abydos.phonetic import SPFC, spfc
+from abydos.phonetic import SPFC
 
 
 class SPFCTestCases(unittest.TestCase):
@@ -72,9 +72,6 @@ class SPFCTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('G. Altshuler'), 'ARGEG')
         self.assertEqual(self.pa.encode_alpha('T. Vines'), 'CSGMS')
         self.assertEqual(self.pa.encode_alpha('James Ventor'), 'CZGMS')
-
-        # Test wrapper
-        self.assertEqual(spfc('G ALTSHULER'), '35797')
 
 
 if __name__ == '__main__':

@@ -21,12 +21,9 @@ Snowball Danish stemmer
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._snowball import _Snowball
-from .. import __version__
 
-__all__ = ['SnowballDanish', 'sb_danish']
+__all__ = ['SnowballDanish']
 
 
 class SnowballDanish(_Snowball):
@@ -171,42 +168,6 @@ class SnowballDanish(_Snowball):
             word = word[:-1]
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SnowballDanish.stem method instead.',
-)
-def sb_danish(word):
-    """Return Snowball Danish stem.
-
-    This is a wrapper for :py:meth:`SnowballDanish.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> sb_danish('underviser')
-    'undervis'
-    >>> sb_danish('suspension')
-    'suspension'
-    >>> sb_danish('sikkerhed')
-    'sikker'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return SnowballDanish().stem(word)
 
 
 if __name__ == '__main__':

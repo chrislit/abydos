@@ -21,12 +21,9 @@ Lovins stemmer.
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['Lovins', 'lovins']
+__all__ = ['Lovins']
 
 
 class Lovins(_Stemmer):
@@ -1240,41 +1237,6 @@ class Lovins(_Stemmer):
                     word = word[: -len(ending)] + replacement
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Lovins.stem method instead.',
-)
-def lovins(word):
-    """Return Lovins stem.
-
-    This is a wrapper for :py:meth:`Lovins.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str: Word stem
-
-    Examples
-    --------
-    >>> lovins('reading')
-    'read'
-    >>> lovins('suspension')
-    'suspens'
-    >>> lovins('elusiveness')
-    'elus'
-
-    .. versionadded:: 0.2.0
-
-    """
-    return Lovins().stem(word)
 
 
 if __name__ == '__main__':

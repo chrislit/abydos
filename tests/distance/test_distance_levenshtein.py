@@ -21,12 +21,7 @@ This module contains unit tests for abydos.distance.Levenshtein
 
 import unittest
 
-from abydos.distance import (
-    Levenshtein,
-    dist_levenshtein,
-    levenshtein,
-    sim_levenshtein,
-)
+from abydos.distance import Levenshtein
 
 
 class LevenshteinTestCases(unittest.TestCase):
@@ -172,14 +167,6 @@ class LevenshteinTestCases(unittest.TestCase):
             7.499999999999999,
         )
 
-        # Test wrapper
-        self.assertEqual(
-            levenshtein('ab', 'ba', 'lev', cost=(10, 10, 10, 5)), 20
-        )
-        self.assertEqual(
-            levenshtein('ab', 'ba', 'osa', cost=(10, 10, 10, 5)), 5
-        )
-
     def test_levenshtein_dist(self):
         """Test abydos.distance.Levenshtein.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -205,9 +192,6 @@ class LevenshteinTestCases(unittest.TestCase):
             self.cmp_taper.dist('abbc', 'abc'), 0.19230769230769232
         )
 
-        # Test wrapper
-        self.assertAlmostEqual(dist_levenshtein('abbc', 'abc'), 1 / 4)
-
     def test_levenshtein_sim(self):
         """Test abydos.distance.Levenshtein.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -221,9 +205,6 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('abc', 'ac'), 2 / 3)
         self.assertAlmostEqual(self.cmp.sim('abbc', 'ac'), 1 / 2)
         self.assertAlmostEqual(self.cmp.sim('abbc', 'abc'), 3 / 4)
-
-        # Test wrapper
-        self.assertAlmostEqual(sim_levenshtein('abbc', 'abc'), 3 / 4)
 
     def test_levenshtein_alignment(self):
         """Test abydos.distance.Levenshtein.alignment."""

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.NCDbwtrle
 
 import unittest
 
-from abydos.distance import NCDbwtrle, dist_ncd_bwtrle, sim_ncd_bwtrle
+from abydos.distance import NCDbwtrle
 
 
 class NCDbwtrleTestCases(unittest.TestCase):
@@ -46,11 +46,6 @@ class NCDbwtrleTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(self.cmp.dist('bananas', 'bananen'), 0.5)
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_ncd_bwtrle('banana', 'banane'), 0.57142857142
-        )
-
     def test_ncd_bwtrle_sim(self):
         """Test abydos.distance.NCDbwtrle.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -62,11 +57,6 @@ class NCDbwtrleTestCases(unittest.TestCase):
 
         self.assertAlmostEqual(self.cmp.sim('banana', 'banane'), 0.42857142857)
         self.assertAlmostEqual(self.cmp.sim('bananas', 'bananen'), 0.5)
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_ncd_bwtrle('banana', 'banane'), 0.42857142857
-        )
 
 
 if __name__ == '__main__':

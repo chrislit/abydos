@@ -19,12 +19,9 @@
 S-stemmer.
 """
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['SStemmer', 's_stemmer']
+__all__ = ['SStemmer']
 
 
 class SStemmer(_Stemmer):
@@ -76,46 +73,6 @@ class SStemmer(_Stemmer):
         if lowered[-1:] == 's' and lowered[-2:-1] not in {'u', 's'}:
             return word[:-1]
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SStemmer.stem method instead.',
-)
-def s_stemmer(word):
-    """Return the S-stemmed form of a word.
-
-    This is a wrapper for :py:meth:`SStemmer.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> s_stemmer('summaries')
-    'summary'
-    >>> s_stemmer('summary')
-    'summary'
-    >>> s_stemmer('towers')
-    'tower'
-    >>> s_stemmer('reading')
-    'reading'
-    >>> s_stemmer('census')
-    'census'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return SStemmer().stem(word)
 
 
 if __name__ == '__main__':

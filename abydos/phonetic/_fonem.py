@@ -22,12 +22,9 @@ FONEM
 from re import compile as re_compile
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['FONEM', 'fonem']
+__all__ = ['FONEM']
 
 
 def _get_parts(m):
@@ -243,47 +240,6 @@ class FONEM(_Phonetic):
                 word = regex.sub(repl, word)
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the FONEM.encode method instead.',
-)
-def fonem(word):
-    """Return the FONEM code of a word.
-
-    This is a wrapper for :py:meth:`FONEM.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The FONEM code
-
-    Examples
-    --------
-    >>> fonem('Marchand')
-    'MARCHEN'
-    >>> fonem('Beaulieu')
-    'BOLIEU'
-    >>> fonem('Beaumont')
-    'BOMON'
-    >>> fonem('Legrand')
-    'LEGREN'
-    >>> fonem('Pelletier')
-    'PELETIER'
-
-
-    .. versionadded:: 0.3.0
-
-    """
-    return FONEM().encode(word)
 
 
 if __name__ == '__main__':

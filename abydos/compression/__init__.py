@@ -37,21 +37,14 @@ performed by creating a :py:class:`.BWT` object and then calling
 
 """
 
-from ._arithmetic import Arithmetic, ac_decode, ac_encode, ac_train
-from ._bwt import BWT, bwt_decode, bwt_encode
-from ._rle import RLE, rle_decode, rle_encode
+from ._arithmetic import Arithmetic
+from ._bwt import BWT
+from ._rle import RLE
 
 __all__ = [
     'Arithmetic',
-    'ac_decode',
-    'ac_encode',
-    'ac_train',
     'BWT',
-    'bwt_decode',
-    'bwt_encode',
     'RLE',
-    'rle_decode',
-    'rle_encode',
 ]
 
 

@@ -22,7 +22,7 @@ This module contains unit tests for abydos.distance.NCDarith
 import unittest
 
 from abydos.compression import Arithmetic
-from abydos.distance import NCDarith, dist_ncd_arith, sim_ncd_arith
+from abydos.distance import NCDarith
 
 from .. import NIALL
 
@@ -62,12 +62,6 @@ class NCDarithTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('Njáll', 'Njall'), 0.75)
         self.assertAlmostEqual(self.cmp.dist('Njall', 'Njáll'), 0.75)
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_ncd_arith('Niall', 'Neil', self.arith.get_probs()),
-            0.608695652173913,
-        )
-
     def test_ncd_arith_sim(self):
         """Test abydos.distance.NCDarith.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -92,12 +86,6 @@ class NCDarithTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(self.cmp.sim('Njáll', 'Njall'), 0.25)
         self.assertAlmostEqual(self.cmp.sim('Njall', 'Njáll'), 0.25)
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_ncd_arith('Niall', 'Neil', self.arith.get_probs()),
-            0.3913043478260869,
-        )
 
 
 if __name__ == '__main__':

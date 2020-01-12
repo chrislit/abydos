@@ -22,7 +22,7 @@ This module contains unit tests for abydos.distance.Cosine
 import math
 import unittest
 
-from abydos.distance import Cosine, dist_cosine, sim_cosine
+from abydos.distance import Cosine
 from abydos.tokenizer import QGrams, WhitespaceTokenizer
 
 from .. import NONQ_FROM, NONQ_TO
@@ -97,11 +97,6 @@ class CosineSimilarityTestCases(unittest.TestCase):
 
         self.assertEqual(self.cmp_q2.sim('eh', 'a'), 0.0)
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_cosine('nelson', 'neilsen'), 4 / math.sqrt(7 * 8)
-        )
-
     def test_cosine_dist(self):
         """Test abydos.distance.Cosine.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -157,11 +152,6 @@ class CosineSimilarityTestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(
             self.cmp_ws.dist(NONQ_TO, NONQ_FROM), 1 - 4 / math.sqrt(9 * 7)
-        )
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_cosine('nelson', 'neilsen'), 1 - (4 / math.sqrt(7 * 8))
         )
 
 

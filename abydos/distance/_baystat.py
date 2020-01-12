@@ -19,12 +19,9 @@
 Baystat similarity.
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Baystat', 'dist_baystat', 'sim_baystat']
+__all__ = ['Baystat']
 
 
 class Baystat(_Distance):
@@ -195,98 +192,6 @@ class Baystat(_Distance):
 
             match_len += hit_len
             pos += ix
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Baystat.sim method instead.',
-)
-def sim_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
-    """Return the Baystat similarity.
-
-    This is a wrapper for :py:meth:`Baystat.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    min_ss_len : int
-        Minimum substring length to be considered
-    left_ext :int
-        Left-side extension length
-    right_ext :int
-        Right-side extension length
-
-    Returns
-    -------
-    float
-        The Baystat similarity
-
-    Examples
-    --------
-    >>> round(sim_baystat('cat', 'hat'), 12)
-    0.666666666667
-    >>> sim_baystat('Niall', 'Neil')
-    0.4
-    >>> round(sim_baystat('Colin', 'Cuilen'), 12)
-    0.166666666667
-    >>> sim_baystat('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Baystat(min_ss_len, left_ext, right_ext).sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Baystat.dist method instead.',
-)
-def dist_baystat(src, tar, min_ss_len=None, left_ext=None, right_ext=None):
-    """Return the Baystat distance.
-
-    This is a wrapper for :py:meth:`Baystat.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    min_ss_len : int
-        Minimum substring length to be considered
-    left_ext : int
-        Left-side extension length
-    right_ext : int
-        Right-side extension length
-
-    Returns
-    -------
-    float
-        The Baystat distance
-
-    Examples
-    --------
-    >>> round(dist_baystat('cat', 'hat'), 12)
-    0.333333333333
-    >>> dist_baystat('Niall', 'Neil')
-    0.6
-    >>> round(dist_baystat('Colin', 'Cuilen'), 12)
-    0.833333333333
-    >>> dist_baystat('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Baystat(min_ss_len, left_ext, right_ext).dist(src, tar)
 
 
 if __name__ == '__main__':

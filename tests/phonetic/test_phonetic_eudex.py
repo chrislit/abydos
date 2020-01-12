@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Eudex
 
 import unittest
 
-from abydos.phonetic import Eudex, eudex
+from abydos.phonetic import Eudex
 
 
 class EudexTestCases(unittest.TestCase):
@@ -83,9 +83,6 @@ class EudexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('hello'), 144115188075896832)
         self.assertEqual(self.pa.encode('christopher'), 433648490138894409)
         self.assertEqual(self.pa.encode('colin'), 432345564238053650)
-
-        # Test wrapper
-        self.assertEqual(eudex('colin'), 432345564238053650)
 
 
 if __name__ == '__main__':

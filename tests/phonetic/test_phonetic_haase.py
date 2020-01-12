@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Haase
 
 import unittest
 
-from abydos.phonetic import Haase, haase_phonetik
+from abydos.phonetic import Haase
 
 
 class HaaseTestCases(unittest.TestCase):
@@ -74,9 +74,6 @@ class HaaseTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Korb'), ('KARP', 'KARF'))
         self.assertEqual(self.pa.encode_alpha('Heino'), ('ANA', 'ANAF'))
         self.assertEqual(self.pa.encode_alpha('Nekka'), ('NAKA', 'NAKAR'))
-
-        # Test wrapper
-        self.assertEqual(haase_phonetik('Häschen'), ('9896', '9496'))
 
 
 if __name__ == '__main__':

@@ -19,12 +19,9 @@
 Sift4 Common approximate string distance
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['Sift4', 'dist_sift4', 'sift4_common', 'sim_sift4']
+__all__ = ['Sift4']
 
 
 class Sift4(_Distance):
@@ -205,138 +202,6 @@ class Sift4(_Distance):
 
         """
         return self.dist_abs(src, tar) / (max(len(src), len(tar), 1))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Sift4.dist_abs method instead.',
-)
-def sift4_common(src, tar, max_offset=5, max_distance=0):
-    """Return the "common" Sift4 distance between two terms.
-
-    This is a wrapper for :py:meth:`Sift4.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    max_offset : int
-        The number of characters to search for matching letters
-    max_distance : int
-        The distance at which to stop and exit
-
-    Returns
-    -------
-    int
-        The Sift4 distance according to the common formula
-
-    Examples
-    --------
-    >>> sift4_common('cat', 'hat')
-    1
-    >>> sift4_common('Niall', 'Neil')
-    2
-    >>> sift4_common('Colin', 'Cuilen')
-    3
-    >>> sift4_common('ATCG', 'TAGC')
-    2
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Sift4(max_offset, max_distance).dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Sift4.dist method instead.',
-)
-def dist_sift4(src, tar, max_offset=5, max_distance=0):
-    """Return the normalized "common" Sift4 distance between two terms.
-
-    This is a wrapper for :py:meth:`Sift4.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    max_offset : int
-        The number of characters to search for matching letters
-    max_distance : int
-        The distance at which to stop and exit
-
-    Returns
-    -------
-    float
-        The normalized Sift4 distance
-
-    Examples
-    --------
-    >>> round(dist_sift4('cat', 'hat'), 12)
-    0.333333333333
-    >>> dist_sift4('Niall', 'Neil')
-    0.4
-    >>> dist_sift4('Colin', 'Cuilen')
-    0.5
-    >>> dist_sift4('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Sift4(max_offset, max_distance).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Sift4.sim method instead.',
-)
-def sim_sift4(src, tar, max_offset=5, max_distance=0):
-    """Return the normalized "common" Sift4 similarity of two terms.
-
-    This is a wrapper for :py:meth:`Sift4.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    max_offset : int
-        The number of characters to search for matching letters
-    max_distance : int
-        The distance at which to stop and exit
-
-    Returns
-    -------
-    float
-        The normalized Sift4 similarity
-
-    Examples
-    --------
-    >>> round(sim_sift4('cat', 'hat'), 12)
-    0.666666666667
-    >>> sim_sift4('Niall', 'Neil')
-    0.6
-    >>> sim_sift4('Colin', 'Cuilen')
-    0.5
-    >>> sim_sift4('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Sift4(max_offset, max_distance).sim(src, tar)
 
 
 if __name__ == '__main__':

@@ -21,12 +21,7 @@ This module contains unit tests for abydos.phonetic.Koelner
 
 import unittest
 
-from abydos.phonetic import (
-    Koelner,
-    koelner_phonetik,
-    koelner_phonetik_alpha,
-    koelner_phonetik_num_to_alpha,
-)
+from abydos.phonetic import Koelner
 
 
 class KoelnerTestCases(unittest.TestCase):
@@ -69,20 +64,6 @@ class KoelnerTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Acre'), '087')
         self.assertEqual(self.pa.encode('H'), '')
 
-        # Test wrapper
-        self.assertEqual(koelner_phonetik('Müller-Lüdenscheidt'), '65752682')
-
-    def test_koelner_phonetik_n2a(self):
-        """Test abydos.phonetic.Koelner._to_alpha."""
-        self.assertEqual(
-            self.pa._to_alpha('0123456789'), 'APTFKLNRS'  # noqa: SF01
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            koelner_phonetik_num_to_alpha('0123456789'), 'APTFKLNRS'
-        )
-
     def test_koelner_phonetik_alpha(self):
         """Test abydos.phonetic.Koelner.encode_alpha."""
         self.assertEqual(
@@ -103,11 +84,6 @@ class KoelnerTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('schäfer'), 'SFR')
         self.assertEqual(self.pa.encode_alpha('cater'), 'KTR')
         self.assertEqual(self.pa.encode_alpha('axel'), 'AKSL')
-
-        # Test wrapper
-        self.assertEqual(
-            koelner_phonetik_alpha('Müller-Lüdenscheidt'), 'NLRLTNST'
-        )
 
 
 if __name__ == '__main__':

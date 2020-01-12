@@ -22,7 +22,7 @@ This module contains unit tests for abydos.stemmer.Lovins
 import codecs
 import unittest
 
-from abydos.stemmer import Lovins, lovins
+from abydos.stemmer import Lovins
 
 from .. import _corpus_file
 
@@ -76,9 +76,6 @@ class LovinsTestCases(unittest.TestCase):
 
         # missed branch test cases
         self.assertEqual(self.stmr.stem('feminism'), 'fem')
-
-        # Test wrapper
-        self.assertEqual(lovins('magnesia'), 'magnes')
 
     def test_lovins_snowball(self):
         """Test abydos.stemmer.Lovins (Snowball testset).

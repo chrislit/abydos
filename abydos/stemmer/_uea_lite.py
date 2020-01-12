@@ -21,12 +21,9 @@ UEA-Lite stemmer
 
 from re import match as re_match
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['UEALite', 'uealite']
+__all__ = ['UEALite']
 
 
 class UEALite(_Stemmer):
@@ -659,15 +656,16 @@ class UEALite(_Stemmer):
 
         Examples
         --------
-        >>> uealite('readings')
+        >>> stmr = UEALite()
+        >>> stmr.stem('readings')
         'read'
-        >>> uealite('insulted')
+        >>> stmr.stem('insulted')
         'insult'
-        >>> uealite('cussed')
+        >>> stmr.stem('cussed')
         'cuss'
-        >>> uealite('fancies')
+        >>> stmr.stem('fancies')
         'fancy'
-        >>> uealite('eroded')
+        >>> stmr.stem('eroded')
         'erode'
 
 
@@ -780,65 +778,6 @@ class UEALite(_Stemmer):
         if self._return_rule_no:
             return stem, rule_no
         return stem
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the UEALite.stem method instead.',
-)
-def uealite(
-    word,
-    max_word_length=20,
-    max_acro_length=8,
-    return_rule_no=False,
-    var='standard',
-):
-    """Return UEA-Lite stem.
-
-    This is a wrapper for :py:meth:`UEALite.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-    max_word_length : int
-        The maximum word length allowed
-    max_acro_length : int
-        The maximum acronym length allowed
-    return_rule_no : bool
-        If True, returns the stem along with rule number
-    var : str
-        Variant rules to use:
-
-            - ``Adams`` to use Jason Adams' rules
-            - ``Perl`` to use the original Perl rules
-
-    Returns
-    -------
-    str or (str, int)
-        Word stem
-
-    Examples
-    --------
-    >>> uealite('readings')
-    'read'
-    >>> uealite('insulted')
-    'insult'
-    >>> uealite('cussed')
-    'cuss'
-    >>> uealite('fancies')
-    'fancy'
-    >>> uealite('eroded')
-    'erode'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return UEALite(max_word_length, max_acro_length, return_rule_no, var).stem(
-        word
-    )
 
 
 if __name__ == '__main__':

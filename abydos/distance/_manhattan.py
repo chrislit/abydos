@@ -19,12 +19,9 @@
 Manhattan distance & similarity
 """
 
-from deprecation import deprecated
-
 from ._minkowski import Minkowski
-from .. import __version__
 
-__all__ = ['Manhattan', 'dist_manhattan', 'manhattan', 'sim_manhattan']
+__all__ = ['Manhattan']
 
 
 class Manhattan(Minkowski):
@@ -155,142 +152,6 @@ class Manhattan(Minkowski):
 
         """
         return self.dist_abs(src, tar, normalized=True)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Manhattan.dist_abs method instead.',
-)
-def manhattan(src, tar, qval=2, normalized=False, alphabet=None):
-    """Return the Manhattan distance between two strings.
-
-    This is a wrapper for :py:meth:`Manhattan.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    normalized : bool
-        Normalizes to [0, 1] if True
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The Manhattan distance
-
-    Examples
-    --------
-    >>> manhattan('cat', 'hat')
-    4.0
-    >>> manhattan('Niall', 'Neil')
-    7.0
-    >>> manhattan('Colin', 'Cuilen')
-    9.0
-    >>> manhattan('ATCG', 'TAGC')
-    10.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Manhattan(alphabet=alphabet, qval=qval).dist_abs(
-        src, tar, normalized=normalized
-    )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Manhattan.dist method instead.',
-)
-def dist_manhattan(src, tar, qval=2, alphabet=0):
-    """Return the normalized Manhattan distance between two strings.
-
-    This is a wrapper for :py:meth:`Manhattan.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The normalized Manhattan distance
-
-    Examples
-    --------
-    >>> dist_manhattan('cat', 'hat')
-    0.5
-    >>> round(dist_manhattan('Niall', 'Neil'), 12)
-    0.636363636364
-    >>> round(dist_manhattan('Colin', 'Cuilen'), 12)
-    0.692307692308
-    >>> dist_manhattan('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Manhattan(alphabet=alphabet, qval=qval).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Manhattan.sim method instead.',
-)
-def sim_manhattan(src, tar, qval=2, alphabet=0):
-    """Return the normalized Manhattan similarity of two strings.
-
-    This is a wrapper for :py:meth:`Manhattan.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The normalized Manhattan similarity
-
-    Examples
-    --------
-    >>> sim_manhattan('cat', 'hat')
-    0.5
-    >>> round(sim_manhattan('Niall', 'Neil'), 12)
-    0.363636363636
-    >>> round(sim_manhattan('Colin', 'Cuilen'), 12)
-    0.307692307692
-    >>> sim_manhattan('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Manhattan(alphabet=alphabet, qval=qval).sim(src, tar)
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.compression.RLE
 
 import unittest
 
-from abydos.compression import BWT, RLE, rle_decode, rle_encode
+from abydos.compression import BWT, RLE
 
 
 class RLETestCases(unittest.TestCase):
@@ -45,9 +45,6 @@ class RLETestCases(unittest.TestCase):
             self.rle.encode(self.bwt.encode(self.bws)), 'WWBWWB45WB\x003WB10WB'
         )
         self.assertEqual(self.rle.encode('Schifffahrt'), 'Schi3fahrt')
-        # Test wrapper
-        self.assertEqual(rle_encode(self.bws, False), '12WB12W3B24WB14W')
-        self.assertEqual(rle_encode(self.bws), 'WWBWWB45WB\x003WB10WB')
 
     def test_rle_decode(self):
         """Test abydos.compression.RLE.decode."""
@@ -63,9 +60,6 @@ class RLETestCases(unittest.TestCase):
             self.bwt.decode(self.rle.decode('WWBWWB45WB\x003WB10WB')), self.bws
         )
         self.assertEqual(self.rle.decode('Schi3fahrt'), 'Schifffahrt')
-        # Test wrapper
-        self.assertEqual(rle_decode('12W1B12W3B24W1B14W', False), self.bws)
-        self.assertEqual(rle_decode('WWBWWB45WB\x003WB10WB'), self.bws)
 
     def test_rle_roundtripping(self):
         """Test abydos.compression.RLE.encode & .decode roundtripping."""

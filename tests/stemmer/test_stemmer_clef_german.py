@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.CLEFGerman
 
 import unittest
 
-from abydos.stemmer import CLEFGerman, clef_german
+from abydos.stemmer import CLEFGerman
 
 
 class CLEFGermanTestCases(unittest.TestCase):
@@ -61,9 +61,6 @@ class CLEFGermanTestCases(unittest.TestCase):
         self.assertEqual(self.stmr.stem('lautere'), 'lauter')
         self.assertEqual(self.stmr.stem('lautste'), 'lautst')
         self.assertEqual(self.stmr.stem('kleinen'), 'klei')
-
-        # Test wrapper
-        self.assertEqual(clef_german('können'), 'konn')
 
 
 if __name__ == '__main__':

@@ -21,12 +21,9 @@ Michigan LEIN (Law Enforcement Information Network) encoding
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['LEIN', 'lein']
+__all__ = ['LEIN']
 
 
 class LEIN(_Phonetic):
@@ -140,48 +137,6 @@ class LEIN(_Phonetic):
             code += '0' * self._max_length  # Rule 4
 
         return code[: self._max_length]
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the LEIN.encode method instead.',
-)
-def lein(word, max_length=4, zero_pad=True):
-    """Return the LEIN code for a word.
-
-    This is a wrapper for :py:meth:`LEIN.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 4)
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The LEIN code
-
-    Examples
-    --------
-    >>> lein('Christopher')
-    'C351'
-    >>> lein('Niall')
-    'N300'
-    >>> lein('Smith')
-    'S210'
-    >>> lein('Schmidt')
-    'S521'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return LEIN(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

@@ -22,12 +22,7 @@ This module contains unit tests for abydos.phonetic.RussellIndex
 import math
 import unittest
 
-from abydos.phonetic import (
-    RussellIndex,
-    russell_index,
-    russell_index_alpha,
-    russell_index_num_to_alpha,
-)
+from abydos.phonetic import RussellIndex
 
 
 class RussellIndexTestCases(unittest.TestCase):
@@ -57,24 +52,6 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Mack'), 613)
         self.assertEqual(self.pa.encode('Knack'), 3713)
 
-        # Test wrapper
-        self.assertEqual(russell_index('Highfield'), 1254)
-
-    def test_russel_index_n2a(self):
-        """Test abydos.phonetic.RussellIndex._to_alpha."""
-        self.assertEqual(self.pa._to_alpha(0), '')  # noqa: SF01
-        self.assertEqual(self.pa._to_alpha(''), '')  # noqa: SF01
-        self.assertEqual(self.pa._to_alpha(float('NaN')), '')  # noqa: SF01
-        self.assertEqual(
-            self.pa._to_alpha(123456789), 'ABCDLMNR'  # noqa: SF01
-        )
-        self.assertEqual(
-            self.pa._to_alpha('0123456789'), 'ABCDLMNR'  # noqa: SF01
-        )
-
-        # Test wrapper
-        self.assertEqual(russell_index_num_to_alpha(123456789), 'ABCDLMNR')
-
     def test_russel_index_alpha(self):
         """Test abydos.phonetic.RussellIndex.encode_alpha."""
         self.assertEqual(self.pa.encode_alpha(''), '')
@@ -93,9 +70,6 @@ class RussellIndexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Myer'), 'MAR')
         self.assertEqual(self.pa.encode_alpha('Mack'), 'MAC')
         self.assertEqual(self.pa.encode_alpha('Knack'), 'CNAC')
-
-        # Test wrapper
-        self.assertEqual(russell_index_alpha('Highfield'), 'ABLD')
 
 
 if __name__ == '__main__':

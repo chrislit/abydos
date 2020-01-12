@@ -21,12 +21,9 @@ Phonix
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Phonix', 'phonix']
+__all__ = ['Phonix']
 
 
 class Phonix(_Phonetic):
@@ -415,48 +412,6 @@ class Phonix(_Phonetic):
         if not sdx:
             sdx = '0'
         return sdx[: self._max_length]
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Phonix.encode method instead.',
-)
-def phonix(word, max_length=4, zero_pad=True):
-    """Return the Phonix code for a word.
-
-    This is a wrapper for :py:meth:`Phonix.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 4)
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The Phonix value
-
-    Examples
-    --------
-    >>> phonix('Christopher')
-    'K683'
-    >>> phonix('Niall')
-    'N400'
-    >>> phonix('Smith')
-    'S530'
-    >>> phonix('Schmidt')
-    'S530'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Phonix(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

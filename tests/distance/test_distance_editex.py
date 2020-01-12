@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Editex
 
 import unittest
 
-from abydos.distance import Editex, dist_editex, editex, sim_editex
+from abydos.distance import Editex
 
 
 class EditexTestCases(unittest.TestCase):
@@ -55,9 +55,6 @@ class EditexTestCases(unittest.TestCase):
             self.cmp_taper.dist_abs('nelson', 'neilsen'), 2.7142857143
         )
 
-        # Test wrapper
-        self.assertEqual(editex('niall', 'neal'), 1)
-
     def test_editex_dist_abs_local(self):
         """Test abydos.distance.Editex.dist_abs (local variant)."""
         self.assertEqual(self.cmp_local.dist_abs('', ''), 0)
@@ -74,9 +71,6 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_local.dist_abs('neal', 'nihl'), 3)
         self.assertEqual(self.cmp_local.dist_abs('nihl', 'neal'), 3)
 
-        # Test wrapper
-        self.assertEqual(editex('niall', 'neal', local=True), 1)
-
     def test_editex_sim(self):
         """Test abydos.distance.Editex.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -87,9 +81,6 @@ class EditexTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('nelson', 'neilsen'), 12 / 14)
         self.assertAlmostEqual(self.cmp.sim('neilsen', 'nelson'), 12 / 14)
         self.assertEqual(self.cmp.sim('niall', 'neal'), 0.9)
-
-        # Test wrapper
-        self.assertEqual(sim_editex('niall', 'neal'), 0.9)
 
     def test_editex_dist(self):
         """Test abydos.distance.Editex.dist."""
@@ -106,9 +97,6 @@ class EditexTestCases(unittest.TestCase):
         self.assertAlmostEqual(
             self.cmp_taper.dist('nelson', 'neilsen'), 0.123376623
         )
-
-        # Test wrapper
-        self.assertEqual(dist_editex('niall', 'neal'), 0.1)
 
 
 if __name__ == '__main__':

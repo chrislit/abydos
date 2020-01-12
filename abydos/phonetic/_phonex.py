@@ -21,12 +21,9 @@ Phonex
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Phonex', 'phonex']
+__all__ = ['Phonex']
 
 
 class Phonex(_Phonetic):
@@ -204,48 +201,6 @@ class Phonex(_Phonetic):
         if not name_code:
             name_code = '0'
         return name_code[: self._max_length]
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Phonex.encode method instead.',
-)
-def phonex(word, max_length=4, zero_pad=True):
-    """Return the Phonex code for a word.
-
-    This is a wrapper for :py:meth:`Phonex.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 4)
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The Phonex value
-
-    Examples
-    --------
-    >>> phonex('Christopher')
-    'C623'
-    >>> phonex('Niall')
-    'N400'
-    >>> phonex('Schmidt')
-    'S253'
-    >>> phonex('Smith')
-    'S530'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Phonex(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

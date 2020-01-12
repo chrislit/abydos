@@ -21,12 +21,7 @@ This module contains unit tests for abydos.distance.DamerauLevenshtein
 
 import unittest
 
-from abydos.distance import (
-    DamerauLevenshtein,
-    damerau_levenshtein,
-    dist_damerau,
-    sim_damerau,
-)
+from abydos.distance import DamerauLevenshtein
 
 
 class DamerauLevenshteinTestCases(unittest.TestCase):
@@ -57,9 +52,6 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertEqual(self.cmp55105.dist_abs('cab', 'cba'), 5)
         self.assertRaises(ValueError, self.cmp1010105.dist_abs, 'ab', 'ba')
 
-        # Test wrapper
-        self.assertEqual(damerau_levenshtein('CA', 'ABC'), 2)
-
     def test_damerau_dist(self):
         """Test abydos.distance.DamerauLevenshtein.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -86,9 +78,6 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp55105.dist('cab', 'cba'), 1 / 3)
         self.assertRaises(ValueError, self.cmp1010105.dist, 'ab', 'ba')
 
-        # Test wrapper
-        self.assertAlmostEqual(dist_damerau('abbc', 'abc'), 1 / 4)
-
     def test_damerau_sim(self):
         """Test abydos.distance.DamerauLevenshtein.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -114,9 +103,6 @@ class DamerauLevenshteinTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp55105.sim('abc', 'bac'), 2 / 3)
         self.assertAlmostEqual(self.cmp55105.sim('cab', 'cba'), 2 / 3)
         self.assertRaises(ValueError, self.cmp1010105.sim, 'ab', 'ba')
-
-        # Test wrapper
-        self.assertAlmostEqual(sim_damerau('abbc', 'abc'), 3 / 4)
 
 
 if __name__ == '__main__':

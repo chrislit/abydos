@@ -21,17 +21,9 @@ Robert C. Russell's Index
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = [
-    'RussellIndex',
-    'russell_index',
-    'russell_index_alpha',
-    'russell_index_num_to_alpha',
-]
+__all__ = ['RussellIndex']
 
 
 class RussellIndex(_Phonetic):
@@ -106,43 +98,6 @@ class RussellIndex(_Phonetic):
         # return as an int
         return int(sdx) if sdx else float('NaN')
 
-    def _to_alpha(self, num):
-        """Convert the Russell Index integer to an alphabetic string.
-
-        This follows Robert C. Russell's Index algorithm, as described in
-        :cite:`Russell:1917`.
-
-        Parameters
-        ----------
-        num : int
-            A Russell Index integer value
-
-        Returns
-        -------
-        str
-            The Russell Index as an alphabetic string
-
-        Examples
-        --------
-        >>> pe = RussellIndex()
-        >>> pe._to_alpha(3813428)
-        'CRACDBR'
-        >>> pe._to_alpha(715)
-        'NAL'
-        >>> pe._to_alpha(3614)
-        'CMAD'
-
-
-        .. versionadded:: 0.1.0
-        .. versionchanged:: 0.3.6
-            Encapsulated in class
-
-        """
-        num = ''.join(c for c in str(num) if c in self._num_set)
-        if num:
-            return num.translate(self._num_trans)
-        return ''
-
     def encode_alpha(self, word):
         """Return the Russell Index (alphabetic output) for the word.
 
@@ -177,124 +132,10 @@ class RussellIndex(_Phonetic):
             Encapsulated in class
 
         """
-        if word:
-            return self._to_alpha(self.encode(word))
+        num = ''.join(c for c in str(self.encode(word)) if c in self._num_set)
+        if num:
+            return num.translate(self._num_trans)
         return ''
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RussellIndex.encode method instead.',
-)
-def russell_index(word):
-    """Return the Russell Index (integer output) of a word.
-
-    This is a wrapper for :py:meth:`RussellIndex.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    int
-        The Russell Index value
-
-    Examples
-    --------
-    >>> russell_index('Christopher')
-    3813428
-    >>> russell_index('Niall')
-    715
-    >>> russell_index('Smith')
-    3614
-    >>> russell_index('Schmidt')
-    3614
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return RussellIndex().encode(word)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RussellIndex._to_alpha method instead.',
-)
-def russell_index_num_to_alpha(num):
-    """Convert the Russell Index integer to an alphabetic string.
-
-    This is a wrapper for :py:meth:`RussellIndex._to_alpha`.
-
-    Parameters
-    ----------
-    num : int
-        A Russell Index integer value
-
-    Returns
-    -------
-    str
-        The Russell Index as an alphabetic string
-
-    Examples
-    --------
-    >>> russell_index_num_to_alpha(3813428)
-    'CRACDBR'
-    >>> russell_index_num_to_alpha(715)
-    'NAL'
-    >>> russell_index_num_to_alpha(3614)
-    'CMAD'
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return RussellIndex()._to_alpha(num)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RussellIndex.encode_alpha method instead.',
-)
-def russell_index_alpha(word):
-    """Return the Russell Index (alphabetic output) for the word.
-
-    This is a wrapper for :py:meth:`RussellIndex.encode_alpha`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The Russell Index value as an alphabetic string
-
-    Examples
-    --------
-    >>> russell_index_alpha('Christopher')
-    'CRACDBR'
-    >>> russell_index_alpha('Niall')
-    'NAL'
-    >>> russell_index_alpha('Smith')
-    'CMAD'
-    >>> russell_index_alpha('Schmidt')
-    'CMAD'
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return RussellIndex().encode_alpha(word)
 
 
 if __name__ == '__main__':

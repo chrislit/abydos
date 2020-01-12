@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.PaiceHusk
 
 import unittest
 
-from abydos.stemmer import PaiceHusk, paice_husk
+from abydos.stemmer import PaiceHusk
 
 from .. import _corpus_file
 
@@ -53,9 +53,6 @@ class PaiceHuskTestCases(unittest.TestCase):
         self.assertEqual(self.stmr.stem('string'), 'string')
         self.assertEqual(self.stmr.stem('meant'), 'meant')
         self.assertEqual(self.stmr.stem('cement'), 'cem')
-
-        # Test wrapper
-        self.assertEqual(paice_husk('maximum'), 'maxim')
 
     def test_paice_husk_hopper_set(self):
         """Test abydos.stemmer.PaiceHusk (Hopper262 testset).

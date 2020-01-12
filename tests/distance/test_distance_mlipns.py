@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.MLIPNS
 
 import unittest
 
-from abydos.distance import MLIPNS, dist_mlipns, sim_mlipns
+from abydos.distance import MLIPNS
 
 
 class MLIPNSTestCases(unittest.TestCase):
@@ -46,9 +46,6 @@ class MLIPNSTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('Tomato', 'Tamato'), 1)
         self.assertEqual(self.cmp.sim('ato', 'Tam'), 1)
 
-        # Test wrapper
-        self.assertEqual(sim_mlipns('abcg', 'abcdeg'), 1)
-
     def test_mlipns_dist(self):
         """Test abydos.distance.MLIPNS.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -62,9 +59,6 @@ class MLIPNSTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abcg', 'abcdefg'), 1)
         self.assertEqual(self.cmp.dist('Tomato', 'Tamato'), 0)
         self.assertEqual(self.cmp.dist('ato', 'Tam'), 0)
-
-        # Test wrapper
-        self.assertEqual(dist_mlipns('abcg', 'abcdefg'), 1)
 
 
 if __name__ == '__main__':

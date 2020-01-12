@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.NCDrle
 
 import unittest
 
-from abydos.distance import NCDrle, dist_ncd_rle, sim_ncd_rle
+from abydos.distance import NCDrle
 
 
 class CompressionTestCases(unittest.TestCase):
@@ -44,9 +44,6 @@ class CompressionTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('aaa', 'bbaaa'), 0.5)
         self.assertAlmostEqual(self.cmp.dist('abb', 'bbba'), 1 / 3)
 
-        # Test wrapper
-        self.assertAlmostEqual(dist_ncd_rle('abb', 'bbba'), 1 / 3)
-
     def test_ncd_rle_sim(self):
         """Test abydos.distance.NCDrle.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -58,9 +55,6 @@ class CompressionTestCases(unittest.TestCase):
 
         self.assertAlmostEqual(self.cmp.sim('aaa', 'bbaaa'), 0.5)
         self.assertAlmostEqual(self.cmp.sim('abb', 'bbba'), 2 / 3)
-
-        # Test wrapper
-        self.assertAlmostEqual(sim_ncd_rle('abb', 'bbba'), 2 / 3)
 
 
 if __name__ == '__main__':

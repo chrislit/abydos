@@ -19,14 +19,11 @@
 Oxford Name Compression Algorithm (ONCA)
 """
 
-from deprecation import deprecated
-
 from ._nysiis import NYSIIS
 from ._phonetic import _Phonetic
 from ._soundex import Soundex
-from .. import __version__
 
-__all__ = ['ONCA', 'onca']
+__all__ = ['ONCA']
 
 
 class ONCA(_Phonetic):
@@ -126,48 +123,6 @@ class ONCA(_Phonetic):
         # compressed to one character of output, so give it triple the
         # max_length.
         return self._soundex.encode(self._nysiis.encode(word))
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the ONCA.encode method instead.',
-)
-def onca(word, max_length=4, zero_pad=True):
-    """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
-
-    This is a wrapper for :py:meth:`ONCA.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The maximum length (default 5) of the code to return
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The ONCA code
-
-    Examples
-    --------
-    >>> onca('Christopher')
-    'C623'
-    >>> onca('Niall')
-    'N400'
-    >>> onca('Smith')
-    'S530'
-    >>> onca('Schmidt')
-    'S530'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return ONCA(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

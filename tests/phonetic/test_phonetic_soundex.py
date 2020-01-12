@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Soundex
 
 import unittest
 
-from abydos.phonetic import Soundex, soundex
+from abydos.phonetic import Soundex
 
 
 class SoundexTestCases(unittest.TestCase):
@@ -125,9 +125,6 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Gauss'), 'GK')
         self.assertEqual(self.pa.encode_alpha('Hilbert'), 'HLPR')
         self.assertEqual(self.pa.encode_alpha('Knuth'), 'KNT')
-
-        # Test wrapper
-        self.assertEqual(soundex('Euler'), 'E460')
 
     def test_soundex_special(self):
         """Test abydos.phonetic.Soundex (special 1880-1910 variant method)."""

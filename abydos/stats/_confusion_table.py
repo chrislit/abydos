@@ -34,8 +34,6 @@ calculating the following data based on a confusion table:
 
 import math
 
-from deprecation import deprecated
-
 from ._mean import (
     aghmean,
     agmean,
@@ -51,7 +49,6 @@ from ._mean import (
     qmean,
     seiffert_mean,
 )
-from .. import __version__
 
 __all__ = ['ConfusionTable']
 
@@ -1695,40 +1692,6 @@ class ConfusionTable(object):
         """
         return self.fbeta_score(1.0)
 
-    @deprecated(
-        deprecated_in='0.4.0',
-        removed_in='0.6.0',
-        current_version=__version__,
-        details='Use the ConfusionTable.pr_hmean method instead.',
-    )
-    def f_measure(self):
-        r"""Return :math:`F`-measure.
-
-        :math:`F`-measure is the harmonic mean of precision and recall
-
-            .. math::
-
-                2 \cdot \frac{precision \cdot recall}{precision + recall}
-
-        Cf. https://en.wikipedia.org/wiki/F1_score
-
-        Returns
-        -------
-        float
-            The math:`F`-measure of the confusion table
-
-        Example
-        -------
-        >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.f_measure()
-        0.8275862068965516
-
-
-        .. versionadded:: 0.1.0
-
-        """
-        return self.pr_hmean()
-
     def jaccard(self):
         r"""Return Jaccard index.
 
@@ -1757,45 +1720,6 @@ class ConfusionTable(object):
             return self._tp / (self._tp + self._fp + self._fn)
         except ZeroDivisionError:
             return float('nan')
-
-    @deprecated(
-        deprecated_in='0.4.0',
-        removed_in='0.6.0',
-        current_version=__version__,
-        details='Use the ConfusionTable.pr_gmean method instead.',
-    )
-    def g_measure(self):
-        r"""Return G-measure.
-
-        :math:`G`-measure is the geometric mean of precision and recall:
-
-            .. math::
-
-                \sqrt{precision \cdot recall}
-
-        This is identical to the Fowlkes–Mallows (FM) index for two
-        clusters.
-
-        Cf. https://en.wikipedia.org/wiki/F1_score#G-measure
-
-        Cf. https://en.wikipedia.org/wiki/Fowlkes%E2%80%93Mallows_index
-
-        Returns
-        -------
-        float
-            The :math:`G`-measure of the confusion table
-
-        Example
-        -------
-        >>> ct = ConfusionTable(120, 60, 20, 30)
-        >>> ct.g_measure()
-        0.828078671210825
-
-
-        .. versionadded:: 0.1.0
-
-        """
-        return self.pr_gmean()
 
     def d_measure(self):
         r"""Return D-measure.

@@ -21,12 +21,9 @@ Daitch-Mokotoff Soundex
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['DaitchMokotoff', 'dm_soundex']
+__all__ = ['DaitchMokotoff']
 
 
 class DaitchMokotoff(_Phonetic):
@@ -411,55 +408,6 @@ class DaitchMokotoff(_Phonetic):
         else:
             dms = (_[: self._max_length] for _ in dms)
         return set(dms)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the DaitchMokotoff.encode method instead.',
-)
-def dm_soundex(word, max_length=6, zero_pad=True):
-    """Return the Daitch-Mokotoff Soundex code for a word.
-
-    This is a wrapper for :py:meth:`DaitchMokotoff.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 6; must be between 6 and
-        64)
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The Daitch-Mokotoff Soundex value
-
-    Examples
-    --------
-    >>> sorted(dm_soundex('Christopher'))
-    ['494379', '594379']
-    >>> dm_soundex('Niall')
-    {'680000'}
-    >>> dm_soundex('Smith')
-    {'463000'}
-    >>> dm_soundex('Schmidt')
-    {'463000'}
-
-    >>> sorted(dm_soundex('The quick brown fox', max_length=20,
-    ... zero_pad=False))
-    ['35457976754', '3557976754']
-
-    .. versionadded:: 0.1.0
-    .. versionchanged:: 0.3.6
-        Encapsulated in class
-
-    """
-    return DaitchMokotoff(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

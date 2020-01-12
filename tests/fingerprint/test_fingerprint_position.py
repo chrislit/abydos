@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.Position
 
 import unittest
 
-from abydos.fingerprint import Position, position_fingerprint
+from abydos.fingerprint import Position
 
 
 class PositionFingerprintTestCases(unittest.TestCase):
@@ -50,12 +50,6 @@ class PositionFingerprintTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Position(64).fingerprint('instance'), 0xEE7057FFEFFFFFFF
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            position_fingerprint('instance', 32),
-            0b11101110011100000101011111111111,
         )
 
 

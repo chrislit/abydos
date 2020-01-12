@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.Count
 
 import unittest
 
-from abydos.fingerprint import Count, count_fingerprint
+from abydos.fingerprint import Count
 
 
 class CountFingerprintTestCases(unittest.TestCase):
@@ -49,12 +49,6 @@ class CountFingerprintTestCases(unittest.TestCase):
         self.assertEqual(
             Count(64).fingerprint('instance'),
             0b01010100011001000000000100000000 << 32,
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            count_fingerprint('instance', 32),
-            0b01010100011001000000000100000000,
         )
 
 

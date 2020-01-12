@@ -21,12 +21,9 @@ Phonem
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['Phonem', 'phonem']
+__all__ = ['Phonem']
 
 
 class Phonem(_Phonetic):
@@ -114,44 +111,6 @@ class Phonem(_Phonetic):
             for c in self._delete_consecutive_repeats(word)
             if c in self._uc_set
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Phonem.encode method instead.',
-)
-def phonem(word):
-    """Return the Phonem code for a word.
-
-    This is a wrapper for :py:meth:`Phonem.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-
-    Returns
-    -------
-    str
-        The Phonem value
-
-    Examples
-    --------
-    >>> phonem('Christopher')
-    'CRYSDOVR'
-    >>> phonem('Niall')
-    'NYAL'
-    >>> phonem('Smith')
-    'SMYD'
-    >>> phonem('Schmidt')
-    'CMYD'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Phonem().encode(word)
 
 
 if __name__ == '__main__':

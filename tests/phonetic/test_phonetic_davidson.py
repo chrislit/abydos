@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Davidson
 
 import unittest
 
-from abydos.phonetic import Davidson, davidson
+from abydos.phonetic import Davidson
 
 
 class DavidsonTestCases(unittest.TestCase):
@@ -61,9 +61,6 @@ class DavidsonTestCases(unittest.TestCase):
         )
         for word, encoding in test_cases:
             self.assertEqual(self.pa.encode(word), encoding)
-
-        # Test wrapper
-        self.assertEqual(davidson('WAIT', omit_fname=True), 'WT  ')
 
 
 if __name__ == '__main__':

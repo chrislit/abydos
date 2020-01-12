@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Phonem
 
 import unittest
 
-from abydos.phonetic import Phonem, phonem
+from abydos.phonetic import Phonem
 
 
 class PhonemTestCases(unittest.TestCase):
@@ -56,9 +56,6 @@ class PhonemTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('computer'), 'COMBUDR')
         self.assertEqual(self.pa.encode('pfeifer'), 'VAYVR')
         self.assertEqual(self.pa.encode('pfeiffer'), 'VAYVR')
-
-        # Test wrapper
-        self.assertEqual(phonem('müller'), 'MYLR')
 
 
 if __name__ == '__main__':

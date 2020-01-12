@@ -21,7 +21,7 @@ This module contains unit tests for abydos.compression.BWT
 
 import unittest
 
-from abydos.compression import BWT, bwt_decode, bwt_encode
+from abydos.compression import BWT
 
 
 class BWTTestCases(unittest.TestCase):
@@ -48,9 +48,6 @@ class BWTTestCases(unittest.TestCase):
         self.assertRaises(ValueError, self.coder_dollar.encode, 'ABC$')
         self.assertRaises(ValueError, self.coder.encode, 'ABC\0')
 
-        # Test wrapper
-        self.assertEqual(bwt_encode('aardvark', '$'), 'k$avrraad')
-
     def test_bwt_decode(self):
         """Test abydos.compression.BWT.decode."""
         self.assertEqual(self.coder.decode(''), '')
@@ -67,9 +64,6 @@ class BWTTestCases(unittest.TestCase):
 
         self.assertRaises(ValueError, self.coder_dollar.decode, 'ABC')
         self.assertRaises(ValueError, self.coder.decode, 'ABC')
-
-        # Test wrapper
-        self.assertEqual(bwt_decode('BNN^AA|A', '|'), '^BANANA')
 
     def test_bwt_roundtripping(self):
         """Test abydos.compression.BWT.encode & .decode roundtripping."""

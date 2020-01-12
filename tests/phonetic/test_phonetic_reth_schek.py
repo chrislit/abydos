@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.RethSchek
 
 import unittest
 
-from abydos.phonetic import RethSchek, reth_schek_phonetik
+from abydos.phonetic import RethSchek
 
 
 class RethSchekTestCases(unittest.TestCase):
@@ -66,9 +66,6 @@ class RethSchekTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode('Kuh'), 'GU')
         self.assertEqual(self.pa.encode('lecker'), 'LEGR')
         self.assertEqual(self.pa.encode('rödlich'), 'ROEDLIG')
-
-        # Test wrapper
-        self.assertEqual(reth_schek_phonetik('Häschen'), 'HESCHEN')
 
 
 if __name__ == '__main__':

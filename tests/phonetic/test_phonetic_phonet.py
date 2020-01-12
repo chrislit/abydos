@@ -22,7 +22,7 @@ This module contains unit tests for abydos.phonetic.Phonet
 import codecs
 import unittest
 
-from abydos.phonetic import Phonet, phonet
+from abydos.phonetic import Phonet
 
 from .. import ALLOW_RANDOM, _corpus_file, _one_in
 
@@ -93,9 +93,6 @@ class PhonetTestCases(unittest.TestCase):
             self.pa_1.encode('Abendspaziergang'), 'ABENTSPAZIRGANK'
         )
 
-        # Test wrapper
-        self.assertEqual(phonet('Bremerhaven', 1), 'BREMAHAFN')
-
     def test_phonet_nolang(self):
         """Test abydos.phonetic.Phonet (no language)."""
         self.assertEqual(Phonet(lang='none').encode(''), '')
@@ -114,9 +111,6 @@ class PhonetTestCases(unittest.TestCase):
         self.assertEqual(self.pa_2none.encode('Schönberg'), 'SCHOENBERG')
         self.assertEqual(self.pa_2none.encode('Brückmann'), 'BRUECKMAN')
         self.assertEqual(self.pa_2none.encode('Krauße'), 'KRAUSE')
-
-        # Test wrapper
-        self.assertEqual(phonet('Bremerhaven', 1, 'none'), 'BREMERHAVEN')
 
     def test_phonet_nachnamen(self):
         """Test abydos.phonetic.Phonet (Nachnamen set)."""

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Phonix
 
 import unittest
 
-from abydos.phonetic import Phonix, phonix
+from abydos.phonetic import Phonix
 
 
 class PhonixTestCases(unittest.TestCase):
@@ -117,9 +117,6 @@ class PhonixTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('schneider'), 'SNT')
         self.assertEqual(self.pa.encode_alpha('fischer'), 'FS')
         self.assertEqual(self.pa.encode_alpha('weber'), 'WP')
-
-        # Test wrapper
-        self.assertEqual(phonix('Müller'), 'M400')
 
 
 if __name__ == '__main__':

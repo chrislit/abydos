@@ -21,17 +21,14 @@ Synoname.
 
 from collections import Iterable
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from ._levenshtein import levenshtein
-from ._ratcliff_obershelp import sim_ratcliff_obershelp
-from .. import __version__
+from ._levenshtein import Levenshtein
+from ._ratcliff_obershelp import RatcliffObershelp
 
 # noinspection PyProtectedMember
 from ..fingerprint._synoname_toolcode import SynonameToolcode
 
-__all__ = ['Synoname', 'synoname']
+__all__ = ['Synoname']
 
 
 class Synoname(_Distance):
@@ -41,6 +38,9 @@ class Synoname(_Distance):
 
     .. versionadded:: 0.3.6
     """
+
+    _lev = Levenshtein()
+    _ratcliff_obershelp = RatcliffObershelp()
 
     _stc = SynonameToolcode()
 
@@ -607,7 +607,7 @@ class Synoname(_Distance):
                     if full_tar.startswith(intro):
                         full_tar = full_tar[len(intro) :]
 
-            loc_ratio = sim_ratcliff_obershelp(full_src, full_tar)
+            loc_ratio = self._ratcliff_obershelp.sim(full_src, full_tar)
             return loc_ratio >= self._char_approx_min, loc_ratio
 
         approx_c_result, ca_ratio = _approx_c()
@@ -615,38 +615,26 @@ class Synoname(_Distance):
         if self._tests & self._test_dict['exact'] and fn_equal and ln_equal:
             return _fmt_retval(self._match_type_dict['exact'])
         if self._tests & self._test_dict['omission']:
-            if (
-                fn_equal
-                and levenshtein(src_ln, tar_ln, cost=(1, 1, 99, 99)) == 1
-            ):
+            self._lev._cost = (1, 1, 99, 99)  # noqa: SF01
+            self._lev._mode = 'lev'  # noqa: SF01
+            if fn_equal and self._lev.dist_abs(src_ln, tar_ln) == 1:
                 if not roman_conflict:
                     return _fmt_retval(self._match_type_dict['omission'])
-            elif (
-                ln_equal
-                and levenshtein(src_fn, tar_fn, cost=(1, 1, 99, 99)) == 1
-            ):
+            elif ln_equal and self._lev.dist_abs(src_fn, tar_fn) == 1:
                 return _fmt_retval(self._match_type_dict['omission'])
         if self._tests & self._test_dict['substitution']:
-            if (
-                fn_equal
-                and levenshtein(src_ln, tar_ln, cost=(99, 99, 1, 99)) == 1
-            ):
+            self._lev._cost = (99, 99, 1, 99)  # noqa: SF01
+            self._lev._mode = 'lev'  # noqa: SF01
+            if fn_equal and self._lev.dist_abs(src_ln, tar_ln) == 1:
                 return _fmt_retval(self._match_type_dict['substitution'])
-            elif (
-                ln_equal
-                and levenshtein(src_fn, tar_fn, cost=(99, 99, 1, 99)) == 1
-            ):
+            elif ln_equal and self._lev.dist_abs(src_fn, tar_fn) == 1:
                 return _fmt_retval(self._match_type_dict['substitution'])
         if self._tests & self._test_dict['transposition']:
-            if fn_equal and (
-                levenshtein(src_ln, tar_ln, mode='osa', cost=(99, 99, 99, 1))
-                == 1
-            ):
+            self._lev._cost = (99, 99, 99, 1)  # noqa: SF01
+            self._lev._mode = 'osa'  # noqa: SF01
+            if fn_equal and (self._lev.dist_abs(src_ln, tar_ln) == 1):
                 return _fmt_retval(self._match_type_dict['transposition'])
-            elif ln_equal and (
-                levenshtein(src_fn, tar_fn, mode='osa', cost=(99, 99, 99, 1))
-                == 1
-            ):
+            elif ln_equal and (self._lev.dist_abs(src_fn, tar_fn) == 1):
                 return _fmt_retval(self._match_type_dict['transposition'])
         if self._tests & self._test_dict['punctuation']:
             np_src_fn = self._synoname_strip_punct(src_fn)
@@ -679,22 +667,16 @@ class Synoname(_Distance):
                     if src_initials == tar_initials:
                         return _fmt_retval(self._match_type_dict['initials'])
                     initial_diff = abs(len(src_initials) - len(tar_initials))
+                    self._lev._cost = (1, 99, 99, 99)  # noqa: SF01
+                    self._lev._mode = 'lev'  # noqa: SF01
                     if initial_diff and (
                         (
                             initial_diff
-                            == levenshtein(
-                                src_initials,
-                                tar_initials,
-                                cost=(1, 99, 99, 99),
-                            )
+                            == self._lev.dist_abs(src_initials, tar_initials,)
                         )
                         or (
                             initial_diff
-                            == levenshtein(
-                                tar_initials,
-                                src_initials,
-                                cost=(1, 99, 99, 99),
-                            )
+                            == self._lev.dist_abs(tar_initials, src_initials,)
                         )
                     ):
                         return _fmt_retval(self._match_type_dict['initials'])
@@ -762,68 +744,6 @@ class Synoname(_Distance):
 
         """
         return self.dist_abs(src, tar, force_numeric=True) / 14
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Synoname.dist_abs method instead.',
-)
-def synoname(
-    src,
-    tar,
-    word_approx_min=0.3,
-    char_approx_min=0.73,
-    tests=2 ** 12 - 1,
-    ret_name=False,
-):
-    """Return the Synoname similarity type of two words.
-
-    This is a wrapper for :py:meth:`Synoname.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    word_approx_min : float
-        The minimum word approximation value to signal a 'word_approx' match
-    char_approx_min : float
-        The minimum character approximation value to signal a 'char_approx'
-        match
-    tests : int or Iterable
-        Either an integer indicating tests to perform or a list of test names
-        to perform (defaults to performing all tests)
-    ret_name : bool
-        If True, returns the match name rather than its integer equivalent
-
-    Returns
-    -------
-    int (or str if ret_name is True)
-        Synoname value
-
-    Examples
-    --------
-    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
-    2
-    >>> synoname(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''),
-    ... ret_name=True)
-    'omission'
-    >>> synoname(('Dore', 'Gustave', ''),
-    ... ('Dore', 'Paul Gustave Louis Christophe', ''), ret_name=True)
-    'inclusion'
-    >>> synoname(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''),
-    ... ret_name=True)
-    'word_approx'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Synoname(
-        word_approx_min, char_approx_min, tests, ret_name
-    ).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

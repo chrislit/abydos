@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.Caumanns
 
 import unittest
 
-from abydos.stemmer import Caumanns, caumanns
+from abydos.stemmer import Caumanns
 
 
 class CaumannsTestCases(unittest.TestCase):
@@ -56,9 +56,6 @@ class CaumannsTestCases(unittest.TestCase):
         self.assertEqual(self.stmr.stem('Müllerinnen'), 'mullerin')
         self.assertEqual(self.stmr.stem('Matrix'), 'matrix')
         self.assertEqual(self.stmr.stem('Matrizen'), 'matrix')
-
-        # Test wrapper
-        self.assertEqual(caumanns('singt'), 'sing')
 
     def test_caumanns_lucene(self):
         """Test abydos.stemmer.Caumanns (Lucene tests).

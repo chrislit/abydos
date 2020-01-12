@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.SfinxBis
 
 import unittest
 
-from abydos.phonetic import SfinxBis, sfinxbis
+from abydos.phonetic import SfinxBis
 
 
 class SfinxBisTestCases(unittest.TestCase):
@@ -292,9 +292,6 @@ class SfinxBisTestCases(unittest.TestCase):
         self.assertEqual(
             self.pa.encode_alpha('Arjaliès-de la Lande'), ('$RKLS', 'LNT')
         )
-
-        # Test wrapper
-        self.assertEqual(sfinxbis('af Sandeberg'), ('S53162',))
 
 
 if __name__ == '__main__':

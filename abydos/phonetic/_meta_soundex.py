@@ -19,16 +19,13 @@
 MetaSoundex
 """
 
-from deprecation import deprecated
-
 from ._metaphone import Metaphone
 from ._phonetic import _Phonetic
 from ._phonetic_spanish import PhoneticSpanish
 from ._soundex import Soundex
 from ._spanish_metaphone import SpanishMetaphone
-from .. import __version__
 
-__all__ = ['MetaSoundex', 'metasoundex']
+__all__ = ['MetaSoundex']
 
 
 class MetaSoundex(_Phonetic):
@@ -162,58 +159,6 @@ class MetaSoundex(_Phonetic):
         if self._lang == 'en':
             word = word[0].translate(self._trans) + word[1:]
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MetaSoundex.encode method instead.',
-)
-def metasoundex(word, lang='en'):
-    """Return the MetaSoundex code for a word.
-
-    This is a wrapper for :py:meth:`MetaSoundex.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    lang : str
-        Either ``en`` for English or ``es`` for Spanish
-
-    Returns
-    -------
-    str
-        The MetaSoundex code
-
-    Examples
-    --------
-    >>> metasoundex('Smith')
-    '4500'
-    >>> metasoundex('Waters')
-    '7362'
-    >>> metasoundex('James')
-    '1520'
-    >>> metasoundex('Schmidt')
-    '4530'
-    >>> metasoundex('Ashcroft')
-    '0261'
-    >>> metasoundex('Perez', lang='es')
-    '094'
-    >>> metasoundex('Martinez', lang='es')
-    '69364'
-    >>> metasoundex('Gutierrez', lang='es')
-    '83994'
-    >>> metasoundex('Santiago', lang='es')
-    '4638'
-    >>> metasoundex('Nicolás', lang='es')
-    '6754'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return MetaSoundex(lang).encode(word)
 
 
 if __name__ == '__main__':

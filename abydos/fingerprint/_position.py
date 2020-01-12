@@ -19,12 +19,9 @@
 Cisłak & Grabowski's position fingerprint
 """
 
-from deprecation import deprecated
-
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
-from .. import __version__
 
-__all__ = ['Position', 'position_fingerprint']
+__all__ = ['Position']
 
 
 class Position(_Fingerprint):
@@ -71,15 +68,16 @@ class Position(_Fingerprint):
 
         Examples
         --------
-        >>> bin(position_fingerprint('hat'))
+        >>> pf = Position()
+        >>> bin(pf.fingerprint('hat'))
         '0b1110100011111111'
-        >>> bin(position_fingerprint('niall'))
+        >>> bin(pf.fingerprint('niall'))
         '0b1111110101110010'
-        >>> bin(position_fingerprint('colin'))
+        >>> bin(pf.fingerprint('colin'))
         '0b1111111110010111'
-        >>> bin(position_fingerprint('atcg'))
+        >>> bin(pf.fingerprint('atcg'))
         '0b1110010001111111'
-        >>> bin(position_fingerprint('entreatment'))
+        >>> bin(pf.fingerprint('entreatment'))
         '0b101011111111'
 
 
@@ -114,54 +112,6 @@ class Position(_Fingerprint):
             fingerprint += 1
 
         return fingerprint
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Position.fingerprint method instead.',
-)
-def position_fingerprint(
-    word, n_bits=16, most_common=MOST_COMMON_LETTERS_CG, bits_per_letter=3
-):
-    """Return the position fingerprint.
-
-    This is a wrapper for :py:meth:`Position.fingerprint`.
-
-    Parameters
-    ----------
-    word : str
-        The word to fingerprint
-    n_bits : int
-        Number of bits in the fingerprint returned
-    most_common : list
-        The most common tokens in the target language, ordered by frequency
-    bits_per_letter : int
-        The bits to assign for letter position
-
-    Returns
-    -------
-    int
-        The position fingerprint
-
-    Examples
-    --------
-    >>> bin(position_fingerprint('hat'))
-    '0b1110100011111111'
-    >>> bin(position_fingerprint('niall'))
-    '0b1111110101110010'
-    >>> bin(position_fingerprint('colin'))
-    '0b1111111110010111'
-    >>> bin(position_fingerprint('atcg'))
-    '0b1110010001111111'
-    >>> bin(position_fingerprint('entreatment'))
-    '0b101011111111'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Position(n_bits, most_common, bits_per_letter).fingerprint(word)
 
 
 if __name__ == '__main__':

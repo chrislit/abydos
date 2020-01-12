@@ -19,12 +19,9 @@
 Paice-Husk Stemmer
 """
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['PaiceHusk', 'paice_husk']
+__all__ = ['PaiceHusk']
 
 
 class PaiceHusk(_Stemmer):
@@ -253,46 +250,6 @@ class PaiceHusk(_Stemmer):
                 break
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the PaiceHusk.stem method instead.',
-)
-def paice_husk(word):
-    """Return Paice-Husk stem.
-
-    This is a wrapper for :py:meth:`PaiceHusk.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> paice_husk('assumption')
-    'assum'
-    >>> paice_husk('verifiable')
-    'ver'
-    >>> paice_husk('fancies')
-    'fant'
-    >>> paice_husk('fanciful')
-    'fancy'
-    >>> paice_husk('torment')
-    'tor'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return PaiceHusk().stem(word)
 
 
 if __name__ == '__main__':

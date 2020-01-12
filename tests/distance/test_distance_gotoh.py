@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Gotoh
 
 import unittest
 
-from abydos.distance import Gotoh, NeedlemanWunsch, gotoh
+from abydos.distance import Gotoh, NeedlemanWunsch
 
 from .test_distance_needleman_wunsch import _sim_nw, _sim_wikipedia
 from .. import NIALL
@@ -84,11 +84,6 @@ class GotohTestCases(unittest.TestCase):
         self.assertAlmostEqual(Gotoh().sim_score('abc', 'a'), -0.4)
         self.assertAlmostEqual(Gotoh().sim_score('a', ''), -1.0)
         self.assertAlmostEqual(Gotoh().sim_score('a', 'abc'), -0.4)
-
-        # Test wrapper
-        self.assertEqual(
-            gotoh('AGACTAGTTAC', 'CGAGACGT', 5, 5, _sim_wikipedia), 16
-        )
 
     def test_gotoh_sim_score_nialls(self):
         """Test abydos.distance.Gotoh.sim_score (Nialls set)."""

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.NYSIIS
 
 import unittest
 
-from abydos.phonetic import NYSIIS, nysiis
+from abydos.phonetic import NYSIIS
 
 
 class NysiisTestCases(unittest.TestCase):
@@ -93,9 +93,6 @@ class NysiisTestCases(unittest.TestCase):
         # max_length bounds tests
         self.assertEqual(NYSIIS(max_length=-1).encode('Niall'), 'NAL')
         self.assertEqual(NYSIIS(max_length=0).encode('Niall'), 'NAL')
-
-        # Test wrapper
-        self.assertEqual(nysiis("O'Daniel"), 'ODANAL')
 
     def test_modified_nysiis(self):
         """Test abydos.phonetic.NYSIIS (modified version)."""
@@ -196,11 +193,6 @@ class NysiisTestCases(unittest.TestCase):
         self.assertEqual(self.pa_mod.encode('Dgagoda'), 'GAGAD')
         self.assertEqual(self.pa_mod.encode('Bosch'), 'BAS')
         self.assertEqual(self.pa_mod.encode('Schrader'), 'SRADAR')
-
-        # Test wrapper
-        self.assertEqual(
-            nysiis('Schmitt', max_length=8, modified=True), 'SNAT'
-        )
 
 
 if __name__ == '__main__':

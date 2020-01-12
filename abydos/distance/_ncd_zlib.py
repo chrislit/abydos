@@ -21,12 +21,9 @@ NCD using zlib
 
 import zlib
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['NCDzlib', 'dist_ncd_zlib', 'sim_ncd_zlib']
+__all__ = ['NCDzlib']
 
 
 class NCDzlib(_Distance):
@@ -102,85 +99,6 @@ class NCDzlib(_Distance):
             min(len(concat_comp), len(concat_comp2))
             - (min(len(src_comp), len(tar_comp)))
         ) / (max(len(src_comp), len(tar_comp)) - 2)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NCDzlib.dist method instead.',
-)
-def dist_ncd_zlib(src, tar):
-    """Return the NCD between two strings using zlib compression.
-
-    This is a wrapper for :py:meth:`NCDzlib.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Compression distance
-
-    Examples
-    --------
-    >>> dist_ncd_zlib('cat', 'hat')
-    0.3333333333333333
-    >>> dist_ncd_zlib('Niall', 'Neil')
-    0.45454545454545453
-    >>> dist_ncd_zlib('aluminum', 'Catalan')
-    0.5714285714285714
-    >>> dist_ncd_zlib('ATCG', 'TAGC')
-    0.4
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDzlib().dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NCDzlib.sim method instead.',
-)
-def sim_ncd_zlib(src, tar):
-    """Return the NCD similarity between two strings using zlib compression.
-
-    This is a wrapper for :py:meth:`NCDzlib.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float: Compression similarity
-
-    Examples
-    --------
-    >>> sim_ncd_zlib('cat', 'hat')
-    0.6666666666666667
-    >>> sim_ncd_zlib('Niall', 'Neil')
-    0.5454545454545454
-    >>> sim_ncd_zlib('aluminum', 'Catalan')
-    0.4285714285714286
-    >>> sim_ncd_zlib('ATCG', 'TAGC')
-    0.6
-
-    .. versionadded:: 0.3.5
-
-    """
-    return NCDzlib().sim(src, tar)
 
 
 if __name__ == '__main__':

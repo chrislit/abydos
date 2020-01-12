@@ -21,12 +21,9 @@ Caumanns German stemmer
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._stemmer import _Stemmer
-from .. import __version__
 
-__all__ = ['Caumanns', 'caumanns']
+__all__ = ['Caumanns']
 
 
 class Caumanns(_Stemmer):
@@ -142,42 +139,6 @@ class Caumanns(_Stemmer):
             word = word.replace('gege', 'ge', 1)
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Caumanns.stem method instead.',
-)
-def caumanns(word):
-    """Return Caumanns German stem.
-
-    This is a wrapper for :py:meth:`Caumanns.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> caumanns('lesen')
-    'les'
-    >>> caumanns('graues')
-    'grau'
-    >>> caumanns('buchstabieren')
-    'buchstabier'
-
-    .. versionadded:: 0.2.0
-
-    """
-    return Caumanns().stem(word)
 
 
 if __name__ == '__main__':

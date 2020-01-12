@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.FuzzySoundex
 
 import unittest
 
-from abydos.phonetic import FuzzySoundex, fuzzy_soundex
+from abydos.phonetic import FuzzySoundex
 
 
 class FuzzySoundexTestCases(unittest.TestCase):
@@ -98,9 +98,6 @@ class FuzzySoundexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('pedro'), 'PTR')
         self.assertEqual(self.pa.encode_alpha('stephen'), 'STPN')
         self.assertEqual(self.pa.encode_alpha('steve'), 'STP')
-
-        # Test wrapper
-        self.assertEqual(fuzzy_soundex('Kristen'), 'K6935')
 
 
 if __name__ == '__main__':

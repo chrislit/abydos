@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.Porter
 
 import unittest
 
-from abydos.stemmer import Porter, porter
+from abydos.stemmer import Porter
 
 
 from .. import _corpus_file
@@ -188,9 +188,6 @@ class PorterTestCases(unittest.TestCase):
         self.assertEqual(self.stmr.stem('sization'), 'sizat')
         self.assertEqual(self.stmr.stem('licated'), 'licat')
         self.assertEqual(self.stmr.stem('lical'), 'lical')
-
-        # Test wrapper
-        self.assertEqual(porter('singing'), 'sing')
 
     def test_porter_early_english(self):
         """Test abydos.stemmer.Porter (early English)."""

@@ -19,12 +19,9 @@
 Minkowski distance & similarity
 """
 
-from deprecation import deprecated
-
 from ._token_distance import _TokenDistance
-from .. import __version__
 
-__all__ = ['Minkowski', 'dist_minkowski', 'minkowski', 'sim_minkowski']
+__all__ = ['Minkowski']
 
 
 class Minkowski(_TokenDistance):
@@ -187,150 +184,6 @@ class Minkowski(_TokenDistance):
 
         """
         return self.dist_abs(src, tar, normalized=True)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Minkowski.dist_abs method instead.',
-)
-def minkowski(src, tar, qval=2, pval=1, normalized=False, alphabet=0):
-    """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
-
-    This is a wrapper for :py:meth:`Minkowski.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    pval : int or float
-        The :math:`p`-value of the :math:`L^p`-space
-    normalized : bool
-        Normalizes to [0, 1] if True
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The Minkowski distance
-
-    Examples
-    --------
-    >>> minkowski('cat', 'hat')
-    4.0
-    >>> minkowski('Niall', 'Neil')
-    7.0
-    >>> minkowski('Colin', 'Cuilen')
-    9.0
-    >>> minkowski('ATCG', 'TAGC')
-    10.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).dist_abs(
-        src, tar, normalized=normalized
-    )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Minkowski.dist method instead.',
-)
-def dist_minkowski(src, tar, qval=2, pval=1, alphabet=0):
-    """Return normalized Minkowski distance of two strings.
-
-    This is a wrapper for :py:meth:`Minkowski.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    pval : int or float
-        The :math:`p`-value of the :math:`L^p`-space
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The normalized Minkowski distance
-
-    Examples
-    --------
-    >>> dist_minkowski('cat', 'hat')
-    0.5
-    >>> round(dist_minkowski('Niall', 'Neil'), 12)
-    0.636363636364
-    >>> round(dist_minkowski('Colin', 'Cuilen'), 12)
-    0.692307692308
-    >>> dist_minkowski('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).dist_abs(
-        src, tar, normalized=True
-    )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Minkowski.sim method instead.',
-)
-def sim_minkowski(src, tar, qval=2, pval=1, alphabet=0):
-    """Return normalized Minkowski similarity of two strings.
-
-    This is a wrapper for :py:meth:`Minkowski.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-    pval : int or float
-        The :math:`p`-value of the :math:`L^p`-space
-    alphabet : collection or int
-        The values or size of the alphabet
-
-    Returns
-    -------
-    float
-        The normalized Minkowski similarity
-
-    Examples
-    --------
-    >>> sim_minkowski('cat', 'hat')
-    0.5
-    >>> round(sim_minkowski('Niall', 'Neil'), 12)
-    0.363636363636
-    >>> round(sim_minkowski('Colin', 'Cuilen'), 12)
-    0.307692307692
-    >>> sim_minkowski('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Minkowski(pval=pval, alphabet=alphabet, qval=qval).sim(src, tar)
 
 
 if __name__ == '__main__':

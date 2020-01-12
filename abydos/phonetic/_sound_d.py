@@ -21,12 +21,9 @@ SoundD phonetic algorithm
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['SoundD', 'sound_d']
+__all__ = ['SoundD']
 
 
 class SoundD(_Phonetic):
@@ -151,46 +148,6 @@ class SoundD(_Phonetic):
                 word = word[: self._max_length]
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SoundD.encode method instead.',
-)
-def sound_d(word, max_length=4):
-    """Return the SoundD code.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 4)
-
-    Returns
-    -------
-    str
-        The SoundD code
-
-    Examples
-    --------
-    >>> sound_d('Gough')
-    '2000'
-    >>> sound_d('pneuma')
-    '5500'
-    >>> sound_d('knight')
-    '5300'
-    >>> sound_d('trice')
-    '3620'
-    >>> sound_d('judge')
-    '2200'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return SoundD(max_length).encode(word)
 
 
 if __name__ == '__main__':

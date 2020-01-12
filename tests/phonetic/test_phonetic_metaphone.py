@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Metaphone
 
 import unittest
 
-from abydos.phonetic import Metaphone, metaphone
+from abydos.phonetic import Metaphone
 
 
 class MetaphoneTestCases(unittest.TestCase):
@@ -109,9 +109,6 @@ class MetaphoneTestCases(unittest.TestCase):
         # max_length bounds tests
         self.assertEqual(Metaphone(max_length=-1).encode('Niall'), 'NL')
         self.assertEqual(Metaphone(max_length=0).encode('Niall'), 'NL')
-
-        # Test wrapper
-        self.assertEqual(metaphone('Xavier'), 'SFR')
 
 
 if __name__ == '__main__':

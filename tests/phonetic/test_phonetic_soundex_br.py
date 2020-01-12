@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.SoundexBR
 
 import unittest
 
-from abydos.phonetic import SoundexBR, soundex_br
+from abydos.phonetic import SoundexBR
 
 
 class SoundexBRTestCases(unittest.TestCase):
@@ -63,9 +63,6 @@ class SoundexBRTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('HILBERT'), 'ILPR')
         self.assertEqual(self.pa.encode_alpha('Heilbronn'), 'ELPR')
         self.assertEqual(self.pa.encode_alpha('Gauss'), 'GK')
-
-        # Test wrapper
-        self.assertEqual(soundex_br('Ana Karolina Kuhnen'), 'A526')
 
 
 if __name__ == '__main__':

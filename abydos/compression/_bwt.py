@@ -19,11 +19,7 @@
 Burrows-Wheeler Transform encoder/decoder
 """
 
-from deprecation import deprecated
-
-from .. import __version__
-
-__all__ = ['BWT', 'bwt_decode', 'bwt_encode']
+__all__ = ['BWT']
 
 
 class BWT(object):
@@ -157,82 +153,6 @@ class BWT(object):
                 return rows.rstrip(self._terminator)
         else:
             return ''
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the BWT.encode method instead.',
-)
-def bwt_encode(word, terminator='\0'):
-    r"""Return the Burrows-Wheeler transformed form of a word.
-
-    This is a wrapper for :py:meth:`BWT.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform using BWT
-    terminator : str
-        A character added to signal the end of the string
-
-    Returns
-    -------
-    str
-        Word encoded by BWT
-
-    Examples
-    --------
-    >>> bwt_encode('align')
-    'n\x00ilag'
-    >>> bwt_encode('banana')
-    'annb\x00aa'
-    >>> bwt_encode('banana', '@')
-    'annb@aa'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return BWT(terminator).encode(word)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the BWT.decode method instead.',
-)
-def bwt_decode(code, terminator='\0'):
-    r"""Return a word decoded from BWT form.
-
-    This is a wrapper for :py:meth:`BWT.decode`.
-
-    Parameters
-    ----------
-    code : str
-        The word to transform from BWT form
-    terminator : str
-        A character added to signal the end of the string
-
-    Returns
-    -------
-    str
-        Word decoded by BWT
-
-    Examples
-    --------
-    >>> bwt_decode('n\x00ilag')
-    'align'
-    >>> bwt_decode('annb\x00aa')
-    'banana'
-    >>> bwt_decode('annb@aa', '@')
-    'banana'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return BWT(terminator).decode(code)
 
 
 if __name__ == '__main__':

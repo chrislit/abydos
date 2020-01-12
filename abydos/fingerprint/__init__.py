@@ -70,7 +70,7 @@ returns the string's fingerprint:
 from ._bwtf import BWTF
 from ._bwtrlef import BWTRLEF
 from ._consonant import Consonant
-from ._count import Count, count_fingerprint
+from ._count import Count
 from ._extract import Extract
 from ._extract_position_frequency import ExtractPositionFrequency
 from ._fingerprint import (
@@ -83,43 +83,33 @@ from ._fingerprint import (
 )
 from ._lacss import LACSS
 from ._lc_cutter import LCCutter
-from ._occurrence import Occurrence, occurrence_fingerprint
-from ._occurrence_halved import OccurrenceHalved, occurrence_halved_fingerprint
-from ._omission_key import OmissionKey, omission_key
-from ._phonetic import Phonetic, phonetic_fingerprint
-from ._position import Position, position_fingerprint
-from ._qgram import QGram, qgram_fingerprint
-from ._skeleton_key import SkeletonKey, skeleton_key
-from ._string import String, str_fingerprint
-from ._synoname_toolcode import SynonameToolcode, synoname_toolcode
+from ._occurrence import Occurrence
+from ._occurrence_halved import OccurrenceHalved
+from ._omission_key import OmissionKey
+from ._phonetic import Phonetic
+from ._position import Position
+from ._qgram import QGram
+from ._skeleton_key import SkeletonKey
+from ._string import String
+from ._synoname_toolcode import SynonameToolcode
 
 __all__ = [
     '_Fingerprint',
     'String',
-    'str_fingerprint',
     'QGram',
-    'qgram_fingerprint',
     'Phonetic',
-    'phonetic_fingerprint',
     'OmissionKey',
-    'omission_key',
     'SkeletonKey',
-    'skeleton_key',
     'MOST_COMMON_LETTERS',
     'MOST_COMMON_LETTERS_CG',
     'MOST_COMMON_LETTERS_DE',
     'MOST_COMMON_LETTERS_DE_LC',
     'MOST_COMMON_LETTERS_EN_LC',
     'Occurrence',
-    'occurrence_fingerprint',
     'OccurrenceHalved',
-    'occurrence_halved_fingerprint',
     'Count',
-    'count_fingerprint',
     'Position',
-    'position_fingerprint',
     'SynonameToolcode',
-    'synoname_toolcode',
     'Consonant',
     'Extract',
     'ExtractPositionFrequency',

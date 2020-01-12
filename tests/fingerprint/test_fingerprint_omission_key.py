@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.OmissionKey
 
 import unittest
 
-from abydos.fingerprint import OmissionKey, omission_key
+from abydos.fingerprint import OmissionKey
 
 
 class OmissionKeyTestCases(unittest.TestCase):
@@ -51,9 +51,6 @@ class OmissionKeyTestCases(unittest.TestCase):
         self.assertEqual(self.fp.fingerprint('caramel'), 'MCLRAE')
         self.assertEqual(self.fp.fingerprint('maceral'), 'MCLRAE')
         self.assertEqual(self.fp.fingerprint('lacrimal'), 'MCLRAI')
-
-        # Test wrapper
-        self.assertEqual(omission_key('microelectronics'), 'MCLNTSRIOE')
 
 
 if __name__ == '__main__':

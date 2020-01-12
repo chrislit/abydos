@@ -22,7 +22,7 @@ This module contains unit tests for abydos.stemmer.SnowballNorwegian
 import codecs
 import unittest
 
-from abydos.stemmer import SnowballNorwegian, sb_norwegian
+from abydos.stemmer import SnowballNorwegian
 
 from .. import _corpus_file
 
@@ -54,9 +54,6 @@ class SnowballNorwegianTestCases(unittest.TestCase):
                     line = line.strip().split(',')
                     word, stem = line[0], line[1]
                     self.assertEqual(self.stmr.stem(word), stem.lower())
-
-        # Test wrapper
-        self.assertEqual(sb_norwegian('alvalde'), 'alvald')
 
 
 if __name__ == '__main__':

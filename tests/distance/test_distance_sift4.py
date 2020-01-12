@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Sift4
 
 import unittest
 
-from abydos.distance import Sift4, dist_sift4, sift4_common, sim_sift4
+from abydos.distance import Sift4
 
 
 class Sift4TestCases(unittest.TestCase):
@@ -90,9 +90,6 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(self.cmp55.dist_abs('sturgeon', 'urgently'), 5)
         self.assertEqual(self.cmp55.dist_abs('levenshtein', 'frankenstein'), 5)
         self.assertEqual(self.cmp55.dist_abs('distance', 'difference'), 5)
-
-        # Test wrapper
-        self.assertEqual(sift4_common('xabxcdxxefxgx', 'abcdefg'), 7)
 
     def test_sift4_dist(self):
         """Test abydos.distance.Sift4.dist."""
@@ -164,11 +161,6 @@ class Sift4TestCases(unittest.TestCase):
         )
         self.assertAlmostEqual(self.cmp55.dist('distance', 'difference'), 0.5)
 
-        # Test wrapper
-        self.assertAlmostEqual(
-            dist_sift4('xabxcdxxefxgx', 'abcdefg'), 0.538461538
-        )
-
     def test_sift4_sim(self):
         """Test abydos.distance.Sift4.sim."""
         # tests copied from Lukas Benedix's post at
@@ -236,11 +228,6 @@ class Sift4TestCases(unittest.TestCase):
             self.cmp55.sim('levenshtein', 'frankenstein'), 0.583333333
         )
         self.assertAlmostEqual(self.cmp55.sim('distance', 'difference'), 0.5)
-
-        # Test wrapper
-        self.assertAlmostEqual(
-            sim_sift4('xabxcdxxefxgx', 'abcdefg'), 0.461538461
-        )
 
 
 if __name__ == '__main__':

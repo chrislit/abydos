@@ -19,16 +19,12 @@
 Smith-Waterman score
 """
 
-from deprecation import deprecated
-
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
-from ._ident import sim_ident
 from ._needleman_wunsch import NeedlemanWunsch
-from .. import __version__
 
-__all__ = ['SmithWaterman', 'smith_waterman']
+__all__ = ['SmithWaterman']
 
 
 class SmithWaterman(NeedlemanWunsch):
@@ -145,51 +141,6 @@ class SmithWaterman(NeedlemanWunsch):
         return max(0.0, self.sim_score(src, tar)) / (
             self.sim_score(src, src) ** 0.5 * self.sim_score(tar, tar) ** 0.5
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SmithWaterman.dist_abs method instead.',
-)
-def smith_waterman(src, tar, gap_cost=1, sim_func=sim_ident):
-    """Return the Smith-Waterman score of two strings.
-
-    This is a wrapper for :py:meth:`SmithWaterman.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    gap_cost : float
-        The cost of an alignment gap (1 by default)
-    sim_func : function
-        A function that returns the similarity of two characters (identity
-        similarity by default)
-
-    Returns
-    -------
-    float
-        Smith-Waterman score
-
-    Examples
-    --------
-    >>> smith_waterman('cat', 'hat')
-    2.0
-    >>> smith_waterman('Niall', 'Neil')
-    1.0
-    >>> smith_waterman('aluminum', 'Catalan')
-    0.0
-    >>> smith_waterman('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return SmithWaterman(gap_cost, sim_func).sim_score(src, tar)
 
 
 if __name__ == '__main__':

@@ -19,13 +19,10 @@
 Bag similarity & distance
 """
 
-from deprecation import deprecated
-
 from ._token_distance import _TokenDistance
-from .. import __version__
 from ..tokenizer import CharacterTokenizer
 
-__all__ = ['Bag', 'bag', 'dist_bag', 'sim_bag']
+__all__ = ['Bag']
 
 
 class Bag(_TokenDistance):
@@ -174,130 +171,6 @@ class Bag(_TokenDistance):
             return 1.0
 
         return self.dist_abs(src, tar, normalized=True)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Bag.dist_abs method instead.',
-)
-def bag(src, tar):
-    """Return the bag distance between two strings.
-
-    This is a wrapper for :py:meth:`Bag.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    int
-        Bag distance
-
-    Examples
-    --------
-    >>> bag('cat', 'hat')
-    1
-    >>> bag('Niall', 'Neil')
-    2
-    >>> bag('aluminum', 'Catalan')
-    5
-    >>> bag('ATCG', 'TAGC')
-    0
-    >>> bag('abcdefg', 'hijklm')
-    7
-    >>> bag('abcdefg', 'hijklmno')
-    8
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Bag().dist_abs(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Bag.dist method instead.',
-)
-def dist_bag(src, tar):
-    """Return the normalized bag distance between two strings.
-
-    This is a wrapper for :py:meth:`Bag.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Normalized bag distance
-
-    Examples
-    --------
-    >>> dist_bag('cat', 'hat')
-    0.3333333333333333
-    >>> dist_bag('Niall', 'Neil')
-    0.4
-    >>> dist_bag('aluminum', 'Catalan')
-    0.625
-    >>> dist_bag('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Bag().dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Bag.sim method instead.',
-)
-def sim_bag(src, tar):
-    """Return the normalized bag similarity of two strings.
-
-    This is a wrapper for :py:meth:`Bag.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        Normalized bag similarity
-
-    Examples
-    --------
-    >>> round(sim_bag('cat', 'hat'), 12)
-    0.666666666667
-    >>> sim_bag('Niall', 'Neil')
-    0.6
-    >>> sim_bag('aluminum', 'Catalan')
-    0.375
-    >>> sim_bag('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Bag().sim(src, tar)
 
 
 if __name__ == '__main__':

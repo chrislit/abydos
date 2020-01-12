@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Strcmp95
 
 import unittest
 
-from abydos.distance import Strcmp95, dist_strcmp95, sim_strcmp95
+from abydos.distance import Strcmp95
 
 
 class Strcmp95TestCases(unittest.TestCase):
@@ -63,9 +63,6 @@ class Strcmp95TestCases(unittest.TestCase):
             self.cmp_ls.sim('12hundredths', '12hundred'), 0.916666667
         )
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_strcmp95('DIXON', 'DICKSONX'), 0.839333333)
-
     def test_strcmp95_dist(self):
         """Test abydos.distance.Strcmp95.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -78,9 +75,6 @@ class Strcmp95TestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('DIXON', 'DICKSONX'), 0.160666666)
 
         self.assertAlmostEqual(self.cmp.dist('ABCD', 'EFGH'), 1.0)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_strcmp95('DIXON', 'DICKSONX'), 0.160666666)
 
 
 if __name__ == '__main__':

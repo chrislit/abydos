@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.SkeletonKey
 
 import unittest
 
-from abydos.fingerprint import SkeletonKey, skeleton_key
+from abydos.fingerprint import SkeletonKey
 
 
 class SkeletonKeyTestCases(unittest.TestCase):
@@ -49,9 +49,6 @@ class SkeletonKeyTestCases(unittest.TestCase):
         self.assertEqual(self.fp.fingerprint('chemiluminescent'), 'CHMLNSTEIU')
         self.assertEqual(self.fp.fingerprint('chemicals'), 'CHMLSEIA')
         self.assertEqual(self.fp.fingerprint('chemically'), 'CHMLYEIA')
-
-        # Test wrapper
-        self.assertEqual(skeleton_key('chemogenic'), 'CHMGNEOI')
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.SynonameToolcode
 
 import unittest
 
-from abydos.fingerprint import SynonameToolcode, synoname_toolcode
+from abydos.fingerprint import SynonameToolcode
 
 
 class SynonameToolcodeTestCases(unittest.TestCase):
@@ -230,12 +230,6 @@ class SynonameToolcodeTestCases(unittest.TestCase):
         self.assertEqual(
             self.fp.fingerprint('Lorem', 'Laurent Ormond'),
             ('lorem', 'laurent ormond', '0000001405$068d$lo'),
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            synoname_toolcode('Aelst', 'Willem van', ''),
-            ('aelst', 'willem van', '0000001005$143a$awv'),
         )
 
 

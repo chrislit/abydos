@@ -21,12 +21,9 @@ SoundexBR
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['SoundexBR', 'soundex_br']
+__all__ = ['SoundexBR']
 
 
 class SoundexBR(_Phonetic):
@@ -162,52 +159,6 @@ class SoundexBR(_Phonetic):
             sdx += '0' * self._max_length
 
         return sdx[: self._max_length]
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SoundexBR.encode method instead.',
-)
-def soundex_br(word, max_length=4, zero_pad=True):
-    """Return the SoundexBR encoding of a word.
-
-    This is a wrapper for :py:meth:`SoundexBR.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The length of the code returned (defaults to 4)
-    zero_pad : bool
-        Pad the end of the return value with 0s to achieve a max_length string
-
-    Returns
-    -------
-    str
-        The SoundexBR code
-
-    Examples
-    --------
-    >>> soundex_br('Oliveira')
-    'O416'
-    >>> soundex_br('Almeida')
-    'A453'
-    >>> soundex_br('Barbosa')
-    'B612'
-    >>> soundex_br('Araújo')
-    'A620'
-    >>> soundex_br('Gonçalves')
-    'G524'
-    >>> soundex_br('Goncalves')
-    'G524'
-
-    .. versionadded:: 0.3.0
-
-    """
-    return SoundexBR(max_length, zero_pad).encode(word)
 
 
 if __name__ == '__main__':

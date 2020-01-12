@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.compression
 
 import unittest
 
-from abydos.distance import NCDzlib, dist_ncd_zlib, sim_ncd_zlib
+from abydos.distance import NCDzlib
 
 
 class CompressionTestCases(unittest.TestCase):
@@ -38,17 +38,11 @@ class CompressionTestCases(unittest.TestCase):
         self.assertGreater(self.cmp.dist('a', ''), 0)
         self.assertAlmostEqual(self.cmp.dist('abcdefg', 'fg'), 0.5384615384615)
 
-        # Test wrapper
-        self.assertAlmostEqual(dist_ncd_zlib('abcdefg', 'fg'), 0.5384615384615)
-
     def test_ncd_zlib_sim(self):
         """Test abydos.distance.NCDzlib.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
         self.assertLess(self.cmp.sim('a', ''), 1)
         self.assertAlmostEqual(self.cmp.sim('abcdefg', 'fg'), 0.46153846153846)
-
-        # Test wrapper
-        self.assertAlmostEqual(sim_ncd_zlib('abcdefg', 'fg'), 0.46153846153846)
 
 
 if __name__ == '__main__':

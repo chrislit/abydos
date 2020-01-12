@@ -21,12 +21,7 @@ Run-Length Encoding encoder/decoder
 
 from itertools import groupby
 
-from deprecation import deprecated
-
-from ._bwt import BWT
-from .. import __version__
-
-__all__ = ['RLE', 'rle_decode', 'rle_encode']
+__all__ = ['RLE']
 
 
 class RLE(object):
@@ -57,6 +52,7 @@ class RLE(object):
 
         Examples
         --------
+        >>> from abydos.compression import BWT
         >>> rle = RLE()
         >>> bwt = BWT()
         >>> rle.encode(bwt.encode('align'))
@@ -102,6 +98,7 @@ class RLE(object):
 
         Examples
         --------
+        >>> from abydos.compression import BWT
         >>> rle = RLE()
         >>> bwt = BWT()
         >>> bwt.decode(rle.decode('n\x00ilag'))
@@ -138,103 +135,6 @@ class RLE(object):
 
         text = ''.join(decoded)
         return text
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RLE.encode method instead.',
-)
-def rle_encode(text, use_bwt=True):
-    r"""Perform encoding of run-length-encoding (RLE).
-
-    This is a wrapper for :py:meth:`RLE.encode`.
-
-    Parameters
-    ----------
-    text : str
-        A text string to encode
-    use_bwt : bool
-        Indicates whether to perform BWT encoding before RLE encoding
-
-    Returns
-    -------
-    str
-        Word decoded by RLE
-
-    Examples
-    --------
-    >>> rle_encode('align')
-    'n\x00ilag'
-    >>> rle_encode('align', use_bwt=False)
-    'align'
-
-    >>> rle_encode('banana')
-    'annb\x00aa'
-    >>> rle_encode('banana', use_bwt=False)
-    'banana'
-
-    >>> rle_encode('aaabaabababa')
-    'ab\x00abbab5a'
-    >>> rle_encode('aaabaabababa', False)
-    '3abaabababa'
-
-    .. versionadded:: 0.1.0
-
-    """
-    if use_bwt:
-        text = BWT().encode(text)
-    return RLE().encode(text)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the RLE.decode method instead.',
-)
-def rle_decode(text, use_bwt=True):
-    r"""Perform decoding of run-length-encoding (RLE).
-
-    This is a wrapper for :py:meth:`RLE.decode`.
-
-    Parameters
-    ----------
-    text : str
-        A text string to decode
-    use_bwt : bool
-        Indicates whether to perform BWT decoding after RLE decoding
-
-    Returns
-    -------
-    str
-        Word decoded by RLE
-
-    Examples
-    --------
-    >>> rle_decode('n\x00ilag')
-    'align'
-    >>> rle_decode('align', use_bwt=False)
-    'align'
-
-    >>> rle_decode('annb\x00aa')
-    'banana'
-    >>> rle_decode('banana', use_bwt=False)
-    'banana'
-
-    >>> rle_decode('ab\x00abbab5a')
-    'aaabaabababa'
-    >>> rle_decode('3abaabababa', False)
-    'aaabaabababa'
-
-    .. versionadded:: 0.1.0
-
-    """
-    text = RLE().decode(text)
-    if use_bwt:
-        text = BWT().decode(text)
-    return text
 
 
 if __name__ == '__main__':

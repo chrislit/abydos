@@ -19,14 +19,11 @@
 Monge-Elkan similarity & distance
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
-from ._levenshtein import Levenshtein, sim_levenshtein
-from .. import __version__
+from ._levenshtein import Levenshtein
 from ..tokenizer import QGrams
 
-__all__ = ['MongeElkan', 'dist_monge_elkan', 'sim_monge_elkan']
+__all__ = ['MongeElkan']
 
 
 class MongeElkan(_Distance):
@@ -129,94 +126,6 @@ class MongeElkan(_Distance):
             sim_em = (sim_em + sim_rev) / 2
 
         return sim_em
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MongeElkan.sim method instead.',
-)
-def sim_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
-    """Return the Monge-Elkan similarity of two strings.
-
-    This is a wrapper for :py:meth:`MongeElkan.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    sim_func : function
-        Rhe internal similarity metric to employ
-    symmetric : bool
-        Return a symmetric similarity measure
-
-    Returns
-    -------
-    float
-        Monge-Elkan similarity
-
-    Examples
-    --------
-    >>> sim_monge_elkan('cat', 'hat')
-    0.75
-    >>> round(sim_monge_elkan('Niall', 'Neil'), 12)
-    0.666666666667
-    >>> round(sim_monge_elkan('aluminum', 'Catalan'), 12)
-    0.388888888889
-    >>> sim_monge_elkan('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MongeElkan(sim_func, symmetric).sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MongeElkan.dist method instead.',
-)
-def dist_monge_elkan(src, tar, sim_func=sim_levenshtein, symmetric=False):
-    """Return the Monge-Elkan distance between two strings.
-
-    This is a wrapper for :py:meth:`MongeElkan.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    sim_func : function
-        The internal similarity metric to employ
-    symmetric : bool
-        Return a symmetric similarity measure
-
-    Returns
-    -------
-    float
-        Monge-Elkan distance
-
-    Examples
-    --------
-    >>> dist_monge_elkan('cat', 'hat')
-    0.25
-    >>> round(dist_monge_elkan('Niall', 'Neil'), 12)
-    0.333333333333
-    >>> round(dist_monge_elkan('aluminum', 'Catalan'), 12)
-    0.611111111111
-    >>> dist_monge_elkan('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MongeElkan(sim_func, symmetric).dist(src, tar)
 
 
 if __name__ == '__main__':

@@ -19,15 +19,12 @@
 Longest common subsequence
 """
 
-from deprecation import deprecated
-
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from .. import __version__
 
-__all__ = ['LCSseq', 'dist_lcsseq', 'lcsseq', 'sim_lcsseq']
+__all__ = ['LCSseq']
 
 
 class LCSseq(_Distance):
@@ -172,124 +169,6 @@ class LCSseq(_Distance):
         return len(self.lcsseq(src, tar)) / self._normalizer(
             [len(src), len(tar)]
         )
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the LCSseq.lcsseq method instead.',
-)
-def lcsseq(src, tar):
-    """Return the longest common subsequence of two strings.
-
-    This is a wrapper for :py:meth:`LCSseq.lcsseq`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    str
-        The longest common subsequence
-
-    Examples
-    --------
-    >>> lcsseq('cat', 'hat')
-    'at'
-    >>> lcsseq('Niall', 'Neil')
-    'Nil'
-    >>> lcsseq('aluminum', 'Catalan')
-    'aln'
-    >>> lcsseq('ATCG', 'TAGC')
-    'AC'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return LCSseq().lcsseq(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the LCSseq.sim method instead.',
-)
-def sim_lcsseq(src, tar):
-    r"""Return the longest common subsequence similarity of two strings.
-
-    This is a wrapper for :py:meth:`LCSseq.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        LCSseq similarity
-
-    Examples
-    --------
-    >>> sim_lcsseq('cat', 'hat')
-    0.6666666666666666
-    >>> sim_lcsseq('Niall', 'Neil')
-    0.6
-    >>> sim_lcsseq('aluminum', 'Catalan')
-    0.375
-    >>> sim_lcsseq('ATCG', 'TAGC')
-    0.5
-
-    .. versionadded:: 0.1.0
-
-    """
-    return LCSseq().sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the LCSseq.dist method instead.',
-)
-def dist_lcsseq(src, tar):
-    """Return the longest common subsequence distance between two strings.
-
-    This is a wrapper for :py:meth:`LCSseq.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-
-    Returns
-    -------
-    float
-        LCSseq distance
-
-    Examples
-    --------
-    >>> dist_lcsseq('cat', 'hat')
-    0.33333333333333337
-    >>> dist_lcsseq('Niall', 'Neil')
-    0.4
-    >>> dist_lcsseq('aluminum', 'Catalan')
-    0.625
-    >>> dist_lcsseq('ATCG', 'TAGC')
-    0.5
-
-    """
-    return LCSseq().dist(src, tar)
 
 
 if __name__ == '__main__':

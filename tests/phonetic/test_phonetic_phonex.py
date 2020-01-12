@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.Phonex
 
 import unittest
 
-from abydos.phonetic import Phonex, phonex
+from abydos.phonetic import Phonex
 
 
 class PhonexTestCases(unittest.TestCase):
@@ -95,9 +95,6 @@ class PhonexTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Filp'), 'FP')
         self.assertEqual(self.pa.encode_alpha('Heames'), 'AN')
         self.assertEqual(self.pa.encode_alpha('Kneves'), 'NP')
-
-        # Test wrapper
-        self.assertEqual(phonex('Ewell'), 'A400')
 
 
 if __name__ == '__main__':

@@ -21,12 +21,9 @@ Jaccard similarity coefficient, distance, & Tanimoto coefficient
 
 from math import log2
 
-from deprecation import deprecated
-
 from ._tversky import Tversky
-from .. import __version__
 
-__all__ = ['Jaccard', 'dist_jaccard', 'sim_jaccard', 'tanimoto']
+__all__ = ['Jaccard']
 
 
 class Jaccard(Tversky):
@@ -177,135 +174,6 @@ class Jaccard(Tversky):
             return log2(coeff)
 
         return float('-inf')
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Jaccard.sim method instead.',
-)
-def sim_jaccard(src, tar, qval=2):
-    """Return the Jaccard similarity of two strings.
-
-    This is a wrapper for :py:meth:`Jaccard.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-
-    Returns
-    -------
-    float
-        Jaccard similarity
-
-    Examples
-    --------
-    >>> sim_jaccard('cat', 'hat')
-    0.3333333333333333
-    >>> sim_jaccard('Niall', 'Neil')
-    0.2222222222222222
-    >>> sim_jaccard('aluminum', 'Catalan')
-    0.0625
-    >>> sim_jaccard('ATCG', 'TAGC')
-    0.0
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Jaccard(qval=qval).sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Jaccard.dist method instead.',
-)
-def dist_jaccard(src, tar, qval=2):
-    """Return the Jaccard distance between two strings.
-
-    This is a wrapper for :py:meth:`Jaccard.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-
-    Returns
-    -------
-    float
-        Jaccard distance
-
-    Examples
-    --------
-    >>> dist_jaccard('cat', 'hat')
-    0.6666666666666667
-    >>> dist_jaccard('Niall', 'Neil')
-    0.7777777777777778
-    >>> dist_jaccard('aluminum', 'Catalan')
-    0.9375
-    >>> dist_jaccard('ATCG', 'TAGC')
-    1.0
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Jaccard(qval=qval).dist(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Jaccard.tanimoto_coeff method instead.',
-)
-def tanimoto(src, tar, qval=2):
-    """Return the Tanimoto coefficient of two strings.
-
-    This is a wrapper for :py:meth:`Jaccard.tanimoto_coeff`.
-
-    Parameters
-    ----------
-    src : str
-        Source string (or QGrams/Counter objects) for comparison
-    tar : str
-        Target string (or QGrams/Counter objects) for comparison
-    qval : int
-        The length of each q-gram
-
-    Returns
-    -------
-    float
-        Tanimoto distance
-
-    Examples
-    --------
-    >>> tanimoto('cat', 'hat')
-    -1.5849625007211563
-    >>> tanimoto('Niall', 'Neil')
-    -2.1699250014423126
-    >>> tanimoto('aluminum', 'Catalan')
-    -4.0
-    >>> tanimoto('ATCG', 'TAGC')
-    -inf
-
-
-    .. versionadded:: 0.1.0
-
-    """
-    return Jaccard(qval=qval).tanimoto_coeff(src, tar)
 
 
 if __name__ == '__main__':

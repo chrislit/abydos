@@ -21,12 +21,9 @@ Snowball German stemmer
 
 from unicodedata import normalize
 
-from deprecation import deprecated
-
 from ._snowball import _Snowball
-from .. import __version__
 
-__all__ = ['SnowballGerman', 'sb_german']
+__all__ = ['SnowballGerman']
 
 
 class SnowballGerman(_Snowball):
@@ -200,44 +197,6 @@ class SnowballGerman(_Snowball):
         word = word.translate(_umlauts)
 
         return word
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the SnowballGerman.stem method instead.',
-)
-def sb_german(word, alternate_vowels=False):
-    """Return Snowball German stem.
-
-    This is a wrapper for :py:meth:`SnowballGerman.stem`.
-
-    Parameters
-    ----------
-    word : str
-        The word to stem
-    alternate_vowels : bool
-        Composes ae as ä, oe as ö, and ue as ü before running the algorithm
-
-    Returns
-    -------
-    str
-        Word stem
-
-    Examples
-    --------
-    >>> sb_german('lesen')
-    'les'
-    >>> sb_german('graues')
-    'grau'
-    >>> sb_german('buchstabieren')
-    'buchstabi'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return SnowballGerman(alternate_vowels).stem(word)
 
 
 if __name__ == '__main__':

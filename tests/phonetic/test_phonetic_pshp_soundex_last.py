@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.PSHPSoundexLast
 
 import unittest
 
-from abydos.phonetic import PSHPSoundexLast, pshp_soundex_last
+from abydos.phonetic import PSHPSoundexLast
 
 
 class PSHPSoundexLastTestCases(unittest.TestCase):
@@ -79,9 +79,6 @@ class PSHPSoundexLastTestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('Hagan'), 'HN')
         self.assertEqual(self.pa_german.encode_alpha('Cartes'), 'KN')
         self.assertEqual(self.pa_german.encode_alpha('Kats'), 'K')
-
-        # Test wrapper
-        self.assertEqual(pshp_soundex_last('Smith'), 'S530')
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stats pairwise functions
 
 import unittest
 
-from abydos.distance import sim_jaccard
+from abydos.distance import Jaccard, JaroWinkler
 from abydos.stats import (
     amean,
     gmean,
@@ -209,12 +209,20 @@ class PSSTestCases(unittest.TestCase):
 
         # Test with a set metric
         (pw_max, pw_min, pw_mean, pw_std) = pairwise_similarity_statistics(
-            NIALL, NIALL, metric=sim_jaccard
+            NIALL, NIALL, metric=Jaccard().sim
         )
         self.assertAlmostEqual(pw_max, 1.0)
         self.assertAlmostEqual(pw_min, 0.0)
         self.assertAlmostEqual(pw_mean, 0.23226906681010506)
         self.assertAlmostEqual(pw_std, 0.24747101181262784)
+
+        (pw_max, pw_min, pw_mean, pw_std) = pairwise_similarity_statistics(
+            NIALL, NIALL, metric=JaroWinkler().dist
+        )
+        self.assertAlmostEqual(pw_max, 1.0)
+        self.assertAlmostEqual(pw_min, 0.0)
+        self.assertAlmostEqual(pw_mean, 0.3352660334967324)
+        self.assertAlmostEqual(pw_std, 0.18394505847524578)
 
         # Test using hmean'
         (pw_max, pw_min, pw_mean, pw_std) = pairwise_similarity_statistics(
@@ -231,14 +239,14 @@ class PSSTestCases(unittest.TestCase):
             pairwise_similarity_statistics,
             NIALL,
             NIALL,
-            mean_func=None,
+            mean_func='mean',
         )
         self.assertRaises(
             ValueError,
             pairwise_similarity_statistics,
             NIALL,
             NIALL,
-            metric=None,
+            metric='Levenshtein',
         )
         self.assertRaises(ValueError, pairwise_similarity_statistics, 5, NIALL)
         self.assertRaises(ValueError, pairwise_similarity_statistics, NIALL, 5)

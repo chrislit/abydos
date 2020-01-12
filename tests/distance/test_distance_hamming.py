@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.Hamming
 
 import unittest
 
-from abydos.distance import Hamming, dist_hamming, hamming, sim_hamming
+from abydos.distance import Hamming
 
 
 class HammingTestCases(unittest.TestCase):
@@ -57,9 +57,6 @@ class HammingTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist_abs('1011101', '1001001'), 2)
         self.assertEqual(self.cmp.dist_abs('2173896', '2233796'), 3)
 
-        # Test wrapper
-        self.assertEqual(hamming('abc', 'cba'), 2)
-
     def test_hamming_dist(self):
         """Test abydos.distance.Hamming.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -84,9 +81,6 @@ class HammingTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('1011101', '1001001'), 2 / 7)
         self.assertAlmostEqual(self.cmp.dist('2173896', '2233796'), 3 / 7)
 
-        # Test wrapper
-        self.assertAlmostEqual(dist_hamming('abc', 'cba'), 2 / 3)
-
     def test_hamming_sim(self):
         """Test abydos.distance.Hamming.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -110,9 +104,6 @@ class HammingTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('karolin', 'kerstin'), 4 / 7)
         self.assertAlmostEqual(self.cmp.sim('1011101', '1001001'), 5 / 7)
         self.assertAlmostEqual(self.cmp.sim('2173896', '2233796'), 4 / 7)
-
-        # Test wrapper
-        self.assertAlmostEqual(sim_hamming('abc', 'cba'), 1 / 3)
 
 
 if __name__ == '__main__':

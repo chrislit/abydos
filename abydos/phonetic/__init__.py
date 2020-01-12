@@ -102,148 +102,94 @@ encoding, as demonstrated below:
 """
 
 from ._ainsworth import Ainsworth
-from ._alpha_sis import AlphaSIS, alpha_sis
-from ._beider_morse import BeiderMorse, bmpm
-from ._caverphone import Caverphone, caverphone
-from ._daitch_mokotoff import DaitchMokotoff, dm_soundex
-from ._davidson import Davidson, davidson
-from ._dolby import Dolby, dolby
-from ._double_metaphone import DoubleMetaphone, double_metaphone
-from ._eudex import Eudex, eudex
-from ._fonem import FONEM, fonem
-from ._fuzzy_soundex import FuzzySoundex, fuzzy_soundex
-from ._haase import Haase, haase_phonetik
-from ._henry_early import HenryEarly, henry_early
-from ._koelner import (
-    Koelner,
-    koelner_phonetik,
-    koelner_phonetik_alpha,
-    koelner_phonetik_num_to_alpha,
-)
-from ._lein import LEIN, lein
-from ._meta_soundex import MetaSoundex, metasoundex
-from ._metaphone import Metaphone, metaphone
-from ._mra import MRA, mra
-from ._norphone import Norphone, norphone
-from ._nrl import NRL, nrl
-from ._nysiis import NYSIIS, nysiis
-from ._onca import ONCA, onca
-from ._parmar_kumbharana import ParmarKumbharana, parmar_kumbharana
-from ._phonem import Phonem, phonem
-from ._phonet import Phonet, phonet
+from ._alpha_sis import AlphaSIS
+from ._beider_morse import BeiderMorse
+from ._caverphone import Caverphone
+from ._daitch_mokotoff import DaitchMokotoff
+from ._davidson import Davidson
+from ._dolby import Dolby
+from ._double_metaphone import DoubleMetaphone
+from ._eudex import Eudex
+from ._fonem import FONEM
+from ._fuzzy_soundex import FuzzySoundex
+from ._haase import Haase
+from ._henry_early import HenryEarly
+from ._koelner import Koelner
+from ._lein import LEIN
+from ._meta_soundex import MetaSoundex
+from ._metaphone import Metaphone
+from ._mra import MRA
+from ._norphone import Norphone
+from ._nrl import NRL
+from ._nysiis import NYSIIS
+from ._onca import ONCA
+from ._parmar_kumbharana import ParmarKumbharana
+from ._phonem import Phonem
+from ._phonet import Phonet
 from ._phonetic import _Phonetic
-from ._phonetic_spanish import PhoneticSpanish, phonetic_spanish
-from ._phonex import Phonex, phonex
+from ._phonetic_spanish import PhoneticSpanish
+from ._phonex import Phonex
 from ._phonic import PHONIC
-from ._phonix import Phonix, phonix
-from ._pshp_soundex_first import PSHPSoundexFirst, pshp_soundex_first
-from ._pshp_soundex_last import PSHPSoundexLast, pshp_soundex_last
-from ._refined_soundex import RefinedSoundex, refined_soundex
-from ._reth_schek import RethSchek, reth_schek_phonetik
-from ._roger_root import RogerRoot, roger_root
-from ._russell_index import (
-    RussellIndex,
-    russell_index,
-    russell_index_alpha,
-    russell_index_num_to_alpha,
-)
-from ._sfinx_bis import SfinxBis, sfinxbis
-from ._sound_d import SoundD, sound_d
-from ._soundex import Soundex, soundex
-from ._soundex_br import SoundexBR, soundex_br
-from ._spanish_metaphone import SpanishMetaphone, spanish_metaphone
-from ._spfc import SPFC, spfc
-from ._statistics_canada import StatisticsCanada, statistics_canada
+from ._phonix import Phonix
+from ._pshp_soundex_first import PSHPSoundexFirst
+from ._pshp_soundex_last import PSHPSoundexLast
+from ._refined_soundex import RefinedSoundex
+from ._reth_schek import RethSchek
+from ._roger_root import RogerRoot
+from ._russell_index import RussellIndex
+from ._sfinx_bis import SfinxBis
+from ._sound_d import SoundD
+from ._soundex import Soundex
+from ._soundex_br import SoundexBR
+from ._spanish_metaphone import SpanishMetaphone
+from ._spfc import SPFC
+from ._statistics_canada import StatisticsCanada
 from ._waahlin import Waahlin
 
 __all__ = [
     '_Phonetic',
     'RussellIndex',
-    'russell_index',
-    'russell_index_num_to_alpha',
-    'russell_index_alpha',
     'Soundex',
-    'soundex',
     'RefinedSoundex',
-    'refined_soundex',
     'DaitchMokotoff',
-    'dm_soundex',
     'FuzzySoundex',
-    'fuzzy_soundex',
     'LEIN',
-    'lein',
     'Phonex',
-    'phonex',
     'PHONIC',
     'Phonix',
-    'phonix',
     'PSHPSoundexFirst',
-    'pshp_soundex_first',
     'PSHPSoundexLast',
-    'pshp_soundex_last',
     'NYSIIS',
-    'nysiis',
     'MRA',
-    'mra',
     'Caverphone',
-    'caverphone',
     'AlphaSIS',
-    'alpha_sis',
     'Davidson',
-    'davidson',
     'Dolby',
-    'dolby',
     'SPFC',
-    'spfc',
     'RogerRoot',
-    'roger_root',
     'StatisticsCanada',
-    'statistics_canada',
     'SoundD',
-    'sound_d',
     'ParmarKumbharana',
-    'parmar_kumbharana',
     'Metaphone',
-    'metaphone',
     'DoubleMetaphone',
-    'double_metaphone',
     'Eudex',
-    'eudex',
     'BeiderMorse',
-    'bmpm',
     'NRL',
-    'nrl',
     'MetaSoundex',
-    'metasoundex',
     'ONCA',
-    'onca',
     'FONEM',
-    'fonem',
     'HenryEarly',
-    'henry_early',
     'Koelner',
-    'koelner_phonetik',
-    'koelner_phonetik_num_to_alpha',
-    'koelner_phonetik_alpha',
     'Haase',
-    'haase_phonetik',
     'RethSchek',
-    'reth_schek_phonetik',
     'Phonem',
-    'phonem',
     'Phonet',
-    'phonet',
     'SoundexBR',
-    'soundex_br',
     'PhoneticSpanish',
-    'phonetic_spanish',
     'SpanishMetaphone',
-    'spanish_metaphone',
     'SfinxBis',
-    'sfinxbis',
     'Waahlin',
     'Norphone',
-    'norphone',
     'Ainsworth',
 ]
 

@@ -21,7 +21,7 @@ This module contains unit tests for abydos.distance.LCSseq
 
 import unittest
 
-from abydos.distance import LCSseq, dist_lcsseq, lcsseq, sim_lcsseq
+from abydos.distance import LCSseq
 
 
 class LCSseqTestCases(unittest.TestCase):
@@ -69,9 +69,6 @@ class LCSseqTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.lcsseq('cc', 'bbbbcccccc'), 'cc')
         self.assertEqual(self.cmp.lcsseq('ccc', 'bcbb'), 'c')
 
-        # Test wrapper
-        self.assertEqual(lcsseq('ABC', 'BCD'), 'BC')
-
     def test_lcsseq_sim(self):
         """Test abydos.distance.LCSseq.sim."""
         self.assertEqual(self.cmp.sim('', ''), 1)
@@ -109,9 +106,6 @@ class LCSseqTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('cc', 'bbbbcccccc'), 2 / 10)
         self.assertAlmostEqual(self.cmp.sim('ccc', 'bcbb'), 1 / 4)
 
-        # Test wrapper
-        self.assertAlmostEqual(sim_lcsseq('ABC', 'BCD'), 2 / 3)
-
     def test_lcsseq_dist(self):
         """Test abydos.distance.LCSseq.dist."""
         self.assertEqual(self.cmp.dist('', ''), 0)
@@ -148,9 +142,6 @@ class LCSseqTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('aaa', 'aa'), 1 / 3)
         self.assertAlmostEqual(self.cmp.dist('cc', 'bbbbcccccc'), 8 / 10)
         self.assertAlmostEqual(self.cmp.dist('ccc', 'bcbb'), 3 / 4)
-
-        # Test wrapper
-        self.assertAlmostEqual(dist_lcsseq('ABC', 'BCD'), 1 / 3)
 
 
 if __name__ == '__main__':

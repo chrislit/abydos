@@ -21,13 +21,10 @@ q-gram fingerprint
 
 from unicodedata import normalize as unicode_normalize
 
-from deprecation import deprecated
-
 from ._fingerprint import _Fingerprint
-from .. import __version__
 from ..tokenizer import QGrams
 
-__all__ = ['QGram', 'qgram_fingerprint']
+__all__ = ['QGram']
 
 
 class QGram(_Fingerprint):
@@ -95,51 +92,6 @@ class QGram(_Fingerprint):
         phrase = self._tokenizer.tokenize(phrase).get_set()
         phrase = self._joiner.join(sorted(phrase))
         return phrase
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the QGram.fingerprint method instead.',
-)
-def qgram_fingerprint(phrase, qval=2, start_stop='', joiner=''):
-    """Return Q-Gram fingerprint.
-
-    This is a wrapper for :py:meth:`QGram.fingerprint`.
-
-    Parameters
-    ----------
-    phrase : str
-        The string from which to calculate the q-gram fingerprint
-    qval : int
-        The length of each q-gram (by default 2)
-    start_stop : str
-        The start & stop symbol(s) to concatenate on either end of the phrase,
-        as defined in :py:class:`tokenizer.QGrams`
-    joiner : str
-        The string that will be placed between each word
-
-    Returns
-    -------
-    str
-        The q-gram fingerprint of the phrase
-
-    Examples
-    --------
-    >>> qgram_fingerprint('The quick brown fox jumped over the lazy dog.')
-    'azbrckdoedeleqerfoheicjukblampnfogovowoxpequrortthuiumvewnxjydzy'
-    >>> qgram_fingerprint('Christopher')
-    'cherhehrisopphristto'
-    >>> qgram_fingerprint('Niall')
-    'aliallni'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return QGram(qval=qval, start_stop=start_stop, joiner=joiner).fingerprint(
-        phrase
-    )
 
 
 if __name__ == '__main__':

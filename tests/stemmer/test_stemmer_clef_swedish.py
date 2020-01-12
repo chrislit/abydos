@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.CLEFSwedish
 
 import unittest
 
-from abydos.stemmer import CLEFSwedish, clef_swedish
+from abydos.stemmer import CLEFSwedish
 
 
 class CLEFTestCases(unittest.TestCase):
@@ -90,9 +90,6 @@ class CLEFTestCases(unittest.TestCase):
         self.assertEqual(self.stmr.stem('vilka'), 'vilk')
         self.assertEqual(self.stmr.stem('länge'), 'läng')
         self.assertEqual(self.stmr.stem('kommun'), 'kommu')
-
-        # Test wrapper
-        self.assertEqual(clef_swedish('svenskars'), 'svensk')
 
 
 if __name__ == '__main__':

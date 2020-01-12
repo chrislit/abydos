@@ -21,7 +21,7 @@ This module contains unit tests for abydos.phonetic.ONCA
 
 import unittest
 
-from abydos.phonetic import ONCA, onca
+from abydos.phonetic import ONCA
 
 
 class ONCATestCases(unittest.TestCase):
@@ -47,9 +47,6 @@ class ONCATestCases(unittest.TestCase):
         self.assertEqual(self.pa.encode_alpha('HALL'), 'HL')
         self.assertEqual(self.pa.encode_alpha('SMITH'), 'SNT')
         self.assertEqual(self.pa.encode_alpha('HOUGHTON'), 'HKTN')
-
-        # Test wrapper
-        self.assertEqual(onca('HALL'), 'H400')
 
 
 if __name__ == '__main__':

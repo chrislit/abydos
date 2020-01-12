@@ -21,13 +21,13 @@ The stats._pairwise module implements pairwise statistical algorithms.
 
 
 from ._mean import amean, hmean, std
-from ..distance._levenshtein import sim_levenshtein as sim
+from ..distance._levenshtein import Levenshtein
 
 __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 
 
 def mean_pairwise_similarity(
-    collection, metric=sim, mean_func=hmean, symmetric=False
+    collection, metric=None, mean_func=hmean, symmetric=False
 ):
     """Calculate the mean pairwise similarity of a collection of strings.
 
@@ -74,6 +74,8 @@ def mean_pairwise_similarity(
     .. versionadded:: 0.1.0
 
     """
+    if metric is None:
+        metric = Levenshtein().sim
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')
     if not callable(metric):
@@ -102,7 +104,7 @@ def mean_pairwise_similarity(
 def pairwise_similarity_statistics(
     src_collection,
     tar_collection,
-    metric=sim,
+    metric=None,
     mean_func=amean,
     symmetric=False,
 ):
@@ -152,6 +154,8 @@ def pairwise_similarity_statistics(
     .. versionadded:: 0.3.0
 
     """
+    if metric is None:
+        metric = Levenshtein().sim
     if not callable(mean_func):
         raise ValueError('mean_func must be a function')
     if not callable(metric):

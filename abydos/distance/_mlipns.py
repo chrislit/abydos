@@ -19,13 +19,10 @@
 The distance.hamming module implements Hamming and related distance functions.
 """
 
-from deprecation import deprecated
-
 from ._distance import _Distance
 from ._hamming import Hamming
-from .. import __version__
 
-__all__ = ['MLIPNS', 'dist_mlipns', 'sim_mlipns']
+__all__ = ['MLIPNS']
 
 
 class MLIPNS(_Distance):
@@ -80,13 +77,14 @@ class MLIPNS(_Distance):
 
         Examples
         --------
-        >>> sim_mlipns('cat', 'hat')
+        >>> cmp = MLIPNS()
+        >>> cmp.sim('cat', 'hat')
         1.0
-        >>> sim_mlipns('Niall', 'Neil')
+        >>> cmp.sim('Niall', 'Neil')
         0.0
-        >>> sim_mlipns('aluminum', 'Catalan')
+        >>> cmp.sim('aluminum', 'Catalan')
         0.0
-        >>> sim_mlipns('ATCG', 'TAGC')
+        >>> cmp.sim('ATCG', 'TAGC')
         0.0
 
 
@@ -117,98 +115,6 @@ class MLIPNS(_Distance):
         if max_length < 1:
             return 1.0
         return 0.0
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MLIPNS.sim method instead.',
-)
-def sim_mlipns(src, tar, threshold=0.25, max_mismatches=2):
-    """Return the MLIPNS similarity of two strings.
-
-    This is a wrapper for :py:meth:`MLIPNS.sim`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    threshold : float
-        A number [0, 1] indicating the maximum similarity score, below which
-        the strings are considered 'similar' (0.25 by default)
-    max_mismatches : int
-        A number indicating the allowable number of mismatches to remove before
-        declaring two strings not similar (2 by default)
-
-    Returns
-    -------
-    float
-        MLIPNS similarity
-
-    Examples
-    --------
-    >>> sim_mlipns('cat', 'hat')
-    1.0
-    >>> sim_mlipns('Niall', 'Neil')
-    0.0
-    >>> sim_mlipns('aluminum', 'Catalan')
-    0.0
-    >>> sim_mlipns('ATCG', 'TAGC')
-    0.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MLIPNS(threshold, max_mismatches).sim(src, tar)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the MLIPNS.dist method instead.',
-)
-def dist_mlipns(src, tar, threshold=0.25, max_mismatches=2):
-    """Return the MLIPNS distance between two strings.
-
-    This is a wrapper for :py:meth:`MLIPNS.dist`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    threshold : float
-        A number [0, 1] indicating the maximum similarity score, below which
-        the strings are considered 'similar' (0.25 by default)
-    max_mismatches : int
-        A number indicating the allowable number of mismatches to remove before
-        declaring two strings not similar (2 by default)
-
-    Returns
-    -------
-    float
-        MLIPNS distance
-
-    Examples
-    --------
-    >>> dist_mlipns('cat', 'hat')
-    0.0
-    >>> dist_mlipns('Niall', 'Neil')
-    1.0
-    >>> dist_mlipns('aluminum', 'Catalan')
-    1.0
-    >>> dist_mlipns('ATCG', 'TAGC')
-    1.0
-
-    .. versionadded:: 0.1.0
-
-    """
-    return MLIPNS(threshold, max_mismatches).dist(src, tar)
 
 
 if __name__ == '__main__':

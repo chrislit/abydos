@@ -21,7 +21,7 @@ This module contains unit tests for abydos.fingerprint.String
 
 import unittest
 
-from abydos.fingerprint import String, str_fingerprint
+from abydos.fingerprint import String
 
 
 class StringTestCases(unittest.TestCase):
@@ -50,9 +50,6 @@ o pe pinguim poe queixoso tamaras ve vovo',
             self.assertEqual(
                 self.fp.fingerprint(self._testset[i]), self._anssetw[i]
             )
-
-        # Test wrapper
-        self.assertEqual(str_fingerprint(self._testset[0]), self._anssetw[0])
 
 
 if __name__ == '__main__':

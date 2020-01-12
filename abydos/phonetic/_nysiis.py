@@ -20,12 +20,9 @@ New York State Identification and Intelligence System (NYSIIS) phonetic
 encoding
 """
 
-from deprecation import deprecated
-
 from ._phonetic import _Phonetic
-from .. import __version__
 
-__all__ = ['NYSIIS', 'nysiis']
+__all__ = ['NYSIIS']
 
 
 class NYSIIS(_Phonetic):
@@ -239,60 +236,6 @@ class NYSIIS(_Phonetic):
             key = key[: self._max_length]
 
         return key
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the NYSIIS.encode method instead.',
-)
-def nysiis(word, max_length=6, modified=False):
-    """Return the NYSIIS code for a word.
-
-    This is a wrapper for :py:meth:`NYSIIS.encode`.
-
-    Parameters
-    ----------
-    word : str
-        The word to transform
-    max_length : int
-        The maximum length (default 6) of the code to return
-    modified : bool
-        Indicates whether to use USDA modified NYSIIS
-
-    Returns
-    -------
-    str
-        The NYSIIS value
-
-    Examples
-    --------
-    >>> nysiis('Christopher')
-    'CRASTA'
-    >>> nysiis('Niall')
-    'NAL'
-    >>> nysiis('Smith')
-    'SNAT'
-    >>> nysiis('Schmidt')
-    'SNAD'
-
-    >>> nysiis('Christopher', max_length=-1)
-    'CRASTAFAR'
-
-    >>> nysiis('Christopher', max_length=8, modified=True)
-    'CRASTAFA'
-    >>> nysiis('Niall', max_length=8, modified=True)
-    'NAL'
-    >>> nysiis('Smith', max_length=8, modified=True)
-    'SNAT'
-    >>> nysiis('Schmidt', max_length=8, modified=True)
-    'SNAD'
-
-    .. versionadded:: 0.1.0
-
-    """
-    return NYSIIS(max_length, modified).encode(word)
 
 
 if __name__ == '__main__':

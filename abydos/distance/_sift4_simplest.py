@@ -19,12 +19,9 @@
 Sift4 Simplest approximate string distance
 """
 
-from deprecation import deprecated
-
 from ._sift4 import Sift4
-from .. import __version__
 
-__all__ = ['Sift4Simplest', 'sift4_simplest']
+__all__ = ['Sift4Simplest']
 
 
 class Sift4Simplest(Sift4):
@@ -135,48 +132,6 @@ class Sift4Simplest(Sift4):
 
         lcss += local_cs
         return round(max(src_len, tar_len) - lcss)
-
-
-@deprecated(
-    deprecated_in='0.4.0',
-    removed_in='0.6.0',
-    current_version=__version__,
-    details='Use the Sift4Simplest.dist_abs method instead.',
-)
-def sift4_simplest(src, tar, max_offset=5):
-    """Return the "simplest" Sift4 distance between two terms.
-
-    This is a wrapper for :py:meth:`Sift4Simplest.dist_abs`.
-
-    Parameters
-    ----------
-    src : str
-        Source string for comparison
-    tar : str
-        Target string for comparison
-    max_offset : int
-        The number of characters to search for matching letters
-
-    Returns
-    -------
-    int
-        The Sift4 distance according to the simplest formula
-
-    Examples
-    --------
-    >>> sift4_simplest('cat', 'hat')
-    1
-    >>> sift4_simplest('Niall', 'Neil')
-    2
-    >>> sift4_simplest('Colin', 'Cuilen')
-    3
-    >>> sift4_simplest('ATCG', 'TAGC')
-    2
-
-    .. versionadded:: 0.3.0
-
-    """
-    return Sift4Simplest(max_offset).dist_abs(src, tar)
 
 
 if __name__ == '__main__':

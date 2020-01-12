@@ -21,7 +21,7 @@ This module contains unit tests for abydos.stemmer.Schinke
 
 import unittest
 
-from abydos.stemmer import Schinke, schinke
+from abydos.stemmer import Schinke
 
 from .. import _corpus_file
 
@@ -46,10 +46,6 @@ class SchinkeTestCases(unittest.TestCase):
                 nv = self.stmr.stem(word)
                 self.assertEqual(nv['n'], noun)
                 self.assertEqual(nv['v'], verb)
-
-        # Test wrapper
-        self.assertEqual(schinke('mathematicum')['n'], 'mathematic')
-        self.assertEqual(schinke('mathematicum')['v'], 'mathematicu')
 
 
 if __name__ == '__main__':

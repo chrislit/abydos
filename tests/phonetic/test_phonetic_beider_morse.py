@@ -22,7 +22,7 @@ This module contains unit tests for abydos.phonetic.BeiderMorse
 import codecs
 import unittest
 
-from abydos.phonetic import BeiderMorse, bmpm
+from abydos.phonetic import BeiderMorse
 
 # noinspection PyProtectedMember
 from abydos.phonetic._beider_morse_data import (
@@ -455,12 +455,6 @@ class BeiderMorseTestCases(unittest.TestCase):
             'helSink helsink helzink xelsink elSink elsink'
             + ' vanhelsink vanhelzink vanjelsink fanhelsink'
             + ' fanhelzink banhelsink',
-        )
-
-        # Test wrapper
-        self.assertEqual(
-            bmpm('Angelo', '', 'gen', 'exact', True),
-            'angelo anxelo anhelo anjelo anZelo andZelo',
         )
 
     def test_beider_morse_encode_misc(self):

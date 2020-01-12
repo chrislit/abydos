@@ -22,7 +22,7 @@ This module contains unit tests for abydos.stemmer.SnowballGerman
 import codecs
 import unittest
 
-from abydos.stemmer import SnowballGerman, sb_german
+from abydos.stemmer import SnowballGerman
 
 from .. import _corpus_file
 
@@ -58,9 +58,6 @@ class SnowballGermanTestCases(unittest.TestCase):
 
         # missed branch test cases
         self.assertEqual(self.stmr.stem('ikeit'), 'ikeit')
-
-        # Test wrapper
-        self.assertEqual(sb_german('dämmerung'), 'dammer')
 
     def test_sb_german_snowball_alt(self):
         """Test abydos.stemmer.SnowballGerman (alternate vowels)."""
