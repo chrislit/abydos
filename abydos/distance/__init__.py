@@ -348,10 +348,12 @@ which return a measure that is normalized to the range :math:`[0, 1]`. The
 normalized distance and similarity are always complements, so the normalized
 distance will always equal 1 - the similarity for a particular measure supplied
 with the same input. Some measures have an absolute distance method
-``dist_abs`` that is not limited to any range.
+``dist_abs`` and/or a similarity score ``sim_score``, which are not limited to
+any range.
 
-All three methods can be demonstrated using the :py:class:`.DamerauLevenshtein`
-class:
+The first three methods can be demonstrated using the
+:py:class:`.DamerauLevenshtein` class, while :py:class:`.SmithWaterman` offers
+the fourth:
 
 >>> dl = DamerauLevenshtein()
 >>> dl.dist_abs('orange', 'strange')
@@ -360,6 +362,10 @@ class:
 0.2857142857142857
 >>> dl.sim('orange', 'strange')
 0.7142857142857143
+
+>>> sw = SmithWaterman()
+>>> sw.sim_score('TGTTACGG', 'GGTTGACTA')
+4.0
 
 ----
 
