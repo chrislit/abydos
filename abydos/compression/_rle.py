@@ -52,6 +52,7 @@ class RLE(object):
 
         Examples
         --------
+        >>> from abydos.compression import BWT
         >>> rle = RLE()
         >>> bwt = BWT()
         >>> rle.encode(bwt.encode('align'))
@@ -97,6 +98,7 @@ class RLE(object):
 
         Examples
         --------
+        >>> from abydos.compression import BWT
         >>> rle = RLE()
         >>> bwt = BWT()
         >>> bwt.decode(rle.decode('n\x00ilag'))
