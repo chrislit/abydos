@@ -63,7 +63,7 @@ MOST_COMMON_LETTERS_DE_LC = ('e', 'n', 'i', 'r', 's', 't', 'a', 'd', 'h', 'u',
 # fmt: on
 
 
-class _Fingerprint(object):
+class _Fingerprint:
     """Abstract _Fingerprint class.
 
     .. versionadded:: 0.3.6

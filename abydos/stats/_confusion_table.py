@@ -53,7 +53,7 @@ from ._mean import (
 __all__ = ['ConfusionTable']
 
 
-class ConfusionTable(object):
+class ConfusionTable:
     """ConfusionTable object.
 
     This object is initialized by passing either four integers (or a tuple of

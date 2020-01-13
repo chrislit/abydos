@@ -25,7 +25,7 @@ from math import log
 __all__ = ['Corpus']
 
 
-class Corpus(object):
+class Corpus:
     """Corpus class.
 
     Internally, this is a list of lists or lists. The corpus itself is a list

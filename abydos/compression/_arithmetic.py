@@ -26,7 +26,7 @@ from typing import Dict, Union
 __all__ = ['Arithmetic']
 
 
-class Arithmetic(object):
+class Arithmetic:
     """Arithmetic Coder.
 
     This is based on Andrew Dalke's public domain implementation

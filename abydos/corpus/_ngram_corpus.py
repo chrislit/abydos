@@ -27,7 +27,7 @@ from ._corpus import Corpus
 __all__ = ['NGramCorpus']
 
 
-class NGramCorpus(object):
+class NGramCorpus:
     """The NGramCorpus class.
 
     Internally, this is a set of recursively embedded dicts, with n layers for

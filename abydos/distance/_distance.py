@@ -22,7 +22,7 @@ The distance._distance module implements abstract class _Distance.
 __all__ = ['_Distance']
 
 
-class _Distance(object):
+class _Distance:
     """Abstract Distance class.
 
     .. versionadded:: 0.3.6

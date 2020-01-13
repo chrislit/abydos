@@ -25,7 +25,7 @@ from math import exp, log1p, log2
 __all__ = ['_Tokenizer']
 
 
-class _Tokenizer(object):
+class _Tokenizer:
     """Abstract _Tokenizer class.
 
     .. versionadded:: 0.4.0

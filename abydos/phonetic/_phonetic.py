@@ -24,7 +24,7 @@ from itertools import groupby
 __all__ = ['_Phonetic']
 
 
-class _Phonetic(object):
+class _Phonetic:
     """Abstract Phonetic class.
 
     .. versionadded:: 0.3.6

@@ -31,7 +31,7 @@ def _dd_default(*args):
     return 0, 0
 
 
-class UnigramCorpus(object):
+class UnigramCorpus:
     """Unigram corpus class.
 
     Largely intended for calculating inverse document frequence (IDF) from a

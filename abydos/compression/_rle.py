@@ -24,7 +24,7 @@ from itertools import groupby
 __all__ = ['RLE']
 
 
-class RLE(object):
+class RLE:
     """Run-Length Encoding.
 
     Cf. :cite:`Robinson:1967`.

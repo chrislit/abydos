@@ -22,7 +22,7 @@ abstract class _Stemmer
 __all__ = ['_Stemmer']
 
 
-class _Stemmer(object):
+class _Stemmer:
     """Abstract Stemmer class.
 
     .. versionadded:: 0.3.6

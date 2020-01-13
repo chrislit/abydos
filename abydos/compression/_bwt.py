@@ -22,7 +22,7 @@ Burrows-Wheeler Transform encoder/decoder
 __all__ = ['BWT']
 
 
-class BWT(object):
+class BWT:
     """Burrows-Wheeler Transform.
 
     The Burrows-Wheeler transform is an attempt at placing similar characters
