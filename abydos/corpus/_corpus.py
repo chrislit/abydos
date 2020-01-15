@@ -21,6 +21,9 @@ functions for corpus statistics, language modeling, etc.
 """
 
 from math import log
+from typing import Callable, List, Set, Tuple, Union
+
+from ..tokenizer._tokenizer import _Tokenizer
 
 __all__ = ['Corpus']
 
@@ -38,13 +41,13 @@ class Corpus:
 
     def __init__(
         self,
-        corpus_text='',
-        doc_split='\n\n',
-        sent_split='\n',
-        filter_chars='',
-        stop_words=None,
-        word_tokenizer=None,
-    ):
+        corpus_text: str = '',
+        doc_split: str = '\n\n',
+        sent_split: str = '\n',
+        filter_chars: Union[str, List[str], Set[str], Tuple[str]] = '',
+        stop_words: Union[List[str], Set[str], Tuple[str]] = None,
+        word_tokenizer: _Tokenizer = None,
+    ) -> None:
         r"""Initialize Corpus.
 
         By default, when importing a corpus:
@@ -60,10 +63,10 @@ class Corpus:
             A character or string used to split corpus_text into documents
         sent_split : str
             A character or string used to split documents into sentences
-        filter_chars : list
+        filter_chars : list or set or tuple or str
             A list of characters (as a string, tuple, set, or list) to filter
             out of the corpus text
-        stop_words : list
+        stop_words : list or set or tuple
             A list of words (as a tuple, set, or list) to filter out of the
             corpus text
         word_tokenizer : _Tokenizer
@@ -80,30 +83,30 @@ class Corpus:
         .. versionadded:: 0.1.0
 
         """
-        self.corpus = []
+        self.corpus = []  # type: List[List[List[str]]]
         self.doc_split = doc_split
         self.sent_split = sent_split
 
         for document in corpus_text.split(doc_split):
-            doc = []
+            doc = []  # type: List[List[str]]
             for sentence in document.split(sent_split):
                 if word_tokenizer:
-                    sentence = word_tokenizer.tokenize(sentence).get_list()
+                    sentence_words = word_tokenizer.tokenize(sentence).get_list()
                 else:
-                    sentence = sentence.split()
+                    sentence_words = sentence.split()
 
                 if stop_words:
                     for word in set(stop_words):
                         while word in sentence:
-                            sentence.remove(word)
+                            sentence_words.remove(word)
                 for char in set(filter_chars):
-                    sentence = [word.replace(char, '') for word in sentence]
-                if sentence:
-                    doc.append(sentence)
+                    sentence_words = [word.replace(char, '') for word in sentence]
+                if sentence_words:
+                    doc.append(sentence_words)
             if doc:
                 self.corpus.append(doc)
 
-    def docs(self):
+    def docs(self) -> List[List[List[str]]]:
         r"""Return the docs in the corpus.
 
         Each list within a doc represents the sentences in that doc, each of
@@ -132,7 +135,7 @@ class Corpus:
         """
         return self.corpus
 
-    def paras(self):
+    def paras(self) -> List[List[List[str]]]:
         r"""Return the paragraphs in the corpus.
 
         Each list within a paragraph represents the sentences in that doc, each
@@ -163,7 +166,7 @@ class Corpus:
         """
         return self.docs()
 
-    def sents(self):
+    def sents(self) -> List[List[str]]:
         r"""Return the sentences in the corpus.
 
         Each list within a sentence represents the words within that sentence.
@@ -188,7 +191,7 @@ class Corpus:
         """
         return [words for sents in self.corpus for words in sents]
 
-    def words(self):
+    def words(self) -> List[str]:
         r"""Return the words in the corpus as a single list.
 
         Returns
@@ -214,7 +217,7 @@ class Corpus:
         """
         return [words for sents in self.sents() for words in sents]
 
-    def docs_of_words(self):
+    def docs_of_words(self) -> List[List[str]]:
         r"""Return the docs in the corpus, with sentences flattened.
 
         Each list within the corpus represents all the words of that document.
@@ -245,7 +248,7 @@ class Corpus:
             [words for sents in doc for words in sents] for doc in self.corpus
         ]
 
-    def raw(self):
+    def raw(self) -> str:
         r"""Return the raw corpus.
 
         This is reconstructed by joining sub-components with the corpus' split
@@ -281,7 +284,7 @@ class Corpus:
             del sent_list
         return self.doc_split.join(doc_list)
 
-    def idf(self, term, transform=None):
+    def idf(self, term: str, transform: Callable[[str], str] = None) -> float:
         r"""Calculate the Inverse Document Frequency of a term in the corpus.
 
         Parameters

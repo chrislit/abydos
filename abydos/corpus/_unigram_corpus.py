@@ -23,6 +23,9 @@ import pickle  # noqa: S403
 from codecs import open as c_open
 from collections import Counter, defaultdict
 from math import log1p
+from typing import Callable, DefaultDict, Tuple
+
+from ..tokenizer._tokenizer import _Tokenizer
 
 __all__ = ['UnigramCorpus']
 
@@ -45,11 +48,11 @@ class UnigramCorpus:
 
     def __init__(
         self,
-        corpus_text='',
-        documents=0,
-        word_transform=None,
-        word_tokenizer=None,
-    ):
+        corpus_text: str = '',
+        documents: int = 0,
+        word_transform: Callable[[str], str] = None,
+        word_tokenizer: _Tokenizer = None,
+    ) -> None:
         r"""Initialize UnigramCorpus.
 
         Parameters
@@ -78,14 +81,14 @@ class UnigramCorpus:
         .. versionadded:: 0.4.0
 
         """
-        self.corpus = defaultdict(_dd_default)
+        self.corpus = defaultdict(_dd_default)  # type: DefaultDict[str, Tuple[int, int]]
         self.transform = word_transform
         self.tokenizer = word_tokenizer
         self.doc_count = documents
 
         self.add_document(corpus_text)
 
-    def add_document(self, doc):
+    def add_document(self, doc: str) -> None:
         """Add a new document to the corpus.
 
         Parameters
@@ -101,7 +104,7 @@ class UnigramCorpus:
             self._add_word(word, count, 1)
         self.doc_count += 1
 
-    def save_corpus(self, filename):
+    def save_corpus(self, filename: str) -> None:
         """Save the corpus to a file.
 
         This employs pickle to save the corpus (a defaultdict). Other
@@ -120,7 +123,7 @@ class UnigramCorpus:
         with open(filename, mode='wb') as pkl:
             pickle.dump(self.corpus, pkl)
 
-    def load_corpus(self, filename):
+    def load_corpus(self, filename: str) -> None:
         """Load the corpus from a file.
 
         This employs pickle to load the corpus (a defaultdict). Other
@@ -140,7 +143,7 @@ class UnigramCorpus:
             self.corpus = pickle.load(pkl)  # noqa: S301
         self._update_doc_count()
 
-    def _update_doc_count(self):
+    def _update_doc_count(self) -> None:
         """Update document count, if necessary.
 
         .. versionadded:: 0.4.0
@@ -148,7 +151,7 @@ class UnigramCorpus:
         max_docs = max(self.corpus.values(), key=lambda _: _[1])[1]
         self.doc_count = max(max_docs, self.doc_count)
 
-    def _add_word(self, word, count, doc_count):
+    def _add_word(self, word: str, count: int, doc_count: int) -> None:
         """Add a term to the corpus, possibly after tokenization.
 
         Parameters
@@ -183,7 +186,7 @@ class UnigramCorpus:
                 prior_doc_count + doc_count,
             )
 
-    def gng_importer(self, corpus_file):
+    def gng_importer(self, corpus_file: str) -> None:
         """Fill in self.corpus from a Google NGram corpus file.
 
         Parameters
@@ -197,15 +200,14 @@ class UnigramCorpus:
         """
         with c_open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
-                line = line.rstrip().split('\t')
-                word = line[0]
+                word, count, doc_count = line.rstrip().split('\t')
                 if '_' in word:
                     word = word[: word.find('_')]
 
-                self._add_word(word, int(line[2]), int(line[3]))
+                self._add_word(word, int(count), int(doc_count))
             self._update_doc_count()
 
-    def idf(self, term):
+    def idf(self, term: str) -> float:
         r"""Calculate the Inverse Document Frequency of a term in the corpus.
 
         Parameters

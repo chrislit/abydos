@@ -21,6 +21,7 @@ The NGram class is a container for an n-gram corpus
 
 from codecs import open as c_open
 from collections import Counter
+from typing import Counter as TCounter, List, Optional, Union
 
 from ._corpus import Corpus
 
@@ -44,7 +45,7 @@ class NGramCorpus:
     .. versionadded:: 0.3.0
     """
 
-    def __init__(self, corpus=None):
+    def __init__(self, corpus: Corpus = None) -> None:
         r"""Initialize Corpus.
 
         Parameters
@@ -69,7 +70,7 @@ class NGramCorpus:
         .. versionadded:: 0.3.0
 
         """
-        self.ngcorpus = Counter()
+        self.ngcorpus = Counter()  # type: Optional[TCounter[str]]
 
         if corpus is None:
             return
@@ -82,12 +83,18 @@ class NGramCorpus:
                 + ' found.'
             )
 
-    def corpus_importer(self, corpus, n_val=1, bos='_START_', eos='_END_'):
+    def corpus_importer(
+        self,
+        corpus: Corpus,
+        n_val: int = 1,
+        bos: str = '_START_',
+        eos: str = '_END_',
+    ) -> None:
         r"""Fill in self.ngcorpus from a Corpus argument.
 
         Parameters
         ----------
-        corpus :Corpus
+        corpus : Corpus
             The Corpus from which to initialize the n-gram corpus
         n_val : int
             Maximum n value for n-grams
@@ -133,14 +140,16 @@ class NGramCorpus:
                             self.ngcorpus, sent[j : j + i], 1
                         )
 
-    def get_count(self, ngram, corpus=None):
+    def get_count(
+        self, ngram: Union[str, List[str]], corpus: Optional[Union[Corpus, TCounter[str]]] = None
+    ) -> int:
         r"""Get the count of an n-gram in the corpus.
 
         Parameters
         ----------
-        ngram : str
+        ngram : str or List[str]
             The n-gram to retrieve the count of from the n-gram corpus
-        corpus : Corpus
+        corpus : Corpus or None
             The corpus
 
         Returns
@@ -180,12 +189,14 @@ class NGramCorpus:
             return self.get_count(ngram[1:], corpus[ngram[0]])
         return 0
 
-    def _add_to_ngcorpus(self, corpus, words, count):
+    def _add_to_ngcorpus(
+        self, corpus: Optional[Union[Corpus, TCounter[str]]], words: List[str], count: int
+    ) -> None:
         """Build up a corpus entry recursively.
 
         Parameters
         ----------
-        corpus : Corpus
+        corpus : Corpus or counter
             The corpus
         words : [str]
             Words to add to the corpus
@@ -204,13 +215,14 @@ class NGramCorpus:
         else:
             self._add_to_ngcorpus(corpus[words[0]], words[1:], count)
 
-    def gng_importer(self, corpus_file):
+    def gng_importer(self, corpus_file: str):
         """Fill in self.ngcorpus from a Google NGram corpus file.
 
         Parameters
         ----------
-        corpus_file : file
-            The Google NGram file from which to initialize the n-gram corpus
+        corpus_file : str
+            The filename of the Google NGram file from which to initialize the
+            n-gram corpus
 
 
         .. versionadded:: 0.3.0
