@@ -32,7 +32,7 @@ class BWT:
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, terminator='\0'):
+    def __init__(self, terminator: str = '\0') -> None:
         """Initialize BWT instance.
 
         Parameters
@@ -46,7 +46,7 @@ class BWT:
         """
         self._terminator = terminator
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         r"""Return the Burrows-Wheeler transformed form of a word.
 
         Parameters
@@ -98,15 +98,13 @@ class BWT:
         else:
             return self._terminator
 
-    def decode(self, code):
+    def decode(self, code: str) -> str:
         r"""Return a word decoded from BWT form.
 
         Parameters
         ----------
         code : str
             The word to transform from BWT form
-        terminator : str
-            A character added to signal the end of the string
 
         Returns
         -------
