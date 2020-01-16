@@ -23,7 +23,7 @@ import pickle  # noqa: S403
 from codecs import open as c_open
 from collections import Counter, defaultdict
 from math import log1p
-from typing import Callable, DefaultDict, Tuple
+from typing import Callable, DefaultDict, Optional, Tuple
 
 from ..tokenizer._tokenizer import _Tokenizer
 
@@ -50,8 +50,8 @@ class UnigramCorpus:
         self,
         corpus_text: str = '',
         documents: int = 0,
-        word_transform: Callable[[str], str] = None,
-        word_tokenizer: _Tokenizer = None,
+        word_transform: Optional[Callable[[str], str]] = None,
+        word_tokenizer: Optional[_Tokenizer] = None,
     ) -> None:
         r"""Initialize UnigramCorpus.
 

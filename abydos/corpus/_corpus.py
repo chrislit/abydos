@@ -21,7 +21,7 @@ functions for corpus statistics, language modeling, etc.
 """
 
 from math import log
-from typing import Callable, List, Set, Tuple, Union
+from typing import Callable, List, Optional, Set, Tuple, Union
 
 from ..tokenizer._tokenizer import _Tokenizer
 
@@ -45,8 +45,8 @@ class Corpus:
         doc_split: str = '\n\n',
         sent_split: str = '\n',
         filter_chars: Union[str, List[str], Set[str], Tuple[str]] = '',
-        stop_words: Union[List[str], Set[str], Tuple[str]] = None,
-        word_tokenizer: _Tokenizer = None,
+        stop_words: Optional[Union[List[str], Set[str], Tuple[str]]] = None,
+        word_tokenizer: Optional[_Tokenizer] = None,
     ) -> None:
         r"""Initialize Corpus.
 
@@ -288,7 +288,9 @@ class Corpus:
             del sent_list
         return self.doc_split.join(doc_list)
 
-    def idf(self, term: str, transform: Callable[[str], str] = None) -> float:
+    def idf(
+        self, term: str, transform: Optional[Callable[[str], str]] = None
+    ) -> float:
         r"""Calculate the Inverse Document Frequency of a term in the corpus.
 
         Parameters
