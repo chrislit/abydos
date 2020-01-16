@@ -104,7 +104,7 @@ class GilbertWells(_TokenDistance):
             alphabet=alphabet, tokenizer=tokenizer, **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Gilbert & Wells similarity of two strings.
 
         Parameters

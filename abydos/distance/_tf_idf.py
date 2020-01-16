@@ -54,7 +54,10 @@ class TFIDF(_TokenDistance):
     """
 
     def __init__(
-        self, tokenizer: Optional[_Tokenizer] = None, corpus=None, **kwargs
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        corpus: Optional[UnigramCorpus] = None,
+        **kwargs
     ):
         """Initialize TFIDF instance.
 

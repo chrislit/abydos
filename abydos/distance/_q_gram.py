@@ -110,7 +110,7 @@ class QGram(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the q-gram distance of two strings.
 
         Parameters

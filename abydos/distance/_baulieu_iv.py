@@ -110,7 +110,7 @@ class BaulieuIV(_TokenDistance):
         )
         self._positive_irrational = positive_irrational
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Baulieu IV distance of two strings.
 
         Parameters

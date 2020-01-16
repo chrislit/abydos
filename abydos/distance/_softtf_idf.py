@@ -153,7 +153,7 @@ class SoftTFIDF(_TokenDistance):
             corpus = self._corpus
 
         matches = {(tok, tok): 1.0 for tok in self._crisp_intersection()}
-        sims = defaultdict(float)  # type: DefaultDict[Tuple[str, str]]
+        sims = defaultdict(float)  # type: DefaultDict[Tuple[str, str], float]
         s_toks = set(self._src_only().keys())
         t_toks = set(self._tar_only().keys())
         for s_tok in s_toks:
@@ -161,7 +161,9 @@ class SoftTFIDF(_TokenDistance):
                 sim = self._metric.sim(s_tok, t_tok)
                 if sim > self._threshold:
                     sims[(s_tok, t_tok)] = sim
-        for tokens, value in sorted(sims.items(), key=lambda item: item[1], reverse=True):
+        for tokens, value in sorted(
+            sims.items(), key=lambda item: item[1], reverse=True
+        ):
             if tokens[0] in s_toks and tokens[1] in t_toks:
                 matches[tokens] = value
                 s_toks.remove(tokens[0])

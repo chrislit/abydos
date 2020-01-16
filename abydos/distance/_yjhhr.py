@@ -101,7 +101,7 @@ class YJHHR(_TokenDistance):
         )
         self.set_params(pval=pval)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the YJHHR distance of two strings.
 
         Parameters

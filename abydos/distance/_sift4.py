@@ -53,7 +53,7 @@ class Sift4(_Distance):
         self._max_offset = max_offset
         self._max_distance = max_distance
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the "common" Sift4 distance between two terms.
 
         Parameters

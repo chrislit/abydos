@@ -93,7 +93,7 @@ class ChaoJaccard(_TokenDistance):
         """
         return max(0.0, min(1.0, self.sim_score(src, tar)))
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return Chao's Jaccard similarity of two strings.
 
         Parameters

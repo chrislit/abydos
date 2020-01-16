@@ -99,7 +99,7 @@ class YuleQII(_TokenDistance):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return Yule's Q dissimilarity of two strings.
 
         Parameters

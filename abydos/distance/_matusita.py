@@ -65,7 +65,7 @@ class Matusita(_TokenDistance):
         """
         super(Matusita, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Matusita distance of two strings.
 
         Parameters

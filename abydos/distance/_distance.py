@@ -100,7 +100,7 @@ class _Distance:
         """
         return 1.0 - self.sim(src, tar)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return absolute distance.
 
         Parameters

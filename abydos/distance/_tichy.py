@@ -68,7 +68,7 @@ class Tichy(_Distance):
         super(Tichy, self).__init__(**kwargs)
         self._cost = cost
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Tichy distance between two strings.
 
         Parameters

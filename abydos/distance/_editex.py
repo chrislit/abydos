@@ -90,7 +90,7 @@ class Editex(_Distance):
             else 1
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Editex distance between two strings.
 
         Parameters

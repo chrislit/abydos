@@ -19,7 +19,7 @@
 Manhattan distance & similarity
 """
 
-from typing import Optional
+from typing import Collection, Counter as TCounter, Optional, Union
 
 from ._minkowski import Minkowski
 from ..tokenizer import _Tokenizer
@@ -38,11 +38,11 @@ class Manhattan(Minkowski):
 
     def __init__(
         self,
-        alphabet=0,
+        alphabet: Optional[Union[TCounter, Collection, int]] = 0,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs
-    ):
+    ) -> None:
         """Initialize Manhattan instance.
 
         Parameters
@@ -83,7 +83,7 @@ class Manhattan(Minkowski):
             **kwargs
         )
 
-    def dist_abs(self, src, tar, normalized=False):
+    def dist_abs(self, src: str, tar: str, normalized: bool = False):
         """Return the Manhattan distance between two strings.
 
         Parameters

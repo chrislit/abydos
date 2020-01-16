@@ -86,7 +86,7 @@ class FellegiSunter(_TokenDistance):
         self._simplified = simplified
         self._mismatch_factor = mismatch_factor
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Fellegi-Sunter similarity of two strings.
 
         Parameters

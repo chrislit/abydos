@@ -41,7 +41,9 @@ class DiscountedLevenshtein(Levenshtein):
     def __init__(
         self,
         mode='lev',
-        normalizer=max,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
         discount_from=1,
         discount_func='log',
         vowels='aeiou',
@@ -219,7 +221,7 @@ class DiscountedLevenshtein(Levenshtein):
             return d_mat, trace_mat
         return d_mat
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Levenshtein distance between two strings.
 
         Parameters

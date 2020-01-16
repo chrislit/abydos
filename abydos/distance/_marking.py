@@ -50,7 +50,7 @@ class Marking(_Distance):
         """
         super(Marking, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the marking distance of two strings.
 
         Parameters

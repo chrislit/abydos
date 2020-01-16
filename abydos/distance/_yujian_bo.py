@@ -53,7 +53,7 @@ class YujianBo(Levenshtein):
         """
         super(YujianBo, self).__init__(cost=cost, **kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Yujian-Bo normalized edit distance between two strings.
 
         Parameters

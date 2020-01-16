@@ -105,7 +105,7 @@ class AZZOO(_TokenDistance):
         )
         self.set_params(sigma=sigma)
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the AZZOO similarity of two strings.
 
         Parameters

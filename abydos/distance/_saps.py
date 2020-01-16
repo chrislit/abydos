@@ -42,7 +42,9 @@ class SAPS(_Distance):
     def __init__(
         self,
         cost=(1, -1, -4, 6, -2, -1, -3),
-        normalizer=max,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
         tokenizer: Optional[_Tokenizer] = None,
         **kwargs
     ):
@@ -101,7 +103,7 @@ class SAPS(_Distance):
         else:
             return self._g1
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the SAPS similarity between two strings.
 
         Parameters

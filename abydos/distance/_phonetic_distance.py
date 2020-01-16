@@ -47,7 +47,11 @@ class PhoneticDistance(_Distance):
     """
 
     def __init__(
-        self, transforms=None, metric=None, encode_alpha=False, **kwargs
+        self,
+        transforms=None,
+        metric: Optional[_Distance] = None,
+        encode_alpha=False,
+        **kwargs
     ):
         """Initialize PhoneticDistance instance.
 
@@ -122,7 +126,7 @@ class PhoneticDistance(_Distance):
                     )
                 )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Phonetic distance.
 
         Parameters

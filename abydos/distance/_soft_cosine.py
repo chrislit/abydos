@@ -21,6 +21,7 @@ Soft Cosine similarity & distance
 
 from typing import Optional
 
+from ._distance import _Distance
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -59,7 +60,7 @@ class SoftCosine(_TokenDistance):
     def __init__(
         self,
         tokenizer: Optional[_Tokenizer] = None,
-        metric=None,
+        metric: Optional[_Distance] = None,
         sim_method='a',
         **kwargs
     ):

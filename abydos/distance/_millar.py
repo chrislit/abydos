@@ -56,7 +56,7 @@ class Millar(_TokenDistance):
         """
         super(Millar, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return Millar's binomial deviance dissimilarity of two strings.
 
         Parameters
@@ -94,15 +94,15 @@ class Millar(_TokenDistance):
         alphabet = set(src_tok.keys() | tar_tok.keys())
 
         log2 = log(2)
-        score = 0
+        score = 0.
         for tok in alphabet:
             n_k = src_tok[tok] + tar_tok[tok]
 
-            src_val = 0
+            src_val = 0.
             if src_tok[tok]:
                 src_val = src_tok[tok] * log(src_tok[tok] / n_k)
 
-            tar_val = 0
+            tar_val = 0.
             if tar_tok[tok]:
                 tar_val = tar_tok[tok] * log(tar_tok[tok] / n_k)
 

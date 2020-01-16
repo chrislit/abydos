@@ -107,7 +107,7 @@ class KentFosterII(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Kent & Foster II similarity of two strings.
 
         Parameters

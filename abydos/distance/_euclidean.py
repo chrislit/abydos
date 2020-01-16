@@ -19,7 +19,7 @@
 Euclidean distance & similarity
 """
 
-from typing import Optional
+from typing import Collection, Counter as TCounter, Optional, Union
 
 from ._minkowski import Minkowski
 from ..tokenizer import _Tokenizer
@@ -38,7 +38,7 @@ class Euclidean(Minkowski):
 
     def __init__(
         self,
-        alphabet=0,
+        alphabet: Optional[Union[TCounter, Collection, int]] = 0,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs

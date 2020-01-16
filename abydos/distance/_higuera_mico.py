@@ -60,7 +60,7 @@ class HigueraMico(_Distance):
         """
         super(HigueraMico, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Higuera-Micó distance between two strings.
 
         This is a straightforward implementation of Higuera & Micó pseudocode

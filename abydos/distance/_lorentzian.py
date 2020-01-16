@@ -70,7 +70,7 @@ class Lorentzian(_TokenDistance):
         """
         super(Lorentzian, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Lorentzian distance of two strings.
 
         Parameters

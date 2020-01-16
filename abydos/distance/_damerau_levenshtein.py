@@ -40,7 +40,14 @@ class DamerauLevenshtein(_Distance):
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
 
-    def __init__(self, cost=(1, 1, 1, 1), normalizer=max, **kwargs):
+    def __init__(
+        self,
+        cost=(1, 1, 1, 1),
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
+        **kwargs
+    ):
         """Initialize Levenshtein instance.
 
         Parameters
@@ -64,7 +71,7 @@ class DamerauLevenshtein(_Distance):
         self._cost = cost
         self._normalizer = normalizer
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Damerau-Levenshtein distance between two strings.
 
         Parameters

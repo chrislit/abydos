@@ -24,6 +24,7 @@ based on Levenshtein distance, including:
 """
 
 from sys import float_info
+from typing import Tuple
 
 import numpy as np
 
@@ -57,7 +58,9 @@ class Levenshtein(_Distance):
         self,
         mode='lev',
         cost=(1, 1, 1, 1),
-        normalizer=max,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
         taper=False,
         **kwargs
     ):
@@ -262,7 +265,7 @@ class Levenshtein(_Distance):
 
         return distance, ''.join(src_aligned[::-1]), ''.join(tar_aligned[::-1])
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Levenshtein distance between two strings.
 
         Parameters

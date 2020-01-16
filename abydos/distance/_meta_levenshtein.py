@@ -19,9 +19,9 @@
 Meta-Levenshtein distance
 """
 
-from collections import Counter
+from collections import defaultdict
 from math import log1p
-from typing import Optional
+from typing import Callable, DefaultDict, List, Optional, Tuple, Union, cast
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -46,9 +46,11 @@ class MetaLevenshtein(_Distance):
     def __init__(
         self,
         tokenizer: Optional[_Tokenizer] = None,
-        corpus=None,
-        metric=None,
-        normalizer=max,
+        corpus: Optional[UnigramCorpus] = None,
+        metric: Optional[_Distance] = None,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
         **kwargs
     ):
         """Initialize MetaLevenshtein instance.
@@ -83,7 +85,7 @@ class MetaLevenshtein(_Distance):
         """
         super(MetaLevenshtein, self).__init__(**kwargs)
         self._corpus = corpus
-        self._metric = metric
+        self._metric = cast(_Distance, metric)
         self._normalizer = normalizer
 
         qval = 2 if 'qval' not in self.params else self.params['qval']
@@ -98,7 +100,7 @@ class MetaLevenshtein(_Distance):
         if self._metric is None:
             self._metric = JaroWinkler()
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Meta-Levenshtein distance of two strings.
 
         Parameters
@@ -151,7 +153,7 @@ class MetaLevenshtein(_Distance):
         else:
             corpus = self._corpus
 
-        dists = Counter()
+        dists = defaultdict(float)  # type: DefaultDict[Tuple[str, str], float]
         s_toks = set(src_tok.keys())
         t_toks = set(tar_tok.keys())
         for s_tok in s_toks:

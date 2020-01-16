@@ -36,7 +36,13 @@ class FlexMetric(_Distance):
     """
 
     def __init__(
-        self, normalizer=max, indel_costs=None, subst_costs=None, **kwargs
+        self,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
+        indel_costs=None,
+        subst_costs=None,
+        **kwargs
     ):
         """Initialize FlexMetric instance.
 
@@ -126,7 +132,7 @@ class FlexMetric(_Distance):
         else:
             return 1.0
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the FlexMetric distance of two strings.
 
         Parameters

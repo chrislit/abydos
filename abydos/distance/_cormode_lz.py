@@ -46,7 +46,7 @@ class CormodeLZ(_Distance):
         """
         super(CormodeLZ, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Cormode's LZ distance of two strings.
 
         Parameters

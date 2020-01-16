@@ -89,7 +89,7 @@ class KulczynskiI(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Kulczynski I similarity of two strings.
 
         Parameters

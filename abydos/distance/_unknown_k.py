@@ -98,7 +98,7 @@ class UnknownK(_TokenDistance):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Unknown K distance of two strings.
 
         Parameters

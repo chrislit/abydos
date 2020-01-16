@@ -102,7 +102,7 @@ class Cao(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         """Initialize Cao instance.
 
         Parameters
@@ -159,8 +159,8 @@ class Cao(_TokenDistance):
         if not in_both_samples_half:
             return 0.0
 
-        observed_cyd = 0
-        maximum_cyd = 0
+        observed_cyd = 0.0
+        maximum_cyd = 0.0
         for symbol in alphabet:
             src_tok = max(0.1, self._src_tokens[symbol])
             tar_tok = max(0.1, self._tar_tokens[symbol])
@@ -186,8 +186,8 @@ class Cao(_TokenDistance):
                     - 0.1 * log10(self._tar_tokens[symbol])
                 ) / (self._tar_tokens[symbol] + 0.1)
 
-        d_i = 0
-        d_k = 0
+        d_i = 0.0
+        d_k = 0.0
         for symbol in self._intersection().keys():
             d_i += self._src_tokens[symbol]
             d_k += self._tar_tokens[symbol]
@@ -201,7 +201,7 @@ class Cao(_TokenDistance):
 
         return max(0.0, min(1.0, 1 - (observed_cyd / maximum_cyd)))
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return Cao's CY dissimilarity (CYd) of two strings.
 
         Parameters
@@ -239,7 +239,7 @@ class Cao(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        score = 0
+        score = 0.
         for symbol in alphabet:
             src_tok = max(0.1, self._src_tokens[symbol])
             tar_tok = max(0.1, self._tar_tokens[symbol])

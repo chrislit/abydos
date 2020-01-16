@@ -36,7 +36,14 @@ class BlockLevenshtein(Levenshtein):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, cost=(1, 1, 1, 1), normalizer=max, **kwargs):
+    def __init__(
+        self,
+        cost=(1, 1, 1, 1),
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
+        **kwargs
+    ):
         """Initialize BlockLevenshtein instance.
 
         Parameters
@@ -53,7 +60,7 @@ class BlockLevenshtein(Levenshtein):
         )
         self.lcs = LCSstr()
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the block Levenshtein edit distance between two strings.
 
         Parameters

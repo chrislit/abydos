@@ -58,7 +58,7 @@ class MarkingMetric(Marking):
         """
         super(MarkingMetric, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the marking distance of two strings.
 
         Parameters

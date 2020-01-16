@@ -97,16 +97,16 @@ class FuzzyWuzzyTokenSet(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        src = self.params['tokenizer'].tokenize(src).get_set()
-        tar = self.params['tokenizer'].tokenize(tar).get_set()
+        src_tok = self.params['tokenizer'].tokenize(src).get_set()
+        tar_tok = self.params['tokenizer'].tokenize(tar).get_set()
 
-        intersection = src & tar
-        src -= intersection
-        tar -= intersection
+        intersection = src_tok & tar_tok
+        src_tok -= intersection
+        tar_tok -= intersection
 
         intersection = ' '.join(sorted(intersection)) + ' '
-        src = intersection + ' '.join(sorted(src))
-        tar = intersection + ' '.join(sorted(tar))
+        src = intersection + ' '.join(sorted(src_tok))
+        tar = intersection + ' '.join(sorted(tar_tok))
 
         return max(
             SequenceMatcher(None, src, intersection).ratio(),

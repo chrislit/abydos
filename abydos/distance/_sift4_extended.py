@@ -110,7 +110,7 @@ class Sift4Extended(_Distance):
         if self._transpositions_evaluator is None:
             self._transpositions_evaluator = lambda lcss, trans: lcss - trans
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Sift4 Extended distance between two strings.
 
         Parameters

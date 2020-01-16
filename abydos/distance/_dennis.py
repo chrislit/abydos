@@ -101,7 +101,7 @@ class Dennis(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Dennis similarity of two strings.
 
         Parameters

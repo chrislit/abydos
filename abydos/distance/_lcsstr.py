@@ -33,7 +33,13 @@ class LCSstr(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, normalizer=max, **kwargs):
+    def __init__(
+        self,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
+        **kwargs
+    ):
         r"""Initialize LCSseq.
 
         Parameters

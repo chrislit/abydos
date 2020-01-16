@@ -36,7 +36,7 @@ class MRA(_Distance):
 
     _phonetic_alg = MRAPhonetic()
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the MRA comparison rating of two strings.
 
         Parameters

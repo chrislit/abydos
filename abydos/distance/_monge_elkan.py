@@ -107,7 +107,7 @@ class MongeElkan(_Distance):
         if not q_src or not q_tar:
             return 0.0
 
-        sum_of_maxes = 0
+        sum_of_maxes = 0.
         for q_s in q_src:
             max_sim = float('-inf')
             for q_t in q_tar:
@@ -116,7 +116,7 @@ class MongeElkan(_Distance):
         sim_em = sum_of_maxes / len(q_src)
 
         if self._symmetric:
-            sum_of_maxes = 0
+            sum_of_maxes = 0.
             for q_t in q_tar:
                 max_sim = float('-inf')
                 for q_s in q_src:

@@ -135,7 +135,7 @@ class Typo(_Distance):
         self._layout = layout
         self._failsafe = failsafe
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the typo distance between two strings.
 
         Parameters

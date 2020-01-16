@@ -110,7 +110,7 @@ class KuhnsXII(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Kuhns XII similarity of two strings.
 
         Parameters

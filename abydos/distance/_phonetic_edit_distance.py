@@ -40,7 +40,9 @@ class PhoneticEditDistance(Levenshtein):
         self,
         mode='lev',
         cost=(1, 1, 1, 0.33333),
-        normalizer=max,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
         weights=None,
         **kwargs
     ):
@@ -180,7 +182,7 @@ class PhoneticEditDistance(Levenshtein):
             return d_mat, trace_mat
         return d_mat
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the phonetic edit distance between two strings.
 
         Parameters

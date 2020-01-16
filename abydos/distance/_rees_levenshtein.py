@@ -37,7 +37,14 @@ class ReesLevenshtein(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, block_limit=2, normalizer=max, **kwargs):
+    def __init__(
+        self,
+        block_limit=2,
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
+        **kwargs
+    ):
         """Initialize ReesLevenshtein instance.
 
         Parameters
@@ -59,7 +66,7 @@ class ReesLevenshtein(_Distance):
         self._normalizer = normalizer
         self._block_limit = block_limit
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Rees-Levenshtein distance of two strings.
 
         This is a straightforward port of the PL/SQL implementation at

@@ -98,7 +98,7 @@ class BatageljBren(_TokenDistance):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Batagelj & Bren distance of two strings.
 
         Parameters

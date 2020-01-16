@@ -58,7 +58,7 @@ class Hamming(_Distance):
         super(Hamming, self).__init__(**kwargs)
         self._diff_lens = diff_lens
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Hamming distance between two strings.
 
         Parameters

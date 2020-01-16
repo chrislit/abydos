@@ -147,7 +147,7 @@ class NeedlemanWunsch(_Distance):
         if self._sim_func is None:
             self._sim_func = NeedlemanWunsch.sim_matrix
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Needleman-Wunsch score of two strings.
 
         Parameters

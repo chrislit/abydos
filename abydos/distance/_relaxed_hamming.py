@@ -78,7 +78,7 @@ class RelaxedHamming(_Distance):
         self._maxdist = maxdist
         self._discount = discount
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the discounted Hamming distance between two strings.
 
         Parameters
