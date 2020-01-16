@@ -20,8 +20,6 @@ The fingerprint._Fingerprint module implements abstract class Fingerprint
 and defines contants for most common letters.
 """
 
-__all__ = ['_Fingerprint']
-
 # fmt: off
 # most common letters, as defined in Cisłak & Grabowski
 MOST_COMMON_LETTERS_CG = ('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd',
@@ -85,11 +83,12 @@ class _Fingerprint:
 
 
 __all__ = [
-    MOST_COMMON_LETTERS,
-    MOST_COMMON_LETTERS_CG,
-    MOST_COMMON_LETTERS_DE,
-    MOST_COMMON_LETTERS_DE_LC,
-    MOST_COMMON_LETTERS_EN_LC,
+    '_Fingerprint',
+    'MOST_COMMON_LETTERS',
+    'MOST_COMMON_LETTERS_CG',
+    'MOST_COMMON_LETTERS_DE',
+    'MOST_COMMON_LETTERS_DE_LC',
+    'MOST_COMMON_LETTERS_EN_LC',
 ]
 
 if __name__ == '__main__':
