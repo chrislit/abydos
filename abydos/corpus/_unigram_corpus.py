@@ -202,7 +202,7 @@ class UnigramCorpus:
         """
         with c_open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
-                word, count, doc_count = line.rstrip().split('\t')
+                word, _, count, doc_count = line.rstrip().split('\t')
                 if '_' in word:
                     word = word[: word.find('_')]
 
