@@ -91,7 +91,9 @@ class Corpus:
             doc = []  # type: List[List[str]]
             for sentence in document.split(sent_split):
                 if word_tokenizer:
-                    sentence_words = word_tokenizer.tokenize(sentence).get_list()
+                    sentence_words = word_tokenizer.tokenize(
+                        sentence
+                    ).get_list()
                 else:
                     sentence_words = sentence.split()
 
@@ -100,7 +102,9 @@ class Corpus:
                         while word in sentence:
                             sentence_words.remove(word)
                 for char in set(filter_chars):
-                    sentence_words = [word.replace(char, '') for word in sentence]
+                    sentence_words = [
+                        word.replace(char, '') for word in sentence
+                    ]
                 if sentence_words:
                     doc.append(sentence_words)
             if doc:

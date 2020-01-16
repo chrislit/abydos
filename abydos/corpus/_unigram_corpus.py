@@ -81,7 +81,9 @@ class UnigramCorpus:
         .. versionadded:: 0.4.0
 
         """
-        self.corpus = defaultdict(_dd_default)  # type: DefaultDict[str, Tuple[int, int]]
+        self.corpus = defaultdict(
+            _dd_default
+        )  # type: DefaultDict[str, Tuple[int, int]]
         self.transform = word_transform
         self.tokenizer = word_tokenizer
         self.doc_count = documents
