@@ -157,6 +157,12 @@ if __name__ == '__main__':
         pattern = r'Total Physical Source Lines of Code \(SLOC\) += ([0-9,]+)'
         sloccount = re.search(pattern, fh.read()).group(1)
 
+    if not os.path.isfile('./mypy/index.txt'):
+        exit('Please direct mypy txt report to mypy/index.txt')
+    with open('mypy/index.txt', 'r', encoding='utf-8') as fh:
+        pattern = r'\| Total +?\| +?([0-9.]+)'
+        imprecision = re.search(pattern, fh.read()).group(1)
+
     readme_text = open('README.rst', 'r', encoding='utf-8').read()
 
     prefix = 'https://img.shields.io/badge/Pylint-'
@@ -195,6 +201,11 @@ if __name__ == '__main__':
     prefix = 'https://img.shields.io/badge/SLOCCount-'
     readme_text = re.sub(
         prefix + r'[0-9,]+', prefix + str(sloccount), readme_text, 1
+    )
+
+    prefix = 'https://img.shields.io/badge/mypy-'
+    readme_text = re.sub(
+        prefix + r'[0-9.]+', prefix + str(imprecision), readme_text, 1
     )
 
     with open('README.rst', 'w', encoding='utf-8') as f:
