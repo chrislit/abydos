@@ -99,11 +99,11 @@ class Corpus:
 
                 if stop_words:
                     for word in set(stop_words):
-                        while word in sentence:
+                        while word in sentence_words:
                             sentence_words.remove(word)
                 for char in set(filter_chars):
                     sentence_words = [
-                        word.replace(char, '') for word in sentence
+                        word.replace(char, '') for word in sentence_words
                     ]
                 if sentence_words:
                     doc.append(sentence_words)
