@@ -19,8 +19,10 @@
 q-gram distance
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
-from ..tokenizer import QGrams as QGramTokenizer
+from ..tokenizer import _Tokenizer, QGrams as QGramTokenizer
 
 __all__ = ['QGram']
 
@@ -61,7 +63,12 @@ class QGram(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
+    ):
         """Initialize QGram instance.
 
         Parameters
@@ -143,7 +150,7 @@ class QGram(_TokenDistance):
 
         return b + c
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized q-gram distance of two strings.
 
         Parameters

@@ -19,7 +19,10 @@
 Kuder & Richardson correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KuderRichardson']
 
@@ -53,9 +56,9 @@ class KuderRichardson(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize KuderRichardson instance.
@@ -150,7 +153,7 @@ class KuderRichardson(_TokenDistance):
         else:
             return (4 * admbc) / denom
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Kuder & Richardson similarity of two strings.
 
         Since Kuder & Richardson correlation is unbounded in the negative,

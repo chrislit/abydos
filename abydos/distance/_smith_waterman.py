@@ -105,7 +105,7 @@ class SmithWaterman(NeedlemanWunsch):
                 d_mat[i, j] = max(0, match, delete, insert)
         return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Smith-Waterman score of two strings.
 
         Parameters

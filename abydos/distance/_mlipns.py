@@ -60,7 +60,7 @@ class MLIPNS(_Distance):
         self._threshold = threshold
         self._max_mismatches = max_mismatches
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the MLIPNS similarity of two strings.
 
         Parameters

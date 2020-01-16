@@ -19,7 +19,10 @@
 Sokal & Sneath III similarity
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['SokalSneathIII']
 
@@ -53,7 +56,12 @@ class SokalSneathIII(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
+    ):
         """Initialize SokalSneathIII instance.
 
         Parameters

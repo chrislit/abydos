@@ -19,7 +19,10 @@
 Chord distance
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Chord']
 
@@ -39,7 +42,12 @@ class Chord(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
+    ):
         """Initialize Chord instance.
 
         Parameters
@@ -125,7 +133,7 @@ class Chord(_TokenDistance):
             15,
         )
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Chord distance of two strings.
 
         Parameters

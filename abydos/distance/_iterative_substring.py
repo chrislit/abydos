@@ -175,7 +175,7 @@ class IterativeSubString(_Distance):
 
         return commonality - dissimilarity + winkler_improvement
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Iterative-SubString similarity of two strings.
 
         Parameters

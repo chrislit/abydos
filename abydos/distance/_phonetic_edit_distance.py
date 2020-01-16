@@ -236,7 +236,7 @@ class PhoneticEditDistance(Levenshtein):
         else:
             return d_mat[src_len, tar_len]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized phonetic edit distance between two strings.
 
         The edit distance is normalized by dividing the edit distance

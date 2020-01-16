@@ -285,7 +285,7 @@ class DiscountedLevenshtein(Levenshtein):
         else:
             return d_mat[src_len, tar_len]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein

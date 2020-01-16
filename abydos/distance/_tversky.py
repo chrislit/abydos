@@ -19,7 +19,10 @@
 Tversky index
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Tversky']
 
@@ -67,8 +70,8 @@ class Tversky(_TokenDistance):
         alpha=1.0,
         beta=1.0,
         bias=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Tversky instance.
@@ -112,7 +115,7 @@ class Tversky(_TokenDistance):
         )
         self.set_params(alpha=alpha, beta=beta, bias=bias)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Tversky index of two strings.
 
         Parameters

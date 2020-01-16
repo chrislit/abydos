@@ -19,7 +19,10 @@
 Hamann correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Hamann']
 
@@ -49,9 +52,9 @@ class Hamann(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Hamann instance.
@@ -137,7 +140,7 @@ class Hamann(_TokenDistance):
             - self._tar_only_card()
         ) / self._population_unique_card()
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Hamann similarity of two strings.
 
         Hamann similarity, which has a range [-1, 1] is normalized to [0, 1] by

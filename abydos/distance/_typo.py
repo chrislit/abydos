@@ -321,7 +321,7 @@ class Typo(_Distance):
 
         return d_mat[len(src), len(tar)]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized typo distance between two strings.
 
         This is typo distance, normalized to [0, 1].

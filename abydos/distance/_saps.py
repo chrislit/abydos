@@ -19,11 +19,13 @@
 Syllable Alignment Pattern Searching tokenizer
 """
 
+from typing import Optional
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from ..tokenizer import SAPSTokenizer
+from ..tokenizer import _Tokenizer, SAPSTokenizer
 
 __all__ = ['SAPS']
 
@@ -41,7 +43,7 @@ class SAPS(_Distance):
         self,
         cost=(1, -1, -4, 6, -2, -1, -3),
         normalizer=max,
-        tokenizer=None,
+        tokenizer: Optional[_Tokenizer] = None,
         **kwargs
     ):
         """Initialize SAPS instance.
@@ -154,7 +156,7 @@ class SAPS(_Distance):
 
         return d_mat[len(src), len(tar)]
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized SAPS similarity between two strings.
 
         Parameters

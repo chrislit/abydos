@@ -191,7 +191,7 @@ class FlexMetric(_Distance):
 
         return d_mat[src_len, tar_len]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized FlexMetric distance of two strings.
 
         Parameters

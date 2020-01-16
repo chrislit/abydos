@@ -19,7 +19,10 @@
 Kuhns X correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KuhnsX']
 
@@ -63,9 +66,9 @@ class KuhnsX(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize KuhnsX instance.
@@ -164,7 +167,7 @@ class KuhnsX(_TokenDistance):
                 max(-1.0, min(1.0, (n * delta_ab) / (a * d + b * c))), 15
             )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Kuhns X similarity of two strings.
 
         Parameters

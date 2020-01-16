@@ -111,7 +111,7 @@ class LCSstr(_Distance):
                     lengths[i, j] = 0
         return src[i_longest - longest : i_longest]
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the longest common substring similarity of two strings.
 
         Longest common substring similarity (:math:`sim_{LCSstr}`).

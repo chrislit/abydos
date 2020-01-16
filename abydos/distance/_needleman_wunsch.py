@@ -19,6 +19,8 @@
 Needleman-Wunsch score
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
@@ -45,7 +47,7 @@ class NeedlemanWunsch(_Distance):
         mismatch_cost=0,
         match_cost=1,
         symmetric=True,
-        alphabet=None,
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
     ):
         """Return the matrix similarity of two strings.
 
@@ -194,7 +196,7 @@ class NeedlemanWunsch(_Distance):
                 d_mat[i, j] = max(match, delete, insert)
         return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Needleman-Wunsch score of two strings.
 
         Parameters

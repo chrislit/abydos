@@ -137,7 +137,7 @@ class Tichy(_Distance):
 
         return moves * self._cost[0] + adds * self._cost[1]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Tichy edit distance between two strings.
 
         The Tichy distance is normalized by dividing the distance by the length

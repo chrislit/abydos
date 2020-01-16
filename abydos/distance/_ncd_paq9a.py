@@ -41,7 +41,7 @@ class NCDpaq9a(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the NCD between two strings using PAQ9A compression.
 
         Parameters

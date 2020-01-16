@@ -182,7 +182,7 @@ class DamerauLevenshtein(_Distance):
 
         return d_mat[len(src) - 1, len(tar) - 1]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the Damerau-Levenshtein similarity of two strings.
 
         Damerau-Levenshtein distance normalized to the interval [0, 1].

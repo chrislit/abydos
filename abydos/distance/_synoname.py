@@ -722,7 +722,7 @@ class Synoname(_Distance):
                 return _fmt_retval(self._match_type_dict['char_approx'])
         return _fmt_retval(self._match_type_dict['no_match'])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Synoname distance between two words.
 
         Parameters

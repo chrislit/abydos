@@ -19,8 +19,10 @@
 Relaxed Hamming distance
 """
 
+from typing import Optional
+
 from ._distance import _Distance
-from ..tokenizer import QGrams
+from ..tokenizer import _Tokenizer, QGrams
 
 __all__ = ['RelaxedHamming']
 
@@ -34,7 +36,13 @@ class RelaxedHamming(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, tokenizer=None, maxdist=2, discount=0.2, **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        maxdist=2,
+        discount=0.2,
+        **kwargs
+    ):
         """Initialize DiscountedHamming instance.
 
         Parameters
@@ -151,7 +159,7 @@ class RelaxedHamming(_Distance):
 
         return score
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized relaxed Hamming distance between strings.
 
         Parameters

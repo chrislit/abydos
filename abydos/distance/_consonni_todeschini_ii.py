@@ -20,8 +20,10 @@ Consonni & Todeschini II similarity
 """
 
 from math import log1p
+from typing import Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['ConsonniTodeschiniII']
 
@@ -51,9 +53,9 @@ class ConsonniTodeschiniII(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize ConsonniTodeschiniII instance.
@@ -97,7 +99,7 @@ class ConsonniTodeschiniII(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Consonni & Todeschini II similarity of two strings.
 
         Parameters

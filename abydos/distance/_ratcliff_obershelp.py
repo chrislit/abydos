@@ -47,7 +47,7 @@ class RatcliffObershelp(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Ratcliff-Obershelp similarity of two strings.
 
         Parameters

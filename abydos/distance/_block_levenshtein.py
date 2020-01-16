@@ -98,7 +98,7 @@ class BlockLevenshtein(Levenshtein):
         d = super(BlockLevenshtein, self).dist_abs(src, tar)
         return d
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized block Levenshtein distance between strings.
 
         Parameters

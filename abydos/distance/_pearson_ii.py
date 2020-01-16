@@ -19,7 +19,10 @@
 Pearson II similarity
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._pearson_chi_squared import PearsonChiSquared
+from ..tokenizer import _Tokenizer
 
 __all__ = ['PearsonII']
 
@@ -57,9 +60,9 @@ class PearsonII(PearsonChiSquared):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize PearsonII instance.
@@ -139,7 +142,7 @@ class PearsonII(PearsonChiSquared):
         chi2 = super(PearsonII, self).sim_score(src, tar)
         return (chi2 / (self._population_unique_card() + chi2)) ** 0.5
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Pearson II similarity of two strings.
 
         Parameters

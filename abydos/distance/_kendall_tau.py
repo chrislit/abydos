@@ -19,7 +19,10 @@
 Kendall's Tau correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KendallTau']
 
@@ -49,9 +52,9 @@ class KendallTau(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize KendallTau instance.
@@ -144,7 +147,7 @@ class KendallTau(_TokenDistance):
             return 2 * num / (n * max(n - 1, 1))
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Kendall's Tau similarity of two strings.
 
         The Tau correlation is first clamped to the range [-1.0, 1.0] before

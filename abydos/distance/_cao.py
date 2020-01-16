@@ -116,7 +116,7 @@ class Cao(_TokenDistance):
         """
         super(Cao, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return Cao's CY similarity (CYs) of two strings.
 
         Parameters

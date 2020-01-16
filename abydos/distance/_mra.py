@@ -108,7 +108,7 @@ class MRA(_Distance):
             return similarity
         return 0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized MRA similarity of two strings.
 
         This is the MRA normalized to :math:`[0, 1]`, given that MRA itself is

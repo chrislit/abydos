@@ -19,7 +19,10 @@
 Bennet's S correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Bennet']
 
@@ -57,9 +60,9 @@ class Bennet(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Bennet instance.
@@ -145,7 +148,7 @@ class Bennet(_TokenDistance):
 
         return 2 * (a + d) / n - 1
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Bennet's S similarity of two strings.
 
         Parameters

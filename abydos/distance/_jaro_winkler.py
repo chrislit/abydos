@@ -91,7 +91,7 @@ class JaroWinkler(_Distance):
         self._boost_threshold = boost_threshold
         self._scaling_factor = scaling_factor
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Jaro or Jaro-Winkler similarity of two strings.
 
         Parameters

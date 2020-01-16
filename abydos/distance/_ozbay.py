@@ -93,7 +93,7 @@ class Ozbay(_Distance):
 
         return ozbay_metric
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Ozbay distance.
 
         Parameters

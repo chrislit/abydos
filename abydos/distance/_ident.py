@@ -30,7 +30,7 @@ class Ident(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the identity similarity of two strings.
 
         Identity similarity is 1.0 if the two strings are identical,

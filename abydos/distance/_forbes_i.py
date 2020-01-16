@@ -19,7 +19,10 @@
 Forbes I similarity
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['ForbesI']
 
@@ -48,9 +51,9 @@ class ForbesI(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize ForbesI instance.
@@ -137,7 +140,7 @@ class ForbesI(_TokenDistance):
             return num / (apb * apc)
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Forbes I similarity of two strings.
 
         Parameters

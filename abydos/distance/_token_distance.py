@@ -23,6 +23,7 @@ _TokenDistance.
 from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
+from typing import Optional
 
 import numpy as np
 from numpy import zeros as np_zeros
@@ -32,7 +33,7 @@ from ._distance import _Distance
 from ._lcprefix import LCPrefix
 from ._levenshtein import Levenshtein
 from ..stats import ConfusionTable
-from ..tokenizer import QGrams, QSkipgrams, WhitespaceTokenizer
+from ..tokenizer import _Tokenizer, QGrams, QSkipgrams, WhitespaceTokenizer
 
 __all__ = ['_TokenDistance']
 
@@ -68,7 +69,12 @@ class _TokenDistance(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
+    ):
         r"""Initialize _TokenDistance instance.
 
         .. _intersection_type:

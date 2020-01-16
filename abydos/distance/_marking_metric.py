@@ -95,7 +95,7 @@ class MarkingMetric(Marking):
         diff2 = super(MarkingMetric, self).dist_abs(tar, src)
         return log2((diff1 + 1) * (diff2 + 1))
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized marking distance of two strings.
 
         Parameters

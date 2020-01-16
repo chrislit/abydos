@@ -55,7 +55,7 @@ class BISIM(_Distance):
         super(BISIM, self).__init__(**kwargs)
         self._qval = qval
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the BI-SIM similarity of two strings.
 
         Parameters

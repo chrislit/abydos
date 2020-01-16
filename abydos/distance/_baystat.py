@@ -64,7 +64,7 @@ class Baystat(_Distance):
         self._left_ext = left_ext
         self._right_ext = right_ext
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Baystat similarity.
 
         Parameters

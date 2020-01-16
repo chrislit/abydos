@@ -20,6 +20,7 @@ ALINE alignment, similarity, and distance
 """
 
 from copy import deepcopy
+from typing import Callable, List, Tuple, Union, cast
 
 from numpy import NINF
 from numpy import float as np_float
@@ -1170,16 +1171,18 @@ class ALINE(_Distance):
 
     def __init__(
         self,
-        epsilon=0,
-        c_skip=-10,
-        c_sub=35,
-        c_exp=45,
-        c_vwl=10,
-        mode='local',
-        phones='aline',
-        normalizer=max,
+        epsilon: float = 0.0,
+        c_skip: int = -10,
+        c_sub: int = 35,
+        c_exp: int = 45,
+        c_vwl: int = 10,
+        mode: str = 'local',
+        phones: str = 'aline',
+        normalizer: Callable[
+            [List[Union[float, int]]], Union[float, int]
+        ] = max,
         **kwargs
-    ):
+    ) -> None:
         """Initialize ALINE instance.
 
         Parameters
@@ -1232,7 +1235,7 @@ class ALINE(_Distance):
             self._phones = self.phones_kondrak
         self._normalizer = normalizer
 
-    def alignment(self, src, tar):
+    def alignment(self, src: str, tar: str) -> Tuple[float, str, str]:
         """Return the top ALINE alignment of two strings.
 
         The `top` ALINE alignment is the first alignment with the best score.
@@ -1267,9 +1270,11 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        return self.alignments(src, tar)[0]
+        return cast(List[Tuple[float, str, str]], self.alignments(src, tar))[0]
 
-    def alignments(self, src, tar, score_only=False):
+    def alignments(
+        self, src: str, tar: str, score_only: bool = False
+    ) -> Union[float, List[Tuple[float, str, str]]]:
         """Return the ALINE alignments of two strings.
 
         Parameters
@@ -1306,7 +1311,7 @@ class ALINE(_Distance):
 
         """
 
-        def _sig_skip(seg):
+        def _sig_skip(*args):
             return self._c_skip
 
         def _sig_sub(seg1, seg2):
@@ -1326,10 +1331,10 @@ class ALINE(_Distance):
                 - max(_sig_vwl(seg2a), _sig_vwl(seg2b))
             )
 
-        def _sig_vwl(seg):
+        def _sig_vwl(seg1):
             return (
                 0.0
-                if seg['manner'] > self.feature_weights['high vowel']
+                if seg1['manner'] > self.feature_weights['high vowel']
                 else self._c_vwl
             )
 
@@ -1612,7 +1617,7 @@ class ALINE(_Distance):
 
         return sorted(alignments, key=_first_element, reverse=True)
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the ALINE alignment score of two strings.
 
         Parameters
@@ -1645,9 +1650,9 @@ class ALINE(_Distance):
         """
         if src == '' and tar == '':
             return 1.0
-        return self.alignments(src, tar, score_only=True)
+        return cast(float, self.alignments(src, tar, score_only=True))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized ALINE similarity of two strings.
 
         Parameters

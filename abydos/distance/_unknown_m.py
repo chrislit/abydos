@@ -19,7 +19,10 @@
 Unknown M similarity
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['UnknownM']
 
@@ -50,9 +53,9 @@ class UnknownM(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize UnknownM instance.
@@ -142,7 +145,7 @@ class UnknownM(_TokenDistance):
             * max(1.0, b + d)
         ) ** 0.5
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Unknown M similarity of two strings.
 
         Parameters

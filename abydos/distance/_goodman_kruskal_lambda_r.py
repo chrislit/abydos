@@ -19,7 +19,10 @@
 Goodman & Kruskal Lambda-r correlation.
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['GoodmanKruskalLambdaR']
 
@@ -52,9 +55,9 @@ class GoodmanKruskalLambdaR(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize GoodmanKruskalLambdaR instance.
@@ -151,7 +154,7 @@ class GoodmanKruskalLambdaR(_TokenDistance):
             return num / (2 * n - sigma_prime)
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return Goodman & Kruskal Lambda-r similarity of two strings.
 
         Parameters

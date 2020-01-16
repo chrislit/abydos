@@ -19,7 +19,10 @@
 Baulieu VI distance
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['BaulieuVI']
 
@@ -52,9 +55,9 @@ class BaulieuVI(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize BaulieuVI instance.
@@ -98,7 +101,7 @@ class BaulieuVI(_TokenDistance):
             **kwargs
         )
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the Baulieu VI distance of two strings.
 
         Parameters

@@ -20,8 +20,10 @@ Gini II correlation
 """
 
 from sys import float_info
+from typing import Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['GiniII']
 
@@ -59,9 +61,9 @@ class GiniII(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         normalizer='proportional',
         **kwargs
     ):
@@ -157,7 +159,7 @@ class GiniII(_TokenDistance):
             )
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Gini II similarity of two strings.
 
         Parameters

@@ -166,7 +166,7 @@ class Sift4(_Distance):
         lcss += local_cs
         return round(max(src_len, tar_len) - lcss + trans)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized "common" Sift4 distance between two terms.
 
         This is Sift4 distance, normalized to [0, 1].

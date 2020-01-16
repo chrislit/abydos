@@ -121,7 +121,7 @@ class ISG(_Distance):
 
         return matches / (len(src) + len(tar) - matches)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Indice de Similitude-Guth (ISG) similarity of two words.
 
         Parameters

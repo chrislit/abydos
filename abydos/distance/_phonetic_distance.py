@@ -173,7 +173,7 @@ class PhoneticDistance(_Distance):
         else:
             return int(src != tar)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Phonetic distance.
 
         Parameters

@@ -19,7 +19,10 @@
 Köppen II similarity
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KoppenII']
 
@@ -48,9 +51,9 @@ class KoppenII(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize KoppenII instance.
@@ -133,7 +136,7 @@ class KoppenII(_TokenDistance):
 
         return a + (b + c) / 2
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Köppen II similarity of two strings.
 
         Parameters

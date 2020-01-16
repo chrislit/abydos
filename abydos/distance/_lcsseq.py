@@ -123,7 +123,7 @@ class LCSseq(_Distance):
                 j -= 1
         return result
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the longest common subsequence similarity of two strings.
 
         Longest common subsequence similarity (:math:`sim_{LCSseq}`).

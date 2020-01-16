@@ -21,6 +21,7 @@ Meta-Levenshtein distance
 
 from collections import Counter
 from math import log1p
+from typing import Optional
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -28,7 +29,7 @@ from numpy import zeros as np_zeros
 from ._distance import _Distance
 from ._jaro_winkler import JaroWinkler
 from ..corpus import UnigramCorpus
-from ..tokenizer import QGrams, WhitespaceTokenizer
+from ..tokenizer import _Tokenizer, QGrams, WhitespaceTokenizer
 
 __all__ = ['MetaLevenshtein']
 
@@ -44,7 +45,7 @@ class MetaLevenshtein(_Distance):
 
     def __init__(
         self,
-        tokenizer=None,
+        tokenizer: Optional[_Tokenizer] = None,
         corpus=None,
         metric=None,
         normalizer=max,
@@ -188,7 +189,7 @@ class MetaLevenshtein(_Distance):
 
         return d_mat[len(src_ordered), len(tar_ordered)]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein

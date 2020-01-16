@@ -19,8 +19,11 @@
 Soft Cosine similarity & distance
 """
 
+from typing import Optional
+
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['SoftCosine']
 
@@ -53,7 +56,13 @@ class SoftCosine(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer=None, metric=None, sim_method='a', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        metric=None,
+        sim_method='a',
+        **kwargs
+    ):
         r"""Initialize SoftCosine instance.
 
         Parameters
@@ -104,7 +113,7 @@ class SoftCosine(_TokenDistance):
             raise ValueError("sim_method must be one of 'a', 'b', 'c', or 'd'")
         self.params['sim_method'] = sim_method
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the Soft Cosine similarity of two strings.
 
         Parameters

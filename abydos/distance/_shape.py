@@ -19,7 +19,10 @@
 Penrose's shape difference
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Shape']
 
@@ -57,9 +60,9 @@ class Shape(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Shape instance.
@@ -103,7 +106,7 @@ class Shape(_TokenDistance):
             **kwargs
         )
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the Penrose's shape difference of two strings.
 
         Parameters

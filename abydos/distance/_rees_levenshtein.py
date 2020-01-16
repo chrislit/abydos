@@ -216,7 +216,7 @@ class ReesLevenshtein(_Distance):
 
         return d_mat[v_str1_length, v_str2_length]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Rees-Levenshtein distance of two strings.
 
         Parameters

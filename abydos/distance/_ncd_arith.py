@@ -53,7 +53,7 @@ class NCDarith(_Distance):
         self._coder = Arithmetic()
         self._probs = probs
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the NCD between two strings using arithmetic coding.
 
         Parameters

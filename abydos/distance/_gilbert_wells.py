@@ -21,8 +21,10 @@ Gilbert & Wells similarity
 
 from math import factorial, log, pi
 from sys import float_info
+from typing import Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['GilbertWells']
 
@@ -68,7 +70,12 @@ class GilbertWells(_TokenDistance):
 
     """
 
-    def __init__(self, alphabet=None, tokenizer=None, **kwargs):
+    def __init__(
+        self,
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        **kwargs
+    ):
         """Initialize GilbertWells instance.
 
         Parameters
@@ -161,7 +168,7 @@ class GilbertWells(_TokenDistance):
             - log(factorial(c + d))
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Gilbert & Wells similarity of two strings.
 
         Parameters

@@ -21,8 +21,10 @@ Fellegi-Sunter similarity
 
 from math import exp, log
 from sys import float_info
+from typing import Optional
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['FellegiSunter']
 
@@ -38,8 +40,8 @@ class FellegiSunter(_TokenDistance):
 
     def __init__(
         self,
-        tokenizer=None,
-        intersection_type='crisp',
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         simplified=False,
         mismatch_factor=0.5,
         **kwargs
@@ -145,7 +147,7 @@ class FellegiSunter(_TokenDistance):
 
         return similarity
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Fellegi-Sunter similarity of two strings.
 
         Parameters

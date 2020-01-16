@@ -204,7 +204,7 @@ class ShapiraStorerI(_Distance):
 
         return distance - moves
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Shapira & Storer I distance.
 
         Parameters

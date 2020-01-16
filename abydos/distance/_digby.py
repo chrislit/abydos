@@ -19,7 +19,10 @@
 Digby correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Digby']
 
@@ -52,9 +55,9 @@ class Digby(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Digby instance.
@@ -146,7 +149,7 @@ class Digby(_TokenDistance):
             return num / ((a * d) ** 0.75 + (b * c) ** 0.75)
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Digby similarity of two strings.
 
         Parameters

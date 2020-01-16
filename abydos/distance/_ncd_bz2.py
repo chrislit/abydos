@@ -55,7 +55,7 @@ class NCDbz2(_Distance):
         super().__init__(**kwargs)
         self._level = level
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the NCD between two strings using bzip2 compression.
 
         Parameters

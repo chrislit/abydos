@@ -46,7 +46,7 @@ class ChaoDice(ChaoJaccard):
         """
         super(ChaoDice, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Chao's Dice similarity of two strings.
 
         Parameters

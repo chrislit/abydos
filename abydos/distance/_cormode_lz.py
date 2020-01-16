@@ -93,7 +93,7 @@ class CormodeLZ(_Distance):
 
         return 1 + edits
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Cormode's LZ distance of two strings.
 
         Parameters

@@ -65,7 +65,7 @@ class MongeElkan(_Distance):
             self._sim_func = Levenshtein().sim
         self._symmetric = symmetric
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Monge-Elkan similarity of two strings.
 
         Parameters

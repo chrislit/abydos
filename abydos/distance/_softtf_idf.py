@@ -19,12 +19,15 @@
 SoftTF-IDF similarity
 """
 
+from typing import Optional
+
 from collections import Counter
 from math import log1p
 
 from ._jaro_winkler import JaroWinkler
 from ._token_distance import _TokenDistance
 from ..corpus import UnigramCorpus
+from ..tokenizer import _Tokenizer
 
 __all__ = ['SoftTFIDF']
 
@@ -62,7 +65,12 @@ class SoftTFIDF(_TokenDistance):
     """
 
     def __init__(
-        self, tokenizer=None, corpus=None, metric=None, threshold=0.9, **kwargs
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        corpus=None,
+        metric=None,
+        threshold=0.9,
+        **kwargs
     ):
         """Initialize SoftTFIDF instance.
 
@@ -101,7 +109,7 @@ class SoftTFIDF(_TokenDistance):
         if self._metric is None:
             self._metric = JaroWinkler()
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the SoftTF-IDF similarity of two strings.
 
         Parameters

@@ -19,9 +19,11 @@
 Sift4 Extended approximate string distance
 """
 
+from typing import Optional
+
 from ._distance import _Distance
 from ._sift4 import Sift4
-from ..tokenizer import CharacterTokenizer
+from ..tokenizer import _Tokenizer, CharacterTokenizer
 
 __all__ = ['Sift4Extended']
 
@@ -41,7 +43,7 @@ class Sift4Extended(_Distance):
         self,
         max_offset=5,
         max_distance=0,
-        tokenizer=None,
+        tokenizer: Optional[_Tokenizer] = None,
         token_matcher=None,
         matching_evaluator=None,
         local_length_evaluator=None,

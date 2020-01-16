@@ -46,7 +46,7 @@ class LIG3(_Distance):
 
     _lev = Levenshtein()
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the LIG3 similarity of two words.
 
         Parameters

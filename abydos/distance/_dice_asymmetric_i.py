@@ -19,7 +19,10 @@
 Dice's Asymmetric I similarity
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['DiceAsymmetricI']
 
@@ -52,7 +55,12 @@ class DiceAsymmetricI(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
+    ):
         """Initialize DiceAsymmetricI instance.
 
         Parameters
@@ -87,7 +95,7 @@ class DiceAsymmetricI(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Dice's Asymmetric I similarity of two strings.
 
         Parameters

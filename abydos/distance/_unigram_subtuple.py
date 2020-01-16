@@ -20,8 +20,10 @@ Unigram subtuple similarity
 """
 
 from math import log
+from typing import Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['UnigramSubtuple']
 
@@ -56,9 +58,9 @@ class UnigramSubtuple(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize UnigramSubtuple instance.
@@ -145,7 +147,7 @@ class UnigramSubtuple(_TokenDistance):
             - 3.29 * (1 / a + 1 / b + 1 / c + 1 / d) ** 0.5
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the unigram subtuple similarity of two strings.
 
         Parameters

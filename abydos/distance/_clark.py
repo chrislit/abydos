@@ -52,7 +52,7 @@ class Clark(_TokenDistance):
         """
         super(Clark, self).__init__(**kwargs)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return Clark's coefficient of divergence of two strings.
 
         Parameters

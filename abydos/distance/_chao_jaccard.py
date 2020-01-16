@@ -58,7 +58,7 @@ class ChaoJaccard(_TokenDistance):
         """
         super(ChaoJaccard, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return normalized Chao's Jaccard similarity of two strings.
 
         Parameters

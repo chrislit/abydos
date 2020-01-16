@@ -19,10 +19,13 @@
 Tulloss' T similarity
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
 from ._tulloss_r import TullossR
 from ._tulloss_s import TullossS
 from ._tulloss_u import TullossU
+from ..tokenizer import _Tokenizer
 
 __all__ = ['TullossT']
 
@@ -61,7 +64,12 @@ class TullossT(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
+    ):
         """Initialize TullossT instance.
 
         Parameters
@@ -99,7 +107,7 @@ class TullossT(_TokenDistance):
         self._s = TullossS()
         self._u = TullossU()
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return Tulloss' T similarity of two strings.
 
         Parameters

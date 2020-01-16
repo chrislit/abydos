@@ -37,7 +37,7 @@ class NCDrle(_Distance):
 
     _rle = RLE()
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the NCD between two strings using RLE.
 
         Parameters

@@ -19,7 +19,10 @@
 Minkowski distance & similarity
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Minkowski']
 
@@ -37,8 +40,8 @@ class Minkowski(_TokenDistance):
         self,
         pval=1,
         alphabet=0,
-        tokenizer=None,
-        intersection_type='crisp',
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Euclidean instance.
@@ -147,7 +150,7 @@ class Minkowski(_TokenDistance):
             / normalizer
         )
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return normalized Minkowski distance of two strings.
 
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance

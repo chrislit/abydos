@@ -19,7 +19,10 @@
 Benini I correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['BeniniI']
 
@@ -49,9 +52,9 @@ class BeniniI(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize BeniniI instance.
@@ -142,7 +145,7 @@ class BeniniI(_TokenDistance):
             return 0.0
         return num / ((a + c) * (c + d))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Benini I similarity of two strings.
 
         Parameters

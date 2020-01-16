@@ -99,7 +99,7 @@ class BLEU(_Distance):
                 for _ in range(len(self._tokenizers))
             ]
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the BLEU similarity of two strings.
 
         Parameters

@@ -20,8 +20,10 @@ Jensen-Shannon divergence
 """
 
 from math import log
+from typing import Optional
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['JensenShannon']
 
@@ -45,7 +47,12 @@ class JensenShannon(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
+    ):
         """Initialize JensenShannon instance.
 
         Parameters
@@ -123,7 +130,7 @@ class JensenShannon(_TokenDistance):
 
         return diverg
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Jensen-Shannon distance of two strings.
 
         Parameters

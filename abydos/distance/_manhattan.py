@@ -19,7 +19,10 @@
 Manhattan distance & similarity
 """
 
+from typing import Optional
+
 from ._minkowski import Minkowski
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Manhattan']
 
@@ -34,7 +37,11 @@ class Manhattan(Minkowski):
     """
 
     def __init__(
-        self, alphabet=0, tokenizer=None, intersection_type='crisp', **kwargs
+        self,
+        alphabet=0,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs
     ):
         """Initialize Manhattan instance.
 
@@ -113,7 +120,7 @@ class Manhattan(Minkowski):
         """
         return super(Manhattan, self).dist_abs(src, tar, normalized=normalized)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Manhattan distance between two strings.
 
         The normalized Manhattan distance is a distance metric in

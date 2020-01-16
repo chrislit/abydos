@@ -62,7 +62,7 @@ class RaupCrick(_TokenDistance):
         """
         super(RaupCrick, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Raup-Crick similarity of two strings.
 
         Parameters

@@ -232,7 +232,7 @@ class Eudex(_Distance):
 
         return distance
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return normalized distance between the Eudex hashes of two terms.
 
         This is Eudex distance normalized to [0, 1].

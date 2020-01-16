@@ -103,7 +103,7 @@ class Strcmp95(_Distance):
         super(Strcmp95, self).__init__(**kwargs)
         self._long_strings = long_strings
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the strcmp95 similarity of two strings.
 
         Parameters

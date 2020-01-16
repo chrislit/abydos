@@ -86,7 +86,7 @@ class YujianBo(Levenshtein):
         """
         return self.dist(src, tar)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the Yujian-Bo normalized edit distance between strings.
 
         Parameters

@@ -47,7 +47,7 @@ class Inclusion(_Distance):
 
     _lev = Levenshtein()
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the INClusion Programme value of two words.
 
         Parameters

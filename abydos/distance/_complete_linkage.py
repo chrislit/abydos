@@ -19,8 +19,11 @@
 Complete linkage distance
 """
 
+from typing import Optional
+
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['CompleteLinkage']
 
@@ -39,7 +42,9 @@ class CompleteLinkage(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, metric=None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, metric=None, **kwargs
+    ):
         """Initialize CompleteLinkage instance.
 
         Parameters
@@ -114,7 +119,7 @@ class CompleteLinkage(_TokenDistance):
 
         return max_val
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized complete linkage distance of two strings.
 
         Parameters

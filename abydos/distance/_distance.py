@@ -58,7 +58,7 @@ class _Distance:
         for key in kwargs:
             self.params[key] = kwargs[key]
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return similarity.
 
         Parameters
@@ -79,7 +79,7 @@ class _Distance:
         """
         return 1.0 - self.dist(src, tar)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return distance.
 
         Parameters

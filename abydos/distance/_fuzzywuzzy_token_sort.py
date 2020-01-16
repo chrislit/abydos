@@ -20,9 +20,10 @@ FuzzyWuzzy Token Sort similarity
 """
 
 from difflib import SequenceMatcher
+from typing import Optional
 
 from ._token_distance import _TokenDistance
-from ..tokenizer import RegexpTokenizer
+from ..tokenizer import _Tokenizer, RegexpTokenizer
 
 __all__ = ['FuzzyWuzzyTokenSort']
 
@@ -38,7 +39,7 @@ class FuzzyWuzzyTokenSort(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(self, tokenizer: Optional[_Tokenizer] = None, **kwargs):
         """Initialize FuzzyWuzzyTokenSort instance.
 
         Parameters
@@ -67,7 +68,7 @@ class FuzzyWuzzyTokenSort(_TokenDistance):
             tokenizer=tokenizer, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the FuzzyWuzzy Token Sort similarity of two strings.
 
         Parameters

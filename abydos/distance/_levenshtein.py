@@ -185,7 +185,7 @@ class Levenshtein(_Distance):
             return d_mat, trace_mat
         return d_mat
 
-    def alignment(self, src, tar):
+    def alignment(self, src: str, tar: str) -> Tuple[float, str, str]:
         """Return the Levenshtein alignment of two strings.
 
         Parameters
@@ -325,7 +325,7 @@ class Levenshtein(_Distance):
         else:
             return d_mat[src_len, tar_len]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein

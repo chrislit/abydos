@@ -20,8 +20,10 @@ Bhattacharyya distance
 """
 
 from math import log
+from typing import Optional
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Bhattacharyya']
 
@@ -40,7 +42,7 @@ class Bhattacharyya(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(self, tokenizer: Optional[_Tokenizer] = None, **kwargs):
         """Initialize Bhattacharyya instance.
 
         Parameters
@@ -102,7 +104,7 @@ class Bhattacharyya(_TokenDistance):
         else:
             return -log(bc)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the Bhattacharyya coefficient of two strings.
 
         Parameters

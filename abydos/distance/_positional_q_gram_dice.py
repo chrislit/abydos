@@ -20,9 +20,10 @@ Positional Q-Gram Dice coefficient
 """
 
 from collections import defaultdict
+from typing import Optional
 
 from ._distance import _Distance
-from ..tokenizer import QGrams, WhitespaceTokenizer
+from ..tokenizer import _Tokenizer, QGrams, WhitespaceTokenizer
 
 __all__ = ['PositionalQGramDice']
 
@@ -35,7 +36,9 @@ class PositionalQGramDice(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, max_dist=1, tokenizer=None, **kwargs):
+    def __init__(
+        self, max_dist=1, tokenizer: Optional[_Tokenizer] = None, **kwargs
+    ):
         """Initialize PositionalQGramDice instance.
 
         Parameters
@@ -73,7 +76,7 @@ class PositionalQGramDice(_Distance):
             else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Positional Q-Gram Dice coefficient of two strings.
 
         Parameters

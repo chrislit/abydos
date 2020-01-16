@@ -19,8 +19,10 @@
 Guth matching algorithm
 """
 
+from typing import Optional
+
 from ._distance import _Distance
-from ..tokenizer import QGrams
+from ..tokenizer import _Tokenizer, QGrams
 
 __all__ = ['Guth']
 
@@ -43,7 +45,7 @@ class Guth(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(self, tokenizer: Optional[_Tokenizer] = None, **kwargs):
         """Initialize Guth instance.
 
         Parameters
@@ -163,7 +165,7 @@ class Guth(_Distance):
             return 1.0
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the relative Guth similarity of two strings.
 
         This deviates from the algorithm described in :cite:`Guth:1976` in that

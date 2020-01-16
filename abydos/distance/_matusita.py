@@ -19,7 +19,10 @@
 Matusita distance
 """
 
+from typing import Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Matusita']
 
@@ -39,7 +42,7 @@ class Matusita(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(self, tokenizer: Optional[_Tokenizer] = None, **kwargs):
         """Initialize Matusita instance.
 
         Parameters
@@ -115,7 +118,7 @@ class Matusita(_TokenDistance):
             )
         ) ** 0.5
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Matusita distance of two strings.
 
         Parameters

@@ -19,7 +19,10 @@
 Anderberg's d
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Anderberg']
 
@@ -77,9 +80,9 @@ class Anderberg(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Anderberg instance.
@@ -169,7 +172,7 @@ class Anderberg(_TokenDistance):
             return 0.0
         return num / (2 * (a + b + c + d))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Anderberg's D similarity of two strings.
 
         Parameters

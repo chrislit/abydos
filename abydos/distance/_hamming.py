@@ -111,7 +111,7 @@ class Hamming(_Distance):
 
         return hdist
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Hamming distance between two strings.
 
         Hamming distance normalized to the interval [0, 1].

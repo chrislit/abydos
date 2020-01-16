@@ -19,6 +19,8 @@
 Generalized Fleiss correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
 from ..stats._mean import (
     aghmean,
@@ -36,6 +38,7 @@ from ..stats._mean import (
     qmean,
     seiffert_mean,
 )
+from ..tokenizer import _Tokenizer
 
 __all__ = ['GeneralizedFleiss']
 
@@ -113,9 +116,9 @@ class GeneralizedFleiss(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         mean_func='arithmetic',
         marginals='a',
         proportional=False,
@@ -276,7 +279,7 @@ class GeneralizedFleiss(_TokenDistance):
 
         return num / mean_value
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Generalized Fleiss similarity of two strings.
 
         Parameters

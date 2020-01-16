@@ -55,7 +55,7 @@ class HendersonHeron(_TokenDistance):
         """
         super(HendersonHeron, self).__init__(**kwargs)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the Henderson-Heron dissimilarity of two strings.
 
         Parameters

@@ -138,7 +138,7 @@ class HigueraMico(_Distance):
 
         return min_dist
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the bounded Higuera-Micó distance between two strings.
 
         This is the distance bounded to the range [0, 1].

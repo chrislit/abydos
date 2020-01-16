@@ -92,7 +92,7 @@ class Marking(_Distance):
 
         return distance
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized marking distance of two strings.
 
         Parameters

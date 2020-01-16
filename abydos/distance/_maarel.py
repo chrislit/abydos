@@ -19,7 +19,10 @@
 Maarel correlation
 """
 
+from typing import Collection, Counter as TCounter, Optional, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Maarel']
 
@@ -49,9 +52,9 @@ class Maarel(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
+        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
         **kwargs
     ):
         """Initialize Maarel instance.
@@ -139,7 +142,7 @@ class Maarel(_TokenDistance):
 
         return (2 * a - b - c) / (2 * a + b + c)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Maarel similarity of two strings.
 
         Parameters
