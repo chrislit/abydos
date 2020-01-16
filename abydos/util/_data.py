@@ -30,10 +30,7 @@ import os
 import re
 import sys
 
-try:
-    import urllib.request as urllib
-except ImportError:  # pragma: no cover
-    import urllib
+import urllib.request
 import zipfile
 
 from xml.etree import ElementTree  # noqa: S405
@@ -138,7 +135,7 @@ def list_available_packages(url=None):
         url = INDEX_URL
     if url[:8] != 'https://':
         raise ValueError('url should begin with "https://"')
-    with urllib.urlopen(url) as ix:  # noqa: S310
+    with urllib.request.urlopen(url) as ix:  # noqa: S310
         xml = ElementTree.fromstring(ix.read())  # noqa: S314
 
     packages = [
@@ -241,10 +238,10 @@ def download_package(
                 os.makedirs(
                     os.path.join(data_path, pack[4]), mode=0o775, exist_ok=True
                 )
-                urllib.urlretrieve(  # noqa: S310
+                urllib.request.urlretrieve(  # noqa: S310
                     pack[3][:-3] + 'xml', zip_fn[:-3] + 'xml'
                 )
-                urllib.urlretrieve(pack[3], zip_fn)  # noqa: S310
+                urllib.request.urlretrieve(pack[3], zip_fn)  # noqa: S310
                 zip_pkg = zipfile.ZipFile(zip_fn)
                 zip_pkg.extractall(os.path.join(data_path, pack[4]))
                 zip_pkg.close()
