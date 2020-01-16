@@ -21,7 +21,7 @@ The NGram class is a container for an n-gram corpus
 
 from codecs import open as c_open
 from collections import Counter
-from typing import cast, Counter as TCounter, List, Optional, Union
+from typing import Counter as TCounter, List, Optional, Union, cast
 
 from ._corpus import Corpus
 
@@ -185,7 +185,6 @@ class NGramCorpus:
         if isinstance(ngram, str):
             ngram = ngram.split()
 
-        print(ngram)
         # if ngram is not empty, check whether the next element is in the
         # corpus; if so, recurse--if not, return 0
         if ngram[0] in corpus:
