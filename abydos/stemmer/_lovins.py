@@ -19,6 +19,7 @@
 Lovins stemmer.
 """
 
+from typing import Callable, Dict, Optional
 from unicodedata import normalize
 
 from ._stemmer import _Stemmer
@@ -827,7 +828,7 @@ class Lovins(_Stemmer):
             return stem
         return stem[:-1] + 's'
 
-    _suffix = {}
+    _suffix = {}  # type: Dict[str, Optional[Callable[[str, int], str]]]
     _recode = ()
 
     def __init__(self):

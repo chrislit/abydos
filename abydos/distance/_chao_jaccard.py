@@ -26,7 +26,7 @@ try:
 except ImportError:  # pragma: no cover
     from random import choice
 
-    def choices(population, k=1):
+    def choices(population, k=1):  # type: ignore
         """Quick implementation of choices for Python < 3.6."""
         return [choice(population) for _ in range(k)]
 

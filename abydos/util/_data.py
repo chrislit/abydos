@@ -29,10 +29,10 @@ solution, and because their license (Apache) allows for it.
 import os
 import re
 import sys
-
 import urllib.request
 import zipfile
 
+from typing import List
 from xml.etree import ElementTree  # noqa: S405
 
 __all__ = [
@@ -49,7 +49,7 @@ INDEX_URL = (
     'https://raw.githubusercontent.com/chrislit/abydos-data/master/index.xml'
 )
 
-data_path = []
+data_path = []  # type: List[str]
 """A list of directories where the Abydos data package might reside.
    These directories will be checked in order when looking for a
    resource in the data package.  Note that this allows users to
