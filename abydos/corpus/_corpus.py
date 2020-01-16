@@ -23,7 +23,7 @@ functions for corpus statistics, language modeling, etc.
 from math import log
 from typing import Callable, List, Optional, Set, Tuple, Union
 
-from ..tokenizer._tokenizer import _Tokenizer
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Corpus']
 
