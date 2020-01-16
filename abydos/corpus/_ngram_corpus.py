@@ -219,7 +219,7 @@ class NGramCorpus:
         else:
             self._add_to_ngcorpus(corpus[words[0]], words[1:], count)
 
-    def gng_importer(self, corpus_file: str):
+    def gng_importer(self, corpus_file: str) -> None:
         """Fill in self.ngcorpus from a Google NGram corpus file.
 
         Parameters
