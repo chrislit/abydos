@@ -326,7 +326,7 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
         outfile.write('L_' + l.upper() + ' = 2**' + str(i) + '\n')
     outfile.write('\n\n')
 
-    tail_text += '\nBMDATA = {}\n'
+    tail_text += '\nBMDATA = {}  # type: ignore\n'
 
     subdirs = ('gen', 'sep', 'ash')
 

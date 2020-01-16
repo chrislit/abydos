@@ -20,8 +20,9 @@ The util._ncr module defines _ncr, which computes n Choose r.
 """
 
 from math import factorial, gamma
+from typing import List
 
-__all__ = []
+__all__ = []  # type: List[str]
 
 
 def _ncr(n, r):

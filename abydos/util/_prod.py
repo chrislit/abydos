@@ -22,8 +22,9 @@ of numbers (akin to sum, but for product).
 
 from functools import reduce
 from operator import mul
+from typing import List
 
-__all__ = []
+__all__ = []  # type: List[str]
 
 
 def _prod(nums):
