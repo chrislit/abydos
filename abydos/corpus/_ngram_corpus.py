@@ -21,7 +21,7 @@ The NGram class is a container for an n-gram corpus
 
 from codecs import open as c_open
 from collections import Counter
-from typing import Counter as TCounter, List, Optional, Union
+from typing import cast, Counter as TCounter, List, Optional, Union
 
 from ._corpus import Corpus
 
@@ -45,7 +45,7 @@ class NGramCorpus:
     .. versionadded:: 0.3.0
     """
 
-    def __init__(self, corpus: Corpus = None) -> None:
+    def __init__(self, corpus: Optional[Corpus] = None) -> None:
         r"""Initialize Corpus.
 
         Parameters
@@ -70,7 +70,7 @@ class NGramCorpus:
         .. versionadded:: 0.3.0
 
         """
-        self.ngcorpus = Counter()  # type: Optional[TCounter[str]]
+        self.ngcorpus = Counter()  # type: TCounter[Optional[str]]
 
         if corpus is None:
             return
@@ -78,7 +78,7 @@ class NGramCorpus:
             self.corpus_importer(corpus)
         else:
             raise TypeError(
-                'Corpus argument must be None or of type abydos.Corpus. '
+                'Corpus argument must be None or of type abydos.corpus.Corpus. '
                 + str(type(corpus))
                 + ' found.'
             )
@@ -141,7 +141,9 @@ class NGramCorpus:
                         )
 
     def get_count(
-        self, ngram: Union[str, List[str]], corpus: Optional[Union[Corpus, TCounter[str]]] = None
+        self,
+        ngram: Union[str, List[str]],
+        corpus: Optional[TCounter[Optional[str]]] = None,
     ) -> int:
         r"""Get the count of an n-gram in the corpus.
 
@@ -149,7 +151,7 @@ class NGramCorpus:
         ----------
         ngram : str or List[str]
             The n-gram to retrieve the count of from the n-gram corpus
-        corpus : Corpus or None
+        corpus : Counter[str] or None
             The corpus
 
         Returns
@@ -183,15 +185,17 @@ class NGramCorpus:
         if isinstance(ngram, str):
             ngram = ngram.split()
 
+        print(ngram)
         # if ngram is not empty, check whether the next element is in the
         # corpus; if so, recurse--if not, return 0
         if ngram[0] in corpus:
-            return self.get_count(ngram[1:], corpus[ngram[0]])
+            return self.get_count(
+                ngram[1:],
+                cast(Optional[TCounter[Optional[str]]], corpus[ngram[0]]),
+            )
         return 0
 
-    def _add_to_ngcorpus(
-        self, corpus: Optional[Union[Corpus, TCounter[str]]], words: List[str], count: int
-    ) -> None:
+    def _add_to_ngcorpus(self, corpus, words: List[str], count: int) -> None:
         """Build up a corpus entry recursively.
 
         Parameters
@@ -230,10 +234,10 @@ class NGramCorpus:
         """
         with c_open(corpus_file, 'r', encoding='utf-8') as gng:
             for line in gng:
-                line = line.rstrip().split('\t')
-                words = line[0].split()
+                line_parts = line.rstrip().split('\t')
+                words = line_parts[0].split()
 
-                self._add_to_ngcorpus(self.ngcorpus, words, int(line[2]))
+                self._add_to_ngcorpus(self.ngcorpus, words, int(line_parts[2]))
 
 
 if __name__ == '__main__':
