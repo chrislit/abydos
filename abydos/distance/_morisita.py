@@ -102,8 +102,8 @@ class Morisita(_TokenDistance):
         src_card = self._src_card()
         tar_card = self._tar_card()
 
-        src_lambda = 0.
-        tar_lambda = 0.
+        src_lambda = 0.0
+        tar_lambda = 0.0
         for val in self._src_tokens.values():
             src_lambda += val * (val - 1)
         if src_lambda:
@@ -113,7 +113,7 @@ class Morisita(_TokenDistance):
         if tar_lambda:
             tar_lambda /= tar_card * (tar_card - 1)
 
-        sim = 0.
+        sim = 0.0
         for symbol in intersection.keys():
             sim += self._src_tokens[symbol] * self._tar_tokens[symbol]
         sim *= 2

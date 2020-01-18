@@ -213,7 +213,7 @@ class Guth(_Distance):
             src = self.params['tokenizer'].tokenize(src).get_list()
             tar = self.params['tokenizer'].tokenize(tar).get_list()
 
-        score = 0.
+        score = 0.0
         for pos in range(len(src)):
             s = self._token_at(src, pos)
             t = self._token_at(tar, pos)

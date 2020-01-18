@@ -239,7 +239,7 @@ class Cao(_TokenDistance):
 
         alphabet = self._total().keys()
 
-        score = 0.
+        score = 0.0
         for symbol in alphabet:
             src_tok = max(0.1, self._src_tokens[symbol])
             tar_tok = max(0.1, self._tar_tokens[symbol])
