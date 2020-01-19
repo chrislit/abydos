@@ -1509,12 +1509,12 @@ class ALINE(_Distance):
             if src_tok[ch] in self._phones:
                 seg = src_tok[ch]
                 src_tok[ch] = dict(cast(Dict, self._phones[src_tok[ch]]))
-                src_tok[ch]['segment'] = seg
+                cast(Dict, src_tok[ch])['segment'] = seg
         for ch in range(len(tar_tok)):
             if tar_tok[ch] in self._phones:
                 seg = tar_tok[ch]
                 tar_tok[ch] = dict(cast(Dict, self._phones[tar_tok[ch]]))
-                tar_tok[ch]['segment'] = seg
+                cast(Dict, tar_tok[ch])['segment'] = seg
 
         src_tok = [fb for fb in src_tok if isinstance(fb, dict)]
         tar_tok = [fb for fb in tar_tok if isinstance(fb, dict)]
@@ -1524,12 +1524,12 @@ class ALINE(_Distance):
                 j = i - 1
                 while j > -1:
                     if 'supplemental' not in src_tok[j]:
-                        for key, value in src_tok[i].items():
+                        for key, value in cast(Dict, src_tok[i]).items():
                             if key != 'supplemental':
                                 if key == 'segment':
-                                    src_tok[j]['segment'] += value
+                                    cast(Dict, src_tok[j])['segment'] += value
                                 else:
-                                    src_tok[j][key] = value
+                                    cast(Dict, src_tok[j])[key] = value
                         j = 0
                     j -= 1
         src_tok = [fb for fb in src_tok if 'supplemental' not in fb]
@@ -1539,24 +1539,28 @@ class ALINE(_Distance):
                 j = i - 1
                 while j > -1:
                     if 'supplemental' not in tar_tok[j]:
-                        for key, value in tar_tok[i].items():
+                        for key, value in cast(Dict, tar_tok[i]).items():
                             if key != 'supplemental':
                                 if key == 'segment':
-                                    tar_tok[j]['segment'] += value
+                                    cast(Dict, tar_tok[j])['segment'] += value
                                 else:
-                                    tar_tok[j][key] = value
+                                    cast(Dict, tar_tok[j])[key] = value
                         j = 0
                     j -= 1
         tar_tok = [fb for fb in tar_tok if 'supplemental' not in fb]
 
         for i in range(len(src_tok)):
-            for key in src_tok[i].keys():
+            for key in cast(Dict, src_tok[i]).keys():
                 if key != 'segment':
-                    src_tok[i][key] = self.feature_weights[src_tok[i][key]]
+                    cast(Dict, src_tok[i])[key] = self.feature_weights[
+                        cast(Dict, src_tok[i])[key]
+                    ]
         for i in range(len(tar_tok)):
-            for key in tar_tok[i].keys():
+            for key in cast(Dict, tar_tok[i]).keys():
                 if key != 'segment':
-                    tar_tok[i][key] = self.feature_weights[tar_tok[i][key]]
+                    cast(Dict, tar_tok[i])[key] = self.feature_weights[
+                        cast(Dict, tar_tok[i])[key]
+                    ]
 
         src_len = len(src_tok)
         tar_len = len(tar_tok)
@@ -1604,7 +1608,7 @@ class ALINE(_Distance):
 
         threshold = (1 - self._epsilon) * dp_score
 
-        alignments = []
+        alignments = []  # type: List[Tuple[float, str, str]]
 
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
@@ -1619,9 +1623,9 @@ class ALINE(_Distance):
                 if s_mat[i, j] >= threshold:
                     out = []
                     for j1 in range(tar_len - 1, j - 1, -1):
-                        out.append(('', tar_tok[j1]['segment']))
+                        out.append(('', cast(Dict, tar_tok[j1])['segment']))
                     for i1 in range(src_len - 1, i - 1, -1):
-                        out.append((src_tok[i1]['segment'], ''))
+                        out.append((cast(Dict, src_tok[i1])['segment'], ''))
                     out.append(('‖', '‖'))
                     _retrieve(i, j, 0, out)
 
