@@ -23,7 +23,7 @@ _TokenDistance.
 from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
-from typing import Optional
+from typing import Counter as TCounter, Optional
 
 import numpy as np
 from numpy import zeros as np_zeros
@@ -228,8 +228,8 @@ class _TokenDistance(_Distance):
         else:
             self._intersection = self._crisp_intersection
 
-        self._src_tokens = Counter()
-        self._tar_tokens = Counter()
+        self._src_tokens = Counter()  # type: TCounter[str]
+        self._tar_tokens = Counter()  # type: TCounter[str]
         self._population_card_value = 0
 
         # initialize normalizer

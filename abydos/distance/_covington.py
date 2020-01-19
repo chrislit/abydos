@@ -20,7 +20,7 @@ Covington distance
 """
 
 from collections import namedtuple
-from typing import NamedTuple, Tuple
+from typing import Tuple
 from unicodedata import normalize as unicode_normalize
 
 from ._distance import _Distance
