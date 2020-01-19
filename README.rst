@@ -75,7 +75,7 @@ Abydos
     :target: https://github.com/ambv/black
     :alt: black
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.07/10-yellowgreen.svg
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.09/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
 
@@ -87,11 +87,11 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-38,344-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-39,036-blue.svg
     :target: #
     :alt: SLOCCount
 
-.. |mypy| image:: https://img.shields.io/badge/mypy-17.19%25%20imprecise-1F5082.svg
+.. |mypy| image:: https://img.shields.io/badge/mypy-13.49%25%20imprecise-1F5082.svg
     :target: #
     :alt: mypy Imprecision
 
