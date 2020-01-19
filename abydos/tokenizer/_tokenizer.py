@@ -21,6 +21,7 @@ _Tokenizer base class
 
 from collections import Counter
 from math import exp, log1p, log2
+from typing import Optional
 
 __all__ = ['_Tokenizer']
 
@@ -65,7 +66,7 @@ class _Tokenizer:
         self._ordered_tokens = []
         self._ordered_weights = []
 
-    def tokenize(self, string=None):
+    def tokenize(self, string: Optional[str] = None):
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter

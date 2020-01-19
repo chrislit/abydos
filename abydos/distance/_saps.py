@@ -19,7 +19,7 @@
 Syllable Alignment Pattern Searching tokenizer
 """
 
-from typing import Optional
+from typing import Callable, List, Optional, Union
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
