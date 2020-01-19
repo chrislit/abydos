@@ -20,7 +20,7 @@ ALINE alignment, similarity, and distance
 """
 
 from copy import deepcopy
-from typing import Callable, List, Tuple, Union, cast
+from typing import Callable, Dict, List, Tuple, Union, cast
 
 from numpy import NINF
 from numpy import float as np_float
@@ -1356,9 +1356,9 @@ class ALINE(_Distance):
             def _record(score, out):
                 out.append(('‖', '‖'))
                 for i1 in range(i - 1, -1, -1):
-                    out.append((src[i1]['segment'], ''))
+                    out.append((src_tok[i1]['segment'], ''))
                 for j1 in range(j - 1, -1, -1):
-                    out.append(('', tar[j1]['segment']))
+                    out.append(('', tar_tok[j1]['segment']))
                 if self._mode == 'global':
                     score += (i + j) * _sig_skip('')
 
@@ -1406,169 +1406,182 @@ class ALINE(_Distance):
                     i > 0
                     and j > 0
                     and s_mat[i - 1, j - 1]
-                    + _sig_sub(src[i - 1], tar[j - 1])
+                    + _sig_sub(src_tok[i - 1], tar_tok[j - 1])
                     + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
                     loc_out.append(
-                        (src[i - 1]['segment'], tar[j - 1]['segment'])
+                        (src_tok[i - 1]['segment'], tar_tok[j - 1]['segment'])
                     )
                     _retrieve(
                         i - 1,
                         j - 1,
-                        score + _sig_sub(src[i - 1], tar[j - 1]),
+                        score + _sig_sub(src_tok[i - 1], tar_tok[j - 1]),
                         loc_out,
                     )
                     loc_out.pop()
 
                 if (
                     j > 0
-                    and s_mat[i, j - 1] + _sig_skip(tar[j - 1]) + score
+                    and s_mat[i, j - 1] + _sig_skip(tar_tok[j - 1]) + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
-                    loc_out.append(('-', tar[j - 1]['segment']))
-                    _retrieve(i, j - 1, score + _sig_skip(tar[j - 1]), loc_out)
+                    loc_out.append(('-', tar_tok[j - 1]['segment']))
+                    _retrieve(
+                        i, j - 1, score + _sig_skip(tar_tok[j - 1]), loc_out
+                    )
                     loc_out.pop()
 
                 if (
                     i > 0
                     and j > 1
                     and s_mat[i - 1, j - 2]
-                    + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1])
+                    + _sig_exp(src_tok[i - 1], tar_tok[j - 2], tar_tok[j - 1])
                     + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
                     loc_out.append(
                         (
-                            src[i - 1]['segment'],
-                            tar[j - 2]['segment'] + tar[j - 1]['segment'],
+                            src_tok[i - 1]['segment'],
+                            tar_tok[j - 2]['segment']
+                            + tar_tok[j - 1]['segment'],
                         )
                     )
                     _retrieve(
                         i - 1,
                         j - 2,
-                        score + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1]),
+                        score
+                        + _sig_exp(
+                            src_tok[i - 1], tar_tok[j - 2], tar_tok[j - 1]
+                        ),
                         loc_out,
                     )
                     loc_out.pop()
 
                 if (
                     i > 0
-                    and s_mat[i - 1, j] + _sig_skip(src[i - 1]) + score
+                    and s_mat[i - 1, j] + _sig_skip(src_tok[i - 1]) + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
-                    loc_out.append((src[i - 1]['segment'], '-'))
-                    _retrieve(i - 1, j, score + _sig_skip(src[i - 1]), loc_out)
+                    loc_out.append((src_tok[i - 1]['segment'], '-'))
+                    _retrieve(
+                        i - 1, j, score + _sig_skip(src_tok[i - 1]), loc_out
+                    )
                     loc_out.pop()
 
                 if (
                     i > 1
                     and j > 0
                     and s_mat[i - 2, j - 1]
-                    + _sig_exp(tar[j - 1], src[i - 2], src[i - 1])
+                    + _sig_exp(tar_tok[j - 1], src_tok[i - 2], src_tok[i - 1])
                     + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
                     loc_out.append(
                         (
-                            src[i - 2]['segment'] + src[i - 1]['segment'],
-                            tar[j - 1]['segment'],
+                            src_tok[i - 2]['segment']
+                            + src_tok[i - 1]['segment'],
+                            tar_tok[j - 1]['segment'],
                         )
                     )
                     _retrieve(
                         i - 2,
                         j - 1,
-                        score + _sig_exp(tar[j - 1], src[i - 2], src[i - 1]),
+                        score
+                        + _sig_exp(
+                            tar_tok[j - 1], src_tok[i - 2], src_tok[i - 1]
+                        ),
                         loc_out,
                     )
                     loc_out.pop()
 
         sg_max = 0.0
 
-        src = list(src)
-        tar = list(tar)
+        src_tok = list(src)  # type: List[Union[str, Dict[str, str]]]
+        tar_tok = list(tar)  # type: List[Union[str, Dict[str, str]]]
 
-        for ch in range(len(src)):
-            if src[ch] in self._phones:
-                seg = src[ch]
-                src[ch] = dict(self._phones[src[ch]])
-                src[ch]['segment'] = seg
-        for ch in range(len(tar)):
-            if tar[ch] in self._phones:
-                seg = tar[ch]
-                tar[ch] = dict(self._phones[tar[ch]])
-                tar[ch]['segment'] = seg
+        for ch in range(len(src_tok)):
+            if src_tok[ch] in self._phones:
+                seg = src_tok[ch]
+                src_tok[ch] = dict(cast(Dict, self._phones[src_tok[ch]]))
+                src_tok[ch]['segment'] = seg
+        for ch in range(len(tar_tok)):
+            if tar_tok[ch] in self._phones:
+                seg = tar_tok[ch]
+                tar_tok[ch] = dict(cast(Dict, self._phones[tar_tok[ch]]))
+                tar_tok[ch]['segment'] = seg
 
-        src = [fb for fb in src if isinstance(fb, dict)]
-        tar = [fb for fb in tar if isinstance(fb, dict)]
+        src_tok = [fb for fb in src_tok if isinstance(fb, dict)]
+        tar_tok = [fb for fb in tar_tok if isinstance(fb, dict)]
 
-        for i in range(1, len(src)):
-            if 'supplemental' in src[i]:
+        for i in range(1, len(src_tok)):
+            if 'supplemental' in src_tok[i]:
                 j = i - 1
                 while j > -1:
-                    if 'supplemental' not in src[j]:
-                        for key, value in src[i].items():
+                    if 'supplemental' not in src_tok[j]:
+                        for key, value in src_tok[i].items():
                             if key != 'supplemental':
                                 if key == 'segment':
-                                    src[j]['segment'] += value
+                                    src_tok[j]['segment'] += value
                                 else:
-                                    src[j][key] = value
+                                    src_tok[j][key] = value
                         j = 0
                     j -= 1
-        src = [fb for fb in src if 'supplemental' not in fb]
+        src_tok = [fb for fb in src_tok if 'supplemental' not in fb]
 
-        for i in range(1, len(tar)):
-            if 'supplemental' in tar[i]:
+        for i in range(1, len(tar_tok)):
+            if 'supplemental' in tar_tok[i]:
                 j = i - 1
                 while j > -1:
-                    if 'supplemental' not in tar[j]:
-                        for key, value in tar[i].items():
+                    if 'supplemental' not in tar_tok[j]:
+                        for key, value in tar_tok[i].items():
                             if key != 'supplemental':
                                 if key == 'segment':
-                                    tar[j]['segment'] += value
+                                    tar_tok[j]['segment'] += value
                                 else:
-                                    tar[j][key] = value
+                                    tar_tok[j][key] = value
                         j = 0
                     j -= 1
-        tar = [fb for fb in tar if 'supplemental' not in fb]
+        tar_tok = [fb for fb in tar_tok if 'supplemental' not in fb]
 
-        for i in range(len(src)):
-            for key in src[i].keys():
+        for i in range(len(src_tok)):
+            for key in src_tok[i].keys():
                 if key != 'segment':
-                    src[i][key] = self.feature_weights[src[i][key]]
-        for i in range(len(tar)):
-            for key in tar[i].keys():
+                    src_tok[i][key] = self.feature_weights[src_tok[i][key]]
+        for i in range(len(tar_tok)):
+            for key in tar_tok[i].keys():
                 if key != 'segment':
-                    tar[i][key] = self.feature_weights[tar[i][key]]
+                    tar_tok[i][key] = self.feature_weights[tar_tok[i][key]]
 
-        src_len = len(src)
-        tar_len = len(tar)
+        src_len = len(src_tok)
+        tar_len = len(tar_tok)
 
         s_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
 
         if self._mode == 'global':
             for i in range(1, src_len + 1):
-                s_mat[i, 0] = s_mat[i - 1, 0] + _sig_skip(src[i - 1])
+                s_mat[i, 0] = s_mat[i - 1, 0] + _sig_skip(src_tok[i - 1])
             for j in range(1, tar_len + 1):
-                s_mat[0, j] = s_mat[0, j - 1] + _sig_skip(tar[j - 1])
+                s_mat[0, j] = s_mat[0, j - 1] + _sig_skip(tar_tok[j - 1])
 
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
                 s_mat[i, j] = max(
-                    s_mat[i - 1, j] + _sig_skip(src[i - 1]),
-                    s_mat[i, j - 1] + _sig_skip(tar[j - 1]),
-                    s_mat[i - 1, j - 1] + _sig_sub(src[i - 1], tar[j - 1]),
+                    s_mat[i - 1, j] + _sig_skip(src_tok[i - 1]),
+                    s_mat[i, j - 1] + _sig_skip(tar_tok[j - 1]),
+                    s_mat[i - 1, j - 1]
+                    + _sig_sub(src_tok[i - 1], tar_tok[j - 1]),
                     s_mat[i - 1, j - 2]
-                    + _sig_exp(src[i - 1], tar[j - 2], tar[j - 1])
+                    + _sig_exp(src_tok[i - 1], tar_tok[j - 2], tar_tok[j - 1])
                     if j > 1
                     else NINF,
                     s_mat[i - 2, j - 1]
-                    + _sig_exp(tar[j - 1], src[i - 2], src[i - 1])
+                    + _sig_exp(tar_tok[j - 1], src_tok[i - 2], src_tok[i - 1])
                     if i > 1
                     else NINF,
                     0 if self._mode in {'local', 'half-local'} else NINF,
@@ -1606,9 +1619,9 @@ class ALINE(_Distance):
                 if s_mat[i, j] >= threshold:
                     out = []
                     for j1 in range(tar_len - 1, j - 1, -1):
-                        out.append(('', tar[j1]['segment']))
+                        out.append(('', tar_tok[j1]['segment']))
                     for i1 in range(src_len - 1, i - 1, -1):
-                        out.append((src[i1]['segment'], ''))
+                        out.append((src_tok[i1]['segment'], ''))
                     out.append(('‖', '‖'))
                     _retrieve(i, j, 0, out)
 

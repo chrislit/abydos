@@ -127,7 +127,7 @@ class HigueraMico(_Distance):
                 n_i = int(mx[len(src), len(tar), k])
                 n_d = len(src) - len(tar) + n_i
                 n_s = k - (n_i + n_d)
-                loc_dist = 0
+                loc_dist = 0.0
                 for i in range(len(src) + 1, len(src) + n_i + 1):
                     loc_dist += 1 / i
                 loc_dist += n_s / (len(src) + n_i)
