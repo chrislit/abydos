@@ -24,7 +24,7 @@ based on Levenshtein distance, including:
 """
 
 from sys import float_info
-from typing import Tuple
+from typing import Callable, List, Tuple, Union
 
 import numpy as np
 

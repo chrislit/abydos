@@ -19,6 +19,8 @@
 Phonetic distance.
 """
 
+from typing import Optional
+
 from ._distance import _Distance
 from ..fingerprint._fingerprint import _Fingerprint
 from ..phonetic._phonetic import _Phonetic

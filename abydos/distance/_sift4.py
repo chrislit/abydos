@@ -19,6 +19,8 @@
 Sift4 Common approximate string distance
 """
 
+from typing import Dict, List, Union
+
 from ._distance import _Distance
 
 __all__ = ['Sift4']
@@ -100,7 +102,7 @@ class Sift4(_Distance):
         lcss = 0
         local_cs = 0
         trans = 0
-        offset_arr = []
+        offset_arr = []  # type: List[Dict[str, Union[int, bool]]]
 
         while (src_cur < src_len) and (tar_cur < tar_len):
             if src[src_cur] == tar[tar_cur]:

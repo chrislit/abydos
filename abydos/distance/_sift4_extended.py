@@ -19,7 +19,7 @@
 Sift4 Extended approximate string distance
 """
 
-from typing import Optional
+from typing import Dict, List, Optional, Union, cast
 
 from ._distance import _Distance
 from ._sift4 import Sift4
@@ -141,8 +141,8 @@ class Sift4Extended(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        src = self._tokenizer.tokenize(src).get_list()
-        tar = self._tokenizer.tokenize(tar).get_list()
+        src = cast(_Tokenizer, self._tokenizer).tokenize(src).get_list()
+        tar = cast(_Tokenizer, self._tokenizer).tokenize(tar).get_list()
 
         if not src:
             return len(tar)
@@ -158,7 +158,7 @@ class Sift4Extended(_Distance):
         lcss = 0
         local_cs = 0
         trans = 0
-        offset_arr = []
+        offset_arr = []  # type: List[Dict[str, Union[int, bool]]]
 
         while (src_cur < src_len) and (tar_cur < tar_len):
             if self._token_matcher(src[src_cur], tar[tar_cur]):

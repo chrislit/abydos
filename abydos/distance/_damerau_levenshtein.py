@@ -20,6 +20,7 @@ Damerau-Levenshtein distance
 """
 
 from sys import maxsize
+from typing import Callable, List, Union
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros

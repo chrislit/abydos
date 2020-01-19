@@ -20,6 +20,7 @@ Discounted Levenshtein edit distance
 """
 
 from math import log
+from typing import Callable, List, Union
 
 import numpy as np
 

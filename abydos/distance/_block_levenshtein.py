@@ -19,6 +19,8 @@
 Levenshtein distance with block operations
 """
 
+from typing import Callable, List, Union
+
 from ._lcsstr import LCSstr
 from ._levenshtein import Levenshtein
 

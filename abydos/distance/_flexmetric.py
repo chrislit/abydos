@@ -19,6 +19,8 @@
 FlexMetric distance
 """
 
+from typing import Callable, List, Union
+
 from numpy import float as np_float
 from numpy import zeros as np_zeros
 

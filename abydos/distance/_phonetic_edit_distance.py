@@ -19,6 +19,8 @@
 Phonetic edit distance
 """
 
+from typing import Callable, List, Union
+
 import numpy as np
 
 from ._levenshtein import Levenshtein
