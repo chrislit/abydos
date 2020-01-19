@@ -204,7 +204,7 @@ class Typo(_Distance):
 
         if self._layout == 'auto':
             for kb in ['QWERTY', 'QWERTZ', 'AZERTY']:
-                keys = set(chain(*chain(*self._keyboard[kb])))
+                keys = set(chain(*chain(*self._keyboard[kb])))  # type: ignore
                 letters = set(src) | set(tar)
                 if not (letters - keys):
                     keyboard = self._keyboard[kb]
@@ -215,9 +215,9 @@ class Typo(_Distance):
         else:
             keyboard = self._keyboard[self._layout]
 
-        lowercase = {item for sublist in keyboard[0] for item in sublist}
-        uppercase = {item for sublist in keyboard[1] for item in sublist}
-        keys = set(chain(*chain(*keyboard)))
+        lowercase = {item for sublist in keyboard[0] for item in sublist}  # type: ignore
+        uppercase = {item for sublist in keyboard[1] for item in sublist}  # type: ignore
+        keys = set(chain(*chain(*keyboard)))  # type: ignore
 
         def _kb_array_for_char(char):
             """Return the keyboard layout that contains ch.
