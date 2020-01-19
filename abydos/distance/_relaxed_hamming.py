@@ -113,10 +113,9 @@ class RelaxedHamming(_Distance):
             return 0
 
         if len(src) != len(tar):
-            replacement_char = 1
-            while chr(replacement_char) in src or chr(replacement_char) in tar:
-                replacement_char += 1
-            replacement_char = chr(replacement_char)
+            replacement_char = chr(1)
+            while replacement_char in src or replacement_char in tar:
+                replacement_char = chr(ord(replacement_char) + 1)
             if len(src) < len(tar):
                 src += replacement_char * (len(tar) - len(src))
             else:
@@ -126,7 +125,7 @@ class RelaxedHamming(_Distance):
             src = self.params['tokenizer'].tokenize(src).get_list()
             tar = self.params['tokenizer'].tokenize(tar).get_list()
 
-        score = 0
+        score = 0.0
         for pos in range(len(src)):
             if src[pos] == tar[pos : pos + 1][0]:
                 continue
