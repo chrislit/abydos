@@ -23,7 +23,7 @@ from difflib import SequenceMatcher
 from typing import Optional
 
 from ._token_distance import _TokenDistance
-from ..tokenizer import _Tokenizer, RegexpTokenizer
+from ..tokenizer import RegexpTokenizer, _Tokenizer
 
 __all__ = ['FuzzyWuzzyTokenSort']
 

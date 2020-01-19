@@ -23,7 +23,7 @@ from collections import defaultdict
 from typing import DefaultDict, List, Optional
 
 from ._distance import _Distance
-from ..tokenizer import _Tokenizer, QGrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, WhitespaceTokenizer, _Tokenizer
 
 __all__ = ['PositionalQGramDice']
 

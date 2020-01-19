@@ -22,7 +22,7 @@ Guth matching algorithm
 from typing import Optional
 
 from ._distance import _Distance
-from ..tokenizer import _Tokenizer, QGrams
+from ..tokenizer import QGrams, _Tokenizer
 
 __all__ = ['Guth']
 

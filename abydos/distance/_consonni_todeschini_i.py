@@ -19,9 +19,8 @@
 Consonni & Todeschini I similarity
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
-
 from math import log1p
+from typing import Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer

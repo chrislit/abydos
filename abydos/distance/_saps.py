@@ -25,7 +25,7 @@ from numpy import int as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from ..tokenizer import _Tokenizer, SAPSTokenizer
+from ..tokenizer import SAPSTokenizer, _Tokenizer
 
 __all__ = ['SAPS']
 

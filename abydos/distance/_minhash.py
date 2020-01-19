@@ -25,7 +25,7 @@ from typing import Optional
 import numpy as np
 
 from ._distance import _Distance
-from ..tokenizer import _Tokenizer, QGrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, WhitespaceTokenizer, _Tokenizer
 
 __all__ = ['MinHash']
 

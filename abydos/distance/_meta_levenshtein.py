@@ -29,7 +29,7 @@ from numpy import zeros as np_zeros
 from ._distance import _Distance
 from ._jaro_winkler import JaroWinkler
 from ..corpus import UnigramCorpus
-from ..tokenizer import _Tokenizer, QGrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, WhitespaceTokenizer, _Tokenizer
 
 __all__ = ['MetaLevenshtein']
 

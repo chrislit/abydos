@@ -22,7 +22,7 @@ String subsequence kernel (SSK) similarity
 from typing import Optional
 
 from ._token_distance import _TokenDistance
-from ..tokenizer import _Tokenizer, QSkipgrams
+from ..tokenizer import QSkipgrams, _Tokenizer
 
 __all__ = ['SSK']
 

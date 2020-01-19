@@ -33,7 +33,7 @@ from ._distance import _Distance
 from ._lcprefix import LCPrefix
 from ._levenshtein import Levenshtein
 from ..stats import ConfusionTable
-from ..tokenizer import _Tokenizer, QGrams, QSkipgrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, QSkipgrams, WhitespaceTokenizer, _Tokenizer
 
 __all__ = ['_TokenDistance']
 

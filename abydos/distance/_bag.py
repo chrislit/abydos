@@ -21,7 +21,7 @@ Bag similarity & distance
 from typing import Optional
 
 from ._token_distance import _TokenDistance
-from ..tokenizer import _Tokenizer, CharacterTokenizer
+from ..tokenizer import CharacterTokenizer, _Tokenizer
 
 __all__ = ['Bag']
 

@@ -19,10 +19,9 @@
 SoftTF-IDF similarity
 """
 
-from typing import DefaultDict, Optional, Tuple, cast
-
 from collections import defaultdict
 from math import log1p
+from typing import DefaultDict, Optional, Tuple, cast
 
 from ._distance import _Distance
 from ._jaro_winkler import JaroWinkler

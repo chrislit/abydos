@@ -23,7 +23,7 @@ from typing import Dict, List, Optional, Union, cast
 
 from ._distance import _Distance
 from ._sift4 import Sift4
-from ..tokenizer import _Tokenizer, CharacterTokenizer
+from ..tokenizer import CharacterTokenizer, _Tokenizer
 
 __all__ = ['Sift4Extended']
 

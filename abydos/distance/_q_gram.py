@@ -22,7 +22,7 @@ q-gram distance
 from typing import Optional
 
 from ._token_distance import _TokenDistance
-from ..tokenizer import _Tokenizer, QGrams as QGramTokenizer
+from ..tokenizer import QGrams as QGramTokenizer, _Tokenizer
 
 __all__ = ['QGram']
 
