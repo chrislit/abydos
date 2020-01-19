@@ -91,13 +91,13 @@ class NCDbz2(_Distance):
         if src == tar:
             return 0.0
 
-        src = src.encode('utf-8')
-        tar = tar.encode('utf-8')
+        src_b = src.encode('utf-8')
+        tar_b = tar.encode('utf-8')
 
-        src_comp = bz2.compress(src, self._level)[10:]
-        tar_comp = bz2.compress(tar, self._level)[10:]
-        concat_comp = bz2.compress(src + tar, self._level)[10:]
-        concat_comp2 = bz2.compress(tar + src, self._level)[10:]
+        src_comp = bz2.compress(src_b, self._level)[10:]
+        tar_comp = bz2.compress(tar_b, self._level)[10:]
+        concat_comp = bz2.compress(src_b + tar_b, self._level)[10:]
+        concat_comp2 = bz2.compress(tar_b + src_b, self._level)[10:]
 
         return (
             min(len(concat_comp), len(concat_comp2))

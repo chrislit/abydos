@@ -80,14 +80,14 @@ class NCDpaq9a(_Distance):
         if src == tar:
             return 0.0
 
-        src = src.encode('utf-8')
-        tar = tar.encode('utf-8')
+        src_b = src.encode('utf-8')
+        tar_b = tar.encode('utf-8')
 
         if paq is not None:
-            src_comp = paq.compress(src)
-            tar_comp = paq.compress(tar)
-            concat_comp = paq.compress(src + tar)
-            concat_comp2 = paq.compress(tar + src)
+            src_comp = paq.compress(src_b)
+            tar_comp = paq.compress(tar_b)
+            concat_comp = paq.compress(src_b + tar_b)
+            concat_comp2 = paq.compress(tar_b + src_b)
         else:  # pragma: no cover
             raise ValueError('Install the paq module in order to use PAQ9A')
 

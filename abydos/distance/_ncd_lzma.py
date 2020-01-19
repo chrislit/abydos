@@ -90,13 +90,13 @@ class NCDlzma(_Distance):
         if src == tar:
             return 0.0
 
-        src = src.encode('utf-8')
-        tar = tar.encode('utf-8')
+        src_b = src.encode('utf-8')
+        tar_b = tar.encode('utf-8')
 
-        src_comp = lzma.compress(src, preset=self._level)[14:]
-        tar_comp = lzma.compress(tar, preset=self._level)[14:]
-        concat_comp = lzma.compress(src + tar, preset=self._level)[14:]
-        concat_comp2 = lzma.compress(tar + src, preset=self._level)[14:]
+        src_comp = lzma.compress(src_b, preset=self._level)[14:]
+        tar_comp = lzma.compress(tar_b, preset=self._level)[14:]
+        concat_comp = lzma.compress(src_b + tar_b, preset=self._level)[14:]
+        concat_comp2 = lzma.compress(tar_b + src_b, preset=self._level)[14:]
 
         return (
             min(len(concat_comp), len(concat_comp2))

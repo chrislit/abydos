@@ -87,13 +87,13 @@ class NCDzlib(_Distance):
         if src == tar:
             return 0.0
 
-        src = src.encode('utf-8')
-        tar = tar.encode('utf-8')
+        src_b = src.encode('utf-8')
+        tar_b = tar.encode('utf-8')
 
-        src_comp = zlib.compress(src, self._level)
-        tar_comp = zlib.compress(tar, self._level)
-        concat_comp = zlib.compress(src + tar, self._level)
-        concat_comp2 = zlib.compress(tar + src, self._level)
+        src_comp = zlib.compress(src_b, self._level)
+        tar_comp = zlib.compress(tar_b, self._level)
+        concat_comp = zlib.compress(src_b + tar_b, self._level)
+        concat_comp2 = zlib.compress(tar_b + src_b, self._level)
 
         return (
             min(len(concat_comp), len(concat_comp2))
