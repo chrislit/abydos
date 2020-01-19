@@ -73,13 +73,13 @@ class MRA(_Distance):
             return 6
         if src == '' or tar == '':
             return 0
-        src = list(self._phonetic_alg.encode(src))
-        tar = list(self._phonetic_alg.encode(tar))
+        src_tok = list(self._phonetic_alg.encode(src))
+        tar_tok = list(self._phonetic_alg.encode(tar))
 
-        if abs(len(src) - len(tar)) > 2:
+        if abs(len(src_tok) - len(tar_tok)) > 2:
             return 0
 
-        length_sum = len(src) + len(tar)
+        length_sum = len(src_tok) + len(tar_tok)
         if length_sum < 5:
             min_rating = 5
         elif length_sum < 8:
@@ -92,17 +92,17 @@ class MRA(_Distance):
         for _ in range(2):
             new_src = []
             new_tar = []
-            minlen = min(len(src), len(tar))
+            minlen = min(len(src_tok), len(tar_tok))
             for i in range(minlen):
-                if src[i] != tar[i]:
-                    new_src.append(src[i])
-                    new_tar.append(tar[i])
-            src = new_src + src[minlen:]
-            tar = new_tar + tar[minlen:]
-            src.reverse()
-            tar.reverse()
+                if src_tok[i] != tar_tok[i]:
+                    new_src.append(src_tok[i])
+                    new_tar.append(tar_tok[i])
+            src_tok = new_src + src_tok[minlen:]
+            tar_tok = new_tar + tar_tok[minlen:]
+            src_tok.reverse()
+            tar_tok.reverse()
 
-        similarity = 6 - max(len(src), len(tar))
+        similarity = 6 - max(len(src_tok), len(tar_tok))
 
         if similarity >= min_rating:
             return similarity
