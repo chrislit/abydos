@@ -80,10 +80,10 @@ class SAPS(_Distance):
         self._g1, self._g2 = cost[5:]
 
         self._normalizer = normalizer
-        if tokenizer is None:
-            self._tokenizer = SAPSTokenizer()
-        else:
+        if tokenizer is not None:
             self._tokenizer = tokenizer
+        else:
+            self._tokenizer = SAPSTokenizer()
 
     def _s(self, src, tar):
         if src.isupper():
