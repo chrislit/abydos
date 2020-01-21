@@ -897,7 +897,7 @@ class ALINE(_Distance):
         },
         'ː': {'long': 'plus', 'supplemental': True},
         'ʰ': {'aspirated': 'plus', 'supplemental': True},
-    }
+    }  # type: Dict[str, Dict[str, Union[str, bool]]]
 
     phones_kondrak = {
         'a': {
@@ -1167,7 +1167,7 @@ class ALINE(_Distance):
         'R': {'round': 'plus', 'supplemental': True},
         'S': {'manner': 'fricative', 'supplemental': True},
         'V': {'place': 'palato-alveolar', 'supplemental': True},
-    }
+    }  # type: Dict[str, Dict[str, Union[str, bool]]]
 
     def __init__(
         self,
@@ -1502,18 +1502,18 @@ class ALINE(_Distance):
 
         sg_max = 0.0
 
-        src_tok = list(src)  # type: List[Union[str, Dict[str, str]]]
-        tar_tok = list(tar)  # type: List[Union[str, Dict[str, str]]]
+        src_tok = list(src)  # type: List[Union[str, Dict[str, Union[str, bool]]]]
+        tar_tok = list(tar)  # type: List[Union[str, Dict[str, Union[str, bool]]]]
 
         for ch in range(len(src_tok)):
             if src_tok[ch] in self._phones:
                 seg = src_tok[ch]
-                src_tok[ch] = dict(cast(Dict, self._phones[src_tok[ch]]))
+                src_tok[ch] = dict(self._phones[cast(str, src_tok[ch])])
                 cast(Dict, src_tok[ch])['segment'] = seg
         for ch in range(len(tar_tok)):
             if tar_tok[ch] in self._phones:
                 seg = tar_tok[ch]
-                tar_tok[ch] = dict(cast(Dict, self._phones[tar_tok[ch]]))
+                tar_tok[ch] = dict(self._phones[cast(str, tar_tok[ch])])
                 cast(Dict, tar_tok[ch])['segment'] = seg
 
         src_tok = [fb for fb in src_tok if isinstance(fb, dict)]
