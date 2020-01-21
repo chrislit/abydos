@@ -23,7 +23,7 @@ _TokenDistance.
 from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
-from typing import Counter as TCounter, Optional
+from typing import Counter as TCounter, Optional, Set, cast
 
 import numpy as np
 from numpy import zeros as np_zeros
@@ -182,13 +182,11 @@ class _TokenDistance(_Distance):
 
         if 'alphabet' in self.params:
             if isinstance(self.params['alphabet'], str):
-                self.params['alphabet'] = set(self.params['alphabet'])
+                alpha_set = set(self.params['alphabet'])
                 if isinstance(self.params['tokenizer'], (QGrams, QSkipgrams)):
-                    self.params['alphabet'] |= set(
-                        self.params['tokenizer'].start_stop
-                    )
+                    alpha_set |= set(self.params['tokenizer'].start_stop)
                     self.params['alphabet'] = sum(
-                        len(self.params['alphabet']) ** qval for qval in qvals
+                        len(alpha_set) ** qval for qval in qvals
                     )
             if hasattr(self.params['alphabet'], '__len__') and not isinstance(
                 self.params['alphabet'], Counter
