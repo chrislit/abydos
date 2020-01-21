@@ -23,7 +23,7 @@ _TokenDistance.
 from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
-from typing import Counter as TCounter, Optional, Set, cast
+from typing import Counter as TCounter, Optional
 
 import numpy as np
 from numpy import zeros as np_zeros

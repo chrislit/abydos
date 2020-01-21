@@ -21,7 +21,6 @@ _Tokenizer base class
 
 from collections import Counter
 from math import exp, log1p, log2
-from typing import Optional
 
 __all__ = ['_Tokenizer']
 
@@ -95,7 +94,6 @@ class _Tokenizer:
 
     def _scale_and_counterize(self) -> None:
         """Scale the tokens and store them in a Counter.
-
 
         .. versionadded:: 0.6.0
 
