@@ -102,7 +102,7 @@ class Hellinger(_TokenDistance):
         return (
             2
             * sum(
-                (
+                (  # type: ignore
                     (abs(self._src_tokens[tok])) ** 0.5
                     - (abs(self._tar_tokens[tok])) ** 0.5
                 )
