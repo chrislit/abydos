@@ -1502,8 +1502,12 @@ class ALINE(_Distance):
 
         sg_max = 0.0
 
-        src_tok = list(src)  # type: List[Union[str, Dict[str, Union[str, bool]]]]
-        tar_tok = list(tar)  # type: List[Union[str, Dict[str, Union[str, bool]]]]
+        src_tok = list(
+            src
+        )  # type: List[Union[str, Dict[str, Union[str, bool]]]]
+        tar_tok = list(
+            tar
+        )  # type: List[Union[str, Dict[str, Union[str, bool]]]]
 
         for ch in range(len(src_tok)):
             if src_tok[ch] in self._phones:
