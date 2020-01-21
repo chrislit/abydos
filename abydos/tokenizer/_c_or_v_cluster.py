@@ -134,7 +134,7 @@ class COrVClusterTokenizer(_Tokenizer):
             unicodedata.normalize('NFC', token)
             for token in self._ordered_tokens
         ]
-        super(COrVClusterTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

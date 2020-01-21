@@ -180,7 +180,7 @@ class QGrams(_Tokenizer):
                         for i in range(len(string) - (qval_i - 1))
                     ]
 
-        super(QGrams, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

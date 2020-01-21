@@ -66,7 +66,7 @@ class _Tokenizer:
         self._ordered_tokens = []
         self._ordered_weights = []
 
-    def tokenize(self, string: Optional[str] = None):
+    def tokenize(self, string: str):
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -74,20 +74,32 @@ class _Tokenizer:
 
         Parameters
         ----------
-        string : str or None
+        string : str
             The string to tokenize
 
 
         .. versionadded:: 0.4.0
         .. versionchanged:: 0.4.1
             Added 'length', 'entropy', and related scalers
+        .. versionchanged:: 0.6.0
+            Moved scaling & counterizing to separate function
 
         """
-        if string is not None:
-            self._string = string
-            self._ordered_tokens = [self._string]
-            self._ordered_weights = [1]
+        self._string = string
+        self._ordered_tokens = [self._string]
+        self._ordered_weights = [1]
 
+        self._scale_and_counterize()
+
+        return self
+
+    def _scale_and_counterize(self) -> None:
+        """Scale the tokens and store them in a Counter.
+
+
+        .. versionadded:: 0.6.0
+
+        """
         if self._scaler in {'SSK', 'length', 'length-log', 'length-exp'}:
             self._tokens = Counter()
             if self._scaler[:6] == 'length':
@@ -115,8 +127,6 @@ class _Tokenizer:
             ]
         else:
             self._tokens = Counter(self._ordered_tokens)
-
-        return self
 
     def count(self):
         """Return token count.

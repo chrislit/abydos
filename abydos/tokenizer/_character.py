@@ -73,7 +73,7 @@ class CharacterTokenizer(_Tokenizer):
         self._string = string
         self._ordered_tokens = list(string)
 
-        super(CharacterTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

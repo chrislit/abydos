@@ -97,7 +97,7 @@ class NLTKTokenizer(_Tokenizer):
         """
         self._string = string
         self._ordered_tokens = self.nltk_tokenizer.tokenize(string)
-        super(NLTKTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

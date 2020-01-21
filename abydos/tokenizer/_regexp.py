@@ -85,7 +85,7 @@ class RegexpTokenizer(_Tokenizer):
         """
         self._string = string
         self._ordered_tokens = self._regexp.findall(self._string)
-        super(RegexpTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

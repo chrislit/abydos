@@ -108,7 +108,7 @@ class SAPSTokenizer(_Tokenizer):
                     i += 1
                 self._ordered_tokens.append(syll)
 
-        super(SAPSTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

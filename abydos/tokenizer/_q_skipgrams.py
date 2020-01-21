@@ -203,7 +203,7 @@ class QSkipgrams(_Tokenizer):
             else:
                 self._ordered_weights += [1] * len(combs)
 
-        super(QSkipgrams, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 
