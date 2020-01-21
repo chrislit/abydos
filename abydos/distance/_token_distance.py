@@ -212,21 +212,23 @@ class _TokenDistance(_Distance):
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = Levenshtein()
             self._lcprefix = LCPrefix()
-            self._intersection = self._soft_intersection
+            self._intersection = self._soft_intersection  # type: ignore
         elif intersection_type == 'fuzzy':
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = Levenshtein()
             if 'threshold' not in self.params:
                 self.params['threshold'] = 0.8
-            self._intersection = self._fuzzy_intersection
+            self._intersection = self._fuzzy_intersection  # type: ignore
         elif intersection_type == 'linkage':
             if 'metric' not in self.params or self.params['metric'] is None:
                 self.params['metric'] = DamerauLevenshtein()
             if 'threshold' not in self.params:
                 self.params['threshold'] = 0.1
-            self._intersection = self._group_linkage_intersection
+            self._intersection = (  # type: ignore
+                self._group_linkage_intersection
+            )
         else:
-            self._intersection = self._crisp_intersection
+            self._intersection = self._crisp_intersection  # type: ignore
 
         self._src_tokens = Counter()  # type: TCounter[str]
         self._tar_tokens = Counter()  # type: TCounter[str]
