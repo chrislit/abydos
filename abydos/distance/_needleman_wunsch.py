@@ -19,7 +19,7 @@
 Needleman-Wunsch score
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Optional
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -47,7 +47,7 @@ class NeedlemanWunsch(_Distance):
         mismatch_cost=0,
         match_cost=1,
         symmetric=True,
-        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        alphabet: Optional[str] = None,
     ):
         """Return the matrix similarity of two strings.
 
@@ -77,8 +77,8 @@ class NeedlemanWunsch(_Distance):
             contain (src, tar) or (tar, src), not both
         alphabet : str
             A collection of tokens from which src and tar are drawn; if this is
-            defined a ValueError is raised if either tar or src is not found in
-            alphabet
+            defined a ValueError is raised if either tar or src have symbols not
+            found in alphabet
 
         Returns
         -------
@@ -106,12 +106,12 @@ class NeedlemanWunsch(_Distance):
 
         """
         if alphabet:
-            alphabet = tuple(alphabet)
+            alpha_set = set(alphabet)
             for i in src:
-                if i not in alphabet:
+                if i not in alpha_set:
                     raise ValueError('src value not in alphabet')
             for i in tar:
-                if i not in alphabet:
+                if i not in alpha_set:
                     raise ValueError('tar value not in alphabet')
 
         if src == tar:
