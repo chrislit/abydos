@@ -19,7 +19,7 @@
 Sift4 Extended approximate string distance
 """
 
-from typing import Dict, List, Optional, Union, cast
+from typing import Callable, Dict, List, Optional, Union, cast
 
 from ._distance import _Distance
 from ._sift4 import Sift4
@@ -41,14 +41,18 @@ class Sift4Extended(_Distance):
 
     def __init__(
         self,
-        max_offset=5,
-        max_distance=0,
+        max_offset: int = 5,
+        max_distance: int = 0,
         tokenizer: Optional[_Tokenizer] = None,
-        token_matcher=None,
-        matching_evaluator=None,
-        local_length_evaluator=None,
-        transposition_cost_evaluator=None,
-        transpositions_evaluator=None,
+        token_matcher: Optional[Callable[[str, str], bool]] = None,
+        matching_evaluator: Optional[Callable[[str, str], float]] = None,
+        local_length_evaluator: Optional[Callable[[float], float]] = None,
+        transposition_cost_evaluator: Optional[
+            Callable[[int, int], float]
+        ] = None,
+        transpositions_evaluator: Optional[
+            Callable[[float, float], float]
+        ] = None,
         **kwargs
     ):
         """Initialize Sift4Extended instance.
@@ -87,27 +91,48 @@ class Sift4Extended(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(_Distance, self).__init__(**kwargs)
+        super(Sift4Extended, self).__init__(
+            max_offset=max_offset,
+            max_distance=max_distance,
+            tokenizer=tokenizer,
+            token_matcher=token_matcher,
+            matching_evaluator=matching_evaluator,
+            local_length_evaluator=local_length_evaluator,
+            transposition_cost_evaluator=transposition_cost_evaluator,
+            transpositions_evaluator=transpositions_evaluator,
+            **kwargs
+        )
         self._max_offset = max_offset
         self._max_distance = max_distance
-        self._tokenizer = tokenizer
-        self._token_matcher = token_matcher
-        self._matching_evaluator = matching_evaluator
-        self._local_length_evaluator = local_length_evaluator
-        self._transposition_cost_evaluator = transposition_cost_evaluator
-        self._transpositions_evaluator = transpositions_evaluator
 
-        if self._tokenizer is None:
+        if tokenizer is not None:
+            self._tokenizer = tokenizer
+        else:
             self._tokenizer = CharacterTokenizer()
-        if self._token_matcher is None:
+
+        if token_matcher is not None:
+            self._token_matcher = token_matcher
+        else:
             self._token_matcher = lambda t1, t2: t1 == t2
-        if self._matching_evaluator is None:
+
+        if matching_evaluator is not None:
+            self._matching_evaluator = matching_evaluator
+        else:
             self._matching_evaluator = lambda t1, t2: 1
-        if self._local_length_evaluator is None:
+
+        if local_length_evaluator is not None:
+            self._local_length_evaluator = local_length_evaluator
+        else:
             self._local_length_evaluator = lambda local_cs: local_cs
-        if self._transposition_cost_evaluator is None:
+
+        if transposition_cost_evaluator is not None:
+            self._transposition_cost_evaluator = transposition_cost_evaluator
+        else:
             self._transposition_cost_evaluator = lambda c1, c2: 1
-        if self._transpositions_evaluator is None:
+
+        if transpositions_evaluator is not None:
+            self._transpositions_evaluator = transpositions_evaluator
+        else:
             self._transpositions_evaluator = lambda lcss, trans: lcss - trans
 
     def dist_abs(self, src: str, tar: str) -> float:
@@ -155,9 +180,9 @@ class Sift4Extended(_Distance):
 
         src_cur = 0
         tar_cur = 0
-        lcss = 0
-        local_cs = 0
-        trans = 0
+        lcss = 0.0
+        local_cs = 0.0
+        trans = 0.0
         offset_arr = []  # type: List[Dict[str, Union[int, bool]]]
 
         while (src_cur < src_len) and (tar_cur < tar_len):
@@ -236,7 +261,7 @@ class Sift4Extended(_Distance):
         )
 
     @staticmethod
-    def sift4_token_matcher(src, tar):
+    def sift4_token_matcher(src: str, tar: str) -> bool:
         """Sift4 Token Matcher.
 
         Parameters
@@ -257,7 +282,7 @@ class Sift4Extended(_Distance):
         return Sift4Extended.sift4_matching_evaluator(src, tar) > 0.7
 
     @staticmethod
-    def sift4_matching_evaluator(src, tar):
+    def sift4_matching_evaluator(src: str, tar: str) -> float:
         """Sift4 Matching Evaluator.
 
         Parameters
@@ -278,7 +303,7 @@ class Sift4Extended(_Distance):
         return Sift4Extended._sift4.sim(src, tar)
 
     @staticmethod
-    def reward_length_evaluator(length):
+    def reward_length_evaluator(length: int) -> float:
         """Reward Length Evaluator.
 
         Parameters
@@ -299,7 +324,7 @@ class Sift4Extended(_Distance):
         return length - 1 / (length + 1)
 
     @staticmethod
-    def reward_length_evaluator_exp(length):
+    def reward_length_evaluator_exp(length: int) -> float:
         """Reward Length Evaluator.
 
         Parameters
@@ -318,7 +343,7 @@ class Sift4Extended(_Distance):
         return length ** 1.5
 
     @staticmethod
-    def longer_transpositions_are_more_costly(pos1, pos2):
+    def longer_transpositions_are_more_costly(pos1: int, pos2: int) -> float:
         """Longer Transpositions Are More Costly.
 
         Parameters
