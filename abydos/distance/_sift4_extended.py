@@ -91,17 +91,7 @@ class Sift4Extended(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Sift4Extended, self).__init__(
-            max_offset=max_offset,
-            max_distance=max_distance,
-            tokenizer=tokenizer,
-            token_matcher=token_matcher,
-            matching_evaluator=matching_evaluator,
-            local_length_evaluator=local_length_evaluator,
-            transposition_cost_evaluator=transposition_cost_evaluator,
-            transpositions_evaluator=transpositions_evaluator,
-            **kwargs
-        )
+        super(Sift4Extended, self).__init__(**kwargs)
         self._max_offset = max_offset
         self._max_distance = max_distance
 
