@@ -53,6 +53,7 @@ class Phonetic(String):
         .. versionadded:: 0.4.0
 
         """
+        super(Phonetic, self).__init__()
         self._phonetic_algorithm = phonetic_algorithm
         if phonetic_algorithm is None:
             self._phonetic_algorithm = DoubleMetaphone()

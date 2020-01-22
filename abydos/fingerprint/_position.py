@@ -48,7 +48,7 @@ class Position(_Fingerprint):
         .. versionadded:: 0.4.0
 
         """
-        super(_Fingerprint, self).__init__()
+        super(Position, self).__init__()
         self._n_bits = n_bits
         self._most_common = most_common
         self._bits_per_letter = bits_per_letter

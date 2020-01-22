@@ -59,7 +59,7 @@ class Consonant(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        super(_Fingerprint, self).__init__()
+        super(Consonant, self).__init__()
         self._vowels = vowels
         self._doubles = doubles
 

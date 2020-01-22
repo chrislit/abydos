@@ -46,7 +46,7 @@ class Occurrence(_Fingerprint):
         .. versionadded:: 0.4.0
 
         """
-        super(_Fingerprint, self).__init__()
+        super(Occurrence, self).__init__()
         self._n_bits = n_bits
         self._most_common = most_common
 
