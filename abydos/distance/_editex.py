@@ -20,6 +20,7 @@ editex
 """
 
 from sys import float_info
+from typing import Any
 from unicodedata import normalize as unicode_normalize
 
 from numpy import float as np_float
@@ -56,7 +57,9 @@ class Editex(_Distance):
 
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 
-    def __init__(self, cost=(0, 1, 2), local=False, taper=False, **kwargs):
+    def __init__(
+        self, cost=(0, 1, 2), local=False, taper=False, **kwargs: Any
+    ) -> None:
         """Initialize Editex instance.
 
         Parameters
@@ -83,11 +86,13 @@ class Editex(_Distance):
         self._local = local
         self._taper_enabled = taper
 
-    def _taper(self, pos, length):
+    def _taper(self, pos: int, length: int) -> float:
         return (
-            round(1 + ((length - pos) / length) * (1 + float_info.epsilon), 15)
+            round(
+                1.0 + ((length - pos) / length) * (1 + float_info.epsilon), 15
+            )
             if self._taper_enabled
-            else 1
+            else 1.0
         )
 
     def dist_abs(self, src: str, tar: str) -> float:
@@ -125,7 +130,7 @@ class Editex(_Distance):
         """
         match_cost, group_cost, mismatch_cost = self._cost
 
-        def r_cost(ch1, ch2):
+        def r_cost(ch1: str, ch2: str) -> int:
             """Return r(a,b) according to Zobel & Dart's definition.
 
             Parameters
@@ -151,7 +156,7 @@ class Editex(_Distance):
                         return group_cost
             return mismatch_cost
 
-        def d_cost(ch1, ch2):
+        def d_cost(ch1: str, ch2: str) -> int:
             """Return d(a,b) according to Zobel & Dart's definition.
 
             Parameters

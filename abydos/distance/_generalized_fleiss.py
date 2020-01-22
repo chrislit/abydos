@@ -19,10 +19,20 @@
 Generalized Fleiss correlation
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import (
+    Any,
+    Callable,
+    Collection,
+    Counter as TCounter,
+    Dict,
+    Iterable,
+    Optional,
+    Union,
+    cast,
+)
 
 from ._token_distance import _TokenDistance
-from ..stats._mean import (
+from ..stats import (
     aghmean,
     agmean,
     amean,
@@ -43,16 +53,16 @@ from ..tokenizer import _Tokenizer
 __all__ = ['GeneralizedFleiss']
 
 
-def _agmean_prec6(l):
-    return agmean(l, prec=6)
+def _agmean_prec6(nums: Iterable[Union[int, float]]):
+    return agmean(nums, prec=6)
 
 
-def _ghmean_prec6(l):
-    return ghmean(l, prec=6)
+def _ghmean_prec6(nums: Iterable[Union[int, float]]):
+    return ghmean(nums, prec=6)
 
 
-def _aghmean_prec6(l):
-    return aghmean(l, prec=6)
+def _aghmean_prec6(nums: Iterable[Union[int, float]]):
+    return aghmean(nums, prec=6)
 
 
 means = {
@@ -70,7 +80,7 @@ means = {
     'hoelder': hoelder_mean,
     'lehmer': lehmer_mean,
     'seiffert': seiffert_mean,
-}
+}  # type: Dict[str, Callable[[Iterable[Union[int, float]]], float]]
 
 
 class GeneralizedFleiss(_TokenDistance):
@@ -119,11 +129,11 @@ class GeneralizedFleiss(_TokenDistance):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        mean_func='arithmetic',
-        marginals='a',
-        proportional=False,
-        **kwargs
-    ):
+        mean_func: str = 'arithmetic',
+        marginals: str = 'a',
+        proportional: bool = False,
+        **kwargs: Any
+    ) -> None:
         """Initialize GeneralizedFleiss instance.
 
         Parameters
@@ -204,9 +214,12 @@ class GeneralizedFleiss(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        self.mean_func = mean_func
-        self.marginals = marginals
-        self.proportional = proportional
+        self._mean_func = cast(
+            Callable[[Iterable[Union[int, float]]], float],
+            mean_func if callable(mean_func) else means[mean_func],
+        )
+        self._marginals = marginals
+        self._proportional = proportional
 
         super(GeneralizedFleiss, self).__init__(
             alphabet=alphabet,
@@ -215,7 +228,7 @@ class GeneralizedFleiss(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Generalized Fleiss correlation of two strings.
 
         Parameters
@@ -254,7 +267,7 @@ class GeneralizedFleiss(_TokenDistance):
         d = self._total_complement_card()
         n = self._population_unique_card()
 
-        if self.proportional:
+        if self._proportional:
             a /= n
             b /= n
             c /= n
@@ -264,18 +277,14 @@ class GeneralizedFleiss(_TokenDistance):
         if not num:
             return 0.0
 
-        if self.marginals == 'b':
+        if self._marginals == 'b':
             mps = [(a + b) * (a + c), (c + d) * (b + d)]
-        elif self.marginals == 'c':
+        elif self._marginals == 'c':
             mps = [(a + b) * (b + d), (a + c) * (c + d)]
         else:
             mps = [(a + b) * (c + d), (a + c) * (b + d)]
 
-        mean_value = (
-            self.mean_func(mps)
-            if callable(self.mean_func)
-            else means[self.mean_func](mps)
-        )
+        mean_value = self._mean_func(mps)
 
         return num / mean_value
 

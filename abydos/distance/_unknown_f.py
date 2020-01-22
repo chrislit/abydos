@@ -20,7 +20,14 @@ Unknown F similarity
 """
 
 from math import log
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import (
+    Any,
+    Collection,
+    Counter as TCounter,
+    NoReturn,
+    Optional,
+    Union,
+)
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -79,8 +86,8 @@ class UnknownF(_TokenDistance):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize UnknownF instance.
 
         Parameters
@@ -173,7 +180,7 @@ class UnknownF(_TokenDistance):
             1.0, 1 + log(part1) - (log((a + b) / n) + log((a + c) / n)) / 2
         )
 
-    def sim(self, *args, **kwargs):
+    def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters
@@ -194,7 +201,7 @@ class UnknownF(_TokenDistance):
         """
         raise NotImplementedError('Method disabled for Unknown F similarity.')
 
-    def dist(self, *args, **kwargs):
+    def dist(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters

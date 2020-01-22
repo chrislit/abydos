@@ -93,7 +93,7 @@ class McConnaughey(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the McConnaughey correlation of two strings.
 
         Parameters

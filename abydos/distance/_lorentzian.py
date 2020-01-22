@@ -20,7 +20,7 @@ Lorentzian distance
 """
 
 from math import log1p
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -47,7 +47,9 @@ class Lorentzian(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer: Optional[_Tokenizer] = None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, **kwargs: Any
+    ) -> None:
         """Initialize Lorentzian instance.
 
         Parameters

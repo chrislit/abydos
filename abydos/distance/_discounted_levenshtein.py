@@ -20,7 +20,7 @@ Discounted Levenshtein edit distance
 """
 
 from math import log
-from typing import Callable, List, Union
+from typing import Any, Callable, List, Union
 
 import numpy as np
 
@@ -41,15 +41,17 @@ class DiscountedLevenshtein(Levenshtein):
 
     def __init__(
         self,
-        mode='lev',
+        mode: str = 'lev',
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        discount_from=1,
-        discount_func='log',
-        vowels='aeiou',
-        **kwargs
-    ):
+        discount_from: Union[int, str] = 1,
+        discount_func: Union[
+            str, Callable[[Union[int, float]], float]
+        ] = 'log',
+        vowels: str = 'aeiou',
+        **kwargs: Any
+    ) -> None:
         """Initialize DiscountedLevenshtein instance.
 
         Parameters
@@ -105,21 +107,21 @@ class DiscountedLevenshtein(Levenshtein):
         self._discount_from = discount_from
         self._vowels = set(vowels.lower())
         if callable(discount_func):
-            self._cost = discount_func
+            self._discount_func = discount_func
         elif discount_func == 'exp':
-            self._cost = self._exp_discount
+            self._discount_func = self._exp_discount
         else:
-            self._cost = self._log_discount
+            self._discount_func = self._log_discount
 
     @staticmethod
-    def _log_discount(discounts):
+    def _log_discount(discounts: Union[int, float]) -> float:
         return 1 / (log(1 + discounts / 5) + 1)
 
     @staticmethod
-    def _exp_discount(discounts):
+    def _exp_discount(discounts: Union[int, float]) -> float:
         return 1 / (discounts + 1) ** 0.2
 
-    def _alignment_matrix(self, src, tar, backtrace=True):
+    def _alignment_matrix(self, src: str, tar: str, backtrace=True):
         """Return the Levenshtein alignment matrix.
 
         Parameters
@@ -179,22 +181,24 @@ class DiscountedLevenshtein(Levenshtein):
         if backtrace:
             trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(1, src_len + 1):
-            d_mat[i, 0] = d_mat[i - 1, 0] + self._cost(
+            d_mat[i, 0] = d_mat[i - 1, 0] + self._discount_func(
                 max(0, i - discount_from[0])
             )
             if backtrace:
                 trace_mat[i, 0] = 1
         for j in range(1, tar_len + 1):
-            d_mat[0, j] = d_mat[0, j - 1] + self._cost(
+            d_mat[0, j] = d_mat[0, j - 1] + self._discount_func(
                 max(0, j - discount_from[1])
             )
             if backtrace:
                 trace_mat[0, j] = 0
         for i in range(src_len):
-            i_extend = self._cost(max(0, i - discount_from[0]))
+            i_extend = self._discount_func(max(0, i - discount_from[0]))
             for j in range(tar_len):
                 traces = ((i + 1, j), (i, j + 1), (i, j))
-                cost = min(i_extend, self._cost(max(0, j - discount_from[1])))
+                cost = min(
+                    i_extend, self._discount_func(max(0, j - discount_from[1]))
+                )
                 opts = (
                     d_mat[traces[0]] + cost,  # ins
                     d_mat[traces[1]] + cost,  # del
@@ -272,12 +276,12 @@ class DiscountedLevenshtein(Levenshtein):
 
         if not src:
             return sum(
-                self._cost(max(0, pos - discount_from))
+                self._discount_func(max(0, pos - discount_from))
                 for pos in range(tar_len)
             )
         if not tar:
             return sum(
-                self._cost(max(0, pos - discount_from))
+                self._discount_func(max(0, pos - discount_from))
                 for pos in range(src_len)
             )
 
@@ -340,11 +344,11 @@ class DiscountedLevenshtein(Levenshtein):
         normalize_term = self._normalizer(
             [
                 sum(
-                    self._cost(max(0, pos - discount_from))
+                    self._discount_func(max(0, pos - discount_from))
                     for pos in range(src_len)
                 ),
                 sum(
-                    self._cost(max(0, pos - discount_from))
+                    self._discount_func(max(0, pos - discount_from))
                     for pos in range(tar_len)
                 ),
             ]

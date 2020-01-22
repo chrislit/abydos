@@ -18,6 +18,7 @@
 
 The distance._distance module implements abstract class _Distance.
 """
+from typing import Any, Dict
 
 __all__ = ['_Distance']
 
@@ -28,7 +29,7 @@ class _Distance:
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize _Distance instance.
 
         Parameters
@@ -40,10 +41,10 @@ class _Distance:
         .. versionadded:: 0.4.0
 
         """
-        self.params = {}
+        self.params = {}  # type: Dict[str, Any]
         self.set_params(**kwargs)
 
-    def set_params(self, **kwargs):
+    def set_params(self, **kwargs: Any) -> None:
         """Store params in the params dict.
 
         Parameters

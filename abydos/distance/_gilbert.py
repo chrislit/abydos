@@ -103,7 +103,7 @@ class Gilbert(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Gilbert correlation of two strings.
 
         Parameters

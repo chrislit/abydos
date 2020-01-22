@@ -19,7 +19,7 @@
 Fidelity
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -41,7 +41,9 @@ class Fidelity(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer: Optional[_Tokenizer] = None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, **kwargs: Any
+    ) -> None:
         """Initialize Fidelity instance.
 
         Parameters

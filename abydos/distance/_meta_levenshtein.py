@@ -21,7 +21,16 @@ Meta-Levenshtein distance
 
 from collections import defaultdict
 from math import log1p
-from typing import Callable, DefaultDict, List, Optional, Tuple, Union, cast
+from typing import (
+    Any,
+    Callable,
+    DefaultDict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+    cast,
+)
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -51,8 +60,8 @@ class MetaLevenshtein(_Distance):
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize MetaLevenshtein instance.
 
         Parameters

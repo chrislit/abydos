@@ -98,7 +98,7 @@ class WarrensIII(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Warrens III correlation of two strings.
 
         Parameters

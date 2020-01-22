@@ -19,6 +19,8 @@
 Yujian-Bo normalized Levenshtein distance
 """
 
+from typing import Any, Tuple
+
 from ._levenshtein import Levenshtein
 
 __all__ = ['YujianBo']
@@ -39,11 +41,17 @@ class YujianBo(Levenshtein):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, cost=(1, 1, 1, 1), **kwargs):
+    def __init__(
+        self, cost: Tuple[int, int, int, int] = (1, 1, 1, 1), **kwargs: Any
+    ) -> None:
         """Initialize YujianBo instance.
 
         Parameters
         ----------
+        cost : tuple
+            A 4-tuple representing the cost of the four possible edits:
+            inserts, deletes, substitutions, and transpositions, respectively
+            (by default: (1, 1, 1, 1))
         **kwargs
             Arbitrary keyword arguments
 

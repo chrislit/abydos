@@ -19,6 +19,8 @@
 Indel distance
 """
 
+from typing import Any
+
 from ._levenshtein import Levenshtein
 
 __all__ = ['Indel']
@@ -34,7 +36,7 @@ class Indel(Levenshtein):
 
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize Levenshtein instance.
 
         Parameters

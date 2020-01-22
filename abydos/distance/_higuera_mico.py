@@ -19,6 +19,8 @@
 The Higuera-Micó contextual normalized edit distance
 """
 
+from typing import Any
+
 from numpy import full as np_full
 
 from ._distance import _Distance
@@ -46,7 +48,7 @@ class HigueraMico(_Distance):
 
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize Levenshtein instance.
 
         Parameters

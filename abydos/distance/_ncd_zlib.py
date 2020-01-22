@@ -21,6 +21,8 @@ NCD using zlib
 
 import zlib
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['NCDzlib']
@@ -36,7 +38,9 @@ class NCDzlib(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, level=zlib.Z_DEFAULT_COMPRESSION, **kwargs):
+    def __init__(
+        self, level: int = zlib.Z_DEFAULT_COMPRESSION, **kwargs: Any
+    ) -> None:
         """Initialize zlib compressor.
 
         Parameters

@@ -18,6 +18,7 @@
 
 Gotoh score
 """
+from typing import Any
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -36,7 +37,9 @@ class Gotoh(NeedlemanWunsch):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, gap_open=1, gap_ext=0.4, sim_func=None, **kwargs):
+    def __init__(
+        self, gap_open=1, gap_ext=0.4, sim_func=None, **kwargs: Any
+    ) -> None:
         """Initialize Gotoh instance.
 
         Parameters

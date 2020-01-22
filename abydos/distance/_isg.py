@@ -19,6 +19,8 @@
 Bouchard & Pouyez's Indice de Similitude-Guth (ISG)
 """
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['ISG']
@@ -47,7 +49,7 @@ class ISG(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, full_guth=False, symmetric=True, **kwargs):
+    def __init__(self, full_guth=False, symmetric=True, **kwargs: Any) -> None:
         """Initialize ISG instance.
 
         Parameters

@@ -19,7 +19,7 @@
 Sokal & Sneath III similarity
 """
 
-from typing import Optional
+from typing import Any, NoReturn, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -60,8 +60,8 @@ class SokalSneathIII(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize SokalSneathIII instance.
 
         Parameters
@@ -140,7 +140,7 @@ class SokalSneathIII(_TokenDistance):
             return float('inf')
         return (a + d) / (b + c)
 
-    def sim(self, *args, **kwargs):
+    def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters
@@ -163,7 +163,7 @@ class SokalSneathIII(_TokenDistance):
             'Method disabled for Sokal & Sneath III similarity.'
         )
 
-    def dist(self, *args, **kwargs):
+    def dist(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters

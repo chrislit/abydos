@@ -101,7 +101,7 @@ class Digby(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Digby correlation of two strings.
 
         Parameters

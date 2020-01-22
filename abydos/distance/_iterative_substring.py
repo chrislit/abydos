@@ -19,6 +19,8 @@
 Iterative-SubString (I-Sub) correlation
 """
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['IterativeSubString']
@@ -35,7 +37,12 @@ class IterativeSubString(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, hamacher=0.6, normalize_strings=False, **kwargs):
+    def __init__(
+        self,
+        hamacher: float = 0.6,
+        normalize_strings: bool = False,
+        **kwargs: Any
+    ) -> None:
         """Initialize IterativeSubString instance.
 
         Parameters
@@ -56,7 +63,7 @@ class IterativeSubString(_Distance):
         self._normalize_strings = normalize_strings
         self._hamacher = hamacher
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Iterative-SubString correlation of two strings.
 
         Parameters
@@ -90,11 +97,13 @@ class IterativeSubString(_Distance):
         input_src = src
         input_tar = tar
 
-        def _winkler_improvement(src, tar, commonality):
+        def _winkler_improvement(
+            src: str, tar: str, commonality: float
+        ) -> float:
             for i in range(min(len(src), len(tar))):
                 if src[i] != tar[i]:
                     break
-            return min(4, i) * 0.1 * (1 - commonality)
+            return min(4.0, i) * 0.1 * (1.0 - commonality)
 
         if self._normalize_strings:
             src = src.lower()

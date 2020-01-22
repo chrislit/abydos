@@ -19,6 +19,8 @@
 Sift4 Simplest approximate string distance
 """
 
+from typing import Any
+
 from ._sift4 import Sift4
 
 __all__ = ['Sift4Simplest']
@@ -33,7 +35,7 @@ class Sift4Simplest(Sift4):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_offset=5, **kwargs):
+    def __init__(self, max_offset: int = 5, **kwargs: Any) -> None:
         """Initialize Sift4Simplest instance.
 
         Parameters

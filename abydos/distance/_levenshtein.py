@@ -24,7 +24,7 @@ based on Levenshtein distance, including:
 """
 
 from sys import float_info
-from typing import Callable, List, Tuple, Union
+from typing import Any, Callable, List, Tuple, Union
 
 import numpy as np
 
@@ -56,14 +56,19 @@ class Levenshtein(_Distance):
 
     def __init__(
         self,
-        mode='lev',
-        cost=(1, 1, 1, 1),
+        mode: str = 'lev',
+        cost: Tuple[
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+        ] = (1, 1, 1, 1),
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
         taper=False,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize Levenshtein instance.
 
         Parameters

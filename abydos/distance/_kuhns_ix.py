@@ -112,7 +112,7 @@ class KuhnsIX(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Kuhns IX correlation of two strings.
 
         Parameters

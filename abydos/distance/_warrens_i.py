@@ -90,7 +90,7 @@ class WarrensI(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Warrens I correlation of two strings.
 
         Parameters

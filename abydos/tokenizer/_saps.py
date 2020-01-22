@@ -70,7 +70,7 @@ class SAPSTokenizer(_Tokenizer):
         Examples
         --------
         >>> SAPSTokenizer().tokenize('seven-twelfths')
-        SAPSTokenizer({'t': 2, 'se': 1, 'ven': 1, '-': 1, 'wel': 1, 'f': 1,
+        SAPSTokenizer({'se': 1, 'ven': 1, '-': 1, 't': 2, 'wel': 1, 'f': 1,
         'h': 1, 's': 1})
 
         >>> SAPSTokenizer().tokenize('character')

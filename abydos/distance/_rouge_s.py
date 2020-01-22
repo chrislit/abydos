@@ -19,6 +19,8 @@
 Rouge-S similarity
 """
 
+from typing import Any, Union
+
 from ._distance import _Distance
 from ..tokenizer import QSkipgrams
 from ..util._ncr import _ncr
@@ -34,7 +36,7 @@ class RougeS(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, **kwargs):
+    def __init__(self, qval: int = 2, **kwargs: Any) -> None:
         """Initialize RougeS instance.
 
         Parameters
@@ -50,7 +52,7 @@ class RougeS(_Distance):
         self._qval = qval
         self._tokenizer = QSkipgrams(qval=qval, start_stop='')
 
-    def sim(self, src, tar, beta=8):
+    def sim(self, src: str, tar: str, beta: Union[int, float] = 8) -> float:
         """Return the Rouge-S similarity of two strings.
 
         Parameters

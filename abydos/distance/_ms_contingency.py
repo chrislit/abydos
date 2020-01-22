@@ -106,7 +106,7 @@ class MSContingency(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the normalized mean squared contingency corr. of two strings.
 
         Parameters

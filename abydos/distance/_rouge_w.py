@@ -19,6 +19,8 @@
 Rouge-W similarity
 """
 
+from typing import Any, Callable, Optional, Union, cast
+
 from numpy import int as np_int
 from numpy import zeros as np_zeros
 
@@ -35,7 +37,12 @@ class RougeW(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, f_func=None, f_inv=None, **kwargs):
+    def __init__(
+        self,
+        f_func: Optional[Callable[[Union[int, float]], float]] = None,
+        f_inv: Optional[Callable[[Union[int, float]], float]] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize RougeW instance.
 
         Parameters
@@ -53,23 +60,30 @@ class RougeW(_Distance):
 
         """
         super(RougeW, self).__init__(**kwargs)
-        self._f_func = f_func
-        self._f_inv = f_inv
 
-        if self._f_func is None:
+        if f_func is not None:
+            self._f_func = cast(
+                Callable[[Union[int, float]], float], f_func
+            )  # type: Callable[[Union[int, float]], float]
+        else:
             self._f_func = RougeW._square  # noqa: SF01
-        if self._f_inv is None:
+
+        if f_inv is not None:
+            self._f_inv = cast(
+                Callable[[Union[int, float]], float], f_inv
+            )  # type: Callable[[Union[int, float]], float]
+        else:
             self._f_inv = RougeW._sqrt  # noqa: SF01
 
     @staticmethod
-    def _square(n):
-        return n * n
+    def _square(n: Union[int, float]) -> float:
+        return float(n * n)
 
     @staticmethod
-    def _sqrt(n):
+    def _sqrt(n: Union[int, float]) -> float:
         return n ** 0.5
 
-    def wlcs(self, src, tar):
+    def wlcs(self, src: str, tar: str) -> Union[int, float]:
         """Return the Rouge-W weighted longest common sub-sequence length.
 
         Parameters
@@ -132,7 +146,7 @@ class RougeW(_Distance):
 
         return c_mat[src_len - 1, tar_len - 1]
 
-    def sim(self, src, tar, beta=8):
+    def sim(self, src: str, tar: str, beta: Union[int, float] = 8) -> float:
         """Return the Rouge-W similarity of two strings.
 
         Parameters

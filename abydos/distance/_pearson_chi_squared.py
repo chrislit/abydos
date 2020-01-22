@@ -152,7 +152,7 @@ class PearsonChiSquared(_TokenDistance):
             return num / (ab * ac * (b + d) * (c + d))
         return 0.0
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return Pearson's Chi-Squared correlation of two strings.
 
         Parameters

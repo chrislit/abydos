@@ -20,6 +20,7 @@ Ehrenfeucht & Haussler's marking metric
 """
 
 from math import log2
+from typing import Any
 
 from ._marking import Marking
 
@@ -44,7 +45,7 @@ class MarkingMetric(Marking):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize MarkingMetric instance.
 
         Parameters

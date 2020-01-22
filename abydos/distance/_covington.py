@@ -20,7 +20,7 @@ Covington distance
 """
 
 from collections import namedtuple
-from typing import Tuple
+from typing import Any, Tuple
 from unicodedata import normalize as unicode_normalize
 
 from ._distance import _Distance
@@ -38,7 +38,9 @@ class Covington(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, weights=(0, 5, 10, 30, 60, 100, 40, 50), **kwargs):
+    def __init__(
+        self, weights=(0, 5, 10, 30, 60, 100, 40, 50), **kwargs: Any
+    ) -> None:
         """Initialize Covington instance.
 
         Parameters

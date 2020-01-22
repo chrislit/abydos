@@ -19,6 +19,8 @@
 Cormode's LZ distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['CormodeLZ']
@@ -32,7 +34,7 @@ class CormodeLZ(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize CormodeLZ instance.
 
         Parameters

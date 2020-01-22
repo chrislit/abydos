@@ -19,6 +19,8 @@
 Smith-Waterman score
 """
 
+from typing import Any, Callable, Optional
+
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
 
@@ -37,7 +39,12 @@ class SmithWaterman(NeedlemanWunsch):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, gap_cost=1, sim_func=None, **kwargs):
+    def __init__(
+        self,
+        gap_cost: float = 1.0,
+        sim_func: Optional[Callable[[str, str], float]] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize SmithWaterman instance.
 
         Parameters

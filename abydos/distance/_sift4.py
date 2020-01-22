@@ -19,7 +19,7 @@
 Sift4 Common approximate string distance
 """
 
-from typing import Dict, List, Union
+from typing import Any, Dict, List, Union
 
 from ._distance import _Distance
 
@@ -35,7 +35,9 @@ class Sift4(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_offset=5, max_distance=0, **kwargs):
+    def __init__(
+        self, max_offset: int = 5, max_distance: int = 0, **kwargs: Any
+    ) -> None:
         """Initialize Sift4 instance.
 
         Parameters

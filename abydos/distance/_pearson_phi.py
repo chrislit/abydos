@@ -108,7 +108,7 @@ class PearsonPhi(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return Pearson's Phi correlation of two strings.
 
         Parameters

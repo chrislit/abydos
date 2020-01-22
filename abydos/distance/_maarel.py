@@ -98,7 +98,7 @@ class Maarel(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Maarel correlation of two strings.
 
         Parameters

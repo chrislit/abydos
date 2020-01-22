@@ -19,6 +19,8 @@
 Morisita index of overlap
 """
 
+from typing import Any, NoReturn
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Morisita']
@@ -50,7 +52,7 @@ class Morisita(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize Morisita instance.
 
         Parameters
@@ -126,7 +128,7 @@ class Morisita(_TokenDistance):
 
         return sim
 
-    def sim(self, *args, **kwargs):
+    def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters
@@ -147,7 +149,7 @@ class Morisita(_TokenDistance):
         """
         raise NotImplementedError('Method disabled for Morisita similarity.')
 
-    def dist(self, *args, **kwargs):
+    def dist(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters

@@ -20,7 +20,7 @@ The strcmp95 algorithm variant of Jaro-Winkler distance
 """
 
 from collections import defaultdict
-from typing import DefaultDict, Tuple
+from typing import Any, DefaultDict, Tuple
 
 from ._distance import _Distance
 
@@ -83,7 +83,7 @@ class Strcmp95(_Distance):
         ('G', 'J'),
     )
 
-    def __init__(self, long_strings=False, **kwargs):
+    def __init__(self, long_strings: bool = False, **kwargs: Any) -> None:
         """Initialize Strcmp95 instance.
 
         Parameters
@@ -138,7 +138,7 @@ class Strcmp95(_Distance):
 
         """
 
-        def _in_range(char):
+        def _in_range(char: str):
             """Return True if char is in the range (0, 91).
 
             Parameters

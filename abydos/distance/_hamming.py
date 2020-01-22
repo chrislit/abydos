@@ -19,6 +19,8 @@
 Hamming distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['Hamming']
@@ -36,7 +38,7 @@ class Hamming(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, diff_lens=True, **kwargs):
+    def __init__(self, diff_lens=True, **kwargs: Any) -> None:
         """Initialize Hamming instance.
 
         Parameters

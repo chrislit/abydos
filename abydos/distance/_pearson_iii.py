@@ -108,7 +108,7 @@ class PearsonIII(PearsonPhi):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Pearson III correlation of two strings.
 
         Parameters

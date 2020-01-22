@@ -19,6 +19,8 @@
 BI-SIM similarity
 """
 
+from typing import Any
+
 from numpy import float as np_float
 from numpy import zeros as np_zeros
 
@@ -36,7 +38,7 @@ class BISIM(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, **kwargs):
+    def __init__(self, qval=2, **kwargs: Any) -> None:
         """Initialize BISIM instance.
 
         Parameters

@@ -104,7 +104,7 @@ class YuleY(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return Yule's Y correlation of two strings.
 
         Parameters

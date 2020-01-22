@@ -98,7 +98,7 @@ class BeniniI(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Benini I correlation of two strings.
 
         Parameters

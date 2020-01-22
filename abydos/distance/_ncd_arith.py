@@ -19,6 +19,8 @@
 NCD using Arithmetic Coding
 """
 
+from typing import Any, Dict, Optional
+
 from ._distance import _Distance
 from ..compression import Arithmetic
 
@@ -35,7 +37,9 @@ class NCDarith(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, probs=None, **kwargs):
+    def __init__(
+        self, probs: Optional[Dict[str, tuple]] = None, **kwargs: Any
+    ) -> None:
         """Initialize the arithmetic coder object.
 
         Parameters

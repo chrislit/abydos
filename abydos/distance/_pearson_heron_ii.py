@@ -100,7 +100,7 @@ class PearsonHeronII(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Pearson & Heron II correlation of two strings.
 
         Parameters

@@ -19,6 +19,8 @@
 Monge-Elkan similarity & distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
 from ..tokenizer import QGrams
@@ -41,7 +43,7 @@ class MongeElkan(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, sim_func=None, symmetric=False, **kwargs):
+    def __init__(self, sim_func=None, symmetric=False, **kwargs: Any) -> None:
         """Initialize MongeElkan instance.
 
         Parameters

@@ -150,7 +150,7 @@ class Dennis(_TokenDistance):
 
         return num / abacn ** 0.5
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Dennis correlation of two strings.
 
         Parameters

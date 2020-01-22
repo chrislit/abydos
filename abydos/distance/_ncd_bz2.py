@@ -21,6 +21,8 @@ NCD using bzip2
 
 import bz2
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['NCDbz2']
@@ -38,7 +40,7 @@ class NCDbz2(_Distance):
 
     _level = 9
 
-    def __init__(self, level=9, **kwargs):
+    def __init__(self, level: int = 9, **kwargs: Any) -> None:
         """Initialize bzip2 compressor.
 
         Parameters

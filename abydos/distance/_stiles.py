@@ -154,7 +154,7 @@ class Stiles(_TokenDistance):
             anmbc,
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Stiles correlation of two strings.
 
         Parameters
