@@ -21,6 +21,7 @@ Q-Skipgrams multi-set class
 
 from collections import Iterable
 from itertools import combinations
+from typing import Callable, Iterable as TIterable, Optional, Union
 
 from ._tokenizer import _Tokenizer
 
@@ -38,7 +39,15 @@ class QSkipgrams(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', scaler=None, ssk_lambda=0.9):
+    def __init__(
+        self,
+        qval: int = 2,
+        start_stop: str = '$#',
+        scaler: Optional[
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+        ] = None,
+        ssk_lambda: Union[float, TIterable[float]] = 0.9,
+    ) -> None:
         """Initialize QSkipgrams.
 
         Parameters
@@ -143,7 +152,7 @@ class QSkipgrams(_Tokenizer):
 
         self._string_ss = self._string
         if isinstance(ssk_lambda, float):
-            self._lambda = (ssk_lambda,)
+            self._lambda = (ssk_lambda,)  # type: TIterable[float]
         else:
             self._lambda = tuple(ssk_lambda)
 

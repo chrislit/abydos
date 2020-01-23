@@ -38,7 +38,7 @@ class Hamming(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, diff_lens=True, **kwargs: Any) -> None:
+    def __init__(self, diff_lens: bool = True, **kwargs: Any) -> None:
         """Initialize Hamming instance.
 
         Parameters

@@ -253,7 +253,7 @@ class DaitchMokotoff(_Phonetic):
         zip((ord(_) for _ in '0123456789'), ' A TSKNPLR')
     )
 
-    def __init__(self, max_length=6, zero_pad=True):
+    def __init__(self, max_length=6, zero_pad=True) -> None:
         """Initialize DaitchMokotoff instance.
 
         Parameters

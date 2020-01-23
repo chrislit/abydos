@@ -1062,7 +1062,7 @@ class Phonet(_Phonetic):
         )
     )
 
-    def __init__(self, mode=1, lang='de'):
+    def __init__(self, mode=1, lang='de') -> None:
         """Initialize AlphaSIS instance.
 
         Parameters

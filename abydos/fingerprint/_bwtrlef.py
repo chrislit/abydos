@@ -35,7 +35,7 @@ class BWTRLEF(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, terminator='\0'):
+    def __init__(self, terminator='\0') -> None:
         """Initialize BWTRLEF instance.
 
         Parameters

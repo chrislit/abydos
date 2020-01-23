@@ -19,6 +19,8 @@
 The distance.hamming module implements Hamming and related distance functions.
 """
 
+from typing import Any
+
 from ._distance import _Distance
 from ._hamming import Hamming
 
@@ -38,7 +40,9 @@ class MLIPNS(_Distance):
 
     _hamming = Hamming(diff_lens=True)
 
-    def __init__(self, threshold=0.25, max_mismatches=2, **kwargs):
+    def __init__(
+        self, threshold: float = 0.25, max_mismatches: int = 2, **kwargs: Any
+    ) -> None:
         """Initialize MLIPNS instance.
 
         Parameters

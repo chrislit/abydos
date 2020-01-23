@@ -20,6 +20,7 @@ Chao's Jaccard similarity
 """
 
 from collections import Counter
+from typing import Any
 
 try:
     from random import choices
@@ -44,7 +45,7 @@ class ChaoJaccard(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize ChaoJaccard instance.
 
         Parameters

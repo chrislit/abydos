@@ -39,7 +39,7 @@ class SnowballGerman(_Snowball):
     _s_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'r', 't'}
     _st_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
 
-    def __init__(self, alternate_vowels=False):
+    def __init__(self, alternate_vowels=False) -> None:
         """Initialize SnowballGerman instance.
 
         Parameters

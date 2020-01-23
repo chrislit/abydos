@@ -19,7 +19,7 @@
 Köppen I correlation
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -79,8 +79,8 @@ class KoppenI(_TokenDistance):
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         normalizer='proportional',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize KoppenI instance.
 
         Parameters

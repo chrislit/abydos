@@ -20,6 +20,7 @@ Longest common prefix
 """
 
 from os.path import commonprefix
+from typing import List
 
 from ._distance import _Distance
 
@@ -32,7 +33,7 @@ class LCPrefix(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def lcprefix(self, strings):
+    def lcprefix(self, strings: List[str]) -> str:
         """Return the longest common prefix of a list of strings.
 
         Longest common prefix (LCPrefix).
@@ -65,7 +66,7 @@ class LCPrefix(_Distance):
         """
         return commonprefix(strings)
 
-    def dist_abs(self, src, tar, *args):
+    def dist_abs(self, src: str, tar: str, *args: str) -> int:
         """Return the length of the longest common prefix of the strings.
 
         Parameters
@@ -112,7 +113,7 @@ class LCPrefix(_Distance):
 
         return len(self.lcprefix(strings))
 
-    def sim(self, src, tar, *args):
+    def sim(self, src: str, tar: str, *args: str) -> float:
         r"""Return the longest common prefix similarity of two or more strings.
 
         Longest common prefix similarity (:math:`sim_{LCPrefix}`).

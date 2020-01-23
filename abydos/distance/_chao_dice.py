@@ -19,6 +19,8 @@
 Chao's Dice similarity
 """
 
+from typing import Any
+
 from ._chao_jaccard import ChaoJaccard
 
 __all__ = ['ChaoDice']
@@ -32,7 +34,7 @@ class ChaoDice(ChaoJaccard):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize ChaoDice instance.
 
         Parameters

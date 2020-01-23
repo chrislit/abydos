@@ -23,7 +23,7 @@ _TokenDistance.
 from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
-from typing import Counter as TCounter, Optional
+from typing import Any, Counter as TCounter, Optional
 
 import numpy as np
 from numpy import zeros as np_zeros
@@ -73,8 +73,8 @@ class _TokenDistance(_Distance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         r"""Initialize _TokenDistance instance.
 
         .. _intersection_type:

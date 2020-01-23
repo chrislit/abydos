@@ -19,7 +19,7 @@
 Sørensen–Dice coefficient & distance
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._tversky import Tversky
 from ..tokenizer import _Tokenizer
@@ -70,8 +70,8 @@ class Dice(Tversky):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize Dice instance.
 
         Parameters

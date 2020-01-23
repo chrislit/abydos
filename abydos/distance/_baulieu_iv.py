@@ -20,7 +20,7 @@ Baulieu IV distance
 """
 
 from math import e
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -66,8 +66,8 @@ class BaulieuIV(_TokenDistance):
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         positive_irrational=e,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize BaulieuIV instance.
 
         Parameters

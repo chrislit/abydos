@@ -23,6 +23,8 @@ The distance._JaroWinkler module implements distance metrics based on
     - Jaro-Winkler distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 from ..tokenizer import QGrams
 
@@ -50,8 +52,8 @@ class JaroWinkler(_Distance):
         long_strings=False,
         boost_threshold=0.7,
         scaling_factor=0.1,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize JaroWinkler instance.
 
         Parameters

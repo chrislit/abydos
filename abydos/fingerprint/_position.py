@@ -34,7 +34,7 @@ class Position(_Fingerprint):
 
     def __init__(
         self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG, bits_per_letter=3
-    ):
+    ) -> None:
         """Initialize Count instance.
 
         Parameters

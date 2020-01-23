@@ -21,7 +21,7 @@ SoftTF-IDF similarity
 
 from collections import defaultdict
 from math import log1p
-from typing import DefaultDict, Optional, Tuple, cast
+from typing import Any, DefaultDict, Optional, Tuple, cast
 
 from ._distance import _Distance
 from ._jaro_winkler import JaroWinkler
@@ -70,7 +70,7 @@ class SoftTFIDF(_TokenDistance):
         corpus: Optional[UnigramCorpus] = None,
         metric: Optional[_Distance] = None,
         threshold: float = 0.9,
-        **kwargs
+        **kwargs: Any
     ) -> None:
         """Initialize SoftTFIDF instance.
 

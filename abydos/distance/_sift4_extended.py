@@ -19,7 +19,7 @@
 Sift4 Extended approximate string distance
 """
 
-from typing import Callable, Dict, List, Optional, Union, cast
+from typing import Any, Callable, Dict, List, Optional, Union, cast
 
 from ._distance import _Distance
 from ._sift4 import Sift4
@@ -53,8 +53,8 @@ class Sift4Extended(_Distance):
         transpositions_evaluator: Optional[
             Callable[[float, float], float]
         ] = None,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize Sift4Extended instance.
 
         Parameters

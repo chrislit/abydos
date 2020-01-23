@@ -43,7 +43,7 @@ class LEIN(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '12345'), 'TNLPK'))
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True) -> None:
         """Initialize LEIN instance.
 
         Parameters

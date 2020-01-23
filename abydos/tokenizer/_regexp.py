@@ -32,7 +32,7 @@ class RegexpTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None, regexp=r'\w+', flags=0):
+    def __init__(self, scaler=None, regexp=r'\w+', flags=0) -> None:
         """Initialize tokenizer.
 
         Parameters

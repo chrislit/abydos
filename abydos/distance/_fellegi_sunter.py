@@ -21,7 +21,7 @@ Fellegi-Sunter similarity
 
 from math import exp, log
 from sys import float_info
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -44,8 +44,8 @@ class FellegiSunter(_TokenDistance):
         intersection_type: str = 'crisp',
         simplified=False,
         mismatch_factor=0.5,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize FellegiSunter instance.
 
         Parameters

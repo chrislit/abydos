@@ -44,7 +44,7 @@ class MetaSoundex(_Phonetic):
         )
     )
 
-    def __init__(self, lang='en'):
+    def __init__(self, lang='en') -> None:
         """Initialize MetaSoundex instance.
 
         Parameters
@@ -58,8 +58,8 @@ class MetaSoundex(_Phonetic):
         """
         self._lang = lang
         if lang == 'en':
-            self._sdx = Soundex()
-            self._meta = Metaphone()
+            self._sdx = Soundex()  # type: _Phonetic
+            self._meta = Metaphone()  # type: _Phonetic
         else:
             self._sdx = PhoneticSpanish()
             self._meta = SpanishMetaphone()

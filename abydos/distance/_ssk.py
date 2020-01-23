@@ -19,7 +19,7 @@
 String subsequence kernel (SSK) similarity
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import QSkipgrams, _Tokenizer
@@ -37,8 +37,11 @@ class SSK(_TokenDistance):
     """
 
     def __init__(
-        self, tokenizer: Optional[_Tokenizer] = None, ssk_lambda=0.9, **kwargs
-    ):
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        ssk_lambda: float = 0.9,
+        **kwargs: Any
+    ) -> None:
         """Initialize SSK instance.
 
         Parameters

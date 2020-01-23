@@ -19,7 +19,14 @@
 Chebyshev distance
 """
 
-from typing import Any, Collection, Counter as TCounter, Optional, Union
+from typing import (
+    Any,
+    Collection,
+    Counter as TCounter,
+    NoReturn,
+    Optional,
+    Union,
+)
 
 from ._minkowski import Minkowski
 from ..tokenizer import _Tokenizer
@@ -83,7 +90,7 @@ class Chebyshev(Minkowski):
             **kwargs
         )
 
-    def dist_abs(self, src: str, tar: str, *args, **kwargs: Any) -> float:
+    def dist_abs(self, src: str, tar: str, *args: Any, **kwargs: Any) -> float:
         r"""Return the Chebyshev distance between two strings.
 
         Parameters
@@ -124,7 +131,7 @@ class Chebyshev(Minkowski):
         """
         return super(Chebyshev, self).dist_abs(src, tar, False)
 
-    def sim(self, *args: Any, **kwargs: Any):
+    def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters
@@ -145,7 +152,7 @@ class Chebyshev(Minkowski):
         """
         raise NotImplementedError('Method disabled for Chebyshev distance.')
 
-    def dist(self, *args: Any, **kwargs: Any):
+    def dist(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters

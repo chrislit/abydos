@@ -20,7 +20,7 @@ Jaccard similarity coefficient, distance, & Tanimoto coefficient
 """
 
 from math import log2
-from typing import Optional
+from typing import Any, Optional
 
 from ._tversky import Tversky
 from ..tokenizer import _Tokenizer
@@ -64,8 +64,8 @@ class Jaccard(Tversky):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize Jaccard instance.
 
         Parameters

@@ -18,7 +18,7 @@
 
 Gotoh score
 """
-from typing import Any
+from typing import Any, Callable, Optional, cast
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -38,7 +38,11 @@ class Gotoh(NeedlemanWunsch):
     """
 
     def __init__(
-        self, gap_open=1, gap_ext=0.4, sim_func=None, **kwargs: Any
+        self,
+        gap_open: float = 1,
+        gap_ext: float = 0.4,
+        sim_func: Optional[Callable[[str, str], float]] = None,
+        **kwargs: Any
     ) -> None:
         """Initialize Gotoh instance.
 
@@ -61,9 +65,10 @@ class Gotoh(NeedlemanWunsch):
         super(Gotoh, self).__init__(**kwargs)
         self._gap_open = gap_open
         self._gap_ext = gap_ext
-        self._sim_func = sim_func
-        if self._sim_func is None:
-            self._sim_func = NeedlemanWunsch.sim_matrix
+        self._sim_func = cast(
+            Callable[[str, str], float],
+            NeedlemanWunsch.sim_matrix if sim_func is None else sim_func,
+        )  # type: Callable[[str, str], float]
 
     def sim_score(self, src: str, tar: str) -> float:
         """Return the Gotoh score of two strings.

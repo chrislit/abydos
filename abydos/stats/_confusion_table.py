@@ -66,7 +66,7 @@ class ConfusionTable:
 
     _tp, _tn, _fp, _fn = 0, 0, 0, 0
 
-    def __init__(self, tp=0, tn=0, fp=0, fn=0):
+    def __init__(self, tp=0, tn=0, fp=0, fn=0) -> None:
         """Initialize ConfusionTable.
 
         Parameters

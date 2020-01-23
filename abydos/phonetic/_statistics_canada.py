@@ -41,7 +41,7 @@ class StatisticsCanada(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=4):
+    def __init__(self, max_length=4) -> None:
         """Initialize StatisticsCanada instance.
 
         Parameters

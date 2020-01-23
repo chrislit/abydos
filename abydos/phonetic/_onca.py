@@ -39,7 +39,7 @@ class ONCA(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True) -> None:
         """Initialize ONCA instance.
 
         Parameters

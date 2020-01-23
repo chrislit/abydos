@@ -39,7 +39,18 @@ class Covington(_Distance):
     """
 
     def __init__(
-        self, weights=(0, 5, 10, 30, 60, 100, 40, 50), **kwargs: Any
+        self,
+        weights: Tuple[int, int, int, int, int, int, int, int] = (
+            0,
+            5,
+            10,
+            30,
+            60,
+            100,
+            40,
+            50,
+        ),
+        **kwargs: Any
     ) -> None:
         """Initialize Covington instance.
 

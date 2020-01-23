@@ -19,7 +19,7 @@
 Phonetic edit distance
 """
 
-from typing import Callable, List, Union
+from typing import Any, Callable, List, Union
 
 import numpy as np
 
@@ -46,7 +46,7 @@ class PhoneticEditDistance(Levenshtein):
             [List[Union[float, int]]], Union[float, int]
         ] = max,
         weights=None,
-        **kwargs
+        **kwargs: Any
     ):
         """Initialize PhoneticEditDistance instance.
 

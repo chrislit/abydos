@@ -33,7 +33,7 @@ class DoubleMetaphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=-1):
+    def __init__(self, max_length=-1) -> None:
         """Initialize DoubleMetaphone instance.
 
         Parameters

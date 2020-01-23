@@ -43,7 +43,7 @@ class SoundD(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456'), 'APKTLNR'))
 
-    def __init__(self, max_length=4):
+    def __init__(self, max_length=4) -> None:
         """Initialize SoundD instance.
 
         Parameters

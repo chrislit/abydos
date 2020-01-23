@@ -146,7 +146,7 @@ class Porter(_Stemmer):
             and term[-1] not in tuple('wxY')
         )
 
-    def __init__(self, early_english=False):
+    def __init__(self, early_english=False) -> None:
         """Initialize Porter instance.
 
         Parameters

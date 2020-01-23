@@ -20,6 +20,7 @@ Henderson-Heron dissimilarity
 """
 
 from math import factorial
+from typing import Any
 
 from ._token_distance import _TokenDistance
 
@@ -41,7 +42,7 @@ class HendersonHeron(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize HendersonHeron instance.
 
         Parameters

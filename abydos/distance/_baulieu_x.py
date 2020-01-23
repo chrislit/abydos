@@ -19,7 +19,7 @@
 Baulieu X distance
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -58,8 +58,8 @@ class BaulieuX(_TokenDistance):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize BaulieuX instance.
 
         Parameters

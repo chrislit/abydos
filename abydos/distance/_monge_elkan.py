@@ -19,7 +19,7 @@
 Monge-Elkan similarity & distance
 """
 
-from typing import Any
+from typing import Any, Callable, Optional, Union
 
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
@@ -43,7 +43,14 @@ class MongeElkan(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, sim_func=None, symmetric=False, **kwargs: Any) -> None:
+    def __init__(
+        self,
+        sim_func: Optional[
+            Union[_Distance, Callable[[str, str], float]]
+        ] = None,
+        symmetric: bool = False,
+        **kwargs: Any
+    ) -> None:
         """Initialize MongeElkan instance.
 
         Parameters
@@ -60,11 +67,12 @@ class MongeElkan(_Distance):
 
         """
         super(MongeElkan, self).__init__(**kwargs)
-        self._sim_func = sim_func
-        if isinstance(self._sim_func, _Distance):
-            self._sim_func = self._sim_func.sim
-        elif self._sim_func is None:
+        if isinstance(sim_func, _Distance):
+            self._sim_func = sim_func.sim  # type: Callable[[str, str], float]
+        elif sim_func is None:
             self._sim_func = Levenshtein().sim
+        else:
+            self._sim_func = sim_func
         self._symmetric = symmetric
 
     def sim(self, src: str, tar: str) -> float:

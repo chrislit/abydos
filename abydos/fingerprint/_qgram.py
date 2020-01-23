@@ -37,7 +37,7 @@ class QGram(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, qval=2, start_stop='', joiner='', skip=0):
+    def __init__(self, qval=2, start_stop='', joiner='', skip=0) -> None:
         """Initialize Q-Gram fingerprinter.
 
         qval : int

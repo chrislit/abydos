@@ -33,7 +33,7 @@ class Extract(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, letter_list=1):
+    def __init__(self, letter_list=1) -> None:
         """Initialize Extract instance.
 
         Parameters

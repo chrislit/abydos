@@ -131,7 +131,7 @@ class RogerRoot(_Phonetic):
     _alphabetic_initial = dict(zip((ord(_) for _ in '012345'), ' AHJWY'))
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
 
-    def __init__(self, max_length=5, zero_pad=True):
+    def __init__(self, max_length=5, zero_pad=True) -> None:
         """Initialize RogerRoot instance.
 
         Parameters

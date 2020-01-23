@@ -839,7 +839,7 @@ class BeiderMorse(_Phonetic):
         match_mode='approx',
         concat=False,
         filter_langs=False,
-    ):
+    ) -> None:
         """Initialize BeiderMorse instance.
 
         Parameters

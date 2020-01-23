@@ -37,7 +37,7 @@ class QGrams(_Tokenizer):
     .. versionadded:: 0.1.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', skip=0, scaler=None):
+    def __init__(self, qval=2, start_stop='$#', skip=0, scaler=None) -> None:
         """Initialize QGrams.
 
         Parameters

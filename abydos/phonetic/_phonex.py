@@ -36,7 +36,7 @@ class Phonex(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '123456'), 'PSTLNR'))
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True) -> None:
         """Initialize Phonex instance.
 
         Parameters

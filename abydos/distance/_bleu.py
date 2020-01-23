@@ -20,9 +20,10 @@ BLEU similarity
 """
 
 from math import exp, log
+from typing import Any, List
 
 from ._distance import _Distance
-from ..tokenizer import QGrams
+from ..tokenizer import QGrams, _Tokenizer
 
 __all__ = ['BLEU']
 
@@ -62,8 +63,13 @@ class BLEU(_Distance):
     """
 
     def __init__(
-        self, n_min=1, n_max=4, tokenizers=None, weights=None, **kwargs
-    ):
+        self,
+        n_min: int = 1,
+        n_max: int = 4,
+        tokenizers: List[_Tokenizer] = None,
+        weights: List[float] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize BLEU instance.
 
         Parameters
@@ -91,13 +97,14 @@ class BLEU(_Distance):
             [QGrams(qval=n, start_stop='') for n in range(n_min, n_max + 1)]
             if tokenizers is None
             else tokenizers
-        )
-        self._weights = weights
+        )  # type: List[_Tokenizer]
         if not weights or len(weights) != len(self._tokenizers):
             self._weights = [
                 1.0 / len(self._tokenizers)
                 for _ in range(len(self._tokenizers))
             ]
+        else:
+            self._weights = weights
 
     def sim(self, src: str, tar: str) -> float:
         """Return the BLEU similarity of two strings.

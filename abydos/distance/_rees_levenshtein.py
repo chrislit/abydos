@@ -19,7 +19,7 @@
 Rees-Levenshtein distance
 """
 
-from typing import Callable, List, Union
+from typing import Any, Callable, List, Union
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -45,8 +45,8 @@ class ReesLevenshtein(_Distance):
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize ReesLevenshtein instance.
 
         Parameters

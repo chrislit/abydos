@@ -55,7 +55,7 @@ class Soundex(_Phonetic):
 
     def __init__(
         self, max_length=4, var='American', reverse=False, zero_pad=True
-    ):
+    ) -> None:
         """Initialize Soundex instance.
 
         Parameters

@@ -19,7 +19,7 @@
 Longest common subsequence
 """
 
-from typing import Callable, List, Union
+from typing import Any, Callable, List, Union
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -43,8 +43,8 @@ class LCSseq(_Distance):
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         r"""Initialize LCSseq.
 
         Parameters
@@ -65,7 +65,7 @@ class LCSseq(_Distance):
         super(LCSseq, self).__init__(**kwargs)
         self._normalizer = normalizer
 
-    def lcsseq(self, src, tar):
+    def lcsseq(self, src: str, tar: str) -> str:
         """Return the longest common subsequence of two strings.
 
         Based on the dynamic programming algorithm from

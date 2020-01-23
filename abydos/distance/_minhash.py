@@ -20,7 +20,7 @@ MinHash similarity
 """
 
 from hashlib import sha512
-from typing import Optional
+from typing import Any, Optional
 
 import numpy as np
 
@@ -45,8 +45,12 @@ class MinHash(_Distance):
     """
 
     def __init__(
-        self, tokenizer: Optional[_Tokenizer] = None, k=0, seed=10, **kwargs
-    ):
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        k: int = 0,
+        seed: int = 10,
+        **kwargs: Any
+    ) -> None:
         """Initialize MinHash instance.
 
         Parameters

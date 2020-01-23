@@ -65,7 +65,7 @@ class PHONIC(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
 
-    def __init__(self, max_length=5, zero_pad=True, extended=False):
+    def __init__(self, max_length=5, zero_pad=True, extended=False) -> None:
         """Initialize PHONIC instance.
 
         Parameters

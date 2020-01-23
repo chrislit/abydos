@@ -20,7 +20,7 @@ Pearson III correlation
 """
 
 from math import copysign
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from ._pearson_phi import PearsonPhi
 from ..tokenizer import _Tokenizer
@@ -65,8 +65,8 @@ class PearsonIII(PearsonPhi):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize PearsonIII instance.
 
         Parameters

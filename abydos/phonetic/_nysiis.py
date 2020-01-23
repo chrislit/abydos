@@ -37,7 +37,7 @@ class NYSIIS(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=6, modified=False):
+    def __init__(self, max_length=6, modified=False) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters

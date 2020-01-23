@@ -38,7 +38,7 @@ class WordpunctTokenizer(RegexpTokenizer):
 
     """
 
-    def __init__(self, scaler=None, flags=0):
+    def __init__(self, scaler=None, flags=0) -> None:
         """Initialize tokenizer.
 
         Parameters

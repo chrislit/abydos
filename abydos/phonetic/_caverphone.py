@@ -36,7 +36,7 @@ class Caverphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, version=2):
+    def __init__(self, version=2) -> None:
         """Initialize Caverphone instance.
 
         Parameters

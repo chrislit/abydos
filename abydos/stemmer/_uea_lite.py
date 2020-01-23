@@ -614,7 +614,7 @@ class UEALite(_Stemmer):
         max_acro_length=8,
         return_rule_no=False,
         var='standard',
-    ):
+    ) -> None:
         """Initialize UEALite instance.
 
         Parameters

@@ -19,7 +19,7 @@
 Complete linkage distance
 """
 
-from typing import Optional, cast
+from typing import Any, Optional, cast
 
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
@@ -47,7 +47,7 @@ class CompleteLinkage(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         metric: Optional[_Distance] = None,
-        **kwargs
+        **kwargs: Any
     ) -> None:
         """Initialize CompleteLinkage instance.
 

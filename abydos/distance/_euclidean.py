@@ -19,7 +19,7 @@
 Euclidean distance & similarity
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from ._minkowski import Minkowski
 from ..tokenizer import _Tokenizer
@@ -41,8 +41,8 @@ class Euclidean(Minkowski):
         alphabet: Optional[Union[TCounter, Collection, int]] = 0,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize Euclidean instance.
 
         Parameters

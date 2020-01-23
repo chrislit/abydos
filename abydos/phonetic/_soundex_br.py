@@ -43,7 +43,7 @@ class SoundexBR(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456'), 'APKTLNR'))
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True) -> None:
         """Initialize SoundexBR instance.
 
         Parameters

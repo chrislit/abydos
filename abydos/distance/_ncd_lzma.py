@@ -21,6 +21,8 @@ NCD using LZMA
 
 import lzma
 
+from typing import Any
+
 from ._distance import _Distance
 
 
@@ -39,7 +41,7 @@ class NCDlzma(_Distance):
 
     _level = 6
 
-    def __init__(self, level=6, **kwargs):
+    def __init__(self, level: int = 6, **kwargs: Any) -> None:
         """Initialize LZMA compressor.
 
         Parameters

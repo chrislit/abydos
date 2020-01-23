@@ -19,7 +19,7 @@
 Lovins stemmer.
 """
 
-from typing import Callable, Dict, Optional
+from typing import Callable, Dict, Optional, Tuple, Union
 from unicodedata import normalize
 
 from ._stemmer import _Stemmer
@@ -36,7 +36,7 @@ class Lovins(_Stemmer):
     .. versionadded:: 0.3.6
     """
 
-    def _cond_b(self, word, suffix_len):
+    def _cond_b(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition B.
 
         Parameters
@@ -59,7 +59,7 @@ class Lovins(_Stemmer):
         """
         return len(word) - suffix_len >= 3
 
-    def _cond_c(self, word, suffix_len):
+    def _cond_c(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition C.
 
         Parameters
@@ -82,7 +82,7 @@ class Lovins(_Stemmer):
         """
         return len(word) - suffix_len >= 4
 
-    def _cond_d(self, word, suffix_len):
+    def _cond_d(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition D.
 
         Parameters
@@ -105,7 +105,7 @@ class Lovins(_Stemmer):
         """
         return len(word) - suffix_len >= 5
 
-    def _cond_e(self, word, suffix_len):
+    def _cond_e(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition E.
 
         Parameters
@@ -128,7 +128,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] != 'e'
 
-    def _cond_f(self, word, suffix_len):
+    def _cond_f(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition F.
 
         Parameters
@@ -151,7 +151,7 @@ class Lovins(_Stemmer):
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] != 'e'
 
-    def _cond_g(self, word, suffix_len):
+    def _cond_g(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition G.
 
         Parameters
@@ -174,7 +174,7 @@ class Lovins(_Stemmer):
         """
         return len(word) - suffix_len >= 3 and word[-suffix_len - 1] == 'f'
 
-    def _cond_h(self, word, suffix_len):
+    def _cond_h(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition H.
 
         Parameters
@@ -200,7 +200,7 @@ class Lovins(_Stemmer):
             or word[-suffix_len - 2 : -suffix_len] == 'll'
         )
 
-    def _cond_i(self, word, suffix_len):
+    def _cond_i(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition I.
 
         Parameters
@@ -223,7 +223,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] not in {'e', 'o'}
 
-    def _cond_j(self, word, suffix_len):
+    def _cond_j(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition J.
 
         Parameters
@@ -246,7 +246,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] not in {'a', 'e'}
 
-    def _cond_k(self, word, suffix_len):
+    def _cond_k(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition K.
 
         Parameters
@@ -272,7 +272,7 @@ class Lovins(_Stemmer):
             or (word[-suffix_len - 3] == 'u' and word[-suffix_len - 1] == 'e')
         )
 
-    def _cond_l(self, word, suffix_len):
+    def _cond_l(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition L.
 
         Parameters
@@ -298,7 +298,7 @@ class Lovins(_Stemmer):
             or word[-suffix_len - 1] == 'os'
         )
 
-    def _cond_m(self, word, suffix_len):
+    def _cond_m(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition M.
 
         Parameters
@@ -321,7 +321,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] not in {'a', 'c', 'e', 'm'}
 
-    def _cond_n(self, word, suffix_len):
+    def _cond_n(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition N.
 
         Parameters
@@ -350,7 +350,7 @@ class Lovins(_Stemmer):
                 return True
         return False
 
-    def _cond_o(self, word, suffix_len):
+    def _cond_o(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition O.
 
         Parameters
@@ -373,7 +373,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] in {'i', 'l'}
 
-    def _cond_p(self, word, suffix_len):
+    def _cond_p(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition P.
 
         Parameters
@@ -396,7 +396,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] != 'c'
 
-    def _cond_q(self, word, suffix_len):
+    def _cond_q(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition Q.
 
         Parameters
@@ -422,7 +422,7 @@ class Lovins(_Stemmer):
             'n',
         }
 
-    def _cond_r(self, word, suffix_len):
+    def _cond_r(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition R.
 
         Parameters
@@ -445,7 +445,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] in {'n', 'r'}
 
-    def _cond_s(self, word, suffix_len):
+    def _cond_s(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition S.
 
         Parameters
@@ -471,7 +471,7 @@ class Lovins(_Stemmer):
             and word[-suffix_len - 2 : -suffix_len] != 'tt'
         )
 
-    def _cond_t(self, word, suffix_len):
+    def _cond_t(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition T.
 
         Parameters
@@ -497,7 +497,7 @@ class Lovins(_Stemmer):
             and word[-suffix_len - 2 : -suffix_len] != 'ot'
         )
 
-    def _cond_u(self, word, suffix_len):
+    def _cond_u(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition U.
 
         Parameters
@@ -520,7 +520,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] in {'l', 'm', 'n', 'r'}
 
-    def _cond_v(self, word, suffix_len):
+    def _cond_v(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition V.
 
         Parameters
@@ -543,7 +543,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] == 'c'
 
-    def _cond_w(self, word, suffix_len):
+    def _cond_w(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition W.
 
         Parameters
@@ -566,7 +566,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] not in {'s', 'u'}
 
-    def _cond_x(self, word, suffix_len):
+    def _cond_x(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition X.
 
         Parameters
@@ -592,7 +592,7 @@ class Lovins(_Stemmer):
             and word[-suffix_len - 1] == 'e'
         )
 
-    def _cond_y(self, word, suffix_len):
+    def _cond_y(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition Y.
 
         Parameters
@@ -615,7 +615,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 2 : -suffix_len] == 'in'
 
-    def _cond_z(self, word, suffix_len):
+    def _cond_z(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition Z.
 
         Parameters
@@ -638,7 +638,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] != 'f'
 
-    def _cond_aa(self, word, suffix_len):
+    def _cond_aa(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition AA.
 
         Parameters
@@ -663,7 +663,7 @@ class Lovins(_Stemmer):
             -suffix_len - 2 : -suffix_len
         ] in {'ph', 'th', 'er', 'or', 'es'}
 
-    def _cond_bb(self, word, suffix_len):
+    def _cond_bb(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition BB.
 
         Parameters
@@ -690,7 +690,7 @@ class Lovins(_Stemmer):
             and word[-suffix_len - 4 : -suffix_len] != 'ryst'
         )
 
-    def _cond_cc(self, word, suffix_len):
+    def _cond_cc(self, word: str, suffix_len: int) -> bool:
         """Return Lovins' condition CC.
 
         Parameters
@@ -713,7 +713,7 @@ class Lovins(_Stemmer):
         """
         return word[-suffix_len - 1] == 'l'
 
-    def _recode9(self, stem):
+    def _recode9(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 9.
 
         Parameters
@@ -736,7 +736,7 @@ class Lovins(_Stemmer):
             return stem
         return stem[:-2] + 'l'
 
-    def _recode24(self, stem):
+    def _recode24(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 24.
 
         Parameters
@@ -759,7 +759,7 @@ class Lovins(_Stemmer):
             return stem
         return stem[:-1] + 's'
 
-    def _recode28(self, stem):
+    def _recode28(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 28.
 
         Parameters
@@ -782,7 +782,7 @@ class Lovins(_Stemmer):
             return stem
         return stem[:-1] + 's'
 
-    def _recode30(self, stem):
+    def _recode30(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 30.
 
         Parameters
@@ -805,7 +805,7 @@ class Lovins(_Stemmer):
             return stem
         return stem[:-1] + 's'
 
-    def _recode32(self, stem):
+    def _recode32(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 32.
 
         Parameters
@@ -828,10 +828,10 @@ class Lovins(_Stemmer):
             return stem
         return stem[:-1] + 's'
 
-    _suffix = {}  # type: Dict[str, Optional[Callable[[str, int], str]]]
-    _recode = ()
+    _suffix = {}  # type: Dict[str, Optional[Callable[[str, int], bool]]]
+    _recode = ()  # type: Tuple[Tuple[str, Union[str, Callable[[str], str]]], ...]  # noqa: E501
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the stemmer.
 
         .. versionadded:: 0.3.6

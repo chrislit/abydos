@@ -30,7 +30,7 @@ class NLTKTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, nltk_tokenizer=None, scaler=None):
+    def __init__(self, nltk_tokenizer=None, scaler=None) -> None:
         """Initialize Tokenizer.
 
         Parameters

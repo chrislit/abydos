@@ -19,7 +19,7 @@
 Smith-Waterman score
 """
 
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, cast
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -63,9 +63,10 @@ class SmithWaterman(NeedlemanWunsch):
         """
         super(SmithWaterman, self).__init__(**kwargs)
         self._gap_cost = gap_cost
-        self._sim_func = sim_func
-        if self._sim_func is None:
-            self._sim_func = NeedlemanWunsch.sim_matrix
+        self._sim_func = cast(
+            Callable[[str, str], float],
+            NeedlemanWunsch.sim_matrix if sim_func is None else sim_func,
+        )  # type: Callable[[str, str], float]
 
     def sim_score(self, src: str, tar: str) -> float:
         """Return the Smith-Waterman score of two strings.

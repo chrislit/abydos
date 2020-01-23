@@ -20,7 +20,7 @@ TF-IDF similarity
 """
 
 from math import log1p
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..corpus import UnigramCorpus
@@ -57,8 +57,8 @@ class TFIDF(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         corpus: Optional[UnigramCorpus] = None,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize TFIDF instance.
 
         Parameters

@@ -19,7 +19,7 @@
 Relaxed Hamming distance
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._distance import _Distance
 from ..tokenizer import QGrams, _Tokenizer
@@ -39,10 +39,10 @@ class RelaxedHamming(_Distance):
     def __init__(
         self,
         tokenizer: Optional[_Tokenizer] = None,
-        maxdist=2,
-        discount=0.2,
-        **kwargs
-    ):
+        maxdist: int = 2,
+        discount: float = 0.2,
+        **kwargs: Any
+    ) -> None:
         """Initialize DiscountedHamming instance.
 
         Parameters

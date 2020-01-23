@@ -19,7 +19,7 @@
 Chord distance
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -46,8 +46,8 @@ class Chord(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize Chord instance.
 
         Parameters

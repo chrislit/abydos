@@ -19,7 +19,7 @@
 FlexMetric distance
 """
 
-from typing import Callable, List, Union
+from typing import Any, Callable, List, Union
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -44,8 +44,8 @@ class FlexMetric(_Distance):
         ] = max,
         indel_costs=None,
         subst_costs=None,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize FlexMetric instance.
 
         Parameters

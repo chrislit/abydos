@@ -159,7 +159,7 @@ class Eudex(_Phonetic):
         'ÿ': 0b11100101,  # ÿ
     }
 
-    def __init__(self, max_length=8):
+    def __init__(self, max_length=8) -> None:
         """Initialize Eudex instance.
 
         Parameters

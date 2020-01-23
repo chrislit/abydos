@@ -43,7 +43,7 @@ class PhoneticSpanish(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'PBFTSLNKGR'))
 
-    def __init__(self, max_length=-1):
+    def __init__(self, max_length=-1) -> None:
         """Initialize PhoneticSpanish instance.
 
         Parameters

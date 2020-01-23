@@ -41,7 +41,7 @@ class Haase(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PTFKLNRSA'))
 
-    def __init__(self, primary_only=False):
+    def __init__(self, primary_only=False) -> None:
         """Initialize Haase instance.
 
         Parameters

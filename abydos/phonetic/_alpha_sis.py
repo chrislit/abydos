@@ -149,7 +149,7 @@ class AlphaSIS(_Phonetic):
         zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP')
     )
 
-    def __init__(self, max_length=14):
+    def __init__(self, max_length=14) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters

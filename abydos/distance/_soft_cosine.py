@@ -19,7 +19,7 @@
 Soft Cosine similarity & distance
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
@@ -61,9 +61,9 @@ class SoftCosine(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         metric: Optional[_Distance] = None,
-        sim_method='a',
-        **kwargs
-    ):
+        sim_method: str = 'a',
+        **kwargs: Any
+    ) -> None:
         r"""Initialize SoftCosine instance.
 
         Parameters

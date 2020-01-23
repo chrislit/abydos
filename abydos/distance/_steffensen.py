@@ -19,7 +19,7 @@
 Steffensen similarity
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from numpy import array as np_array
 
@@ -79,9 +79,9 @@ class Steffensen(_TokenDistance):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        normalizer='proportional',
-        **kwargs
-    ):
+        normalizer: str = 'proportional',
+        **kwargs: Any
+    ) -> None:
         """Initialize Steffensen instance.
 
         Parameters

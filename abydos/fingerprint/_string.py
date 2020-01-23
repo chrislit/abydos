@@ -36,7 +36,7 @@ class String(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, joiner=' '):
+    def __init__(self, joiner=' ') -> None:
         """Initialize String instance.
 
         Parameters

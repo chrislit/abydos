@@ -38,7 +38,7 @@ class COrVClusterTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None, consonants=None, vowels=None):
+    def __init__(self, scaler=None, consonants=None, vowels=None) -> None:
         """Initialize tokenizer.
 
         Parameters

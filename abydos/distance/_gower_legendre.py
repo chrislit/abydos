@@ -19,7 +19,7 @@
 Gower & Legendre similarity
 """
 
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -56,9 +56,9 @@ class GowerLegendre(_TokenDistance):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        theta=0.5,
-        **kwargs
-    ):
+        theta: float = 0.5,
+        **kwargs: Any
+    ) -> None:
         """Initialize GowerLegendre instance.
 
         Parameters

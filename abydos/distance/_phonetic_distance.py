@@ -19,7 +19,7 @@
 Phonetic distance.
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._distance import _Distance
 from ..fingerprint._fingerprint import _Fingerprint
@@ -53,8 +53,8 @@ class PhoneticDistance(_Distance):
         transforms=None,
         metric: Optional[_Distance] = None,
         encode_alpha=False,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize PhoneticDistance instance.
 
         Parameters

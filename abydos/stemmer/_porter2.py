@@ -74,7 +74,7 @@ class Porter2(_Snowball):
         'succeed',
     }
 
-    def __init__(self, early_english=False):
+    def __init__(self, early_english=False) -> None:
         """Initialize Porter2 instance.
 
         Parameters

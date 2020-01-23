@@ -39,7 +39,7 @@ class Phonetic(String):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, phonetic_algorithm=None, joiner=' '):
+    def __init__(self, phonetic_algorithm=None, joiner=' ') -> None:
         """Initialize Phonetic instance.
 
         phonetic_algorithm : function

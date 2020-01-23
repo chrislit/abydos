@@ -21,7 +21,7 @@ Gilbert & Wells similarity
 
 from math import factorial, log, pi
 from sys import float_info
-from typing import Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -74,8 +74,8 @@ class GilbertWells(_TokenDistance):
         self,
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize GilbertWells instance.
 
         Parameters

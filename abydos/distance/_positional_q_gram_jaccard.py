@@ -20,7 +20,7 @@ Positional Q-Gram Jaccard coefficient
 """
 
 from collections import defaultdict
-from typing import DefaultDict, List, Optional
+from typing import Any, DefaultDict, List, Optional
 
 from ._distance import _Distance
 from ..tokenizer import QGrams, WhitespaceTokenizer, _Tokenizer
@@ -37,8 +37,11 @@ class PositionalQGramJaccard(_Distance):
     """
 
     def __init__(
-        self, max_dist=1, tokenizer: Optional[_Tokenizer] = None, **kwargs
-    ):
+        self,
+        max_dist: int = 1,
+        tokenizer: Optional[_Tokenizer] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize PositionalQGramJaccard instance.
 
         Parameters

@@ -66,7 +66,7 @@ class Levenshtein(_Distance):
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        taper=False,
+        taper: bool = False,
         **kwargs: Any
     ) -> None:
         """Initialize Levenshtein instance.
@@ -109,14 +109,14 @@ class Levenshtein(_Distance):
         self._normalizer = normalizer
         self._taper_enabled = taper
 
-    def _taper(self, pos, length):
+    def _taper(self, pos: int, length: int) -> float:
         return (
             round(1 + ((length - pos) / length) * (1 + float_info.epsilon), 15)
             if self._taper_enabled
             else 1
         )
 
-    def _alignment_matrix(self, src, tar, backtrace=True):
+    def _alignment_matrix(self, src: str, tar: str, backtrace: bool = True):
         """Return the Levenshtein alignment matrix.
 
         Parameters

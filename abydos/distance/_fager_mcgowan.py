@@ -19,7 +19,7 @@
 Fager & McGowan similarity
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -54,8 +54,8 @@ class FagerMcGowan(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize FagerMcGowan instance.
 
         Parameters

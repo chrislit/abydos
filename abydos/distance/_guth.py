@@ -19,7 +19,7 @@
 Guth matching algorithm
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._distance import _Distance
 from ..tokenizer import QGrams, _Tokenizer
@@ -45,7 +45,9 @@ class Guth(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, tokenizer: Optional[_Tokenizer] = None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, **kwargs: Any
+    ) -> None:
         """Initialize Guth instance.
 
         Parameters

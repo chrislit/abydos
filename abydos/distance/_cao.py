@@ -20,6 +20,7 @@ Cao's CY dissimilarity.
 """
 
 from math import log10
+from typing import Any
 
 from ._token_distance import _TokenDistance
 
@@ -102,7 +103,7 @@ class Cao(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize Cao instance.
 
         Parameters

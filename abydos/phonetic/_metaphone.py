@@ -38,7 +38,7 @@ class Metaphone(_Phonetic):
     _frontv = {'E', 'I', 'Y'}
     _varson = {'C', 'G', 'P', 'S', 'T'}
 
-    def __init__(self, max_length=-1):
+    def __init__(self, max_length=-1) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters

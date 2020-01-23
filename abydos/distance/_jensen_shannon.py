@@ -20,7 +20,7 @@ Jensen-Shannon divergence
 """
 
 from math import log
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -51,8 +51,8 @@ class JensenShannon(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize JensenShannon instance.
 
         Parameters

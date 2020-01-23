@@ -38,7 +38,7 @@ class Davidson(_Phonetic):
 
     _trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
-    def __init__(self, omit_fname=False):
+    def __init__(self, omit_fname=False) -> None:
         """Initialize Davidson instance.
 
         Parameters

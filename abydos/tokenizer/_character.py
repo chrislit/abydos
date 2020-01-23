@@ -30,7 +30,7 @@ class CharacterTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None):
+    def __init__(self, scaler=None) -> None:
         """Initialize tokenizer.
 
         Parameters

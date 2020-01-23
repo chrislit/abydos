@@ -49,7 +49,9 @@ class ISG(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, full_guth=False, symmetric=True, **kwargs: Any) -> None:
+    def __init__(
+        self, full_guth: bool = False, symmetric: bool = True, **kwargs: Any
+    ) -> None:
         """Initialize ISG instance.
 
         Parameters

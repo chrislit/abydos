@@ -47,7 +47,7 @@ class HenryEarly(_Phonetic):
     }
     _simple = {'W': 'V', 'X': 'S', 'Z': 'S'}
 
-    def __init__(self, max_length=3):
+    def __init__(self, max_length=3) -> None:
         """Initialize HenryEarly instance.
 
         Parameters

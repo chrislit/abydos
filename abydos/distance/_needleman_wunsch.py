@@ -19,7 +19,7 @@
 Needleman-Wunsch score
 """
 
-from typing import Optional
+from typing import Callable, Dict, Optional, Tuple, Union, cast
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -41,12 +41,12 @@ class NeedlemanWunsch(_Distance):
 
     @staticmethod
     def sim_matrix(
-        src,
-        tar,
-        mat=None,
-        mismatch_cost=0,
-        match_cost=1,
-        symmetric=True,
+        src: str,
+        tar: str,
+        mat: Optional[Dict[Tuple[str, str], int]] = None,
+        mismatch_cost: Union[int, float] = 0,
+        match_cost: Union[int, float] = 1,
+        symmetric: bool = True,
         alphabet: Optional[str] = None,
     ):
         """Return the matrix similarity of two strings.
@@ -124,7 +124,12 @@ class NeedlemanWunsch(_Distance):
             return mat[(tar, src)]
         return mismatch_cost
 
-    def __init__(self, gap_cost=1, sim_func=None, **kwargs):
+    def __init__(
+        self,
+        gap_cost: Union[int, float] = 1,
+        sim_func: Optional[Callable[[str, str], Union[int, float]]] = None,
+        **kwargs
+    ) -> None:
         """Initialize NeedlemanWunsch instance.
 
         Parameters
@@ -143,9 +148,10 @@ class NeedlemanWunsch(_Distance):
         """
         super(NeedlemanWunsch, self).__init__(**kwargs)
         self._gap_cost = gap_cost
-        self._sim_func = sim_func
-        if self._sim_func is None:
-            self._sim_func = NeedlemanWunsch.sim_matrix
+        self._sim_func = cast(
+            Callable[[str, str], float],
+            NeedlemanWunsch.sim_matrix if sim_func is None else sim_func,
+        )  # type: Callable[[str, str], float]
 
     def sim_score(self, src: str, tar: str) -> float:
         """Return the Needleman-Wunsch score of two strings.

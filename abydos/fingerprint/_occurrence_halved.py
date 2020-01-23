@@ -32,7 +32,7 @@ class OccurrenceHalved(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
+    def __init__(self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG) -> None:
         """Initialize Count instance.
 
         Parameters

@@ -181,6 +181,190 @@ class SynonameTestCases(unittest.TestCase):
             1,
         )
 
+    def test_synoname_sim_type(self):
+        """Test abydos.distance.Synoname.sim_type."""
+        self.assertEqual(self.cmp.sim_type('', ''), 1)
+        self.assertEqual(Synoname(tests=['exact']).sim_type('', ''), 1)
+        self.assertEqual(Synoname(tests=[]).sim_type('', ''), 13)
+        self.assertEqual(
+            Synoname(tests=['nonsense-test']).sim_type('', ''), 13
+        )
+        self.assertEqual(Synoname(ret_name=True).sim_type('', ''), 'exact')
+
+        # Types 1-12
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel', 'Pieter', ''), ('Brueghel', 'Pieter', '')
+            ),
+            'exact',
+        )
+
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel II', 'Pieter', ''), ('Brueghel I', 'Pieter', '')
+            ),
+            'no_match',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', '')
+            ),
+            'omission',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel', 'Pieter', ''), ('Breghel', 'Pieter', '')
+            ),
+            'omission',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel', 'Piter', ''), ('Brueghel', 'Pieter', '')
+            ),
+            'omission',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel', 'Pieter', ''), ('Brueghel', 'Piter', '')
+            ),
+            'omission',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brughel', 'Pieter', ''), ('Breghel', 'Pieter', '')
+            ),
+            'substitution',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Breughel', 'Peter', ''), ('Breughel', 'Piter', '')
+            ),
+            'substitution',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel', 'Pieter', ''), ('Breughel', 'Pieter', '')
+            ),
+            'transposition',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel', 'Peiter', ''), ('Brueghel', 'Pieter', '')
+            ),
+            'transposition',
+        )
+
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel:', 'Pieter', ''), ('Brueghel', 'Pi-eter', '')
+            ),
+            'punctuation',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel,', 'Pieter', ''), ('Brueghel', 'Pieter...', '')
+            ),
+            'punctuation',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Seu rat', 'George Pierre', ''),
+                ('Seu-rat', 'George-Pierre', ''),
+            ),
+            'punctuation',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Picasso', '', ''), ('Picasso', 'Pablo', '')
+            ),
+            'no_first',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Pereira', 'I. R.', ''), ('Pereira', 'Irene Rice', '')
+            ),
+            'initials',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Pereira', 'I.', ''), ('Pereira', 'Irene Rice', '')
+            ),
+            'initials',
+        )
+        self.assertNotEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', '')
+            ),
+            'initials',
+        )
+        self.assertNotEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Pereira', 'I. R. S.', ''), ('Pereira', 'I. S. R.', '')
+            ),
+            'initials',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('de Goya', 'Francisco', ''),
+                ('de Goya y Lucientes', 'Francisco', ''),
+            ),
+            'extension',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Seurat', 'George', ''), ('Seurat', 'George-Pierre', '')
+            ),
+            'extension',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Gericault', 'Theodore', ''),
+                ('Gericault', 'Jean Louis Andre Theodore', ''),
+            ),
+            'inclusion',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Dore', 'Gustave', ''),
+                ('Dore', 'Paul Gustave Louis Christophe', ''),
+            ),
+            'inclusion',
+        )
+
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Rosetti', 'Dante Gabriel', ''),
+                ('Rosetti', 'Gabriel Charles Dante', ''),
+            ),
+            'word_approx',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('di Domenico di Bonaventura', 'Cosimo', ''),
+                ('di Tomme di Nuto', 'Luca', ''),
+            ),
+            'no_match',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', '')
+            ),
+            'word_approx',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Antonello da Messina', '', ''),
+                ('Messina', 'Antonello da', ''),
+            ),
+            'confusions',
+        )
+        self.assertEqual(
+            Synoname(ret_name=True).sim_type(
+                ('Brueghel', 'Pietter', ''), ('Bruegghel', 'Pieter', '')
+            ),
+            'char_approx',
+        )
+
     def test_synoname_dist_abs(self):
         """Test abydos.distance.Synoname.dist_abs."""
         # Base cases
@@ -190,7 +374,6 @@ class SynonameTestCases(unittest.TestCase):
         self.assertEqual(
             Synoname(tests=['nonsense-test']).dist_abs('', ''), 13
         )
-        self.assertEqual(Synoname(ret_name=True).dist_abs('', ''), 'exact')
 
         # Test input formats
         self.assertEqual(
@@ -233,180 +416,6 @@ class SynonameTestCases(unittest.TestCase):
                 ('Master known as the Brueghel II', 'Pieter', 'Workshop of'),
             ),
             10,
-        )
-
-        # Types 1-12
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel', 'Pieter', ''), ('Brueghel', 'Pieter', '')
-            ),
-            'exact',
-        )
-
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel II', 'Pieter', ''), ('Brueghel I', 'Pieter', '')
-            ),
-            'no_match',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', '')
-            ),
-            'omission',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel', 'Pieter', ''), ('Breghel', 'Pieter', '')
-            ),
-            'omission',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel', 'Piter', ''), ('Brueghel', 'Pieter', '')
-            ),
-            'omission',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel', 'Pieter', ''), ('Brueghel', 'Piter', '')
-            ),
-            'omission',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brughel', 'Pieter', ''), ('Breghel', 'Pieter', '')
-            ),
-            'substitution',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Breughel', 'Peter', ''), ('Breughel', 'Piter', '')
-            ),
-            'substitution',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel', 'Pieter', ''), ('Breughel', 'Pieter', '')
-            ),
-            'transposition',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel', 'Peiter', ''), ('Brueghel', 'Pieter', '')
-            ),
-            'transposition',
-        )
-
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel:', 'Pieter', ''), ('Brueghel', 'Pi-eter', '')
-            ),
-            'punctuation',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel,', 'Pieter', ''), ('Brueghel', 'Pieter...', '')
-            ),
-            'punctuation',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Seu rat', 'George Pierre', ''),
-                ('Seu-rat', 'George-Pierre', ''),
-            ),
-            'punctuation',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Picasso', '', ''), ('Picasso', 'Pablo', '')
-            ),
-            'no_first',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Pereira', 'I. R.', ''), ('Pereira', 'Irene Rice', '')
-            ),
-            'initials',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Pereira', 'I.', ''), ('Pereira', 'Irene Rice', '')
-            ),
-            'initials',
-        )
-        self.assertNotEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', '')
-            ),
-            'initials',
-        )
-        self.assertNotEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Pereira', 'I. R. S.', ''), ('Pereira', 'I. S. R.', '')
-            ),
-            'initials',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('de Goya', 'Francisco', ''),
-                ('de Goya y Lucientes', 'Francisco', ''),
-            ),
-            'extension',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Seurat', 'George', ''), ('Seurat', 'George-Pierre', '')
-            ),
-            'extension',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Gericault', 'Theodore', ''),
-                ('Gericault', 'Jean Louis Andre Theodore', ''),
-            ),
-            'inclusion',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Dore', 'Gustave', ''),
-                ('Dore', 'Paul Gustave Louis Christophe', ''),
-            ),
-            'inclusion',
-        )
-
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Rosetti', 'Dante Gabriel', ''),
-                ('Rosetti', 'Gabriel Charles Dante', ''),
-            ),
-            'word_approx',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('di Domenico di Bonaventura', 'Cosimo', ''),
-                ('di Tomme di Nuto', 'Luca', ''),
-            ),
-            'no_match',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', '')
-            ),
-            'word_approx',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Antonello da Messina', '', ''),
-                ('Messina', 'Antonello da', ''),
-            ),
-            'confusions',
-        )
-        self.assertEqual(
-            Synoname(ret_name=True).dist_abs(
-                ('Brueghel', 'Pietter', ''), ('Bruegghel', 'Pieter', '')
-            ),
-            'char_approx',
         )
 
     def test_synoname_dist(self):

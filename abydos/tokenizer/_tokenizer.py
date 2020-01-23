@@ -45,7 +45,7 @@ class _Tokenizer:
     def __init__(
         self,
         scaler: Optional[
-            Union[str, Callable[[Union[int, float]], int]]
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
         ] = None,
         *args: Any,
         **kwargs: Any

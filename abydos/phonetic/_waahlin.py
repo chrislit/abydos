@@ -35,7 +35,7 @@ class Waahlin(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, encoder=None):
+    def __init__(self, encoder=None) -> None:
         """Initialize Waahlin instance.
 
         Parameters

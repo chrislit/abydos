@@ -35,7 +35,7 @@ class Consonant(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, variant=1, doubles=True, vowels=None):
+    def __init__(self, variant=1, doubles=True, vowels=None) -> None:
         """Initialize Consonant instance.
 
         Parameters

@@ -48,7 +48,7 @@ class PSHPSoundexLast(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '12345'), 'PKTLN'))
 
-    def __init__(self, max_length=4, german=False):
+    def __init__(self, max_length=4, german=False) -> None:
         """Initialize PSHPSoundexLast instance.
 
         Parameters

@@ -19,6 +19,8 @@
 Horn-Morisita index of overlap
 """
 
+from typing import Any
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['HornMorisita']
@@ -53,7 +55,7 @@ class HornMorisita(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize HornMorisita instance.
 
         Parameters

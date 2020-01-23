@@ -52,7 +52,7 @@ class Phonix(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '012345678'), 'APKTLNRFS'))
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length=4, zero_pad=True) -> None:
         """Initialize Phonix instance.
 
         Parameters

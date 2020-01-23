@@ -144,7 +144,7 @@ class SfinxBis(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '123456789#'), 'PKTLNRFSAŠ'))
 
-    def __init__(self, max_length=-1):
+    def __init__(self, max_length=-1) -> None:
         """Initialize SfinxBis instance.
 
         Parameters

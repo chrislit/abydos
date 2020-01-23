@@ -21,6 +21,7 @@ Typo edit distance functions.
 
 from itertools import chain
 from math import log
+from typing import Any, Tuple
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -94,11 +95,11 @@ class Typo(_Distance):
 
     def __init__(
         self,
-        metric='euclidean',
-        cost=(1, 1, 0.5, 0.5),
-        layout='QWERTY',
-        failsafe=False,
-        **kwargs
+        metric: str = 'euclidean',
+        cost: Tuple[float, float, float, float] = (1.0, 1.0, 0.5, 0.5),
+        layout: str = 'QWERTY',
+        failsafe: bool = False,
+        **kwargs: Any
     ):
         """Initialize Typo instance.
 

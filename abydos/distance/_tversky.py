@@ -19,7 +19,7 @@
 Tversky index
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -67,13 +67,13 @@ class Tversky(_TokenDistance):
 
     def __init__(
         self,
-        alpha=1.0,
-        beta=1.0,
-        bias=None,
+        alpha: float = 1.0,
+        beta: float = 1.0,
+        bias: Optional[float] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        **kwargs
-    ):
+        **kwargs: Any
+    ) -> None:
         """Initialize Tversky instance.
 
         Parameters

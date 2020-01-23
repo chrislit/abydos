@@ -20,6 +20,16 @@ Synoname.
 """
 
 from collections import Iterable
+from typing import (
+    Any,
+    Dict,
+    Iterable as TIterable,
+    List,
+    Optional,
+    Tuple,
+    Union,
+    cast,
+)
 
 from ._distance import _Distance
 from ._levenshtein import Levenshtein
@@ -45,8 +55,8 @@ class Synoname(_Distance):
     _stc = SynonameToolcode()
 
     _test_dict = {
-        val: 2 ** n
-        for n, val in enumerate(
+        key: 2 ** n
+        for n, key in enumerate(
             (
                 'exact',
                 'omission',
@@ -62,7 +72,7 @@ class Synoname(_Distance):
                 'char_approx',
             )
         )
-    }
+    }  # type: Dict[str, int]
     _match_name = (
         '',
         'exact',
@@ -81,7 +91,7 @@ class Synoname(_Distance):
     )
     _match_type_dict = {val: n for n, val in enumerate(_match_name)}
 
-    def _synoname_strip_punct(self, word):
+    def _synoname_strip_punct(self, word: str) -> str:
         """Return a word with punctuation stripped out.
 
         Parameters
@@ -113,8 +123,15 @@ class Synoname(_Distance):
         return stripped.strip()
 
     def _synoname_word_approximation(
-        self, src_ln, tar_ln, src_fn='', tar_fn='', features=None
-    ):
+        self,
+        src_ln: str,
+        tar_ln: str,
+        src_fn: str = '',
+        tar_fn: str = '',
+        features: Optional[
+            Dict[str, Union[bool, List[Tuple[int, str]]]]
+        ] = None,
+    ) -> float:
         """Return the Synoname word approximation score for two names.
 
         Parameters
@@ -156,8 +173,12 @@ class Synoname(_Distance):
         if 'tar_specials' not in features:
             features['tar_specials'] = []
 
-        src_len_specials = len(features['src_specials'])
-        tar_len_specials = len(features['tar_specials'])
+        src_len_specials = len(
+            cast(List[Tuple[int, str]], features['src_specials'])
+        )
+        tar_len_specials = len(
+            cast(List[Tuple[int, str]], features['tar_specials'])
+        )
 
         # 1
         if ('gen_conflict' in features and features['gen_conflict']) or (
@@ -167,7 +188,9 @@ class Synoname(_Distance):
 
         # 3 & 7
         full_tar1 = ' '.join((tar_ln, tar_fn)).replace('-', ' ').strip()
-        for s_pos, s_type in features['tar_specials']:
+        for s_pos, s_type in cast(
+            List[Tuple[int, str]], features['tar_specials']
+        ):
             if s_type == 'a':
                 full_tar1 = full_tar1[
                     : -(
@@ -212,7 +235,9 @@ class Synoname(_Distance):
                 ]
 
         full_src1 = ' '.join((src_ln, src_fn)).replace('-', ' ').strip()
-        for s_pos, s_type in features['src_specials']:
+        for s_pos, s_type in cast(
+            List[Tuple[int, str]], features['src_specials']
+        ):
             if s_type == 'a':
                 full_src1 = full_src1[
                     : -(
@@ -257,7 +282,9 @@ class Synoname(_Distance):
                 ]
 
         full_tar2 = full_tar1
-        for s_pos, s_type in features['tar_specials']:
+        for s_pos, s_type in cast(
+            List[Tuple[int, str]], features['tar_specials']
+        ):
             if s_type == 'd':
                 full_tar2 = full_tar2[
                     len(
@@ -288,7 +315,9 @@ class Synoname(_Distance):
                 )
 
         full_src2 = full_src1
-        for s_pos, s_type in features['src_specials']:
+        for s_pos, s_type in cast(
+            List[Tuple[int, str]], features['src_specials']
+        ):
             if s_type == 'd':
                 full_src2 = full_src2[
                     len(
@@ -430,12 +459,12 @@ class Synoname(_Distance):
 
     def __init__(
         self,
-        word_approx_min=0.3,
-        char_approx_min=0.73,
-        tests=2 ** 12 - 1,
-        ret_name=False,
-        **kwargs
-    ):
+        word_approx_min: float = 0.3,
+        char_approx_min: float = 0.73,
+        tests: Union[int, TIterable[str]] = 2 ** 12 - 1,
+        ret_name: bool = False,
+        **kwargs: Any
+    ) -> None:
         """Initialize Synoname instance.
 
         Parameters
@@ -463,15 +492,43 @@ class Synoname(_Distance):
         self._char_approx_min = char_approx_min
         self._ret_name = ret_name
 
-        self._tests = tests
-        if isinstance(self._tests, Iterable):
-            new_tests = 0
-            for term in self._tests:
+        if isinstance(tests, Iterable):
+            self._tests = 0
+            for term in tests:
                 if term in self._test_dict:
-                    new_tests += self._test_dict[term]
-            self._tests = new_tests
+                    self._tests += self._test_dict[term]
+        else:
+            self._tests = cast(int, tests)
 
-    def dist_abs(self, src, tar, force_numeric=False):
+    def dist_abs(self, src: str, tar: str) -> int:
+        """Return the Synoname similarity type of two words.
+
+        Parameters
+        ----------
+        src : str
+            Source string for comparison
+        tar : str
+            Target string for comparison
+
+        Returns
+        -------
+        int
+            Synoname value
+
+        Examples
+        --------
+        >>> cmp = Synoname()
+        >>> cmp.dist_abs(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
+        2
+
+        .. versionadded:: 0.6.0
+
+        """
+        return cast(int, self.sim_type(src, tar, True))
+
+    def sim_type(
+        self, src: str, tar: str, force_numeric: bool = False
+    ) -> Union[int, str]:
         """Return the Synoname similarity type of two words.
 
         Parameters
@@ -491,22 +548,25 @@ class Synoname(_Distance):
         Examples
         --------
         >>> cmp = Synoname()
-        >>> cmp.dist_abs(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
+        >>> cmp.sim_type(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
         2
 
         >>> cmp = Synoname(ret_name=True)
-        >>> cmp.dist_abs(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
+        >>> cmp.sim_type(('Breghel', 'Pieter', ''), ('Brueghel', 'Pieter', ''))
         'omission'
-        >>> cmp.dist_abs(('Dore', 'Gustave', ''),
+        >>> cmp.sim_type(('Dore', 'Gustave', ''),
         ... ('Dore', 'Paul Gustave Louis Christophe', ''))
         'inclusion'
-        >>> cmp.dist_abs(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''))
+        >>> cmp.sim_type(('Pereira', 'I. R.', ''), ('Pereira', 'I. Smith', ''))
         'word_approx'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Renamed dist_abs to sim_type and added dist_abs with standard
+            interface
 
         """
         if isinstance(src, tuple):
@@ -577,9 +637,9 @@ class Synoname(_Distance):
         fn_equal = src_fn == tar_fn
 
         # approx_c
-        def _approx_c():
+        def _approx_c() -> Tuple[bool, float]:
             if gen_conflict or roman_conflict:
-                return False, 0
+                return False, 0.0
 
             full_src = ' '.join((src_ln, src_fn))
             if full_src.startswith('master '):
@@ -662,21 +722,27 @@ class Synoname(_Distance):
                     or (len(tar_initials) == len(''.join(tar_initials)))
                 )
                 if initials:
-                    src_initials = ''.join(_[0] for _ in src_initials)
-                    tar_initials = ''.join(_[0] for _ in tar_initials)
-                    if src_initials == tar_initials:
+                    src_initials_str = ''.join(_[0] for _ in src_initials)
+                    tar_initials_str = ''.join(_[0] for _ in tar_initials)
+                    if src_initials_str == tar_initials_str:
                         return _fmt_retval(self._match_type_dict['initials'])
-                    initial_diff = abs(len(src_initials) - len(tar_initials))
+                    initial_diff = abs(
+                        len(src_initials_str) - len(tar_initials_str)
+                    )
                     self._lev._cost = (1, 99, 99, 99)  # noqa: SF01
                     self._lev._mode = 'lev'  # noqa: SF01
                     if initial_diff and (
                         (
                             initial_diff
-                            == self._lev.dist_abs(src_initials, tar_initials,)
+                            == self._lev.dist_abs(
+                                src_initials_str, tar_initials_str,
+                            )
                         )
                         or (
                             initial_diff
-                            == self._lev.dist_abs(tar_initials, src_initials,)
+                            == self._lev.dist_abs(
+                                src_initials_str, tar_initials_str,
+                            )
                         )
                     ):
                         return _fmt_retval(self._match_type_dict['initials'])
@@ -743,7 +809,7 @@ class Synoname(_Distance):
             Encapsulated in class
 
         """
-        return self.dist_abs(src, tar, force_numeric=True) / 14
+        return self.dist_abs(src, tar) / 14
 
 
 if __name__ == '__main__':

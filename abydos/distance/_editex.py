@@ -20,7 +20,7 @@ editex
 """
 
 from sys import float_info
-from typing import Any
+from typing import Any, Tuple
 from unicodedata import normalize as unicode_normalize
 
 from numpy import float as np_float
@@ -58,7 +58,11 @@ class Editex(_Distance):
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 
     def __init__(
-        self, cost=(0, 1, 2), local=False, taper=False, **kwargs: Any
+        self,
+        cost: Tuple[int, int, int] = (0, 1, 2),
+        local: bool = False,
+        taper: bool = False,
+        **kwargs: Any
     ) -> None:
         """Initialize Editex instance.
 
