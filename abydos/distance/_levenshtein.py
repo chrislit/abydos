@@ -24,7 +24,7 @@ based on Levenshtein distance, including:
 """
 
 from sys import float_info
-from typing import Any, Callable, List, Tuple, Union
+from typing import Any, Callable, List, Tuple, Union, cast
 
 import numpy as np
 
@@ -116,7 +116,9 @@ class Levenshtein(_Distance):
             else 1
         )
 
-    def _alignment_matrix(self, src: str, tar: str, backtrace: bool = True):
+    def _alignment_matrix(
+        self, src: str, tar: str, backtrace: bool = True
+    ) -> Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """Return the Levenshtein alignment matrix.
 
         Parameters
@@ -326,7 +328,9 @@ class Levenshtein(_Distance):
                 del_cost * self._taper(pos, max_len) for pos in range(src_len)
             )
 
-        d_mat = self._alignment_matrix(src, tar, backtrace=False)
+        d_mat = cast(
+            np.ndarray, self._alignment_matrix(src, tar, backtrace=False)
+        )
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])

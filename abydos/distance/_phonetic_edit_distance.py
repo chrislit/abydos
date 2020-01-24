@@ -19,7 +19,17 @@
 Phonetic edit distance
 """
 
-from typing import Any, Callable, List, Union
+from typing import (
+    Any,
+    Dict,
+    Callable,
+    Iterable,
+    List,
+    Optional,
+    Tuple,
+    Union,
+    cast,
+)
 
 import numpy as np
 
@@ -40,12 +50,19 @@ class PhoneticEditDistance(Levenshtein):
 
     def __init__(
         self,
-        mode='lev',
-        cost=(1, 1, 1, 0.33333),
+        mode: str = 'lev',
+        cost: Tuple[
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+        ] = (1, 1, 1, 0.33333),
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        weights=None,
+        weights: Optional[
+            Union[Iterable[Union[int, float]], Dict[str, Union[int, float]]]
+        ] = None,
         **kwargs: Any
     ):
         """Initialize PhoneticEditDistance instance.
@@ -107,7 +124,9 @@ class PhoneticEditDistance(Levenshtein):
             weights = list(weights) + [0] * (len(_FEATURE_MASK) - len(weights))
         self._weights = weights
 
-    def _alignment_matrix(self, src, tar, backtrace=True):
+    def _alignment_matrix(
+        self, src: str, tar: str, backtrace: bool = True
+    ) -> Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """Return the phonetic edit distance alignment matrix.
 
         Parameters
@@ -233,7 +252,9 @@ class PhoneticEditDistance(Levenshtein):
         if not tar:
             return del_cost * src_len
 
-        d_mat = self._alignment_matrix(src, tar, backtrace=False)
+        d_mat = cast(
+            np.ndarray, self._alignment_matrix(src, tar, backtrace=False)
+        )
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])

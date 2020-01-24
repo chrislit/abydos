@@ -21,7 +21,7 @@ The NGram class is a container for an n-gram corpus
 
 from codecs import open as c_open
 from collections import Counter
-from typing import Counter as TCounter, List, Optional, Union, cast
+from typing import Any, Counter as TCounter, List, Optional, Union, cast
 
 from ._corpus import Corpus
 
@@ -194,7 +194,9 @@ class NGramCorpus:
             )
         return 0
 
-    def _add_to_ngcorpus(self, corpus, words: List[str], count: int) -> None:
+    def _add_to_ngcorpus(
+        self, corpus: Any, words: List[str], count: int
+    ) -> None:
         """Build up a corpus entry recursively.
 
         Parameters

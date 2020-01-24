@@ -53,15 +53,15 @@ from ..tokenizer import _Tokenizer
 __all__ = ['GeneralizedFleiss']
 
 
-def _agmean_prec6(nums: Iterable[Union[int, float]]):
+def _agmean_prec6(nums: Iterable[Union[int, float]]) -> float:
     return agmean(nums, prec=6)
 
 
-def _ghmean_prec6(nums: Iterable[Union[int, float]]):
+def _ghmean_prec6(nums: Iterable[Union[int, float]]) -> float:
     return ghmean(nums, prec=6)
 
 
-def _aghmean_prec6(nums: Iterable[Union[int, float]]):
+def _aghmean_prec6(nums: Iterable[Union[int, float]]) -> float:
     return aghmean(nums, prec=6)
 
 

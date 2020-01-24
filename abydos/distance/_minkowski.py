@@ -38,7 +38,7 @@ class Minkowski(_TokenDistance):
 
     def __init__(
         self,
-        pval=1,
+        pval: Union[int, float] = 1,
         alphabet: Optional[Union[TCounter, Collection, int]] = 0,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',

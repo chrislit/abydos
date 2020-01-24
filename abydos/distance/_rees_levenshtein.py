@@ -41,7 +41,7 @@ class ReesLevenshtein(_Distance):
 
     def __init__(
         self,
-        block_limit=2,
+        block_limit: int = 2,
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,

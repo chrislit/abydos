@@ -23,14 +23,14 @@ import pickle  # noqa: S403
 from codecs import open as c_open
 from collections import Counter, defaultdict
 from math import log1p
-from typing import Callable, DefaultDict, Optional, Tuple
+from typing import Any, Callable, DefaultDict, Optional, Tuple
 
 from ..tokenizer import _Tokenizer
 
 __all__ = ['UnigramCorpus']
 
 
-def _dd_default(*args):
+def _dd_default(*args: Any) -> Tuple[int, int]:
     return 0, 0
 
 
@@ -173,7 +173,8 @@ class UnigramCorpus:
             word = self.transform(word)
 
         if self.tokenizer is not None:
-            tokens = self.tokenizer.tokenize(word).get_counter()
+            self.tokenizer.tokenize(word)
+            tokens = self.tokenizer.get_counter()
             for tok in tokens:
                 n = tokens[tok] * count
                 prior_count, prior_doc_count = self.corpus[tok]

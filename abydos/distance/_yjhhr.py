@@ -51,7 +51,7 @@ class YJHHR(_TokenDistance):
 
     def __init__(
         self,
-        pval=1,
+        pval: int = 1,
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',

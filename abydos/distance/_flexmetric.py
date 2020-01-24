@@ -19,7 +19,7 @@
 FlexMetric distance
 """
 
-from typing import Any, Callable, List, Union
+from typing import Any, Callable, Iterable, List, Tuple, Union
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -42,8 +42,8 @@ class FlexMetric(_Distance):
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        indel_costs=None,
-        subst_costs=None,
+        indel_costs: List[Tuple[Iterable[str], float]] = None,
+        subst_costs: List[Tuple[Iterable[str], float]] = None,
         **kwargs: Any
     ) -> None:
         """Initialize FlexMetric instance.
@@ -81,7 +81,7 @@ class FlexMetric(_Distance):
                 (frozenset('e'), 0.5),
                 (frozenset('u'), 0.9),
                 (frozenset('rpn'), 0.95),
-            ]
+            ]  # type: List[Tuple[Iterable[str], float]]
         else:
             self._indel_costs = indel_costs
 

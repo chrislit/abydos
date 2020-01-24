@@ -144,11 +144,14 @@ class SAPS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        src = self._tokenizer.tokenize(src).get_list()
-        tar = self._tokenizer.tokenize(tar).get_list()
-
-        src = ''.join([_[0].upper() + _[1:].lower() for _ in src])
-        tar = ''.join([_[0].upper() + _[1:].lower() for _ in tar])
+        self._tokenizer.tokenize(src)
+        src = ''.join(
+            [_[0].upper() + _[1:].lower() for _ in self._tokenizer.get_list()]
+        )
+        self._tokenizer.tokenize(tar)
+        tar = ''.join(
+            [_[0].upper() + _[1:].lower() for _ in self._tokenizer.get_list()]
+        )
 
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         for i in range(len(src)):
@@ -201,10 +204,10 @@ class SAPS(_Distance):
         if score <= 0:
             return 0.0
 
-        src = self._tokenizer.tokenize(src).get_list()
-        src_max = sum(5 + len(_) for _ in src)
-        tar = self._tokenizer.tokenize(tar).get_list()
-        tar_max = sum(5 + len(_) for _ in tar)
+        self._tokenizer.tokenize(src)
+        src_max = sum(5 + len(_) for _ in self._tokenizer.get_list())
+        self._tokenizer.tokenize(tar)
+        tar_max = sum(5 + len(_) for _ in self._tokenizer.get_list())
 
         return score / max(src_max, tar_max)
 

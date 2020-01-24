@@ -64,7 +64,7 @@ class GiniII(_TokenDistance):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        normalizer='proportional',
+        normalizer: str = 'proportional',
         **kwargs: Any
     ) -> None:
         """Initialize GiniII instance.

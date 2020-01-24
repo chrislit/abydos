@@ -54,7 +54,7 @@ class AZZOO(_TokenDistance):
 
     def __init__(
         self,
-        sigma=0.5,
+        sigma: float = 0.5,
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',

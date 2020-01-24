@@ -138,7 +138,7 @@ class Strcmp95(_Distance):
 
         """
 
-        def _in_range(char: str):
+        def _in_range(char: str) -> bool:
             """Return True if char is in the range (0, 91).
 
             Parameters

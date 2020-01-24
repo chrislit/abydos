@@ -20,7 +20,7 @@ Discounted Levenshtein edit distance
 """
 
 from math import log
-from typing import Any, Callable, List, Union
+from typing import Any, Callable, List, Tuple, Union, cast
 
 import numpy as np
 
@@ -121,7 +121,9 @@ class DiscountedLevenshtein(Levenshtein):
     def _exp_discount(discounts: Union[int, float]) -> float:
         return 1 / (discounts + 1) ** 0.2
 
-    def _alignment_matrix(self, src: str, tar: str, backtrace=True):
+    def _alignment_matrix(
+        self, src: str, tar: str, backtrace: bool = True
+    ) -> Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """Return the Levenshtein alignment matrix.
 
         Parameters
@@ -285,7 +287,9 @@ class DiscountedLevenshtein(Levenshtein):
                 for pos in range(src_len)
             )
 
-        d_mat = self._alignment_matrix(src, tar, backtrace=False)
+        d_mat = cast(
+            np.ndarray, self._alignment_matrix(src, tar, backtrace=False)
+        )
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])

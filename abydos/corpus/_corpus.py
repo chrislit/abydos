@@ -91,9 +91,8 @@ class Corpus:
             doc = []  # type: List[List[str]]
             for sentence in document.split(sent_split):
                 if word_tokenizer:
-                    sentence_words = word_tokenizer.tokenize(
-                        sentence
-                    ).get_list()
+                    word_tokenizer.tokenize(sentence)
+                    sentence_words = word_tokenizer.get_list()
                 else:
                     sentence_words = sentence.split()
 

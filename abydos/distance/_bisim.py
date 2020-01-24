@@ -38,7 +38,7 @@ class BISIM(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, **kwargs: Any) -> None:
+    def __init__(self, qval: int = 2, **kwargs: Any) -> None:
         """Initialize BISIM instance.
 
         Parameters

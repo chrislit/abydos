@@ -148,10 +148,10 @@ class BLEU(_Distance):
         bleu_null = True
 
         for i in range(len(self._tokenizers)):
-            tar_tokens = self._tokenizers[i].tokenize(tar).get_counter()
-            tokens_int = (
-                self._tokenizers[i].tokenize(src).get_counter() & tar_tokens
-            )
+            self._tokenizers[i].tokenize(tar)
+            tar_tokens = self._tokenizers[i].get_counter()
+            self._tokenizers[i].tokenize(src)
+            tokens_int = self._tokenizers[i].get_counter() & tar_tokens
             tar_total = sum(tar_tokens.values())
 
             if tokens_int:

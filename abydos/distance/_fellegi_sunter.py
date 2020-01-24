@@ -42,8 +42,8 @@ class FellegiSunter(_TokenDistance):
         self,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        simplified=False,
-        mismatch_factor=0.5,
+        simplified: bool = False,
+        mismatch_factor: float = 0.5,
         **kwargs: Any
     ) -> None:
         """Initialize FellegiSunter instance.

@@ -19,7 +19,7 @@
 Needleman-Wunsch score
 """
 
-from typing import Callable, Dict, Optional, Tuple, Union, cast
+from typing import Any, Callable, Dict, Optional, Tuple, Union, cast
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -48,7 +48,7 @@ class NeedlemanWunsch(_Distance):
         match_cost: Union[int, float] = 1,
         symmetric: bool = True,
         alphabet: Optional[str] = None,
-    ):
+    ) -> float:
         """Return the matrix similarity of two strings.
 
         With the default parameters, this is identical to sim_ident.
@@ -128,7 +128,7 @@ class NeedlemanWunsch(_Distance):
         self,
         gap_cost: Union[int, float] = 1,
         sim_func: Optional[Callable[[str, str], Union[int, float]]] = None,
-        **kwargs
+        **kwargs: Any
     ) -> None:
         """Initialize NeedlemanWunsch instance.
 

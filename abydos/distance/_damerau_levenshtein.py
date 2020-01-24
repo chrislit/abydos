@@ -20,7 +20,7 @@ Damerau-Levenshtein distance
 """
 
 from sys import maxsize
-from typing import Any, Callable, List, Union
+from typing import Any, Callable, List, Tuple, Union
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -43,7 +43,12 @@ class DamerauLevenshtein(_Distance):
 
     def __init__(
         self,
-        cost=(1, 1, 1, 1),
+        cost: Tuple[
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+        ] = (1, 1, 1, 1),
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,

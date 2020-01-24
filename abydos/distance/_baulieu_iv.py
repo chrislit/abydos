@@ -65,7 +65,7 @@ class BaulieuIV(_TokenDistance):
         alphabet: Optional[Union[TCounter, Collection, int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
-        positive_irrational=e,
+        positive_irrational: float = e,
         **kwargs: Any
     ) -> None:
         """Initialize BaulieuIV instance.

@@ -19,7 +19,7 @@
 Baystat similarity.
 """
 
-from typing import Any
+from typing import Any, Optional
 
 from ._distance import _Distance
 
@@ -42,7 +42,11 @@ class Baystat(_Distance):
     """
 
     def __init__(
-        self, min_ss_len=None, left_ext=None, right_ext=None, **kwargs: Any
+        self,
+        min_ss_len: Optional[int] = None,
+        left_ext: Optional[int] = None,
+        right_ext: Optional[int] = None,
+        **kwargs: Any
     ) -> None:
         """Initialize Levenshtein instance.
 

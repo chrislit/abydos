@@ -19,7 +19,7 @@
 Levenshtein distance with block operations
 """
 
-from typing import Any, Callable, List, Union
+from typing import Any, Callable, List, Tuple, Union
 
 from ._lcsstr import LCSstr
 from ._levenshtein import Levenshtein
@@ -40,7 +40,12 @@ class BlockLevenshtein(Levenshtein):
 
     def __init__(
         self,
-        cost=(1, 1, 1, 1),
+        cost: Tuple[
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+            Union[int, float],
+        ] = (1, 1, 1, 1),
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,

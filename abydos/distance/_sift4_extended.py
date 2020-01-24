@@ -156,17 +156,19 @@ class Sift4Extended(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        src = cast(_Tokenizer, self._tokenizer).tokenize(src).get_list()
-        tar = cast(_Tokenizer, self._tokenizer).tokenize(tar).get_list()
+        cast(_Tokenizer, self._tokenizer).tokenize(src)
+        src_list = cast(_Tokenizer, self._tokenizer).get_list()
+        cast(_Tokenizer, self._tokenizer).tokenize(tar)
+        tar_list = cast(_Tokenizer, self._tokenizer).get_list()
 
-        if not src:
-            return len(tar)
+        if not src_list:
+            return len(tar_list)
 
-        if not tar:
-            return len(src)
+        if not tar_list:
+            return len(src_list)
 
-        src_len = len(src)
-        tar_len = len(tar)
+        src_len = len(src_list)
+        tar_len = len(tar_list)
 
         src_cur = 0
         tar_cur = 0
@@ -176,9 +178,9 @@ class Sift4Extended(_Distance):
         offset_arr = []  # type: List[Dict[str, Union[int, bool]]]
 
         while (src_cur < src_len) and (tar_cur < tar_len):
-            if self._token_matcher(src[src_cur], tar[tar_cur]):
+            if self._token_matcher(src_list[src_cur], tar_list[tar_cur]):
                 local_cs += self._matching_evaluator(
-                    src[src_cur], tar[tar_cur]
+                    src_list[src_cur], tar_list[tar_cur]
                 )
                 is_trans = False
                 i = 0
@@ -217,13 +219,17 @@ class Sift4Extended(_Distance):
                     ):
                         break
                     if (src_cur + i < src_len) and (
-                        self._token_matcher(src[src_cur + i], tar[tar_cur])
+                        self._token_matcher(
+                            src_list[src_cur + i], tar_list[tar_cur]
+                        )
                     ):
                         src_cur += i - 1
                         tar_cur -= 1
                         break
                     if (tar_cur + i < tar_len) and (
-                        self._token_matcher(src[src_cur], tar[tar_cur + i])
+                        self._token_matcher(
+                            src_list[src_cur], tar_list[tar_cur + i]
+                        )
                     ):
                         src_cur -= 1
                         tar_cur += i - 1

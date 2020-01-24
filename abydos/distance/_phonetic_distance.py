@@ -19,12 +19,12 @@
 Phonetic distance.
 """
 
-from typing import Any, Optional
+from typing import Any, Callable, List, Optional, Union, cast
 
 from ._distance import _Distance
-from ..fingerprint._fingerprint import _Fingerprint
-from ..phonetic._phonetic import _Phonetic
-from ..stemmer._stemmer import _Stemmer
+from ..fingerprint import _Fingerprint
+from ..phonetic import _Phonetic
+from ..stemmer import _Stemmer
 
 __all__ = ['PhoneticDistance']
 
@@ -50,9 +50,11 @@ class PhoneticDistance(_Distance):
 
     def __init__(
         self,
-        transforms=None,
+        transforms: Optional[
+            List[Union[_Phonetic, _Stemmer, _Fingerprint]]
+        ] = None,
         metric: Optional[_Distance] = None,
-        encode_alpha=False,
+        encode_alpha: bool = False,
         **kwargs: Any
     ) -> None:
         """Initialize PhoneticDistance instance.
@@ -80,20 +82,22 @@ class PhoneticDistance(_Distance):
 
         """
         super(PhoneticDistance, self).__init__(**kwargs)
-        self.transforms = transforms
-        if self.transforms:
+        self.transforms = []  # type: List[Callable[[str], str]]
+        if transforms:
             if isinstance(self.transforms, (list, tuple)):
-                self.transforms = list(self.transforms)
+                transforms = list(transforms)
             else:
-                self.transforms = [self.transforms]
+                transforms = [
+                    cast(Union[_Phonetic, _Stemmer, _Fingerprint], transforms)
+                ]
 
-            for i, trans in enumerate(self.transforms):
+            for i, trans in enumerate(transforms):
                 if isinstance(trans, (_Phonetic, _Fingerprint, _Stemmer)):
                     continue
                 elif isinstance(trans, type) and issubclass(
                     trans, (_Phonetic, _Fingerprint, _Stemmer)
                 ):
-                    self.transforms[i] = trans()
+                    transforms[i] = trans()
                 elif callable(trans):
                     continue
                 else:
@@ -101,19 +105,16 @@ class PhoneticDistance(_Distance):
                         '{} has unknown type {}'.format(trans, type(trans))
                     )
 
-            for i, trans in enumerate(self.transforms):
+            for trans in transforms:
                 if isinstance(trans, _Phonetic):
                     if encode_alpha:
-                        self.transforms[i] = self.transforms[i].encode_alpha
+                        self.transforms.append(trans.encode_alpha)
                     else:
-                        self.transforms[i] = self.transforms[i].encode
+                        self.transforms.append(trans.encode)
                 elif isinstance(trans, _Fingerprint):
-                    self.transforms[i] = self.transforms[i].fingerprint
+                    self.transforms.append(trans.fingerprint)
                 elif isinstance(trans, _Stemmer):
-                    self.transforms[i] = self.transforms[i].stem
-
-        else:
-            self.transforms = []
+                    self.transforms.append(trans.stem)
 
         self.metric = metric
         if self.metric:

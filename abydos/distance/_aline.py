@@ -20,7 +20,7 @@ ALINE alignment, similarity, and distance
 """
 
 from copy import deepcopy
-from typing import Callable, Dict, List, Tuple, Union, cast
+from typing import Any, Callable, Dict, List, Tuple, Union, cast
 
 from numpy import NINF
 from numpy import float as np_float
@@ -1181,7 +1181,7 @@ class ALINE(_Distance):
         normalizer: Callable[
             [List[Union[float, int]]], Union[float, int]
         ] = max,
-        **kwargs
+        **kwargs: Any
     ) -> None:
         """Initialize ALINE instance.
 
