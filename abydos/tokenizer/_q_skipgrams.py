@@ -214,7 +214,6 @@ class QSkipgrams(_Tokenizer):
                 self._ordered_weights += [1] * len(combs)
 
         self._scale_and_counterize()
-        return self
 
 
 if __name__ == '__main__':

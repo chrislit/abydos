@@ -20,6 +20,7 @@ NLTK tokenizer wrapper class
 """
 
 from inspect import isclass
+from typing import Callable, Optional, Union
 
 from ._tokenizer import _Tokenizer
 
@@ -30,11 +31,19 @@ class NLTKTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, nltk_tokenizer=None, scaler=None) -> None:
+    def __init__(
+        self,
+        nltk_tokenizer: Optional[object] = None,
+        scaler: Optional[
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+        ] = None,
+    ) -> None:
         """Initialize Tokenizer.
 
         Parameters
         ----------
+        nltk_tokenizer : Object
+            An instantiated tokenizer from NLTK.
         scaler : None, str, or function
             A scaling function for the Counter:
 
@@ -49,8 +58,6 @@ class NLTKTokenizer(_Tokenizer):
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
-        nltk_tokenizer : Object
-            An instantiated tokenizer from NLTK.
 
 
         .. versionadded:: 0.4.0
@@ -63,7 +70,7 @@ class NLTKTokenizer(_Tokenizer):
             and 'nltk.tokenize' in nltk_tokenizer.__module__
         ):
             if isclass(nltk_tokenizer):
-                self.nltk_tokenizer = nltk_tokenizer()
+                self.nltk_tokenizer = nltk_tokenizer()  # type: ignore
             else:
                 self.nltk_tokenizer = nltk_tokenizer
         else:
@@ -72,7 +79,7 @@ class NLTKTokenizer(_Tokenizer):
                 + ' NLTK package (e.g. TweetTokenizer()).'
             )
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> None:
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -98,7 +105,6 @@ class NLTKTokenizer(_Tokenizer):
         self._string = string
         self._ordered_tokens = self.nltk_tokenizer.tokenize(string)
         self._scale_and_counterize()
-        return self
 
 
 if __name__ == '__main__':

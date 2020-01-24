@@ -85,7 +85,7 @@ class _Tokenizer:
         self._ordered_tokens = []  # type: List[str]
         self._ordered_weights = []  # type: List[Union[int, float]]
 
-    def tokenize(self, string: str):
+    def tokenize(self, string: str) -> None:
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a defaultdict
@@ -109,8 +109,6 @@ class _Tokenizer:
         self._ordered_weights = [1]
 
         self._scale_and_counterize()
-
-        return self
 
     def _scale_and_counterize(self) -> None:
         """Scale the tokens and store them in a defaultdict.
@@ -266,7 +264,7 @@ class _Tokenizer:
         """
         return self.__class__.__name__ + '({}'.format(str(self._tokens)[27:])
 
-    def __and__(self, other) -> TCounter[str]:
+    def __and__(self, other: '_Tokenizer') -> TCounter[str]:
         """Return intersection with other tokens.
 
         .. versionadded:: 0.4.0
@@ -274,7 +272,7 @@ class _Tokenizer:
         """
         return self.get_counter() & other.get_counter()
 
-    def __add__(self, other) -> TCounter[str]:
+    def __add__(self, other: '_Tokenizer') -> TCounter[str]:
         """Return union with other tokens.
 
         .. versionadded:: 0.4.0
@@ -282,7 +280,7 @@ class _Tokenizer:
         """
         return self.get_counter() + other.get_counter()
 
-    def __sub__(self, other) -> TCounter[str]:
+    def __sub__(self, other: '_Tokenizer') -> TCounter[str]:
         """Return difference from other tokens.
 
         .. versionadded:: 0.4.0

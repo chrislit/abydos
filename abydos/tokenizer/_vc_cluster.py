@@ -25,6 +25,8 @@ vowels then consonants (without limit of either). But, crucially, a consonant
 to vowel transition marks the start of a new token.
 """
 
+from typing import Callable, Optional, Set, Union
+
 import re
 import unicodedata
 
@@ -39,7 +41,14 @@ class VCClusterTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None, consonants=None, vowels=None) -> None:
+    def __init__(
+        self,
+        scaler: Optional[
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+        ] = None,
+        consonants: Optional[Set[str]] = None,
+        vowels: Optional[Set[str]] = None,
+    ) -> None:
         """Initialize tokenizer.
 
         Parameters
@@ -58,6 +67,10 @@ class VCClusterTokenizer(_Tokenizer):
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
+        consonants : None or set(str)
+            The set of characters to treat as consonants
+        vowels : None or set(str)
+            The set of characters to treat as vowels
 
 
         .. versionadded:: 0.4.0
@@ -74,7 +87,7 @@ class VCClusterTokenizer(_Tokenizer):
             self._vowels = set('aeiouyAEIOUY')
         self._regexp = re.compile(r'\w+|[^\w\s]+', flags=0)
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> None:
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -132,7 +145,6 @@ class VCClusterTokenizer(_Tokenizer):
             for token in self._ordered_tokens
         ]
         self._scale_and_counterize()
-        return self
 
 
 if __name__ == '__main__':

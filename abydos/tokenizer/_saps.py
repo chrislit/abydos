@@ -19,6 +19,8 @@
 SAPS class
 """
 
+from typing import Callable, Optional, Union
+
 from ._tokenizer import _Tokenizer
 
 
@@ -30,7 +32,12 @@ class SAPSTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None) -> None:
+    def __init__(
+        self,
+        scaler: Optional[
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+        ] = None,
+    ) -> None:
         """Initialize Tokenizer.
 
         Parameters
@@ -56,7 +63,7 @@ class SAPSTokenizer(_Tokenizer):
         """
         super(SAPSTokenizer, self).__init__(scaler)
 
-    def tokenize(self, string: str):
+    def tokenize(self, string: str) -> None:
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -109,7 +116,6 @@ class SAPSTokenizer(_Tokenizer):
                 self._ordered_tokens.append(syll)
 
         self._scale_and_counterize()
-        return self
 
 
 if __name__ == '__main__':

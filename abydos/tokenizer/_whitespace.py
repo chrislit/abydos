@@ -19,6 +19,8 @@
 Whitespace tokenizer
 """
 
+from typing import Callable, Optional, Union
+
 from ._regexp import RegexpTokenizer
 
 __all__ = ['WhitespaceTokenizer']
@@ -37,7 +39,13 @@ class WhitespaceTokenizer(RegexpTokenizer):
 
     """
 
-    def __init__(self, scaler=None, flags=0) -> None:
+    def __init__(
+        self,
+        scaler: Optional[
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+        ] = None,
+        flags: int = 0,
+    ) -> None:
         """Initialize tokenizer.
 
         Parameters
@@ -56,6 +64,10 @@ class WhitespaceTokenizer(RegexpTokenizer):
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
+        flags : int
+            Flags to pass to the regular expression matcher. See the
+            `documentation on Python's re module
+            <https://docs.python.org/3/library/re.html#re.A>`_ for details.
 
 
         .. versionadded:: 0.4.0

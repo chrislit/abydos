@@ -19,6 +19,8 @@
 LegaliPy tokenizer class
 """
 
+from typing import Callable, Optional, Union
+
 from ._tokenizer import _Tokenizer
 
 try:
@@ -37,7 +39,12 @@ class LegaliPyTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None) -> None:
+    def __init__(
+        self,
+        scaler: Optional[
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+        ] = None,
+    ) -> None:
         """Initialize Tokenizer.
 
         Parameters
@@ -71,7 +78,13 @@ class LegaliPyTokenizer(_Tokenizer):
 
         self._onsets = ['']
 
-    def train_onsets(self, text, threshold=0.0002, clean=True, append=False):
+    def train_onsets(
+        self,
+        text: str,
+        threshold: float = 0.0002,
+        clean: bool = True,
+        append: bool = False,
+    ) -> None:
         """Train the onsets on a text.
 
         Parameters
@@ -95,7 +108,7 @@ class LegaliPyTokenizer(_Tokenizer):
         else:
             self._onsets = new_onsets
 
-    def tokenize(self, string, ipa=False):
+    def tokenize(self, string: str, ipa: bool = False) -> None:
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -128,7 +141,6 @@ class LegaliPyTokenizer(_Tokenizer):
             self._ordered_tokens = [self._string]
 
         self._scale_and_counterize()
-        return self
 
 
 if __name__ == '__main__':

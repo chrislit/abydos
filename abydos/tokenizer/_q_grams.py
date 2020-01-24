@@ -20,6 +20,7 @@ QGrams multi-set class
 """
 
 from collections import Iterable
+from typing import Callable, Iterable as TIterable, Optional, Union, cast
 
 from ._tokenizer import _Tokenizer
 
@@ -37,7 +38,15 @@ class QGrams(_Tokenizer):
     .. versionadded:: 0.1.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', skip=0, scaler=None) -> None:
+    def __init__(
+        self,
+        qval: Union[int, TIterable[int]] = 2,
+        start_stop: str = '$#',
+        skip: Union[int, TIterable[int]] = 0,
+        scaler: Optional[
+            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+        ] = None,
+    ) -> None:
         """Initialize QGrams.
 
         Parameters
@@ -128,7 +137,7 @@ class QGrams(_Tokenizer):
 
         self._string_ss = self._string
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> None:
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -152,8 +161,8 @@ class QGrams(_Tokenizer):
             self.skip = (self.skip,)
 
         if string:
-            for qval_i in self.qval:
-                for skip_i in self.skip:
+            for qval_i in cast(TIterable[int], self.qval):
+                for skip_i in cast(TIterable[int], self.skip):
                     if qval_i < 1:
                         continue
 
@@ -181,7 +190,6 @@ class QGrams(_Tokenizer):
                     ]
 
         self._scale_and_counterize()
-        return self
 
 
 if __name__ == '__main__':
