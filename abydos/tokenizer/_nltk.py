@@ -79,7 +79,7 @@ class NLTKTokenizer(_Tokenizer):
                 + ' NLTK package (e.g. TweetTokenizer()).'
             )
 
-    def tokenize(self, string: str) -> None:
+    def tokenize(self, string: str) -> 'NLTKTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -105,6 +105,7 @@ class NLTKTokenizer(_Tokenizer):
         self._string = string
         self._ordered_tokens = self.nltk_tokenizer.tokenize(string)
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':

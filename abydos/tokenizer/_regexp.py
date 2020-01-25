@@ -78,7 +78,7 @@ class RegexpTokenizer(_Tokenizer):
         self._string = ''
         self._ordered_tokens = []
 
-    def tokenize(self, string: str) -> None:
+    def tokenize(self, string: str) -> 'RegexpTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -100,6 +100,7 @@ class RegexpTokenizer(_Tokenizer):
         self._string = string
         self._ordered_tokens = self._regexp.findall(self._string)
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':

@@ -137,7 +137,7 @@ class QGrams(_Tokenizer):
 
         self._string_ss = self._string
 
-    def tokenize(self, string: str) -> None:
+    def tokenize(self, string: str) -> 'QGrams':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -190,6 +190,7 @@ class QGrams(_Tokenizer):
                     ]
 
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':

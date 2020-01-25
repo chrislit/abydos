@@ -63,7 +63,7 @@ class SAPSTokenizer(_Tokenizer):
         """
         super(SAPSTokenizer, self).__init__(scaler)
 
-    def tokenize(self, string: str) -> None:
+    def tokenize(self, string: str) -> 'SAPSTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -116,6 +116,7 @@ class SAPSTokenizer(_Tokenizer):
                 self._ordered_tokens.append(syll)
 
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':

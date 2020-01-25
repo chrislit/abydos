@@ -86,7 +86,7 @@ class COrVClusterTokenizer(_Tokenizer):
             self._vowels = set('aeiouyAEIOUY')
         self._regexp = re.compile(r'\w+|[^\w\s]+', flags=0)
 
-    def tokenize(self, string: str) -> None:
+    def tokenize(self, string: str) -> 'COrVClusterTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -148,6 +148,7 @@ class COrVClusterTokenizer(_Tokenizer):
             for token in self._ordered_tokens
         ]
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':

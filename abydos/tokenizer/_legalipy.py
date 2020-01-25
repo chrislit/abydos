@@ -108,7 +108,7 @@ class LegaliPyTokenizer(_Tokenizer):
         else:
             self._onsets = new_onsets
 
-    def tokenize(self, string: str, ipa: bool = False) -> None:
+    def tokenize(self, string: str, ipa: bool = False) -> 'LegaliPyTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -141,6 +141,7 @@ class LegaliPyTokenizer(_Tokenizer):
             self._ordered_tokens = [self._string]
 
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':

@@ -85,7 +85,7 @@ class _Tokenizer:
         self._ordered_tokens = []  # type: List[str]
         self._ordered_weights = []  # type: List[Union[int, float]]
 
-    def tokenize(self, string: str) -> None:
+    def tokenize(self, string: str) -> '_Tokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a defaultdict
@@ -109,6 +109,7 @@ class _Tokenizer:
         self._ordered_weights = [1]
 
         self._scale_and_counterize()
+        return self
 
     def _scale_and_counterize(self) -> None:
         """Scale the tokens and store them in a defaultdict.

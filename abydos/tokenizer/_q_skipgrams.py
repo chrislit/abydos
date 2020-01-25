@@ -21,7 +21,7 @@ Q-Skipgrams multi-set class
 
 from collections import Iterable
 from itertools import combinations
-from typing import Callable, Iterable as TIterable, Optional, Union
+from typing import Callable, Iterable as TIterable, Optional, Union, cast
 
 from ._tokenizer import _Tokenizer
 
@@ -41,7 +41,7 @@ class QSkipgrams(_Tokenizer):
 
     def __init__(
         self,
-        qval: int = 2,
+        qval: Union[int, TIterable[int]] = 2,
         start_stop: str = '$#',
         scaler: Optional[
             Union[str, Callable[[Union[int, float]], Union[int, float]]]
@@ -156,7 +156,7 @@ class QSkipgrams(_Tokenizer):
         else:
             self._lambda = tuple(ssk_lambda)
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'QSkipgrams':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -178,7 +178,7 @@ class QSkipgrams(_Tokenizer):
         if not isinstance(self.qval, Iterable):
             self.qval = (self.qval,)
 
-        for qval_i in self.qval:
+        for qval_i in cast(TIterable[int], self.qval):
             if qval_i < 1:
                 continue
 
@@ -214,6 +214,7 @@ class QSkipgrams(_Tokenizer):
                 self._ordered_weights += [1] * len(combs)
 
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':

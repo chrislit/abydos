@@ -74,7 +74,7 @@ class SonoriPyTokenizer(_Tokenizer):
 
         super(SonoriPyTokenizer, self).__init__(scaler)
 
-    def tokenize(self, string: str) -> None:
+    def tokenize(self, string: str) -> 'SonoriPyTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -106,6 +106,7 @@ class SonoriPyTokenizer(_Tokenizer):
             self._ordered_tokens = [self._string]
 
         self._scale_and_counterize()
+        return self
 
 
 if __name__ == '__main__':
