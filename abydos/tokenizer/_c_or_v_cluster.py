@@ -24,10 +24,10 @@ Following this, words are further divided into strings of consonants only and
 strings of vowels only.
 """
 
-from typing import Callable, Optional, Set, Union
-
 import re
 import unicodedata
+
+from typing import Callable, Optional, Set, Union
 
 from ._tokenizer import _Tokenizer
 

@@ -25,10 +25,10 @@ consonants then vowels (without limit of either). But, crucially, a vowel to
 consonant transition marks the start of a new token.
 """
 
-from typing import Callable, Optional, Set, Union
-
 import re
 import unicodedata
+
+from typing import Callable, Optional, Set, Union
 
 from ._tokenizer import _Tokenizer
 

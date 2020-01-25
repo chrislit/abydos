@@ -18,9 +18,9 @@
 
 Regexp tokenizer
 """
-from typing import Callable, Optional, Union
-
 import re
+
+from typing import Callable, Optional, Union
 
 from ._tokenizer import _Tokenizer
 

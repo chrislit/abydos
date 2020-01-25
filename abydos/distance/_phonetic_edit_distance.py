@@ -21,8 +21,8 @@ Phonetic edit distance
 
 from typing import (
     Any,
-    Dict,
     Callable,
+    Dict,
     Iterable,
     List,
     Optional,
