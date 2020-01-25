@@ -39,7 +39,7 @@ class SnowballGerman(_Snowball):
     _s_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 'r', 't'}
     _st_endings = {'b', 'd', 'f', 'g', 'h', 'k', 'l', 'm', 'n', 't'}
 
-    def __init__(self, alternate_vowels=False) -> None:
+    def __init__(self, alternate_vowels: bool = False) -> None:
         """Initialize SnowballGerman instance.
 
         Parameters
@@ -53,7 +53,7 @@ class SnowballGerman(_Snowball):
         """
         self._alternate_vowels = alternate_vowels
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Snowball German stem.
 
         Parameters

@@ -74,7 +74,7 @@ class Porter2(_Snowball):
         'succeed',
     }
 
-    def __init__(self, early_english=False) -> None:
+    def __init__(self, early_english: bool = False) -> None:
         """Initialize Porter2 instance.
 
         Parameters
@@ -89,7 +89,7 @@ class Porter2(_Snowball):
         """
         self._early_english = early_english
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return the Porter2 (Snowball English) stem.
 
         Parameters

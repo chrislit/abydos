@@ -610,10 +610,10 @@ class UEALite(_Stemmer):
 
     def __init__(
         self,
-        max_word_length=20,
-        max_acro_length=8,
-        return_rule_no=False,
-        var='standard',
+        max_word_length: int = 20,
+        max_acro_length: int = 8,
+        return_rule_no: bool = False,
+        var: str = 'standard',
     ) -> None:
         """Initialize UEALite instance.
 
