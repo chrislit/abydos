@@ -20,6 +20,7 @@ Taft's consonant coding
 """
 
 from itertools import groupby
+from typing import Iterable, Optional, Union
 
 from ._fingerprint import _Fingerprint
 
@@ -35,7 +36,12 @@ class Consonant(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, variant=1, doubles=True, vowels=None) -> None:
+    def __init__(
+        self,
+        variant: int = 1,
+        doubles: bool = True,
+        vowels: Optional[Union[Iterable[str], str]] = None,
+    ) -> None:
         """Initialize Consonant instance.
 
         Parameters
@@ -73,7 +79,7 @@ class Consonant(_Fingerprint):
         else:
             self._vowels = {_.upper() for _ in self._vowels}
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the consonant coding.
 
         Parameters

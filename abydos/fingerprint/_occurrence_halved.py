@@ -50,7 +50,7 @@ class OccurrenceHalved(_Fingerprint):
         self._n_bits = n_bits
         self._most_common = most_common
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the occurrence halved fingerprint.
 
         Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.

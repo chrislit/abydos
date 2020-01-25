@@ -84,7 +84,7 @@ class PhoneticDistance(_Distance):
         super(PhoneticDistance, self).__init__(**kwargs)
         self.transforms = []  # type: List[Callable[[str], str]]
         if transforms:
-            if isinstance(self.transforms, (list, tuple)):
+            if isinstance(transforms, (list, tuple)):
                 transforms = list(transforms)
             else:
                 transforms = [
@@ -115,6 +115,8 @@ class PhoneticDistance(_Distance):
                     self.transforms.append(trans.fingerprint)
                 elif isinstance(trans, _Stemmer):
                     self.transforms.append(trans.stem)
+                elif callable(trans):
+                    self.transforms.append(trans)
 
         self.metric = metric
         if self.metric:

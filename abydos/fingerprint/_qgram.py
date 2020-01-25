@@ -59,7 +59,7 @@ class QGram(_Fingerprint):
         self._tokenizer = QGrams(qval, start_stop, skip)
         self._joiner = joiner
 
-    def fingerprint(self, phrase):
+    def fingerprint(self, phrase: str) -> str:
         """Return Q-Gram fingerprint.
 
         Parameters

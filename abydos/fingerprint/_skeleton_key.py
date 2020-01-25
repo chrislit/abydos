@@ -37,7 +37,7 @@ class SkeletonKey(_Fingerprint):
     _vowels = set('AEIOU')
     _letters = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the skeleton key.
 
         Parameters

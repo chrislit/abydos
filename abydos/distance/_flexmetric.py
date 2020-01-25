@@ -107,7 +107,7 @@ class FlexMetric(_Distance):
                 (frozenset('uw'), 0.4),
                 (frozenset('uo'), 0.8),
                 (frozenset('aeiouy'), 0.9),
-            ]
+            ]  # type: List[Tuple[Iterable[str], float]]
         else:
             self._subst_costs = sorted(subst_costs, key=_get_second)
 

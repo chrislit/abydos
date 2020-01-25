@@ -37,7 +37,7 @@ class OmissionKey(_Fingerprint):
     _consonants = tuple('JKQXZVWYBFMGPDHCLNTSR')
     _letters = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the omission key.
 
         Parameters

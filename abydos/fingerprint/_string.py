@@ -51,7 +51,7 @@ class String(_Fingerprint):
         super(String, self).__init__()
         self._joiner = joiner
 
-    def fingerprint(self, phrase):
+    def fingerprint(self, phrase: str) -> str:
         """Return string fingerprint.
 
         Parameters

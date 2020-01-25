@@ -68,7 +68,7 @@ class ExtractPositionFrequency(_Fingerprint):
     }
     _position = (0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7)
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the extract - position & frequency coding.
 
         Parameters

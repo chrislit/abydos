@@ -63,7 +63,7 @@ class Extract(_Fingerprint):
         else:
             self._letter_list = list(letter_lists[0])
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the extract letter list coding.
 
         Parameters

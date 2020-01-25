@@ -61,7 +61,7 @@ class LCCutter(_Fingerprint):
         else:
             self._max_length = 64
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the Library of Congress Cutter table encoding of a word.
 
         Parameters

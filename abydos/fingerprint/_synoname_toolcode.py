@@ -19,6 +19,8 @@
 Synoname toolcode
 """
 
+from typing import Tuple
+
 from ._fingerprint import _Fingerprint
 
 __all__ = ['SynonameToolcode']
@@ -260,7 +262,9 @@ class SynonameToolcode(_Fingerprint):
         'the younger',
     )
 
-    def fingerprint(self, lname, fname='', qual='', normalize=0):
+    def fingerprint(
+        self, lname: str, fname: str = '', qual: str = '', normalize: int = 0
+    ) -> Tuple[str, str, str]:
         """Build the Synoname toolcode.
 
         Parameters

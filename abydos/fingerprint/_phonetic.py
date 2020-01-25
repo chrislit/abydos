@@ -60,7 +60,7 @@ class Phonetic(String):
 
         self._joiner = joiner
 
-    def fingerprint(self, phrase):
+    def fingerprint(self, phrase: str) -> str:
         """Return the phonetic fingerprint of a phrase.
 
         Parameters

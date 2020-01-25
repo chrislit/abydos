@@ -53,7 +53,7 @@ class Position(_Fingerprint):
         self._most_common = most_common
         self._bits_per_letter = bits_per_letter
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the position fingerprint.
 
         Parameters

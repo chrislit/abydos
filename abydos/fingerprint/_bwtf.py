@@ -34,7 +34,7 @@ class BWTF(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, terminator='\0') -> None:
+    def __init__(self, terminator: str = '\0') -> None:
         """Initialize BWTF instance.
 
         Parameters
@@ -49,7 +49,7 @@ class BWTF(_Fingerprint):
         super(BWTF, self).__init__()
         self._bwt = _BWT(terminator)
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         r"""Return the Burrows-Wheeler transform of a word.
 
         Parameters

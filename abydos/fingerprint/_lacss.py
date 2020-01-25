@@ -39,7 +39,7 @@ class LACSS(_Fingerprint):
 
     _t2 = {_[0]: _[1] for _ in zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ', range(1, 27))}
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the LACSS coding.
 
         Parameters

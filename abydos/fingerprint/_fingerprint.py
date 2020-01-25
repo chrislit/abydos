@@ -67,7 +67,7 @@ class _Fingerprint:
     .. versionadded:: 0.3.6
     """
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Fingerprint string.
 
         Parameters

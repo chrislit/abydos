@@ -20,6 +20,7 @@ Cisłak & Grabowski's count fingerprint
 """
 
 from collections import Counter
+from typing import Tuple
 
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
@@ -34,7 +35,11 @@ class Count(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG) -> None:
+    def __init__(
+        self,
+        n_bits: int = 16,
+        most_common: Tuple[str, ...] = MOST_COMMON_LETTERS_CG,
+    ) -> None:
         """Initialize Count instance.
 
         Parameters
@@ -52,7 +57,7 @@ class Count(_Fingerprint):
         self._n_bits = n_bits
         self._most_common = most_common
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the count fingerprint.
 
         Parameters
