@@ -19,6 +19,7 @@
 IBM's Alpha Search Inquiry System coding
 """
 
+from typing import Dict, Generator, List, Tuple, Union
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -106,7 +107,7 @@ class AlphaSIS(_Phonetic):
         'V': '8',
         'B': '9',
         'P': '9',
-    }
+    }  # type: Dict[str, Union[str, Tuple[str, ...]]]
     _alpha_sis_basic_order = (
         'SCH',
         'CZ',
@@ -263,7 +264,7 @@ class AlphaSIS(_Phonetic):
             for k in self._alpha_sis_basic_order:
                 if word[pos:].startswith(k):
                     if isinstance(self._alpha_sis_basic[k], tuple):
-                        newalpha = []
+                        newalpha = []  # type: List[str]
                         for i in range(len(self._alpha_sis_basic[k])):
                             newalpha += [
                                 _ + self._alpha_sis_basic[k][i] for _ in alpha
@@ -284,12 +285,12 @@ class AlphaSIS(_Phonetic):
                 if alpha[i][pos] == alpha[i][pos - 1]:
                     alpha[i] = alpha[i][:pos] + alpha[i][pos + 1 :]
                 pos += 1
-        alpha = (_.replace('_', '') for _ in alpha)
+        alpha = [_.replace('_', '') for _ in alpha]
 
         # Trim codes and return tuple
-        alpha = (
+        alpha = [
             (_ + ('0' * self._max_length))[: self._max_length] for _ in alpha
-        )
+        ]
         return ','.join(alpha)
 
 
