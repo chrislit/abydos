@@ -19,7 +19,7 @@
 IBM's Alpha Search Inquiry System coding
 """
 
-from typing import Dict, Generator, List, Tuple, Union
+from typing import Dict, List, Tuple, Union
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -195,6 +195,8 @@ class AlphaSIS(_Phonetic):
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
         codes = self.encode(word).split(',')
@@ -239,6 +241,8 @@ class AlphaSIS(_Phonetic):
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
         alpha = ['']

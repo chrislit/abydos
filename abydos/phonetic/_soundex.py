@@ -55,7 +55,11 @@ class Soundex(_Phonetic):
     _alphabetic = dict(zip((ord(_) for _ in '01234569'), 'APKTLNRH'))
 
     def __init__(
-        self, max_length: int = 4, var: str = 'American', reverse: bool = False, zero_pad: bool = True
+        self,
+        max_length: int = 4,
+        var: str = 'American',
+        reverse: bool = False,
+        zero_pad: bool = True,
     ) -> None:
         """Initialize Soundex instance.
 
@@ -178,7 +182,9 @@ class Soundex(_Phonetic):
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
-
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
+            
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', word.upper())
