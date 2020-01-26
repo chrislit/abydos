@@ -149,7 +149,7 @@ class AlphaSIS(_Phonetic):
         zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP')
     )
 
-    def __init__(self, max_length=14) -> None:
+    def __init__(self, max_length: int = 14) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters
@@ -167,7 +167,7 @@ class AlphaSIS(_Phonetic):
         else:
             self._max_length = 64
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Alpha-SIS code for a word.
 
         Parameters
@@ -184,28 +184,28 @@ class AlphaSIS(_Phonetic):
         --------
         >>> pe = AlphaSIS()
         >>> pe.encode_alpha('Christopher')
-        ('JRSTFR', 'KSRSTFR', 'RSTFR')
+        'JRSTFR,KSRSTFR,RSTFR'
         >>> pe.encode_alpha('Niall')
-        ('NL',)
+        'NL'
         >>> pe.encode_alpha('Smith')
-        ('MT',)
+        'MT'
         >>> pe.encode_alpha('Schmidt')
-        ('JMT',)
+        'JMT'
 
 
         .. versionadded:: 0.4.0
 
         """
-        codes = self.encode(word)
+        codes = self.encode(word).split(',')
         alphas = [
             code[0].translate(self._alphabetic_initials).strip()
             + code[1:].translate(self._alphabetic_non_initials).rstrip('S')
             for code in codes
         ]
 
-        return tuple(alphas)
+        return ','.join(alphas)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the IBM Alpha Search Inquiry System code for a word.
 
         A collection is necessary as the return type since there can be
@@ -226,13 +226,13 @@ class AlphaSIS(_Phonetic):
         --------
         >>> pe = AlphaSIS()
         >>> pe.encode('Christopher')
-        ('06401840000000', '07040184000000', '04018400000000')
+        '06401840000000,07040184000000,04018400000000'
         >>> pe.encode('Niall')
-        ('02500000000000',)
+        '02500000000000'
         >>> pe.encode('Smith')
-        ('03100000000000',)
+        '03100000000000'
         >>> pe.encode('Schmidt')
-        ('06310000000000',)
+        '06310000000000'
 
 
         .. versionadded:: 0.1.0
@@ -290,7 +290,7 @@ class AlphaSIS(_Phonetic):
         alpha = (
             (_ + ('0' * self._max_length))[: self._max_length] for _ in alpha
         )
-        return tuple(alpha)
+        return ','.join(alpha)
 
 
 if __name__ == '__main__':
