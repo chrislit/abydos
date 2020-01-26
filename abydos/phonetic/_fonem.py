@@ -194,7 +194,7 @@ class FONEM(_Phonetic):
 
     _uc_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ-')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the FONEM code of a word.
 
         Parameters

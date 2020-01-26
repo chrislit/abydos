@@ -42,7 +42,7 @@ class LCCutter(_Fingerprint):
 
     _expansions = ['D', 'H', 'L', 'O', 'S', 'V']
 
-    def __init__(self, max_length=64) -> None:
+    def __init__(self, max_length: int = 64) -> None:
         """Initialize LCCutter instance.
 
         Parameters

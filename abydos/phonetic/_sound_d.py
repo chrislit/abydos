@@ -43,7 +43,7 @@ class SoundD(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456'), 'APKTLNR'))
 
-    def __init__(self, max_length=4) -> None:
+    def __init__(self, max_length: int = 4) -> None:
         """Initialize SoundD instance.
 
         Parameters
@@ -57,7 +57,7 @@ class SoundD(_Phonetic):
         """
         self._max_length = max_length
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic SoundD code.
 
         Parameters
@@ -90,7 +90,7 @@ class SoundD(_Phonetic):
         """
         return self.encode(word).rstrip('0').translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the SoundD code.
 
         Parameters

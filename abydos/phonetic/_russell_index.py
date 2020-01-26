@@ -48,7 +48,7 @@ class RussellIndex(_Phonetic):
 
     _num_set = set('12345678')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Russell Index (integer output) of a word.
 
         Parameters
@@ -98,7 +98,7 @@ class RussellIndex(_Phonetic):
         # return as an int
         return int(sdx) if sdx else float('NaN')
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the Russell Index (alphabetic output) for the word.
 
         This follows Robert C. Russell's Index algorithm, as described in

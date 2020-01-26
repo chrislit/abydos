@@ -65,7 +65,9 @@ class PHONIC(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
 
-    def __init__(self, max_length=5, zero_pad=True, extended=False) -> None:
+    def __init__(
+        self, max_length: int = 5, zero_pad=True, extended=False
+    ) -> None:
         """Initialize PHONIC instance.
 
         Parameters
@@ -92,7 +94,7 @@ class PHONIC(_Phonetic):
         self._zero_pad = zero_pad
         self._extended = extended
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic PHONIC code for a word.
 
         Parameters
@@ -130,7 +132,7 @@ class PHONIC(_Phonetic):
         self._extended = save_ext
         return code.translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the PHONIC code for a word.
 
         Parameters

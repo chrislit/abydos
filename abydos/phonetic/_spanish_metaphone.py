@@ -39,7 +39,7 @@ class SpanishMetaphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=6, modified=False) -> None:
+    def __init__(self, max_length: int = 6, modified: bool = False) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters
@@ -57,7 +57,7 @@ class SpanishMetaphone(_Phonetic):
         self._max_length = max_length
         self._modified = modified
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Spanish Metaphone of a word.
 
         Parameters
@@ -93,7 +93,7 @@ class SpanishMetaphone(_Phonetic):
 
         """
 
-        def _is_vowel(pos):
+        def _is_vowel(pos: int) -> bool:
             """Return True if the character at word[pos] is a vowel.
 
             Parameters

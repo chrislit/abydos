@@ -41,7 +41,7 @@ class StatisticsCanada(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=4) -> None:
+    def __init__(self, max_length: int = 4) -> None:
         """Initialize StatisticsCanada instance.
 
         Parameters
@@ -55,7 +55,7 @@ class StatisticsCanada(_Phonetic):
         """
         self._max_length = max_length
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Statistics Canada code for a word.
 
         Parameters

@@ -917,7 +917,7 @@ class BeiderMorse(_Phonetic):
         self._filter_langs = filter_langs
         self._lang_choices = lang_choices
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Beider-Morse Phonetic Matching encoding(s) of a term.
 
         Parameters

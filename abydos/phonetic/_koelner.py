@@ -41,7 +41,7 @@ class Koelner(_Phonetic):
     _num_trans = dict(zip((ord(_) for _ in '012345678'), 'APTFKLNRS'))
     _num_set = set('012345678')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Kölner Phonetik (numeric output) code for a word.
 
         While the output code is numeric, it is still a str because 0s can lead
@@ -191,7 +191,7 @@ class Koelner(_Phonetic):
 
         return sdx
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the Kölner Phonetik (alphabetic output) code for a word.
 
         Parameters

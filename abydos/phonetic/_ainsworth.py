@@ -237,7 +237,7 @@ class Ainsworth(_Phonetic):
         (re.compile('z'), 'z', 1),
     ]
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the phonemic representation of a word.
 
         Parameters

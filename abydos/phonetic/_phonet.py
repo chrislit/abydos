@@ -1079,7 +1079,7 @@ class Phonet(_Phonetic):
         self._mode = mode
         self._lang = lang
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the phonet code for a word.
 
         Parameters

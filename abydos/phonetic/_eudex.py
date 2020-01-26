@@ -159,7 +159,7 @@ class Eudex(_Phonetic):
         'ÿ': 0b11100101,  # ÿ
     }
 
-    def __init__(self, max_length=8) -> None:
+    def __init__(self, max_length: int = 8) -> None:
         """Initialize Eudex instance.
 
         Parameters
@@ -173,7 +173,7 @@ class Eudex(_Phonetic):
         """
         self._max_length = max_length
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the eudex phonetic hash of a word.
 
         Parameters

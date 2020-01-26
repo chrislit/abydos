@@ -45,7 +45,7 @@ class RefinedSoundex(_Phonetic):
     _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PFKGZTLNR'))
 
     def __init__(
-        self, max_length=-1, zero_pad=False, retain_vowels=False
+        self, max_length: int = -1, zero_pad=False, retain_vowels=False
     ) -> None:
         """Initialize RefinedSoundex instance.
 
@@ -67,7 +67,7 @@ class RefinedSoundex(_Phonetic):
         self._zero_pad = zero_pad
         self._retain_vowels = retain_vowels
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Refined Soundex code for a word.
 
         Parameters
@@ -99,7 +99,7 @@ class RefinedSoundex(_Phonetic):
         code = self.encode(word).rstrip('0')
         return code[:1] + code[1:].translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Refined Soundex code for a word.
 
         Parameters

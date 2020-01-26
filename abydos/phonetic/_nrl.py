@@ -426,7 +426,7 @@ class NRL(_Phonetic):
         'Z': (('', 'Z', '', 'z'),),
     }
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Naval Research Laboratory phonetic encoding of a word.
 
         Parameters

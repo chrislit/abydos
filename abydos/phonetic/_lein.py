@@ -43,7 +43,7 @@ class LEIN(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '12345'), 'TNLPK'))
 
-    def __init__(self, max_length=4, zero_pad=True) -> None:
+    def __init__(self, max_length: int = 4, zero_pad=True) -> None:
         """Initialize LEIN instance.
 
         Parameters
@@ -61,7 +61,7 @@ class LEIN(_Phonetic):
         self._max_length = max_length
         self._zero_pad = zero_pad
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic LEIN code for a word.
 
         Parameters
@@ -93,7 +93,7 @@ class LEIN(_Phonetic):
         code = self.encode(word).rstrip('0')
         return code[:1] + code[1:].translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the LEIN code for a word.
 
         Parameters

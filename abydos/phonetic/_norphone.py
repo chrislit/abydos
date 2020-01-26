@@ -62,7 +62,7 @@ class Norphone(_Phonetic):
         1: {'W': 'V', 'X': 'KS', 'Z': 'S', 'D': 'T', 'G': 'K'},
     }
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Norphone code.
 
         Parameters

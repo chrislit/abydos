@@ -55,7 +55,7 @@ class Haase(_Phonetic):
         """
         self._primary_only = primary_only
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Haase Phonetik code for a word.
 
         Parameters
@@ -90,7 +90,7 @@ class Haase(_Phonetic):
             code.translate(self._alphabetic) for code in self.encode(word)
         )
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Haase Phonetik (numeric output) code for a word.
 
         While the output code is numeric, it is nevertheless a str.

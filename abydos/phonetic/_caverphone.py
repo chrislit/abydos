@@ -50,7 +50,7 @@ class Caverphone(_Phonetic):
         """
         self._version = version
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Caverphone code for a word.
 
         Parameters
@@ -91,7 +91,7 @@ class Caverphone(_Phonetic):
         """
         return self.encode(word).rstrip('1')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Caverphone code for a word.
 
         Parameters

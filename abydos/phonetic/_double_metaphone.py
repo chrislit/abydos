@@ -33,7 +33,7 @@ class DoubleMetaphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=-1) -> None:
+    def __init__(self, max_length: int = -1) -> None:
         """Initialize DoubleMetaphone instance.
 
         Parameters
@@ -52,7 +52,7 @@ class DoubleMetaphone(_Phonetic):
         if self._max_length != -1:
             self._max_length = max(4, max_length)
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Double Metaphone code for a word.
 
         Parameters
@@ -83,7 +83,7 @@ class DoubleMetaphone(_Phonetic):
         """
         return tuple(code.replace('0', 'Þ') for code in self.encode(word))
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Double Metaphone code for a word.
 
         Parameters
