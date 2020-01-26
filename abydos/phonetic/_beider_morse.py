@@ -24,6 +24,7 @@ Beider-Morse Phonetic Matching (BMPM) algorithm
 """
 
 from re import search
+from typing import Union
 from unicodedata import normalize
 
 from ._beider_morse_data import (
@@ -834,11 +835,11 @@ class BeiderMorse(_Phonetic):
 
     def __init__(
         self,
-        language_arg=0,
-        name_mode='gen',
-        match_mode='approx',
-        concat=False,
-        filter_langs=False,
+        language_arg: Union[str, int] =0,
+        name_mode: str = 'gen',
+        match_mode: str = 'approx',
+        concat: bool = False,
+        filter_langs: bool = False,
     ) -> None:
         """Initialize BeiderMorse instance.
 
@@ -969,6 +970,8 @@ class BeiderMorse(_Phonetic):
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made comma-sepated instead of space-separated output
 
         """
         word = normalize('NFC', word.strip().lower())
@@ -996,7 +999,7 @@ class BeiderMorse(_Phonetic):
             language_arg,
             self._concat,
         )
-        result = self._phonetic_numbers(result)
+        result = self._phonetic_numbers(result).replace(' ', ',')
 
         return result
 
