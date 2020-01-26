@@ -253,7 +253,7 @@ class DaitchMokotoff(_Phonetic):
         zip((ord(_) for _ in '0123456789'), ' A TSKNPLR')
     )
 
-    def __init__(self, max_length=6, zero_pad=True) -> None:
+    def __init__(self, max_length: int = 6, zero_pad=True) -> None:
         """Initialize DaitchMokotoff instance.
 
         Parameters
@@ -276,7 +276,7 @@ class DaitchMokotoff(_Phonetic):
             self._max_length = 64
         self._zero_pad = zero_pad
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Daitch-Mokotoff Soundex code for a word.
 
         Parameters
@@ -292,30 +292,34 @@ class DaitchMokotoff(_Phonetic):
         Examples
         --------
         >>> pe = DaitchMokotoff()
-        >>> sorted(pe.encode_alpha('Christopher'))
-        ['KRSTPR', 'SRSTPR']
+        >>> pe.encode_alpha('Christopher')
+        'KRSTPR,SRSTPR'
         >>> pe.encode_alpha('Niall')
-        {'NL'}
+        'NL'
         >>> pe.encode_alpha('Smith')
-        {'SNT'}
+        'SNT'
         >>> pe.encode_alpha('Schmidt')
-        {'SNT'}
+        'SNT'
 
-        >>> sorted(DaitchMokotoff(max_length=20,
-        ... zero_pad=False).encode_alpha('The quick brown fox'))
-        ['TKKPRPNPKS', 'TKSKPRPNPKS']
+        >>> DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode_alpha('The quick brown fox')
+        'TKKPRPNPKS,TKSKPRPNPKS'
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
-        alphas = {
+        alphas = [
             code.rstrip('0').translate(self._alphabetic)
-            for code in self.encode(word)
-        }
-        return {code[:1] + code[1:].replace('Y', 'A') for code in alphas}
+            for code in self.encode(word).split(',')
+        ]
+        return ','.join(
+            code[:1] + code[1:].replace('Y', 'A') for code in alphas
+        )
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Daitch-Mokotoff Soundex code for a word.
 
         Parameters
@@ -331,23 +335,25 @@ class DaitchMokotoff(_Phonetic):
         Examples
         --------
         >>> pe = DaitchMokotoff()
-        >>> sorted(pe.encode('Christopher'))
-        ['494379', '594379']
+        >>> pe.encode('Christopher')
+        '494379,594379'
         >>> pe.encode('Niall')
-        {'680000'}
+        '680000'
         >>> pe.encode('Smith')
-        {'463000'}
+        '463000'
         >>> pe.encode('Schmidt')
-        {'463000'}
+        '463000'
 
-        >>> sorted(DaitchMokotoff(max_length=20,
-        ... zero_pad=False).encode('The quick brown fox'))
-        ['35457976754', '3557976754']
+        >>> DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode('The quick brown fox')
+        '35457976754,3557976754'
 
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
         dms = ['']  # initialize empty code list
@@ -359,8 +365,8 @@ class DaitchMokotoff(_Phonetic):
         # Nothing to convert, return base case
         if not word:
             if self._zero_pad:
-                return {'0' * self._max_length}
-            return {'0'}
+                return '0' * self._max_length
+            return '0'
 
         pos = 0
         while pos < len(word):
@@ -407,7 +413,7 @@ class DaitchMokotoff(_Phonetic):
             )
         else:
             dms = (_[: self._max_length] for _ in dms)
-        return set(dms)
+        return ','.join(sorted(dms))
 
 
 if __name__ == '__main__':
