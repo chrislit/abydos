@@ -214,7 +214,9 @@ class Eudex(_Distance):
         """
 
         # Calculate the eudex hashes and XOR them
-        xored = self._phonetic_alg.encode(src) ^ self._phonetic_alg.encode(tar)
+        xored = int(self._phonetic_alg.encode(src)) ^ int(
+            self._phonetic_alg.encode(tar)
+        )
 
         # Simple hamming distance (all bits are equal)
         if not self._weights:
