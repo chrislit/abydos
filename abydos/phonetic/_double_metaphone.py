@@ -19,6 +19,8 @@
 Double Metaphone
 """
 
+from typing import Set, Tuple
+
 from ._phonetic import _Phonetic
 
 __all__ = ['DoubleMetaphone']
@@ -62,26 +64,28 @@ class DoubleMetaphone(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The alphabetic Double Metaphone value(s)
 
         Examples
         --------
         >>> pe = DoubleMetaphone()
         >>> pe.encode_alpha('Christopher')
-        ('KRSTFR', '')
+        'KRSTFR'
         >>> pe.encode_alpha('Niall')
-        ('NL', '')
+        'NL'
         >>> pe.encode_alpha('Smith')
-        ('SMÞ', 'XMT')
+        'SMÞ,XMT'
         >>> pe.encode_alpha('Schmidt')
-        ('XMT', 'SMT')
+        'XMT,SMT'
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
-        return tuple(code.replace('0', 'Þ') for code in self.encode(word))
+        return self.encode(word).replace('0', 'Þ')
 
     def encode(self, word: str) -> str:
         """Return the Double Metaphone code for a word.
@@ -93,31 +97,33 @@ class DoubleMetaphone(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The Double Metaphone value(s)
 
         Examples
         --------
         >>> pe = DoubleMetaphone()
         >>> pe.encode('Christopher')
-        ('KRSTFR', '')
+        'KRSTFR'
         >>> pe.encode('Niall')
-        ('NL', '')
+        'NL'
         >>> pe.encode('Smith')
-        ('SM0', 'XMT')
+        'SM0,XMT'
         >>> pe.encode('Schmidt')
-        ('XMT', 'SMT')
+        'XMT,SMT'
 
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
         primary = ''
         secondary = ''
 
-        def _slavo_germanic():
+        def _slavo_germanic() -> bool:
             """Return True if the word appears to be Slavic or Germanic.
 
             Returns
@@ -132,7 +138,7 @@ class DoubleMetaphone(_Phonetic):
                 return True
             return False
 
-        def _metaph_add(pri, sec=''):
+        def _metaph_add(pri: str, sec: str = '') -> Tuple[str, str]:
             """Return a new metaphone tuple with the supplied elements.
 
             Parameters
@@ -161,7 +167,7 @@ class DoubleMetaphone(_Phonetic):
                 newsec += pri
             return newpri, newsec
 
-        def _is_vowel(pos):
+        def _is_vowel(pos: int) -> bool:
             """Return True if the character at word[pos] is a vowel.
 
             Parameters
@@ -181,7 +187,7 @@ class DoubleMetaphone(_Phonetic):
                 return True
             return False
 
-        def _get_at(pos):
+        def _get_at(pos: int) -> str:
             """Return the character at word[pos].
 
             Parameters
@@ -199,7 +205,7 @@ class DoubleMetaphone(_Phonetic):
             """
             return word[pos]
 
-        def _string_at(pos, slen, substrings):
+        def _string_at(pos: int, slen: int, substrings: Set[str]):
             """Return True if word[pos:pos+slen] is in substrings.
 
             Parameters
@@ -226,7 +232,7 @@ class DoubleMetaphone(_Phonetic):
         current = 0
         length = len(word)
         if length < 1:
-            return '', ''
+            return ''
         last = length - 1
 
         word = word.upper()
@@ -330,9 +336,8 @@ class DoubleMetaphone(_Phonetic):
                             _string_at(0, 4, {'VAN ', 'VON '})
                             or _string_at(0, 3, {'SCH'})
                         )
-                        or
                         # 'architect but not 'arch', 'orchestra', 'orchid'
-                        _string_at(
+                        or _string_at(
                             (current - 2), 6, {'ORCHES', 'ARCHIT', 'ORCHID'}
                         )
                         or _string_at((current + 2), 1, {'T', 'S'})
@@ -343,9 +348,8 @@ class DoubleMetaphone(_Phonetic):
                                 )
                                 or (current == 0)
                             )
-                            and
                             # e.g., 'wachtler', 'wechsler', but not 'tichner'
-                            _string_at(
+                            and _string_at(
                                 (current + 2),
                                 1,
                                 {
@@ -498,15 +502,13 @@ class DoubleMetaphone(_Phonetic):
                             (current > 1)
                             and _string_at((current - 2), 1, {'B', 'H', 'D'})
                         )
-                        or
                         # e.g., 'bough'
-                        (
+                        or (
                             (current > 2)
                             and _string_at((current - 3), 1, {'B', 'H', 'D'})
                         )
-                        or
                         # e.g., 'broughton'
-                        (
+                        or (
                             (current > 3)
                             and _string_at((current - 4), 1, {'B', 'H'})
                         )
@@ -715,9 +717,8 @@ class DoubleMetaphone(_Phonetic):
                             or _string_at((current + 2), 2, {'ER'})
                         )
                     )
-                    or
                     # 'dumb', 'thumb'
-                    (_get_at(current + 1) == 'M')
+                    or (_get_at(current + 1) == 'M')
                 ):
                     current += 2
                 else:
@@ -1005,7 +1006,7 @@ class DoubleMetaphone(_Phonetic):
         if primary == secondary:
             secondary = ''
 
-        return primary, secondary
+        return ','.join((primary, secondary))
 
 
 if __name__ == '__main__':
