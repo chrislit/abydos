@@ -36,7 +36,7 @@ class Caverphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, version=2) -> None:
+    def __init__(self, version: int = 2) -> None:
         """Initialize Caverphone instance.
 
         Parameters
@@ -135,7 +135,7 @@ class Caverphone(_Phonetic):
         word = word.lower()
         word = ''.join(c for c in word if c in self._lc_set)
 
-        def _squeeze_replace(word, char):
+        def _squeeze_replace(word: str, char: str) -> str:
             """Convert strings of char in word to one instance.
 
             Parameters

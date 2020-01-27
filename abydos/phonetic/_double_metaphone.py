@@ -205,7 +205,7 @@ class DoubleMetaphone(_Phonetic):
             """
             return word[pos]
 
-        def _string_at(pos: int, slen: int, substrings: Set[str]):
+        def _string_at(pos: int, slen: int, substrings: Set[str]) -> bool:
             """Return True if word[pos:pos+slen] is in substrings.
 
             Parameters

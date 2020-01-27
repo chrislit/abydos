@@ -48,7 +48,7 @@ class PSHPSoundexFirst(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '12345'), 'PKTLN'))
 
-    def __init__(self, max_length: int = 4, german=False) -> None:
+    def __init__(self, max_length: int = 4, german: bool = False) -> None:
         """Initialize PSHPSoundexFirst instance.
 
         Parameters
@@ -65,7 +65,7 @@ class PSHPSoundexFirst(_Phonetic):
         self._max_length = max_length
         self._german = german
 
-    def encode_alpha(self, fname):
+    def encode_alpha(self, fname: str) -> str:
         """Calculate the alphabetic PSHP Soundex/Viewex Coding of a first name.
 
         Parameters
@@ -113,7 +113,7 @@ class PSHPSoundexFirst(_Phonetic):
             return 'PT'
         return code[:1] + code[1:].translate(self._alphabetic)
 
-    def encode(self, fname):
+    def encode(self, fname: str) -> str:
         """Calculate the PSHP Soundex/Viewex Coding of a first name.
 
         Parameters

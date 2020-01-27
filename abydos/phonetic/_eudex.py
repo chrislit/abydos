@@ -204,6 +204,8 @@ class Eudex(_Phonetic):
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str instead of int
 
         """
         # Lowercase input & filter unknown characters

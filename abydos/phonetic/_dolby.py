@@ -36,7 +36,10 @@ class Dolby(_Phonetic):
     """
 
     def __init__(
-        self, max_length: int = -1, keep_vowels=False, vowel_char='*'
+        self,
+        max_length: int = -1,
+        keep_vowels: bool = False,
+        vowel_char: str = '*',
     ) -> None:
         r"""Initialize Dolby instance.
 

@@ -19,6 +19,7 @@
 Daitch-Mokotoff Soundex
 """
 
+from typing import Dict, Tuple, Union, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -244,7 +245,7 @@ class DaitchMokotoff(_Phonetic):
             'ZS',
             'Z',
         ),
-    }
+    }  # type: Dict[str, Tuple[str, ...]]
 
     _uc_v_set = set('AEIJOUY')
 
@@ -253,7 +254,7 @@ class DaitchMokotoff(_Phonetic):
         zip((ord(_) for _ in '0123456789'), ' A TSKNPLR')
     )
 
-    def __init__(self, max_length: int = 6, zero_pad=True) -> None:
+    def __init__(self, max_length: int = 6, zero_pad: bool = True) -> None:
         """Initialize DaitchMokotoff instance.
 
         Parameters
@@ -376,19 +377,40 @@ class DaitchMokotoff(_Phonetic):
                 if word[pos:].startswith(sstr):
                     # Having determined a valid substring start, retrieve the
                     # code
-                    dm_val = self._dms_table[sstr]
+                    dm_tup = cast(
+                        Tuple[
+                            Union[
+                                int,
+                                str,
+                                Tuple[Union[int, str], Union[int, str]],
+                            ],
+                            Union[
+                                int,
+                                str,
+                                Tuple[Union[int, str], Union[int, str]],
+                            ],
+                            Union[
+                                int,
+                                str,
+                                Tuple[Union[int, str], Union[int, str]],
+                            ],
+                        ],
+                        self._dms_table[sstr],
+                    )
 
                     # Having retried the code (triple), determine the correct
                     # positional variant (first, pre-vocalic, elsewhere)
                     if pos == 0:
-                        dm_val = dm_val[0]
+                        dm_val = dm_tup[
+                            0
+                        ]  # type: Union[int, str, Tuple[Union[int, str], Union[int, str]]]
                     elif (
                         pos + len(sstr) < len(word)
                         and word[pos + len(sstr)] in self._uc_v_set
                     ):
-                        dm_val = dm_val[1]
+                        dm_val = dm_tup[1]
                     else:
-                        dm_val = dm_val[2]
+                        dm_val = dm_tup[2]
 
                     # Build the code strings
                     if isinstance(dm_val, tuple):
@@ -401,18 +423,18 @@ class DaitchMokotoff(_Phonetic):
                     break
 
         # Filter out double letters and _ placeholders
-        dms = (
+        dms = [
             ''.join(c for c in self._delete_consecutive_repeats(_) if c != '_')
             for _ in dms
-        )
+        ]
 
         # Trim codes and return set
         if self._zero_pad:
-            dms = (
+            dms = [
                 (_ + ('0' * self._max_length))[: self._max_length] for _ in dms
-            )
+            ]
         else:
-            dms = (_[: self._max_length] for _ in dms)
+            dms = [_[: self._max_length] for _ in dms]
         return ','.join(sorted(dms))
 
 

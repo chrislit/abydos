@@ -835,7 +835,7 @@ class BeiderMorse(_Phonetic):
 
     def __init__(
         self,
-        language_arg: Union[str, int] =0,
+        language_arg: Union[str, int] = 0,
         name_mode: str = 'gen',
         match_mode: str = 'approx',
         concat: bool = False,

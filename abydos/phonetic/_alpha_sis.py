@@ -178,7 +178,7 @@ class AlphaSIS(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The alphabetic Alpha-SIS value
 
         Examples
@@ -222,7 +222,7 @@ class AlphaSIS(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The Alpha-SIS value
 
         Examples

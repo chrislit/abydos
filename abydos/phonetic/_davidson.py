@@ -38,7 +38,7 @@ class Davidson(_Phonetic):
 
     _trans = {65: '', 69: '', 73: '', 79: '', 85: '', 72: '', 87: '', 89: ''}
 
-    def __init__(self, omit_fname=False) -> None:
+    def __init__(self, omit_fname: bool = False) -> None:
         """Initialize Davidson instance.
 
         Parameters
@@ -53,7 +53,7 @@ class Davidson(_Phonetic):
         """
         self._omit_fname = omit_fname
 
-    def encode(self, lname, fname='.'):
+    def encode(self, lname: str, fname: str = '.') -> str:
         """Return Davidson's Consonant Code.
 
         Parameters

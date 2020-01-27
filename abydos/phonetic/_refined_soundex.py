@@ -45,7 +45,10 @@ class RefinedSoundex(_Phonetic):
     _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PFKGZTLNR'))
 
     def __init__(
-        self, max_length: int = -1, zero_pad=False, retain_vowels=False
+        self,
+        max_length: int = -1,
+        zero_pad: bool = False,
+        retain_vowels: bool = False,
     ) -> None:
         """Initialize RefinedSoundex instance.
 

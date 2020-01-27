@@ -20,6 +20,7 @@ FONEM
 """
 
 from re import compile as re_compile
+from typing import cast
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -235,9 +236,9 @@ class FONEM(_Phonetic):
         for rule in self._rule_order:
             regex, repl = self._rule_table[rule]
             if isinstance(regex, str):
-                word = word.replace(regex, repl)
+                word = word.replace(regex, cast(str, repl))
             else:
-                word = regex.sub(repl, word)
+                word = regex.sub(repl, word)  # type: ignore
 
         return word
 
