@@ -20,7 +20,6 @@ The phonetic._phonetic module implements abstract class Phonetic.
 """
 
 from itertools import groupby
-from typing import Tuple, Union
 
 __all__ = ['_Phonetic']
 

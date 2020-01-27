@@ -184,7 +184,7 @@ class Soundex(_Phonetic):
             Encapsulated in class
         .. versionchanged:: 0.6.0
             Made return a str only (comma-separated)
-            
+
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
         word = unicode_normalize('NFKD', word.upper())

@@ -19,8 +19,8 @@
 Wåhlin phonetic encoding
 """
 
-from unicodedata import normalize as unicode_normalize
 from typing import Tuple
+from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
 

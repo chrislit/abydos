@@ -403,7 +403,7 @@ class DaitchMokotoff(_Phonetic):
                     if pos == 0:
                         dm_val = dm_tup[
                             0
-                        ]  # type: Union[int, str, Tuple[Union[int, str], Union[int, str]]]
+                        ]  # type: Union[int, str, Tuple[Union[int, str], Union[int, str]]]  # noqa: E501
                     elif (
                         pos + len(sstr) < len(word)
                         and word[pos + len(sstr)] in self._uc_v_set
