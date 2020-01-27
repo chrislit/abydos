@@ -232,7 +232,7 @@ class DoubleMetaphone(_Phonetic):
         current = 0
         length = len(word)
         if length < 1:
-            return ''
+            return ','
         last = length - 1
 
         word = word.upper()
