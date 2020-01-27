@@ -58,25 +58,27 @@ class RussellIndex(_Phonetic):
 
         Returns
         -------
-        int
+        str
             The Russell Index value
 
         Examples
         --------
         >>> pe = RussellIndex()
         >>> pe.encode('Christopher')
-        3813428
+        '3813428'
         >>> pe.encode('Niall')
-        715
+        '715'
         >>> pe.encode('Smith')
-        3614
+        '3614'
         >>> pe.encode('Schmidt')
-        3614
+        '3614'
 
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str
 
         """
         word = unicode_normalize('NFKD', word.upper())
@@ -95,8 +97,7 @@ class RussellIndex(_Phonetic):
         # remove repeating characters
         sdx = self._delete_consecutive_repeats(sdx)
 
-        # return as an int
-        return int(sdx) if sdx else float('NaN')
+        return sdx
 
     def encode_alpha(self, word: str) -> str:
         """Return the Russell Index (alphabetic output) for the word.
@@ -132,10 +133,8 @@ class RussellIndex(_Phonetic):
             Encapsulated in class
 
         """
-        num = ''.join(c for c in str(self.encode(word)) if c in self._num_set)
-        if num:
-            return num.translate(self._num_trans)
-        return ''
+        num = ''.join(c for c in self.encode(word) if c in self._num_set)
+        return num.translate(self._num_trans)
 
 
 if __name__ == '__main__':
