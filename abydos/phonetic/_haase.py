@@ -20,6 +20,7 @@ Haase Phonetik
 """
 
 from itertools import product
+from typing import List, Set, Tuple, Union
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -41,7 +42,7 @@ class Haase(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '123456789'), 'PTFKLNRSA'))
 
-    def __init__(self, primary_only=False) -> None:
+    def __init__(self, primary_only: bool = False) -> None:
         """Initialize Haase instance.
 
         Parameters
@@ -65,30 +66,30 @@ class Haase(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The alphabetic Haase Phonetik value
 
         Examples
         --------
         >>> pe = Haase()
         >>> pe.encode_alpha('Joachim')
-        ('AKAN',)
+        'AKAN'
         >>> pe.encode_alpha('Christoph')
-        ('KRASTAF', 'SRASTAF')
+        'KRASTAF,SRASTAF'
         >>> pe.encode_alpha('Jörg')
-        ('ARK',)
+        'ARK'
         >>> pe.encode_alpha('Smith')
-        ('SNAT',)
+        'SNAT'
         >>> pe.encode_alpha('Schmidt')
-        ('SNAT', 'KNAT')
+        'SNAT,KNAT'
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
-        return tuple(
-            code.translate(self._alphabetic) for code in self.encode(word)
-        )
+        return self.encode(word).translate(self._alphabetic)
 
     def encode(self, word: str) -> str:
         """Return the Haase Phonetik (numeric output) code for a word.
@@ -102,31 +103,33 @@ class Haase(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The Haase Phonetik value as a numeric string
 
         Examples
         --------
         >>> pe = Haase()
         >>> pe.encode('Joachim')
-        ('9496',)
+        '9496'
         >>> pe.encode('Christoph')
-        ('4798293', '8798293')
+        '4798293,8798293'
         >>> pe.encode('Jörg')
-        ('974',)
+        '974'
         >>> pe.encode('Smith')
-        ('8692',)
+        '8692'
         >>> pe.encode('Schmidt')
-        ('8692', '4692')
+        '8692,4692'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
 
-        def _after(word, pos, letters):
+        def _after(word: str, pos: int, letters: Set[str]) -> bool:
             """Return True if word[pos] follows one of the supplied letters.
 
             Parameters
@@ -150,7 +153,7 @@ class Haase(_Phonetic):
                 return True
             return False
 
-        def _before(word, pos, letters):
+        def _before(word: str, pos: int, letters: Set[str]) -> bool:
             """Return True if word[pos] precedes one of the supplied letters.
 
             Parameters
@@ -181,7 +184,7 @@ class Haase(_Phonetic):
         word = word.replace('Ü', 'UE')
         word = ''.join(c for c in word if c in self._uc_set)
 
-        variants = []
+        variants = []  # type: List[Union[str, Tuple[str, ...]]]
         if self._primary_only:
             variants = [word]
         else:
@@ -224,7 +227,7 @@ class Haase(_Phonetic):
 
             variants = [''.join(letters) for letters in product(*variants)]
 
-        def _haase_code(word):
+        def _haase_code(word: str) -> str:
             sdx = ''
             for i in range(len(word)):
                 if word[i] in self._uc_v_set:
@@ -281,15 +284,15 @@ class Haase(_Phonetic):
 
         encoded = tuple(_haase_code(word) for word in variants)
         if len(encoded) > 1:
-            encoded_set = set()
+            encoded_set = set()  # type: Set[str]
             encoded_single = []
             for code in encoded:
                 if code not in encoded_set:
                     encoded_set.add(code)
                     encoded_single.append(code)
-            return tuple(encoded_single)
+            return ''.join(encoded_single)
 
-        return encoded
+        return ','.join(encoded)
 
 
 if __name__ == '__main__':
