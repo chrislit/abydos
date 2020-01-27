@@ -282,7 +282,7 @@ class Haase(_Phonetic):
 
             return sdx
 
-        encoded = tuple(_haase_code(word) for word in variants)
+        encoded = [_haase_code(word) for word in variants]
         if len(encoded) > 1:
             encoded_set = set()  # type: Set[str]
             encoded_single = []
@@ -290,9 +290,9 @@ class Haase(_Phonetic):
                 if code not in encoded_set:
                     encoded_set.add(code)
                     encoded_single.append(code)
-            return ''.join(encoded_single)
+            return ','.join(encoded_single)
 
-        return ','.join(encoded)
+        return encoded[0]
 
 
 if __name__ == '__main__':
