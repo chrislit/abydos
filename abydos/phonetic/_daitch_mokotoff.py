@@ -435,7 +435,7 @@ class DaitchMokotoff(_Phonetic):
             ]
         else:
             dms = [_[: self._max_length] for _ in dms]
-        return ','.join(sorted(dms))
+        return ','.join(sorted(set(dms)))
 
 
 if __name__ == '__main__':
