@@ -54,9 +54,11 @@ class Phonetic(String):
 
         """
         super(Phonetic, self).__init__()
-        self._phonetic_algorithm = phonetic_algorithm
-        if phonetic_algorithm is None:
-            self._phonetic_algorithm = DoubleMetaphone()
+        self._phonetic_algorithm = (
+            phonetic_algorithm
+            if phonetic_algorithm is not None
+            else DoubleMetaphone()
+        )
 
         self._joiner = joiner
 
@@ -93,9 +95,9 @@ class Phonetic(String):
         phonetic = ''
         for word in phrase.split():
             if isinstance(self._phonetic_algorithm, _Phonetic):
-                word = self._phonetic_algorithm.encode(word)
+                word = self._phonetic_algorithm.encode(word).split(',')
             else:
-                word = self._phonetic_algorithm(word)
+                word = self._phonetic_algorithm(word).split(',')
             if not isinstance(word, str) and hasattr(word, '__iter__'):
                 word = word[0]
             phonetic += word + self._joiner
