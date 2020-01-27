@@ -35,8 +35,8 @@ class EudexTestCases(unittest.TestCase):
     def test_eudex(self):
         """Test abydos.phonetic.Eudex."""
         # base cases
-        self.assertEqual(self.pa.encode(''), 18374686479671623680)
-        self.assertEqual(self.pa.encode(' '), 18374686479671623680)
+        self.assertEqual(self.pa.encode(''), '18374686479671623680')
+        self.assertEqual(self.pa.encode(' '), '18374686479671623680')
 
         # exact & mismatch cases from
         # https://github.com/ticki/eudex/blob/master/src/tests.rs
@@ -78,11 +78,11 @@ class EudexTestCases(unittest.TestCase):
         )
 
         # manually checked against algorithm
-        self.assertEqual(self.pa.encode('guillaume'), 288230383131034112)
-        self.assertEqual(self.pa.encode('niall'), 648518346341351840)
-        self.assertEqual(self.pa.encode('hello'), 144115188075896832)
-        self.assertEqual(self.pa.encode('christopher'), 433648490138894409)
-        self.assertEqual(self.pa.encode('colin'), 432345564238053650)
+        self.assertEqual(self.pa.encode('guillaume'), '288230383131034112')
+        self.assertEqual(self.pa.encode('niall'), '648518346341351840')
+        self.assertEqual(self.pa.encode('hello'), '144115188075896832')
+        self.assertEqual(self.pa.encode('christopher'), '433648490138894409')
+        self.assertEqual(self.pa.encode('colin'), '432345564238053650')
 
 
 if __name__ == '__main__':

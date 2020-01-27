@@ -34,36 +34,52 @@ class AlphaSISTestCases(unittest.TestCase):
 
     def test_alpha_sis_encode(self):
         """Test abydos.phonetic.AlphaSIS."""
-        self.assertEqual(self.pa.encode('')[0], '00000000000000')
+        self.assertEqual(self.pa.encode(''), '00000000000000')
 
-        self.assertEqual(self.pa.encode('Rodgers')[0], '04740000000000')
-        self.assertEqual(self.pa.encode('Rogers')[0], '04740000000000')
-        self.assertEqual(self.pa.encode('Kant')[0], '07210000000000')
-        self.assertEqual(self.pa.encode('Knuth')[0], '02100000000000')
-        self.assertEqual(self.pa.encode('Harper')[0], '24940000000000')
-        self.assertEqual(self.pa.encode('Collier')[0], '07540000000000')
-        self.assertEqual(self.pa.encode('Schultz')[0], '06500000000000')
-        self.assertEqual(self.pa.encode('Livingston')[0], '05827012000000')
+        self.assertEqual(self.pa.encode('Rodgers'), '04740000000000')
+        self.assertEqual(self.pa.encode('Rogers'), '04740000000000')
+        self.assertEqual(
+            self.pa.encode('Kant'), '07210000000000,06210000000000'
+        )
+        self.assertEqual(self.pa.encode('Knuth'), '02100000000000')
+        self.assertEqual(self.pa.encode('Harper'), '24940000000000')
+        self.assertEqual(
+            self.pa.encode('Collier'), '07540000000000,06540000000000'
+        )
+        self.assertEqual(
+            self.pa.encode('Schultz'), '06500000000000,06510000000000'
+        )
+        self.assertEqual(self.pa.encode('Livingston'), '05827012000000')
 
         # tests of repeated letters
-        self.assertEqual(self.pa.encode('Colllier')[0], '07554000000000')
-        self.assertEqual(self.pa.encode('Collllier')[0], '07554000000000')
-        self.assertEqual(self.pa.encode('Colllllier')[0], '07555400000000')
-        self.assertEqual(self.pa.encode('Collllllier')[0], '07555400000000')
-        self.assertEqual(self.pa.encode('Colalalier')[0], '07555400000000')
+        self.assertEqual(
+            self.pa.encode('Colllier'), '07554000000000,06554000000000'
+        )
+        self.assertEqual(
+            self.pa.encode('Collllier'), '07554000000000,06554000000000'
+        )
+        self.assertEqual(
+            self.pa.encode('Colllllier'), '07555400000000,06555400000000'
+        )
+        self.assertEqual(
+            self.pa.encode('Collllllier'), '07555400000000,06555400000000'
+        )
+        self.assertEqual(
+            self.pa.encode('Colalalier'), '07555400000000,06555400000000'
+        )
 
         # max_length bounds tests
         self.assertEqual(
-            AlphaSIS(max_length=-1).encode('Niall')[0],
+            AlphaSIS(max_length=-1).encode('Niall'),
             '0250000000000000000000000000000000000000000000000000000000000000',
         )
-        self.assertEqual(AlphaSIS(max_length=0).encode('Niall')[0], '0250')
+        self.assertEqual(AlphaSIS(max_length=0).encode('Niall'), '0250')
 
         # encode_alpha
-        self.assertEqual(self.pa.encode_alpha('Rogers')[0], 'RKR')
-        self.assertEqual(self.pa.encode_alpha('Kant')[0], 'KNT')
-        self.assertEqual(self.pa.encode_alpha('Knuth')[0], 'NT')
-        self.assertEqual(self.pa.encode_alpha('Harper')[0], 'HRPR')
+        self.assertEqual(self.pa.encode_alpha('Rogers'), 'RKR')
+        self.assertEqual(self.pa.encode_alpha('Kant'), 'KNT,JNT')
+        self.assertEqual(self.pa.encode_alpha('Knuth'), 'NT')
+        self.assertEqual(self.pa.encode_alpha('Harper'), 'HRPR')
 
 
 if __name__ == '__main__':
