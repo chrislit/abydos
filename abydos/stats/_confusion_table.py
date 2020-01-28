@@ -137,7 +137,7 @@ class ConfusionTable:
             self._fp = fp
             self._fn = fn
 
-    def __eq__(self, other: 'ConfusionTable') -> bool:
+    def __eq__(self, other: object) -> bool:
         """Perform eqality (==) comparison.
 
         Compares a ConfusionTable to another ConfusionTable or its equivalent
@@ -145,7 +145,7 @@ class ConfusionTable:
 
         Parameters
         ----------
-        other : ConfusionTable
+        other : ConfusionTable, tuple, list, or dict
             Another ConfusionTable object to compare to
 
         Returns
