@@ -19,6 +19,7 @@
 The stats._pairwise module implements pairwise statistical algorithms.
 """
 
+from typing import Callable, Collection, List, Optional, Tuple, Union
 
 from ._mean import amean, hmean, std
 from ..distance._levenshtein import Levenshtein
@@ -27,8 +28,11 @@ __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 
 
 def mean_pairwise_similarity(
-    collection, metric=None, mean_func=hmean, symmetric=False
-):
+    collection: Union[str, Collection[str]],
+    metric: Optional[Callable[[str, str], Union[int, float]]] = None,
+    mean_func: Callable[[List[Union[int, float]]], Union[int, float]] = hmean,
+    symmetric: bool = False,
+) -> float:
     """Calculate the mean pairwise similarity of a collection of strings.
 
     Takes the mean of the pairwise similarity between each member of a
@@ -102,12 +106,14 @@ def mean_pairwise_similarity(
 
 
 def pairwise_similarity_statistics(
-    src_collection,
-    tar_collection,
-    metric=None,
-    mean_func=amean,
-    symmetric=False,
-):
+    src_collection: Collection[str],
+    tar_collection: Collection[str],
+    metric: Optional[Callable[[str, str], Union[int, float]]] = None,
+    mean_func: Callable[[List[Union[int, float]]], Union[int, float]] = amean,
+    symmetric: bool = False,
+) -> Tuple[
+    Union[int, float], Union[int, float], Union[int, float], Union[int, float]
+]:
     """Calculate the pairwise similarity statistics a collection of strings.
 
     Calculate pairwise similarities among members of two collections,
