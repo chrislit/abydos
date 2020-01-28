@@ -939,11 +939,12 @@ class BeiderMorse(_Phonetic):
         Examples
         --------
         >>> pe = BeiderMorse()
-        >>> pe.encode('Christopher')
-        'xrQstopir,xrQstYpir,xristopir,xristYpir,xrQstofir,xrQstYfir,\
-xristofir,xristYfir,xristopi,xritopir,xritopi,xristofi,xritofir,xritofi,\
-tzristopir,tzristofir,zristopir,zristopi,zritopir,zritopi,zristofir,zristofi,\
-zritofir,zritofi'
+        >>> pe.encode('Christopher').split(',')
+        ['xrQstopir', 'xrQstYpir', 'xristopir', 'xristYpir', 'xrQstofir',
+        'xrQstYfir', 'xristofir', 'xristYfir', 'xristopi', 'xritopir',
+        'xritopi', 'xristofi', 'xritofir', 'xritofi', 'tzristopir',
+        'tzristofir', 'zristopir', 'zristopi', 'zritopir', 'zritopi',
+        'zristofir', 'zristofi', 'zritofir', 'zritofi']
         >>> pe.encode('Niall')
         'nial,niol'
         >>> pe.encode('Smith')
@@ -951,16 +952,17 @@ zritofir,zritofi'
         >>> pe.encode('Schmidt')
         'zmit,stzmit'
 
-        >>> BeiderMorse(language_arg='German').encode('Christopher')
-        'xrQstopir,xrQstYpir,xristopir,xristYpir,xrQstofir,xrQstYfir,\
-xristofir,xristYfir'
-        >>> BeiderMorse(language_arg='English').encode('Christopher')
-        'tzristofir,tzrQstofir,tzristafir,tzrQstafir,xristofir,xrQstofir,\
-xristafir,xrQstafir'
+        >>> BeiderMorse(language_arg='German').encode('Christopher').split(',')
+        ['xrQstopir', 'xrQstYpir', 'xristopir', 'xristYpir', 'xrQstofir',
+        'xrQstYfir', 'xristofir', 'xristYfir']
+        >>> BeiderMorse(language_arg='English').encode(
+        ... 'Christopher').split(',')
+        ['tzristofir', 'tzrQstofir', 'tzristafir', 'tzrQstafir', 'xristofir',
+        'xrQstofir', 'xristafir', 'xrQstafir']
         >>> BeiderMorse(language_arg='German',
-        ... name_mode='ash').encode('Christopher')
-        'xrQstopir,xrQstYpir,xristopir,xristYpir,xrQstofir,xrQstYfir,\
-xristofir,xristYfir'
+        ... name_mode='ash').encode('Christopher').split(',')
+        ['xrQstopir', 'xrQstYpir', 'xristopir', 'xristYpir', 'xrQstofir',
+        'xrQstYfir', 'xristofir', 'xristYfir']
 
         >>> BeiderMorse(language_arg='German',
         ... match_mode='exact').encode('Christopher')
