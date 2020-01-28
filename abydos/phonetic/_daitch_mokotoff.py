@@ -294,7 +294,7 @@ class DaitchMokotoff(_Phonetic):
         --------
         >>> pe = DaitchMokotoff()
         >>> pe.encode_alpha('Christopher')
-        'KRSTPR,SRSTPR'
+        'SRSTPR,KRSTPR'
         >>> pe.encode_alpha('Niall')
         'NL'
         >>> pe.encode_alpha('Smith')
@@ -304,7 +304,7 @@ class DaitchMokotoff(_Phonetic):
 
         >>> DaitchMokotoff(max_length=20,
         ... zero_pad=False).encode_alpha('The quick brown fox')
-        'TKKPRPNPKS,TKSKPRPNPKS'
+        'TKSKPRPNPKS,TKKPRPNPKS'
 
 
         .. versionadded:: 0.4.0

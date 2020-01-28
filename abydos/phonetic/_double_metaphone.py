@@ -71,9 +71,9 @@ class DoubleMetaphone(_Phonetic):
         --------
         >>> pe = DoubleMetaphone()
         >>> pe.encode_alpha('Christopher')
-        'KRSTFR'
+        'KRSTFR,'
         >>> pe.encode_alpha('Niall')
-        'NL'
+        'NL,'
         >>> pe.encode_alpha('Smith')
         'SMÞ,XMT'
         >>> pe.encode_alpha('Schmidt')
@@ -104,9 +104,9 @@ class DoubleMetaphone(_Phonetic):
         --------
         >>> pe = DoubleMetaphone()
         >>> pe.encode('Christopher')
-        'KRSTFR'
+        'KRSTFR,'
         >>> pe.encode('Niall')
-        'NL'
+        'NL,'
         >>> pe.encode('Smith')
         'SM0,XMT'
         >>> pe.encode('Schmidt')
