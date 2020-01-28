@@ -35,21 +35,23 @@ class PositionFingerprintTestCases(unittest.TestCase):
     def test_position_fingerprint(self):
         """Test abydos.fingerprint.Position."""
         # Base case
-        self.assertEqual(self.fp.fingerprint(''), 0b1111111111111111)
+        self.assertEqual(self.fp.fingerprint(''), '1111111111111111')
 
         # https://arxiv.org/pdf/1711.08475.pdf
-        self.assertEqual(self.fp.fingerprint('instance'), 0b1110111001110001)
+        self.assertEqual(self.fp.fingerprint('instance'), '1110111001110001')
 
-        self.assertEqual(self.fp.fingerprint('instance'), 0b1110111001110001)
+        self.assertEqual(self.fp.fingerprint('instance'), '1110111001110001')
         self.assertEqual(
-            Position(15).fingerprint('instance'), 0b111011100111000
+            Position(15).fingerprint('instance'), '111011100111000'
         )
         self.assertEqual(
             Position(32).fingerprint('instance'),
-            0b11101110011100000101011111111111,
+            '11101110011100000101011111111111',
         )
         self.assertEqual(
-            Position(64).fingerprint('instance'), 0xEE7057FFEFFFFFFF
+            Position(64).fingerprint('instance'),
+            '11101110011100000101011111111111'+
+            '11101111111111111111111111111111'
         )
 
 

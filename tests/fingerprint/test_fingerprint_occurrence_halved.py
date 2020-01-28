@@ -35,22 +35,22 @@ class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
     def test_occurrence_halved_fingerprint(self):
         """Test abydos.fingerprint.OccurrenceHalved."""
         # Base case
-        self.assertEqual(self.fp.fingerprint(''), 0)
+        self.assertEqual(self.fp.fingerprint(''), '0'*16)
 
         # https://arxiv.org/pdf/1711.08475.pdf
-        self.assertEqual(self.fp.fingerprint('instance'), 0b0110010010111000)
+        self.assertEqual(self.fp.fingerprint('instance'), '0110010010111000')
 
-        self.assertEqual(self.fp.fingerprint('inst'), 0b0001000010100100)
+        self.assertEqual(self.fp.fingerprint('inst'), '0001000010100100')
         self.assertEqual(
-            OccurrenceHalved(15).fingerprint('instance'), 0b0110010010111000
+            OccurrenceHalved(15).fingerprint('instance'), '110010010111000'
         )
         self.assertEqual(
             OccurrenceHalved(32).fingerprint('instance'),
-            0b01100100101110000000000100000000,
+            '01100100101110000000000100000000',
         )
         self.assertEqual(
             OccurrenceHalved(64).fingerprint('instance'),
-            0b01100100101110000000000100000000 << 32,
+            '01100100101110000000000100000000' + '0'*32,
         )
 
 
