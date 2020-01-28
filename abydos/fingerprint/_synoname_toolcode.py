@@ -264,6 +264,58 @@ class SynonameToolcode(_Fingerprint):
 
     def fingerprint(
         self, lname: str, fname: str = '', qual: str = '', normalize: int = 0
+    ) -> str:
+        """Build the Synoname toolcode.
+
+        Parameters
+        ----------
+        lname : str
+            Last name
+        fname : str
+            First name (can be blank)
+        qual : str
+            Qualifier
+        normalize : int
+            Normalization mode (0, 1, or 2)
+
+        Returns
+        -------
+        str
+            The transformed names and the synoname toolcode, separated by
+            commas
+
+        Examples
+        --------
+        >>> st = SynonameToolcode()
+        >>> st.fingerprint('hat')
+        'hat,,0000000003$$h'
+        >>> st.fingerprint('niall')
+        'niall,,0000000005$$n'
+        >>> st.fingerprint('colin')
+        'colin,,0000000005$$c'
+        >>> st.fingerprint('atcg')
+        'atcg,,0000000004$$a'
+        >>> st.fingerprint('entreatment')
+        'entreatment,,0000000011$$e'
+
+        >>> st.fingerprint('Ste.-Marie', 'Count John II', normalize=2)
+        'ste.-marie ii,count john,0200491310$015b049a127c$smcji'
+        >>> st.fingerprint('Michelangelo IV', '', 'Workshop of')
+        'michelangelo iv,,3000550015$055b$mi'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Changed to return a comma-separated string instead of 3-tuple of
+            strs
+
+        """
+        return ','.join(self.fingerprint_tuple(lname, fname, qual, normalize))
+
+    def fingerprint_tuple(
+        self, lname: str, fname: str = '', qual: str = '', normalize: int = 0
     ) -> Tuple[str, str, str]:
         """Build the Synoname toolcode.
 
@@ -286,26 +338,24 @@ class SynonameToolcode(_Fingerprint):
         Examples
         --------
         >>> st = SynonameToolcode()
-        >>> st.fingerprint('hat')
+        >>> st.fingerprint_tuple('hat')
         ('hat', '', '0000000003$$h')
-        >>> st.fingerprint('niall')
+        >>> st.fingerprint_tuple('niall')
         ('niall', '', '0000000005$$n')
-        >>> st.fingerprint('colin')
+        >>> st.fingerprint_tuple('colin')
         ('colin', '', '0000000005$$c')
-        >>> st.fingerprint('atcg')
+        >>> st.fingerprint_tuple('atcg')
         ('atcg', '', '0000000004$$a')
-        >>> st.fingerprint('entreatment')
+        >>> st.fingerprint_tuple('entreatment')
         ('entreatment', '', '0000000011$$e')
 
-        >>> st.fingerprint('Ste.-Marie', 'Count John II', normalize=2)
+        >>> st.fingerprint_tuple('Ste.-Marie', 'Count John II', normalize=2)
         ('ste.-marie ii', 'count john', '0200491310$015b049a127c$smcji')
-        >>> st.fingerprint('Michelangelo IV', '', 'Workshop of')
+        >>> st.fingerprint_tuple('Michelangelo IV', '', 'Workshop of')
         ('michelangelo iv', '', '3000550015$055b$mi')
 
 
-        .. versionadded:: 0.3.0
-        .. versionchanged:: 0.3.6
-            Encapsulated in class
+        .. versionadded:: 0.6.0
 
         """
         lname = lname.lower()

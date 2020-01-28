@@ -10,8 +10,8 @@ Changes:
 
 - The deprecated function-based API wrappers were removed.
 - Added type hints
-- Made all phonetic algorithms' encode & encode_alpha functions return values
-  of type str.
+- Made all phonetic algorithms' encode & encode_alpha methods and all string
+  fingerprinters' fingerprint methods return values of type str.
 
 
 0.5.0 (2020-01-10) *ecgtheow*

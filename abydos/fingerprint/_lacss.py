@@ -49,7 +49,7 @@ class LACSS(_Fingerprint):
 
         Returns
         -------
-        int
+        str
             The L.A. County Sheriff's System fingerprint
 
         Examples
@@ -68,6 +68,41 @@ class LACSS(_Fingerprint):
 
 
         .. versionadded:: 0.4.1
+        .. versionchanged:: 0.6.0
+            Changed to return a str and added fingerprint_int method
+
+        """
+        return str(self.fingerprint_int(word))
+
+    def fingerprint_int(self, word: str) -> int:
+        """Return the LACSS coding.
+
+        Parameters
+        ----------
+        word : str
+            The word to fingerprint
+
+        Returns
+        -------
+        int
+            The L.A. County Sheriff's System fingerprint as an int
+
+        Examples
+        --------
+        >>> cf = LACSS()
+        >>> cf.fingerprint_int('hat')
+        4911211
+        >>> cf.fingerprint_int('niall')
+        6488374
+        >>> cf.fingerprint_int('colin')
+        3015957
+        >>> cf.fingerprint_int('atcg')
+        1772371
+        >>> cf.fingerprint_int('entreatment')
+        3882324
+
+
+        .. versionadded:: 0.6.0
 
         """
         # uppercase
@@ -94,7 +129,7 @@ class LACSS(_Fingerprint):
             i += 1
 
         code *= 3
-        code = str(int(code ** 0.5))
+        code = int(code ** 0.5)
 
         return code
 

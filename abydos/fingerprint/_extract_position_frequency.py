@@ -78,7 +78,7 @@ class ExtractPositionFrequency(_Fingerprint):
 
         Returns
         -------
-        int
+        str
             The extract - position & frequency coding
 
         Examples

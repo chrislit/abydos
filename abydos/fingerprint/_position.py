@@ -19,6 +19,8 @@
 Cisłak & Grabowski's position fingerprint
 """
 
+from typing import Dict, Tuple
+
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
 __all__ = ['Position']
@@ -33,7 +35,10 @@ class Position(_Fingerprint):
     """
 
     def __init__(
-        self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG, bits_per_letter=3
+        self,
+        n_bits: int = 16,
+        most_common: Tuple[str, ...] = MOST_COMMON_LETTERS_CG,
+        bits_per_letter: int = 3,
     ) -> None:
         """Initialize Count instance.
 
@@ -63,31 +68,68 @@ class Position(_Fingerprint):
 
         Returns
         -------
-        int
+        str
             The position fingerprint
 
         Examples
         --------
         >>> pf = Position()
-        >>> bin(pf.fingerprint('hat'))
-        '0b1110100011111111'
-        >>> bin(pf.fingerprint('niall'))
-        '0b1111110101110010'
-        >>> bin(pf.fingerprint('colin'))
-        '0b1111111110010111'
-        >>> bin(pf.fingerprint('atcg'))
-        '0b1110010001111111'
-        >>> bin(pf.fingerprint('entreatment'))
-        '0b101011111111'
+        >>> pf.fingerprint('hat')
+        '1110100011111111'
+        >>> pf.fingerprint('niall')
+        '1111110101110010'
+        >>> pf.fingerprint('colin')
+        '1111111110010111'
+        >>> pf.fingerprint('atcg')
+        '1110010001111111'
+        >>> pf.fingerprint('entreatment')
+        '0000101011111111'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Changed to return a str and added fingerprint_int method
+
+        """
+        return ('{:0' + str(self._n_bits) + 'b}').format(
+            self.fingerprint_int(word)
+        )
+
+    def fingerprint_int(self, word: str) -> int:
+        """Return the position fingerprint.
+
+        Parameters
+        ----------
+        word : str
+            The word to fingerprint
+
+        Returns
+        -------
+        int
+            The position fingerprint as an int
+
+        Examples
+        --------
+        >>> pf = Position()
+        >>> pf.fingerprint_int('hat')
+        59647
+        >>> pf.fingerprint_int('niall')
+        64882
+        >>> pf.fingerprint_int('colin')
+        65431
+        >>> pf.fingerprint_int('atcg')
+        58495
+        >>> pf.fingerprint_int('entreatment')
+        2815
+
+
+        .. versionadded:: 0.6.0
 
         """
         n_bits = self._n_bits
-        position = {}
+        position = {}  # type: Dict[str, int]
         for pos, letter in enumerate(word):
             if letter not in position and letter in self._most_common:
                 position[letter] = min(pos, 2 ** self._bits_per_letter - 1)

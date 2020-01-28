@@ -67,27 +67,64 @@ class Count(_Fingerprint):
 
         Returns
         -------
-        int
+        str
             The count fingerprint
 
         Examples
         --------
         >>> cf = Count()
-        >>> bin(cf.fingerprint('hat'))
-        '0b1010000000001'
-        >>> bin(cf.fingerprint('niall'))
-        '0b10001010000'
-        >>> bin(cf.fingerprint('colin'))
-        '0b101010000'
-        >>> bin(cf.fingerprint('atcg'))
-        '0b1010000000000'
-        >>> bin(cf.fingerprint('entreatment'))
-        '0b1111010000100000'
+        >>> cf.fingerprint('hat')
+        '0001010000000001'
+        >>> cf.fingerprint('niall')
+        '0000010001010000'
+        >>> cf.fingerprint('colin')
+        '0000000101010000'
+        >>> cf.fingerprint('atcg')
+        '0001010000000000'
+        >>> cf.fingerprint('entreatment')
+        '1111010000100000'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Changed to return a str and added fingerprint_int method
+
+        """
+        return ('{:0' + str(self._n_bits) + 'b}').format(
+            self.fingerprint_int(word)
+        )
+
+    def fingerprint_int(self, word: str) -> int:
+        """Return the count fingerprint.
+
+        Parameters
+        ----------
+        word : str
+            The word to fingerprint
+
+        Returns
+        -------
+        int
+            The count fingerprint as an int
+
+        Examples
+        --------
+        >>> cf = Count()
+        >>> cf.fingerprint_int('hat')
+        5121
+        >>> cf.fingerprint_int('niall')
+        1104
+        >>> cf.fingerprint_int('colin')
+        336
+        >>> cf.fingerprint_int('atcg')
+        5120
+        >>> cf.fingerprint_int('entreatment')
+        62496
+
+
+        .. versionadded:: 0.6.0
 
         """
         n_bits = self._n_bits

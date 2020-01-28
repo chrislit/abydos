@@ -19,6 +19,8 @@
 Cisłak & Grabowski's occurrence fingerprint
 """
 
+from typing import Tuple
+
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
 __all__ = ['Occurrence']
@@ -32,7 +34,11 @@ class Occurrence(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG) -> None:
+    def __init__(
+        self,
+        n_bits: int = 16,
+        most_common: Tuple[str, ...] = MOST_COMMON_LETTERS_CG,
+    ) -> None:
         """Initialize Count instance.
 
         Parameters
@@ -60,27 +66,64 @@ class Occurrence(_Fingerprint):
 
         Returns
         -------
-        int
+        str
             The occurrence fingerprint
 
         Examples
         --------
         >>> of = Occurrence()
-        >>> bin(of.fingerprint('hat'))
-        '0b110000100000000'
-        >>> bin(of.fingerprint('niall'))
-        '0b10110000100000'
-        >>> bin(of.fingerprint('colin'))
-        '0b1110000110000'
-        >>> bin(of.fingerprint('atcg'))
-        '0b110000000010000'
-        >>> bin(of.fingerprint('entreatment'))
-        '0b1110010010000100'
+        >>> of.fingerprint('hat')
+        '0110000100000000'
+        >>> of.fingerprint('niall')
+        '0010110000100000'
+        >>> of.fingerprint('colin')
+        '0001110000110000'
+        >>> of.fingerprint('atcg')
+        '0110000000010000'
+        >>> of.fingerprint('entreatment')
+        '1110010010000100'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Changed to return a str and added fingerprint_int method
+
+        """
+        return ('{:0' + str(self._n_bits) + 'b}').format(
+            self.fingerprint_int(word)
+        )
+
+    def fingerprint_int(self, word: str) -> int:
+        """Return the occurrence fingerprint.
+
+        Parameters
+        ----------
+        word : str
+            The word to fingerprint
+
+        Returns
+        -------
+        int
+            The occurrence fingerprint as an int
+
+        Examples
+        --------
+        >>> of = Occurrence()
+        >>> of.fingerprint_int('hat')
+        24832
+        >>> of.fingerprint_int('niall')
+        11296
+        >>> of.fingerprint_int('colin')
+        7216
+        >>> of.fingerprint_int('atcg')
+        24592
+        >>> of.fingerprint_int('entreatment')
+        58500
+
+
+        .. versionadded:: 0.6.0
 
         """
         n_bits = self._n_bits

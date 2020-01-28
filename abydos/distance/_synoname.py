@@ -607,10 +607,10 @@ class Synoname(_Distance):
         tar_qual = tar_qual.strip().lower()
 
         # Create toolcodes
-        src_ln, src_fn, src_tc = self._stc.fingerprint(
+        src_ln, src_fn, src_tc = self._stc.fingerprint_tuple(
             src_ln, src_fn, src_qual
         )
-        tar_ln, tar_fn, tar_tc = self._stc.fingerprint(
+        tar_ln, tar_fn, tar_tc = self._stc.fingerprint_tuple(
             tar_ln, tar_fn, tar_qual
         )
 
