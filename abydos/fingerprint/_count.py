@@ -131,13 +131,13 @@ class Count(_Fingerprint):
         if n_bits % 2:
             n_bits += 1
 
-        word = Counter(word)
+        letter_counts = Counter(word)
         fingerprint = 0
 
         for letter in self._most_common:
             if n_bits:
                 fingerprint <<= 2
-                fingerprint += word[letter] & 3
+                fingerprint += letter_counts[letter] & 3
                 n_bits -= 2
             else:
                 break

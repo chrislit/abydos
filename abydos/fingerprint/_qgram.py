@@ -37,7 +37,13 @@ class QGram(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, qval=2, start_stop='', joiner='', skip=0) -> None:
+    def __init__(
+        self,
+        qval: int = 2,
+        start_stop: str = '',
+        joiner: str = '',
+        skip: int = 0,
+    ) -> None:
         """Initialize Q-Gram fingerprinter.
 
         qval : int
@@ -90,8 +96,9 @@ class QGram(_Fingerprint):
         """
         phrase = unicode_normalize('NFKD', phrase.strip().lower())
         phrase = ''.join(c for c in phrase if c.isalnum())
-        phrase = self._tokenizer.tokenize(phrase).get_set()
-        phrase = self._joiner.join(sorted(phrase))
+        phrase = self._joiner.join(
+            sorted(self._tokenizer.tokenize(phrase).get_set())
+        )
         return phrase
 
 

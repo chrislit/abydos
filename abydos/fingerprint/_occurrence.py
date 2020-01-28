@@ -127,11 +127,10 @@ class Occurrence(_Fingerprint):
 
         """
         n_bits = self._n_bits
-        word = set(word)
         fingerprint = 0
 
         for letter in self._most_common:
-            if letter in word:
+            if letter in set(word):
                 fingerprint += 1
             n_bits -= 1
             if n_bits:

@@ -97,14 +97,14 @@ class OccurrenceHalved(_Fingerprint):
             self.fingerprint_int(word)
         )
 
-    def fingerprint_int(self, word: str) -> str:
+    def fingerprint_int(self, word: str) -> int:
         """Return the occurrence halved fingerprint.
 
         Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
 
         Parameters
         ----------
-        word : str
+        word : int
             The word to fingerprint
 
         Returns

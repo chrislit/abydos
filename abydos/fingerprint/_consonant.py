@@ -66,10 +66,9 @@ class Consonant(_Fingerprint):
 
         """
         super(Consonant, self).__init__()
-        self._vowels = vowels
         self._doubles = doubles
 
-        if self._vowels is None:
+        if vowels is None:
             self._vowels = set('AEIOU')
             if variant > 1:
                 self._vowels.add('W')
@@ -77,7 +76,7 @@ class Consonant(_Fingerprint):
             if variant > 2:
                 self._vowels.add('H')
         else:
-            self._vowels = {_.upper() for _ in self._vowels}
+            self._vowels = {_.upper() for _ in vowels}
 
     def fingerprint(self, word: str) -> str:
         """Return the consonant coding.

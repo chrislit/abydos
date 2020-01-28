@@ -105,7 +105,7 @@ class LCCutter(_Fingerprint):
             return code
 
         # length 2+
-        code = [code]
+        code_list = [code]
 
         # first cutter
         pos = 1
@@ -144,11 +144,11 @@ class LCCutter(_Fingerprint):
                     cval += 1
                 else:
                     break
-        code.append(str(cval))
+        code_list.append(str(cval))
 
         # length 3+
         for ch in uc[pos + 1 :]:
-            if len(code) >= self._max_length:
+            if len(code_list) >= self._max_length:
                 break
             cval = 3
             for letter in self._expansions:
@@ -156,9 +156,9 @@ class LCCutter(_Fingerprint):
                     cval += 1
                 else:
                     break
-            code.append(str(cval))
+            code_list.append(str(cval))
 
-        return ''.join(code[: self._max_length])
+        return ''.join(code_list[: self._max_length])
 
 
 if __name__ == '__main__':

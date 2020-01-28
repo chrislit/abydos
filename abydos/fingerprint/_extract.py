@@ -19,7 +19,7 @@
 Taft's extract letter list coding
 """
 
-from typing import Iterable, Union
+from typing import Iterable, Union, cast
 
 from ._fingerprint import _Fingerprint
 
@@ -57,11 +57,10 @@ class Extract(_Fingerprint):
         ]
 
         super(Extract, self).__init__()
-        self._letter_list = letter_list
-        if isinstance(self._letter_list, int) and 1 <= self._letter_list <= 4:
-            self._letter_list = list(letter_lists[self._letter_list - 1])
-        elif hasattr(self._letter_list, '__iter__'):
-            self._letter_list = list(self._letter_list)
+        if isinstance(letter_list, int) and 1 <= letter_list <= 4:
+            self._letter_list = list(letter_lists[letter_list - 1])
+        elif hasattr(letter_list, '__iter__'):
+            self._letter_list = list(cast(Iterable[str], letter_list))
         else:
             self._letter_list = list(letter_lists[0])
 

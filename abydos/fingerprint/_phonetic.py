@@ -19,6 +19,8 @@
 phonetic fingerprint
 """
 
+from typing import Callable, Optional
+
 from ._string import String
 from ..phonetic import DoubleMetaphone
 from ..phonetic._phonetic import _Phonetic
@@ -39,7 +41,11 @@ class Phonetic(String):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, phonetic_algorithm=None, joiner=' ') -> None:
+    def __init__(
+        self,
+        phonetic_algorithm: Optional[Callable[[str], str]] = None,
+        joiner: str = ' ',
+    ) -> None:
         """Initialize Phonetic instance.
 
         phonetic_algorithm : function
@@ -95,11 +101,13 @@ class Phonetic(String):
         phonetic = ''
         for word in phrase.split():
             if isinstance(self._phonetic_algorithm, _Phonetic):
-                word = self._phonetic_algorithm.encode(word).split(',')
+                word_list = self._phonetic_algorithm.encode(word).split(',')
             else:
-                word = self._phonetic_algorithm(word).split(',')
-            if not isinstance(word, str) and hasattr(word, '__iter__'):
-                word = word[0]
+                word_list = self._phonetic_algorithm(word).split(',')
+            if not isinstance(word_list, str) and hasattr(
+                word_list, '__iter__'
+            ):
+                word = word_list[0]
             phonetic += word + self._joiner
         phonetic = phonetic[: -len(self._joiner)]
         return super(Phonetic, self).fingerprint(phonetic)
