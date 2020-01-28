@@ -46,16 +46,14 @@ class SynonameToolcodeTestCases(unittest.TestCase):
             self.fp.fingerprint('Aelst', 'Willem van', ''),
             'aelst,willem van,0000001005$143a$awv',
         )
-        self.assertEqual(
-            self.fp.fingerprint('Afro'), 'afro,,0000000004$$a'
-        )
+        self.assertEqual(self.fp.fingerprint('Afro'), 'afro,,0000000004$$a')
         self.assertEqual(
             self.fp.fingerprint('Afro', 'Basaldella'),
             'afro,basaldella,0000001004$$ab',
         )
         self.assertEqual(
             self.fp.fingerprint('Albright', 'Ivan'),
-            'albright,ivan,0000000408$$ai'
+            'albright,ivan,0000000408$$ai',
         )
         self.assertEqual(
             self.fp.fingerprint('Antonello da Messina'),
@@ -96,7 +94,8 @@ class SynonameToolcodeTestCases(unittest.TestCase):
         self.assertEqual(
             self.fp.fingerprint(
                 'Brueghel II (the Younger)', 'Pieter', 'Workshop of'
-            ), 'brueghel ii (the younger),pieter,3120490625$049b134b$bityp'
+            ),
+            'brueghel ii (the younger),pieter,3120490625$049b134b$bityp',
         )
         self.assertEqual(
             self.fp.fingerprint('Bugiardini', 'Guiliano di Piero di Simone'),

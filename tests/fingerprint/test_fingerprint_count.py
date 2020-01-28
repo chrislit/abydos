@@ -35,7 +35,7 @@ class CountFingerprintTestCases(unittest.TestCase):
     def test_count_fingerprint(self):
         """Test abydos.fingerprint.Count."""
         # Base case
-        self.assertEqual(self.fp.fingerprint(''), '0'*16)
+        self.assertEqual(self.fp.fingerprint(''), '0' * 16)
 
         # https://arxiv.org/pdf/1711.08475.pdf
         self.assertEqual(self.fp.fingerprint('instance'), '0101010001100100')
@@ -48,7 +48,7 @@ class CountFingerprintTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Count(64).fingerprint('instance'),
-            '01010100011001000000000100000000' + '0'*32,
+            '01010100011001000000000100000000' + '0' * 32,
         )
 
 

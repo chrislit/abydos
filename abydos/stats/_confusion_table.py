@@ -71,10 +71,7 @@ class ConfusionTable:
     def __init__(
         self,
         tp: Union[
-            int,
-            Tuple[int, int, int, int],
-            List[int],
-            Dict[str, int],
+            int, Tuple[int, int, int, int], List[int], Dict[str, int],
         ] = 0,
         tn: int = 0,
         fp: int = 0,

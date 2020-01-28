@@ -35,7 +35,7 @@ class OccurrenceFingerprintTestCases(unittest.TestCase):
     def test_occurrence_fingerprint(self):
         """Test abydos.fingerprint.Occurrence."""
         # Base case
-        self.assertEqual(self.fp.fingerprint(''), '0'*16)
+        self.assertEqual(self.fp.fingerprint(''), '0' * 16)
 
         # https://arxiv.org/pdf/1711.08475.pdf
         self.assertEqual(self.fp.fingerprint('instance'), '1110111000010000')
@@ -50,7 +50,7 @@ class OccurrenceFingerprintTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Occurrence(64).fingerprint('instance'),
-            '11101110000100000000000000000000' + '0'*32,
+            '11101110000100000000000000000000' + '0' * 32,
         )
 
 
