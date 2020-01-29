@@ -43,7 +43,7 @@ class ReesLevenshtein(_Distance):
         self,
         block_limit: int = 2,
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         **kwargs: Any
     ) -> None:

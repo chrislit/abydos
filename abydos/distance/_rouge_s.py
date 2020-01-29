@@ -52,7 +52,7 @@ class RougeS(_Distance):
         self._qval = qval
         self._tokenizer = QSkipgrams(qval=qval, start_stop='')
 
-    def sim(self, src: str, tar: str, beta: Union[int, float] = 8) -> float:
+    def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-S similarity of two strings.
 
         Parameters

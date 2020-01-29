@@ -27,7 +27,7 @@ from typing import Collection, List, Union
 __all__ = []  # type: List[str]
 
 
-def _prod(nums: Collection[Union[int, float]]) -> Union[int, float]:
+def _prod(nums: Collection[float]) -> float:
     r"""Return the product of nums.
 
     The product is

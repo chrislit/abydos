@@ -1179,7 +1179,7 @@ class ALINE(_Distance):
         mode: str = 'local',
         phones: str = 'aline',
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         **kwargs: Any
     ) -> None:

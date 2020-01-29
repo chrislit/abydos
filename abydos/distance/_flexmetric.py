@@ -40,7 +40,7 @@ class FlexMetric(_Distance):
     def __init__(
         self,
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         indel_costs: List[Tuple[Iterable[str], float]] = None,
         subst_costs: List[Tuple[Iterable[str], float]] = None,

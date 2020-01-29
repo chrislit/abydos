@@ -100,7 +100,7 @@ class Eudex(_Distance):
         weights: Optional[
             Union[
                 str,
-                Iterable[Union[int, float]],
+                Iterable[float],
                 Callable[[], Generator[int, None, None]],
             ]
         ] = 'exponential',
@@ -146,7 +146,7 @@ class Eudex(_Distance):
 
     def dist_abs(
         self, src: str, tar: str, normalized: bool = False
-    ) -> Union[int, float]:
+    ) -> float:
         """Calculate the distance between the Eudex hashes of two terms.
 
         Parameters
@@ -221,7 +221,7 @@ class Eudex(_Distance):
         # Simple hamming distance (all bits are equal)
         if not self._weights:
             binary = bin(xored)
-            distance = binary.count('1')  # type: Union[int, float]
+            distance = binary.count('1')  # type: float
             if normalized:
                 return distance / (len(binary) - 2)
             return distance
@@ -231,7 +231,7 @@ class Eudex(_Distance):
         if hasattr(self._weights, '__iter__') and not isinstance(
             self._weights, str
         ):
-            weights_list = cast(List[Union[int, float]], self._weights)[::-1]
+            weights_list = cast(List[float], self._weights)[::-1]
             weights_gen = None
         elif callable(self._weights):
             weights_gen = self._weights()
@@ -249,7 +249,7 @@ class Eudex(_Distance):
 
         # Sum the weighted hamming distance
         distance = 0
-        max_distance = 0  # type: Union[int, float]
+        max_distance = 0  # type: float
         while (xored or normalized) and weights_list:
             max_distance += 8 * weights_list[-1]
             distance += bin(xored & 0xFF).count('1') * weights_list.pop()

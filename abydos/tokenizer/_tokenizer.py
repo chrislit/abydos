@@ -45,7 +45,7 @@ class _Tokenizer:
     def __init__(
         self,
         scaler: Optional[
-            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+            Union[str, Callable[[float], float]]
         ] = None,
         *args: Any,
         **kwargs: Any
@@ -80,10 +80,10 @@ class _Tokenizer:
         self._scaler = scaler
         self._tokens = defaultdict(
             int
-        )  # type: DefaultDict[str, Union[int, float]]
+        )  # type: DefaultDict[str, float]
         self._string = ''
         self._ordered_tokens = []  # type: List[str]
-        self._ordered_weights = []  # type: List[Union[int, float]]
+        self._ordered_weights = []  # type: List[float]
 
     def tokenize(self, string: str) -> '_Tokenizer':
         """Tokenize the term and store it.

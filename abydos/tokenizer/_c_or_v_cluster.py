@@ -43,7 +43,7 @@ class COrVClusterTokenizer(_Tokenizer):
     def __init__(
         self,
         scaler: Optional[
-            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+            Union[str, Callable[[float], float]]
         ] = None,
         consonants: Optional[Set[str]] = None,
         vowels: Optional[Set[str]] = None,

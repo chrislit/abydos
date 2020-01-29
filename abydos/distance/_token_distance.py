@@ -237,12 +237,12 @@ class _TokenDistance(_Distance):
 
         self._src_tokens = Counter()  # type: TCounter[str]
         self._tar_tokens = Counter()  # type: TCounter[str]
-        self._population_card_value = 0  # type: Union[int, float]
+        self._population_card_value = 0  # type: float
 
         # initialize normalizer
         self.normalizer = (
             self._norm_none
-        )  # type: Callable[[Union[int, float], int, Union[int, float]], Union[int, float]]  # noqa: E501
+        )  # type: Callable[[float, int, float], float]  # noqa: E501
 
         self._norm_dict = {
             'proportional': self._norm_proportional,
@@ -259,38 +259,38 @@ class _TokenDistance(_Distance):
         self._soft_tar_only = Counter()  # type: TCounter[str]
 
     def _norm_none(
-        self, x: Union[int, float], _squares: int, _pop: Union[int, float]
-    ) -> Union[int, float]:
+        self, x: float, _squares: int, _pop: float
+    ) -> float:
         return x
 
     def _norm_proportional(
-        self, x: Union[int, float], _squares: int, pop: Union[int, float]
-    ) -> Union[int, float]:
+        self, x: float, _squares: int, pop: float
+    ) -> float:
         return x / max(1, pop)
 
     def _norm_log(
-        self, x: Union[int, float], _squares: int, _pop: Union[int, float]
-    ) -> Union[int, float]:
+        self, x: float, _squares: int, _pop: float
+    ) -> float:
         return log1p(x)
 
     def _norm_exp(
-        self, x: Union[int, float], _squares: int, _pop: Union[int, float]
-    ) -> Union[int, float]:
+        self, x: float, _squares: int, _pop: float
+    ) -> float:
         return exp(x)
 
     def _norm_laplace(
-        self, x: Union[int, float], squares: int, _pop: Union[int, float]
-    ) -> Union[int, float]:
+        self, x: float, squares: int, _pop: float
+    ) -> float:
         return x + squares
 
     def _norm_inverse(
-        self, x: Union[int, float], _squares: int, pop: Union[int, float]
-    ) -> Union[int, float]:
+        self, x: float, _squares: int, pop: float
+    ) -> float:
         return 1 / x if x else pop
 
     def _norm_complement(
-        self, x: Union[int, float], _squares: int, pop: Union[int, float]
-    ) -> Union[int, float]:
+        self, x: float, _squares: int, pop: float
+    ) -> float:
         return pop - x
 
     def _tokenize(self, src: str, tar: str) -> '_TokenDistance':
@@ -359,7 +359,7 @@ class _TokenDistance(_Distance):
         """Return the src and tar tokens as a tuple."""
         return self._src_tokens, self._tar_tokens
 
-    def _src_card(self) -> Union[int, float]:
+    def _src_card(self) -> float:
         r"""Return the cardinality of the tokens in the source set."""
         if self.params['intersection_type'] == 'soft':
             if not len(self._soft_intersection_precalc):
@@ -394,7 +394,7 @@ class _TokenDistance(_Distance):
             src_only -= self._intersection() - self._crisp_intersection()
         return src_only
 
-    def _src_only_card(self) -> Union[int, float]:
+    def _src_only_card(self) -> float:
         """Return the cardinality of the tokens only in the source set."""
         return self.normalizer(
             sum(abs(val) for val in self._src_only().values()),
@@ -402,7 +402,7 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _tar_card(self) -> Union[int, float]:
+    def _tar_card(self) -> float:
         r"""Return the cardinality of the tokens in the target set."""
         if self.params['intersection_type'] == 'soft':
             if not len(self._soft_intersection_precalc):
@@ -437,7 +437,7 @@ class _TokenDistance(_Distance):
             tar_only -= self._intersection() - self._crisp_intersection()
         return tar_only
 
-    def _tar_only_card(self) -> Union[int, float]:
+    def _tar_only_card(self) -> float:
         """Return the cardinality of the tokens only in the target set."""
         return self.normalizer(
             sum(abs(val) for val in self._tar_only().values()),
@@ -452,7 +452,7 @@ class _TokenDistance(_Distance):
         """
         return self._src_only() + self._tar_only()
 
-    def _symmetric_difference_card(self) -> Union[int, float]:
+    def _symmetric_difference_card(self) -> float:
         """Return the cardinality of the symmetric difference."""
         return self.normalizer(
             sum(abs(val) for val in self._symmetric_difference().values()),
@@ -479,7 +479,7 @@ class _TokenDistance(_Distance):
             )
         return self._src_tokens + self._tar_tokens
 
-    def _total_card(self) -> Union[int, float]:
+    def _total_card(self) -> float:
         """Return the cardinality of the complement of the total."""
         return self.normalizer(
             sum(abs(val) for val in self._total().values()),
@@ -487,7 +487,7 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _total_complement_card(self) -> Union[int, float]:
+    def _total_complement_card(self) -> float:
         """Return the cardinality of the complement of the total."""
         if self.params['alphabet'] is None:
             return self.normalizer(0, 1, self._population_card_value)
@@ -511,7 +511,7 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _calc_population_card(self) -> Union[int, float]:
+    def _calc_population_card(self) -> float:
         """Return the cardinality of the population."""
         save_normalizer = self.normalizer
         self.normalizer = self._norm_none
@@ -522,13 +522,13 @@ class _TokenDistance(_Distance):
         self.params['intersection_type'] = save_intersection
         return pop
 
-    def _population_card(self) -> Union[int, float]:
+    def _population_card(self) -> float:
         """Return the cardinality of the population."""
         return self.normalizer(
             self._population_card_value, 4, self._population_card_value
         )
 
-    def _population_unique_card(self) -> Union[int, float]:
+    def _population_unique_card(self) -> float:
         """Return the cardinality of the population minus the intersection."""
         return self.normalizer(
             self._population_card_value - self._intersection_card(),
@@ -554,7 +554,7 @@ class _TokenDistance(_Distance):
             union -= self._intersection() - self._crisp_intersection()
         return union
 
-    def _union_card(self) -> Union[int, float]:
+    def _union_card(self) -> float:
         """Return the cardinality of the union."""
         return self.normalizer(
             sum(abs(val) for val in self._union().values()),
@@ -968,7 +968,7 @@ member function, such as Levenshtein."
 
         return intersection
 
-    def _intersection_card(self) -> Union[int, float]:
+    def _intersection_card(self) -> float:
         """Return the cardinality of the intersection."""
         return self.normalizer(
             sum(abs(val) for val in self._intersection().values()),

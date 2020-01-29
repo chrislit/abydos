@@ -44,7 +44,7 @@ class QGrams(_Tokenizer):
         start_stop: str = '$#',
         skip: Union[int, TIterable[int]] = 0,
         scaler: Optional[
-            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+            Union[str, Callable[[float], float]]
         ] = None,
     ) -> None:
         """Initialize QGrams.

@@ -35,7 +35,7 @@ class NLTKTokenizer(_Tokenizer):
         self,
         nltk_tokenizer: Optional[object] = None,
         scaler: Optional[
-            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+            Union[str, Callable[[float], float]]
         ] = None,
     ) -> None:
         """Initialize Tokenizer.

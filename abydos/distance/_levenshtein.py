@@ -58,13 +58,13 @@ class Levenshtein(_Distance):
         self,
         mode: str = 'lev',
         cost: Tuple[
-            Union[int, float],
-            Union[int, float],
-            Union[int, float],
-            Union[int, float],
+            float,
+            float,
+            float,
+            float,
         ] = (1, 1, 1, 1),
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         taper: bool = False,
         **kwargs: Any

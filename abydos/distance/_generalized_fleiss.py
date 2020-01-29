@@ -54,15 +54,15 @@ from ..tokenizer import _Tokenizer
 __all__ = ['GeneralizedFleiss']
 
 
-def _agmean_prec6(nums: Sequence[Union[int, float]]) -> float:
+def _agmean_prec6(nums: Sequence[float]) -> float:
     return agmean(nums, prec=6)
 
 
-def _ghmean_prec6(nums: Sequence[Union[int, float]]) -> float:
+def _ghmean_prec6(nums: Sequence[float]) -> float:
     return ghmean(nums, prec=6)
 
 
-def _aghmean_prec6(nums: Sequence[Union[int, float]]) -> float:
+def _aghmean_prec6(nums: Sequence[float]) -> float:
     return aghmean(nums, prec=6)
 
 
@@ -81,7 +81,7 @@ means = {
     'hoelder': hoelder_mean,
     'lehmer': lehmer_mean,
     'seiffert': seiffert_mean,
-}  # type: Dict[str, Callable[[Sequence[Union[int, float]]], float]]
+}  # type: Dict[str, Callable[[Sequence[float]], float]]
 
 
 class GeneralizedFleiss(_TokenDistance):
@@ -216,7 +216,7 @@ class GeneralizedFleiss(_TokenDistance):
 
         """
         self._mean_func = cast(
-            Callable[[Iterable[Union[int, float]]], float],
+            Callable[[Iterable[float]], float],
             mean_func if callable(mean_func) else means[mean_func],
         )
         self._marginals = marginals

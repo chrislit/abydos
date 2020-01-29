@@ -49,7 +49,7 @@ class RougeSU(RougeS):
         """
         super(RougeSU, self).__init__(qval=qval, **kwargs)
 
-    def sim(self, src: str, tar: str, beta: Union[int, float] = 8) -> float:
+    def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-SU similarity of two strings.
 
         Parameters

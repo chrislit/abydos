@@ -25,7 +25,7 @@ from typing import List, Union
 __all__ = []  # type: List[str]
 
 
-def _ncr(n: Union[int, float], r: Union[int, float]) -> Union[int, float]:
+def _ncr(n: float, r: float) -> float:
     r"""Return n Choose r.
 
     Cf. https://en.wikipedia.org/wiki/Combination

@@ -41,7 +41,7 @@ class LCSseq(_Distance):
     def __init__(
         self,
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         **kwargs: Any
     ) -> None:

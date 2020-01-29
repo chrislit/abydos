@@ -51,7 +51,7 @@ class RougeL(_Distance):
         """
         super(RougeL, self).__init__(**kwargs)
 
-    def sim(self, src: str, tar: str, beta: Union[int, float] = 8) -> float:
+    def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-L similarity of two strings.
 
         Parameters

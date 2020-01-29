@@ -58,7 +58,7 @@ class MetaLevenshtein(_Distance):
         corpus: Optional[UnigramCorpus] = None,
         metric: Optional[_Distance] = None,
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         **kwargs: Any
     ) -> None:

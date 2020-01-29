@@ -43,11 +43,11 @@ class DiscountedLevenshtein(Levenshtein):
         self,
         mode: str = 'lev',
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         discount_from: Union[int, str] = 1,
         discount_func: Union[
-            str, Callable[[Union[int, float]], float]
+            str, Callable[[float], float]
         ] = 'log',
         vowels: str = 'aeiou',
         **kwargs: Any
@@ -114,11 +114,11 @@ class DiscountedLevenshtein(Levenshtein):
             self._discount_func = self._log_discount
 
     @staticmethod
-    def _log_discount(discounts: Union[int, float]) -> float:
+    def _log_discount(discounts: float) -> float:
         return 1 / (log(1 + discounts / 5) + 1)
 
     @staticmethod
-    def _exp_discount(discounts: Union[int, float]) -> float:
+    def _exp_discount(discounts: float) -> float:
         return 1 / (discounts + 1) ** 0.2
 
     def _alignment_matrix(

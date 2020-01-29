@@ -52,16 +52,16 @@ class PhoneticEditDistance(Levenshtein):
         self,
         mode: str = 'lev',
         cost: Tuple[
-            Union[int, float],
-            Union[int, float],
-            Union[int, float],
-            Union[int, float],
+            float,
+            float,
+            float,
+            float,
         ] = (1, 1, 1, 0.33333),
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         weights: Optional[
-            Union[Iterable[Union[int, float]], Dict[str, Union[int, float]]]
+            Union[Iterable[float], Dict[str, float]]
         ] = None,
         **kwargs: Any
     ):

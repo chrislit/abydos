@@ -51,7 +51,7 @@ class SAPS(_Distance):
             -3,
         ),
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         tokenizer: Optional[_Tokenizer] = None,
         **kwargs: Any

@@ -44,8 +44,8 @@ class NeedlemanWunsch(_Distance):
         src: str,
         tar: str,
         mat: Optional[Dict[Tuple[str, str], int]] = None,
-        mismatch_cost: Union[int, float] = 0,
-        match_cost: Union[int, float] = 1,
+        mismatch_cost: float = 0,
+        match_cost: float = 1,
         symmetric: bool = True,
         alphabet: Optional[str] = None,
     ) -> float:
@@ -126,8 +126,8 @@ class NeedlemanWunsch(_Distance):
 
     def __init__(
         self,
-        gap_cost: Union[int, float] = 1,
-        sim_func: Optional[Callable[[str, str], Union[int, float]]] = None,
+        gap_cost: float = 1,
+        sim_func: Optional[Callable[[str, str], float]] = None,
         **kwargs: Any
     ) -> None:
         """Initialize NeedlemanWunsch instance.

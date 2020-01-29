@@ -44,13 +44,13 @@ class DamerauLevenshtein(_Distance):
     def __init__(
         self,
         cost: Tuple[
-            Union[int, float],
-            Union[int, float],
-            Union[int, float],
-            Union[int, float],
+            float,
+            float,
+            float,
+            float,
         ] = (1, 1, 1, 1),
         normalizer: Callable[
-            [List[Union[float, int]]], Union[float, int]
+            [List[float]], float
         ] = max,
         **kwargs: Any
     ):

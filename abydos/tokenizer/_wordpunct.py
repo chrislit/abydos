@@ -43,7 +43,7 @@ class WordpunctTokenizer(RegexpTokenizer):
     def __init__(
         self,
         scaler: Optional[
-            Union[str, Callable[[Union[int, float]], Union[int, float]]]
+            Union[str, Callable[[float], float]]
         ] = None,
         flags: int = 0,
     ) -> None:

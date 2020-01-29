@@ -39,8 +39,8 @@ class RougeW(_Distance):
 
     def __init__(
         self,
-        f_func: Optional[Callable[[Union[int, float]], float]] = None,
-        f_inv: Optional[Callable[[Union[int, float]], float]] = None,
+        f_func: Optional[Callable[[float], float]] = None,
+        f_inv: Optional[Callable[[float], float]] = None,
         **kwargs: Any
     ) -> None:
         """Initialize RougeW instance.
@@ -63,27 +63,27 @@ class RougeW(_Distance):
 
         if f_func is not None:
             self._f_func = cast(
-                Callable[[Union[int, float]], float], f_func
-            )  # type: Callable[[Union[int, float]], float]
+                Callable[[float], float], f_func
+            )  # type: Callable[[float], float]
         else:
             self._f_func = RougeW._square  # noqa: SF01
 
         if f_inv is not None:
             self._f_inv = cast(
-                Callable[[Union[int, float]], float], f_inv
-            )  # type: Callable[[Union[int, float]], float]
+                Callable[[float], float], f_inv
+            )  # type: Callable[[float], float]
         else:
             self._f_inv = RougeW._sqrt  # noqa: SF01
 
     @staticmethod
-    def _square(n: Union[int, float]) -> float:
+    def _square(n: float) -> float:
         return float(n * n)
 
     @staticmethod
-    def _sqrt(n: Union[int, float]) -> float:
+    def _sqrt(n: float) -> float:
         return n ** 0.5
 
-    def wlcs(self, src: str, tar: str) -> Union[int, float]:
+    def wlcs(self, src: str, tar: str) -> float:
         """Return the Rouge-W weighted longest common sub-sequence length.
 
         Parameters
@@ -146,7 +146,7 @@ class RougeW(_Distance):
 
         return c_mat[src_len - 1, tar_len - 1]
 
-    def sim(self, src: str, tar: str, beta: Union[int, float] = 8) -> float:
+    def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-W similarity of two strings.
 
         Parameters
