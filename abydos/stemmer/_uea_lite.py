@@ -20,6 +20,7 @@ UEA-Lite stemmer
 """
 
 from re import match as re_match
+from typing import Dict, Optional, Tuple
 
 from ._stemmer import _Stemmer
 
@@ -234,7 +235,7 @@ class UEALite(_Stemmer):
             'is': (64, 2, 'e'),
             'us': (67, 0, None),
         },
-    }
+    }  # type: Dict[int, Dict[str, Tuple[float, int, Optional[str]]]]
 
     _perl_rule_table = {
         7: {
@@ -389,7 +390,7 @@ class UEALite(_Stemmer):
             'is': (64, 2, 'e'),
             'us': (67, 0, None),
         },
-    }
+    }  # type: Dict[int, Dict[str, Tuple[float, int, Optional[str]]]]
 
     _adams_rule_table = {
         7: {
@@ -600,19 +601,18 @@ class UEALite(_Stemmer):
             'is': (64, 2, 'e'),
             'us': (67, 0, None),
         },
-    }
+    }  # type: Dict[int, Dict[str, Tuple[float, int, Optional[str]]]]
 
     _rules = {
         'standard': _standard_rule_table,
         'Adams': _adams_rule_table,
         'Perl': _perl_rule_table,
-    }
+    }  # type: Dict[str, Dict[int, Dict[str, Tuple[float, int, Optional[str]]]]]
 
     def __init__(
         self,
         max_word_length: int = 20,
         max_acro_length: int = 8,
-        return_rule_no: bool = False,
         var: str = 'standard',
     ) -> None:
         """Initialize UEALite instance.
@@ -623,8 +623,6 @@ class UEALite(_Stemmer):
             The maximum word length allowed
         max_acro_length : int
             The maximum acronym length allowed
-        return_rule_no : bool
-            If True, returns the stem along with rule number
         var : str
             Variant rules to use:
 
@@ -638,10 +636,9 @@ class UEALite(_Stemmer):
         """
         self._max_word_length = max_word_length
         self._max_acro_length = max_acro_length
-        self._return_rule_no = return_rule_no
         self._var = var
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return UEA-Lite stem.
 
         Parameters
@@ -672,10 +669,47 @@ class UEALite(_Stemmer):
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str exclusively
+
+        """
+        return self._stem_and_rule(word)[0]
+
+    def _stem_and_rule(self, word: str) -> Tuple[str, float]:
+        """Return UEA-Lite stem.
+
+        Parameters
+        ----------
+        word : str
+            The word to stem
+
+        Returns
+        -------
+        (str, float)
+            Word stem
+
+        Examples
+        --------
+        >>> stmr = UEALite()
+        >>> stmr._stem_and_rule('readings')
+        ('read', 40.7)
+        >>> stmr._stem_and_rule('insulted')
+        ('insult', 32)
+        >>> stmr._stem_and_rule('cussed')
+        ('cuss', 28)
+        >>> stmr._stem_and_rule('fancies')
+        ('fancy', 59)
+        >>> stmr._stem_and_rule('eroded')
+        ('erode', 61.1)
+
+
+        .. versionadded:: 0.6.0
 
         """
 
-        def _stem_with_duplicate_character_check(word, del_len):
+        def _stem_with_duplicate_character_check(
+            word: str, del_len: int
+        ) -> str:
             if word[-1] == 's':
                 del_len += 1
             stemmed_word = word[:-del_len]
@@ -683,9 +717,9 @@ class UEALite(_Stemmer):
                 stemmed_word = stemmed_word[:-1]
             return stemmed_word
 
-        def _stem(word):
+        def _stem(word: str) -> Tuple[str, float]:
             stemmed_word = word
-            rule_no = 0
+            rule_no = 0.0
 
             if not word:
                 return word, 0
@@ -775,9 +809,8 @@ class UEALite(_Stemmer):
             return stemmed_word, rule_no
 
         stem, rule_no = _stem(word)
-        if self._return_rule_no:
-            return stem, rule_no
-        return stem
+
+        return stem, rule_no
 
 
 if __name__ == '__main__':
