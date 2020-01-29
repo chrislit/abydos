@@ -36,7 +36,8 @@ class SnowballTestCases(unittest.TestCase):
     def test__stemmer(self):
         """Test abydos.stemmer._Stemmer."""
         # base case
-        self.assertEqual(self.stmr.stem(''), None)
+        self.assertEqual(self.stmr.stem(''), '')
+        self.assertEqual(self.stmr.stem('word'), 'word')
 
 
 if __name__ == '__main__':
