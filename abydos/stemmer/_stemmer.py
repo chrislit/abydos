@@ -28,17 +28,13 @@ class _Stemmer:
     .. versionadded:: 0.3.6
     """
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return stem.
 
         Parameters
         ----------
         word : str
             The word to stem
-        *args
-            Variable length argument list
-        **kwargs
-            Arbitrary keyword arguments
 
         Returns
         -------
@@ -49,7 +45,7 @@ class _Stemmer:
         .. versionadded:: 0.3.6
 
         """
-        pass
+        return word
 
 
 if __name__ == '__main__':
