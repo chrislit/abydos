@@ -22,7 +22,7 @@ measures of central tendencies.
 
 import math
 from collections import Counter
-from typing import Callable, List, Union
+from typing import Callable, Sequence, Union
 
 from ..util._prod import _prod
 
@@ -49,7 +49,7 @@ __all__ = [
 ]
 
 
-def amean(nums: List[Union[int, float]]) -> float:
+def amean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return arithmetic mean.
 
     The arithmetic mean is defined as
@@ -85,7 +85,7 @@ def amean(nums: List[Union[int, float]]) -> float:
     return sum(nums) / len(nums)
 
 
-def gmean(nums: List[Union[int, float]]) -> float:
+def gmean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return geometric mean.
 
     The geometric mean is defined as
@@ -121,7 +121,7 @@ def gmean(nums: List[Union[int, float]]) -> float:
     return _prod(nums) ** (1 / len(nums))
 
 
-def hmean(nums: List[Union[int, float]]) -> float:
+def hmean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return harmonic mean.
 
     The harmonic mean is defined as
@@ -178,10 +178,10 @@ def hmean(nums: List[Union[int, float]]) -> float:
         if nums.count(0) > 1:
             return float('nan')
         return 0
-    return len(nums) / sum(1 / i for i in nums)
+    return len(nums) / sum(1.0 / float(i) for i in nums)  # type: ignore
 
 
-def qmean(nums: List[Union[int, float]]) -> float:
+def qmean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return quadratic mean.
 
     The quadratic mean is defined as
@@ -217,7 +217,7 @@ def qmean(nums: List[Union[int, float]]) -> float:
     return (sum(i ** 2 for i in nums) / len(nums)) ** 0.5
 
 
-def cmean(nums: List[Union[int, float]]) -> float:
+def cmean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return contraharmonic mean.
 
     The contraharmonic mean is
@@ -253,7 +253,7 @@ def cmean(nums: List[Union[int, float]]) -> float:
     return sum(x ** 2 for x in nums) / sum(nums)
 
 
-def lmean(nums: List[Union[int, float]]) -> float:
+def lmean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return logarithmic mean.
 
     The logarithmic mean of an arbitrarily long series is defined by
@@ -305,9 +305,9 @@ def lmean(nums: List[Union[int, float]]) -> float:
     else:
         if len(nums) != len(set(nums)):
             raise ValueError('No two values in the nums list may be equal')
-        rolling_sum = 0
+        rolling_sum = 0.0
         for i in range(len(nums)):
-            rolling_prod = 1
+            rolling_prod = 1.0
             for j in range(len(nums)):
                 if i != j:
                     rolling_prod *= math.log(nums[i] / nums[j])
@@ -315,7 +315,7 @@ def lmean(nums: List[Union[int, float]]) -> float:
         return math.factorial(len(nums) - 1) * rolling_sum
 
 
-def imean(nums: List[Union[int, float]]) -> float:
+def imean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return identric (exponential) mean.
 
     The identric mean of two numbers x and y is:
@@ -369,7 +369,7 @@ def imean(nums: List[Union[int, float]]) -> float:
     )
 
 
-def seiffert_mean(nums: List[Union[int, float]]) -> float:
+def seiffert_mean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return Seiffert's mean.
 
     Seiffert's mean of two numbers x and y is
@@ -420,7 +420,7 @@ def seiffert_mean(nums: List[Union[int, float]]) -> float:
     )
 
 
-def lehmer_mean(nums: List[Union[int, float]], exp: int = 2) -> float:
+def lehmer_mean(nums: Sequence[Union[int, float]], exp: float = 2.0) -> float:
     r"""Return Lehmer mean.
 
     The Lehmer mean is
@@ -458,7 +458,7 @@ def lehmer_mean(nums: List[Union[int, float]], exp: int = 2) -> float:
     return sum(x ** exp for x in nums) / sum(x ** (exp - 1) for x in nums)
 
 
-def heronian_mean(nums: List[Union[int, float]]) -> float:
+def heronian_mean(nums: Sequence[Union[int, float]]) -> float:
     r"""Return Heronian mean.
 
     The Heronian mean is:
@@ -495,7 +495,7 @@ def heronian_mean(nums: List[Union[int, float]]) -> float:
 
     """
     mag = len(nums)
-    rolling_sum = 0
+    rolling_sum = 0.0
     for i in range(mag):
         for j in range(i, mag):
             if nums[i] == nums[j]:
@@ -505,7 +505,7 @@ def heronian_mean(nums: List[Union[int, float]]) -> float:
     return rolling_sum * 2 / (mag * (mag + 1))
 
 
-def hoelder_mean(nums: List[Union[int, float]], exp: int = 2) -> float:
+def hoelder_mean(nums: Sequence[Union[int, float]], exp: float = 2.0) -> float:
     r"""Return Hölder (power/generalized) mean.
 
     The Hölder mean is defined as:
@@ -547,7 +547,7 @@ def hoelder_mean(nums: List[Union[int, float]], exp: int = 2) -> float:
     return ((1 / len(nums)) * sum(i ** exp for i in nums)) ** (1 / exp)
 
 
-def agmean(nums: List[Union[int, float]], prec: int = 12) -> float:
+def agmean(nums: Sequence[Union[int, float]], prec: int = 12) -> float:
     """Return arithmetic-geometric mean.
 
     Iterates between arithmetic & geometric means until they converge to
@@ -588,7 +588,7 @@ def agmean(nums: List[Union[int, float]], prec: int = 12) -> float:
     return m_a
 
 
-def ghmean(nums: List[Union[int, float]], prec: int = 12) -> float:
+def ghmean(nums: Sequence[Union[int, float]], prec: int = 12) -> float:
     """Return geometric-harmonic mean.
 
     Iterates between geometric & harmonic means until they converge to
@@ -634,7 +634,7 @@ def ghmean(nums: List[Union[int, float]], prec: int = 12) -> float:
     return m_g
 
 
-def aghmean(nums: List[Union[int, float]], prec: int = 12) -> float:
+def aghmean(nums: Sequence[Union[int, float]], prec: int = 12) -> float:
     """Return arithmetic-geometric-harmonic mean.
 
     Iterates over arithmetic, geometric, & harmonic means until they
@@ -681,7 +681,7 @@ def aghmean(nums: List[Union[int, float]], prec: int = 12) -> float:
     return m_a
 
 
-def midrange(nums: List[Union[int, float]]) -> float:
+def midrange(nums: Sequence[Union[int, float]]) -> float:
     """Return midrange.
 
     The midrange is the arithmetic mean of the maximum & minimum of a series.
@@ -713,7 +713,7 @@ def midrange(nums: List[Union[int, float]]) -> float:
     return 0.5 * (max(nums) + min(nums))
 
 
-def median(nums: List[Union[int, float]]) -> Union[int, float]:
+def median(nums: Sequence[Union[int, float]]) -> Union[int, float]:
     """Return median.
 
     With numbers sorted by value, the median is the middle value (if there is
@@ -754,7 +754,7 @@ def median(nums: List[Union[int, float]]) -> Union[int, float]:
     return med if not med.is_integer() else int(med)
 
 
-def mode(nums: List[Union[int, float]]) -> Union[int, float]:
+def mode(nums: Sequence[Union[int, float]]) -> Union[int, float]:
     """Return the mode.
 
     The mode of a series is the most common element of that series
@@ -783,8 +783,8 @@ def mode(nums: List[Union[int, float]]) -> Union[int, float]:
 
 
 def var(
-    nums: List[Union[int, float]],
-    mean_func: Callable[[List[Union[int, float]]], float] = amean,
+    nums: Sequence[Union[int, float]],
+    mean_func: Callable[[Sequence[Union[int, float]]], float] = amean,
     ddof: int = 0,
 ) -> float:
     r"""Calculate the variance.
@@ -829,8 +829,8 @@ def var(
 
 
 def std(
-    nums: List[Union[int, float]],
-    mean_func: Callable[[List[Union[int, float]]], float] = amean,
+    nums: Sequence[Union[int, float]],
+    mean_func: Callable[[Sequence[Union[int, float]]], float] = amean,
     ddof: int = 0,
 ) -> float:
     """Return the standard deviation.

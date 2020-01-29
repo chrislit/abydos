@@ -1362,7 +1362,7 @@ class ConfusionTable:
         """
         return seiffert_mean((self.precision(), self.recall()))
 
-    def pr_lehmer_mean(self, exp=2.0) -> float:
+    def pr_lehmer_mean(self, exp: float = 2.0) -> float:
         r"""Return Lehmer mean of precision & recall.
 
         The Lehmer mean is
@@ -1425,7 +1425,7 @@ class ConfusionTable:
         """
         return heronian_mean((self.precision(), self.recall()))
 
-    def pr_hoelder_mean(self, exp=2) -> float:
+    def pr_hoelder_mean(self, exp: float = 2.0) -> float:
         r"""Return Hölder (power/generalized) mean of precision & recall.
 
         The power mean of precision and recall is defined as
@@ -1539,7 +1539,7 @@ class ConfusionTable:
         """
         return aghmean((self.precision(), self.recall()))
 
-    def fbeta_score(self, beta=1.0) -> float:
+    def fbeta_score(self, beta: float = 1.0) -> float:
         r"""Return :math:`F_{\beta}` score.
 
         :math:`F_{\beta}` for a positive real value :math:`\beta` "measures
@@ -1644,7 +1644,7 @@ class ConfusionTable:
         """
         return self.fbeta_score(0.5)
 
-    def e_score(self, beta=1.0) -> float:
+    def e_score(self, beta: float = 1.0) -> float:
         r"""Return :math:`E`-score.
 
         This is Van Rijsbergen's effectiveness measure:

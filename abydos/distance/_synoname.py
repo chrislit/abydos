@@ -617,14 +617,12 @@ class Synoname(_Distance):
         src_generation = int(src_tc[2])
         src_romancode = int(src_tc[3:6])
         src_len_fn = int(src_tc[6:8])
-        src_tc = src_tc.split('$')
-        src_specials = _split_special(src_tc[1])
+        src_specials = _split_special(src_tc.split('$')[1])
 
         tar_generation = int(tar_tc[2])
         tar_romancode = int(tar_tc[3:6])
         tar_len_fn = int(tar_tc[6:8])
-        tar_tc = tar_tc.split('$')
-        tar_specials = _split_special(tar_tc[1])
+        tar_specials = _split_special(tar_tc.split('$')[1])
 
         gen_conflict = (src_generation != tar_generation) and bool(
             src_generation or tar_generation

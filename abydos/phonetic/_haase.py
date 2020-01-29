@@ -20,7 +20,7 @@ Haase Phonetik
 """
 
 from itertools import product
-from typing import List, Set, Tuple, Union
+from typing import List, Set, Tuple, Union, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -282,7 +282,7 @@ class Haase(_Phonetic):
 
             return sdx
 
-        encoded = [_haase_code(word) for word in variants]
+        encoded = [_haase_code(word) for word in cast(List[str], variants)]
         if len(encoded) > 1:
             encoded_set = set()  # type: Set[str]
             encoded_single = []
