@@ -19,7 +19,7 @@
 Paice-Husk Stemmer
 """
 
-from typing import Dict, Optional, Tuple, Union
+from typing import Dict, Optional, Tuple
 
 from ._stemmer import _Stemmer
 

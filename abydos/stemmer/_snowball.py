@@ -19,7 +19,7 @@
 Snowball Stemmer base class
 """
 
-from typing import Optional, Iterable, cast
+from typing import Iterable, Optional, cast
 
 from ._stemmer import _Stemmer
 
