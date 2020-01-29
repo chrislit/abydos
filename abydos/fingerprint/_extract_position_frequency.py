@@ -19,7 +19,7 @@
 Taft's extract - position & frequency coding
 """
 
-from typing import Dict, List
+from typing import List
 
 from ._fingerprint import _Fingerprint
 
@@ -103,7 +103,7 @@ class ExtractPositionFrequency(_Fingerprint):
         """
         # uppercase & reverse
         fingerprint = [_ for _ in word.upper() if _ in self._frequency]
-        scores = [[] for _ in range(len(word))]  # type: List[List[int]]
+        scores = [[] for _ in range(len(fingerprint))]  # type: List[List[int]]
 
         pos = 0
         for i in range(len(fingerprint)):
