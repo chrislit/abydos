@@ -19,7 +19,7 @@
 Snowball Stemmer base class
 """
 
-from typing import Optional, Set, cast
+from typing import Optional, Iterable, cast
 
 from ._stemmer import _Stemmer
 
@@ -35,14 +35,16 @@ class _Snowball(_Stemmer):
     _vowels = set('aeiouy')
     _codanonvowels = set("'bcdfghjklmnpqrstvz")
 
-    def _sb_r1(self, term: str, r1_prefixes: Optional[Set[str]] = None) -> int:
+    def _sb_r1(
+        self, term: str, r1_prefixes: Optional[Iterable[str]] = None
+    ) -> int:
         """Return the R1 region, as defined in the Porter2 specification.
 
         Parameters
         ----------
         term : str
             The term to examine
-        r1_prefixes : set
+        r1_prefixes : iterable
             Prefixes to consider
 
         Returns
@@ -58,7 +60,7 @@ class _Snowball(_Stemmer):
         """
         vowel_found = False
         if hasattr(r1_prefixes, '__iter__'):
-            for prefix in cast(Set[str], r1_prefixes):
+            for prefix in cast(Iterable[str], r1_prefixes):
                 if term[: len(prefix)] == prefix:
                     return len(prefix)
 
@@ -69,14 +71,16 @@ class _Snowball(_Stemmer):
                 return i + 1
         return len(term)
 
-    def _sb_r2(self, term: str, r1_prefixes: Optional[Set[str]] = None) -> int:
+    def _sb_r2(
+        self, term: str, r1_prefixes: Optional[Iterable[str]] = None
+    ) -> int:
         """Return the R2 region, as defined in the Porter2 specification.
 
         Parameters
         ----------
         term : str
             The term to examine
-        r1_prefixes : set
+        r1_prefixes : iterable
             Prefixes to consider
 
         Returns
@@ -132,7 +136,7 @@ class _Snowball(_Stemmer):
         return False
 
     def _sb_short_word(
-        self, term: str, r1_prefixes: Optional[Set[str]] = None
+        self, term: str, r1_prefixes: Optional[Iterable[str]] = None
     ) -> bool:
         """Return True iff term is a short word.
 

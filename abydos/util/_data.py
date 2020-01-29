@@ -32,7 +32,7 @@ import sys
 import urllib.request
 import zipfile
 
-from typing import List
+from typing import List, Match, Optional, Tuple, cast
 from xml.etree import ElementTree  # noqa: S405
 
 __all__ = [
@@ -90,7 +90,7 @@ else:
     ]
 
 
-def package_path(resource_name):
+def package_path(resource_name: str) -> str:
     """Given a resource name, returns the path to the package."""
     for path in data_path:
         for subdir in DATA_SUBDIRS:
@@ -101,7 +101,9 @@ def package_path(resource_name):
     raise FileNotFoundError(msg)
 
 
-def list_installed_packages(path=None):
+def list_installed_packages(
+    path: Optional[str] = None,
+) -> List[Tuple[str, str, float]]:
     """List all installed data packages."""
     if path:
         paths = [path]
@@ -119,15 +121,23 @@ def list_installed_packages(path=None):
                             os.path.join(check_path, package + '.xml')
                         ) as xml:
                             file = xml.read()
-                            name = re.search(r'name="([^"]+)"', file).group(1)
-                            version = re.search(
-                                r'version="([^"]+)"', file
+                            name = cast(
+                                Match[str], re.search(r'name="([^"]+)"', file)
+                            ).group(1)
+                            version = cast(
+                                Match[str],
+                                re.search(r'version="([^"]+)"', file),
                             ).group(1)
                         packages.append((package, name, float(version)))
     return packages
 
 
-def list_available_packages(url=None):
+def list_available_packages(
+    url: Optional[str] = None,
+) -> Tuple[
+    List[Tuple[str, str, float, str, str, str]],
+    List[Tuple[str, str, List[str]]],
+]:
     """List all data packages available for install."""
     installed_packages = {_[0]: _[2] for _ in list_installed_packages()}
 
@@ -167,7 +177,7 @@ def list_available_packages(url=None):
     return packages, collections
 
 
-def _default_download_dir():
+def _default_download_dir() -> Optional[str]:
     """Return the directory to which packages will be downloaded by default.
 
     This is mostly copied from NLTK's
@@ -201,14 +211,18 @@ def _default_download_dir():
 
 
 def download_package(
-    resource_name, url=None, data_path=None, force=False, silent=False
-):
+    resource_name: str,
+    url: Optional[str] = None,
+    data_path: Optional[str] = None,
+    force: bool = False,
+    silent: bool = False,
+) -> None:
     """Download and install a package or collection."""
     packages, collections = list_available_packages(url)
     installed = list_installed_packages(data_path)
     if data_path is None:
         data_path = _default_download_dir()
-    os.makedirs(data_path, mode=0o775, exist_ok=True)
+    os.makedirs(cast(str, data_path), mode=0o775, exist_ok=True)
 
     for coll in collections:
         if resource_name == coll[0]:
@@ -234,16 +248,20 @@ def download_package(
                     print(  # noqa: T001
                         'Installing {} package'.format(pack[1])
                     )
-                zip_fn = os.path.join(data_path, pack[4], pack[0] + '.zip')
+                zip_fn = os.path.join(
+                    cast(str, data_path), pack[4], pack[0] + '.zip'
+                )
                 os.makedirs(
-                    os.path.join(data_path, pack[4]), mode=0o775, exist_ok=True
+                    os.path.join(cast(str, data_path), pack[4]),
+                    mode=0o775,
+                    exist_ok=True,
                 )
                 urllib.request.urlretrieve(  # noqa: S310
                     pack[3][:-3] + 'xml', zip_fn[:-3] + 'xml'
                 )
                 urllib.request.urlretrieve(pack[3], zip_fn)  # noqa: S310
                 zip_pkg = zipfile.ZipFile(zip_fn)
-                zip_pkg.extractall(os.path.join(data_path, pack[4]))
+                zip_pkg.extractall(os.path.join(cast(str, data_path), pack[4]))
                 zip_pkg.close()
                 os.remove(zip_fn)
 

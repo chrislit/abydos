@@ -19,7 +19,7 @@
 Lovins stemmer.
 """
 
-from typing import Callable, Dict, Optional, Tuple, Union
+from typing import Callable, Dict, Optional, Tuple, Union, cast
 from unicodedata import normalize
 
 from ._stemmer import _Stemmer
@@ -1210,7 +1210,9 @@ class Lovins(_Stemmer):
                 and len(word) - suffix_len >= 2
                 and (
                     self._suffix[ending] is None
-                    or self._suffix[ending](word, suffix_len)
+                    or cast(Callable[[str, int], bool], self._suffix[ending])(
+                        word, suffix_len
+                    )
                 )
             ):
                 word = word[:-suffix_len]

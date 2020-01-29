@@ -39,7 +39,7 @@ class SnowballDutch(_Snowball):
     _not_s_endings = {'a', 'e', 'i', 'j', 'o', 'u', 'y', 'è'}
     _accented = dict(zip((ord(_) for _ in 'äëïöüáéíóú'), 'aeiouaeiou'))
 
-    def _undouble(self, word):
+    def _undouble(self, word: str) -> str:
         """Undouble endings -kk, -dd, and -tt.
 
         Parameters

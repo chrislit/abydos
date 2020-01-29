@@ -435,7 +435,9 @@ class SynonameToolcode(_Fingerprint):
             if len(toolcode[9]) == 15:
                 break
 
-        def roman_check(numeral, fname, lname):
+        def roman_check(
+            numeral: str, fname: str, lname: str
+        ) -> Tuple[str, str]:
             """Move Roman numerals from first name to last.
 
             Parameters
