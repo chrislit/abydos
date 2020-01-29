@@ -59,7 +59,7 @@ class SnowballDanish(_Snowball):
         'å',
     }
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Snowball Danish stem.
 
         Parameters

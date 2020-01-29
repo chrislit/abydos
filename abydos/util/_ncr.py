@@ -20,12 +20,12 @@ The util._ncr module defines _ncr, which computes n Choose r.
 """
 
 from math import factorial, gamma
-from typing import List
+from typing import List, Union
 
 __all__ = []  # type: List[str]
 
 
-def _ncr(n, r):
+def _ncr(n: Union[int, float], r: Union[int, float]) -> Union[int, float]:
     r"""Return n Choose r.
 
     Cf. https://en.wikipedia.org/wiki/Combination

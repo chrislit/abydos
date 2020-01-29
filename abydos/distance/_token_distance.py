@@ -23,7 +23,14 @@ _TokenDistance.
 from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
-from typing import Any, Counter as TCounter, Optional
+from typing import (
+    Any,
+    Callable,
+    Counter as TCounter,
+    Optional,
+    Tuple,
+    Union,
+)
 
 import numpy as np
 from numpy import zeros as np_zeros
@@ -230,10 +237,12 @@ class _TokenDistance(_Distance):
 
         self._src_tokens = Counter()  # type: TCounter[str]
         self._tar_tokens = Counter()  # type: TCounter[str]
-        self._population_card_value = 0
+        self._population_card_value = 0  # type: Union[int, float]
 
         # initialize normalizer
-        self.normalizer = self._norm_none
+        self.normalizer = (
+            self._norm_none
+        )  # type: Callable[[Union[int, float], int, Union[int, float]], Union[int, float]]  # noqa: E501
 
         self._norm_dict = {
             'proportional': self._norm_proportional,
@@ -245,32 +254,46 @@ class _TokenDistance(_Distance):
         }
 
         # initialize values for soft intersection
-        self._soft_intersection_precalc = None
-        self._soft_src_only = None
-        self._soft_tar_only = None
+        self._soft_intersection_precalc = Counter()  # type: TCounter[str]
+        self._soft_src_only = Counter()  # type: TCounter[str]
+        self._soft_tar_only = Counter()  # type: TCounter[str]
 
-    def _norm_none(self, x, _squares, _pop):
+    def _norm_none(
+        self, x: Union[int, float], _squares: int, _pop: Union[int, float]
+    ) -> Union[int, float]:
         return x
 
-    def _norm_proportional(self, x, _squares, pop):
+    def _norm_proportional(
+        self, x: Union[int, float], _squares: int, pop: Union[int, float]
+    ) -> Union[int, float]:
         return x / max(1, pop)
 
-    def _norm_log(self, x, _squares, _pop):
+    def _norm_log(
+        self, x: Union[int, float], _squares: int, _pop: Union[int, float]
+    ) -> Union[int, float]:
         return log1p(x)
 
-    def _norm_exp(self, x, _squares, _pop):
+    def _norm_exp(
+        self, x: Union[int, float], _squares: int, _pop: Union[int, float]
+    ) -> Union[int, float]:
         return exp(x)
 
-    def _norm_laplace(self, x, squares, _pop):
+    def _norm_laplace(
+        self, x: Union[int, float], squares: int, _pop: Union[int, float]
+    ) -> Union[int, float]:
         return x + squares
 
-    def _norm_inverse(self, x, _squares, pop):
+    def _norm_inverse(
+        self, x: Union[int, float], _squares: int, pop: Union[int, float]
+    ) -> Union[int, float]:
         return 1 / x if x else pop
 
-    def _norm_complement(self, x, _squares, pop):
+    def _norm_complement(
+        self, x: Union[int, float], _squares: int, pop: Union[int, float]
+    ) -> Union[int, float]:
         return pop - x
 
-    def _tokenize(self, src, tar):
+    def _tokenize(self, src: str, tar: str) -> '_TokenDistance':
         """Return the Q-Grams in src & tar.
 
         Parameters
@@ -326,20 +349,20 @@ class _TokenDistance(_Distance):
             self.normalizer = self._norm_dict[self.params['normalizer']]
 
         # clear values for soft intersection
-        self._soft_intersection_precalc = None
-        self._soft_src_only = None
-        self._soft_tar_only = None
+        self._soft_intersection_precalc = Counter()
+        self._soft_src_only = Counter()
+        self._soft_tar_only = Counter()
 
         return self
 
-    def _get_tokens(self):
+    def _get_tokens(self) -> Tuple[TCounter[str], TCounter[str]]:
         """Return the src and tar tokens as a tuple."""
         return self._src_tokens, self._tar_tokens
 
-    def _src_card(self):
+    def _src_card(self) -> Union[int, float]:
         r"""Return the cardinality of the tokens in the source set."""
         if self.params['intersection_type'] == 'soft':
-            if not self._soft_intersection_precalc:
+            if not len(self._soft_intersection_precalc):
                 self._intersection()
             return self.normalizer(
                 sum(
@@ -357,13 +380,13 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _src_only(self):
+    def _src_only(self) -> TCounter[str]:
         r"""Return the src tokens minus the tar tokens.
 
         For (multi-)sets S and T, this is :math:`S \setminus T`.
         """
         if self.params['intersection_type'] == 'soft':
-            if not self._soft_intersection_precalc:
+            if not len(self._soft_intersection_precalc):
                 self._intersection()
             return self._soft_src_only
         src_only = self._src_tokens - self._intersection()
@@ -371,7 +394,7 @@ class _TokenDistance(_Distance):
             src_only -= self._intersection() - self._crisp_intersection()
         return src_only
 
-    def _src_only_card(self):
+    def _src_only_card(self) -> Union[int, float]:
         """Return the cardinality of the tokens only in the source set."""
         return self.normalizer(
             sum(abs(val) for val in self._src_only().values()),
@@ -379,10 +402,10 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _tar_card(self):
+    def _tar_card(self) -> Union[int, float]:
         r"""Return the cardinality of the tokens in the target set."""
         if self.params['intersection_type'] == 'soft':
-            if not self._soft_intersection_precalc:
+            if not len(self._soft_intersection_precalc):
                 self._intersection()
             return self.normalizer(
                 sum(
@@ -400,13 +423,13 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _tar_only(self):
+    def _tar_only(self) -> TCounter[str]:
         r"""Return the tar tokens minus the src tokens.
 
         For (multi-)sets S and T, this is :math:`T \setminus S`.
         """
         if self.params['intersection_type'] == 'soft':
-            if not self._soft_intersection_precalc:
+            if not len(self._soft_intersection_precalc):
                 self._intersection()
             return self._soft_tar_only
         tar_only = self._tar_tokens - self._intersection()
@@ -414,7 +437,7 @@ class _TokenDistance(_Distance):
             tar_only -= self._intersection() - self._crisp_intersection()
         return tar_only
 
-    def _tar_only_card(self):
+    def _tar_only_card(self) -> Union[int, float]:
         """Return the cardinality of the tokens only in the target set."""
         return self.normalizer(
             sum(abs(val) for val in self._tar_only().values()),
@@ -422,14 +445,14 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _symmetric_difference(self):
+    def _symmetric_difference(self) -> TCounter[str]:
         r"""Return the symmetric difference of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \triangle T`.
         """
         return self._src_only() + self._tar_only()
 
-    def _symmetric_difference_card(self):
+    def _symmetric_difference_card(self) -> Union[int, float]:
         """Return the cardinality of the symmetric difference."""
         return self.normalizer(
             sum(abs(val) for val in self._symmetric_difference().values()),
@@ -437,7 +460,7 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _total(self):
+    def _total(self) -> TCounter[str]:
         """Return the sum of the sets.
 
         For (multi-)sets S and T, this is :math:`S + T`.
@@ -446,7 +469,7 @@ class _TokenDistance(_Distance):
         twice. In the case of sets, this is identical to the union.
         """
         if self.params['intersection_type'] == 'soft':
-            if not self._soft_intersection_precalc:
+            if not len(self._soft_intersection_precalc):
                 self._intersection()
             return (
                 self._soft_tar_only
@@ -456,7 +479,7 @@ class _TokenDistance(_Distance):
             )
         return self._src_tokens + self._tar_tokens
 
-    def _total_card(self):
+    def _total_card(self) -> Union[int, float]:
         """Return the cardinality of the complement of the total."""
         return self.normalizer(
             sum(abs(val) for val in self._total().values()),
@@ -464,7 +487,7 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _total_complement_card(self):
+    def _total_complement_card(self) -> Union[int, float]:
         """Return the cardinality of the complement of the total."""
         if self.params['alphabet'] is None:
             return self.normalizer(0, 1, self._population_card_value)
@@ -488,7 +511,7 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _calc_population_card(self):
+    def _calc_population_card(self) -> Union[int, float]:
         """Return the cardinality of the population."""
         save_normalizer = self.normalizer
         self.normalizer = self._norm_none
@@ -499,13 +522,13 @@ class _TokenDistance(_Distance):
         self.params['intersection_type'] = save_intersection
         return pop
 
-    def _population_card(self):
+    def _population_card(self) -> Union[int, float]:
         """Return the cardinality of the population."""
         return self.normalizer(
             self._population_card_value, 4, self._population_card_value
         )
 
-    def _population_unique_card(self):
+    def _population_unique_card(self) -> Union[int, float]:
         """Return the cardinality of the population minus the intersection."""
         return self.normalizer(
             self._population_card_value - self._intersection_card(),
@@ -513,13 +536,13 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _union(self):
+    def _union(self) -> TCounter[str]:
         r"""Return the union of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \cup T`.
         """
         if self.params['intersection_type'] == 'soft':
-            if not self._soft_intersection_precalc:
+            if not len(self._soft_intersection_precalc):
                 self._intersection()
             return (
                 self._soft_tar_only
@@ -531,7 +554,7 @@ class _TokenDistance(_Distance):
             union -= self._intersection() - self._crisp_intersection()
         return union
 
-    def _union_card(self):
+    def _union_card(self) -> Union[int, float]:
         """Return the cardinality of the union."""
         return self.normalizer(
             sum(abs(val) for val in self._union().values()),
@@ -539,10 +562,10 @@ class _TokenDistance(_Distance):
             self._population_card_value,
         )
 
-    def _difference(self):
+    def _difference(self) -> TCounter[str]:
         """Return the difference of the tokens, supporting negative values."""
         if self.params['intersection_type'] == 'soft':
-            if not self._soft_intersection_precalc:
+            if not len(self._soft_intersection_precalc):
                 self._intersection()
             _src_copy = Counter(self._soft_src_only)
             _src_copy.subtract(self._soft_tar_only)
@@ -551,14 +574,14 @@ class _TokenDistance(_Distance):
         _src_copy.subtract(self._tar_tokens)
         return _src_copy
 
-    def _crisp_intersection(self):
+    def _crisp_intersection(self) -> TCounter[str]:
         r"""Return the intersection of tokens from src and tar.
 
         For (multi-)sets S and T, this is :math:`S \cap T`.
         """
         return self._src_tokens & self._tar_tokens
 
-    def _soft_intersection(self):
+    def _soft_intersection(self) -> TCounter[str]:
         """Return the soft source, target, & intersection tokens & weights.
 
         This implements the soft intersection defined by :cite:`Russ:2014` in
@@ -574,10 +597,10 @@ member function, such as Levenshtein."
         src_only = self._src_tokens - self._tar_tokens
         tar_only = self._tar_tokens - self._src_tokens
 
-        src_new = Counter()
-        tar_new = Counter()
+        src_new = Counter()  # type: TCounter[str]
+        tar_new = Counter()  # type: TCounter[str]
 
-        def _membership(src, tar):
+        def _membership(src: str, tar: str) -> float:
             greater_length = max(len(src), len(tar))
             return (
                 max(
@@ -587,14 +610,16 @@ member function, such as Levenshtein."
                 / greater_length
             )
 
-        def _token_src_tar_int(src, tar):
+        def _token_src_tar_int(
+            src: str, tar: str
+        ) -> Tuple[str, float, str, float, str, float]:
             src_tok = []
             tar_tok = []
             int_tok = []
 
-            src_val = 0
-            tar_val = 0
-            int_val = 0
+            src_val = 0.0
+            tar_val = 0.0
+            int_val = 0.0
 
             _cost, _src, _tar = self.params['metric'].alignment(src, tar)
 
@@ -617,11 +642,18 @@ member function, such as Levenshtein."
             tar_val /= len(_src)
             int_val /= len(_src)
 
-            src_tok = ''.join(src_tok).strip('-')
-            tar_tok = ''.join(tar_tok).strip('-')
-            int_tok = ''.join(int_tok).strip('-')
+            src_tok_str = ''.join(src_tok).strip('-')
+            tar_tok_str = ''.join(tar_tok).strip('-')
+            int_tok_str = ''.join(int_tok).strip('-')
 
-            return src_tok, src_val, tar_tok, tar_val, int_tok, int_val
+            return (
+                src_tok_str,
+                src_val,
+                tar_tok_str,
+                tar_val,
+                int_tok_str,
+                int_val,
+            )
 
         # Dictionary ordering is important for reproducibility, so insertion
         # order needs to be controlled and retained.
@@ -665,7 +697,7 @@ member function, such as Levenshtein."
 
         return intersection
 
-    def _fuzzy_intersection(self):
+    def _fuzzy_intersection(self) -> TCounter[str]:
         r"""Return the fuzzy intersection of the tokens in src and tar.
 
         This implements the fuzzy intersection defined by :cite:`Wang:2014`.
@@ -738,7 +770,7 @@ member function, such as Levenshtein."
 
         return intersection
 
-    def _group_linkage_intersection(self):
+    def _group_linkage_intersection(self) -> TCounter[str]:
         r"""Return the group linkage intersection of the tokens in src and tar.
 
         This is based on group linkage, as defined by :cite:`On:2007`.
@@ -936,7 +968,7 @@ member function, such as Levenshtein."
 
         return intersection
 
-    def _intersection_card(self):
+    def _intersection_card(self) -> Union[int, float]:
         """Return the cardinality of the intersection."""
         return self.normalizer(
             sum(abs(val) for val in self._intersection().values()),
@@ -944,7 +976,7 @@ member function, such as Levenshtein."
             self._population_card_value,
         )
 
-    def _intersection(self):
+    def _intersection(self) -> TCounter[str]:
         """Return the intersection.
 
         This function may be overridden by setting the intersection_type during
@@ -952,7 +984,7 @@ member function, such as Levenshtein."
         """
         return self._crisp_intersection()  # pragma: no cover
 
-    def _get_confusion_table(self):
+    def _get_confusion_table(self) -> ConfusionTable:
         """Return the token counts as a ConfusionTable object."""
         return ConfusionTable(
             self._intersection_card(),

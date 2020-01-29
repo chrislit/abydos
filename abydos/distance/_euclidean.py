@@ -83,7 +83,7 @@ class Euclidean(Minkowski):
             **kwargs
         )
 
-    def dist_abs(self, src, tar, normalized=False):
+    def dist_abs(self, src: str, tar: str, normalized: bool = False) -> float:
         """Return the Euclidean distance between two strings.
 
         Parameters

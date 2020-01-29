@@ -19,6 +19,8 @@
 Snowball Stemmer base class
 """
 
+from typing import Optional, Set, cast
+
 from ._stemmer import _Stemmer
 
 __all__ = ['_Snowball']
@@ -33,7 +35,7 @@ class _Snowball(_Stemmer):
     _vowels = set('aeiouy')
     _codanonvowels = set("'bcdfghjklmnpqrstvz")
 
-    def _sb_r1(self, term, r1_prefixes=None):
+    def _sb_r1(self, term: str, r1_prefixes: Optional[Set[str]] = None) -> int:
         """Return the R1 region, as defined in the Porter2 specification.
 
         Parameters
@@ -56,7 +58,7 @@ class _Snowball(_Stemmer):
         """
         vowel_found = False
         if hasattr(r1_prefixes, '__iter__'):
-            for prefix in r1_prefixes:
+            for prefix in cast(Set[str], r1_prefixes):
                 if term[: len(prefix)] == prefix:
                     return len(prefix)
 
@@ -67,7 +69,7 @@ class _Snowball(_Stemmer):
                 return i + 1
         return len(term)
 
-    def _sb_r2(self, term, r1_prefixes=None):
+    def _sb_r2(self, term: str, r1_prefixes: Optional[Set[str]] = None) -> int:
         """Return the R2 region, as defined in the Porter2 specification.
 
         Parameters
@@ -91,7 +93,7 @@ class _Snowball(_Stemmer):
         r1_start = self._sb_r1(term, r1_prefixes)
         return r1_start + self._sb_r1(term[r1_start:])
 
-    def _sb_ends_in_short_syllable(self, term):
+    def _sb_ends_in_short_syllable(self, term: str) -> bool:
         """Return True iff term ends in a short syllable.
 
         (...according to the Porter2 specification.)
@@ -129,7 +131,9 @@ class _Snowball(_Stemmer):
                 return True
         return False
 
-    def _sb_short_word(self, term, r1_prefixes=None):
+    def _sb_short_word(
+        self, term: str, r1_prefixes: Optional[Set[str]] = None
+    ) -> bool:
         """Return True iff term is a short word.
 
         (...according to the Porter2 specification.)
@@ -158,7 +162,7 @@ class _Snowball(_Stemmer):
             return True
         return False
 
-    def _sb_has_vowel(self, term):
+    def _sb_has_vowel(self, term: str) -> bool:
         """Return Porter helper function _sb_has_vowel value.
 
         Parameters

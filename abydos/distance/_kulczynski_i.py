@@ -19,7 +19,7 @@
 Kulczynski I similarity
 """
 
-from typing import Any, Optional
+from typing import Any, NoReturn, Optional
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -132,7 +132,7 @@ class KulczynskiI(_TokenDistance):
             return float('inf')
         return a / (b + c)
 
-    def sim(self, *args, **kwargs):
+    def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters
@@ -155,7 +155,7 @@ class KulczynskiI(_TokenDistance):
             'Method disabled for Kulczynski I similarity.'
         )
 
-    def dist(self, *args, **kwargs):
+    def dist(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters

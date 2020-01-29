@@ -36,7 +36,7 @@ class CLEFGerman(_Stemmer):
 
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return CLEF German stem.
 
         Parameters

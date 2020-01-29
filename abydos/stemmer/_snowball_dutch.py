@@ -66,7 +66,7 @@ class SnowballDutch(_Snowball):
             return word[:-1]
         return word
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Snowball Dutch stem.
 
         Parameters

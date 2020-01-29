@@ -178,7 +178,7 @@ class MetaLevenshtein(_Distance):
         for token in tar_tok.keys():
             vwt_dict[token] = log1p(tar_tok[token]) * corpus.idf(token)
 
-        def _dist(s_tok, t_tok):
+        def _dist(s_tok: str, t_tok: str) -> float:
             return dists[(s_tok, t_tok)] * vws_dict[s_tok] * vwt_dict[t_tok]
 
         d_mat = np_zeros(

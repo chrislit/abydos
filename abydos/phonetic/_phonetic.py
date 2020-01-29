@@ -37,7 +37,7 @@ class _Phonetic:
     _uc_vy_set = set('AEIOUY')
     _lc_vy_set = set('aeiouy')
 
-    def _delete_consecutive_repeats(self, word):
+    def _delete_consecutive_repeats(self, word: str) -> str:
         """Delete consecutive repeated characters in a word.
 
         Parameters

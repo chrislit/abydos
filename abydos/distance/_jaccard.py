@@ -140,7 +140,7 @@ class Jaccard(Tversky):
         """
         return super(Jaccard, self).sim(src, tar)
 
-    def tanimoto_coeff(self, src, tar):
+    def tanimoto_coeff(self, src: str, tar: str) -> float:
         """Return the Tanimoto distance between two strings.
 
         Tanimoto distance :cite:`Tanimoto:1958` is

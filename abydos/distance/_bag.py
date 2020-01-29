@@ -81,7 +81,7 @@ class Bag(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def dist_abs(self, src, tar, normalized=False):
+    def dist_abs(self, src: str, tar: str, normalized: bool = False) -> float:
         """Return the bag distance between two strings.
 
         Parameters

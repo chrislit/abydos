@@ -103,7 +103,7 @@ class YatesChiSquared(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar, signed=False):
+    def sim_score(self, src: str, tar: str, signed: bool = False) -> float:
         """Return Yates's Chi-Squared similarity of two strings.
 
         Parameters

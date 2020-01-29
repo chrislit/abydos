@@ -110,7 +110,7 @@ class JensenShannon(_TokenDistance):
 
         self._tokenize(src, tar)
 
-        def entropy(prob):
+        def entropy(prob: float) -> float:
             """Return the entropy of prob."""
             if not prob:
                 return 0.0

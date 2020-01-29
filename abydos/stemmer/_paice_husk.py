@@ -189,7 +189,7 @@ class PaiceHusk(_Stemmer):
         else:
             return old_word, False, intact, terminate
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Paice-Husk stem.
 
         Parameters

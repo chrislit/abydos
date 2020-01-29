@@ -20,7 +20,7 @@ Chao's Jaccard similarity
 """
 
 from collections import Counter
-from typing import Any
+from typing import Any, Tuple
 
 try:
     from random import choices
@@ -140,7 +140,7 @@ class ChaoJaccard(_TokenDistance):
             return num / (u_hat + v_hat - u_hat * v_hat)
         return 0.0
 
-    def _get_estimates(self, src, tar):
+    def _get_estimates(self, src: str, tar: str) -> Tuple[float, float]:
         """Get the estimates U-hat & V-hat used for Chao's measures.
 
         Parameters

@@ -104,7 +104,9 @@ class RaupCrick(_TokenDistance):
         ac = self._tar_card()
         n = self._population_unique_card()
 
-        def _henderson_heron(ab, ac, a, n):
+        def _henderson_heron(
+            ab: float, ac: float, a: float, n: float
+        ) -> float:
             return (
                 factorial(ab)
                 * factorial(ac)

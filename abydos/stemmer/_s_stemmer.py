@@ -32,7 +32,7 @@ class SStemmer(_Stemmer):
     .. versionadded:: 0.3.6
     """
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return the S-stemmed form of a word.
 
         Parameters

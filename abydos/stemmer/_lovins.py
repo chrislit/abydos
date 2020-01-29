@@ -1171,7 +1171,7 @@ class Lovins(_Stemmer):
             ('yz', 'ys'),
         )
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Lovins stem.
 
         Parameters
