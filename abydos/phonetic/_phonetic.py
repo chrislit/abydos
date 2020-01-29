@@ -81,7 +81,7 @@ class _Phonetic:
         .. versionadded:: 0.3.6
 
         """
-        pass
+        return word
 
     def encode_alpha(self, word: str) -> str:
         """Encode phonetically using alphabetic characters.
