@@ -51,18 +51,9 @@ class PhoneticEditDistance(Levenshtein):
     def __init__(
         self,
         mode: str = 'lev',
-        cost: Tuple[
-            float,
-            float,
-            float,
-            float,
-        ] = (1, 1, 1, 0.33333),
-        normalizer: Callable[
-            [List[float]], float
-        ] = max,
-        weights: Optional[
-            Union[Iterable[float], Dict[str, float]]
-        ] = None,
+        cost: Tuple[float, float, float, float] = (1, 1, 1, 0.33333),
+        normalizer: Callable[[List[float]], float] = max,
+        weights: Optional[Union[Iterable[float], Dict[str, float]]] = None,
         **kwargs: Any
     ):
         """Initialize PhoneticEditDistance instance.

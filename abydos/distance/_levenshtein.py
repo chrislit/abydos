@@ -57,15 +57,8 @@ class Levenshtein(_Distance):
     def __init__(
         self,
         mode: str = 'lev',
-        cost: Tuple[
-            float,
-            float,
-            float,
-            float,
-        ] = (1, 1, 1, 1),
-        normalizer: Callable[
-            [List[float]], float
-        ] = max,
+        cost: Tuple[float, float, float, float] = (1, 1, 1, 1),
+        normalizer: Callable[[List[float]], float] = max,
         taper: bool = False,
         **kwargs: Any
     ) -> None:

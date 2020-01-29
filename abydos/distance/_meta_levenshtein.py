@@ -28,7 +28,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-    Union,
     cast,
 )
 
@@ -57,9 +56,7 @@ class MetaLevenshtein(_Distance):
         tokenizer: Optional[_Tokenizer] = None,
         corpus: Optional[UnigramCorpus] = None,
         metric: Optional[_Distance] = None,
-        normalizer: Callable[
-            [List[float]], float
-        ] = max,
+        normalizer: Callable[[List[float]], float] = max,
         **kwargs: Any
     ) -> None:
         """Initialize MetaLevenshtein instance.

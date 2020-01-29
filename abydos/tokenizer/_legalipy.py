@@ -40,10 +40,7 @@ class LegaliPyTokenizer(_Tokenizer):
     """
 
     def __init__(
-        self,
-        scaler: Optional[
-            Union[str, Callable[[float], float]]
-        ] = None,
+        self, scaler: Optional[Union[str, Callable[[float], float]]] = None,
     ) -> None:
         """Initialize Tokenizer.
 

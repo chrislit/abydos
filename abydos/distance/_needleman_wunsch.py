@@ -19,7 +19,7 @@
 Needleman-Wunsch score
 """
 
-from typing import Any, Callable, Dict, Optional, Tuple, Union, cast
+from typing import Any, Callable, Dict, Optional, Tuple, cast
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros

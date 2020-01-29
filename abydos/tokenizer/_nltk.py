@@ -34,9 +34,7 @@ class NLTKTokenizer(_Tokenizer):
     def __init__(
         self,
         nltk_tokenizer: Optional[object] = None,
-        scaler: Optional[
-            Union[str, Callable[[float], float]]
-        ] = None,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
     ) -> None:
         """Initialize Tokenizer.
 

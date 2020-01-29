@@ -43,9 +43,7 @@ class CVClusterTokenizer(_Tokenizer):
 
     def __init__(
         self,
-        scaler: Optional[
-            Union[str, Callable[[float], float]]
-        ] = None,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
         consonants: Optional[Set[str]] = None,
         vowels: Optional[Set[str]] = None,
     ) -> None:

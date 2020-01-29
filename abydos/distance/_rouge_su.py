@@ -19,7 +19,7 @@
 Rouge-SU similarity
 """
 
-from typing import Any, Union
+from typing import Any
 
 from . import RougeS
 

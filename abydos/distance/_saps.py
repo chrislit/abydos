@@ -19,7 +19,7 @@
 Syllable Alignment Pattern Searching tokenizer
 """
 
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import Any, Callable, List, Optional, Tuple
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -50,9 +50,7 @@ class SAPS(_Distance):
             -1,
             -3,
         ),
-        normalizer: Callable[
-            [List[float]], float
-        ] = max,
+        normalizer: Callable[[List[float]], float] = max,
         tokenizer: Optional[_Tokenizer] = None,
         **kwargs: Any
     ):

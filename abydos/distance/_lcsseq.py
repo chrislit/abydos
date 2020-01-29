@@ -19,7 +19,7 @@
 Longest common subsequence
 """
 
-from typing import Any, Callable, List, Union
+from typing import Any, Callable, List
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -39,11 +39,7 @@ class LCSseq(_Distance):
     """
 
     def __init__(
-        self,
-        normalizer: Callable[
-            [List[float]], float
-        ] = max,
-        **kwargs: Any
+        self, normalizer: Callable[[List[float]], float] = max, **kwargs: Any
     ) -> None:
         r"""Initialize LCSseq.
 

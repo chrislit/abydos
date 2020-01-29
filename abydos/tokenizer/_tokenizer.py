@@ -44,9 +44,7 @@ class _Tokenizer:
 
     def __init__(
         self,
-        scaler: Optional[
-            Union[str, Callable[[float], float]]
-        ] = None,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
         *args: Any,
         **kwargs: Any
     ) -> None:
@@ -78,9 +76,7 @@ class _Tokenizer:
         super(_Tokenizer, self).__init__()
 
         self._scaler = scaler
-        self._tokens = defaultdict(
-            int
-        )  # type: DefaultDict[str, float]
+        self._tokens = defaultdict(int)  # type: DefaultDict[str, float]
         self._string = ''
         self._ordered_tokens = []  # type: List[str]
         self._ordered_weights = []  # type: List[float]

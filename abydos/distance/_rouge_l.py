@@ -19,7 +19,7 @@
 Rouge-L similarity
 """
 
-from typing import Any, Union
+from typing import Any
 
 from . import LCSseq
 from ._distance import _Distance

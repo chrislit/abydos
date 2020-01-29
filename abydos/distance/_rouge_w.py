@@ -19,7 +19,7 @@
 Rouge-W similarity
 """
 
-from typing import Any, Callable, Optional, Union, cast
+from typing import Any, Callable, Optional, cast
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros

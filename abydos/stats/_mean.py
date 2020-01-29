@@ -22,7 +22,7 @@ measures of central tendencies.
 
 import math
 from collections import Counter
-from typing import Callable, Sequence, Union
+from typing import Callable, Sequence
 
 from ..util._prod import _prod
 

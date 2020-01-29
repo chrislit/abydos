@@ -41,9 +41,7 @@ class WhitespaceTokenizer(RegexpTokenizer):
 
     def __init__(
         self,
-        scaler: Optional[
-            Union[str, Callable[[float], float]]
-        ] = None,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
         flags: int = 0,
     ) -> None:
         """Initialize tokenizer.

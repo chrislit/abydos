@@ -35,9 +35,7 @@ class RegexpTokenizer(_Tokenizer):
 
     def __init__(
         self,
-        scaler: Optional[
-            Union[str, Callable[[float], float]]
-        ] = None,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
         regexp: str = r'\w+',
         flags: int = 0,
     ) -> None:

@@ -19,7 +19,7 @@
 Rouge-S similarity
 """
 
-from typing import Any, Union
+from typing import Any
 
 from ._distance import _Distance
 from ..tokenizer import QSkipgrams

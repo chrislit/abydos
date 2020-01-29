@@ -99,9 +99,7 @@ class Eudex(_Distance):
         self,
         weights: Optional[
             Union[
-                str,
-                Iterable[float],
-                Callable[[], Generator[int, None, None]],
+                str, Iterable[float], Callable[[], Generator[int, None, None]],
             ]
         ] = 'exponential',
         max_length: int = 8,
@@ -144,9 +142,7 @@ class Eudex(_Distance):
         self._max_length = max_length
         self._phonetic_alg = EudexPhonetic(max_length=max_length)
 
-    def dist_abs(
-        self, src: str, tar: str, normalized: bool = False
-    ) -> float:
+    def dist_abs(self, src: str, tar: str, normalized: bool = False) -> float:
         """Calculate the distance between the Eudex hashes of two terms.
 
         Parameters

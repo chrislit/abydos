@@ -42,13 +42,9 @@ class DiscountedLevenshtein(Levenshtein):
     def __init__(
         self,
         mode: str = 'lev',
-        normalizer: Callable[
-            [List[float]], float
-        ] = max,
+        normalizer: Callable[[List[float]], float] = max,
         discount_from: Union[int, str] = 1,
-        discount_func: Union[
-            str, Callable[[float], float]
-        ] = 'log',
+        discount_func: Union[str, Callable[[float], float]] = 'log',
         vowels: str = 'aeiou',
         **kwargs: Any
     ) -> None:

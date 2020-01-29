@@ -1178,9 +1178,7 @@ class ALINE(_Distance):
         c_vwl: int = 10,
         mode: str = 'local',
         phones: str = 'aline',
-        normalizer: Callable[
-            [List[float]], float
-        ] = max,
+        normalizer: Callable[[List[float]], float] = max,
         **kwargs: Any
     ) -> None:
         """Initialize ALINE instance.

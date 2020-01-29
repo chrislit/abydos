@@ -30,9 +30,7 @@ __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 def mean_pairwise_similarity(
     collection: Union[str, Collection[str]],
     metric: Optional[Callable[[str, str], float]] = None,
-    mean_func: Callable[
-        [Sequence[float]], float
-    ] = hmean,
+    mean_func: Callable[[Sequence[float]], float] = hmean,
     symmetric: bool = False,
 ) -> float:
     """Calculate the mean pairwise similarity of a collection of strings.
@@ -111,13 +109,9 @@ def pairwise_similarity_statistics(
     src_collection: Collection[str],
     tar_collection: Collection[str],
     metric: Optional[Callable[[str, str], float]] = None,
-    mean_func: Callable[
-        [Sequence[float]], float
-    ] = amean,
+    mean_func: Callable[[Sequence[float]], float] = amean,
     symmetric: bool = False,
-) -> Tuple[
-    float, float, float, float
-]:
+) -> Tuple[float, float, float, float]:
     """Calculate the pairwise similarity statistics a collection of strings.
 
     Calculate pairwise similarities among members of two collections,

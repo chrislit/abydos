@@ -43,9 +43,7 @@ class QSkipgrams(_Tokenizer):
         self,
         qval: Union[int, TIterable[int]] = 2,
         start_stop: str = '$#',
-        scaler: Optional[
-            Union[str, Callable[[float], float]]
-        ] = None,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
         ssk_lambda: Union[float, TIterable[float]] = 0.9,
     ) -> None:
         """Initialize QSkipgrams.

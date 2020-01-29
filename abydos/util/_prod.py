@@ -22,7 +22,7 @@ of numbers (akin to sum, but for product).
 
 from functools import reduce
 from operator import mul
-from typing import Collection, List, Union
+from typing import Collection, List
 
 __all__ = []  # type: List[str]
 
