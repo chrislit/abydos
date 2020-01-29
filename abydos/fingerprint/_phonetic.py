@@ -19,7 +19,7 @@
 phonetic fingerprint
 """
 
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 from ._string import String
 from ..phonetic import DoubleMetaphone
@@ -43,7 +43,9 @@ class Phonetic(String):
 
     def __init__(
         self,
-        phonetic_algorithm: Optional[Callable[[str], str]] = None,
+        phonetic_algorithm: Optional[
+            Union[Callable[[str], str], _Phonetic]
+        ] = None,
         joiner: str = ' ',
     ) -> None:
         """Initialize Phonetic instance.
@@ -60,10 +62,12 @@ class Phonetic(String):
 
         """
         super(Phonetic, self).__init__()
+        if isinstance(phonetic_algorithm, _Phonetic):
+            phonetic_algorithm = phonetic_algorithm.encode
         self._phonetic_algorithm = (
             phonetic_algorithm
             if phonetic_algorithm is not None
-            else DoubleMetaphone()
+            else DoubleMetaphone().encode
         )
 
         self._joiner = joiner
@@ -98,19 +102,10 @@ class Phonetic(String):
             Encapsulated in class
 
         """
-        phonetic = ''
-        for word in phrase.split():
-            if isinstance(self._phonetic_algorithm, _Phonetic):
-                word_list = self._phonetic_algorithm.encode(word).split(',')
-            else:
-                word_list = self._phonetic_algorithm(word).split(',')
-            if not isinstance(word_list, str) and hasattr(
-                word_list, '__iter__'
-            ):
-                word = word_list[0]
-            phonetic += word + self._joiner
-        phonetic = phonetic[: -len(self._joiner)]
-        return super(Phonetic, self).fingerprint(phonetic)
+        return self._joiner.join(
+            self._phonetic_algorithm(word).split(',')[0]
+            for word in phrase.split()
+        )
 
 
 if __name__ == '__main__':
