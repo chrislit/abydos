@@ -102,10 +102,11 @@ class Phonetic(String):
             Encapsulated in class
 
         """
-        return self._joiner.join(
+        phonetic = self._joiner.join(
             self._phonetic_algorithm(word).split(',')[0]
             for word in phrase.split()
         )
+        return super(Phonetic, self).fingerprint(phonetic)
 
 
 if __name__ == '__main__':
