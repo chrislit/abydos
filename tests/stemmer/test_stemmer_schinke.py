@@ -43,9 +43,11 @@ class SchinkeTestCases(unittest.TestCase):
         with open(_corpus_file('snowball_schinke.csv')) as schinke_ts:
             for schinke_line in schinke_ts:
                 word, noun, verb = schinke_line.strip().split(',')
-                nv = self.stmr.stem(word)
+                nv = self.stmr.stem_dict(word)
                 self.assertEqual(nv['n'], noun)
                 self.assertEqual(nv['v'], verb)
+                nv = self.stmr.stem(word)
+                self.assertEqual(nv, '{},{}'.format(noun, verb))
 
 
 if __name__ == '__main__':
