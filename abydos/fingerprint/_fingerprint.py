@@ -79,7 +79,7 @@ class _Fingerprint:
         .. versionadded:: 0.3.6
 
         """
-        pass
+        return word
 
 
 __all__ = [
