@@ -463,7 +463,7 @@ class NRL(_Phonetic):
 
         """
 
-        def _to_regex(pattern, left_match=True):
+        def _to_regex(pattern: str, left_match: bool = True) -> str:
             new_pattern = ''
             replacements = {
                 '#': '[AEIOU]+',

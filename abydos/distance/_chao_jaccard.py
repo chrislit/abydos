@@ -164,8 +164,8 @@ class ChaoJaccard(_TokenDistance):
         src_token_list = self.params['tokenizer'].tokenize(src).get_list()
         tar_token_list = self.params['tokenizer'].tokenize(tar).get_list()
 
-        src_sampled = Counter(choices(src_token_list, k=src_card))
-        tar_sampled = Counter(choices(tar_token_list, k=tar_card))
+        src_sampled = Counter(choices(src_token_list, k=int(src_card)))
+        tar_sampled = Counter(choices(tar_token_list, k=int(tar_card)))
         sample_intersection = src_sampled & tar_sampled
 
         f_1_plus = sum(
@@ -190,7 +190,7 @@ class ChaoJaccard(_TokenDistance):
         if not f_plus_2:
             f_plus_2 = 1
 
-        u_hat = 0
+        u_hat = 0.0
         if src_card:
             u_hat += sum(
                 src_sampled[tok] / src_card
@@ -208,7 +208,7 @@ class ChaoJaccard(_TokenDistance):
                 )
             )
 
-        v_hat = 0
+        v_hat = 0.0
         if tar_card:
             v_hat += sum(
                 tar_sampled[tok] / tar_card

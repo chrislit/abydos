@@ -235,7 +235,7 @@ class SfinxBis(_Phonetic):
 
         """
 
-        def _foersvensker(lokal_ordet):
+        def _foersvensker(lokal_ordet: str) -> str:
             """Return the Swedish-ized form of the word.
 
             Parameters
@@ -279,7 +279,7 @@ class SfinxBis(_Phonetic):
 
             return lokal_ordet
 
-        def _koda_foersta_ljudet(lokal_ordet):
+        def _koda_foersta_ljudet(lokal_ordet: str) -> str:
             """Return the word with the first sound coded.
 
             Parameters

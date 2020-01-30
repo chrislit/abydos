@@ -20,12 +20,13 @@ The distance._token_distance._TokenDistance module implements abstract class
 _TokenDistance.
 """
 
-from collections import Counter, OrderedDict
+from collections import Counter, OrderedDict, defaultdict
 from itertools import product
 from math import exp, log1p
 from typing import (
     Any,
     Callable,
+    DefaultDict,
     Counter as TCounter,
     Optional,
     Tuple,

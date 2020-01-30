@@ -71,7 +71,7 @@ class ISG(_Distance):
         self._full_guth = full_guth
         self._symmetric = symmetric
 
-    def _isg_i(self, src, tar):
+    def _isg_i(self, src: str, tar: str) -> float:
         """Return an individual ISG similarity (not symmetric) for src to tar.
 
         Parameters
@@ -91,23 +91,21 @@ class ISG(_Distance):
 
         """
 
-        def _char_at(name, pos):
+        def _char_at(name: str, pos: int) -> str:
             if pos >= len(name):
-                return None
+                return ''
             return name[pos]
 
         matches = 0
         for pos in range(len(src)):
             s = _char_at(src, pos)
-            t = set(tar[max(0, pos - 1) : pos + 3])
-            if s and s in t:
+            if s and s in set(tar[max(0, pos - 1) : pos + 3]):
                 matches += 1
                 continue
 
             if self._full_guth:
-                s = set(src[max(0, pos - 1) : pos + 3])
                 t = _char_at(tar, pos)
-                if t and t in s:
+                if t and t in set(src[max(0, pos - 1) : pos + 3]):
                     matches += 1
                     continue
 

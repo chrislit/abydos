@@ -121,7 +121,9 @@ class RaupCrick(_TokenDistance):
                 )
             )
 
-        return sum(_henderson_heron(ab, ac, i, n) for i in range(0, a + 1))
+        return sum(
+            _henderson_heron(ab, ac, i, n) for i in range(0, int(a) + 1)
+        )
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ Typo edit distance functions.
 
 from itertools import chain
 from math import log
-from typing import Any, Tuple
+from typing import Any, Dict, Tuple
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -90,7 +90,7 @@ class Typo(_Distance):
          ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ö', 'Ä', "'"),
          ('>', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_'),
          ('', '', '', ' '))
-    )}
+    )}  # type: Dict[str, Tuple[Tuple[Tuple[str, ...], ...], Tuple[Tuple[str, ...], ...]]]  # noqa: E501
     # fmt: on
 
     def __init__(
@@ -224,7 +224,7 @@ class Typo(_Distance):
         }
         keys = set(chain(*chain(*keyboard)))  # type: ignore
 
-        def _kb_array_for_char(char):
+        def _kb_array_for_char(char: str) -> Tuple[Tuple[str, ...], ...]:
             """Return the keyboard layout that contains ch.
 
             Parameters
@@ -251,7 +251,7 @@ class Typo(_Distance):
                 return keyboard[1]
             raise ValueError(char + ' not found in any keyboard layouts')
 
-        def _substitution_cost(char1, char2):
+        def _substitution_cost(char1: str, char2: str) -> float:
             if self._failsafe and (char1 not in keys or char2 not in keys):
                 return ins_cost + del_cost
             cost = sub_cost
@@ -260,7 +260,9 @@ class Typo(_Distance):
             )
             return cost
 
-        def _get_char_coord(char, kb_array):
+        def _get_char_coord(
+            char: str, kb_array: Tuple[Tuple[str, ...], ...]
+        ) -> Tuple[int, int]:
             """Return the row & column of char in the keyboard.
 
             Parameters
@@ -278,24 +280,25 @@ class Typo(_Distance):
             .. versionadded:: 0.3.0
 
             """
-            for row in kb_array:  # pragma: no branch  # noqa: R503
+            for row in kb_array:
                 if char in row:
-                    return kb_array.index(row), row.index(char)
+                    break
+            return kb_array.index(row), row.index(char)
 
-        def _euclidean_keyboard_distance(char1, char2):
+        def _euclidean_keyboard_distance(char1: str, char2: str) -> float:
             row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
             row2, col2 = _get_char_coord(char2, _kb_array_for_char(char2))
             return ((row1 - row2) ** 2 + (col1 - col2) ** 2) ** 0.5
 
-        def _manhattan_keyboard_distance(char1, char2):
+        def _manhattan_keyboard_distance(char1: str, char2: str) -> float:
             row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
             row2, col2 = _get_char_coord(char2, _kb_array_for_char(char2))
             return abs(row1 - row2) + abs(col1 - col2)
 
-        def _log_euclidean_keyboard_distance(char1, char2):
+        def _log_euclidean_keyboard_distance(char1: str, char2: str) -> float:
             return log(1 + _euclidean_keyboard_distance(char1, char2))
 
-        def _log_manhattan_keyboard_distance(char1, char2):
+        def _log_manhattan_keyboard_distance(char1: str, char2: str) -> float:
             return log(1 + _manhattan_keyboard_distance(char1, char2))
 
         metric_dict = {

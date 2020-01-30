@@ -19,7 +19,7 @@
 FlexMetric distance
 """
 
-from typing import Any, Callable, Iterable, List, Tuple
+from typing import Any, Callable, Collection, List, Optional, Tuple
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -40,8 +40,8 @@ class FlexMetric(_Distance):
     def __init__(
         self,
         normalizer: Callable[[List[float]], float] = max,
-        indel_costs: List[Tuple[Iterable[str], float]] = None,
-        subst_costs: List[Tuple[Iterable[str], float]] = None,
+        indel_costs: Optional[List[Tuple[Collection[str], float]]] = None,
+        subst_costs: Optional[List[Tuple[Collection[str], float]]] = None,
         **kwargs: Any
     ) -> None:
         """Initialize FlexMetric instance.
@@ -73,18 +73,18 @@ class FlexMetric(_Distance):
         super(FlexMetric, self).__init__(**kwargs)
         self._normalizer = normalizer
 
+        def _get_second(s: Tuple[Collection[str], float]) -> float:
+            return s[1]
+
         if indel_costs is None:
             self._indel_costs = [
                 (frozenset('dtch'), 0.4),
                 (frozenset('e'), 0.5),
                 (frozenset('u'), 0.9),
                 (frozenset('rpn'), 0.95),
-            ]  # type: List[Tuple[Iterable[str], float]]
+            ]  # type: List[Tuple[Collection[str], float]]
         else:
-            self._indel_costs = indel_costs
-
-        def _get_second(s):
-            return s[1]
+            self._indel_costs = sorted(indel_costs, key=_get_second)
 
         if subst_costs is None:
             self._subst_costs = [
@@ -105,11 +105,11 @@ class FlexMetric(_Distance):
                 (frozenset('uw'), 0.4),
                 (frozenset('uo'), 0.8),
                 (frozenset('aeiouy'), 0.9),
-            ]  # type: List[Tuple[Iterable[str], float]]
+            ]  # type: List[Tuple[Collection[str], float]]
         else:
             self._subst_costs = sorted(subst_costs, key=_get_second)
 
-    def _cost(self, src, s_pos, tar, t_pos):
+    def _cost(self, src: str, s_pos: int, tar: str, t_pos: int) -> float:
         if s_pos == -1:
             if t_pos > 0 and tar[t_pos - 1] == tar[t_pos]:
                 return 0.0

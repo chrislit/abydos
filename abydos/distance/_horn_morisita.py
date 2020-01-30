@@ -107,8 +107,8 @@ class HornMorisita(_TokenDistance):
         src_card = self._src_card()
         tar_card = self._tar_card()
 
-        src_lambda = 0
-        tar_lambda = 0
+        src_lambda = 0.0
+        tar_lambda = 0.0
         for val in self._src_tokens.values():
             src_lambda += val * val
         if src_lambda:

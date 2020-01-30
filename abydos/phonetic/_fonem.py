@@ -20,7 +20,7 @@ FONEM
 """
 
 from re import compile as re_compile
-from typing import cast
+from typing import Match, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -28,7 +28,7 @@ from ._phonetic import _Phonetic
 __all__ = ['FONEM']
 
 
-def _get_parts(m):
+def _get_parts(m: Match[str]) -> str:
     return (m.group(1) or '') + (m.group(2) or '')
 
 

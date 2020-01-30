@@ -26,6 +26,7 @@ from typing import (
     Iterable,
     List,
     Optional,
+    Sequence,
     Tuple,
     Union,
     cast,
@@ -143,8 +144,8 @@ class PhoneticEditDistance(Levenshtein):
         src_len = len(src)
         tar_len = len(tar)
 
-        src = ipa_to_features(src)
-        tar = ipa_to_features(tar)
+        src_list = ipa_to_features(src)
+        tar_list = ipa_to_features(tar)
 
         d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
         if backtrace:
@@ -167,8 +168,15 @@ class PhoneticEditDistance(Levenshtein):
                     d_mat[traces[2]]
                     + (
                         sub_cost
-                        * (1.0 - cmp_features(src[i], tar[j], self._weights))
-                        if src[i] != tar[j]
+                        * (
+                            1.0
+                            - cmp_features(
+                                src_list[i],
+                                tar_list[j],
+                                cast(Sequence[float], self._weights),
+                            )
+                        )
+                        if src_list[i] != tar_list[j]
                         else 0
                     ),  # sub/==
                 )
@@ -180,8 +188,8 @@ class PhoneticEditDistance(Levenshtein):
                     if (
                         i + 1 > 1
                         and j + 1 > 1
-                        and src[i] == tar[j - 1]
-                        and src[i - 1] == tar[j]
+                        and src_list[i] == tar_list[j - 1]
+                        and src_list[i - 1] == tar_list[j]
                     ):
                         # transposition
                         d_mat[i + 1, j + 1] = min(

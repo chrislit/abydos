@@ -19,6 +19,7 @@
 Kölner Phonetik
 """
 
+from typing import Set
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -80,7 +81,7 @@ class Koelner(_Phonetic):
 
         """
 
-        def _after(word, pos, letters):
+        def _after(word: str, pos: int, letters: Set[str]) -> bool:
             """Return True if word[pos] follows one of the supplied letters.
 
             Parameters
@@ -89,7 +90,7 @@ class Koelner(_Phonetic):
                 The word to check
             pos : int
                 Position within word to check
-            letters : str
+            letters : {str}
                 Letters to confirm precede word[pos]
 
             Returns
@@ -102,7 +103,7 @@ class Koelner(_Phonetic):
             """
             return pos > 0 and word[pos - 1] in letters
 
-        def _before(word, pos, letters):
+        def _before(word: str, pos: int, letters: Set[str]) -> bool:
             """Return True if word[pos] precedes one of the supplied letters.
 
             Parameters
@@ -111,7 +112,7 @@ class Koelner(_Phonetic):
                 The word to check
             pos : int
                 Position within word to check
-            letters : str
+            letters : {str}
                 Letters to confirm follow word[pos]
 
             Returns

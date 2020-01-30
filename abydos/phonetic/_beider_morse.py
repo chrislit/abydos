@@ -24,7 +24,7 @@ Beider-Morse Phonetic Matching (BMPM) algorithm
 """
 
 from re import search
-from typing import Union
+from typing import Any, Optional, Tuple, Union
 from unicodedata import normalize
 
 from ._beider_morse_data import (
@@ -132,7 +132,7 @@ class BeiderMorse(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def _language(self, name, name_mode):
+    def _language(self, name: str, name_mode: str) -> int:
         """Return the best guess language ID for the word and language choices.
 
         Parameters
@@ -172,8 +172,14 @@ class BeiderMorse(_Phonetic):
         return choices_remaining
 
     def _redo_language(
-        self, term, name_mode, rules, final_rules1, final_rules2, concat
-    ):
+        self,
+        term: str,
+        name_mode: str,
+        rules: Tuple[Any, ...],
+        final_rules1: Tuple[Any, ...],
+        final_rules2: Tuple[Any, ...],
+        concat: bool,
+    ) -> str:
         """Reassess the language of the terms and call the phonetic encoder.
 
         Uses a split multi-word term.
@@ -218,14 +224,14 @@ class BeiderMorse(_Phonetic):
 
     def _phonetic(
         self,
-        term,
-        name_mode,
-        rules,
-        final_rules1,
-        final_rules2,
-        language_arg=0,
-        concat=False,
-    ):
+        term: str,
+        name_mode: str,
+        rules: Tuple[Any, ...],
+        final_rules1: Tuple[Any, ...],
+        final_rules2: Tuple[Any, ...],
+        language_arg: int = 0,
+        concat: bool = False,
+    ) -> str:
         """Return the Beider-Morse encoding(s) of a term.
 
         Parameters
@@ -399,7 +405,13 @@ class BeiderMorse(_Phonetic):
 
         return phonetic
 
-    def _apply_final_rules(self, phonetic, final_rules, language_arg, strip):
+    def _apply_final_rules(
+        self,
+        phonetic: str,
+        final_rules: Tuple[Any, ...],
+        language_arg: int,
+        strip: bool,
+    ) -> str:
         """Apply a set of final rules to the phonetic encoding.
 
         Parameters
@@ -508,7 +520,7 @@ class BeiderMorse(_Phonetic):
 
         return phonetic
 
-    def _phonetic_number(self, phonetic):
+    def _phonetic_number(self, phonetic: str) -> str:
         """Remove bracketed text from the end of a string.
 
         Parameters
@@ -532,7 +544,7 @@ class BeiderMorse(_Phonetic):
 
         return phonetic  # experimental !!!!
 
-    def _expand_alternates(self, phonetic):
+    def _expand_alternates(self, phonetic: str) -> str:
         r"""Expand phonetic alternates separated by \|s.
 
         Parameters
@@ -574,7 +586,7 @@ class BeiderMorse(_Phonetic):
 
         return result
 
-    def _pnums_with_leading_space(self, phonetic):
+    def _pnums_with_leading_space(self, phonetic: str) -> str:
         """Join prefixes & suffixes in cases of alternate phonetic values.
 
         Parameters
@@ -610,7 +622,7 @@ class BeiderMorse(_Phonetic):
 
         return result
 
-    def _phonetic_numbers(self, phonetic):
+    def _phonetic_numbers(self, phonetic: str) -> str:
         """Prepare & join phonetic numbers.
 
         Split phonetic value on '-', run through _pnums_with_leading_space,
@@ -638,7 +650,7 @@ class BeiderMorse(_Phonetic):
         )
         return result
 
-    def _remove_dupes(self, phonetic):
+    def _remove_dupes(self, phonetic: str) -> str:
         """Remove duplicates from a phonetic encoding list.
 
         Parameters
@@ -668,7 +680,7 @@ class BeiderMorse(_Phonetic):
 
         return result[1:-1]  # remove leading and trailing |
 
-    def _normalize_lang_attrs(self, text, strip):
+    def _normalize_lang_attrs(self, text: str, strip: bool) -> str:
         """Remove embedded bracketed attributes.
 
         This (potentially) bitwise-ands bracketed attributes together and adds
@@ -727,7 +739,9 @@ class BeiderMorse(_Phonetic):
             return '[0]'
         return text + '[' + str(attrib) + ']'
 
-    def _apply_rule_if_compat(self, phonetic, target, language_arg):
+    def _apply_rule_if_compat(
+        self, phonetic: str, target: str, language_arg: int
+    ) -> Optional[str]:
         """Apply a phonetic regex if compatible.
 
         tests for compatible language rules
@@ -798,7 +812,7 @@ class BeiderMorse(_Phonetic):
             candidate = '(' + candidate + ')'
         return candidate
 
-    def _language_index_from_code(self, code, name_mode):
+    def _language_index_from_code(self, code: int, name_mode: str) -> int:
         """Return the index value for a language code.
 
         This returns l_any if more than one code is specified or the code is

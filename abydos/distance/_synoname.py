@@ -583,14 +583,14 @@ class Synoname(_Distance):
         else:
             tar_ln, tar_fn, tar_qual = tar, '', ''
 
-        def _split_special(spec):
+        def _split_special(spec: str) -> List[Tuple[int, str]]:
             spec_list = []
             while spec:
                 spec_list.append((int(spec[:3]), spec[3:4]))
                 spec = spec[4:]
             return spec_list
 
-        def _fmt_retval(val):
+        def _fmt_retval(val: int) -> Union[int, str]:
             if self._ret_name and not force_numeric:
                 return self._match_name[val]
             return val

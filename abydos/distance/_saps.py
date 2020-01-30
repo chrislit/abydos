@@ -91,7 +91,7 @@ class SAPS(_Distance):
         else:
             self._tokenizer = SAPSTokenizer()
 
-    def _s(self, src, tar):
+    def _s(self, src: str, tar: str) -> int:
         if src.isupper():
             if tar.isupper():
                 return self._s4 if src == tar else self._s5
@@ -103,7 +103,7 @@ class SAPS(_Distance):
             else:
                 return self._s3
 
-    def _g(self, ch):
+    def _g(self, ch: str) -> int:
         if ch.isupper():
             return self._g2
         else:

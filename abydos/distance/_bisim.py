@@ -96,7 +96,7 @@ class BISIM(_Distance):
         if not src or not tar:
             return 0.0
 
-        def _id(src_pos, tar_pos):
+        def _id(src_pos: int, tar_pos: int) -> float:
             s = 0
             for i in range(self._qval):
                 s += int(src[src_pos + i] == tar[tar_pos + i])
