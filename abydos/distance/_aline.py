@@ -895,9 +895,9 @@ class ALINE(_Distance):
             'long': 'minus',
             'aspirated': 'minus',
         },
-        'ː': {'long': 'plus', 'supplemental': True},
-        'ʰ': {'aspirated': 'plus', 'supplemental': True},
-    }  # type: Dict[str, Dict[str, Union[str, bool]]]
+        'ː': {'long': 'plus', 'supplemental': 'True'},
+        'ʰ': {'aspirated': 'plus', 'supplemental': 'True'},
+    }  # type: Dict[str, Dict[str, str]]
 
     phones_kondrak = {
         'a': {
@@ -1156,26 +1156,26 @@ class ALINE(_Distance):
             'retroflex': 'minus',
             'lateral': 'minus',
         },
-        'A': {'aspirated': 'plus', 'supplemental': True},
-        'B': {'back': 'back', 'supplemental': True},
-        'C': {'back': 'central', 'supplemental': True},
-        'D': {'place': 'dental', 'supplemental': True},
-        'F': {'back': 'front', 'supplemental': True},
-        'H': {'long': 'plus', 'supplemental': True},
-        'N': {'nasal': 'plus', 'supplemental': True},
-        'P': {'place': 'palatal', 'supplemental': True},
-        'R': {'round': 'plus', 'supplemental': True},
-        'S': {'manner': 'fricative', 'supplemental': True},
-        'V': {'place': 'palato-alveolar', 'supplemental': True},
-    }  # type: Dict[str, Dict[str, Union[str, bool]]]
+        'A': {'aspirated': 'plus', 'supplemental': 'True'},
+        'B': {'back': 'back', 'supplemental': 'True'},
+        'C': {'back': 'central', 'supplemental': 'True'},
+        'D': {'place': 'dental', 'supplemental': 'True'},
+        'F': {'back': 'front', 'supplemental': 'True'},
+        'H': {'long': 'plus', 'supplemental': 'True'},
+        'N': {'nasal': 'plus', 'supplemental': 'True'},
+        'P': {'place': 'palatal', 'supplemental': 'True'},
+        'R': {'round': 'plus', 'supplemental': 'True'},
+        'S': {'manner': 'fricative', 'supplemental': 'True'},
+        'V': {'place': 'palato-alveolar', 'supplemental': 'True'},
+    }  # type: Dict[str, Dict[str, str]]
 
     def __init__(
         self,
         epsilon: float = 0.0,
-        c_skip: int = -10,
-        c_sub: int = 35,
-        c_exp: int = 45,
-        c_vwl: int = 10,
+        c_skip: float = -10,
+        c_sub: float = 35,
+        c_exp: float = 45,
+        c_vwl: float = 10,
         mode: str = 'local',
         phones: str = 'aline',
         normalizer: Callable[[List[float]], float] = max,
@@ -1190,13 +1190,13 @@ class ALINE(_Distance):
             alignments are returned. If set to 0, only the alignments matching
             the maximum alignment score are returned. If set to 1, all
             alignments scoring 0 or higher are returned.
-        c_skip : int
+        c_skip : float
             The cost of an insertion or deletion
-        c_sub : int
+        c_sub : float
             The cost of a substitution
-        c_exp : int
+        c_exp : float
             The cost of an expansion or contraction
-        c_vwl : int
+        c_vwl : float
             The additional cost of a vowel substitution, expansion, or
             contraction
         mode : str
@@ -1309,10 +1309,10 @@ class ALINE(_Distance):
 
         """
 
-        def _sig_skip(*args):
+        def _sig_skip(*args: Any) -> float:
             return self._c_skip
 
-        def _sig_sub(seg1, seg2):
+        def _sig_sub(seg1: Dict[str, float], seg2: Dict[str, float]) -> float:
             return (
                 self._c_sub
                 - _delta(seg1, seg2)
@@ -1320,7 +1320,11 @@ class ALINE(_Distance):
                 - _sig_vwl(seg2)
             )
 
-        def _sig_exp(seg1, seg2a, seg2b):
+        def _sig_exp(
+            seg1: Dict[str, float],
+            seg2a: Dict[str, float],
+            seg2b: Dict[str, float],
+        ) -> float:
             return (
                 self._c_exp
                 - _delta(seg1, seg2a)
@@ -1329,14 +1333,14 @@ class ALINE(_Distance):
                 - max(_sig_vwl(seg2a), _sig_vwl(seg2b))
             )
 
-        def _sig_vwl(seg1):
+        def _sig_vwl(seg1: Dict[str, float]) -> float:
             return (
                 0.0
                 if seg1['manner'] > self.feature_weights['high vowel']
                 else self._c_vwl
             )
 
-        def _delta(seg1, seg2):
+        def _delta(seg1: Dict[str, float], seg2: Dict[str, float]) -> float:
             features = (
                 self.c_features
                 if max(seg1['manner'], seg2['manner'])
@@ -1350,13 +1354,15 @@ class ALINE(_Distance):
                 )
             return diff
 
-        def _retrieve(i, j, score, out):
-            def _record(score, out):
+        def _retrieve(
+            i: int, j: int, score: float, out: List[Tuple[str, str]]
+        ) -> None:
+            def _record(score: float, out: List[Tuple[str, str]]) -> None:
                 out.append(('‖', '‖'))
                 for i1 in range(i - 1, -1, -1):
-                    out.append((src_tok[i1]['segment'], ''))
+                    out.append((src_tok[i1], ''))
                 for j1 in range(j - 1, -1, -1):
-                    out.append(('', tar_tok[j1]['segment']))
+                    out.append(('', tar_tok[j1]))
                 if self._mode == 'global':
                     score += (i + j) * _sig_skip('')
 
@@ -1367,8 +1373,8 @@ class ALINE(_Distance):
 
                 out.append(('‖', '‖'))
                 part = 0
-                s_segment = ''
-                t_segment = ''
+                s_segment = ''  # type: Union[str, List[str]]
+                t_segment = ''  # type: Union[str, List[str]]
                 for ss, ts in out:
                     if ss == '‖':
                         if part % 2 == 0:
@@ -1384,16 +1390,26 @@ class ALINE(_Distance):
                         part += 1
                     else:
                         if part % 2 == 0:
-                            s_segment += ss
-                            t_segment += ts
+                            s_segment = cast(str, s_segment) + ss
+                            t_segment = cast(str, t_segment) + ts
                         else:
-                            s_segment.append(ss + ' ' * (len(ts) - len(ss)))
-                            t_segment.append(ts + ' ' * (len(ss) - len(ts)))
+                            cast(List[str], s_segment).append(
+                                ss + ' ' * (len(ts) - len(ss))
+                            )
+                            cast(List[str], t_segment).append(
+                                ts + ' ' * (len(ss) - len(ts))
+                            )
 
-                src_alignment = ' ‖ '.join(src_alignment).strip()
-                tar_alignment = ' ‖ '.join(tar_alignment).strip()
+                src_alignment_str = ' ‖ '.join(
+                    cast(List[str], src_alignment)
+                ).strip()
+                tar_alignment_str = ' ‖ '.join(
+                    cast(List[str], tar_alignment)
+                ).strip()
 
-                alignments.append((score, src_alignment, tar_alignment))
+                alignments.append(
+                    (score, src_alignment_str, tar_alignment_str)
+                )
                 return
 
             if s_mat[i, j] == 0:
@@ -1404,18 +1420,17 @@ class ALINE(_Distance):
                     i > 0
                     and j > 0
                     and s_mat[i - 1, j - 1]
-                    + _sig_sub(src_tok[i - 1], tar_tok[j - 1])
+                    + _sig_sub(src_feat_wt[i - 1], tar_feat_wt[j - 1])
                     + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
-                    loc_out.append(
-                        (src_tok[i - 1]['segment'], tar_tok[j - 1]['segment'])
-                    )
+                    loc_out.append((src_tok[i - 1], tar_tok[j - 1]))
                     _retrieve(
                         i - 1,
                         j - 1,
-                        score + _sig_sub(src_tok[i - 1], tar_tok[j - 1]),
+                        score
+                        + _sig_sub(src_feat_wt[i - 1], tar_feat_wt[j - 1]),
                         loc_out,
                     )
                     loc_out.pop()
@@ -1426,7 +1441,7 @@ class ALINE(_Distance):
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
-                    loc_out.append(('-', tar_tok[j - 1]['segment']))
+                    loc_out.append(('-', tar_tok[j - 1]))
                     _retrieve(
                         i, j - 1, score + _sig_skip(tar_tok[j - 1]), loc_out
                     )
@@ -1436,24 +1451,26 @@ class ALINE(_Distance):
                     i > 0
                     and j > 1
                     and s_mat[i - 1, j - 2]
-                    + _sig_exp(src_tok[i - 1], tar_tok[j - 2], tar_tok[j - 1])
+                    + _sig_exp(
+                        src_feat_wt[i - 1],
+                        tar_feat_wt[j - 2],
+                        tar_feat_wt[j - 1],
+                    )
                     + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
                     loc_out.append(
-                        (
-                            src_tok[i - 1]['segment'],
-                            tar_tok[j - 2]['segment']
-                            + tar_tok[j - 1]['segment'],
-                        )
+                        (src_tok[i - 1], tar_tok[j - 2] + tar_tok[j - 1],)
                     )
                     _retrieve(
                         i - 1,
                         j - 2,
                         score
                         + _sig_exp(
-                            src_tok[i - 1], tar_tok[j - 2], tar_tok[j - 1]
+                            src_feat_wt[i - 1],
+                            tar_feat_wt[j - 2],
+                            tar_feat_wt[j - 1],
                         ),
                         loc_out,
                     )
@@ -1465,7 +1482,7 @@ class ALINE(_Distance):
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
-                    loc_out.append((src_tok[i - 1]['segment'], '-'))
+                    loc_out.append((src_tok[i - 1], '-'))
                     _retrieve(
                         i - 1, j, score + _sig_skip(src_tok[i - 1]), loc_out
                     )
@@ -1475,24 +1492,26 @@ class ALINE(_Distance):
                     i > 1
                     and j > 0
                     and s_mat[i - 2, j - 1]
-                    + _sig_exp(tar_tok[j - 1], src_tok[i - 2], src_tok[i - 1])
+                    + _sig_exp(
+                        tar_feat_wt[j - 1],
+                        src_feat_wt[i - 2],
+                        src_feat_wt[i - 1],
+                    )
                     + score
                     >= threshold
                 ):
                     loc_out = deepcopy(out)
                     loc_out.append(
-                        (
-                            src_tok[i - 2]['segment']
-                            + src_tok[i - 1]['segment'],
-                            tar_tok[j - 1]['segment'],
-                        )
+                        (src_tok[i - 2] + src_tok[i - 1], tar_tok[j - 1],)
                     )
                     _retrieve(
                         i - 2,
                         j - 1,
                         score
                         + _sig_exp(
-                            tar_tok[j - 1], src_tok[i - 2], src_tok[i - 1]
+                            tar_feat_wt[j - 1],
+                            src_feat_wt[i - 2],
+                            src_feat_wt[i - 1],
                         ),
                         loc_out,
                     )
@@ -1500,71 +1519,80 @@ class ALINE(_Distance):
 
         sg_max = 0.0
 
-        src_tok = list(
-            src
-        )  # type: List[Union[str, Dict[str, Union[str, bool]]]]
-        tar_tok = list(
-            tar
-        )  # type: List[Union[str, Dict[str, Union[str, bool]]]]
+        src_tok = []  # type: List[str]
+        src_feat = []  # type: List[Dict[str, str]]
+        tar_tok = []  # type: List[str]
+        tar_feat = []  # type: List[Dict[str, str]]
 
-        for ch in range(len(src_tok)):
-            if src_tok[ch] in self._phones:
-                seg = src_tok[ch]
-                src_tok[ch] = dict(self._phones[cast(str, src_tok[ch])])
-                cast(Dict, src_tok[ch])['segment'] = seg
-        for ch in range(len(tar_tok)):
-            if tar_tok[ch] in self._phones:
-                seg = tar_tok[ch]
-                tar_tok[ch] = dict(self._phones[cast(str, tar_tok[ch])])
-                cast(Dict, tar_tok[ch])['segment'] = seg
+        for ch in src:
+            if ch in self._phones:
+                src_tok.append(ch)
+                src_feat.append(dict(self._phones[ch]))
+        for ch in tar:
+            if ch in self._phones:
+                tar_tok.append(ch)
+                tar_feat.append(dict(self._phones[ch]))
 
-        src_tok = [fb for fb in src_tok if isinstance(fb, dict)]
-        tar_tok = [fb for fb in tar_tok if isinstance(fb, dict)]
-
-        for i in range(1, len(src_tok)):
-            if 'supplemental' in src_tok[i]:
+        for i in range(1, len(src_feat)):
+            if 'supplemental' in src_feat[i]:
                 j = i - 1
                 while j > -1:
-                    if 'supplemental' not in src_tok[j]:
-                        for key, value in cast(Dict, src_tok[i]).items():
+                    if 'supplemental' not in src_feat[j]:
+                        src_tok[j] += src_tok[i]
+                        for key, value in src_feat[i].items():
                             if key != 'supplemental':
-                                if key == 'segment':
-                                    cast(Dict, src_tok[j])['segment'] += value
-                                else:
-                                    cast(Dict, src_tok[j])[key] = value
+                                src_feat[j][key] = value
                         j = 0
                     j -= 1
-        src_tok = [fb for fb in src_tok if 'supplemental' not in fb]
 
-        for i in range(1, len(tar_tok)):
-            if 'supplemental' in tar_tok[i]:
-                j = i - 1
-                while j > -1:
-                    if 'supplemental' not in tar_tok[j]:
-                        for key, value in cast(Dict, tar_tok[i]).items():
-                            if key != 'supplemental':
-                                if key == 'segment':
-                                    cast(Dict, tar_tok[j])['segment'] += value
-                                else:
-                                    cast(Dict, tar_tok[j])[key] = value
-                        j = 0
-                    j -= 1
-        tar_tok = [fb for fb in tar_tok if 'supplemental' not in fb]
+        zipped = [
+            fb for fb in zip(src_feat, src_tok) if 'supplemental' not in fb[0]
+        ]
+        if zipped:
+            src_feat, src_tok = zip(*zipped)  # type: ignore
+        else:
+            src_feat, src_tok = [], []
 
-        for i in range(len(src_tok)):
-            for key in cast(Dict, src_tok[i]).keys():
-                if key != 'segment':
-                    cast(Dict, src_tok[i])[key] = self.feature_weights[
-                        cast(Dict, src_tok[i])[key]
-                    ]
-        for i in range(len(tar_tok)):
-            for key in cast(Dict, tar_tok[i]).keys():
-                if key != 'segment':
-                    cast(Dict, tar_tok[i])[key] = self.feature_weights[
-                        cast(Dict, tar_tok[i])[key]
-                    ]
+        src_feat_wt = []  # type: List[Dict[str, float]]
+        for f_dict in src_feat:
+            src_feat_wt.append(
+                {
+                    key: self.feature_weights[f_dict[key]]
+                    for key in f_dict.keys()
+                }
+            )
 
         src_len = len(src_tok)
+
+        for i in range(1, len(tar_feat)):
+            if 'supplemental' in tar_feat[i]:
+                j = i - 1
+                while j > -1:
+                    if 'supplemental' not in tar_feat[j]:
+                        tar_tok[j] += tar_tok[i]
+                        for key, value in tar_feat[i].items():
+                            if key != 'supplemental':
+                                tar_feat[j][key] = value
+                        j = 0
+                    j -= 1
+
+        zipped = [
+            fb for fb in zip(tar_feat, tar_tok) if 'supplemental' not in fb[0]
+        ]
+        if zipped:
+            tar_feat, tar_tok = zip(*zipped)  # type: ignore
+        else:
+            tar_feat, tar_tok = [], []
+
+        tar_feat_wt = []  # type: List[Dict[str, float]]
+        for f_dict in tar_feat:
+            tar_feat_wt.append(
+                {
+                    key: self.feature_weights[f_dict[key]]
+                    for key in f_dict.keys()
+                }
+            )
+
         tar_len = len(tar_tok)
 
         s_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
@@ -1578,16 +1606,24 @@ class ALINE(_Distance):
         for i in range(1, src_len + 1):
             for j in range(1, tar_len + 1):
                 s_mat[i, j] = max(
-                    s_mat[i - 1, j] + _sig_skip(src_tok[i - 1]),
-                    s_mat[i, j - 1] + _sig_skip(tar_tok[j - 1]),
+                    s_mat[i - 1, j] + _sig_skip(src_feat_wt[i - 1]),
+                    s_mat[i, j - 1] + _sig_skip(tar_feat_wt[j - 1]),
                     s_mat[i - 1, j - 1]
-                    + _sig_sub(src_tok[i - 1], tar_tok[j - 1]),
+                    + _sig_sub(src_feat_wt[i - 1], tar_feat_wt[j - 1]),
                     s_mat[i - 1, j - 2]
-                    + _sig_exp(src_tok[i - 1], tar_tok[j - 2], tar_tok[j - 1])
+                    + _sig_exp(
+                        src_feat_wt[i - 1],
+                        tar_feat_wt[j - 2],
+                        tar_feat_wt[j - 1],
+                    )
                     if j > 1
                     else NINF,
                     s_mat[i - 2, j - 1]
-                    + _sig_exp(tar_tok[j - 1], src_tok[i - 2], src_tok[i - 1])
+                    + _sig_exp(
+                        tar_feat_wt[j - 1],
+                        src_feat_wt[i - 2],
+                        src_feat_wt[i - 1],
+                    )
                     if i > 1
                     else NINF,
                     0 if self._mode in {'local', 'half-local'} else NINF,
@@ -1625,16 +1661,13 @@ class ALINE(_Distance):
                 if s_mat[i, j] >= threshold:
                     out = []
                     for j1 in range(tar_len - 1, j - 1, -1):
-                        out.append(('', cast(Dict, tar_tok[j1])['segment']))
+                        out.append(('', tar_tok[j1]))
                     for i1 in range(src_len - 1, i - 1, -1):
-                        out.append((cast(Dict, src_tok[i1])['segment'], ''))
+                        out.append((src_tok[i1], ''))
                     out.append(('‖', '‖'))
                     _retrieve(i, j, 0, out)
 
-        def _first_element(x):
-            return x[0]
-
-        return sorted(alignments, key=_first_element, reverse=True)
+        return sorted(alignments, key=lambda _: _[0], reverse=True)
 
     def sim_score(self, src: str, tar: str) -> float:
         """Return the ALINE alignment score of two strings.
