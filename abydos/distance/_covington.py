@@ -20,7 +20,7 @@ Covington distance
 """
 
 from collections import namedtuple
-from typing import Any, Tuple
+from typing import Any, List, Optional, Tuple
 from unicodedata import normalize as unicode_normalize
 
 from ._distance import _Distance
@@ -188,7 +188,9 @@ class Covington(_Distance):
         alignment = self.alignments(src, tar, 1)[0]
         return alignment.score, alignment.src, alignment.tar
 
-    def alignments(self, src, tar, top_n=None):
+    def alignments(
+        self, src: str, tar: str, top_n: Optional[int] = None
+    ) -> List[Alignment]:
         """Return the Covington alignments of two strings.
 
         Parameters
@@ -221,26 +223,26 @@ class Covington(_Distance):
         """
         if not src:
             if not tar:
-                return [['', '', 0]]
+                return [Alignment('', '', 0)]
             return [
-                [
+                Alignment(
                     '-' * len(tar),
                     src,
                     self._weights[7] + self._weights[6] * (len(tar) - 1),
-                ]
+                )
             ]
         if not tar:
             return [
-                [
+                Alignment(
                     src,
                     '-' * len(src),
                     self._weights[7] + self._weights[6] * (len(src) - 1),
-                ]
+                )
             ]
 
         terminals = []
 
-        def _cost(s, t):
+        def _cost(s: str, t: str) -> float:
             if s[-1:] == '-':
                 if s[-2:] == '--':
                     return self._weights[6]
@@ -277,7 +279,9 @@ class Covington(_Distance):
 
             return self._weights[5]
 
-        def _add_alignments(cost, src, tar, src_align, tar_align):
+        def _add_alignments(
+            cost: float, src: str, tar: str, src_align: str, tar_align: str
+        ) -> None:
             cost += _cost(src_align, tar_align)
 
             if src and tar:
@@ -306,10 +310,7 @@ class Covington(_Distance):
         _add_alignments(0, src[1:], tar, src[0], '-')
         _add_alignments(0, src[1:], tar[1:], src[0], tar[0])
 
-        def _score(al):
-            return al.score
-
-        terminals = sorted(terminals, key=_score)
+        terminals = sorted(terminals, key=lambda al: al.score)
 
         if top_n == 0:
             top_score = terminals[0].score
