@@ -243,7 +243,7 @@ class Arithmetic:
         ]
 
         char = '\x00'
-        minval = maxval = 0
+        minval = maxval = Fraction(0)
         while True:
             for (char, minval, maxval) in probs_items:  # noqa: B007
                 if minval <= val < maxval:
