@@ -108,7 +108,7 @@ class QuantitativeDice(_TokenDistance):
         return (
             2
             * sum(
-                self._src_tokens[tok] * self._tar_tokens[tok]
+                self._src_tokens[tok] * self._tar_tokens[tok]  # type: ignore
                 for tok in alphabet
             )
             / (

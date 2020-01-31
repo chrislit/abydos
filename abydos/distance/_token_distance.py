@@ -20,13 +20,12 @@ The distance._token_distance._TokenDistance module implements abstract class
 _TokenDistance.
 """
 
-from collections import Counter, OrderedDict, defaultdict
+from collections import Counter, OrderedDict
 from itertools import product
 from math import exp, log1p
 from typing import (
     Any,
     Callable,
-    DefaultDict,
     Counter as TCounter,
     Optional,
     Tuple,
@@ -662,9 +661,9 @@ member function, such as Levenshtein."
                         int_val,
                     ) = _token_src_tar_int(src_tok, tar_tok)
 
-                    src_new[src_ntok] += src_val * pairings
-                    tar_new[tar_ntok] += tar_val * pairings
-                    intersection[int_ntok] += int_val * pairings
+                    src_new[src_ntok] += src_val * pairings  # type: ignore
+                    tar_new[tar_ntok] += tar_val * pairings  # type: ignore
+                    intersection[int_ntok] += int_val * pairings  # type: ignore
 
                     # Remove pairings from src_only/tar_only
                     src_only[src_tok] -= pairings
@@ -879,12 +878,12 @@ member function, such as Levenshtein."
                         break
                 col = z_series[-1][1]
                 while True:
-                    row = tuple(
+                    row_content = tuple(
                         set((arr[:, col] == 0).nonzero()[0])
                         & set((starred[:, col]).nonzero()[0])
                     )
-                    if row:
-                        row = row[0]
+                    if row_content:
+                        row = row_content[0]
                         z_series.append((row, col))
                         col = tuple(
                             set((arr[row, :] == 0).nonzero()[0])
@@ -949,8 +948,8 @@ member function, such as Levenshtein."
                         tar_only[tar_only_tok[row]],
                     )
                 )
-                intersection[src_only_tok[col]] += score
-                intersection[tar_only_tok[row]] += score
+                intersection[src_only_tok[col]] += score  # type: ignore
+                intersection[tar_only_tok[row]] += score  # type: ignore
 
         return intersection
 

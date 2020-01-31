@@ -66,30 +66,33 @@ class ConfusionTable:
     based on the confusion table.
     """
 
-    _tp, _tn, _fp, _fn = 0, 0, 0, 0
+    _tp, _tn, _fp, _fn = 0.0, 0.0, 0.0, 0.0
 
     def __init__(
         self,
         tp: Union[
-            int, Tuple[int, int, int, int], List[int], Dict[str, int],
-        ] = 0,
-        tn: int = 0,
-        fp: int = 0,
-        fn: int = 0,
+            float,
+            Tuple[float, float, float, float],
+            List[float],
+            Dict[str, float],
+        ] = 0.0,
+        tn: float = 0.0,
+        fp: float = 0.0,
+        fn: float = 0.0,
     ) -> None:
         """Initialize ConfusionTable.
 
         Parameters
         ----------
-        tp : int or a tuple, list, or dict
+        tp : float or a tuple, list, or dict
             True positives; If a tuple or list is supplied, it must include 4
             values in the order [tp, tn, fp, fn]. If a dict is supplied, it
             must have 4 keys, namely 'tp', 'tn', 'fp', & 'fn'.
-        tn : int
+        tn : float
             True negatives
-        fp : int
+        fp : float
             False positives
-        fn : int
+        fn : float
             False negatives
 
         Raises
@@ -247,7 +250,7 @@ class ConfusionTable:
             self._tp, self._tn, self._fp, self._fn
         )
 
-    def to_tuple(self) -> Tuple[int, int, int, int]:
+    def to_tuple(self) -> Tuple[float, float, float, float]:
         """Cast to tuple.
 
         Returns
@@ -267,7 +270,7 @@ class ConfusionTable:
         """
         return self._tp, self._tn, self._fp, self._fn
 
-    def to_dict(self) -> Dict[str, int]:
+    def to_dict(self) -> Dict[str, float]:
         """Cast to dict.
 
         Returns
@@ -288,12 +291,12 @@ class ConfusionTable:
         """
         return {'tp': self._tp, 'tn': self._tn, 'fp': self._fp, 'fn': self._fn}
 
-    def true_pos(self) -> int:
+    def true_pos(self) -> float:
         """Return true positives.
 
         Returns
         -------
-        int
+        float
             The true positives of the confusion table
 
         Example
@@ -308,12 +311,12 @@ class ConfusionTable:
         """
         return self._tp
 
-    def true_neg(self) -> int:
+    def true_neg(self) -> float:
         """Return true negatives.
 
         Returns
         -------
-        int
+        float
             The true negatives of the confusion table
 
         Example
@@ -328,14 +331,14 @@ class ConfusionTable:
         """
         return self._tn
 
-    def false_pos(self) -> int:
+    def false_pos(self) -> float:
         """Return false positives.
 
         AKA Type I error
 
         Returns
         -------
-        int
+        float
             The false positives of the confusion table
 
         Example
@@ -350,14 +353,14 @@ class ConfusionTable:
         """
         return self._fp
 
-    def false_neg(self) -> int:
+    def false_neg(self) -> float:
         """Return false negatives.
 
         AKA Type II error
 
         Returns
         -------
-        int
+        float
             The false negatives of the confusion table
 
         Example
@@ -372,12 +375,12 @@ class ConfusionTable:
         """
         return self._fn
 
-    def correct_pop(self) -> int:
+    def correct_pop(self) -> float:
         """Return correct population.
 
         Returns
         -------
-        int
+        float
             The correct population of the confusion table
 
         Example
@@ -392,12 +395,12 @@ class ConfusionTable:
         """
         return self._tp + self._tn
 
-    def error_pop(self) -> int:
+    def error_pop(self) -> float:
         """Return error population.
 
         Returns
         -------
-        int
+        float
             The error population of the confusion table
 
         Example
@@ -412,12 +415,12 @@ class ConfusionTable:
         """
         return self._fp + self._fn
 
-    def pred_pos_pop(self) -> int:
+    def pred_pos_pop(self) -> float:
         """Return predicted positive population.
 
         Returns
         -------
-        int
+        float
             The predicted positive population of the confusion table
 
         Example
@@ -437,12 +440,12 @@ class ConfusionTable:
         """
         return self._tp + self._fp
 
-    def pred_neg_pop(self) -> int:
+    def pred_neg_pop(self) -> float:
         """Return predicted negative population.
 
         Returns
         -------
-        int
+        float
             The predicted negative population of the confusion table
 
         Example
@@ -462,12 +465,12 @@ class ConfusionTable:
         """
         return self._tn + self._fn
 
-    def cond_pos_pop(self) -> int:
+    def cond_pos_pop(self) -> float:
         """Return condition positive population.
 
         Returns
         -------
-        int
+        float
             The condition positive population of the confusion table
 
         Example
@@ -482,12 +485,12 @@ class ConfusionTable:
         """
         return self._tp + self._fn
 
-    def cond_neg_pop(self) -> int:
+    def cond_neg_pop(self) -> float:
         """Return condition negative population.
 
         Returns
         -------
-        int
+        float
             The condition negative population of the confusion table
 
         Example
@@ -502,12 +505,12 @@ class ConfusionTable:
         """
         return self._fp + self._tn
 
-    def population(self) -> int:
+    def population(self) -> float:
         """Return population, N.
 
         Returns
         -------
-        int
+        float
             The population (N) of the confusion table
 
         Example
