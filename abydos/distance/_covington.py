@@ -20,7 +20,7 @@ Covington distance
 """
 
 from collections import namedtuple
-from typing import Any, List, Optional, Tuple
+from typing import Any, List, Optional, Tuple, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._distance import _Distance
@@ -115,7 +115,7 @@ class Covington(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return self.alignments(src, tar, 1)[0][-1]
+        return cast(float, self.alignments(src, tar, 1)[0][-1])
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized Covington distance of two strings.

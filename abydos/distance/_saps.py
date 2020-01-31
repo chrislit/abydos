@@ -165,7 +165,7 @@ class SAPS(_Distance):
                     d_mat[i, j] + self._s(src[i], tar[j]),  # sub/==
                 )
 
-        return d_mat[len(src), len(tar)]
+        return cast(float, d_mat[len(src), len(tar)])
 
     def sim(self, src: str, tar: str) -> float:
         """Return the normalized SAPS similarity between two strings.

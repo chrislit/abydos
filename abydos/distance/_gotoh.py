@@ -143,7 +143,7 @@ class Gotoh(NeedlemanWunsch):
                 )
 
         i, j = (n - 1 for n in d_mat.shape)
-        return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
+        return cast(float, max(d_mat[i, j], p_mat[i, j], q_mat[i, j]))
 
     def sim(self, src: str, tar: str) -> float:
         """Return the normalized Gotoh score of two strings.

@@ -1642,7 +1642,7 @@ class ALINE(_Distance):
             dp_score = s_mat.max()
 
         if score_only:
-            return dp_score
+            return cast(float, dp_score)
 
         threshold = (1 - self._epsilon) * dp_score
 

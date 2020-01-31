@@ -19,7 +19,7 @@
 BI-SIM similarity
 """
 
-from typing import Any
+from typing import Any, cast
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -114,7 +114,7 @@ class BISIM(_Distance):
                     d_mat[i - 1, j],  # ins
                     d_mat[i, j - 1],  # del
                 )
-        return d_mat[src_len, tar_len] / max(src_len, tar_len)
+        return cast(float, d_mat[src_len, tar_len]) / max(src_len, tar_len)
 
 
 if __name__ == '__main__':

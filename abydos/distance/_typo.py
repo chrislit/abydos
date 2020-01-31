@@ -21,7 +21,7 @@ Typo edit distance functions.
 
 from itertools import chain
 from math import log
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, cast
 
 from numpy import float32 as np_float32
 from numpy import zeros as np_zeros
@@ -205,7 +205,7 @@ class Typo(_Distance):
 
         if self._layout == 'auto':
             for kb in ['QWERTY', 'QWERTZ', 'AZERTY']:
-                keys = set(chain(*chain(*self._keyboard[kb])))  # type: ignore
+                keys = set(chain(*chain(*self._keyboard[kb])))
                 letters = set(src) | set(tar)
                 if not (letters - keys):
                     keyboard = self._keyboard[kb]
@@ -217,12 +217,12 @@ class Typo(_Distance):
             keyboard = self._keyboard[self._layout]
 
         lowercase = {
-            item for sublist in keyboard[0] for item in sublist  # type: ignore
+            item for sublist in keyboard[0] for item in sublist
         }
         uppercase = {
-            item for sublist in keyboard[1] for item in sublist  # type: ignore
+            item for sublist in keyboard[1] for item in sublist
         }
-        keys = set(chain(*chain(*keyboard)))  # type: ignore
+        keys = set(chain(*chain(*keyboard)))
 
         def _kb_array_for_char(char: str) -> Tuple[Tuple[str, ...], ...]:
             """Return the keyboard layout that contains ch.
@@ -327,7 +327,7 @@ class Typo(_Distance):
                     ),  # sub/==
                 )
 
-        return d_mat[len(src), len(tar)]
+        return cast(float, d_mat[len(src), len(tar)])
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized typo distance between two strings.

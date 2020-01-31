@@ -20,7 +20,7 @@ Damerau-Levenshtein distance
 """
 
 from sys import maxsize
-from typing import Any, Callable, List, Tuple
+from typing import Any, Callable, List, Tuple, cast
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -186,7 +186,7 @@ class DamerauLevenshtein(_Distance):
                 )
             src_index_by_character[src[i]] = i
 
-        return d_mat[len(src) - 1, len(tar) - 1]
+        return cast(float, d_mat[len(src) - 1, len(tar) - 1])
 
     def dist(self, src: str, tar: str) -> float:
         """Return the Damerau-Levenshtein similarity of two strings.

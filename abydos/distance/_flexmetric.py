@@ -19,7 +19,7 @@
 FlexMetric distance
 """
 
-from typing import Any, Callable, Collection, List, Optional, Tuple
+from typing import Any, Callable, Collection, List, Optional, Tuple, cast
 
 from numpy import float as np_float
 from numpy import zeros as np_zeros
@@ -195,7 +195,7 @@ class FlexMetric(_Distance):
                     ),  # sub/==
                 )
 
-        return d_mat[src_len, tar_len]
+        return cast(float, d_mat[src_len, tar_len])
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized FlexMetric distance of two strings.

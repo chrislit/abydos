@@ -328,7 +328,7 @@ class Levenshtein(_Distance):
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
         else:
-            return d_mat[src_len, tar_len]
+            return cast(float, d_mat[src_len, tar_len])
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized Levenshtein distance between two strings.

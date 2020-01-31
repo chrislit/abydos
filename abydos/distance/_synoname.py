@@ -498,7 +498,7 @@ class Synoname(_Distance):
                 if term in self._test_dict:
                     self._tests += self._test_dict[term]
         else:
-            self._tests = cast(int, tests)
+            self._tests = tests
 
     def dist_abs(self, src: str, tar: str) -> int:
         """Return the Synoname similarity type of two words.

@@ -111,7 +111,7 @@ class SmithWaterman(NeedlemanWunsch):
                 delete = d_mat[i - 1, j] - self._gap_cost
                 insert = d_mat[i, j - 1] - self._gap_cost
                 d_mat[i, j] = max(0, match, delete, insert)
-        return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
+        return cast(float, d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1])
 
     def sim(self, src: str, tar: str) -> float:
         """Return the normalized Smith-Waterman score of two strings.

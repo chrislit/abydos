@@ -156,10 +156,8 @@ class Sift4Extended(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        cast(_Tokenizer, self._tokenizer).tokenize(src)
-        src_list = cast(_Tokenizer, self._tokenizer).get_list()
-        cast(_Tokenizer, self._tokenizer).tokenize(tar)
-        tar_list = cast(_Tokenizer, self._tokenizer).get_list()
+        src_list = self._tokenizer.tokenize(src).get_list()
+        tar_list = self._tokenizer.tokenize(tar).get_list()
 
         if not src_list:
             return len(tar_list)

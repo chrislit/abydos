@@ -62,16 +62,12 @@ class RougeW(_Distance):
         super(RougeW, self).__init__(**kwargs)
 
         if f_func is not None:
-            self._f_func = cast(
-                Callable[[float], float], f_func
-            )  # type: Callable[[float], float]
+            self._f_func = f_func # type: Callable[[float], float]
         else:
             self._f_func = RougeW._square  # noqa: SF01
 
         if f_inv is not None:
-            self._f_inv = cast(
-                Callable[[float], float], f_inv
-            )  # type: Callable[[float], float]
+            self._f_inv = f_inv  # type: Callable[[float], float]
         else:
             self._f_inv = RougeW._sqrt  # noqa: SF01
 
@@ -144,7 +140,7 @@ class RougeW(_Distance):
                         c_mat[i, j] = c_mat[i, j - 1]
                         w_mat[i, j] = 0
 
-        return c_mat[src_len - 1, tar_len - 1]
+        return cast(float, c_mat[src_len - 1, tar_len - 1])
 
     def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-W similarity of two strings.

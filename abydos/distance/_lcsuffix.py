@@ -20,7 +20,7 @@ Longest common suffix
 """
 
 from os.path import commonprefix
-from typing import List
+from typing import List, cast
 
 from ._lcprefix import LCPrefix
 
@@ -65,7 +65,7 @@ class LCSuffix(LCPrefix):
 
         """
         strings = [s[::-1] for s in strings]
-        return commonprefix(strings)[::-1]
+        return cast(str, commonprefix(strings)[::-1])
 
     def dist_abs(self, src: str, tar: str, *args: str) -> int:
         """Return the length of the longest common suffix of the strings.

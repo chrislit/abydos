@@ -20,7 +20,7 @@ Shapira & Storer I edit distance with block moves, greedy algorithm
 """
 
 from collections import Counter
-from typing import Any, Counter as TCounter, Tuple
+from typing import Any, Counter as TCounter, Tuple, cast
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -127,8 +127,7 @@ class ShapiraStorerI(_Distance):
             alphabet |= {next_char}
             lcs = self._lcs.lcsstr(src, tar)
 
-        d = self._edit_with_moves(src, tar)
-        return d
+        return self._edit_with_moves(src, tar)
 
     def _edit_with_moves(self, src: str, tar: str) -> int:
         """Return the edit distance between two strings using ins, del, & move.
@@ -210,7 +209,7 @@ class ShapiraStorerI(_Distance):
 
         moves = sum((inserts & deletes).values())
 
-        return distance - moves
+        return cast(int, distance - moves)
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized Shapira & Storer I distance.

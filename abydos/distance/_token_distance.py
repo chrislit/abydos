@@ -29,6 +29,7 @@ from typing import (
     Counter as TCounter,
     Optional,
     Tuple,
+    Union,
 )
 
 import numpy as np
@@ -285,7 +286,7 @@ class _TokenDistance(_Distance):
     def _norm_complement(x: float, _squares: int, pop: float) -> float:
         return pop - x
 
-    def _tokenize(self, src: str, tar: str) -> '_TokenDistance':
+    def _tokenize(self, src: Union[str, TCounter], tar: Union[str, TCounter]) -> '_TokenDistance':
         """Return the Q-Grams in src & tar.
 
         Parameters

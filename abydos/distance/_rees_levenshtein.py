@@ -19,7 +19,7 @@
 Rees-Levenshtein distance
 """
 
-from typing import Any, Callable, List
+from typing import Any, Callable, List, cast
 
 from numpy import int as np_int
 from numpy import zeros as np_zeros
@@ -221,7 +221,7 @@ class ReesLevenshtein(_Distance):
                         )
                     v_temp_block_length -= 1
 
-        return d_mat[v_str1_length, v_str2_length]
+        return cast(float, d_mat[v_str1_length, v_str2_length])
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized Rees-Levenshtein distance of two strings.

@@ -20,7 +20,7 @@ Longest common prefix
 """
 
 from os.path import commonprefix
-from typing import List
+from typing import List, cast
 
 from ._distance import _Distance
 
@@ -64,7 +64,7 @@ class LCPrefix(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return commonprefix(strings)
+        return cast(str, commonprefix(strings))
 
     def dist_abs(self, src: str, tar: str, *args: str) -> int:
         """Return the length of the longest common prefix of the strings.
