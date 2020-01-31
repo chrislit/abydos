@@ -21,7 +21,7 @@ Arithmetic coder/decoder
 
 from collections import Counter
 from fractions import Fraction
-from typing import Dict, Union
+from typing import Dict, Tuple, Union
 
 __all__ = ['Arithmetic']
 
@@ -36,7 +36,7 @@ class Arithmetic:
     .. versionadded:: 0.3.6
     """
 
-    _probs = {}  # type: Dict[str, tuple]
+    _probs = {}  # type: Dict[str, Tuple[Fraction, Fraction]]
 
     def __init__(self, text: Union[str, None] = None) -> None:
         """Initialize arithmetic coder object.
@@ -53,7 +53,7 @@ class Arithmetic:
         if text is not None:
             self.train(text)
 
-    def get_probs(self) -> dict:
+    def get_probs(self) -> Dict[str, Tuple[Fraction, Fraction]]:
         """Return the probs dictionary.
 
         Returns
@@ -67,7 +67,7 @@ class Arithmetic:
         """
         return self._probs
 
-    def set_probs(self, probs: dict) -> None:
+    def set_probs(self, probs: Dict[str, Tuple[Fraction, Fraction]]) -> None:
         """Set the probs dictionary.
 
         Parameters
@@ -149,7 +149,7 @@ class Arithmetic:
             prev = follow
             tot = tot + count
 
-    def encode(self, text: str) -> tuple:
+    def encode(self, text: str) -> Tuple[int, int]:
         """Encode a text using arithmetic coding.
 
         Text and the 0-order probability statistics -> longval, nbits
