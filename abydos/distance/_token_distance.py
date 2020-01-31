@@ -257,25 +257,32 @@ class _TokenDistance(_Distance):
         self._soft_src_only = Counter()  # type: TCounter[str]
         self._soft_tar_only = Counter()  # type: TCounter[str]
 
-    def _norm_none(self, x: float, _squares: int, _pop: float) -> float:
+    @staticmethod
+    def _norm_none(x: float, _squares: int, _pop: float) -> float:
         return x
 
-    def _norm_proportional(self, x: float, _squares: int, pop: float) -> float:
+    @staticmethod
+    def _norm_proportional(x: float, _squares: int, pop: float) -> float:
         return x / max(1, pop)
 
-    def _norm_log(self, x: float, _squares: int, _pop: float) -> float:
+    @staticmethod
+    def _norm_log(x: float, _squares: int, _pop: float) -> float:
         return log1p(x)
 
-    def _norm_exp(self, x: float, _squares: int, _pop: float) -> float:
+    @staticmethod
+    def _norm_exp(x: float, _squares: int, _pop: float) -> float:
         return exp(x)
 
-    def _norm_laplace(self, x: float, squares: int, _pop: float) -> float:
+    @staticmethod
+    def _norm_laplace(x: float, squares: int, _pop: float) -> float:
         return x + squares
 
-    def _norm_inverse(self, x: float, _squares: int, pop: float) -> float:
+    @staticmethod
+    def _norm_inverse(x: float, _squares: int, pop: float) -> float:
         return 1 / x if x else pop
 
-    def _norm_complement(self, x: float, _squares: int, pop: float) -> float:
+    @staticmethod
+    def _norm_complement(x: float, _squares: int, pop: float) -> float:
         return pop - x
 
     def _tokenize(self, src: str, tar: str) -> '_TokenDistance':
