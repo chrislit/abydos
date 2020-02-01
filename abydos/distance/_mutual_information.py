@@ -20,7 +20,7 @@ Mutual Information similarity
 """
 
 from math import log2
-from typing import Any, Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union, cast
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -179,7 +179,7 @@ class MutualInformation(_TokenDistance):
             if not norm:
                 norm = [1]
 
-            return (1.0 + score / max(norm)) / 2.0
+            return cast(float, (1.0 + score / max(norm)) / 2.0)
         return 0.0
 
 

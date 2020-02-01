@@ -30,6 +30,7 @@ from typing import (
     Optional,
     Tuple,
     Union,
+    cast,
 )
 
 import numpy as np
@@ -286,7 +287,9 @@ class _TokenDistance(_Distance):
     def _norm_complement(x: float, _squares: int, pop: float) -> float:
         return pop - x
 
-    def _tokenize(self, src: Union[str, TCounter], tar: Union[str, TCounter]) -> '_TokenDistance':
+    def _tokenize(
+        self, src: Union[str, TCounter], tar: Union[str, TCounter]
+    ) -> '_TokenDistance':
         """Return the Q-Grams in src & tar.
 
         Parameters
@@ -595,12 +598,13 @@ member function, such as Levenshtein."
 
         def _membership(src: str, tar: str) -> float:
             greater_length = max(len(src), len(tar))
-            return (
+            return cast(
+                float,
                 max(
                     greater_length - self.params['metric'].dist_abs(src, tar),
                     self._lcprefix.dist_abs(src, tar),
                 )
-                / greater_length
+                / greater_length,
             )
 
         def _token_src_tar_int(

@@ -62,7 +62,7 @@ class RougeW(_Distance):
         super(RougeW, self).__init__(**kwargs)
 
         if f_func is not None:
-            self._f_func = f_func # type: Callable[[float], float]
+            self._f_func = f_func  # type: Callable[[float], float]
         else:
             self._f_func = RougeW._square  # noqa: SF01
 

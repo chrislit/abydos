@@ -19,7 +19,7 @@
 Sift4 Extended approximate string distance
 """
 
-from typing import Any, Callable, Dict, List, Optional, Union, cast
+from typing import Any, Callable, Dict, List, Optional, Union
 
 from ._distance import _Distance
 from ._sift4 import Sift4

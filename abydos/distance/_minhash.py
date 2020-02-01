@@ -20,7 +20,7 @@ MinHash similarity
 """
 
 from hashlib import sha512
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 import numpy as np
 
@@ -150,7 +150,7 @@ class MinHash(_Distance):
                 ),
             )
 
-        return (hashes_src == hashes_tar).sum() / k
+        return cast(float, (hashes_src == hashes_tar).sum() / k)
 
 
 if __name__ == '__main__':

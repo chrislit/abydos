@@ -151,7 +151,7 @@ class Hellinger(_TokenDistance):
         norm = (
             2
             * sum(
-                max(self._src_tokens[tok], self._tar_tokens[tok]) ** 2  # type: ignore  # noqa: E501
+                max(self._src_tokens[tok], self._tar_tokens[tok]) ** 2
                 for tok in self._total().keys()
             )
         ) ** 0.5

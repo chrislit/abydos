@@ -19,7 +19,7 @@
 Tversky index
 """
 
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -175,21 +175,29 @@ class Tversky(_TokenDistance):
             return 0.0
 
         if self.params['bias'] is None:
-            return q_intersection_mag / (
+            return cast(
+                float,
                 q_intersection_mag
-                + self.params['alpha'] * q_src_mag
-                + self.params['beta'] * q_tar_mag
+                / (
+                    q_intersection_mag
+                    + self.params['alpha'] * q_src_mag
+                    + self.params['beta'] * q_tar_mag
+                ),
             )
 
         a_val, b_val = sorted((q_src_mag, q_tar_mag))
         c_val = q_intersection_mag + self.params['bias']
-        return c_val / (
-            self.params['beta']
-            * (
-                self.params['alpha'] * a_val
-                + (1 - self.params['alpha']) * b_val
-            )
-            + c_val
+        return cast(
+            float,
+            c_val
+            / (
+                self.params['beta']
+                * (
+                    self.params['alpha'] * a_val
+                    + (1 - self.params['alpha']) * b_val
+                )
+                + c_val
+            ),
         )
 
 

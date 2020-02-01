@@ -91,7 +91,7 @@ class MetaLevenshtein(_Distance):
         """
         super(MetaLevenshtein, self).__init__(**kwargs)
         self._corpus = corpus
-        self._metric = cast(_Distance, metric)
+        self._metric = JaroWinkler() if metric is None else metric
         self._normalizer = normalizer
 
         qval = 2 if 'qval' not in self.params else self.params['qval']
@@ -102,9 +102,6 @@ class MetaLevenshtein(_Distance):
             if qval == 0
             else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         )
-
-        if self._metric is None:
-            self._metric = JaroWinkler()
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Meta-Levenshtein distance of two strings.
@@ -195,7 +192,7 @@ class MetaLevenshtein(_Distance):
                     + _dist(src_ordered[i], tar_ordered[j]),  # sub/==
                 )
 
-        return d_mat[len(src_ordered), len(tar_ordered)]
+        return cast(float, d_mat[len(src_ordered), len(tar_ordered)])
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized Levenshtein distance between two strings.

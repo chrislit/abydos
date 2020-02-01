@@ -216,12 +216,8 @@ class Typo(_Distance):
         else:
             keyboard = self._keyboard[self._layout]
 
-        lowercase = {
-            item for sublist in keyboard[0] for item in sublist
-        }
-        uppercase = {
-            item for sublist in keyboard[1] for item in sublist
-        }
+        lowercase = {item for sublist in keyboard[0] for item in sublist}
+        uppercase = {item for sublist in keyboard[1] for item in sublist}
         keys = set(chain(*chain(*keyboard)))
 
         def _kb_array_for_char(char: str) -> Tuple[Tuple[str, ...], ...]:

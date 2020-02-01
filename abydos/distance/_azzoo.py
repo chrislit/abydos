@@ -19,7 +19,7 @@
 AZZOO similarity
 """
 
-from typing import Any, Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union, cast
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -141,7 +141,7 @@ class AZZOO(_TokenDistance):
         a = self._intersection_card()
         d = self._total_complement_card()
 
-        return a + self.params['sigma'] * d
+        return cast(float, a + self.params['sigma'] * d)
 
     def sim(self, src: str, tar: str) -> float:
         """Return the AZZOO similarity of two strings.

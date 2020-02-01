@@ -19,7 +19,7 @@
 Minkowski distance & similarity
 """
 
-from typing import Any, Collection, Counter as TCounter, Optional, Union
+from typing import Any, Collection, Counter as TCounter, Optional, Union, cast
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -144,10 +144,11 @@ class Minkowski(_TokenDistance):
         if self.params['pval'] == 0:
             # This is the l_0 "norm" as developed by David Donoho
             return sum(_ != 0 for _ in diffs) / normalizer
-        return (
+        return cast(
+            float,
             sum(_ ** self.params['pval'] for _ in diffs)
             ** (1 / self.params['pval'])
-            / normalizer
+            / normalizer,
         )
 
     def dist(self, src: str, tar: str) -> float:

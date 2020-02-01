@@ -21,7 +21,7 @@ SoftTF-IDF similarity
 
 from collections import defaultdict
 from math import log1p
-from typing import Any, DefaultDict, Optional, Tuple, cast
+from typing import Any, DefaultDict, Optional, Tuple
 
 from ._distance import _Distance
 from ._jaro_winkler import JaroWinkler
@@ -103,11 +103,8 @@ class SoftTFIDF(_TokenDistance):
         """
         super(SoftTFIDF, self).__init__(tokenizer=tokenizer, **kwargs)
         self._corpus = corpus
-        self._metric = cast(_Distance, metric)
         self._threshold = threshold
-
-        if self._metric is None:
-            self._metric = JaroWinkler()
+        self._metric = JaroWinkler() if metric is None else metric
 
     def sim(self, src: str, tar: str) -> float:
         """Return the SoftTF-IDF similarity of two strings.
