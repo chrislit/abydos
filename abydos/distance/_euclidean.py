@@ -38,7 +38,7 @@ class Euclidean(Minkowski):
 
     def __init__(
         self,
-        alphabet: Optional[Union[TCounter, Collection, int]] = 0,
+        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = 0,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs: Any

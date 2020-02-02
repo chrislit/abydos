@@ -74,8 +74,8 @@ class VPS(_Distance):
         score = 0.0
         discount = 0
 
-        src_tokens = defaultdict(set)  # type: DefaultDict[str, Set]
-        tar_tokens = defaultdict(set)  # type: DefaultDict[str, Set]
+        src_tokens = defaultdict(set)  # type: DefaultDict[str, Set[int]]
+        tar_tokens = defaultdict(set)  # type: DefaultDict[str, Set[int]]
         for slen in range(1, 4):
             for i in range(len(src) - slen + 1):
                 src_tokens[src[i : i + slen]].add(i)

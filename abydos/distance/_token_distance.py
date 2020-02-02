@@ -288,7 +288,7 @@ class _TokenDistance(_Distance):
         return pop - x
 
     def _tokenize(
-        self, src: Union[str, TCounter], tar: Union[str, TCounter]
+        self, src: Union[str, TCounter[str]], tar: Union[str, TCounter[str]]
     ) -> '_TokenDistance':
         """Return the Q-Grams in src & tar.
 

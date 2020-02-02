@@ -62,7 +62,7 @@ class PearsonIII(PearsonPhi):
 
     def __init__(
         self,
-        alphabet: Optional[Union[TCounter, Collection, int]] = None,
+        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs: Any
