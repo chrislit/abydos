@@ -276,7 +276,7 @@ class Typo(_Distance):
             .. versionadded:: 0.3.0
 
             """
-            for row in kb_array:
+            for row in kb_array:  # pragma: no branch
                 if char in row:
                     break
             return kb_array.index(row), row.index(char)
