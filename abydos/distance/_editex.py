@@ -23,7 +23,7 @@ from sys import float_info
 from typing import Any, Tuple, cast
 from unicodedata import normalize as unicode_normalize
 
-from numpy import float as np_float
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance

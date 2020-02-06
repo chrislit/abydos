@@ -21,7 +21,7 @@ Syllable Alignment Pattern Searching tokenizer
 
 from typing import Any, Callable, List, Optional, Tuple, cast
 
-from numpy import int as np_int
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance

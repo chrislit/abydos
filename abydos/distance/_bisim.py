@@ -21,7 +21,7 @@ BI-SIM similarity
 
 from typing import Any, cast
 
-from numpy import float as np_float
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance

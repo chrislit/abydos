@@ -21,7 +21,7 @@ Smith-Waterman score
 
 from typing import Any, Callable, Optional, cast
 
-from numpy import float32 as np_float32
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._needleman_wunsch import NeedlemanWunsch
@@ -101,7 +101,7 @@ class SmithWaterman(NeedlemanWunsch):
             Encapsulated in class
 
         """
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
 
         for i in range(1, len(src) + 1):
             for j in range(1, len(tar) + 1):

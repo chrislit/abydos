@@ -23,7 +23,7 @@ from copy import deepcopy
 from typing import Any, Callable, Dict, List, Tuple, Union, cast
 
 from numpy import NINF
-from numpy import float as np_float
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance

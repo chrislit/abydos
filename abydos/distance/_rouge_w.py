@@ -21,7 +21,7 @@ Rouge-W similarity
 
 from typing import Any, Callable, Optional, cast
 
-from numpy import int as np_int
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance

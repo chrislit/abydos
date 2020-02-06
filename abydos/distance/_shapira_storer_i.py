@@ -22,7 +22,7 @@ Shapira & Storer I edit distance with block moves, greedy algorithm
 from collections import Counter
 from typing import Any, Counter as TCounter, Tuple, cast
 
-from numpy import int as np_int
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance

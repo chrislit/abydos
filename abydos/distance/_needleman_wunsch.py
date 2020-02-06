@@ -21,7 +21,7 @@ Needleman-Wunsch score
 
 from typing import Any, Callable, Dict, Optional, Tuple, cast
 
-from numpy import float32 as np_float32
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -186,7 +186,7 @@ class NeedlemanWunsch(_Distance):
             Encapsulated in class
 
         """
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
 
         for i in range(len(src) + 1):
             d_mat[i, 0] = -(i * self._gap_cost)
