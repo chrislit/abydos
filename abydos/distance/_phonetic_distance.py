@@ -19,7 +19,7 @@
 Phonetic distance.
 """
 
-from typing import Any, Callable, List, Optional, Type, Union
+from typing import Any, Callable, List, Optional, Sequence, Type, Union
 
 from ._distance import _Distance
 from ..fingerprint import _Fingerprint
@@ -58,7 +58,8 @@ class PhoneticDistance(_Distance):
                 _Phonetic,
                 _Stemmer,
                 _Fingerprint,
-                List[
+                Callable[[str], str],
+                Sequence[
                     Union[
                         Type[_Phonetic],
                         Type[_Stemmer],
@@ -66,6 +67,7 @@ class PhoneticDistance(_Distance):
                         _Phonetic,
                         _Stemmer,
                         _Fingerprint,
+                        Callable[[str], str],
                     ]
                 ],
             ]
@@ -101,7 +103,7 @@ class PhoneticDistance(_Distance):
         super(PhoneticDistance, self).__init__(**kwargs)
         self.transforms = []  # type: List[Callable[[str], str]]
         if transforms:
-            if isinstance(transforms, (list, tuple)):
+            if isinstance(transforms, Sequence):
                 transforms = list(transforms)
             else:
                 transforms = [transforms]
@@ -130,21 +132,21 @@ class PhoneticDistance(_Distance):
                     self.transforms.append(trans.fingerprint)
                 elif isinstance(trans, _Stemmer):
                     self.transforms.append(trans.stem)
-                elif callable(trans):
-                    self.transforms.append(trans)
+                else:  # callable(trans)
+                    self.transforms.append(trans)  # type: ignore
 
-        self.metric = metric
-        if self.metric:
-            if isinstance(self.metric, type) and issubclass(
-                self.metric, _Distance
-            ):
-                self.metric = self.metric()
-            elif not isinstance(self.metric, _Distance):
-                raise TypeError(
-                    '{} has unknown type {}'.format(
-                        self.metric, type(self.metric)
-                    )
+        if isinstance(metric, type) and issubclass(
+            metric, _Distance
+        ):
+            self.metric = metric()
+        elif isinstance(metric, _Distance):
+            self.metric = metric
+        else:
+            raise TypeError(
+                '{} has unknown type {}'.format(
+                    metric, type(metric)
                 )
+            )
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Phonetic distance.
