@@ -135,17 +135,15 @@ class PhoneticDistance(_Distance):
                 else:  # callable(trans)
                     self.transforms.append(trans)  # type: ignore
 
-        if isinstance(metric, type) and issubclass(
-            metric, _Distance
-        ):
-            self.metric = metric()
+        if isinstance(metric, type) and issubclass(metric, _Distance):
+            self.metric = metric()  # type: Optional[_Distance]
         elif isinstance(metric, _Distance):
             self.metric = metric
+        elif metric is None:
+            self.metric = None
         else:
             raise TypeError(
-                '{} has unknown type {}'.format(
-                    metric, type(metric)
-                )
+                '{} has unknown type {}'.format(metric, type(metric))
             )
 
     def dist_abs(self, src: str, tar: str) -> float:
