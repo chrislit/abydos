@@ -98,7 +98,9 @@ class Eudex(_Distance):
         self,
         weights: Optional[
             Union[
-                str, Iterable[float], Callable[[], Generator[float, None, None]],
+                str,
+                Iterable[float],
+                Callable[[], Generator[float, None, None]],
             ]
         ] = 'exponential',
         max_length: int = 8,
