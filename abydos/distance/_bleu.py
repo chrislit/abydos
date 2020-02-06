@@ -20,7 +20,7 @@ BLEU similarity
 """
 
 from math import exp, log
-from typing import Any, List
+from typing import Any, List, Optional
 
 from ._distance import _Distance
 from ..tokenizer import QGrams, _Tokenizer
@@ -66,8 +66,8 @@ class BLEU(_Distance):
         self,
         n_min: int = 1,
         n_max: int = 4,
-        tokenizers: List[_Tokenizer] = None,
-        weights: List[float] = None,
+        tokenizers: Optional[List[_Tokenizer]] = None,
+        weights: Optional[List[float]] = None,
         **kwargs: Any
     ) -> None:
         """Initialize BLEU instance.

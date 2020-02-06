@@ -19,7 +19,7 @@
 Wåhlin phonetic encoding
 """
 
-from typing import Tuple
+from typing import Optional, Tuple
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -36,7 +36,7 @@ class Waahlin(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, encoder: _Phonetic = None) -> None:
+    def __init__(self, encoder: Optional[_Phonetic] = None) -> None:
         """Initialize Waahlin instance.
 
         Parameters
