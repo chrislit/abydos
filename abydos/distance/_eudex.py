@@ -19,7 +19,6 @@
 eudex distance functions
 """
 
-from types import GeneratorType
 from typing import (
     Any,
     Callable,
@@ -46,7 +45,7 @@ class Eudex(_Distance):
     """
 
     @staticmethod
-    def gen_fibonacci() -> Generator[int, None, None]:
+    def gen_fibonacci() -> Generator[float, None, None]:
         """Yield the next Fibonacci number.
 
         Based on https://www.python-course.eu/generators.php
@@ -69,7 +68,7 @@ class Eudex(_Distance):
             num_a, num_b = num_b, num_a + num_b
 
     @staticmethod
-    def gen_exponential(base: int = 2) -> Generator[int, None, None]:
+    def gen_exponential(base: int = 2) -> Generator[float, None, None]:
         """Yield the next value in an exponential series of the base.
 
         Starts at base**0
@@ -99,7 +98,7 @@ class Eudex(_Distance):
         self,
         weights: Optional[
             Union[
-                str, Iterable[float], Callable[[], Generator[int, None, None]],
+                str, Iterable[float], Callable[[], Generator[float, None, None]],
             ]
         ] = 'exponential',
         max_length: int = 8,
@@ -224,6 +223,7 @@ class Eudex(_Distance):
 
         # If self._weights is a function, it should create a generator,
         # which we now use to populate a list
+        weights_list = []  # List[float]
         if hasattr(self._weights, '__iter__') and not isinstance(
             self._weights, str
         ):
@@ -238,14 +238,14 @@ class Eudex(_Distance):
         else:
             raise ValueError('Unrecognized weights value or type.')
 
-        if isinstance(weights_gen, GeneratorType):
-            weights_list = [  # type: ignore
+        if isinstance(weights_gen, Generator):
+            weights_list = [
                 next(weights_gen) for _ in range(self._max_length)
             ][::-1]
 
         # Sum the weighted hamming distance
         distance = 0
-        max_distance = 0  # type: float
+        max_distance = 0.0
         while (xored or normalized) and weights_list:
             max_distance += 8 * weights_list[-1]
             distance += bin(xored & 0xFF).count('1') * weights_list.pop()
