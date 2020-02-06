@@ -19,7 +19,7 @@
 Standardized Phonetic Frequency Code (SPFC) algorithm
 """
 
-from typing import List, NoReturn
+from typing import NoReturn, Sequence, Union
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -114,7 +114,7 @@ class SPFC(_Phonetic):
             + code[2:].translate(self._pf2_alphabetic)
         )
 
-    def encode(self, word: str) -> str:
+    def encode(self, word: Union[str, Sequence[str]]) -> str:
         """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
         Parameters
@@ -185,7 +185,7 @@ class SPFC(_Phonetic):
         if not word:
             return ''
 
-        names = []  # type: List[str]
+        names = []  # type: Sequence[str]
         if isinstance(word, str):
             names = word.split('.', 1)
             if len(names) != 2:

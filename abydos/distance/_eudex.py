@@ -239,7 +239,7 @@ class Eudex(_Distance):
             raise ValueError('Unrecognized weights value or type.')
 
         if isinstance(weights_gen, GeneratorType):
-            weights_list = [
+            weights_list = [  # type: ignore
                 next(weights_gen) for _ in range(self._max_length)
             ][::-1]
 

@@ -500,7 +500,11 @@ class Synoname(_Distance):
         else:
             self._tests = tests
 
-    def dist_abs(self, src: str, tar: str) -> int:
+    def dist_abs(
+        self,
+        src: Union[str, Tuple[str, str, str]],
+        tar: Union[str, Tuple[str, str, str]],
+    ) -> int:
         """Return the Synoname similarity type of two words.
 
         Parameters
@@ -527,7 +531,10 @@ class Synoname(_Distance):
         return cast(int, self.sim_type(src, tar, True))
 
     def sim_type(
-        self, src: str, tar: str, force_numeric: bool = False
+        self,
+        src: Union[str, Tuple[str, str, str]],
+        tar: Union[str, Tuple[str, str, str]],
+        force_numeric: bool = False,
     ) -> Union[int, str]:
         """Return the Synoname similarity type of two words.
 
