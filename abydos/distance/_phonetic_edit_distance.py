@@ -147,7 +147,7 @@ class PhoneticEditDistance(Levenshtein):
         src_list = ipa_to_features(src)
         tar_list = ipa_to_features(tar)
 
-        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
+        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float_)
         if backtrace:
             trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(1, src_len + 1):
