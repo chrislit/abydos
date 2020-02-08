@@ -34,7 +34,6 @@ from typing import (
 )
 
 import numpy as np
-from numpy import zeros as np_zeros
 
 from ._damerau_levenshtein import DamerauLevenshtein
 from ._distance import _Distance
@@ -794,7 +793,7 @@ member function, such as Levenshtein."
 
         # Pre-preliminaries: create square the matrix of scores
         n = max(len(src_only_tok), len(tar_only_tok))
-        arr = np_zeros((n, n), dtype=float)
+        arr = np.zeros((n, n), dtype=float)
 
         for col in range(len(src_only_tok)):
             for row in range(len(tar_only_tok)):
@@ -805,10 +804,10 @@ member function, such as Levenshtein."
         src_only_tok += [''] * (n - len(src_only_tok))
         tar_only_tok += [''] * (n - len(tar_only_tok))
 
-        starred = np.zeros((n, n), dtype=np.bool)
-        primed = np.zeros((n, n), dtype=np.bool)
-        row_covered = np.zeros(n, dtype=np.bool)
-        col_covered = np.zeros(n, dtype=np.bool)
+        starred = np.zeros((n, n), dtype=np.bool_)
+        primed = np.zeros((n, n), dtype=np.bool_)
+        row_covered = np.zeros(n, dtype=np.bool_)
+        col_covered = np.zeros(n, dtype=np.bool_)
 
         orig_sim = 1 - np.copy(arr)
         # Preliminaries:
