@@ -22,9 +22,7 @@ ALINE alignment, similarity, and distance
 from copy import deepcopy
 from typing import Any, Callable, Dict, List, Tuple, Union, cast
 
-from numpy import NINF
-from numpy import float_ as np_float
-from numpy import zeros as np_zeros
+from numpy import float_, inf, zeros
 
 from ._distance import _Distance
 
@@ -1595,7 +1593,7 @@ class ALINE(_Distance):
 
         tar_len = len(tar_tok)
 
-        s_mat = np_zeros((src_len + 1, tar_len + 1), dtype=np_float)
+        s_mat = zeros((src_len + 1, tar_len + 1), dtype=float_)
 
         if self._mode == 'global':
             for i in range(1, src_len + 1):
@@ -1617,7 +1615,7 @@ class ALINE(_Distance):
                         tar_feat_wt[j - 1],
                     )
                     if j > 1
-                    else NINF,
+                    else -inf,
                     s_mat[i - 2, j - 1]
                     + _sig_exp(
                         tar_feat_wt[j - 1],
@@ -1625,8 +1623,8 @@ class ALINE(_Distance):
                         src_feat_wt[i - 1],
                     )
                     if i > 1
-                    else NINF,
-                    0 if self._mode in {'local', 'half-local'} else NINF,
+                    else -inf,
+                    0 if self._mode in {'local', 'half-local'} else -inf,
                 )
 
                 if s_mat[i, j] > sg_max:
