@@ -90,7 +90,24 @@ class Typo(_Distance):
          ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ö', 'Ä', "'"),
          ('>', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_'),
          ('', '', '', ' '))
-    )}  # type: Dict[str, Tuple[Tuple[Tuple[str, ...], ...], Tuple[Tuple[str, ...], ...]]]  # noqa: E501
+    ), 'QWERTZ_HUN': (
+        (('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'ö', 'ü', 'ó'),
+         ('', 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', ' ő', 'ú',
+          '\\'),
+         ('', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'é', 'á', 'ű'),
+         ('í', 'y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-'),
+         ('', '', '', ' ')),
+        (('§', '\'', '"', '+', '!', '%', '/', '=', '(', ')', 'Ö', 'Ü', 'Ó'),
+         ('', 'Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Ő', 'Ú', ''),
+         ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'É', 'Á', "Ű"),
+         ('Í', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', '?', ':', '_'),
+         ('', '', '', ' ')),
+        (('', '~', 'ˇ', '^', '˘', '°', '˛', '`', '˙', '´', '˝', '¨', '¸'),
+         ('', '\\', '|', '', '', '', '', '€', '', '', '', '÷', '×', ''),
+         ('', '', 'đ', 'Đ', '[', ']', '', '', 'ł', 'Ł', '$', 'ß', "¤"),
+         ('<', '>', '#', '&', '@', '{', '}', '', ';', '>', '*'),
+         ('', '', '', ' '))
+    )}  # type: Dict[str, Tuple[Tuple[Tuple[str, ...], ...], ...]]  # noqa: E501
     # fmt: on
 
     def __init__(
@@ -216,8 +233,9 @@ class Typo(_Distance):
         else:
             keyboard = self._keyboard[self._layout]
 
-        lowercase = {item for sublist in keyboard[0] for item in sublist}
-        uppercase = {item for sublist in keyboard[1] for item in sublist}
+        kb_array = []
+        for kb_mode in keyboard:
+            kb_array.append({item for sublist in kb_mode for item in sublist})
         keys = set(chain(*chain(*keyboard)))
 
         def _kb_array_for_char(char: str) -> Tuple[Tuple[str, ...], ...]:
@@ -241,10 +259,9 @@ class Typo(_Distance):
             .. versionadded:: 0.3.0
 
             """
-            if char in lowercase:
-                return keyboard[0]
-            elif char in uppercase:
-                return keyboard[1]
+            for i, kb_mode in enumerate(kb_array):
+                if char in kb_mode:
+                    return keyboard[i]
             raise ValueError(char + ' not found in any keyboard layouts')
 
         def _substitution_cost(char1: str, char2: str) -> float:
