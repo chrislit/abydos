@@ -26,7 +26,7 @@ try:
 except ImportError:  # pragma: no cover
     # If the system lacks the paq9a library, that's fine, but PAQ9A compression
     # similarity won't be supported.
-    paq = None
+    paq = None  # type: ignore
 
 __all__ = ['NCDpaq9a']
 

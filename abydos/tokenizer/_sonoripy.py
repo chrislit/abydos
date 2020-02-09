@@ -28,7 +28,7 @@ try:
 except ImportError:  # pragma: no cover
     # If the system lacks the SyllabiPy library, that's fine, but SyllabiPy
     # tokenization won't be supported.
-    SonoriPy = None
+    SonoriPy = None  # type: ignore
 
 
 class SonoriPyTokenizer(_Tokenizer):

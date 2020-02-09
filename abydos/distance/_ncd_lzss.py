@@ -26,7 +26,7 @@ try:
 except ImportError:  # pragma: no cover
     # If the system lacks the lzss library, that's fine, but LZSS compression
     # similarity won't be supported.
-    lzss = None
+    lzss = None  # type: ignore
 
 __all__ = ['NCDlzss']
 

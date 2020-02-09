@@ -29,8 +29,8 @@ try:
 except ImportError:  # pragma: no cover
     # If the system lacks the SyllabiPy library, that's fine, but SyllabiPy
     # tokenization won't be supported.
-    gen_onsets = None
-    LegaliPy = None
+    gen_onsets = None  # type: ignore
+    LegaliPy = None  # type: ignore
 
 
 class LegaliPyTokenizer(_Tokenizer):
