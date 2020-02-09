@@ -111,7 +111,7 @@ class Levenshtein(_Distance):
 
     def _alignment_matrix(
         self, src: str, tar: str, backtrace: bool = True
-    ) -> Union[np.ndarray[np.float_], Tuple[np.ndarray[np.float_], np.ndarray[np.int8]]]:
+    ) -> Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """Return the Levenshtein alignment matrix.
 
         Parameters
