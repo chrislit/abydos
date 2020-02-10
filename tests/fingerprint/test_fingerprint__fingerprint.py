@@ -35,8 +35,9 @@ class CountFingerprintTestCases(unittest.TestCase):
 
     def test_fingerprint_fingerprint(self):
         """Test abydos.fingerprint._Fingerprint.fingerprint."""
-        # Base case
-        self.assertEqual(self.fp.fingerprint('word'), None)
+        # Base cases
+        self.assertEqual(self.fp.fingerprint(''), '')
+        self.assertEqual(self.fp.fingerprint('word'), 'word')
 
 
 if __name__ == '__main__':

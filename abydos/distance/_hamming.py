@@ -19,6 +19,8 @@
 Hamming distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['Hamming']
@@ -36,7 +38,7 @@ class Hamming(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, diff_lens=True, **kwargs):
+    def __init__(self, diff_lens: bool = True, **kwargs: Any) -> None:
         """Initialize Hamming instance.
 
         Parameters
@@ -58,7 +60,7 @@ class Hamming(_Distance):
         super(Hamming, self).__init__(**kwargs)
         self._diff_lens = diff_lens
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Hamming distance between two strings.
 
         Parameters
@@ -111,7 +113,7 @@ class Hamming(_Distance):
 
         return hdist
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Hamming distance between two strings.
 
         Hamming distance normalized to the interval [0, 1].

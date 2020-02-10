@@ -19,6 +19,8 @@
 LegaliPy tokenizer class
 """
 
+from typing import Callable, Optional, Union
+
 from ._tokenizer import _Tokenizer
 
 try:
@@ -27,8 +29,8 @@ try:
 except ImportError:  # pragma: no cover
     # If the system lacks the SyllabiPy library, that's fine, but SyllabiPy
     # tokenization won't be supported.
-    gen_onsets = None
-    LegaliPy = None
+    LegaliPy = None  # type: ignore
+    gen_onsets = None  # type: ignore
 
 
 class LegaliPyTokenizer(_Tokenizer):
@@ -37,7 +39,9 @@ class LegaliPyTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None):
+    def __init__(
+        self, scaler: Optional[Union[str, Callable[[float], float]]] = None,
+    ) -> None:
         """Initialize Tokenizer.
 
         Parameters
@@ -71,7 +75,13 @@ class LegaliPyTokenizer(_Tokenizer):
 
         self._onsets = ['']
 
-    def train_onsets(self, text, threshold=0.0002, clean=True, append=False):
+    def train_onsets(
+        self,
+        text: str,
+        threshold: float = 0.0002,
+        clean: bool = True,
+        append: bool = False,
+    ) -> None:
         """Train the onsets on a text.
 
         Parameters
@@ -95,7 +105,7 @@ class LegaliPyTokenizer(_Tokenizer):
         else:
             self._onsets = new_onsets
 
-    def tokenize(self, string, ipa=False):
+    def tokenize(self, string: str, ipa: bool = False) -> 'LegaliPyTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -127,7 +137,7 @@ class LegaliPyTokenizer(_Tokenizer):
         if not self._ordered_tokens:
             self._ordered_tokens = [self._string]
 
-        super(LegaliPyTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

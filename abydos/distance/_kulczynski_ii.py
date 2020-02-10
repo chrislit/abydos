@@ -19,7 +19,10 @@
 Kulczynski II similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KulczynskiII']
 
@@ -47,7 +50,12 @@ class KulczynskiII(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize KulczynskiII instance.
 
         Parameters
@@ -82,7 +90,7 @@ class KulczynskiII(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Kulczynski II similarity of two strings.
 
         Parameters

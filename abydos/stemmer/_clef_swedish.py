@@ -32,7 +32,7 @@ class CLEFSwedish(_Stemmer):
     .. versionadded:: 0.3.6
     """
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return CLEF Swedish stem.
 
         Parameters

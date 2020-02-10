@@ -19,6 +19,8 @@
 Cormode's LZ distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['CormodeLZ']
@@ -32,7 +34,7 @@ class CormodeLZ(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize CormodeLZ instance.
 
         Parameters
@@ -46,7 +48,7 @@ class CormodeLZ(_Distance):
         """
         super(CormodeLZ, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Cormode's LZ distance of two strings.
 
         Parameters
@@ -93,7 +95,7 @@ class CormodeLZ(_Distance):
 
         return 1 + edits
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Cormode's LZ distance of two strings.
 
         Parameters

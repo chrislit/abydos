@@ -19,6 +19,8 @@
 Character tokenizer
 """
 
+from typing import Callable, Optional, Union
+
 from ._tokenizer import _Tokenizer
 
 __all__ = ['CharacterTokenizer']
@@ -30,7 +32,9 @@ class CharacterTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None):
+    def __init__(
+        self, scaler: Optional[Union[str, Callable[[float], float]]] = None,
+    ) -> None:
         """Initialize tokenizer.
 
         Parameters
@@ -51,7 +55,7 @@ class CharacterTokenizer(_Tokenizer):
         """
         super(CharacterTokenizer, self).__init__(scaler)
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'CharacterTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -73,7 +77,7 @@ class CharacterTokenizer(_Tokenizer):
         self._string = string
         self._ordered_tokens = list(string)
 
-        super(CharacterTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

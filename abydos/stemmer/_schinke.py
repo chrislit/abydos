@@ -19,6 +19,7 @@
 Schinke Latin stemmer.
 """
 
+from typing import Dict
 from unicodedata import normalize
 
 from ._stemmer import _Stemmer
@@ -128,7 +129,7 @@ class Schinke(_Stemmer):
         1: {},
     }
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return the stem of a word according to the Schinke stemmer.
 
         Parameters
@@ -145,20 +146,56 @@ class Schinke(_Stemmer):
         --------
         >>> stmr = Schinke()
         >>> stmr.stem('atque')
-        {'n': 'atque', 'v': 'atque'}
+        'atque,atque'
         >>> stmr.stem('census')
-        {'n': 'cens', 'v': 'censu'}
+        'cens,censu'
         >>> stmr.stem('virum')
-        {'n': 'uir', 'v': 'uiru'}
+        'uir,uiru'
         >>> stmr.stem('populusque')
-        {'n': 'popul', 'v': 'populu'}
+        'popul,populu'
         >>> stmr.stem('senatus')
-        {'n': 'senat', 'v': 'senatu'}
+        'senat,senatu'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str with the noun then verb stem, comma-separated
+
+        """
+        nv = self.stem_dict(word)
+        return '{0},{1}'.format(nv['n'], nv['v'])
+
+    def stem_dict(self, word: str) -> Dict[str, str]:
+        """Return the stem of a word according to the Schinke stemmer.
+
+        Parameters
+        ----------
+        word : str
+            The word to stem
+
+        Returns
+        -------
+        dict
+            Word stems in a dictionary
+
+        Examples
+        --------
+        >>> stmr = Schinke()
+        >>> stmr.stem_dict('atque')
+        {'n': 'atque', 'v': 'atque'}
+        >>> stmr.stem_dict('census')
+        {'n': 'cens', 'v': 'censu'}
+        >>> stmr.stem_dict('virum')
+        {'n': 'uir', 'v': 'uiru'}
+        >>> stmr.stem_dict('populusque')
+        {'n': 'popul', 'v': 'populu'}
+        >>> stmr.stem_dict('senatus')
+        {'n': 'senat', 'v': 'senatu'}
+
+
+        .. versionadded:: 0.6.0
 
         """
         word = normalize('NFKD', word.lower())

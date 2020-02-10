@@ -19,7 +19,10 @@
 Batagelj & Bren distance
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['BatageljBren']
 
@@ -49,11 +52,13 @@ class BatageljBren(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize BatageljBren instance.
 
         Parameters
@@ -95,7 +100,7 @@ class BatageljBren(_TokenDistance):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Batagelj & Bren distance of two strings.
 
         Parameters
@@ -140,7 +145,7 @@ class BatageljBren(_TokenDistance):
             return float('inf')
         return b * c / (a * d)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Batagelj & Bren distance of two strings.
 
         Parameters

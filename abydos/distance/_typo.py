@@ -21,8 +21,9 @@ Typo edit distance functions.
 
 from itertools import chain
 from math import log
+from typing import Any, Dict, Tuple, cast
 
-from numpy import float32 as np_float32
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -96,26 +97,26 @@ class Typo(_Distance):
          ('', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'é', 'á', 'ű'),
          ('í', 'y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-'),
          ('', '', '', ' ')),
-        (('§', '\'', '"', '+', '!', '%', '/', '=', '(', ')', 'Ö', 'Ü', 'Ó'),
+        (('§', "'", '"', '+', '!', '%', '/', '=', '(', ')', 'Ö', 'Ü', 'Ó'),
          ('', 'Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Ő', 'Ú', ''),
-         ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'É', 'Á', "Ű"),
+         ('', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'É', 'Á', 'Ű'),
          ('Í', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', '?', ':', '_'),
          ('', '', '', ' ')),
         (('', '~', 'ˇ', '^', '˘', '°', '˛', '`', '˙', '´', '˝', '¨', '¸'),
          ('', '\\', '|', '', '', '', '', '€', '', '', '', '÷', '×', ''),
-         ('', '', 'đ', 'Đ', '[', ']', '', '', 'ł', 'Ł', '$', 'ß', "¤"),
+         ('', '', 'đ', 'Đ', '[', ']', '', '', 'ł', 'Ł', '$', 'ß', '¤'),
          ('<', '>', '#', '&', '@', '{', '}', '', ';', '>', '*'),
          ('', '', '', ' '))
-    )}
+    )}  # type: Dict[str, Tuple[Tuple[Tuple[str, ...], ...], ...]]
     # fmt: on
 
     def __init__(
         self,
-        metric='euclidean',
-        cost=(1, 1, 0.5, 0.5),
-        layout='QWERTY',
-        failsafe=False,
-        **kwargs
+        metric: str = 'euclidean',
+        cost: Tuple[float, float, float, float] = (1.0, 1.0, 0.5, 0.5),
+        layout: str = 'QWERTY',
+        failsafe: bool = False,
+        **kwargs: Any
     ):
         """Initialize Typo instance.
 
@@ -152,7 +153,7 @@ class Typo(_Distance):
         self._layout = layout
         self._failsafe = failsafe
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the typo distance between two strings.
 
         Parameters
@@ -176,11 +177,11 @@ class Typo(_Distance):
         --------
         >>> cmp = Typo()
         >>> cmp.dist_abs('cat', 'hat')
-        1.5811388
+        1.5811388300841898
         >>> cmp.dist_abs('Niall', 'Neil')
-        2.8251407
+        2.8251407699364424
         >>> cmp.dist_abs('Colin', 'Cuilen')
-        3.4142137
+        3.414213562373095
         >>> cmp.dist_abs('ATCG', 'TAGC')
         2.5
 
@@ -196,13 +197,13 @@ class Typo(_Distance):
 
         >>> cmp = Typo(metric='log-manhattan')
         >>> cmp.dist_abs('cat', 'hat')
-        0.804719
+        0.8047189562170501
         >>> cmp.dist_abs('Niall', 'Neil')
-        2.2424533
+        2.2424533248940004
         >>> cmp.dist_abs('Colin', 'Cuilen')
-        2.2424533
+        2.242453324894
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        2.3465736
+        2.3465735902799727
 
 
         .. versionadded:: 0.3.0
@@ -237,7 +238,7 @@ class Typo(_Distance):
             kb_array.append({item for sublist in kb_mode for item in sublist})
         keys = set(chain(*chain(*keyboard)))
 
-        def _kb_array_for_char(char):
+        def _kb_array_for_char(char: str) -> Tuple[Tuple[str, ...], ...]:
             """Return the keyboard layout that contains ch.
 
             Parameters
@@ -263,7 +264,7 @@ class Typo(_Distance):
                     return keyboard[i]
             raise ValueError(char + ' not found in any keyboard layouts')
 
-        def _substitution_cost(char1, char2):
+        def _substitution_cost(char1: str, char2: str) -> float:
             if self._failsafe and (char1 not in keys or char2 not in keys):
                 return ins_cost + del_cost
             cost = sub_cost
@@ -272,7 +273,9 @@ class Typo(_Distance):
             )
             return cost
 
-        def _get_char_coord(char, kb_array):
+        def _get_char_coord(
+            char: str, kb_array: Tuple[Tuple[str, ...], ...]
+        ) -> Tuple[int, int]:
             """Return the row & column of char in the keyboard.
 
             Parameters
@@ -290,24 +293,25 @@ class Typo(_Distance):
             .. versionadded:: 0.3.0
 
             """
-            for row in kb_array:  # pragma: no branch  # noqa: R503
+            for row in kb_array:  # pragma: no branch
                 if char in row:
-                    return kb_array.index(row), row.index(char)
+                    break
+            return kb_array.index(row), row.index(char)
 
-        def _euclidean_keyboard_distance(char1, char2):
+        def _euclidean_keyboard_distance(char1: str, char2: str) -> float:
             row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
             row2, col2 = _get_char_coord(char2, _kb_array_for_char(char2))
             return ((row1 - row2) ** 2 + (col1 - col2) ** 2) ** 0.5
 
-        def _manhattan_keyboard_distance(char1, char2):
+        def _manhattan_keyboard_distance(char1: str, char2: str) -> float:
             row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
             row2, col2 = _get_char_coord(char2, _kb_array_for_char(char2))
             return abs(row1 - row2) + abs(col1 - col2)
 
-        def _log_euclidean_keyboard_distance(char1, char2):
+        def _log_euclidean_keyboard_distance(char1: str, char2: str) -> float:
             return log(1 + _euclidean_keyboard_distance(char1, char2))
 
-        def _log_manhattan_keyboard_distance(char1, char2):
+        def _log_manhattan_keyboard_distance(char1: str, char2: str) -> float:
             return log(1 + _manhattan_keyboard_distance(char1, char2))
 
         metric_dict = {
@@ -317,7 +321,7 @@ class Typo(_Distance):
             'log-manhattan': _log_manhattan_keyboard_distance,
         }
 
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
         for i in range(len(src) + 1):
             d_mat[i, 0] = i * del_cost
         for j in range(len(tar) + 1):
@@ -336,9 +340,9 @@ class Typo(_Distance):
                     ),  # sub/==
                 )
 
-        return d_mat[len(src), len(tar)]
+        return cast(float, d_mat[len(src), len(tar)])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized typo distance between two strings.
 
         This is typo distance, normalized to [0, 1].
@@ -359,11 +363,11 @@ class Typo(_Distance):
         --------
         >>> cmp = Typo()
         >>> round(cmp.dist('cat', 'hat'), 12)
-        0.527046283086
+        0.527046276695
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.565028142929
+        0.565028153987
         >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-        0.569035609563
+        0.569035593729
         >>> cmp.dist('ATCG', 'TAGC')
         0.625
 

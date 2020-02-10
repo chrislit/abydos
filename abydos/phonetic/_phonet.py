@@ -20,6 +20,7 @@ phonet algorithm (a.k.a. Hannoveraner Phonetik), intended chiefly for German
 """
 
 from collections import Counter
+from typing import Counter as TCounter, Optional, Tuple, Union, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -100,7 +101,7 @@ class Phonet(_Phonetic):
         'VAN DEN ^', 'VANDEN', 'VANDEN',
         None, None, None
         # fmt: on
-    )
+    )  # type: Tuple[Union[str, None], ...]
 
     _rules_german = (  # separator chars
         # fmt: off
@@ -1048,7 +1049,7 @@ class Phonet(_Phonetic):
         'Z(VW)7^', 'SW', None,
         None, None, None
         # fmt: on
-    )
+    )  # type: Tuple[Optional[str], ...]
 
     _upper_trans = dict(
         zip(
@@ -1062,7 +1063,7 @@ class Phonet(_Phonetic):
         )
     )
 
-    def __init__(self, mode=1, lang='de'):
+    def __init__(self, mode: int = 1, lang: str = 'de') -> None:
         """Initialize AlphaSIS instance.
 
         Parameters
@@ -1079,7 +1080,7 @@ class Phonet(_Phonetic):
         self._mode = mode
         self._lang = lang
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the phonet code for a word.
 
         Parameters
@@ -1130,13 +1131,13 @@ class Phonet(_Phonetic):
             Encapsulated in class
 
         """
-        phonet_hash = Counter()
-        alpha_pos = Counter()
+        phonet_hash = Counter()  # type: TCounter[str]
+        alpha_pos = Counter()  # type: TCounter[str]
 
-        phonet_hash_1 = Counter()
-        phonet_hash_2 = Counter()
+        phonet_hash_1 = Counter()  # type: TCounter[Tuple[int, int]]
+        phonet_hash_2 = Counter()  # type: TCounter[Tuple[int, int]]
 
-        def _initialize_phonet(lang):
+        def _initialize_phonet(lang: str) -> None:
             """Initialize phonet variables.
 
             Parameters
@@ -1155,7 +1156,7 @@ class Phonet(_Phonetic):
             phonet_hash[''] = -1
 
             # German and international umlauts
-            for j in {
+            for ch in {
                 'À',
                 'Á',
                 'Â',
@@ -1191,13 +1192,13 @@ class Phonet(_Phonetic):
                 'Š',
                 'Ÿ',
             }:
-                alpha_pos[j] = 1
-                phonet_hash[j] = -1
+                alpha_pos[ch] = 1
+                phonet_hash[ch] = -1
 
             # "normal" letters ('A'-'Z')
-            for i, j in enumerate('ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
-                alpha_pos[j] = i + 2
-                phonet_hash[j] = -1
+            for i, ch in enumerate('ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+                alpha_pos[ch] = i + 2
+                phonet_hash[ch] = -1
 
             for i in range(26):
                 for j in range(28):
@@ -1210,16 +1211,17 @@ class Phonet(_Phonetic):
 
                 if rule and i % 3 == 0:
                     # calculate first hash value
-                    k = _phonet_rules[i][0]
+                    ch = cast(str, _phonet_rules[i])[0]
 
-                    if phonet_hash[k] < 0 and (
-                        _phonet_rules[i + 1] or _phonet_rules[i + 2]
+                    if phonet_hash[ch] < 0 and (
+                        cast(str, _phonet_rules[i + 1])
+                        or cast(str, _phonet_rules[i + 2])
                     ):
-                        phonet_hash[k] = i
+                        phonet_hash[ch] = i
 
                     # calculate second hash values
-                    if k and alpha_pos[k] >= 2:
-                        k = alpha_pos[k]
+                    if ch and alpha_pos[ch] >= 2:
+                        k = alpha_pos[ch]
 
                         j = k - 2
                         rule = rule[1:]
@@ -1254,7 +1256,7 @@ class Phonet(_Phonetic):
 
                             rule = rule[1:]
 
-        def _phonet(term, mode, lang):
+        def _phonet(term: str, mode: int, lang: str) -> str:
             """Return the phonet coded form of a term.
 
             Parameters
@@ -1341,7 +1343,7 @@ class Phonet(_Phonetic):
                 if pos >= 0:
                     # check rules for this char
                     while (_phonet_rules[pos] is None) or (
-                        _phonet_rules[pos][0] == char
+                        cast(str, _phonet_rules[pos])[0] == char
                     ):
                         if pos > end1:
                             if start2 > 0:
@@ -1364,8 +1366,7 @@ class Phonet(_Phonetic):
                         # check whole string
                         matches = 1  # number of matching letters
                         priority = 5  # default priority
-                        rule = _phonet_rules[pos]
-                        rule = rule[1:]
+                        rule = cast(str, _phonet_rules[pos])[1:]
 
                         while (
                             rule
@@ -1507,7 +1508,7 @@ class Phonet(_Phonetic):
                             # check continuation rules for src[i+matches]
                             if pos0 >= 0:
                                 while (_phonet_rules[pos0] is None) or (
-                                    _phonet_rules[pos0][0] == char0
+                                    cast(str, _phonet_rules[pos0])[0] == char0
                                 ):
                                     if pos0 > end3:
                                         if start4 > 0:
@@ -1533,8 +1534,7 @@ class Phonet(_Phonetic):
                                     # check whole string
                                     matches0 = matches
                                     priority0 = 5
-                                    rule = _phonet_rules[pos0]
-                                    rule = rule[1:]
+                                    rule = cast(str, _phonet_rules[pos0])[1:]
 
                                     while (
                                         rule
@@ -1582,9 +1582,8 @@ class Phonet(_Phonetic):
 
                                     if (
                                         not rule
-                                        or
                                         # rule == '^' is not possible here
-                                        (
+                                        or (
                                             (rule[0] == '$')
                                             and not src[
                                                 i + matches0 : i + matches0 + 1
@@ -1618,7 +1617,10 @@ class Phonet(_Phonetic):
                                 # end of "while"
                                 if (priority0 >= priority) and (
                                     (_phonet_rules[pos0] is not None)
-                                    and (_phonet_rules[pos0][0] == char0)
+                                    and (
+                                        cast(str, _phonet_rules[pos0])[0]
+                                        == char0
+                                    )
                                 ):
 
                                     pos += 3
@@ -1626,13 +1628,13 @@ class Phonet(_Phonetic):
 
                             # replace string
                             if _phonet_rules[pos] and (
-                                '<' in _phonet_rules[pos][1:]
+                                '<' in cast(str, _phonet_rules[pos])[1:]
                             ):
                                 priority0 = 1
                             else:
                                 priority0 = 0
 
-                            rule = _phonet_rules[pos + mode]
+                            rule = cast(str, _phonet_rules[pos + mode])
 
                             if (priority0 == 1) and (zeta == 0):
                                 # rule with '<' is applied
@@ -1690,7 +1692,8 @@ class Phonet(_Phonetic):
 
                                 if (
                                     _phonet_rules[pos]
-                                    and '^^' in _phonet_rules[pos][1:]
+                                    and '^^'
+                                    in cast(str, _phonet_rules[pos])[1:]
                                 ):
                                     if char:
                                         dest = (

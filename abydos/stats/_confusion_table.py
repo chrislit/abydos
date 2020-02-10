@@ -34,6 +34,8 @@ calculating the following data based on a confusion table:
 
 import math
 
+from typing import Dict, List, Tuple, Union
+
 from ._mean import (
     aghmean,
     agmean,
@@ -53,7 +55,7 @@ from ._mean import (
 __all__ = ['ConfusionTable']
 
 
-class ConfusionTable(object):
+class ConfusionTable:
     """ConfusionTable object.
 
     This object is initialized by passing either four integers (or a tuple of
@@ -64,22 +66,33 @@ class ConfusionTable(object):
     based on the confusion table.
     """
 
-    _tp, _tn, _fp, _fn = 0, 0, 0, 0
+    _tp, _tn, _fp, _fn = 0.0, 0.0, 0.0, 0.0
 
-    def __init__(self, tp=0, tn=0, fp=0, fn=0):
+    def __init__(
+        self,
+        tp: Union[
+            float,
+            Tuple[float, float, float, float],
+            List[float],
+            Dict[str, float],
+        ] = 0.0,
+        tn: float = 0.0,
+        fp: float = 0.0,
+        fn: float = 0.0,
+    ) -> None:
         """Initialize ConfusionTable.
 
         Parameters
         ----------
-        tp : int or a tuple, list, or dict
+        tp : float or a tuple, list, or dict
             True positives; If a tuple or list is supplied, it must include 4
             values in the order [tp, tn, fp, fn]. If a dict is supplied, it
             must have 4 keys, namely 'tp', 'tn', 'fp', & 'fn'.
-        tn : int
+        tn : float
             True negatives
-        fp : int
+        fp : float
             False positives
-        fn : int
+        fn : float
             False negatives
 
         Raises
@@ -127,7 +140,7 @@ class ConfusionTable(object):
             self._fp = fp
             self._fn = fn
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """Perform eqality (==) comparison.
 
         Compares a ConfusionTable to another ConfusionTable or its equivalent
@@ -135,7 +148,7 @@ class ConfusionTable(object):
 
         Parameters
         ----------
-        other : ConfusionTable
+        other : ConfusionTable, tuple, list, or dict
             Another ConfusionTable object to compare to
 
         Returns
@@ -192,7 +205,7 @@ class ConfusionTable(object):
                 return True
         return False
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Cast to str.
 
         Returns
@@ -214,7 +227,7 @@ class ConfusionTable(object):
             self._tp, self._tn, self._fp, self._fn
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return representation.
 
         Returns
@@ -237,7 +250,7 @@ class ConfusionTable(object):
             self._tp, self._tn, self._fp, self._fn
         )
 
-    def to_tuple(self):
+    def to_tuple(self) -> Tuple[float, float, float, float]:
         """Cast to tuple.
 
         Returns
@@ -257,7 +270,7 @@ class ConfusionTable(object):
         """
         return self._tp, self._tn, self._fp, self._fn
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, float]:
         """Cast to dict.
 
         Returns
@@ -278,12 +291,12 @@ class ConfusionTable(object):
         """
         return {'tp': self._tp, 'tn': self._tn, 'fp': self._fp, 'fn': self._fn}
 
-    def true_pos(self):
+    def true_pos(self) -> float:
         """Return true positives.
 
         Returns
         -------
-        int
+        float
             The true positives of the confusion table
 
         Example
@@ -298,12 +311,12 @@ class ConfusionTable(object):
         """
         return self._tp
 
-    def true_neg(self):
+    def true_neg(self) -> float:
         """Return true negatives.
 
         Returns
         -------
-        int
+        float
             The true negatives of the confusion table
 
         Example
@@ -318,14 +331,14 @@ class ConfusionTable(object):
         """
         return self._tn
 
-    def false_pos(self):
+    def false_pos(self) -> float:
         """Return false positives.
 
         AKA Type I error
 
         Returns
         -------
-        int
+        float
             The false positives of the confusion table
 
         Example
@@ -340,14 +353,14 @@ class ConfusionTable(object):
         """
         return self._fp
 
-    def false_neg(self):
+    def false_neg(self) -> float:
         """Return false negatives.
 
         AKA Type II error
 
         Returns
         -------
-        int
+        float
             The false negatives of the confusion table
 
         Example
@@ -362,12 +375,12 @@ class ConfusionTable(object):
         """
         return self._fn
 
-    def correct_pop(self):
+    def correct_pop(self) -> float:
         """Return correct population.
 
         Returns
         -------
-        int
+        float
             The correct population of the confusion table
 
         Example
@@ -382,12 +395,12 @@ class ConfusionTable(object):
         """
         return self._tp + self._tn
 
-    def error_pop(self):
+    def error_pop(self) -> float:
         """Return error population.
 
         Returns
         -------
-        int
+        float
             The error population of the confusion table
 
         Example
@@ -402,12 +415,12 @@ class ConfusionTable(object):
         """
         return self._fp + self._fn
 
-    def pred_pos_pop(self):
+    def pred_pos_pop(self) -> float:
         """Return predicted positive population.
 
         Returns
         -------
-        int
+        float
             The predicted positive population of the confusion table
 
         Example
@@ -427,12 +440,12 @@ class ConfusionTable(object):
         """
         return self._tp + self._fp
 
-    def pred_neg_pop(self):
+    def pred_neg_pop(self) -> float:
         """Return predicted negative population.
 
         Returns
         -------
-        int
+        float
             The predicted negative population of the confusion table
 
         Example
@@ -452,12 +465,12 @@ class ConfusionTable(object):
         """
         return self._tn + self._fn
 
-    def cond_pos_pop(self):
+    def cond_pos_pop(self) -> float:
         """Return condition positive population.
 
         Returns
         -------
-        int
+        float
             The condition positive population of the confusion table
 
         Example
@@ -472,12 +485,12 @@ class ConfusionTable(object):
         """
         return self._tp + self._fn
 
-    def cond_neg_pop(self):
+    def cond_neg_pop(self) -> float:
         """Return condition negative population.
 
         Returns
         -------
-        int
+        float
             The condition negative population of the confusion table
 
         Example
@@ -492,12 +505,12 @@ class ConfusionTable(object):
         """
         return self._fp + self._tn
 
-    def population(self):
+    def population(self) -> float:
         """Return population, N.
 
         Returns
         -------
-        int
+        float
             The population (N) of the confusion table
 
         Example
@@ -512,7 +525,7 @@ class ConfusionTable(object):
         """
         return self._tp + self._tn + self._fp + self._fn
 
-    def precision(self):
+    def precision(self) -> float:
         r"""Return precision.
 
         Precision is defined as
@@ -547,7 +560,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def precision_gain(self):
+    def precision_gain(self) -> float:
         r"""Return gain in precision.
 
         The gain in precision is defined as
@@ -579,7 +592,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def recall(self):
+    def recall(self) -> float:
         r"""Return recall.
 
         Recall is defined as
@@ -618,7 +631,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def specificity(self):
+    def specificity(self) -> float:
         r"""Return specificity.
 
         Specificity is defined as
@@ -653,7 +666,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def fnr(self):
+    def fnr(self) -> float:
         r"""Return false negative rate.
 
         False negative rate is defined as
@@ -683,7 +696,7 @@ class ConfusionTable(object):
         """
         return 1 - self.recall()
 
-    def npv(self):
+    def npv(self) -> float:
         r"""Return negative predictive value (NPV).
 
         NPV is defined as
@@ -716,7 +729,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def false_omission_rate(self):
+    def false_omission_rate(self) -> float:
         r"""Return false omission rate (FOR).
 
         FOR is defined as
@@ -747,7 +760,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def fallout(self):
+    def fallout(self) -> float:
         r"""Return fall-out.
 
         Fall-out is defined as
@@ -777,7 +790,7 @@ class ConfusionTable(object):
         """
         return 1 - self.specificity()
 
-    def pos_likelihood_ratio(self):
+    def pos_likelihood_ratio(self) -> float:
         r"""Return positive likelihood ratio.
 
         Positive likelihood ratio is defined as
@@ -806,7 +819,7 @@ class ConfusionTable(object):
         """
         return self.recall() / (1.0 - self.specificity())
 
-    def neg_likelihood_ratio(self):
+    def neg_likelihood_ratio(self) -> float:
         r"""Return negative likelihood ratio.
 
         Negative likelihood ratio is defined as
@@ -835,7 +848,7 @@ class ConfusionTable(object):
         """
         return (1.0 - self.recall()) / self.specificity()
 
-    def diagnostic_odds_ratio(self):
+    def diagnostic_odds_ratio(self) -> float:
         r"""Return diagnostic odds ratio.
 
         Diagnostic odds ratio is defined as
@@ -867,7 +880,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def fdr(self):
+    def fdr(self) -> float:
         r"""Return false discovery rate (FDR).
 
         False discovery rate is defined as
@@ -898,7 +911,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def accuracy(self):
+    def accuracy(self) -> float:
         r"""Return accuracy.
 
         Accuracy is defined as
@@ -929,7 +942,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def accuracy_gain(self):
+    def accuracy_gain(self) -> float:
         r"""Return gain in accuracy.
 
         The gain in accuracy is defined as
@@ -963,7 +976,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def balanced_accuracy(self):
+    def balanced_accuracy(self) -> float:
         r"""Return balanced accuracy.
 
         Balanced accuracy is defined as
@@ -991,7 +1004,7 @@ class ConfusionTable(object):
         """
         return 0.5 * (self.recall() + self.specificity())
 
-    def error_rate(self):
+    def error_rate(self) -> float:
         r"""Return error rate.
 
         Error rate is defined as
@@ -1022,7 +1035,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def prevalence(self):
+    def prevalence(self) -> float:
         r"""Return prevalence.
 
         Prevalence is defined as
@@ -1053,7 +1066,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def informedness(self):
+    def informedness(self) -> float:
         """Return informedness.
 
         Informedness is defined as
@@ -1085,7 +1098,7 @@ class ConfusionTable(object):
         """
         return self.recall() + self.specificity() - 1
 
-    def markedness(self):
+    def markedness(self) -> float:
         """Return markedness.
 
         Markedness is defined as
@@ -1113,7 +1126,7 @@ class ConfusionTable(object):
         """
         return self.precision() + self.npv() - 1
 
-    def pr_amean(self):
+    def pr_amean(self) -> float:
         r"""Return arithmetic mean of precision & recall.
 
         The arithmetic mean of precision and recall is defined as
@@ -1141,7 +1154,7 @@ class ConfusionTable(object):
         """
         return amean((self.precision(), self.recall()))
 
-    def pr_gmean(self):
+    def pr_gmean(self) -> float:
         r"""Return geometric mean of precision & recall.
 
         The geometric mean of precision and recall is defined as:
@@ -1169,7 +1182,7 @@ class ConfusionTable(object):
         """
         return gmean((self.precision(), self.recall()))
 
-    def pr_hmean(self):
+    def pr_hmean(self) -> float:
         r"""Return harmonic mean of precision & recall.
 
         The harmonic mean of precision and recall is defined as
@@ -1197,7 +1210,7 @@ class ConfusionTable(object):
         """
         return hmean((self.precision(), self.recall()))
 
-    def pr_qmean(self):
+    def pr_qmean(self) -> float:
         r"""Return quadratic mean of precision & recall.
 
         The quadratic mean of precision and recall is defined as
@@ -1225,7 +1238,7 @@ class ConfusionTable(object):
         """
         return qmean((self.precision(), self.recall()))
 
-    def pr_cmean(self):
+    def pr_cmean(self) -> float:
         r"""Return contraharmonic mean of precision & recall.
 
         The contraharmonic mean is
@@ -1253,7 +1266,7 @@ class ConfusionTable(object):
         """
         return cmean((self.precision(), self.recall()))
 
-    def pr_lmean(self):
+    def pr_lmean(self) -> float:
         r"""Return logarithmic mean of precision & recall.
 
         The logarithmic mean is:
@@ -1291,7 +1304,7 @@ class ConfusionTable(object):
             return precision
         return (precision - recall) / (math.log(precision) - math.log(recall))
 
-    def pr_imean(self):
+    def pr_imean(self) -> float:
         r"""Return identric (exponential) mean of precision & recall.
 
         The identric mean is:
@@ -1323,7 +1336,7 @@ class ConfusionTable(object):
         """
         return imean((self.precision(), self.recall()))
 
-    def pr_seiffert_mean(self):
+    def pr_seiffert_mean(self) -> float:
         r"""Return Seiffert's mean of precision & recall.
 
         Seiffert's mean of precision and recall is
@@ -1352,7 +1365,7 @@ class ConfusionTable(object):
         """
         return seiffert_mean((self.precision(), self.recall()))
 
-    def pr_lehmer_mean(self, exp=2.0):
+    def pr_lehmer_mean(self, exp: float = 2.0) -> float:
         r"""Return Lehmer mean of precision & recall.
 
         The Lehmer mean is
@@ -1387,7 +1400,7 @@ class ConfusionTable(object):
         """
         return lehmer_mean((self.precision(), self.recall()), exp)
 
-    def pr_heronian_mean(self):
+    def pr_heronian_mean(self) -> float:
         r"""Return Heronian mean of precision & recall.
 
         The Heronian mean of precision and recall is defined as
@@ -1415,7 +1428,7 @@ class ConfusionTable(object):
         """
         return heronian_mean((self.precision(), self.recall()))
 
-    def pr_hoelder_mean(self, exp=2):
+    def pr_hoelder_mean(self, exp: float = 2.0) -> float:
         r"""Return Hölder (power/generalized) mean of precision & recall.
 
         The power mean of precision and recall is defined as
@@ -1452,7 +1465,7 @@ class ConfusionTable(object):
         """
         return hoelder_mean((self.precision(), self.recall()), exp)
 
-    def pr_agmean(self):
+    def pr_agmean(self) -> float:
         """Return arithmetic-geometric mean of precision & recall.
 
         Iterates between arithmetic & geometric means until they converge to
@@ -1478,7 +1491,7 @@ class ConfusionTable(object):
         """
         return agmean((self.precision(), self.recall()))
 
-    def pr_ghmean(self):
+    def pr_ghmean(self) -> float:
         """Return geometric-harmonic mean of precision & recall.
 
         Iterates between geometric & harmonic means until they converge to
@@ -1504,7 +1517,7 @@ class ConfusionTable(object):
         """
         return ghmean((self.precision(), self.recall()))
 
-    def pr_aghmean(self):
+    def pr_aghmean(self) -> float:
         """Return arithmetic-geometric-harmonic mean of precision & recall.
 
         Iterates over arithmetic, geometric, & harmonic means until they
@@ -1529,7 +1542,7 @@ class ConfusionTable(object):
         """
         return aghmean((self.precision(), self.recall()))
 
-    def fbeta_score(self, beta=1.0):
+    def fbeta_score(self, beta: float = 1.0) -> float:
         r"""Return :math:`F_{\beta}` score.
 
         :math:`F_{\beta}` for a positive real value :math:`\beta` "measures
@@ -1584,7 +1597,7 @@ class ConfusionTable(object):
             / ((beta ** 2 * precision) + recall)
         )
 
-    def f2_score(self):
+    def f2_score(self) -> float:
         """Return :math:`F_{2}`.
 
         The :math:`F_{2}` score emphasizes recall over precision in comparison
@@ -1609,7 +1622,7 @@ class ConfusionTable(object):
         """
         return self.fbeta_score(2.0)
 
-    def fhalf_score(self):
+    def fhalf_score(self) -> float:
         """Return :math:`F_{0.5}` score.
 
         The :math:`F_{0.5}` score emphasizes precision over recall in
@@ -1634,7 +1647,7 @@ class ConfusionTable(object):
         """
         return self.fbeta_score(0.5)
 
-    def e_score(self, beta=1.0):
+    def e_score(self, beta: float = 1.0) -> float:
         r"""Return :math:`E`-score.
 
         This is Van Rijsbergen's effectiveness measure:
@@ -1664,7 +1677,7 @@ class ConfusionTable(object):
         """
         return 1.0 - self.fbeta_score(beta)
 
-    def f1_score(self):
+    def f1_score(self) -> float:
         r"""Return :math:`F_{1}` score.
 
         :math:`F_{1}` score is the harmonic mean of precision and recall
@@ -1692,7 +1705,7 @@ class ConfusionTable(object):
         """
         return self.fbeta_score(1.0)
 
-    def jaccard(self):
+    def jaccard(self) -> float:
         r"""Return Jaccard index.
 
         The Jaccard index of a confusion table is
@@ -1721,7 +1734,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def d_measure(self):
+    def d_measure(self) -> float:
         r"""Return D-measure.
 
         :math:`D`-measure is defined as
@@ -1749,7 +1762,7 @@ class ConfusionTable(object):
             1.0 / (1.0 / self.precision() + 1.0 / self.recall() - 1.0)
         )
 
-    def mcc(self):
+    def mcc(self) -> float:
         r"""Return Matthews correlation coefficient (MCC).
 
         The Matthews correlation coefficient is defined in
@@ -1790,7 +1803,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def significance(self):
+    def significance(self) -> float:
         r"""Return the significance, :math:`\chi^{2}`.
 
         Significance is defined as
@@ -1833,7 +1846,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def kappa_statistic(self):
+    def kappa_statistic(self) -> float:
         r"""Return κ statistic.
 
         The κ statistic is defined as
@@ -1873,7 +1886,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def phi_coefficient(self):
+    def phi_coefficient(self) -> float:
         r"""Return φ coefficient.
 
         The :math:`\phi` coefficient is defined as
@@ -1909,7 +1922,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def joint_entropy(self):
+    def joint_entropy(self) -> float:
         """Return the joint entropy.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
@@ -1938,7 +1951,7 @@ class ConfusionTable(object):
         except ValueError:
             return float('nan')
 
-    def actual_entropy(self):
+    def actual_entropy(self) -> float:
         """Return the actual entropy.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
@@ -1970,7 +1983,7 @@ class ConfusionTable(object):
         except ValueError:
             return float('nan')
 
-    def predicted_entropy(self):
+    def predicted_entropy(self) -> float:
         """Return the predicted entropy.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
@@ -2002,7 +2015,7 @@ class ConfusionTable(object):
         except ValueError:
             return float('nan')
 
-    def mutual_information(self):
+    def mutual_information(self) -> float:
         """Return the mutual information.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
@@ -2054,7 +2067,7 @@ class ConfusionTable(object):
         except ZeroDivisionError:
             return float('nan')
 
-    def proficiency(self):
+    def proficiency(self) -> float:
         """Return the proficiency.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
@@ -2081,7 +2094,7 @@ class ConfusionTable(object):
         """
         return self.mutual_information() / self.actual_entropy()
 
-    def igr(self):
+    def igr(self) -> float:
         """Return information gain ratio.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
@@ -2105,7 +2118,7 @@ class ConfusionTable(object):
         """
         return self.mutual_information() / self.predicted_entropy()
 
-    def dependency(self):
+    def dependency(self) -> float:
         """Return dependency.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric
@@ -2127,7 +2140,7 @@ class ConfusionTable(object):
         """
         return self.mutual_information() / self.joint_entropy()
 
-    def lift(self):
+    def lift(self) -> float:
         """Return lift.
 
         Implementation based on https://github.com/Magnetic/proficiency-metric

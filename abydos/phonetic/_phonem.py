@@ -70,7 +70,7 @@ class Phonem(_Phonetic):
 
     _uc_set = set('ABCDLMNORSUVWXYÖ')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Phonem code for a word.
 
         Parameters

@@ -36,7 +36,7 @@ class Caverphone(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, version=2):
+    def __init__(self, version: int = 2) -> None:
         """Initialize Caverphone instance.
 
         Parameters
@@ -50,7 +50,7 @@ class Caverphone(_Phonetic):
         """
         self._version = version
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Caverphone code for a word.
 
         Parameters
@@ -91,7 +91,7 @@ class Caverphone(_Phonetic):
         """
         return self.encode(word).rstrip('1')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Caverphone code for a word.
 
         Parameters
@@ -135,7 +135,7 @@ class Caverphone(_Phonetic):
         word = word.lower()
         word = ''.join(c for c in word if c in self._lc_set)
 
-        def _squeeze_replace(word, char):
+        def _squeeze_replace(word: str, char: str) -> str:
             """Convert strings of char in word to one instance.
 
             Parameters

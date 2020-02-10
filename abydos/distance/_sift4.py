@@ -19,6 +19,8 @@
 Sift4 Common approximate string distance
 """
 
+from typing import Any, Dict, List, Union
+
 from ._distance import _Distance
 
 __all__ = ['Sift4']
@@ -33,7 +35,9 @@ class Sift4(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_offset=5, max_distance=0, **kwargs):
+    def __init__(
+        self, max_offset: int = 5, max_distance: int = 0, **kwargs: Any
+    ) -> None:
         """Initialize Sift4 instance.
 
         Parameters
@@ -53,7 +57,7 @@ class Sift4(_Distance):
         self._max_offset = max_offset
         self._max_distance = max_distance
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the "common" Sift4 distance between two terms.
 
         Parameters
@@ -100,7 +104,7 @@ class Sift4(_Distance):
         lcss = 0
         local_cs = 0
         trans = 0
-        offset_arr = []
+        offset_arr = []  # type: List[Dict[str, Union[int, bool]]]
 
         while (src_cur < src_len) and (tar_cur < tar_len):
             if src[src_cur] == tar[tar_cur]:
@@ -166,7 +170,7 @@ class Sift4(_Distance):
         lcss += local_cs
         return round(max(src_len, tar_len) - lcss + trans)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized "common" Sift4 distance between two terms.
 
         This is Sift4 distance, normalized to [0, 1].

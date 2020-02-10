@@ -19,7 +19,10 @@
 Johnson similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Johnson']
 
@@ -46,7 +49,12 @@ class Johnson(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Johnson instance.
 
         Parameters
@@ -81,7 +89,7 @@ class Johnson(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Johnson similarity of two strings.
 
         Parameters
@@ -126,7 +134,7 @@ class Johnson(_TokenDistance):
 
         return a / ab + a / ac
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Johnson similarity of two strings.
 
         Parameters

@@ -40,7 +40,7 @@ class CLEFGermanPlus(_Stemmer):
         zip((ord(_) for _ in 'äàáâöòóôïìíîüùúû'), 'aaaaooooiiiiuuuu')
     )
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return 'CLEF German stemmer plus' stem.
 
         Parameters

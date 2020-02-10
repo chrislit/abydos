@@ -19,7 +19,10 @@
 Kuhns I correlation
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KuhnsI']
 
@@ -61,11 +64,13 @@ class KuhnsI(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize KuhnsI instance.
 
         Parameters
@@ -107,7 +112,7 @@ class KuhnsI(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Kuhns I correlation of two strings.
 
         Parameters
@@ -155,7 +160,7 @@ class KuhnsI(_TokenDistance):
         else:
             return 2 * delta_ab / n
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Kuhns I similarity of two strings.
 
         Parameters

@@ -18,8 +18,9 @@
 
 Regexp tokenizer
 """
-
 import re
+
+from typing import Callable, Optional, Union
 
 from ._tokenizer import _Tokenizer
 
@@ -32,7 +33,12 @@ class RegexpTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None, regexp=r'\w+', flags=0):
+    def __init__(
+        self,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
+        regexp: str = r'\w+',
+        flags: int = 0,
+    ) -> None:
         """Initialize tokenizer.
 
         Parameters
@@ -51,6 +57,12 @@ class RegexpTokenizer(_Tokenizer):
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
+        regexp : str
+            A regular exprecssion used to match tokens in the input text.
+        flags : int
+            Flags to pass to the regular expression matcher. See the
+            `documentation on Python's re module
+            <https://docs.python.org/3/library/re.html#re.A>`_ for details.
 
 
         .. versionadded:: 0.4.0
@@ -64,7 +76,7 @@ class RegexpTokenizer(_Tokenizer):
         self._string = ''
         self._ordered_tokens = []
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'RegexpTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -85,7 +97,7 @@ class RegexpTokenizer(_Tokenizer):
         """
         self._string = string
         self._ordered_tokens = self._regexp.findall(self._string)
-        super(RegexpTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

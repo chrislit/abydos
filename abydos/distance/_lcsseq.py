@@ -19,7 +19,9 @@
 Longest common subsequence
 """
 
-from numpy import int as np_int
+from typing import Any, Callable, List
+
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -36,7 +38,9 @@ class LCSseq(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, normalizer=max, **kwargs):
+    def __init__(
+        self, normalizer: Callable[[List[float]], float] = max, **kwargs: Any
+    ) -> None:
         r"""Initialize LCSseq.
 
         Parameters
@@ -57,7 +61,7 @@ class LCSseq(_Distance):
         super(LCSseq, self).__init__(**kwargs)
         self._normalizer = normalizer
 
-    def lcsseq(self, src, tar):
+    def lcsseq(self, src: str, tar: str) -> str:
         """Return the longest common subsequence of two strings.
 
         Based on the dynamic programming algorithm from
@@ -123,7 +127,7 @@ class LCSseq(_Distance):
                 j -= 1
         return result
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the longest common subsequence similarity of two strings.
 
         Longest common subsequence similarity (:math:`sim_{LCSseq}`).

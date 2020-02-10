@@ -44,7 +44,7 @@ class MetaSoundex(_Phonetic):
         )
     )
 
-    def __init__(self, lang='en'):
+    def __init__(self, lang: str = 'en') -> None:
         """Initialize MetaSoundex instance.
 
         Parameters
@@ -58,13 +58,13 @@ class MetaSoundex(_Phonetic):
         """
         self._lang = lang
         if lang == 'en':
-            self._sdx = Soundex()
-            self._meta = Metaphone()
+            self._sdx = Soundex()  # type: _Phonetic
+            self._meta = Metaphone()  # type: _Phonetic
         else:
             self._sdx = PhoneticSpanish()
             self._meta = SpanishMetaphone()
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the MetaSoundex code for a word.
 
         Parameters
@@ -110,7 +110,7 @@ class MetaSoundex(_Phonetic):
         word = self._sdx.encode_alpha(self._meta.encode_alpha(word))
         return word
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the MetaSoundex code for a word.
 
         Parameters

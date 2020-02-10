@@ -1,0 +1,3 @@
+# Stubs for paq (Python 3)
+
+def compress(data: bytes) -> bytes: ...

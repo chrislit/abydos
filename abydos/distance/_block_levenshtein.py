@@ -19,6 +19,8 @@
 Levenshtein distance with block operations
 """
 
+from typing import Any, Callable, List, Tuple
+
 from ._lcsstr import LCSstr
 from ._levenshtein import Levenshtein
 
@@ -36,7 +38,12 @@ class BlockLevenshtein(Levenshtein):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, cost=(1, 1, 1, 1), normalizer=max, **kwargs):
+    def __init__(
+        self,
+        cost: Tuple[float, float, float, float] = (1, 1, 1, 1),
+        normalizer: Callable[[List[float]], float] = max,
+        **kwargs: Any
+    ):
         """Initialize BlockLevenshtein instance.
 
         Parameters
@@ -53,7 +60,7 @@ class BlockLevenshtein(Levenshtein):
         )
         self.lcs = LCSstr()
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the block Levenshtein edit distance between two strings.
 
         Parameters
@@ -98,7 +105,7 @@ class BlockLevenshtein(Levenshtein):
         d = super(BlockLevenshtein, self).dist_abs(src, tar)
         return d
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized block Levenshtein distance between strings.
 
         Parameters

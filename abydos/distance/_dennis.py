@@ -19,7 +19,10 @@
 Dennis similarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Dennis']
 
@@ -52,11 +55,13 @@ class Dennis(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Dennis instance.
 
         Parameters
@@ -98,7 +103,7 @@ class Dennis(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Dennis similarity of two strings.
 
         Parameters
@@ -147,7 +152,7 @@ class Dennis(_TokenDistance):
 
         return num / abacn ** 0.5
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Dennis correlation of two strings.
 
         Parameters
@@ -183,7 +188,7 @@ class Dennis(_TokenDistance):
             return 0.0
         return round(score / self._population_unique_card() ** 0.5, 15)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Dennis similarity of two strings.
 
         Parameters

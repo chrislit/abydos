@@ -19,6 +19,9 @@
 NCD using Arithmetic Coding
 """
 
+from fractions import Fraction
+from typing import Any, Dict, Optional, Tuple
+
 from ._distance import _Distance
 from ..compression import Arithmetic
 
@@ -35,7 +38,11 @@ class NCDarith(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, probs=None, **kwargs):
+    def __init__(
+        self,
+        probs: Optional[Dict[str, Tuple[Fraction, Fraction]]] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize the arithmetic coder object.
 
         Parameters
@@ -53,7 +60,7 @@ class NCDarith(_Distance):
         self._coder = Arithmetic()
         self._probs = probs
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the NCD between two strings using arithmetic coding.
 
         Parameters

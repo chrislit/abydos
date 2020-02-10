@@ -19,8 +19,12 @@
 Soft Cosine similarity & distance
 """
 
+from typing import Any, Optional, cast
+
+from ._distance import _Distance
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['SoftCosine']
 
@@ -53,7 +57,13 @@ class SoftCosine(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer=None, metric=None, sim_method='a', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        metric: Optional[_Distance] = None,
+        sim_method: str = 'a',
+        **kwargs: Any
+    ) -> None:
         r"""Initialize SoftCosine instance.
 
         Parameters
@@ -100,11 +110,38 @@ class SoftCosine(_TokenDistance):
         """
         super(SoftCosine, self).__init__(tokenizer, **kwargs)
         self.params['metric'] = metric if metric is not None else Levenshtein()
-        if sim_method not in 'abcd':
+        if sim_method not in {'a', 'b', 'c', 'd'}:
             raise ValueError("sim_method must be one of 'a', 'b', 'c', or 'd'")
         self.params['sim_method'] = sim_method
 
-    def sim(self, src, tar):
+    def _sim_a(self, src: str, tar: str) -> float:
+        return 1 / (1 + cast(float, self.params['metric'].dist_abs(src, tar)))
+
+    def _sim_b(self, src: str, tar: str) -> float:
+        return 1 - (
+            cast(float, self.params['metric'].dist_abs(src, tar))
+            / max(len(src), len(tar))
+        )
+
+    def _sim_c(self, src: str, tar: str) -> float:
+        return (
+            1
+            - (
+                cast(float, self.params['metric'].dist_abs(src, tar))
+                / max(len(src), len(tar))
+            )
+        ) ** 0.5
+
+    def _sim_d(self, src: str, tar: str) -> float:
+        return (
+            1
+            - (
+                cast(float, self.params['metric'].dist_abs(src, tar))
+                / max(len(src), len(tar))
+            )
+        ) ** 2
+
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the Soft Cosine similarity of two strings.
 
         Parameters
@@ -144,34 +181,15 @@ class SoftCosine(_TokenDistance):
             return 0.0
 
         similarity = {
-            'a': lambda src, tar: 1
-            / (1 + self.params['metric'].dist_abs(src, tar)),
-            'b': lambda src, tar: 1
-            - (
-                self.params['metric'].dist_abs(src, tar)
-                / max(len(src), len(tar))
-            ),
-            'c': lambda src, tar: (
-                1
-                - (
-                    self.params['metric'].dist_abs(src, tar)
-                    / max(len(src), len(tar))
-                )
-            )
-            ** 0.5,
-            'd': lambda src, tar: (
-                1
-                - (
-                    self.params['metric'].dist_abs(src, tar)
-                    / max(len(src), len(tar))
-                )
-            )
-            ** 2,
+            'a': self._sim_a,
+            'b': self._sim_b,
+            'c': self._sim_c,
+            'd': self._sim_d,
         }
 
-        nom = 0
-        denom_left = 0
-        denom_right = 0
+        nom = 0.0
+        denom_left = 0.0
+        denom_right = 0.0
 
         for src in self._src_tokens.keys():
             for tar in self._tar_tokens.keys():

@@ -26,7 +26,7 @@ try:
 except ImportError:  # pragma: no cover
     # If the system lacks the lzss library, that's fine, but LZSS compression
     # similarity won't be supported.
-    lzss = None
+    lzss = None  # type: ignore
 
 __all__ = ['NCDlzss']
 
@@ -41,7 +41,7 @@ class NCDlzss(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the NCD between two strings using LZSS compression.
 
         Parameters

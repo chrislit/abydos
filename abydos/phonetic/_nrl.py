@@ -20,6 +20,7 @@ NRL English-to-phoneme algorithm
 """
 
 from re import match as re_match
+from typing import Dict, Tuple
 
 from ._phonetic import _Phonetic
 
@@ -424,9 +425,9 @@ class NRL(_Phonetic):
             ('', 'Y', '', 'IH'),
         ),
         'Z': (('', 'Z', '', 'z'),),
-    }
+    }  # type: Dict[str, Tuple[Tuple[str, str, str, str], ...]]
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Naval Research Laboratory phonetic encoding of a word.
 
         Parameters
@@ -462,7 +463,7 @@ class NRL(_Phonetic):
 
         """
 
-        def _to_regex(pattern, left_match=True):
+        def _to_regex(pattern: str, left_match: bool = True) -> str:
             new_pattern = ''
             replacements = {
                 '#': '[AEIOU]+',

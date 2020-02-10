@@ -19,7 +19,18 @@
 Chebyshev distance
 """
 
+from typing import (
+    Any,
+    Counter as TCounter,
+    NoReturn,
+    Optional,
+    Sequence,
+    Set,
+    Union,
+)
+
 from ._minkowski import Minkowski
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Chebyshev']
 
@@ -34,8 +45,14 @@ class Chebyshev(Minkowski):
     """
 
     def __init__(
-        self, alphabet=0, tokenizer=None, intersection_type='crisp', **kwargs
-    ):
+        self,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = 0,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Euclidean instance.
 
         Parameters
@@ -76,7 +93,7 @@ class Chebyshev(Minkowski):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str, *args: Any, **kwargs: Any) -> float:
         r"""Return the Chebyshev distance between two strings.
 
         Parameters
@@ -117,7 +134,7 @@ class Chebyshev(Minkowski):
         """
         return super(Chebyshev, self).dist_abs(src, tar, False)
 
-    def sim(self, *args, **kwargs):
+    def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters
@@ -138,7 +155,7 @@ class Chebyshev(Minkowski):
         """
         raise NotImplementedError('Method disabled for Chebyshev distance.')
 
-    def dist(self, *args, **kwargs):
+    def dist(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters

@@ -30,7 +30,7 @@ class Length(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the length similarity of two strings.
 
         Length similarity is the ratio of the length of the shorter string to

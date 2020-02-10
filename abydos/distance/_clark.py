@@ -19,6 +19,8 @@
 Clark's coefficient of divergence
 """
 
+from typing import Any
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['Clark']
@@ -38,7 +40,7 @@ class Clark(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize Clark instance.
 
         Parameters
@@ -52,7 +54,7 @@ class Clark(_TokenDistance):
         """
         super(Clark, self).__init__(**kwargs)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return Clark's coefficient of divergence of two strings.
 
         Parameters

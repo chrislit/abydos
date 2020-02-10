@@ -52,7 +52,7 @@ class ParmarKumbharana(_Phonetic):
     }
     _del_trans = {65: '', 69: '', 73: '', 79: '', 85: '', 89: ''}
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Parmar-Kumbharana encoding of a word.
 
         Parameters

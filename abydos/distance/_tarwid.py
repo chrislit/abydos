@@ -19,7 +19,10 @@
 Tarwid correlation
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Tarwid']
 
@@ -49,11 +52,13 @@ class Tarwid(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Tarwid instance.
 
         Parameters
@@ -95,7 +100,7 @@ class Tarwid(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Tarwid correlation of two strings.
 
         Parameters
@@ -135,7 +140,7 @@ class Tarwid(_TokenDistance):
             return 0.0
         return (nta - abtac) / (nta + abtac)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Tarwid similarity of two strings.
 
         Parameters

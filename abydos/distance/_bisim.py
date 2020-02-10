@@ -19,7 +19,9 @@
 BI-SIM similarity
 """
 
-from numpy import float as np_float
+from typing import Any, cast
+
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -36,7 +38,7 @@ class BISIM(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, **kwargs):
+    def __init__(self, qval: int = 2, **kwargs: Any) -> None:
         """Initialize BISIM instance.
 
         Parameters
@@ -55,7 +57,7 @@ class BISIM(_Distance):
         super(BISIM, self).__init__(**kwargs)
         self._qval = qval
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the BI-SIM similarity of two strings.
 
         Parameters
@@ -94,7 +96,7 @@ class BISIM(_Distance):
         if not src or not tar:
             return 0.0
 
-        def _id(src_pos, tar_pos):
+        def _id(src_pos: int, tar_pos: int) -> float:
             s = 0
             for i in range(self._qval):
                 s += int(src[src_pos + i] == tar[tar_pos + i])
@@ -112,7 +114,7 @@ class BISIM(_Distance):
                     d_mat[i - 1, j],  # ins
                     d_mat[i, j - 1],  # del
                 )
-        return d_mat[src_len, tar_len] / max(src_len, tar_len)
+        return cast(float, d_mat[src_len, tar_len]) / max(src_len, tar_len)
 
 
 if __name__ == '__main__':

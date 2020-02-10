@@ -19,7 +19,10 @@
 Unknown G similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['UnknownG']
 
@@ -48,7 +51,12 @@ class UnknownG(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize UnknownG instance.
 
         Parameters
@@ -83,7 +91,7 @@ class UnknownG(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Unknown G similarity of two strings.
 
         Parameters

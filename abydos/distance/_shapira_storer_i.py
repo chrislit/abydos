@@ -20,8 +20,9 @@ Shapira & Storer I edit distance with block moves, greedy algorithm
 """
 
 from collections import Counter
+from typing import Any, Counter as TCounter, Tuple, cast
 
-from numpy import int as np_int
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -54,11 +55,18 @@ class ShapiraStorerI(_Distance):
 
     _lcs = LCSstr()
 
-    def __init__(self, cost=(1, 1), prime=False, **kwargs):
+    def __init__(
+        self,
+        cost: Tuple[int, int] = (1, 1),
+        prime: bool = False,
+        **kwargs: Any
+    ) -> None:
         """Initialize ShapiraStorerI instance.
 
         Parameters
         ----------
+        cost : (int, int)
+            A tuple representing the insertion & deletion costs
         prime : bool
             If True, employs the greedy' algorithm rather than greedy
         **kwargs
@@ -72,7 +80,7 @@ class ShapiraStorerI(_Distance):
         self._prime = prime
         super(ShapiraStorerI, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Shapira & Storer I edit distance between two strings.
 
         Parameters
@@ -119,10 +127,9 @@ class ShapiraStorerI(_Distance):
             alphabet |= {next_char}
             lcs = self._lcs.lcsstr(src, tar)
 
-        d = self._edit_with_moves(src, tar)
-        return d
+        return self._edit_with_moves(src, tar)
 
-    def _edit_with_moves(self, src, tar):
+    def _edit_with_moves(self, src: str, tar: str) -> int:
         """Return the edit distance between two strings using ins, del, & move.
 
         Parameters
@@ -171,8 +178,8 @@ class ShapiraStorerI(_Distance):
         # inserted & deleted characters
         i = len(src)
         j = len(tar)
-        inserts = Counter()
-        deletes = Counter()
+        inserts = Counter()  # type: TCounter[str]
+        deletes = Counter()  # type: TCounter[str]
         while i > 0 and j > 0:
             ante = [d_mat[i - 1, j - 1], d_mat[i - 1, j], d_mat[i, j - 1]]
             least = ante.index(min(ante))
@@ -202,9 +209,9 @@ class ShapiraStorerI(_Distance):
 
         moves = sum((inserts & deletes).values())
 
-        return distance - moves
+        return cast(int, distance - moves)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Shapira & Storer I distance.
 
         Parameters

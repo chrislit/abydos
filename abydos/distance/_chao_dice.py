@@ -19,6 +19,8 @@
 Chao's Dice similarity
 """
 
+from typing import Any
+
 from ._chao_jaccard import ChaoJaccard
 
 __all__ = ['ChaoDice']
@@ -32,7 +34,7 @@ class ChaoDice(ChaoJaccard):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize ChaoDice instance.
 
         Parameters
@@ -46,7 +48,7 @@ class ChaoDice(ChaoJaccard):
         """
         super(ChaoDice, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Chao's Dice similarity of two strings.
 
         Parameters
@@ -81,7 +83,7 @@ class ChaoDice(ChaoJaccard):
         """
         return max(0.0, min(1.0, self.sim_score(src, tar)))
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Chao's Dice similarity of two strings.
 
         Parameters

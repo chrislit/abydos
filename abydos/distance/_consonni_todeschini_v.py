@@ -20,8 +20,10 @@ Consonni & Todeschini V correlation
 """
 
 from math import log1p
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['ConsonniTodeschiniV']
 
@@ -52,11 +54,13 @@ class ConsonniTodeschiniV(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize ConsonniTodeschiniV instance.
 
         Parameters
@@ -98,7 +102,7 @@ class ConsonniTodeschiniV(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Consonni & Todeschini V correlation of two strings.
 
         Parameters
@@ -143,7 +147,7 @@ class ConsonniTodeschiniV(_TokenDistance):
 
         return num / log1p(n ** 2 / 4)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Consonni & Todeschini V similarity of two strings.
 
         Parameters

@@ -20,6 +20,7 @@ Covington distance
 """
 
 from collections import namedtuple
+from typing import Any, List, Optional, Tuple, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._distance import _Distance
@@ -37,7 +38,20 @@ class Covington(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, weights=(0, 5, 10, 30, 60, 100, 40, 50), **kwargs):
+    def __init__(
+        self,
+        weights: Tuple[int, int, int, int, int, int, int, int] = (
+            0,
+            5,
+            10,
+            30,
+            60,
+            100,
+            40,
+            50,
+        ),
+        **kwargs: Any
+    ) -> None:
         """Initialize Covington instance.
 
         Parameters
@@ -70,7 +84,7 @@ class Covington(_Distance):
         self._consonants = set('bcdfghjklmnpqrstvxz')
         self._glides = set('wy')
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Covington distance of two strings.
 
         Parameters
@@ -101,9 +115,9 @@ class Covington(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        return self.alignments(src, tar, 1)[0][-1]
+        return cast(float, self.alignments(src, tar, 1)[0][-1])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Covington distance of two strings.
 
         Parameters
@@ -141,7 +155,7 @@ class Covington(_Distance):
 
         return self.dist_abs(src, tar) / normalizer
 
-    def alignment(self, src, tar):
+    def alignment(self, src: str, tar: str) -> Tuple[float, str, str]:
         """Return the top Covington alignment of two strings.
 
         This returns only the top alignment in a standard
@@ -174,7 +188,9 @@ class Covington(_Distance):
         alignment = self.alignments(src, tar, 1)[0]
         return alignment.score, alignment.src, alignment.tar
 
-    def alignments(self, src, tar, top_n=None):
+    def alignments(
+        self, src: str, tar: str, top_n: Optional[int] = None
+    ) -> List[Alignment]:
         """Return the Covington alignments of two strings.
 
         Parameters
@@ -207,26 +223,26 @@ class Covington(_Distance):
         """
         if not src:
             if not tar:
-                return [['', '', 0]]
+                return [Alignment('', '', 0)]
             return [
-                [
+                Alignment(
                     '-' * len(tar),
                     src,
                     self._weights[7] + self._weights[6] * (len(tar) - 1),
-                ]
+                )
             ]
         if not tar:
             return [
-                [
+                Alignment(
                     src,
                     '-' * len(src),
                     self._weights[7] + self._weights[6] * (len(src) - 1),
-                ]
+                )
             ]
 
         terminals = []
 
-        def _cost(s, t):
+        def _cost(s: str, t: str) -> float:
             if s[-1:] == '-':
                 if s[-2:] == '--':
                     return self._weights[6]
@@ -263,7 +279,9 @@ class Covington(_Distance):
 
             return self._weights[5]
 
-        def _add_alignments(cost, src, tar, src_align, tar_align):
+        def _add_alignments(
+            cost: float, src: str, tar: str, src_align: str, tar_align: str
+        ) -> None:
             cost += _cost(src_align, tar_align)
 
             if src and tar:
@@ -292,10 +310,7 @@ class Covington(_Distance):
         _add_alignments(0, src[1:], tar, src[0], '-')
         _add_alignments(0, src[1:], tar[1:], src[0], tar[0])
 
-        def _score(al):
-            return al.score
-
-        terminals = sorted(terminals, key=_score)
+        terminals = sorted(terminals, key=lambda al: al.score)
 
         if top_n == 0:
             top_score = terminals[0].score

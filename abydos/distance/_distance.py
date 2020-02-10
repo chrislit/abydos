@@ -18,17 +18,18 @@
 
 The distance._distance module implements abstract class _Distance.
 """
+from typing import Any, Dict
 
 __all__ = ['_Distance']
 
 
-class _Distance(object):
+class _Distance:
     """Abstract Distance class.
 
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize _Distance instance.
 
         Parameters
@@ -40,10 +41,10 @@ class _Distance(object):
         .. versionadded:: 0.4.0
 
         """
-        self.params = {}
+        self.params = {}  # type: Dict[str, Any]
         self.set_params(**kwargs)
 
-    def set_params(self, **kwargs):
+    def set_params(self, **kwargs: Any) -> None:
         """Store params in the params dict.
 
         Parameters
@@ -58,7 +59,7 @@ class _Distance(object):
         for key in kwargs:
             self.params[key] = kwargs[key]
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return similarity.
 
         Parameters
@@ -79,7 +80,7 @@ class _Distance(object):
         """
         return 1.0 - self.dist(src, tar)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return distance.
 
         Parameters
@@ -100,7 +101,7 @@ class _Distance(object):
         """
         return 1.0 - self.sim(src, tar)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return absolute distance.
 
         Parameters

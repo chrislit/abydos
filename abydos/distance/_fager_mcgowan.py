@@ -19,7 +19,10 @@
 Fager & McGowan similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['FagerMcGowan']
 
@@ -47,7 +50,12 @@ class FagerMcGowan(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize FagerMcGowan instance.
 
         Parameters
@@ -82,7 +90,7 @@ class FagerMcGowan(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Fager & McGowan similarity of two strings.
 
         Parameters
@@ -127,7 +135,7 @@ class FagerMcGowan(_TokenDistance):
 
         return first - second
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the normalized Fager & McGowan similarity of two strings.
 
         As this similarity ranges from :math:`(-\inf, 1.0)`, this normalization

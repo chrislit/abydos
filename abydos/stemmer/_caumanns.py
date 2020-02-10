@@ -40,7 +40,7 @@ class Caumanns(_Stemmer):
 
     _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Caumanns German stem.
 
         Parameters

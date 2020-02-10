@@ -36,7 +36,7 @@ class Porter(_Stemmer):
 
     _vowels = {'a', 'e', 'i', 'o', 'u', 'y'}
 
-    def _m_degree(self, term):
+    def _m_degree(self, term: str) -> int:
         """Return Porter helper function _m_degree value.
 
         m-degree is equal to the number of V to C transitions
@@ -68,7 +68,7 @@ class Porter(_Stemmer):
                 last_was_vowel = False
         return mdeg
 
-    def _has_vowel(self, term):
+    def _has_vowel(self, term: str) -> bool:
         """Return Porter helper function _has_vowel value.
 
         Parameters
@@ -93,7 +93,7 @@ class Porter(_Stemmer):
                 return True
         return False
 
-    def _ends_in_doubled_cons(self, term):
+    def _ends_in_doubled_cons(self, term: str) -> bool:
         """Return Porter helper function _ends_in_doubled_cons value.
 
         Parameters
@@ -119,7 +119,7 @@ class Porter(_Stemmer):
             and term[-2] == term[-1]
         )
 
-    def _ends_in_cvc(self, term):
+    def _ends_in_cvc(self, term: str) -> bool:
         """Return Porter helper function _ends_in_cvc value.
 
         Parameters
@@ -146,7 +146,7 @@ class Porter(_Stemmer):
             and term[-1] not in tuple('wxY')
         )
 
-    def __init__(self, early_english=False):
+    def __init__(self, early_english: bool = False) -> None:
         """Initialize Porter instance.
 
         Parameters
@@ -161,7 +161,7 @@ class Porter(_Stemmer):
         """
         self._early_english = early_english
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Porter stem.
 
         Parameters

@@ -20,6 +20,7 @@ Cisłak & Grabowski's count fingerprint
 """
 
 from collections import Counter
+from typing import Tuple
 
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
@@ -34,7 +35,11 @@ class Count(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
+    def __init__(
+        self,
+        n_bits: int = 16,
+        most_common: Tuple[str, ...] = MOST_COMMON_LETTERS_CG,
+    ) -> None:
         """Initialize Count instance.
 
         Parameters
@@ -48,11 +53,50 @@ class Count(_Fingerprint):
         .. versionadded:: 0.4.0
 
         """
-        super(_Fingerprint, self).__init__()
+        super(Count, self).__init__()
         self._n_bits = n_bits
         self._most_common = most_common
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
+        """Return the count fingerprint.
+
+        Parameters
+        ----------
+        word : str
+            The word to fingerprint
+
+        Returns
+        -------
+        str
+            The count fingerprint
+
+        Examples
+        --------
+        >>> cf = Count()
+        >>> cf.fingerprint('hat')
+        '0001010000000001'
+        >>> cf.fingerprint('niall')
+        '0000010001010000'
+        >>> cf.fingerprint('colin')
+        '0000000101010000'
+        >>> cf.fingerprint('atcg')
+        '0001010000000000'
+        >>> cf.fingerprint('entreatment')
+        '1111010000100000'
+
+
+        .. versionadded:: 0.3.0
+        .. versionchanged:: 0.3.6
+            Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Changed to return a str and added fingerprint_int method
+
+        """
+        return ('{:0' + str(self._n_bits) + 'b}').format(
+            self.fingerprint_int(word)
+        )
+
+    def fingerprint_int(self, word: str) -> int:
         """Return the count fingerprint.
 
         Parameters
@@ -63,39 +107,37 @@ class Count(_Fingerprint):
         Returns
         -------
         int
-            The count fingerprint
+            The count fingerprint as an int
 
         Examples
         --------
         >>> cf = Count()
-        >>> bin(cf.fingerprint('hat'))
-        '0b1010000000001'
-        >>> bin(cf.fingerprint('niall'))
-        '0b10001010000'
-        >>> bin(cf.fingerprint('colin'))
-        '0b101010000'
-        >>> bin(cf.fingerprint('atcg'))
-        '0b1010000000000'
-        >>> bin(cf.fingerprint('entreatment'))
-        '0b1111010000100000'
+        >>> cf.fingerprint_int('hat')
+        5121
+        >>> cf.fingerprint_int('niall')
+        1104
+        >>> cf.fingerprint_int('colin')
+        336
+        >>> cf.fingerprint_int('atcg')
+        5120
+        >>> cf.fingerprint_int('entreatment')
+        62496
 
 
-        .. versionadded:: 0.3.0
-        .. versionchanged:: 0.3.6
-            Encapsulated in class
+        .. versionadded:: 0.6.0
 
         """
         n_bits = self._n_bits
         if n_bits % 2:
             n_bits += 1
 
-        word = Counter(word)
+        letter_counts = Counter(word)
         fingerprint = 0
 
         for letter in self._most_common:
             if n_bits:
                 fingerprint <<= 2
-                fingerprint += word[letter] & 3
+                fingerprint += letter_counts[letter] & 3
                 n_bits -= 2
             else:
                 break

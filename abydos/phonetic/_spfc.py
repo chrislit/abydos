@@ -19,6 +19,7 @@
 Standardized Phonetic Frequency Code (SPFC) algorithm
 """
 
+from typing import NoReturn, Sequence, Union
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -66,7 +67,7 @@ class SPFC(_Phonetic):
     _pf2_alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'SCFAODMGUE'))
     _pf3_alphabetic = dict(zip((ord(_) for _ in '01234567'), 'BDFGMRSZ'))
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic SPFC of a word.
 
         Parameters
@@ -113,7 +114,7 @@ class SPFC(_Phonetic):
             + code[2:].translate(self._pf2_alphabetic)
         )
 
-    def encode(self, word):
+    def encode(self, word: Union[str, Sequence[str]]) -> str:
         """Return the Standardized Phonetic Frequency Code (SPFC) of a word.
 
         Parameters
@@ -162,7 +163,7 @@ class SPFC(_Phonetic):
 
         """
 
-        def _raise_word_ex():
+        def _raise_word_ex() -> NoReturn:
             """Raise an AttributeError.
 
             Raises
@@ -184,7 +185,7 @@ class SPFC(_Phonetic):
         if not word:
             return ''
 
-        names = []
+        names = []  # type: Sequence[str]
         if isinstance(word, str):
             names = word.split('.', 1)
             if len(names) != 2:
@@ -201,7 +202,7 @@ class SPFC(_Phonetic):
         names = [unicode_normalize('NFKD', _.strip().upper()) for _ in names]
         code = ''
 
-        def _steps_one_to_three(name):
+        def _steps_one_to_three(name: str) -> str:
             """Perform the first three steps of SPFC.
 
             Parameters

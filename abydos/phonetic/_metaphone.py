@@ -38,7 +38,7 @@ class Metaphone(_Phonetic):
     _frontv = {'E', 'I', 'Y'}
     _varson = {'C', 'G', 'P', 'S', 'T'}
 
-    def __init__(self, max_length=-1):
+    def __init__(self, max_length: int = -1) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters
@@ -57,7 +57,7 @@ class Metaphone(_Phonetic):
         else:
             self._max_length = 64
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Metaphone code for a word.
 
         Based on Lawrence Philips' Pick BASIC code from 1990

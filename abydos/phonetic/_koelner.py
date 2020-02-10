@@ -19,6 +19,7 @@
 Kölner Phonetik
 """
 
+from typing import Set
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -41,7 +42,7 @@ class Koelner(_Phonetic):
     _num_trans = dict(zip((ord(_) for _ in '012345678'), 'APTFKLNRS'))
     _num_set = set('012345678')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Kölner Phonetik (numeric output) code for a word.
 
         While the output code is numeric, it is still a str because 0s can lead
@@ -80,7 +81,7 @@ class Koelner(_Phonetic):
 
         """
 
-        def _after(word, pos, letters):
+        def _after(word: str, pos: int, letters: Set[str]) -> bool:
             """Return True if word[pos] follows one of the supplied letters.
 
             Parameters
@@ -89,7 +90,7 @@ class Koelner(_Phonetic):
                 The word to check
             pos : int
                 Position within word to check
-            letters : str
+            letters : {str}
                 Letters to confirm precede word[pos]
 
             Returns
@@ -102,7 +103,7 @@ class Koelner(_Phonetic):
             """
             return pos > 0 and word[pos - 1] in letters
 
-        def _before(word, pos, letters):
+        def _before(word: str, pos: int, letters: Set[str]) -> bool:
             """Return True if word[pos] precedes one of the supplied letters.
 
             Parameters
@@ -111,7 +112,7 @@ class Koelner(_Phonetic):
                 The word to check
             pos : int
                 Position within word to check
-            letters : str
+            letters : {str}
                 Letters to confirm follow word[pos]
 
             Returns
@@ -191,7 +192,7 @@ class Koelner(_Phonetic):
 
         return sdx
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the Kölner Phonetik (alphabetic output) code for a word.
 
         Parameters

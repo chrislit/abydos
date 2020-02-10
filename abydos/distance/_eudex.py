@@ -19,7 +19,16 @@
 eudex distance functions
 """
 
-from types import GeneratorType
+from typing import (
+    Any,
+    Callable,
+    Generator,
+    Iterable,
+    List,
+    Optional,
+    Union,
+    cast,
+)
 
 from ._distance import _Distance
 from ..phonetic import Eudex as EudexPhonetic
@@ -36,7 +45,7 @@ class Eudex(_Distance):
     """
 
     @staticmethod
-    def gen_fibonacci():
+    def gen_fibonacci() -> Generator[float, None, None]:
         """Yield the next Fibonacci number.
 
         Based on https://www.python-course.eu/generators.php
@@ -59,7 +68,7 @@ class Eudex(_Distance):
             num_a, num_b = num_b, num_a + num_b
 
     @staticmethod
-    def gen_exponential(base=2):
+    def gen_exponential(base: int = 2) -> Generator[float, None, None]:
         """Yield the next value in an exponential series of the base.
 
         Starts at base**0
@@ -85,7 +94,18 @@ class Eudex(_Distance):
             yield base ** exp
             exp += 1
 
-    def __init__(self, weights='exponential', max_length=8, **kwargs):
+    def __init__(
+        self,
+        weights: Optional[
+            Union[
+                str,
+                Iterable[float],
+                Callable[[], Generator[float, None, None]],
+            ]
+        ] = 'exponential',
+        max_length: int = 8,
+        **kwargs: Any
+    ) -> None:
         """Initialize Eudex instance.
 
         Parameters
@@ -123,7 +143,7 @@ class Eudex(_Distance):
         self._max_length = max_length
         self._phonetic_alg = EudexPhonetic(max_length=max_length)
 
-    def dist_abs(self, src, tar, normalized=False):
+    def dist_abs(self, src: str, tar: str, normalized: bool = False) -> float:
         """Calculate the distance between the Eudex hashes of two terms.
 
         Parameters
@@ -191,40 +211,46 @@ class Eudex(_Distance):
         """
 
         # Calculate the eudex hashes and XOR them
-        xored = self._phonetic_alg.encode(src) ^ self._phonetic_alg.encode(tar)
+        xored = int(self._phonetic_alg.encode(src)) ^ int(
+            self._phonetic_alg.encode(tar)
+        )
 
         # Simple hamming distance (all bits are equal)
         if not self._weights:
             binary = bin(xored)
-            distance = binary.count('1')
+            distance = binary.count('1')  # type: float
             if normalized:
                 return distance / (len(binary) - 2)
             return distance
 
-        # If weights is a function, it should create a generator,
+        # If self._weights is a function, it should create a generator,
         # which we now use to populate a list
-        if callable(self._weights):
-            weights = self._weights()
-        elif self._weights == 'exponential':
-            weights = Eudex.gen_exponential()
-        elif self._weights == 'fibonacci':
-            weights = Eudex.gen_fibonacci()
-        elif hasattr(self._weights, '__iter__') and not isinstance(
+        weights_list = []  # List[float]
+        if hasattr(self._weights, '__iter__') and not isinstance(
             self._weights, str
         ):
-            weights = self._weights[::-1]
+            weights_list = cast(List[float], self._weights)[::-1]
+            weights_gen = None
+        elif callable(self._weights):
+            weights_gen = self._weights()
+        elif self._weights == 'exponential':
+            weights_gen = Eudex.gen_exponential()
+        elif self._weights == 'fibonacci':
+            weights_gen = Eudex.gen_fibonacci()
         else:
             raise ValueError('Unrecognized weights value or type.')
 
-        if isinstance(weights, GeneratorType):
-            weights = [next(weights) for _ in range(self._max_length)][::-1]
+        if isinstance(weights_gen, Generator):
+            weights_list = [
+                next(weights_gen) for _ in range(self._max_length)
+            ][::-1]
 
         # Sum the weighted hamming distance
         distance = 0
-        max_distance = 0
-        while (xored or normalized) and weights:
-            max_distance += 8 * weights[-1]
-            distance += bin(xored & 0xFF).count('1') * weights.pop()
+        max_distance = 0.0
+        while (xored or normalized) and weights_list:
+            max_distance += 8 * weights_list[-1]
+            distance += bin(xored & 0xFF).count('1') * weights_list.pop()
             xored >>= 8
 
         if normalized:
@@ -232,7 +258,7 @@ class Eudex(_Distance):
 
         return distance
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return normalized distance between the Eudex hashes of two terms.
 
         This is Eudex distance normalized to [0, 1].

@@ -21,11 +21,12 @@ Arithmetic coder/decoder
 
 from collections import Counter
 from fractions import Fraction
+from typing import Dict, Tuple, Union
 
 __all__ = ['Arithmetic']
 
 
-class Arithmetic(object):
+class Arithmetic:
     """Arithmetic Coder.
 
     This is based on Andrew Dalke's public domain implementation
@@ -35,14 +36,14 @@ class Arithmetic(object):
     .. versionadded:: 0.3.6
     """
 
-    _probs = {}
+    _probs = {}  # type: Dict[str, Tuple[Fraction, Fraction]]
 
-    def __init__(self, text=None):
+    def __init__(self, text: Union[str, None] = None) -> None:
         """Initialize arithmetic coder object.
 
         Parameters
         ----------
-        text : str
+        text : str or None
             The training text
 
 
@@ -52,7 +53,7 @@ class Arithmetic(object):
         if text is not None:
             self.train(text)
 
-    def get_probs(self):
+    def get_probs(self) -> Dict[str, Tuple[Fraction, Fraction]]:
         """Return the probs dictionary.
 
         Returns
@@ -66,7 +67,7 @@ class Arithmetic(object):
         """
         return self._probs
 
-    def set_probs(self, probs):
+    def set_probs(self, probs: Dict[str, Tuple[Fraction, Fraction]]) -> None:
         """Set the probs dictionary.
 
         Parameters
@@ -80,7 +81,7 @@ class Arithmetic(object):
         """
         self._probs = probs
 
-    def train(self, text):
+    def train(self, text: str) -> None:
         r"""Generate a probability dict from the provided text.
 
         Text to 0-order probability statistics as a dict
@@ -148,7 +149,7 @@ class Arithmetic(object):
             prev = follow
             tot = tot + count
 
-    def encode(self, text):
+    def encode(self, text: str) -> Tuple[int, int]:
         """Encode a text using arithmetic coding.
 
         Text and the 0-order probability statistics -> longval, nbits
@@ -206,7 +207,7 @@ class Arithmetic(object):
         # the division truncation is deliberate
         return avg.numerator // avg.denominator, nbits
 
-    def decode(self, longval, nbits):
+    def decode(self, longval: int, nbits: int) -> str:
         """Decode the number to a string using the given statistics.
 
         Parameters
@@ -242,6 +243,7 @@ class Arithmetic(object):
         ]
 
         char = '\x00'
+        minval = maxval = Fraction(0)
         while True:
             for (char, minval, maxval) in probs_items:  # noqa: B007
                 if minval <= val < maxval:

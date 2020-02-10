@@ -19,8 +19,12 @@
 Complete linkage distance
 """
 
+from typing import Any, Optional, cast
+
+from ._distance import _Distance
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['CompleteLinkage']
 
@@ -39,7 +43,12 @@ class CompleteLinkage(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, metric=None, **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        metric: Optional[_Distance] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize CompleteLinkage instance.
 
         Parameters
@@ -64,12 +73,11 @@ class CompleteLinkage(_TokenDistance):
 
         """
         super(CompleteLinkage, self).__init__(tokenizer=tokenizer, **kwargs)
+        self._metric = cast(_Distance, metric)
         if metric is None:
             self._metric = Levenshtein()
-        else:
-            self._metric = metric
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the complete linkage distance of two strings.
 
         Parameters
@@ -102,19 +110,19 @@ class CompleteLinkage(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        src, tar = self._get_tokens()
+        src_tok, tar_tok = self._get_tokens()
 
         max_val = float('-inf')
 
-        for term_src in src.keys():
-            for term_tar in tar.keys():
+        for term_src in src_tok.keys():
+            for term_tar in tar_tok.keys():
                 max_val = max(
                     max_val, self._metric.dist_abs(term_src, term_tar)
                 )
 
         return max_val
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized complete linkage distance of two strings.
 
         Parameters
@@ -147,12 +155,12 @@ class CompleteLinkage(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        src, tar = self._get_tokens()
+        src_tok, tar_tok = self._get_tokens()
 
         max_val = 0.0
 
-        for term_src in src.keys():
-            for term_tar in tar.keys():
+        for term_src in src_tok.keys():
+            for term_tar in tar_tok.keys():
                 max_val = max(max_val, self._metric.dist(term_src, term_tar))
 
         return max_val

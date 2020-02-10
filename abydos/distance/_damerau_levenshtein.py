@@ -20,8 +20,9 @@ Damerau-Levenshtein distance
 """
 
 from sys import maxsize
+from typing import Any, Callable, List, Tuple, cast
 
-from numpy import int as np_int
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -40,7 +41,12 @@ class DamerauLevenshtein(_Distance):
     https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/string/DamerauLevenshteinAlgorithm.java
     """
 
-    def __init__(self, cost=(1, 1, 1, 1), normalizer=max, **kwargs):
+    def __init__(
+        self,
+        cost: Tuple[float, float, float, float] = (1, 1, 1, 1),
+        normalizer: Callable[[List[float]], float] = max,
+        **kwargs: Any
+    ):
         """Initialize Levenshtein instance.
 
         Parameters
@@ -64,7 +70,7 @@ class DamerauLevenshtein(_Distance):
         self._cost = cost
         self._normalizer = normalizer
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Damerau-Levenshtein distance between two strings.
 
         Parameters
@@ -180,9 +186,9 @@ class DamerauLevenshtein(_Distance):
                 )
             src_index_by_character[src[i]] = i
 
-        return d_mat[len(src) - 1, len(tar) - 1]
+        return cast(float, d_mat[len(src) - 1, len(tar) - 1])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the Damerau-Levenshtein similarity of two strings.
 
         Damerau-Levenshtein distance normalized to the interval [0, 1].

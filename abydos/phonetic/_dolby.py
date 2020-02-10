@@ -35,7 +35,12 @@ class Dolby(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=-1, keep_vowels=False, vowel_char='*'):
+    def __init__(
+        self,
+        max_length: int = -1,
+        keep_vowels: bool = False,
+        vowel_char: str = '*',
+    ) -> None:
         r"""Initialize Dolby instance.
 
         Parameters
@@ -56,7 +61,7 @@ class Dolby(_Phonetic):
         self._keep_vowels = keep_vowels
         self._vowel_char = vowel_char
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Dolby Code of a name.
 
         Parameters
@@ -89,7 +94,7 @@ class Dolby(_Phonetic):
         """
         return self.encode(word).replace(self._vowel_char, 'A')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Dolby Code of a name.
 
         Parameters

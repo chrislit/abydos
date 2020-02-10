@@ -20,8 +20,10 @@ Lorentzian distance
 """
 
 from math import log1p
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Lorentzian']
 
@@ -45,7 +47,9 @@ class Lorentzian(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, **kwargs: Any
+    ) -> None:
         """Initialize Lorentzian instance.
 
         Parameters
@@ -68,7 +72,7 @@ class Lorentzian(_TokenDistance):
         """
         super(Lorentzian, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Lorentzian distance of two strings.
 
         Parameters
@@ -108,7 +112,7 @@ class Lorentzian(_TokenDistance):
             for tok in alphabet
         )
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Lorentzian distance of two strings.
 
         Parameters

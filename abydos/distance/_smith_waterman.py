@@ -19,7 +19,9 @@
 Smith-Waterman score
 """
 
-from numpy import float32 as np_float32
+from typing import Any, Callable, Optional, cast
+
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._needleman_wunsch import NeedlemanWunsch
@@ -37,7 +39,12 @@ class SmithWaterman(NeedlemanWunsch):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, gap_cost=1, sim_func=None, **kwargs):
+    def __init__(
+        self,
+        gap_cost: float = 1.0,
+        sim_func: Optional[Callable[[str, str], float]] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize SmithWaterman instance.
 
         Parameters
@@ -56,11 +63,12 @@ class SmithWaterman(NeedlemanWunsch):
         """
         super(SmithWaterman, self).__init__(**kwargs)
         self._gap_cost = gap_cost
-        self._sim_func = sim_func
-        if self._sim_func is None:
-            self._sim_func = NeedlemanWunsch.sim_matrix
+        self._sim_func = cast(
+            Callable[[str, str], float],
+            NeedlemanWunsch.sim_matrix if sim_func is None else sim_func,
+        )  # type: Callable[[str, str], float]
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Smith-Waterman score of two strings.
 
         Parameters
@@ -93,7 +101,7 @@ class SmithWaterman(NeedlemanWunsch):
             Encapsulated in class
 
         """
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
 
         for i in range(1, len(src) + 1):
             for j in range(1, len(tar) + 1):
@@ -103,9 +111,9 @@ class SmithWaterman(NeedlemanWunsch):
                 delete = d_mat[i - 1, j] - self._gap_cost
                 insert = d_mat[i, j - 1] - self._gap_cost
                 d_mat[i, j] = max(0, match, delete, insert)
-        return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
+        return cast(float, d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1])
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Smith-Waterman score of two strings.
 
         Parameters

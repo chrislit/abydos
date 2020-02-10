@@ -93,7 +93,7 @@ encoding, as demonstrated below:
 
 >>> rus = RussellIndex()
 >>> rus.encode('Abramson')
-128637
+'128637'
 >>> rus.encode_alpha('Abramson')
 'ABRMCN'
 

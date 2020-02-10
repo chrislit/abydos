@@ -24,7 +24,7 @@ from itertools import groupby
 __all__ = ['_Phonetic']
 
 
-class _Phonetic(object):
+class _Phonetic:
     """Abstract Phonetic class.
 
     .. versionadded:: 0.3.6
@@ -37,7 +37,7 @@ class _Phonetic(object):
     _uc_vy_set = set('AEIOUY')
     _lc_vy_set = set('aeiouy')
 
-    def _delete_consecutive_repeats(self, word):
+    def _delete_consecutive_repeats(self, word: str) -> str:
         """Delete consecutive repeated characters in a word.
 
         Parameters
@@ -69,7 +69,7 @@ class _Phonetic(object):
         """
         return ''.join(char for char, _ in groupby(word))
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Encode phonetically.
 
         Parameters
@@ -81,9 +81,9 @@ class _Phonetic(object):
         .. versionadded:: 0.3.6
 
         """
-        pass
+        return word
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Encode phonetically using alphabetic characters.
 
         Parameters

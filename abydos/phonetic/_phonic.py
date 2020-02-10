@@ -65,7 +65,12 @@ class PHONIC(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
 
-    def __init__(self, max_length=5, zero_pad=True, extended=False):
+    def __init__(
+        self,
+        max_length: int = 5,
+        zero_pad: bool = True,
+        extended: bool = False,
+    ) -> None:
         """Initialize PHONIC instance.
 
         Parameters
@@ -92,7 +97,7 @@ class PHONIC(_Phonetic):
         self._zero_pad = zero_pad
         self._extended = extended
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic PHONIC code for a word.
 
         Parameters
@@ -130,7 +135,7 @@ class PHONIC(_Phonetic):
         self._extended = save_ext
         return code.translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the PHONIC code for a word.
 
         Parameters
@@ -161,6 +166,7 @@ class PHONIC(_Phonetic):
         """
         # uppercase
         word = word.upper()
+        first = word[:1]
 
         code = []
         pos = 0
@@ -174,17 +180,15 @@ class PHONIC(_Phonetic):
                 code.append('.')
             pos += 1
 
-        code = ''.join(code)
-        code = self._delete_consecutive_repeats(code)
-        code = code.replace('.', '')
+        word = self._delete_consecutive_repeats(''.join(code)).replace('.', '')
 
         if self._zero_pad:
-            code += '0' * (self._max_length - 1 - len(code))
+            word += '0' * (self._max_length - 1 - len(word))
 
         if not self._extended:
-            code = word[:1] + code
+            word = first + word
 
-        return code[: self._max_length]
+        return word[: self._max_length]
 
 
 if __name__ == '__main__':

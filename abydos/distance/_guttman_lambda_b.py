@@ -19,7 +19,10 @@
 Guttman's Lambda B similarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['GuttmanLambdaB']
 
@@ -50,11 +53,13 @@ class GuttmanLambdaB(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize GuttmanLambdaB instance.
 
         Parameters
@@ -96,7 +101,7 @@ class GuttmanLambdaB(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Guttman Lambda B similarity of two strings.
 
         Parameters

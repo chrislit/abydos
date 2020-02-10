@@ -30,7 +30,7 @@ class Suffix(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the suffix similarity of two strings.
 
         Suffix similarity is the ratio of the length of the shorter term that

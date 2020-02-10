@@ -19,7 +19,10 @@
 Overlap similarity & distance
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Overlap']
 
@@ -46,7 +49,12 @@ class Overlap(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Overlap instance.
 
         Parameters
@@ -81,7 +89,7 @@ class Overlap(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the overlap coefficient of two strings.
 
         Parameters

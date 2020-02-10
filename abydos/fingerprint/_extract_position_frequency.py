@@ -19,6 +19,8 @@
 Taft's extract - position & frequency coding
 """
 
+from typing import List
+
 from ._fingerprint import _Fingerprint
 
 __all__ = ['ExtractPositionFrequency']
@@ -68,7 +70,7 @@ class ExtractPositionFrequency(_Fingerprint):
     }
     _position = (0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7)
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the extract - position & frequency coding.
 
         Parameters
@@ -78,7 +80,7 @@ class ExtractPositionFrequency(_Fingerprint):
 
         Returns
         -------
-        int
+        str
             The extract - position & frequency coding
 
         Examples
@@ -100,18 +102,18 @@ class ExtractPositionFrequency(_Fingerprint):
 
         """
         # uppercase & reverse
-        word = [_ for _ in word.upper() if _ in self._frequency]
-        scores = [[] for _ in range(len(word))]
+        fingerprint = [_ for _ in word.upper() if _ in self._frequency]
+        scores = [[] for _ in range(len(fingerprint))]  # type: List[List[int]]
 
         pos = 0
-        for i in range(len(word)):
-            scores[pos].append(self._frequency[word[pos]])
+        for i in range(len(fingerprint)):
+            scores[pos].append(self._frequency[fingerprint[pos]])
             scores[pos][0] += self._position[min(i, 15)]
-            scores[pos].append(len(word) + pos if pos < 0 else pos)
+            scores[pos].append(len(fingerprint) + pos if pos < 0 else pos)
             pos = -(pos if pos < 0 else pos + 1)
         positions = sorted(pos[1] for pos in sorted(scores, reverse=True)[-4:])
 
-        return ''.join(word[_] for _ in positions)
+        return ''.join(fingerprint[_] for _ in positions)
 
 
 if __name__ == '__main__':

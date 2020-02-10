@@ -20,6 +20,7 @@ Ehrenfeucht & Haussler's marking metric
 """
 
 from math import log2
+from typing import Any
 
 from ._marking import Marking
 
@@ -44,7 +45,7 @@ class MarkingMetric(Marking):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize MarkingMetric instance.
 
         Parameters
@@ -58,7 +59,7 @@ class MarkingMetric(Marking):
         """
         super(MarkingMetric, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the marking distance of two strings.
 
         Parameters
@@ -95,7 +96,7 @@ class MarkingMetric(Marking):
         diff2 = super(MarkingMetric, self).dist_abs(tar, src)
         return log2((diff1 + 1) * (diff2 + 1))
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized marking distance of two strings.
 
         Parameters

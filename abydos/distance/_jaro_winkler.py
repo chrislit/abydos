@@ -23,6 +23,8 @@ The distance._JaroWinkler module implements distance metrics based on
     - Jaro-Winkler distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 from ..tokenizer import QGrams
 
@@ -45,13 +47,13 @@ class JaroWinkler(_Distance):
 
     def __init__(
         self,
-        qval=1,
-        mode='winkler',
-        long_strings=False,
-        boost_threshold=0.7,
-        scaling_factor=0.1,
-        **kwargs
-    ):
+        qval: int = 1,
+        mode: str = 'winkler',
+        long_strings: bool = False,
+        boost_threshold: float = 0.7,
+        scaling_factor: float = 0.1,
+        **kwargs: Any
+    ) -> None:
         """Initialize JaroWinkler instance.
 
         Parameters
@@ -91,7 +93,7 @@ class JaroWinkler(_Distance):
         self._boost_threshold = boost_threshold
         self._scaling_factor = scaling_factor
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Jaro or Jaro-Winkler similarity of two strings.
 
         Parameters
@@ -158,11 +160,14 @@ class JaroWinkler(_Distance):
         if src == tar:
             return 1.0
 
-        src = QGrams(self._qval).tokenize(src.strip()).get_list()
-        tar = QGrams(self._qval).tokenize(tar.strip()).get_list()
+        tokenizer = QGrams(self._qval)
+        tokenizer.tokenize(src.strip())
+        src_list = tokenizer.get_list()
+        tokenizer.tokenize(tar.strip())
+        tar_list = tokenizer.get_list()
 
-        lens = len(src)
-        lent = len(tar)
+        lens = len(src_list)
+        lent = len(tar_list)
 
         # If either string is blank - return - added in Version 2
         if lens == 0 or lent == 0:
@@ -188,7 +193,7 @@ class JaroWinkler(_Distance):
             low_lim = (i - search_range) if (i >= search_range) else 0
             hi_lim = (i + search_range) if ((i + search_range) <= yl1) else yl1
             for j in range(low_lim, hi_lim + 1):
-                if (tar_flag[j] == 0) and (tar[j] == src[i]):
+                if (tar_flag[j] == 0) and (tar_list[j] == src_list[i]):
                     tar_flag[j] = 1
                     src_flag[i] = 1
                     num_com += 1
@@ -207,7 +212,7 @@ class JaroWinkler(_Distance):
                     if tar_flag[j] != 0:
                         k = j + 1
                         break
-                if src[i] != tar[j]:
+                if src_list[i] != tar_list[j]:
                     n_trans += 1
         n_trans //= 2
 
@@ -224,7 +229,7 @@ class JaroWinkler(_Distance):
             # Adjust for having up to the first 4 characters in common
             j = 4 if (minv >= 4) else minv
             i = 0
-            while (i < j) and (src[i] == tar[i]):
+            while (i < j) and (src_list[i] == tar_list[i]):
                 i += 1
             weight += i * self._scaling_factor * (1.0 - weight)
 

@@ -47,7 +47,7 @@ class Inclusion(_Distance):
 
     _lev = Levenshtein()
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the INClusion Programme value of two words.
 
         Parameters
@@ -85,29 +85,29 @@ class Inclusion(_Distance):
 
         diff, src, tar = self._lev.alignment(src, tar)
 
-        src = list(src)
-        tar = list(tar)
+        src_tok = list(src)
+        tar_tok = list(tar)
 
-        while src and src[0] == '-':
-            src.pop(0)
-            tar.pop(0)
+        while src_tok and src_tok[0] == '-':
+            src_tok.pop(0)
+            tar_tok.pop(0)
             diff -= 1
-        while tar and tar[0] == '-':
-            src.pop(0)
-            tar.pop(0)
+        while tar_tok and tar_tok[0] == '-':
+            src_tok.pop(0)
+            tar_tok.pop(0)
             diff -= 1
-        while src and src[-1] == '-':
-            src.pop()
-            tar.pop()
+        while src_tok and src_tok[-1] == '-':
+            src_tok.pop()
+            tar_tok.pop()
             diff -= 1
-        while tar and tar[-1] == '-':
-            src.pop()
-            tar.pop()
+        while tar_tok and tar_tok[-1] == '-':
+            src_tok.pop()
+            tar_tok.pop()
             diff -= 1
 
         if diff > 1:
             return 1.0
-        if len(src) - diff < 3:
+        if len(src_tok) - diff < 3:
             return 1.0
         return 0.0
 

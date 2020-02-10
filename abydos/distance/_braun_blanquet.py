@@ -19,7 +19,10 @@
 Braun-Blanquet similarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['BraunBlanquet']
 
@@ -47,11 +50,13 @@ class BraunBlanquet(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize BraunBlanquet instance.
 
         Parameters
@@ -93,7 +98,7 @@ class BraunBlanquet(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Braun-Blanquet similarity of two strings.
 
         Parameters

@@ -19,6 +19,8 @@
 Cisłak & Grabowski's occurrence halved fingerprint
 """
 
+from typing import Tuple
+
 from ._fingerprint import MOST_COMMON_LETTERS_CG, _Fingerprint
 
 __all__ = ['OccurrenceHalved']
@@ -32,7 +34,11 @@ class OccurrenceHalved(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, n_bits=16, most_common=MOST_COMMON_LETTERS_CG):
+    def __init__(
+        self,
+        n_bits: int = 16,
+        most_common: Tuple[str, ...] = MOST_COMMON_LETTERS_CG,
+    ) -> None:
         """Initialize Count instance.
 
         Parameters
@@ -46,11 +52,11 @@ class OccurrenceHalved(_Fingerprint):
         .. versionadded:: 0.4.0
 
         """
-        super(_Fingerprint, self).__init__()
+        super(OccurrenceHalved, self).__init__()
         self._n_bits = n_bits
         self._most_common = most_common
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the occurrence halved fingerprint.
 
         Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
@@ -59,34 +65,69 @@ class OccurrenceHalved(_Fingerprint):
         ----------
         word : str
             The word to fingerprint
-        n_bits : int
-            Number of bits in the fingerprint returned
-        most_common : list
-            The most common tokens in the target language, ordered by frequency
 
         Returns
         -------
-        int
+        str
             The occurrence halved fingerprint
 
         Examples
         --------
         >>> ohf = OccurrenceHalved()
-        >>> bin(ohf.fingerprint('hat'))
-        '0b1010000000010'
-        >>> bin(ohf.fingerprint('niall'))
-        '0b10010100000'
-        >>> bin(ohf.fingerprint('colin'))
-        '0b1001010000'
-        >>> bin(ohf.fingerprint('atcg'))
-        '0b10100000000000'
-        >>> bin(ohf.fingerprint('entreatment'))
-        '0b1111010000110000'
+        >>> ohf.fingerprint('hat')
+        '0001010000000010'
+        >>> ohf.fingerprint('niall')
+        '0000010010100000'
+        >>> ohf.fingerprint('colin')
+        '0000001001010000'
+        >>> ohf.fingerprint('atcg')
+        '0010100000000000'
+        >>> ohf.fingerprint('entreatment')
+        '1111010000110000'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Changed to return a str and added fingerprint_int method
+
+        """
+        return ('{:0' + str(self._n_bits) + 'b}').format(
+            self.fingerprint_int(word)
+        )
+
+    def fingerprint_int(self, word: str) -> int:
+        """Return the occurrence halved fingerprint.
+
+        Based on the occurrence halved fingerprint from :cite:`Cislak:2017`.
+
+        Parameters
+        ----------
+        word : int
+            The word to fingerprint
+
+        Returns
+        -------
+        int
+            The occurrence halved fingerprint as an int
+
+        Examples
+        --------
+        >>> ohf = OccurrenceHalved()
+        >>> ohf.fingerprint_int('hat')
+        5122
+        >>> ohf.fingerprint_int('niall')
+        1184
+        >>> ohf.fingerprint_int('colin')
+        592
+        >>> ohf.fingerprint_int('atcg')
+        10240
+        >>> ohf.fingerprint_int('entreatment')
+        62512
+
+
+        .. versionadded:: 0.6.0
 
         """
         n_bits = self._n_bits

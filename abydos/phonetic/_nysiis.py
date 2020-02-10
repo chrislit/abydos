@@ -37,7 +37,7 @@ class NYSIIS(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=6, modified=False):
+    def __init__(self, max_length: int = 6, modified: bool = False) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters
@@ -58,7 +58,7 @@ class NYSIIS(_Phonetic):
 
         self._modified = modified
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the NYSIIS code for a word.
 
         Parameters

@@ -19,6 +19,7 @@
 Phonix
 """
 
+from typing import Any, Optional, Set, Tuple
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -39,10 +40,6 @@ class Phonix(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    _uc_c_set = None
-
-    _substitutions = None
-
     _trans = dict(
         zip(
             (ord(_) for _ in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
@@ -52,7 +49,7 @@ class Phonix(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '012345678'), 'APKTLNRFS'))
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length: int = 4, zero_pad: bool = True) -> None:
         """Initialize Phonix instance.
 
         Parameters
@@ -183,7 +180,7 @@ class Phonix(_Phonetic):
             (3, 'MPTS', 'MPS'),
             (3, 'MPS', 'MS'),
             (3, 'MPT', 'MT'),
-        )
+        )  # type: Tuple[Tuple[Any, ...], ...]
 
         # Clamp max_length to [4, 64]
         if max_length != -1:
@@ -193,7 +190,7 @@ class Phonix(_Phonetic):
 
         self._zero_pad = zero_pad
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Phonix code for a word.
 
         Parameters
@@ -225,7 +222,7 @@ class Phonix(_Phonetic):
         code = self.encode(word).rstrip('0')
         return code[:1] + code[1:].translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Phonix code for a word.
 
         Parameters
@@ -257,7 +254,9 @@ class Phonix(_Phonetic):
 
         """
 
-        def _start_repl(word, src, tar, post=None):
+        def _start_repl(
+            word: str, src: str, tar: str, post: Optional[Set[str]] = None
+        ) -> str:
             """Replace src with tar at the start of word.
 
             Parameters
@@ -287,7 +286,9 @@ class Phonix(_Phonetic):
                 return tar + word[len(src) :]
             return word
 
-        def _end_repl(word, src, tar, pre=None):
+        def _end_repl(
+            word: str, src: str, tar: str, pre: Optional[Set[str]] = None
+        ) -> str:
             """Replace src with tar at the end of word.
 
             Parameters
@@ -317,7 +318,13 @@ class Phonix(_Phonetic):
                 return word[: -len(src)] + tar
             return word
 
-        def _mid_repl(word, src, tar, pre=None, post=None):
+        def _mid_repl(
+            word: str,
+            src: str,
+            tar: str,
+            pre: Optional[Set[str]] = None,
+            post: Optional[Set[str]] = None,
+        ) -> str:
             """Replace src with tar in the middle of word.
 
             Parameters
@@ -351,7 +358,13 @@ class Phonix(_Phonetic):
                 word[0] + _all_repl(word[1:-1], src, tar, pre, post) + word[-1]
             )
 
-        def _all_repl(word, src, tar, pre=None, post=None):
+        def _all_repl(
+            word: str,
+            src: str,
+            tar: str,
+            pre: Optional[Set[str]] = None,
+            post: Optional[Set[str]] = None,
+        ) -> str:
             """Replace src with tar anywhere in word.
 
             Parameters
@@ -376,14 +389,8 @@ class Phonix(_Phonetic):
 
             """
             if pre or post:
-                if post:
-                    post = post
-                else:
-                    post = frozenset(('',))
-                if pre:
-                    pre = pre
-                else:
-                    pre = frozenset(('',))
+                post = post if post else {''}
+                pre = pre if pre else {''}
 
                 for i, j in ((i, j) for i in pre for j in post):
                     word = word.replace(i + src + j, i + tar + j)

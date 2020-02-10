@@ -19,7 +19,10 @@
 Kuhns VI correlation
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KuhnsVI']
 
@@ -63,11 +66,13 @@ class KuhnsVI(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize KuhnsVI instance.
 
         Parameters
@@ -109,7 +114,7 @@ class KuhnsVI(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Kuhns VI correlation of two strings.
 
         Parameters
@@ -174,7 +179,7 @@ class KuhnsVI(_TokenDistance):
                 15,
             )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Kuhns VI similarity of two strings.
 
         Parameters

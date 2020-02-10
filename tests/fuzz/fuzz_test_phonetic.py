@@ -71,21 +71,11 @@ from abydos.phonetic import (
 
 from . import EXTREME_TEST, _corpus_file, _fuzz, _random_char
 
-alpha_sis = AlphaSIS()
-daitch_mokotoff = DaitchMokotoff()
-double_metaphone = DoubleMetaphone()
-haase = Haase()
-haase_primary = Haase(primary_only=True)
-koelner = Koelner()
-russell = RussellIndex()
-sfinxbis = SfinxBis()
-sfinxbis_6 = SfinxBis(max_length=6)
-soundex_census = Soundex(var='Census')
 spfc = SPFC()
 
 algorithms = {
     'ainsworth': Ainsworth().encode,
-    'alpha_sis': lambda _: ', '.join(alpha_sis.encode(_)),
+    'alpha_sis': AlphaSIS().encode,
     'bmpm': BeiderMorse().encode,
     'bmpm_german': BeiderMorse(language_arg='german').encode,
     'bmpm_french': BeiderMorse(language_arg='french').encode,
@@ -96,24 +86,22 @@ algorithms = {
     'bmpm_sep_exact': BeiderMorse(name_mode='sep', match_mode='exact').encode,
     'caverphone_1': Caverphone(version=1).encode,
     'caverphone_2': Caverphone().encode,
-    'daitch_mokotoff_soundex': lambda _: ', '.join(
-        sorted(daitch_mokotoff.encode(_))
-    ),
+    'daitch_mokotoff_soundex': DaitchMokotoff().encode,
     'davidson': Davidson().encode,
     'dolby': Dolby().encode,
     'dolby_ml4': Dolby(max_length=4).encode,
     'dolby_vowels': Dolby(keep_vowels=True).encode,
-    'double_metaphone': lambda _: ', '.join(double_metaphone.encode(_)),
+    'double_metaphone': DoubleMetaphone().encode,
     'eudex': Eudex().encode,
     'fonem': FONEM().encode,
     'fuzzy_soundex': FuzzySoundex().encode,
     'fuzzy_soundex_0pad_ml8': FuzzySoundex(max_length=8, zero_pad=True).encode,
-    'haase_phonetik': lambda _: ', '.join(haase.encode(_)),
-    'haase_phonetik_primary': lambda _: haase_primary.encode(_)[0],
+    'haase_phonetik': Haase().encode,
+    'haase_phonetik_primary': Haase(primary_only=True).encode,
     'henry_early': HenryEarly().encode,
     'henry_early_ml8': HenryEarly(max_length=8).encode,
-    'koelner_phonetik': koelner.encode,
-    'koelner_phonetik_alpha': koelner.encode_alpha,
+    'koelner_phonetik': Koelner().encode,
+    'koelner_phonetik_alpha': Koelner().encode_alpha,
     'lein': LEIN().encode,
     'lein_nopad_ml8': LEIN(max_length=8, zero_pad=False).encode,
     'metasoundex': MetaSoundex().encode,
@@ -156,22 +144,22 @@ algorithms = {
     'reth_schek_phonetik': RethSchek().encode,
     'roger_root': RogerRoot().encode,
     'roger_root_nopad_ml8': RogerRoot(max_length=8, zero_pad=False).encode,
-    'russell_index': russell.encode,
-    'russell_index_alpha': russell.encode_alpha,
-    'sfinxbis': lambda _: ', '.join(sfinxbis.encode(_)),
-    'sfinxbis_ml6': lambda _: ', '.join(sfinxbis_6.encode(_)),
+    'russell_index': RussellIndex().encode,
+    'russell_index_alpha': RussellIndex().encode_alpha,
+    'sfinxbis': SfinxBis().encode,
+    'sfinxbis_ml6': SfinxBis(max_length=6).encode,
     'sound_d': SoundD().encode,
     'sound_d_ml8': SoundD(max_length=8).encode,
     'soundex': Soundex().encode,
     'soundex_reverse': Soundex(reverse=True).encode,
     'soundex_0pad_ml6': Soundex(zero_pad=True, max_length=6).encode,
     'soundex_special': Soundex(var='special').encode,
-    'soundex_census': lambda _: ', '.join(soundex_census.encode(_)),
+    'soundex_census': Soundex(var='Census').encode,
     'soundex_br': SoundexBR().encode,
     'spanish_metaphone': SpanishMetaphone().encode,
     'spanish_metaphone_modified': SpanishMetaphone(modified=True).encode,
     'spanish_metaphone_ml4': SpanishMetaphone(max_length=4).encode,
-    'spfc': lambda _: spfc.encode(_ + ' ' + _),
+    'spfc': lambda _: spfc.encode('{0} {0}'.format(_)),
     'statistics_canada': StatisticsCanada().encode,
     'statistics_canada_ml8': StatisticsCanada(max_length=8).encode,
     'waahlin': Waahlin().encode,

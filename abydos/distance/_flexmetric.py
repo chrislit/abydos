@@ -19,7 +19,20 @@
 FlexMetric distance
 """
 
-from numpy import float as np_float
+from typing import (
+    Any,
+    Callable,
+    FrozenSet,
+    List,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    Union,
+    cast,
+)
+
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -36,8 +49,16 @@ class FlexMetric(_Distance):
     """
 
     def __init__(
-        self, normalizer=max, indel_costs=None, subst_costs=None, **kwargs
-    ):
+        self,
+        normalizer: Callable[[List[float]], float] = max,
+        indel_costs: Optional[
+            List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]
+        ] = None,
+        subst_costs: Optional[
+            List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]
+        ] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize FlexMetric instance.
 
         Parameters
@@ -67,18 +88,20 @@ class FlexMetric(_Distance):
         super(FlexMetric, self).__init__(**kwargs)
         self._normalizer = normalizer
 
+        def _get_second(
+            s: Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]
+        ) -> float:
+            return s[1]
+
         if indel_costs is None:
             self._indel_costs = [
                 (frozenset('dtch'), 0.4),
                 (frozenset('e'), 0.5),
                 (frozenset('u'), 0.9),
                 (frozenset('rpn'), 0.95),
-            ]
+            ]  # type: List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]  # noqa: E501
         else:
-            self._indel_costs = indel_costs
-
-        def _get_second(s):
-            return s[1]
+            self._indel_costs = sorted(indel_costs, key=_get_second)
 
         if subst_costs is None:
             self._subst_costs = [
@@ -99,11 +122,11 @@ class FlexMetric(_Distance):
                 (frozenset('uw'), 0.4),
                 (frozenset('uo'), 0.8),
                 (frozenset('aeiouy'), 0.9),
-            ]
+            ]  # type: List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]  # noqa: E501
         else:
             self._subst_costs = sorted(subst_costs, key=_get_second)
 
-    def _cost(self, src, s_pos, tar, t_pos):
+    def _cost(self, src: str, s_pos: int, tar: str, t_pos: int) -> float:
         if s_pos == -1:
             if t_pos > 0 and tar[t_pos - 1] == tar[t_pos]:
                 return 0.0
@@ -126,7 +149,7 @@ class FlexMetric(_Distance):
         else:
             return 1.0
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the FlexMetric distance of two strings.
 
         Parameters
@@ -189,9 +212,9 @@ class FlexMetric(_Distance):
                     ),  # sub/==
                 )
 
-        return d_mat[src_len, tar_len]
+        return cast(float, d_mat[src_len, tar_len])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized FlexMetric distance of two strings.
 
         Parameters

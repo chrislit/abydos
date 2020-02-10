@@ -20,8 +20,10 @@ Pearson III correlation
 """
 
 from math import copysign
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._pearson_phi import PearsonPhi
+from ..tokenizer import _Tokenizer
 
 __all__ = ['PearsonIII']
 
@@ -60,11 +62,13 @@ class PearsonIII(PearsonPhi):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize PearsonIII instance.
 
         Parameters
@@ -106,7 +110,7 @@ class PearsonIII(PearsonPhi):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Pearson III correlation of two strings.
 
         Parameters
@@ -142,7 +146,7 @@ class PearsonIII(PearsonPhi):
             (abs(phi) / (self._population_unique_card() + phi)) ** 0.5, phi
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Pearson III similarity of two strings.
 
         Parameters

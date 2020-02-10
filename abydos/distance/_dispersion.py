@@ -19,7 +19,10 @@
 Dispersion correlation
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Dispersion']
 
@@ -50,11 +53,13 @@ class Dispersion(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Dispersion instance.
 
         Parameters
@@ -96,7 +101,7 @@ class Dispersion(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Dispersion correlation of two strings.
 
         Parameters
@@ -140,7 +145,7 @@ class Dispersion(_TokenDistance):
             return 0.0
         return admbc / n ** 2
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Dispersion similarity of two strings.
 
         Parameters

@@ -19,6 +19,7 @@
 The stats._pairwise module implements pairwise statistical algorithms.
 """
 
+from typing import Callable, Optional, Sequence, Set, Tuple, Union, cast
 
 from ._mean import amean, hmean, std
 from ..distance._levenshtein import Levenshtein
@@ -27,8 +28,11 @@ __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 
 
 def mean_pairwise_similarity(
-    collection, metric=None, mean_func=hmean, symmetric=False
-):
+    collection: Union[str, Sequence[str], Set[str]],
+    metric: Optional[Callable[[str, str], float]] = None,
+    mean_func: Callable[[Sequence[float]], float] = hmean,
+    symmetric: bool = False,
+) -> float:
     """Calculate the mean pairwise similarity of a collection of strings.
 
     Takes the mean of the pairwise similarity between each member of a
@@ -82,7 +86,7 @@ def mean_pairwise_similarity(
         raise ValueError('metric must be a function')
 
     if hasattr(collection, 'split'):
-        collection = collection.split()
+        collection = cast(str, collection).split()
     if not hasattr(collection, '__iter__'):
         raise ValueError('collection is neither a string nor iterable type')
     elif len(collection) < 2:
@@ -102,12 +106,12 @@ def mean_pairwise_similarity(
 
 
 def pairwise_similarity_statistics(
-    src_collection,
-    tar_collection,
-    metric=None,
-    mean_func=amean,
-    symmetric=False,
-):
+    src_collection: Union[Sequence[str], Set[str]],
+    tar_collection: Union[Sequence[str], Set[str]],
+    metric: Optional[Callable[[str, str], float]] = None,
+    mean_func: Callable[[Sequence[float]], float] = amean,
+    symmetric: bool = False,
+) -> Tuple[float, float, float, float]:
     """Calculate the pairwise similarity statistics a collection of strings.
 
     Calculate pairwise similarities among members of two collections,
@@ -162,12 +166,12 @@ def pairwise_similarity_statistics(
         raise ValueError('metric must be a function')
 
     if hasattr(src_collection, 'split'):
-        src_collection = src_collection.split()
+        src_collection = cast(str, src_collection).split()
     if not hasattr(src_collection, '__iter__'):
         raise ValueError('src_collection is neither a string nor iterable')
 
     if hasattr(tar_collection, 'split'):
-        tar_collection = tar_collection.split()
+        tar_collection = cast(str, tar_collection).split()
     if not hasattr(tar_collection, '__iter__'):
         raise ValueError('tar_collection is neither a string nor iterable')
 

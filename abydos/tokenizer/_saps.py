@@ -19,6 +19,8 @@
 SAPS class
 """
 
+from typing import Callable, Optional, Union
+
 from ._tokenizer import _Tokenizer
 
 
@@ -30,7 +32,9 @@ class SAPSTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None):
+    def __init__(
+        self, scaler: Optional[Union[str, Callable[[float], float]]] = None,
+    ) -> None:
         """Initialize Tokenizer.
 
         Parameters
@@ -56,7 +60,7 @@ class SAPSTokenizer(_Tokenizer):
         """
         super(SAPSTokenizer, self).__init__(scaler)
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'SAPSTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -70,7 +74,7 @@ class SAPSTokenizer(_Tokenizer):
         Examples
         --------
         >>> SAPSTokenizer().tokenize('seven-twelfths')
-        SAPSTokenizer({'t': 2, 'se': 1, 'ven': 1, '-': 1, 'wel': 1, 'f': 1,
+        SAPSTokenizer({'se': 1, 'ven': 1, '-': 1, 't': 2, 'wel': 1, 'f': 1,
         'h': 1, 's': 1})
 
         >>> SAPSTokenizer().tokenize('character')
@@ -108,7 +112,7 @@ class SAPSTokenizer(_Tokenizer):
                     i += 1
                 self._ordered_tokens.append(syll)
 
-        super(SAPSTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

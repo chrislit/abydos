@@ -22,6 +22,7 @@ measures of central tendencies.
 
 import math
 from collections import Counter
+from typing import Callable, Sequence
 
 from ..util._prod import _prod
 
@@ -48,7 +49,7 @@ __all__ = [
 ]
 
 
-def amean(nums):
+def amean(nums: Sequence[float]) -> float:
     r"""Return arithmetic mean.
 
     The arithmetic mean is defined as
@@ -84,7 +85,7 @@ def amean(nums):
     return sum(nums) / len(nums)
 
 
-def gmean(nums):
+def gmean(nums: Sequence[float]) -> float:
     r"""Return geometric mean.
 
     The geometric mean is defined as
@@ -120,7 +121,7 @@ def gmean(nums):
     return _prod(nums) ** (1 / len(nums))
 
 
-def hmean(nums):
+def hmean(nums: Sequence[float]) -> float:
     r"""Return harmonic mean.
 
     The harmonic mean is defined as
@@ -177,10 +178,10 @@ def hmean(nums):
         if nums.count(0) > 1:
             return float('nan')
         return 0
-    return len(nums) / sum(1 / i for i in nums)
+    return len(nums) / sum(1.0 / float(i) for i in nums)  # type: ignore
 
 
-def qmean(nums):
+def qmean(nums: Sequence[float]) -> float:
     r"""Return quadratic mean.
 
     The quadratic mean is defined as
@@ -216,7 +217,7 @@ def qmean(nums):
     return (sum(i ** 2 for i in nums) / len(nums)) ** 0.5
 
 
-def cmean(nums):
+def cmean(nums: Sequence[float]) -> float:
     r"""Return contraharmonic mean.
 
     The contraharmonic mean is
@@ -252,7 +253,7 @@ def cmean(nums):
     return sum(x ** 2 for x in nums) / sum(nums)
 
 
-def lmean(nums):
+def lmean(nums: Sequence[float]) -> float:
     r"""Return logarithmic mean.
 
     The logarithmic mean of an arbitrarily long series is defined by
@@ -304,9 +305,9 @@ def lmean(nums):
     else:
         if len(nums) != len(set(nums)):
             raise ValueError('No two values in the nums list may be equal')
-        rolling_sum = 0
+        rolling_sum = 0.0
         for i in range(len(nums)):
-            rolling_prod = 1
+            rolling_prod = 1.0
             for j in range(len(nums)):
                 if i != j:
                     rolling_prod *= math.log(nums[i] / nums[j])
@@ -314,7 +315,7 @@ def lmean(nums):
         return math.factorial(len(nums) - 1) * rolling_sum
 
 
-def imean(nums):
+def imean(nums: Sequence[float]) -> float:
     r"""Return identric (exponential) mean.
 
     The identric mean of two numbers x and y is:
@@ -368,7 +369,7 @@ def imean(nums):
     )
 
 
-def seiffert_mean(nums):
+def seiffert_mean(nums: Sequence[float]) -> float:
     r"""Return Seiffert's mean.
 
     Seiffert's mean of two numbers x and y is
@@ -419,7 +420,7 @@ def seiffert_mean(nums):
     )
 
 
-def lehmer_mean(nums, exp=2):
+def lehmer_mean(nums: Sequence[float], exp: float = 2.0) -> float:
     r"""Return Lehmer mean.
 
     The Lehmer mean is
@@ -457,7 +458,7 @@ def lehmer_mean(nums, exp=2):
     return sum(x ** exp for x in nums) / sum(x ** (exp - 1) for x in nums)
 
 
-def heronian_mean(nums):
+def heronian_mean(nums: Sequence[float]) -> float:
     r"""Return Heronian mean.
 
     The Heronian mean is:
@@ -494,7 +495,7 @@ def heronian_mean(nums):
 
     """
     mag = len(nums)
-    rolling_sum = 0
+    rolling_sum = 0.0
     for i in range(mag):
         for j in range(i, mag):
             if nums[i] == nums[j]:
@@ -504,7 +505,7 @@ def heronian_mean(nums):
     return rolling_sum * 2 / (mag * (mag + 1))
 
 
-def hoelder_mean(nums, exp=2):
+def hoelder_mean(nums: Sequence[float], exp: float = 2.0) -> float:
     r"""Return Hölder (power/generalized) mean.
 
     The Hölder mean is defined as:
@@ -546,7 +547,7 @@ def hoelder_mean(nums, exp=2):
     return ((1 / len(nums)) * sum(i ** exp for i in nums)) ** (1 / exp)
 
 
-def agmean(nums, prec=12):
+def agmean(nums: Sequence[float], prec: int = 12) -> float:
     """Return arithmetic-geometric mean.
 
     Iterates between arithmetic & geometric means until they converge to
@@ -558,13 +559,13 @@ def agmean(nums, prec=12):
     ----------
     nums : list
         A series of numbers
+    prec : int
+        Digits of precision when testing convergeance
 
     Returns
     -------
     float
         The arithmetic-geometric mean of nums
-    prec : int
-        Digits of precision when testing convergeance
 
     Examples
     --------
@@ -587,7 +588,7 @@ def agmean(nums, prec=12):
     return m_a
 
 
-def ghmean(nums, prec=12):
+def ghmean(nums: Sequence[float], prec: int = 12) -> float:
     """Return geometric-harmonic mean.
 
     Iterates between geometric & harmonic means until they converge to
@@ -633,7 +634,7 @@ def ghmean(nums, prec=12):
     return m_g
 
 
-def aghmean(nums, prec=12):
+def aghmean(nums: Sequence[float], prec: int = 12) -> float:
     """Return arithmetic-geometric-harmonic mean.
 
     Iterates over arithmetic, geometric, & harmonic means until they
@@ -680,7 +681,7 @@ def aghmean(nums, prec=12):
     return m_a
 
 
-def midrange(nums):
+def midrange(nums: Sequence[float]) -> float:
     """Return midrange.
 
     The midrange is the arithmetic mean of the maximum & minimum of a series.
@@ -712,7 +713,7 @@ def midrange(nums):
     return 0.5 * (max(nums) + min(nums))
 
 
-def median(nums):
+def median(nums: Sequence[float]) -> float:
     """Return median.
 
     With numbers sorted by value, the median is the middle value (if there is
@@ -753,7 +754,7 @@ def median(nums):
     return med if not med.is_integer() else int(med)
 
 
-def mode(nums):
+def mode(nums: Sequence[float]) -> float:
     """Return the mode.
 
     The mode of a series is the most common element of that series
@@ -781,7 +782,11 @@ def mode(nums):
     return Counter(nums).most_common(1)[0][0]
 
 
-def var(nums, mean_func=amean, ddof=0):
+def var(
+    nums: Sequence[float],
+    mean_func: Callable[[Sequence[float]], float] = amean,
+    ddof: int = 0,
+) -> float:
     r"""Calculate the variance.
 
     The variance (:math:`\sigma^2`) of a series of numbers (:math:`x_i`) with
@@ -823,7 +828,11 @@ def var(nums, mean_func=amean, ddof=0):
     return sum((x - x_bar) ** 2 for x in nums) / (len(nums) - ddof)
 
 
-def std(nums, mean_func=amean, ddof=0):
+def std(
+    nums: Sequence[float],
+    mean_func: Callable[[Sequence[float]], float] = amean,
+    ddof: int = 0,
+) -> float:
     """Return the standard deviation.
 
     The standard deviation of a series of values is the square root of the

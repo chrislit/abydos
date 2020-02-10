@@ -36,7 +36,7 @@ class String(_Fingerprint):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, joiner=' '):
+    def __init__(self, joiner: str = ' ') -> None:
         """Initialize String instance.
 
         Parameters
@@ -48,9 +48,10 @@ class String(_Fingerprint):
         .. versionadded:: 0.4.0
 
         """
+        super(String, self).__init__()
         self._joiner = joiner
 
-    def fingerprint(self, phrase):
+    def fingerprint(self, phrase: str) -> str:
         """Return string fingerprint.
 
         Parameters

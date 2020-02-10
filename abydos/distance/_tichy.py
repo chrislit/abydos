@@ -19,6 +19,8 @@
 Tichy edit distance
 """
 
+from typing import Any, Tuple
+
 from ._distance import _Distance
 
 __all__ = ['Tichy']
@@ -50,7 +52,7 @@ class Tichy(_Distance):
 
     """
 
-    def __init__(self, cost=(1, 1), **kwargs):
+    def __init__(self, cost: Tuple[int, int] = (1, 1), **kwargs: Any) -> None:
         """Initialize Tichy instance.
 
         Parameters
@@ -68,7 +70,7 @@ class Tichy(_Distance):
         super(Tichy, self).__init__(**kwargs)
         self._cost = cost
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Tichy distance between two strings.
 
         Parameters
@@ -102,7 +104,7 @@ class Tichy(_Distance):
         if src == tar:
             return 0
 
-        def _find_max_block(src, tar, q_pos):
+        def _find_max_block(src: str, tar: str, q_pos: int) -> Tuple[int, int]:
             length = 0
             p_pos = 0
             p_cur = 0
@@ -137,7 +139,7 @@ class Tichy(_Distance):
 
         return moves * self._cost[0] + adds * self._cost[1]
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Tichy edit distance between two strings.
 
         The Tichy distance is normalized by dividing the distance by the length

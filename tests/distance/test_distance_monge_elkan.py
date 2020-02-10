@@ -33,6 +33,7 @@ class MongeElkanTestCases(unittest.TestCase):
     cmp = MongeElkan()
     cmp_sym = MongeElkan(symmetric=True)
     cmp_jac = MongeElkan(sim_func=Jaccard())
+    cmp_jac_sim = MongeElkan(sim_func=Jaccard().sim)
 
     def test_monge_elkan_sim(self):
         """Test abydos.distance.MongeElkan.sim."""
@@ -51,6 +52,7 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp_sym.sim('Niall', 'Nigel'), 17 / 24)
 
         self.assertEqual(self.cmp_jac.sim('Njall', 'Neil'), 29 / 60)
+        self.assertEqual(self.cmp_jac_sim.sim('Njall', 'Neil'), 29 / 60)
 
     def test_monge_elkan_dist(self):
         """Test abydos.distance.MongeElkan.dist."""

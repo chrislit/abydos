@@ -144,7 +144,7 @@ class SfinxBis(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '123456789#'), 'PKTLNRFSAŠ'))
 
-    def __init__(self, max_length=-1):
+    def __init__(self, max_length: int = -1) -> None:
         """Initialize SfinxBis instance.
 
         Parameters
@@ -158,7 +158,7 @@ class SfinxBis(_Phonetic):
         """
         self._max_length = max_length
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic SfinxBis code for a word.
 
         Parameters
@@ -168,35 +168,35 @@ class SfinxBis(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The alphabetic SfinxBis value
 
         Examples
         --------
         >>> pe = SfinxBis()
         >>> pe.encode_alpha('Christopher')
-        ('KRSTFR',)
+        'KRSTFR'
         >>> pe.encode_alpha('Niall')
-        ('NL',)
+        'NL'
         >>> pe.encode_alpha('Smith')
-        ('SNT',)
+        'SNT'
         >>> pe.encode_alpha('Schmidt')
-        ('SNT',)
+        'SNT'
 
         >>> pe.encode_alpha('Johansson')
-        ('JNSN',)
+        'JNSN'
         >>> pe.encode_alpha('Sjöberg')
-        ('ŠPRK',)
+        'ŠPRK'
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
-        return tuple(
-            code.translate(self._alphabetic) for code in self.encode(word)
-        )
+        return self.encode(word).translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the SfinxBis code for a word.
 
         Parameters
@@ -206,34 +206,36 @@ class SfinxBis(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The SfinxBis value
 
         Examples
         --------
         >>> pe = SfinxBis()
         >>> pe.encode('Christopher')
-        ('K68376',)
+        'K68376'
         >>> pe.encode('Niall')
-        ('N4',)
+        'N4'
         >>> pe.encode('Smith')
-        ('S53',)
+        'S53'
         >>> pe.encode('Schmidt')
-        ('S53',)
+        'S53'
 
         >>> pe.encode('Johansson')
-        ('J585',)
+        'J585'
         >>> pe.encode('Sjöberg')
-        ('#162',)
+        '#162'
 
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
 
-        def _foersvensker(lokal_ordet):
+        def _foersvensker(lokal_ordet: str) -> str:
             """Return the Swedish-ized form of the word.
 
             Parameters
@@ -277,7 +279,7 @@ class SfinxBis(_Phonetic):
 
             return lokal_ordet
 
-        def _koda_foersta_ljudet(lokal_ordet):
+        def _koda_foersta_ljudet(lokal_ordet: str) -> str:
             """Return the word with the first sound coded.
 
             Parameters
@@ -363,7 +365,7 @@ class SfinxBis(_Phonetic):
         ]
         if not ordlista:
             # noinspection PyRedundantParentheses
-            return ('',)
+            return ''
 
         # Steg 4, Försvenskning
         ordlista = [_foersvensker(ordet) for ordet in ordlista]
@@ -404,7 +406,7 @@ class SfinxBis(_Phonetic):
         if self._max_length > 0:
             ordlista = [ordet[: self._max_length] for ordet in ordlista]
 
-        return tuple(ordlista)
+        return ','.join(ordlista)
 
 
 if __name__ == '__main__':

@@ -20,11 +20,12 @@ MinHash similarity
 """
 
 from hashlib import sha512
+from typing import Any, Optional, cast
 
 import numpy as np
 
 from ._distance import _Distance
-from ..tokenizer import QGrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, WhitespaceTokenizer, _Tokenizer
 
 __all__ = ['MinHash']
 
@@ -43,7 +44,13 @@ class MinHash(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, k=0, seed=10, **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        k: int = 0,
+        seed: int = 10,
+        **kwargs: Any
+    ) -> None:
         """Initialize MinHash instance.
 
         Parameters
@@ -81,7 +88,7 @@ class MinHash(_Distance):
             else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the MinHash similarity of two strings.
 
         Parameters
@@ -143,7 +150,7 @@ class MinHash(_Distance):
                 ),
             )
 
-        return (hashes_src == hashes_tar).sum() / k
+        return cast(float, (hashes_src == hashes_tar).sum() / k)
 
 
 if __name__ == '__main__':

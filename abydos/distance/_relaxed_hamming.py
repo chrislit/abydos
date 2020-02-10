@@ -19,8 +19,10 @@
 Relaxed Hamming distance
 """
 
+from typing import Any, Optional
+
 from ._distance import _Distance
-from ..tokenizer import QGrams
+from ..tokenizer import QGrams, _Tokenizer
 
 __all__ = ['RelaxedHamming']
 
@@ -34,7 +36,13 @@ class RelaxedHamming(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, tokenizer=None, maxdist=2, discount=0.2, **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        maxdist: int = 2,
+        discount: float = 0.2,
+        **kwargs: Any
+    ) -> None:
         """Initialize DiscountedHamming instance.
 
         Parameters
@@ -70,7 +78,7 @@ class RelaxedHamming(_Distance):
         self._maxdist = maxdist
         self._discount = discount
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the discounted Hamming distance between two strings.
 
         Parameters
@@ -105,10 +113,9 @@ class RelaxedHamming(_Distance):
             return 0
 
         if len(src) != len(tar):
-            replacement_char = 1
-            while chr(replacement_char) in src or chr(replacement_char) in tar:
-                replacement_char += 1
-            replacement_char = chr(replacement_char)
+            replacement_char = chr(1)
+            while replacement_char in src or replacement_char in tar:
+                replacement_char = chr(ord(replacement_char) + 1)
             if len(src) < len(tar):
                 src += replacement_char * (len(tar) - len(src))
             else:
@@ -118,7 +125,7 @@ class RelaxedHamming(_Distance):
             src = self.params['tokenizer'].tokenize(src).get_list()
             tar = self.params['tokenizer'].tokenize(tar).get_list()
 
-        score = 0
+        score = 0.0
         for pos in range(len(src)):
             if src[pos] == tar[pos : pos + 1][0]:
                 continue
@@ -151,7 +158,7 @@ class RelaxedHamming(_Distance):
 
         return score
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized relaxed Hamming distance between strings.
 
         Parameters

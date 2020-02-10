@@ -19,7 +19,10 @@
 Weighted Jaccard similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['WeightedJaccard']
 
@@ -52,8 +55,12 @@ class WeightedJaccard(_TokenDistance):
     """
 
     def __init__(
-        self, tokenizer=None, intersection_type='crisp', weight=3, **kwargs
-    ):
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        weight: int = 3,
+        **kwargs: Any
+    ) -> None:
         """Initialize TripleWeightedJaccard instance.
 
         Parameters
@@ -92,7 +99,7 @@ class WeightedJaccard(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Triple Weighted Jaccard similarity of two strings.
 
         Parameters

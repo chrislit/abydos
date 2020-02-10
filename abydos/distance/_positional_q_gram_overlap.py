@@ -20,9 +20,10 @@ Positional Q-Gram Overlap coefficient
 """
 
 from collections import defaultdict
+from typing import Any, DefaultDict, List, Optional
 
 from ._distance import _Distance
-from ..tokenizer import QGrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, WhitespaceTokenizer, _Tokenizer
 
 __all__ = ['PositionalQGramOverlap']
 
@@ -35,7 +36,12 @@ class PositionalQGramOverlap(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, max_dist=1, tokenizer=None, **kwargs):
+    def __init__(
+        self,
+        max_dist: int = 1,
+        tokenizer: Optional[_Tokenizer] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize PositionalQGramOverlap instance.
 
         Parameters
@@ -73,7 +79,7 @@ class PositionalQGramOverlap(_Distance):
             else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Positional Q-Gram Overlap coefficient of two strings.
 
         Parameters
@@ -112,8 +118,8 @@ class PositionalQGramOverlap(_Distance):
         src_list = self.params['tokenizer'].tokenize(src).get_list()
         tar_list = self.params['tokenizer'].tokenize(tar).get_list()
 
-        src_pos = defaultdict(list)
-        tar_pos = defaultdict(list)
+        src_pos = defaultdict(list)  # type: DefaultDict[str, List[int]]
+        tar_pos = defaultdict(list)  # type: DefaultDict[str, List[int]]
 
         intersection = 0
 
@@ -122,8 +128,8 @@ class PositionalQGramOverlap(_Distance):
         for pos in range(len(tar_list)):
             tar_pos[tar_list[pos]].append(pos)
 
-        src_matched = []
-        tar_matched = []
+        src_matched = []  # type: List[int]
+        tar_matched = []  # type: List[int]
 
         for tok in src_pos:
             if tok in tar_pos:

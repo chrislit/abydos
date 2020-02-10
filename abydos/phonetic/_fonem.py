@@ -20,6 +20,7 @@ FONEM
 """
 
 from re import compile as re_compile
+from typing import Match, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -27,7 +28,7 @@ from ._phonetic import _Phonetic
 __all__ = ['FONEM']
 
 
-def _get_parts(m):
+def _get_parts(m: Match[str]) -> str:
     return (m.group(1) or '') + (m.group(2) or '')
 
 
@@ -194,7 +195,7 @@ class FONEM(_Phonetic):
 
     _uc_set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ-')
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the FONEM code of a word.
 
         Parameters
@@ -235,9 +236,9 @@ class FONEM(_Phonetic):
         for rule in self._rule_order:
             regex, repl = self._rule_table[rule]
             if isinstance(regex, str):
-                word = word.replace(regex, repl)
+                word = word.replace(regex, cast(str, repl))
             else:
-                word = regex.sub(repl, word)
+                word = regex.sub(repl, word)  # type: ignore
 
         return word
 

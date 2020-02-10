@@ -19,7 +19,10 @@
 Fleiss correlation
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Fleiss']
 
@@ -55,11 +58,13 @@ class Fleiss(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Fleiss instance.
 
         Parameters
@@ -101,7 +106,7 @@ class Fleiss(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Fleiss correlation of two strings.
 
         Parameters
@@ -145,7 +150,7 @@ class Fleiss(_TokenDistance):
             return 0.0
         return num / (2.0 * (a + b) * (c + d) * (a + c) * (b + d))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Fleiss similarity of two strings.
 
         Parameters

@@ -20,6 +20,7 @@ The strcmp95 algorithm variant of Jaro-Winkler distance
 """
 
 from collections import defaultdict
+from typing import Any, DefaultDict, Tuple
 
 from ._distance import _Distance
 
@@ -82,7 +83,7 @@ class Strcmp95(_Distance):
         ('G', 'J'),
     )
 
-    def __init__(self, long_strings=False, **kwargs):
+    def __init__(self, long_strings: bool = False, **kwargs: Any) -> None:
         """Initialize Strcmp95 instance.
 
         Parameters
@@ -103,7 +104,7 @@ class Strcmp95(_Distance):
         super(Strcmp95, self).__init__(**kwargs)
         self._long_strings = long_strings
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the strcmp95 similarity of two strings.
 
         Parameters
@@ -137,7 +138,7 @@ class Strcmp95(_Distance):
 
         """
 
-        def _in_range(char):
+        def _in_range(char: str) -> bool:
             """Return True if char is in the range (0, 91).
 
             Parameters
@@ -164,15 +165,15 @@ class Strcmp95(_Distance):
         if not ying or not yang:
             return 0.0
 
-        adjwt = defaultdict(int)
+        adjwt = defaultdict(int)  # type: DefaultDict[Tuple[str, str], int]
 
         # Initialize the adjwt array on the first call to the function only.
         # The adjwt array is used to give partial credit for characters that
         # may be errors due to known phonetic or character recognition errors.
         # A typical example is to match the letter "O" with the number "0"
-        for i in self._sp_mx:
-            adjwt[(i[0], i[1])] = 3
-            adjwt[(i[1], i[0])] = 3
+        for tup in self._sp_mx:
+            adjwt[(tup[0], tup[1])] = 3
+            adjwt[(tup[1], tup[0])] = 3
 
         if len(ying) > len(yang):
             search_range = len(ying)

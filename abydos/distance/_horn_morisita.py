@@ -19,6 +19,8 @@
 Horn-Morisita index of overlap
 """
 
+from typing import Any
+
 from ._token_distance import _TokenDistance
 
 __all__ = ['HornMorisita']
@@ -53,7 +55,7 @@ class HornMorisita(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize HornMorisita instance.
 
         Parameters
@@ -67,7 +69,7 @@ class HornMorisita(_TokenDistance):
         """
         super(HornMorisita, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Horn-Morisita similarity of two strings.
 
         Parameters
@@ -105,8 +107,8 @@ class HornMorisita(_TokenDistance):
         src_card = self._src_card()
         tar_card = self._tar_card()
 
-        src_lambda = 0
-        tar_lambda = 0
+        src_lambda = 0.0
+        tar_lambda = 0.0
         for val in self._src_tokens.values():
             src_lambda += val * val
         if src_lambda:
@@ -116,7 +118,7 @@ class HornMorisita(_TokenDistance):
         if tar_lambda:
             tar_lambda /= tar_card * tar_card
 
-        sim = 0
+        sim = 0.0
         for symbol in intersection.keys():
             sim += self._src_tokens[symbol] * self._tar_tokens[symbol]
         sim *= 2

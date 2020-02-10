@@ -19,7 +19,18 @@
 Minkowski distance & similarity
 """
 
+from typing import (
+    Any,
+    Counter as TCounter,
+    Optional,
+    Sequence,
+    Set,
+    Union,
+    cast,
+)
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Minkowski']
 
@@ -35,12 +46,14 @@ class Minkowski(_TokenDistance):
 
     def __init__(
         self,
-        pval=1,
-        alphabet=0,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        pval: float = 1,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = 0,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Euclidean instance.
 
         Parameters
@@ -83,7 +96,7 @@ class Minkowski(_TokenDistance):
         )
         self.set_params(pval=pval)
 
-    def dist_abs(self, src, tar, normalized=False):
+    def dist_abs(self, src: str, tar: str, normalized: bool = False) -> float:
         """Return the Minkowski distance (:math:`L^p`-norm) of two strings.
 
         Parameters
@@ -141,13 +154,14 @@ class Minkowski(_TokenDistance):
         if self.params['pval'] == 0:
             # This is the l_0 "norm" as developed by David Donoho
             return sum(_ != 0 for _ in diffs) / normalizer
-        return (
+        return cast(
+            float,
             sum(_ ** self.params['pval'] for _ in diffs)
             ** (1 / self.params['pval'])
-            / normalizer
+            / normalizer,
         )
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return normalized Minkowski distance of two strings.
 
         The normalized Minkowski distance :cite:`Minkowski:1910` is a distance

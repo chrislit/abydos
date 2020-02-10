@@ -19,7 +19,10 @@
 McEwen & Michael correlation
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['McEwenMichael']
 
@@ -51,11 +54,13 @@ class McEwenMichael(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Michael instance.
 
         Parameters
@@ -97,7 +102,7 @@ class McEwenMichael(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the McEwen & Michael correlation of two strings.
 
         Parameters
@@ -141,7 +146,7 @@ class McEwenMichael(_TokenDistance):
             return 4 * num / ((a + d) ** 2 + (b + c) ** 2)
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the McEwen & Michael similarity of two strings.
 
         Parameters

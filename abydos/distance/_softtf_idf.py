@@ -19,12 +19,15 @@
 SoftTF-IDF similarity
 """
 
-from collections import Counter
+from collections import defaultdict
 from math import log1p
+from typing import Any, DefaultDict, Optional, Tuple
 
+from ._distance import _Distance
 from ._jaro_winkler import JaroWinkler
 from ._token_distance import _TokenDistance
 from ..corpus import UnigramCorpus
+from ..tokenizer import _Tokenizer
 
 __all__ = ['SoftTFIDF']
 
@@ -62,8 +65,13 @@ class SoftTFIDF(_TokenDistance):
     """
 
     def __init__(
-        self, tokenizer=None, corpus=None, metric=None, threshold=0.9, **kwargs
-    ):
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        corpus: Optional[UnigramCorpus] = None,
+        metric: Optional[_Distance] = None,
+        threshold: float = 0.9,
+        **kwargs: Any
+    ) -> None:
         """Initialize SoftTFIDF instance.
 
         Parameters
@@ -95,13 +103,10 @@ class SoftTFIDF(_TokenDistance):
         """
         super(SoftTFIDF, self).__init__(tokenizer=tokenizer, **kwargs)
         self._corpus = corpus
-        self._metric = metric
         self._threshold = threshold
+        self._metric = JaroWinkler() if metric is None else metric
 
-        if self._metric is None:
-            self._metric = JaroWinkler()
-
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the SoftTF-IDF similarity of two strings.
 
         Parameters
@@ -144,7 +149,7 @@ class SoftTFIDF(_TokenDistance):
             corpus = self._corpus
 
         matches = {(tok, tok): 1.0 for tok in self._crisp_intersection()}
-        sims = Counter()
+        sims = defaultdict(float)  # type: DefaultDict[Tuple[str, str], float]
         s_toks = set(self._src_only().keys())
         t_toks = set(self._tar_only().keys())
         for s_tok in s_toks:
@@ -152,7 +157,9 @@ class SoftTFIDF(_TokenDistance):
                 sim = self._metric.sim(s_tok, t_tok)
                 if sim > self._threshold:
                     sims[(s_tok, t_tok)] = sim
-        for tokens, value in sims.most_common():
+        for tokens, value in sorted(
+            sims.items(), key=lambda item: item[1], reverse=True
+        ):
             if tokens[0] in s_toks and tokens[1] in t_toks:
                 matches[tokens] = value
                 s_toks.remove(tokens[0])

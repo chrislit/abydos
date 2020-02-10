@@ -19,8 +19,10 @@
 Guth matching algorithm
 """
 
+from typing import Any, List, Optional, Union
+
 from ._distance import _Distance
-from ..tokenizer import QGrams
+from ..tokenizer import QGrams, _Tokenizer
 
 __all__ = ['Guth']
 
@@ -43,7 +45,9 @@ class Guth(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, **kwargs: Any
+    ) -> None:
         """Initialize Guth instance.
 
         Parameters
@@ -72,7 +76,9 @@ class Guth(_Distance):
                 qval=self.params['qval'], start_stop='$#', skip=0, scaler=None
             )
 
-    def _token_at(self, name, pos):
+    def _token_at(
+        self, name: Union[List[str], str], pos: int
+    ) -> Optional[str]:
         """Return the token of name at position pos.
 
         Parameters
@@ -97,7 +103,7 @@ class Guth(_Distance):
             return None
         return name[pos]
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Guth matching score of two strings.
 
         Parameters
@@ -139,13 +145,11 @@ class Guth(_Distance):
 
         for pos in range(len(src)):
             s = self._token_at(src, pos)
-            t = set(tar[max(0, pos - 1) : pos + 3])
-            if s and s in t:
+            if s and s in set(tar[max(0, pos - 1) : pos + 3]):
                 continue
 
-            s = set(src[max(0, pos - 1) : pos + 3])
             t = self._token_at(tar, pos)
-            if t and t in s:
+            if t and t in set(src[max(0, pos - 1) : pos + 3]):
                 continue
 
             s = self._token_at(src, pos + 1)
@@ -163,7 +167,7 @@ class Guth(_Distance):
             return 1.0
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the relative Guth similarity of two strings.
 
         This deviates from the algorithm described in :cite:`Guth:1976` in that
@@ -211,7 +215,7 @@ class Guth(_Distance):
             src = self.params['tokenizer'].tokenize(src).get_list()
             tar = self.params['tokenizer'].tokenize(tar).get_list()
 
-        score = 0
+        score = 0.0
         for pos in range(len(src)):
             s = self._token_at(src, pos)
             t = self._token_at(tar, pos)

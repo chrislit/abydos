@@ -19,7 +19,10 @@
 Quantitative Dice similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['QuantitativeDice']
 
@@ -39,7 +42,9 @@ class QuantitativeDice(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, **kwargs: Any
+    ) -> None:
         """Initialize QuantitativeDice instance.
 
         Parameters
@@ -62,7 +67,7 @@ class QuantitativeDice(_TokenDistance):
         """
         super(QuantitativeDice, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Quantitative Dice similarity of two strings.
 
         Parameters

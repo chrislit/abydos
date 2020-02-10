@@ -19,8 +19,10 @@
 String subsequence kernel (SSK) similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
-from ..tokenizer import QSkipgrams
+from ..tokenizer import QSkipgrams, _Tokenizer
 
 __all__ = ['SSK']
 
@@ -34,7 +36,12 @@ class SSK(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, tokenizer=None, ssk_lambda=0.9, **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        ssk_lambda: float = 0.9,
+        **kwargs: Any
+    ) -> None:
         """Initialize SSK instance.
 
         Parameters
@@ -73,7 +80,7 @@ class SSK(_TokenDistance):
             )
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the SSK similarity of two strings.
 
         Parameters
@@ -115,7 +122,7 @@ class SSK(_TokenDistance):
 
         return score
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized SSK similarity of two strings.
 
         Parameters

@@ -22,11 +22,12 @@ of numbers (akin to sum, but for product).
 
 from functools import reduce
 from operator import mul
+from typing import List, Sequence, Set, Union
 
-__all__ = []
+__all__ = []  # type: List[str]
 
 
-def _prod(nums):
+def _prod(nums: Union[Sequence[float], Set[float]]) -> float:
     r"""Return the product of nums.
 
     The product is

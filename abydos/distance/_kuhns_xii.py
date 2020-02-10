@@ -19,7 +19,10 @@
 Kuhns XII similarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['KuhnsXII']
 
@@ -61,11 +64,13 @@ class KuhnsXII(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize KuhnsXII instance.
 
         Parameters
@@ -107,7 +112,7 @@ class KuhnsXII(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Kuhns XII similarity of two strings.
 
         Parameters
@@ -155,7 +160,7 @@ class KuhnsXII(_TokenDistance):
         else:
             return max(-1.0, n * delta_ab / ((a + b) * (a + c)))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Kuhns XII similarity of two strings.
 
         Parameters

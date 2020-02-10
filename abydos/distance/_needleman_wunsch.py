@@ -19,7 +19,9 @@
 Needleman-Wunsch score
 """
 
-from numpy import float32 as np_float32
+from typing import Any, Callable, Dict, Optional, Tuple, cast
+
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -39,14 +41,14 @@ class NeedlemanWunsch(_Distance):
 
     @staticmethod
     def sim_matrix(
-        src,
-        tar,
-        mat=None,
-        mismatch_cost=0,
-        match_cost=1,
-        symmetric=True,
-        alphabet=None,
-    ):
+        src: str,
+        tar: str,
+        mat: Optional[Dict[Tuple[str, str], int]] = None,
+        mismatch_cost: float = 0,
+        match_cost: float = 1,
+        symmetric: bool = True,
+        alphabet: Optional[str] = None,
+    ) -> float:
         """Return the matrix similarity of two strings.
 
         With the default parameters, this is identical to sim_ident.
@@ -75,8 +77,8 @@ class NeedlemanWunsch(_Distance):
             contain (src, tar) or (tar, src), not both
         alphabet : str
             A collection of tokens from which src and tar are drawn; if this is
-            defined a ValueError is raised if either tar or src is not found in
-            alphabet
+            defined a ValueError is raised if either tar or src have symbols not
+            found in alphabet
 
         Returns
         -------
@@ -104,12 +106,12 @@ class NeedlemanWunsch(_Distance):
 
         """
         if alphabet:
-            alphabet = tuple(alphabet)
+            alpha_set = set(alphabet)
             for i in src:
-                if i not in alphabet:
+                if i not in alpha_set:
                     raise ValueError('src value not in alphabet')
             for i in tar:
-                if i not in alphabet:
+                if i not in alpha_set:
                     raise ValueError('tar value not in alphabet')
 
         if src == tar:
@@ -122,7 +124,12 @@ class NeedlemanWunsch(_Distance):
             return mat[(tar, src)]
         return mismatch_cost
 
-    def __init__(self, gap_cost=1, sim_func=None, **kwargs):
+    def __init__(
+        self,
+        gap_cost: float = 1,
+        sim_func: Optional[Callable[[str, str], float]] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize NeedlemanWunsch instance.
 
         Parameters
@@ -141,11 +148,12 @@ class NeedlemanWunsch(_Distance):
         """
         super(NeedlemanWunsch, self).__init__(**kwargs)
         self._gap_cost = gap_cost
-        self._sim_func = sim_func
-        if self._sim_func is None:
-            self._sim_func = NeedlemanWunsch.sim_matrix
+        self._sim_func = cast(
+            Callable[[str, str], float],
+            NeedlemanWunsch.sim_matrix if sim_func is None else sim_func,
+        )  # type: Callable[[str, str], float]
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Needleman-Wunsch score of two strings.
 
         Parameters
@@ -178,7 +186,7 @@ class NeedlemanWunsch(_Distance):
             Encapsulated in class
 
         """
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
 
         for i in range(len(src) + 1):
             d_mat[i, 0] = -(i * self._gap_cost)
@@ -192,9 +200,9 @@ class NeedlemanWunsch(_Distance):
                 delete = d_mat[i - 1, j] - self._gap_cost
                 insert = d_mat[i, j - 1] - self._gap_cost
                 d_mat[i, j] = max(match, delete, insert)
-        return d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1]
+        return cast(float, d_mat[d_mat.shape[0] - 1, d_mat.shape[1] - 1])
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Needleman-Wunsch score of two strings.
 
         Parameters

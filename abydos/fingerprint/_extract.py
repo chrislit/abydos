@@ -19,6 +19,8 @@
 Taft's extract letter list coding
 """
 
+from typing import Iterable, Union, cast
+
 from ._fingerprint import _Fingerprint
 
 __all__ = ['Extract']
@@ -33,7 +35,7 @@ class Extract(_Fingerprint):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, letter_list=1):
+    def __init__(self, letter_list: Union[int, Iterable[str]] = 1) -> None:
         """Initialize Extract instance.
 
         Parameters
@@ -54,16 +56,15 @@ class Extract(_Fingerprint):
             'EARNLOISTHDMCBGUWYJKPFVZXQ',
         ]
 
-        super(_Fingerprint, self).__init__()
-        self._letter_list = letter_list
-        if isinstance(self._letter_list, int) and 1 <= self._letter_list <= 4:
-            self._letter_list = list(letter_lists[self._letter_list - 1])
-        elif hasattr(self._letter_list, '__iter__'):
-            self._letter_list = list(self._letter_list)
+        super(Extract, self).__init__()
+        if isinstance(letter_list, int) and 1 <= letter_list <= 4:
+            self._letter_list = list(letter_lists[letter_list - 1])
+        elif hasattr(letter_list, '__iter__'):
+            self._letter_list = list(cast(Iterable[str], letter_list))
         else:
             self._letter_list = list(letter_lists[0])
 
-    def fingerprint(self, word):
+    def fingerprint(self, word: str) -> str:
         """Return the extract letter list coding.
 
         Parameters
@@ -73,7 +74,7 @@ class Extract(_Fingerprint):
 
         Returns
         -------
-        int
+        str
             The extract letter list coding
 
         Examples

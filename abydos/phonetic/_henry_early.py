@@ -47,7 +47,7 @@ class HenryEarly(_Phonetic):
     }
     _simple = {'W': 'V', 'X': 'S', 'Z': 'S'}
 
-    def __init__(self, max_length=3):
+    def __init__(self, max_length: int = 3) -> None:
         """Initialize HenryEarly instance.
 
         Parameters
@@ -61,7 +61,7 @@ class HenryEarly(_Phonetic):
         """
         self._max_length = max_length
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Calculate the early version of the Henry code for a word.
 
         Parameters

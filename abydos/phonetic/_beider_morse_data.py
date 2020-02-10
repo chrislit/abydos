@@ -6048,7 +6048,7 @@ _ASH_RULES_SPANISH = (
     ('u', '', '', 'u'),
 )
 
-BMDATA = {}
+BMDATA = {}  # type: ignore
 
 BMDATA['gen'] = {}
 BMDATA['gen']['approx'] = {}

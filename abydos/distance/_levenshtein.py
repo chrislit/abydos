@@ -24,6 +24,7 @@ based on Levenshtein distance, including:
 """
 
 from sys import float_info
+from typing import Any, Callable, List, Tuple, Union, cast
 
 import numpy as np
 
@@ -55,12 +56,12 @@ class Levenshtein(_Distance):
 
     def __init__(
         self,
-        mode='lev',
-        cost=(1, 1, 1, 1),
-        normalizer=max,
-        taper=False,
-        **kwargs
-    ):
+        mode: str = 'lev',
+        cost: Tuple[float, float, float, float] = (1, 1, 1, 1),
+        normalizer: Callable[[List[float]], float] = max,
+        taper: bool = False,
+        **kwargs: Any
+    ) -> None:
         """Initialize Levenshtein instance.
 
         Parameters
@@ -101,14 +102,16 @@ class Levenshtein(_Distance):
         self._normalizer = normalizer
         self._taper_enabled = taper
 
-    def _taper(self, pos, length):
+    def _taper(self, pos: int, length: int) -> float:
         return (
             round(1 + ((length - pos) / length) * (1 + float_info.epsilon), 15)
             if self._taper_enabled
             else 1
         )
 
-    def _alignment_matrix(self, src, tar, backtrace=True):
+    def _alignment_matrix(
+        self, src: str, tar: str, backtrace: bool = True
+    ) -> Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """Return the Levenshtein alignment matrix.
 
         Parameters
@@ -135,7 +138,7 @@ class Levenshtein(_Distance):
         tar_len = len(tar)
         max_len = max(src_len, tar_len)
 
-        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
+        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float_)
         if backtrace:
             trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(src_len + 1):
@@ -185,7 +188,7 @@ class Levenshtein(_Distance):
             return d_mat, trace_mat
         return d_mat
 
-    def alignment(self, src, tar):
+    def alignment(self, src: str, tar: str) -> Tuple[float, str, str]:
         """Return the Levenshtein alignment of two strings.
 
         Parameters
@@ -262,7 +265,7 @@ class Levenshtein(_Distance):
 
         return distance, ''.join(src_aligned[::-1]), ''.join(tar_aligned[::-1])
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Levenshtein distance between two strings.
 
         Parameters
@@ -318,14 +321,16 @@ class Levenshtein(_Distance):
                 del_cost * self._taper(pos, max_len) for pos in range(src_len)
             )
 
-        d_mat = self._alignment_matrix(src, tar, backtrace=False)
+        d_mat = cast(
+            np.ndarray, self._alignment_matrix(src, tar, backtrace=False)
+        )
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
         else:
-            return d_mat[src_len, tar_len]
+            return cast(float, d_mat[src_len, tar_len])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein

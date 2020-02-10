@@ -19,7 +19,10 @@
 Brainerd-Robinson similarity
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['BrainerdRobinson']
 
@@ -39,7 +42,9 @@ class BrainerdRobinson(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, **kwargs):
+    def __init__(
+        self, tokenizer: Optional[_Tokenizer] = None, **kwargs: Any
+    ) -> None:
         """Initialize BrainerdRobinson instance.
 
         Parameters
@@ -62,7 +67,7 @@ class BrainerdRobinson(_TokenDistance):
         """
         super(BrainerdRobinson, self).__init__(tokenizer=tokenizer, **kwargs)
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Brainerd-Robinson similarity of two strings.
 
         Parameters
@@ -111,7 +116,7 @@ class BrainerdRobinson(_TokenDistance):
 
         return score
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Brainerd-Robinson similarity of two strings.
 
         Parameters

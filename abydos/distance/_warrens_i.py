@@ -19,7 +19,10 @@
 Warrens I correlation
 """
 
+from typing import Any, Optional
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['WarrensI']
 
@@ -47,7 +50,12 @@ class WarrensI(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize WarrensI instance.
 
         Parameters
@@ -82,7 +90,7 @@ class WarrensI(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Warrens I correlation of two strings.
 
         Parameters
@@ -124,7 +132,7 @@ class WarrensI(_TokenDistance):
 
         return (2 * a - b - c) / (2 * a + b + c)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Warrens I similarity of two strings.
 
         Parameters

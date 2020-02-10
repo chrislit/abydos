@@ -27,6 +27,8 @@ strings of vowels only.
 import re
 import unicodedata
 
+from typing import Callable, Optional, Set, Union
+
 from ._tokenizer import _Tokenizer
 
 __all__ = ['COrVClusterTokenizer']
@@ -38,7 +40,12 @@ class COrVClusterTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None, consonants=None, vowels=None):
+    def __init__(
+        self,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
+        consonants: Optional[Set[str]] = None,
+        vowels: Optional[Set[str]] = None,
+    ) -> None:
         """Initialize tokenizer.
 
         Parameters
@@ -57,6 +64,10 @@ class COrVClusterTokenizer(_Tokenizer):
                   in the Counter. Some useful functions include math.exp,
                   math.log1p, math.sqrt, and indexes into interesting integer
                   sequences such as the Fibonacci sequence.
+        consonants : None or set(str)
+            The set of characters to treat as consonants
+        vowels : None or set(str)
+            The set of characters to treat as vowels
 
 
         .. versionadded:: 0.4.0
@@ -73,7 +84,7 @@ class COrVClusterTokenizer(_Tokenizer):
             self._vowels = set('aeiouyAEIOUY')
         self._regexp = re.compile(r'\w+|[^\w\s]+', flags=0)
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'COrVClusterTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -87,11 +98,11 @@ class COrVClusterTokenizer(_Tokenizer):
         Examples
         --------
         >>> COrVClusterTokenizer().tokenize('seven-twelfths')
-        COrVClusterTokenizer({'e': 3, 's': 1, 'v': 1, 'n': 1, '-': 1,
-        'tw': 1, 'lfths': 1})
+        COrVClusterTokenizer({'s': 1, 'e': 3, 'v': 1, 'n': 1, '-': 1, 'tw': 1,
+        'lfths': 1})
 
         >>> COrVClusterTokenizer().tokenize('character')
-        COrVClusterTokenizer({'a': 2, 'r': 2, 'ch': 1, 'ct': 1, 'e': 1})
+        COrVClusterTokenizer({'ch': 1, 'a': 2, 'r': 2, 'ct': 1, 'e': 1})
 
 
         .. versionadded:: 0.4.0
@@ -134,7 +145,7 @@ class COrVClusterTokenizer(_Tokenizer):
             unicodedata.normalize('NFC', token)
             for token in self._ordered_tokens
         ]
-        super(COrVClusterTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

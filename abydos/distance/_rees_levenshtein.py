@@ -19,7 +19,9 @@
 Rees-Levenshtein distance
 """
 
-from numpy import int as np_int
+from typing import Any, Callable, List, cast
+
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -37,7 +39,12 @@ class ReesLevenshtein(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, block_limit=2, normalizer=max, **kwargs):
+    def __init__(
+        self,
+        block_limit: int = 2,
+        normalizer: Callable[[List[float]], float] = max,
+        **kwargs: Any
+    ) -> None:
         """Initialize ReesLevenshtein instance.
 
         Parameters
@@ -59,7 +66,7 @@ class ReesLevenshtein(_Distance):
         self._normalizer = normalizer
         self._block_limit = block_limit
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Rees-Levenshtein distance of two strings.
 
         This is a straightforward port of the PL/SQL implementation at
@@ -105,7 +112,7 @@ class ReesLevenshtein(_Distance):
         if v_str1_length == 1 and v_str2_length == 1:
             return 1
 
-        def _substr(string, start, length):
+        def _substr(string: str, start: int, length: int) -> str:
             if start > 0:
                 start -= 1
             else:
@@ -214,9 +221,9 @@ class ReesLevenshtein(_Distance):
                         )
                     v_temp_block_length -= 1
 
-        return d_mat[v_str1_length, v_str2_length]
+        return cast(float, d_mat[v_str1_length, v_str2_length])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Rees-Levenshtein distance of two strings.
 
         Parameters

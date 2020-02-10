@@ -19,7 +19,10 @@
 Yule's Q dissimilarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['YuleQII']
 
@@ -50,11 +53,13 @@ class YuleQII(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize YuleQII instance.
 
         Parameters
@@ -96,7 +101,7 @@ class YuleQII(_TokenDistance):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return Yule's Q dissimilarity of two strings.
 
         Parameters
@@ -138,7 +143,7 @@ class YuleQII(_TokenDistance):
             return 0.0
         return (2 * b * c) / (a * d + b * c)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return normalized Yule's Q dissimilarity of two strings.
 
         Parameters

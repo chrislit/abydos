@@ -19,7 +19,10 @@
 Euclidean distance & similarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._minkowski import Minkowski
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Euclidean']
 
@@ -34,8 +37,14 @@ class Euclidean(Minkowski):
     """
 
     def __init__(
-        self, alphabet=0, tokenizer=None, intersection_type='crisp', **kwargs
-    ):
+        self,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = 0,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Euclidean instance.
 
         Parameters
@@ -76,7 +85,7 @@ class Euclidean(Minkowski):
             **kwargs
         )
 
-    def dist_abs(self, src, tar, normalized=False):
+    def dist_abs(self, src: str, tar: str, normalized: bool = False) -> float:
         """Return the Euclidean distance between two strings.
 
         Parameters
@@ -114,7 +123,7 @@ class Euclidean(Minkowski):
         """
         return super(Euclidean, self).dist_abs(src, tar, normalized=normalized)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Euclidean distance between two strings.
 
         The normalized Euclidean distance is a distance

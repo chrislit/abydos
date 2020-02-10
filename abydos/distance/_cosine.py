@@ -20,8 +20,10 @@ Cosine similarity & distance
 """
 
 from math import sqrt
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Cosine']
 
@@ -55,7 +57,12 @@ class Cosine(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Cosine instance.
 
         Parameters
@@ -90,7 +97,7 @@ class Cosine(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         r"""Return the cosine similarity of two strings.
 
         Parameters

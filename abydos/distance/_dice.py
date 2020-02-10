@@ -19,7 +19,10 @@
 Sørensen–Dice coefficient & distance
 """
 
+from typing import Any, Optional
+
 from ._tversky import Tversky
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Dice']
 
@@ -63,7 +66,12 @@ class Dice(Tversky):
 
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Dice instance.
 
         Parameters
@@ -103,7 +111,7 @@ class Dice(Tversky):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Sørensen–Dice coefficient of two strings.
 
         Parameters

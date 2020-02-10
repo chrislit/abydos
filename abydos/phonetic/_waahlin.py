@@ -19,6 +19,7 @@
 Wåhlin phonetic encoding
 """
 
+from typing import Optional, Tuple
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -35,7 +36,7 @@ class Waahlin(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, encoder=None):
+    def __init__(self, encoder: Optional[_Phonetic] = None) -> None:
         """Initialize Waahlin instance.
 
         Parameters
@@ -70,7 +71,7 @@ class Waahlin(_Phonetic):
         1: {'Q': 'K', 'W': 'V', 'Z': 'S', 'Ä': 'E'},
     }
 
-    def _encode_next(self, word):
+    def _encode_next(self, word: str) -> Tuple[str, str]:
         if word[:3] == 'STI' and word[3:4] in {'E', 'Ä'}:
             code = '*'
             remainder = word[3:]
@@ -127,7 +128,7 @@ class Waahlin(_Phonetic):
 
         return code, remainder
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Wåhlin code for a word.
 
         Parameters
@@ -162,7 +163,7 @@ class Waahlin(_Phonetic):
             .replace('*', 'Š')
         )
 
-    def encode(self, word, alphabetic=False):
+    def encode(self, word: str, alphabetic: bool = False) -> str:
         """Return the Wåhlin code for a word.
 
         Parameters

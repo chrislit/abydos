@@ -21,6 +21,7 @@ Q-Skipgrams multi-set class
 
 from collections import Iterable
 from itertools import combinations
+from typing import Callable, Iterable as TIterable, Optional, Union, cast
 
 from ._tokenizer import _Tokenizer
 
@@ -38,7 +39,13 @@ class QSkipgrams(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', scaler=None, ssk_lambda=0.9):
+    def __init__(
+        self,
+        qval: Union[int, TIterable[int]] = 2,
+        start_stop: str = '$#',
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
+        ssk_lambda: Union[float, TIterable[float]] = 0.9,
+    ) -> None:
         """Initialize QSkipgrams.
 
         Parameters
@@ -85,15 +92,15 @@ class QSkipgrams(_Tokenizer):
         Examples
         --------
         >>> QSkipgrams().tokenize('AATTAT')
-        QSkipgrams({'AT': 7, '$A': 3, '$T': 3, 'AA': 3, 'A#': 3, 'TT': 3,
-        'T#': 3, 'TA': 2, '$#': 1})
+        QSkipgrams({'$A': 3, '$T': 3, '$#': 1, 'AA': 3, 'AT': 7, 'A#': 3,
+        'TT': 3, 'TA': 2, 'T#': 3})
 
         >>> QSkipgrams(qval=1, start_stop='').tokenize('AATTAT')
         QSkipgrams({'A': 3, 'T': 3})
 
         >>> QSkipgrams(qval=3, start_stop='').tokenize('AATTAT')
-        QSkipgrams({'ATT': 6, 'AAT': 5, 'ATA': 4, 'TAT': 2, 'AAA': 1,
-        'TTA': 1, 'TTT': 1})
+        QSkipgrams({'AAT': 5, 'AAA': 1, 'ATT': 6, 'ATA': 4, 'TTA': 1, 'TTT': 1,
+        'TAT': 2})
 
         >>> QSkipgrams(start_stop='').tokenize('ABCD')
         QSkipgrams({'AB': 1, 'AC': 1, 'AD': 1, 'BC': 1, 'BD': 1, 'CD': 1})
@@ -104,30 +111,31 @@ class QSkipgrams(_Tokenizer):
         'o#': 1, 'li': 1, 'ln': 1, 'l#': 1, 'in': 1, 'i#': 1, 'n#': 1})
 
         >>> QSkipgrams(qval=3).tokenize('AACTAGAAC')
-        QSkipgrams({'$AA': 20, '$A#': 20, 'AA#': 20, '$AC': 14, 'AC#': 14,
-        'AAC': 11, 'AAA': 10, '$C#': 8, '$AG': 6, '$CA': 6, '$TA': 6, 'ACA': 6,
-        'ATA': 6, 'AGA': 6, 'AG#': 6, 'CA#': 6, 'TA#': 6, '$$A': 5, 'A##': 5,
-        '$AT': 4, '$T#': 4, '$GA': 4, '$G#': 4, 'AT#': 4, 'GA#': 4, 'AAG': 3,
-        'AGC': 3, 'CTA': 3, 'CAA': 3, 'CAC': 3, 'TAA': 3, 'TAC': 3, '$$C': 2,
-        '$$#': 2, '$CT': 2, '$CG': 2, '$CC': 2, '$TG': 2, '$TC': 2, '$GC': 2,
-        '$##': 2, 'ACT': 2, 'ACG': 2, 'ACC': 2, 'ATG': 2, 'ATC': 2, 'CT#': 2,
-        'CGA': 2, 'CG#': 2, 'CC#': 2, 'C##': 2, 'TGA': 2, 'TG#': 2, 'TC#': 2,
-        'GAC': 2, 'GC#': 2, '$$T': 1, '$$G': 1, 'AAT': 1, 'CTG': 1, 'CTC': 1,
-        'CAG': 1, 'CGC': 1, 'TAG': 1, 'TGC': 1, 'T##': 1, 'GAA': 1, 'G##': 1})
+        QSkipgrams({'$$A': 5, '$$C': 2, '$$T': 1, '$$G': 1, '$$#': 2,
+        '$AA': 20, '$AC': 14, '$AT': 4, '$AG': 6, '$A#': 20, '$CT': 2,
+        '$CA': 6, '$CG': 2, '$CC': 2, '$C#': 8, '$TA': 6, '$TG': 2, '$TC': 2,
+        '$T#': 4, '$GA': 4, '$GC': 2, '$G#': 4, '$##': 2, 'AAC': 11, 'AAT': 1,
+        'AAA': 10, 'AAG': 3, 'AA#': 20, 'ACT': 2, 'ACA': 6, 'ACG': 2, 'ACC': 2,
+        'AC#': 14, 'ATA': 6, 'ATG': 2, 'ATC': 2, 'AT#': 4, 'AGA': 6, 'AGC': 3,
+        'AG#': 6, 'A##': 5, 'CTA': 3, 'CTG': 1, 'CTC': 1, 'CT#': 2, 'CAG': 1,
+        'CAA': 3, 'CAC': 3, 'CA#': 6, 'CGA': 2, 'CGC': 1, 'CG#': 2, 'CC#': 2,
+        'C##': 2, 'TAG': 1, 'TAA': 3, 'TAC': 3, 'TA#': 6, 'TGA': 2, 'TGC': 1,
+        'TG#': 2, 'TC#': 2, 'T##': 1, 'GAA': 1, 'GAC': 2, 'GA#': 4, 'GC#': 2,
+        'G##': 1})
 
         QSkipgrams may also be used to produce weights in accordance with the
         substring kernel rules of :cite:`Lodhi:2002` by passing the scaler
         value ``'SSK'``:
 
         >>> QSkipgrams(scaler='SSK').tokenize('AACTAGAAC')
-        QSkipgrams({'AA': 6.170192010000001, 'AC': 4.486377699,
-        '$A': 2.8883286990000006, 'A#': 2.6526399291000002, 'TA': 2.05659,
-        'AG': 1.931931, 'CA': 1.850931, 'GA': 1.5390000000000001, 'AT': 1.3851,
-        'C#': 1.2404672100000003, '$C': 1.0047784401000002, 'CT': 0.81,
-        'TG': 0.7290000000000001, 'CG': 0.6561, 'GC': 0.6561,
-        '$T': 0.5904900000000001, 'G#': 0.5904900000000001, 'TC': 0.531441,
-        '$G': 0.4782969000000001, 'CC': 0.4782969000000001,
-        'T#': 0.4782969000000001, '$#': 0.31381059609000006})
+        QSkipgrams(, {'$A': 2.8883286990000006, '$C': 1.0047784401000002,
+        '$T': 0.5904900000000001, '$G': 0.4782969000000001,
+        '$#': 0.31381059609000006, 'AA': 6.170192010000001, 'AC': 4.486377699,
+        'AT': 1.3851, 'AG': 1.931931, 'A#': 2.6526399291000002, 'CT': 0.81,
+        'CA': 1.850931, 'CG': 0.6561, 'CC': 0.4782969000000001,
+        'C#': 1.2404672100000003, 'TA': 2.05659, 'TG': 0.7290000000000001,
+        'TC': 0.531441, 'T#': 0.4782969000000001, 'GA': 1.5390000000000001,
+        'GC': 0.6561, 'G#': 0.5904900000000001})
 
         .. versionadded:: 0.4.0
 
@@ -142,11 +150,11 @@ class QSkipgrams(_Tokenizer):
 
         self._string_ss = self._string
         if isinstance(ssk_lambda, float):
-            self._lambda = (ssk_lambda,)
+            self._lambda = (ssk_lambda,)  # type: TIterable[float]
         else:
             self._lambda = tuple(ssk_lambda)
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'QSkipgrams':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -168,7 +176,7 @@ class QSkipgrams(_Tokenizer):
         if not isinstance(self.qval, Iterable):
             self.qval = (self.qval,)
 
-        for qval_i in self.qval:
+        for qval_i in cast(TIterable[int], self.qval):
             if qval_i < 1:
                 continue
 
@@ -203,7 +211,7 @@ class QSkipgrams(_Tokenizer):
             else:
                 self._ordered_weights += [1] * len(combs)
 
-        super(QSkipgrams, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

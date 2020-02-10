@@ -19,6 +19,8 @@
 phonetic fingerprint
 """
 
+from typing import Callable, Optional, Union
+
 from ._string import String
 from ..phonetic import DoubleMetaphone
 from ..phonetic._phonetic import _Phonetic
@@ -39,7 +41,13 @@ class Phonetic(String):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, phonetic_algorithm=None, joiner=' '):
+    def __init__(
+        self,
+        phonetic_algorithm: Optional[
+            Union[Callable[[str], str], _Phonetic]
+        ] = None,
+        joiner: str = ' ',
+    ) -> None:
         """Initialize Phonetic instance.
 
         phonetic_algorithm : function
@@ -53,13 +61,18 @@ class Phonetic(String):
         .. versionadded:: 0.4.0
 
         """
-        self._phonetic_algorithm = phonetic_algorithm
-        if phonetic_algorithm is None:
-            self._phonetic_algorithm = DoubleMetaphone()
+        super(Phonetic, self).__init__()
+        if isinstance(phonetic_algorithm, _Phonetic):
+            phonetic_algorithm = phonetic_algorithm.encode
+        self._phonetic_algorithm = (
+            phonetic_algorithm
+            if phonetic_algorithm is not None
+            else DoubleMetaphone().encode
+        )
 
         self._joiner = joiner
 
-    def fingerprint(self, phrase):
+    def fingerprint(self, phrase: str) -> str:
         """Return the phonetic fingerprint of a phrase.
 
         Parameters
@@ -89,16 +102,10 @@ class Phonetic(String):
             Encapsulated in class
 
         """
-        phonetic = ''
-        for word in phrase.split():
-            if isinstance(self._phonetic_algorithm, _Phonetic):
-                word = self._phonetic_algorithm.encode(word)
-            else:
-                word = self._phonetic_algorithm(word)
-            if not isinstance(word, str) and hasattr(word, '__iter__'):
-                word = word[0]
-            phonetic += word + self._joiner
-        phonetic = phonetic[: -len(self._joiner)]
+        phonetic = self._joiner.join(
+            self._phonetic_algorithm(word).split(',')[0]
+            for word in phrase.split()
+        )
         return super(Phonetic, self).fingerprint(phonetic)
 
 

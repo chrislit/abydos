@@ -20,8 +20,10 @@ Gini I correlation
 """
 
 from sys import float_info
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['GiniI']
 
@@ -59,12 +61,14 @@ class GiniI(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        normalizer='proportional',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        normalizer: str = 'proportional',
+        **kwargs: Any
+    ) -> None:
         """Initialize GiniI instance.
 
         Parameters
@@ -110,7 +114,7 @@ class GiniI(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Gini I correlation of two strings.
 
         Parameters
@@ -153,7 +157,7 @@ class GiniI(_TokenDistance):
             * (1 + _epsilon - ((a + c) ** 2 + (b + d) ** 2))
         ) ** 0.5
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Gini I similarity of two strings.
 
         Parameters

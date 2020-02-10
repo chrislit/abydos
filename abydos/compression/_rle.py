@@ -24,7 +24,7 @@ from itertools import groupby
 __all__ = ['RLE']
 
 
-class RLE(object):
+class RLE:
     """Run-Length Encoding.
 
     Cf. :cite:`Robinson:1967`.
@@ -37,7 +37,7 @@ class RLE(object):
     .. versionadded:: 0.3.6
     """
 
-    def encode(self, text):
+    def encode(self, text: str) -> str:
         r"""Perform encoding of run-length-encoding (RLE).
 
         Parameters
@@ -76,14 +76,13 @@ class RLE(object):
 
         """
         if text:
-            text = ((len(list(g)), k) for k, g in groupby(text))
-            text = (
+            text = ''.join(
                 (str(n) + k if n > 2 else (k if n == 1 else 2 * k))
-                for n, k in text
+                for n, k in ((len(list(g)), k) for k, g in groupby(text))
             )
-        return ''.join(text)
+        return text
 
-    def decode(self, text):
+    def decode(self, text: str) -> str:
         r"""Perform decoding of run-length-encoding (RLE).
 
         Parameters

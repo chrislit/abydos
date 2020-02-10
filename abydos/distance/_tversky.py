@@ -19,7 +19,10 @@
 Tversky index
 """
 
+from typing import Any, Optional, cast
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Tversky']
 
@@ -64,13 +67,13 @@ class Tversky(_TokenDistance):
 
     def __init__(
         self,
-        alpha=1.0,
-        beta=1.0,
-        bias=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alpha: float = 1.0,
+        beta: float = 1.0,
+        bias: Optional[float] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Tversky instance.
 
         Parameters
@@ -112,7 +115,7 @@ class Tversky(_TokenDistance):
         )
         self.set_params(alpha=alpha, beta=beta, bias=bias)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Tversky index of two strings.
 
         Parameters
@@ -172,21 +175,29 @@ class Tversky(_TokenDistance):
             return 0.0
 
         if self.params['bias'] is None:
-            return q_intersection_mag / (
+            return cast(
+                float,
                 q_intersection_mag
-                + self.params['alpha'] * q_src_mag
-                + self.params['beta'] * q_tar_mag
+                / (
+                    q_intersection_mag
+                    + self.params['alpha'] * q_src_mag
+                    + self.params['beta'] * q_tar_mag
+                ),
             )
 
         a_val, b_val = sorted((q_src_mag, q_tar_mag))
         c_val = q_intersection_mag + self.params['bias']
-        return c_val / (
-            self.params['beta']
-            * (
-                self.params['alpha'] * a_val
-                + (1 - self.params['alpha']) * b_val
-            )
-            + c_val
+        return cast(
+            float,
+            c_val
+            / (
+                self.params['beta']
+                * (
+                    self.params['alpha'] * a_val
+                    + (1 - self.params['alpha']) * b_val
+                )
+                + c_val
+            ),
         )
 
 

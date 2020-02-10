@@ -20,8 +20,10 @@ Yates's Chi-Squared similarity
 """
 
 from math import copysign
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['YatesChiSquared']
 
@@ -55,11 +57,13 @@ class YatesChiSquared(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize YatesChiSquared instance.
 
         Parameters
@@ -101,7 +105,7 @@ class YatesChiSquared(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar, signed=False):
+    def sim_score(self, src: str, tar: str, signed: bool = False) -> float:
         """Return Yates's Chi-Squared similarity of two strings.
 
         Parameters
@@ -160,7 +164,7 @@ class YatesChiSquared(_TokenDistance):
             return score
         return 0.0
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return Yates's normalized Chi-Squared similarity of two strings.
 
         Parameters

@@ -20,6 +20,7 @@ The phones module implements phonetic feature coding, decoding, and comparison
 functions.
 """
 
+from typing import Dict, List, Optional, Sequence, Union
 from unicodedata import normalize
 
 __all__ = ['cmp_features', 'get_feature', 'ipa_to_features']
@@ -571,7 +572,7 @@ _FEATURE_MASK = {
 }
 
 
-def ipa_to_features(ipa):
+def ipa_to_features(ipa: str) -> List[int]:
     """Convert IPA to features.
 
     This translates an IPA string of one or more phones to a list of ints
@@ -624,7 +625,7 @@ def ipa_to_features(ipa):
     return features
 
 
-def ipa_to_feature_dicts(ipa):
+def ipa_to_feature_dicts(ipa: str) -> List[Dict[str, str]]:
     """Convert IPA to a feature dict list.
 
     This translates an IPA string of one or more phones to a list of dicts
@@ -781,7 +782,7 @@ def ipa_to_feature_dicts(ipa):
     return features
 
 
-def get_feature(vector, feature):
+def get_feature(vector: List[int], feature: str) -> List[Union[int, float]]:
     """Get a feature vector.
 
     This returns a list of ints, equal in length to the vector input,
@@ -888,7 +889,13 @@ def get_feature(vector, feature):
     return retvec
 
 
-def cmp_features(feat1, feat2, weights=None):
+def cmp_features(
+    feat1: int,
+    feat2: int,
+    weights: Optional[
+        Union[Sequence[Union[int, float]], Dict[str, Union[int, float]]]
+    ] = None,
+) -> float:
     """Compare features.
 
     This returns a number in the range [0, 1] representing a comparison of two
@@ -980,7 +987,7 @@ def cmp_features(feat1, feat2, weights=None):
     """
 
     featxor = feat1 ^ feat2
-    diffbits = 0
+    diffbits = 0.0
     i = 0
     while featxor:
         if featxor & 0b1:

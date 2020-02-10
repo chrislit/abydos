@@ -37,7 +37,7 @@ class NCDbwtrle(NCDrle):
 
     _bwt = BWT()
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the NCD between two strings using BWT plus RLE.
 
         Parameters

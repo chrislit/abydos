@@ -19,6 +19,8 @@
 Indel distance
 """
 
+from typing import Any
+
 from ._levenshtein import Levenshtein
 
 __all__ = ['Indel']
@@ -34,7 +36,7 @@ class Indel(Levenshtein):
 
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize Levenshtein instance.
 
         Parameters
@@ -50,7 +52,7 @@ class Indel(Levenshtein):
             mode='lev', cost=(1, 1, float('inf'), float('inf')), **kwargs
         )
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized indel distance between two strings.
 
         This is equivalent to normalized Levenshtein distance, when only

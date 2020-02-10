@@ -20,8 +20,10 @@ Baulieu IV distance
 """
 
 from math import e
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['BaulieuIV']
 
@@ -60,12 +62,14 @@ class BaulieuIV(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        positive_irrational=e,
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        positive_irrational: float = e,
+        **kwargs: Any
+    ) -> None:
         """Initialize BaulieuIV instance.
 
         Parameters
@@ -108,7 +112,7 @@ class BaulieuIV(_TokenDistance):
         )
         self._positive_irrational = positive_irrational
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Baulieu IV distance of two strings.
 
         Parameters
@@ -154,7 +158,7 @@ class BaulieuIV(_TokenDistance):
             return 0.0
         return num / n
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Baulieu IV distance of two strings.
 
         Parameters

@@ -43,7 +43,7 @@ class Ozbay(_Distance):
     _jac = Jaccard(tokenizer=QGrams(qval=1, start_stop='', scaler='set'))
     _lcs = LCSstr()
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Ozbay metric.
 
         Parameters
@@ -93,7 +93,7 @@ class Ozbay(_Distance):
 
         return ozbay_metric
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Ozbay distance.
 
         Parameters

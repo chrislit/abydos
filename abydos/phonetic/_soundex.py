@@ -19,6 +19,7 @@
 American Soundex
 """
 
+from typing import Any
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -54,8 +55,12 @@ class Soundex(_Phonetic):
     _alphabetic = dict(zip((ord(_) for _ in '01234569'), 'APKTLNRH'))
 
     def __init__(
-        self, max_length=4, var='American', reverse=False, zero_pad=True
-    ):
+        self,
+        max_length: int = 4,
+        var: str = 'American',
+        reverse: bool = False,
+        zero_pad: bool = True,
+    ) -> None:
         """Initialize Soundex instance.
 
         Parameters
@@ -97,7 +102,7 @@ class Soundex(_Phonetic):
         self._reverse = reverse
         self._zero_pad = zero_pad
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Soundex code for a word.
 
         Parameters
@@ -129,7 +134,7 @@ class Soundex(_Phonetic):
         code = self.encode(word).rstrip('0')
         return code[:1] + code[1:].translate(self._alphabetic)
 
-    def encode(self, word, **kwargs):
+    def encode(self, word: str, **kwargs: Any) -> str:
         """Return the Soundex code for a word.
 
         Parameters
@@ -177,6 +182,8 @@ class Soundex(_Phonetic):
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
         # uppercase, normalize, decompose, and filter non-A-Z out
@@ -186,12 +193,12 @@ class Soundex(_Phonetic):
             'recurse' not in kwargs or kwargs['recurse'] is not False
         ):
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:
-                return (
+                return '{0},{1}'.format(
                     self.encode(word, recurse=False),
                     self.encode(word[3:], recurse=False),
                 )
             if word[:2] in {'DE', 'DI', 'LA', 'LE'} and len(word) > 3:
-                return (
+                return '{0},{1}'.format(
                     self.encode(word, recurse=False),
                     self.encode(word[2:], recurse=False),
                 )

@@ -19,7 +19,10 @@
 Jaccard-NM similarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['JaccardNM']
 
@@ -49,11 +52,13 @@ class JaccardNM(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize JaccardNM instance.
 
         Parameters
@@ -95,7 +100,7 @@ class JaccardNM(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Jaccard-NM similarity of two strings.
 
         Parameters
@@ -138,7 +143,7 @@ class JaccardNM(_TokenDistance):
 
         return a / (a + b + c + n)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Jaccard-NM similarity of two strings.
 
         Parameters

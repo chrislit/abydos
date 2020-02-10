@@ -20,6 +20,7 @@ Longest common suffix
 """
 
 from os.path import commonprefix
+from typing import List, cast
 
 from ._lcprefix import LCPrefix
 
@@ -32,7 +33,7 @@ class LCSuffix(LCPrefix):
     .. versionadded:: 0.4.0
     """
 
-    def lcsuffix(self, strings):
+    def lcsuffix(self, strings: List[str]) -> str:
         """Return the longest common suffix of a list of strings.
 
         Longest common suffix (LCSuffix).
@@ -64,9 +65,9 @@ class LCSuffix(LCPrefix):
 
         """
         strings = [s[::-1] for s in strings]
-        return commonprefix(strings)[::-1]
+        return cast(str, commonprefix(strings)[::-1])
 
-    def dist_abs(self, src, tar, *args):
+    def dist_abs(self, src: str, tar: str, *args: str) -> int:
         """Return the length of the longest common suffix of the strings.
 
         Parameters
@@ -113,7 +114,7 @@ class LCSuffix(LCPrefix):
 
         return len(self.lcsuffix(strings))
 
-    def sim(self, src, tar, *args):
+    def sim(self, src: str, tar: str, *args: str) -> float:
         r"""Return the longest common suffix similarity of two or more strings.
 
         Longest common prefix similarity (:math:`sim_{LCPrefix}`).

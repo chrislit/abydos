@@ -19,6 +19,7 @@
 Daitch-Mokotoff Soundex
 """
 
+from typing import Dict, Tuple, Union, cast
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -244,7 +245,7 @@ class DaitchMokotoff(_Phonetic):
             'ZS',
             'Z',
         ),
-    }
+    }  # type: Dict[str, Tuple[str, ...]]
 
     _uc_v_set = set('AEIJOUY')
 
@@ -253,7 +254,7 @@ class DaitchMokotoff(_Phonetic):
         zip((ord(_) for _ in '0123456789'), ' A TSKNPLR')
     )
 
-    def __init__(self, max_length=6, zero_pad=True):
+    def __init__(self, max_length: int = 6, zero_pad: bool = True) -> None:
         """Initialize DaitchMokotoff instance.
 
         Parameters
@@ -276,7 +277,7 @@ class DaitchMokotoff(_Phonetic):
             self._max_length = 64
         self._zero_pad = zero_pad
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Daitch-Mokotoff Soundex code for a word.
 
         Parameters
@@ -292,30 +293,34 @@ class DaitchMokotoff(_Phonetic):
         Examples
         --------
         >>> pe = DaitchMokotoff()
-        >>> sorted(pe.encode_alpha('Christopher'))
-        ['KRSTPR', 'SRSTPR']
+        >>> pe.encode_alpha('Christopher')
+        'SRSTPR,KRSTPR'
         >>> pe.encode_alpha('Niall')
-        {'NL'}
+        'NL'
         >>> pe.encode_alpha('Smith')
-        {'SNT'}
+        'SNT'
         >>> pe.encode_alpha('Schmidt')
-        {'SNT'}
+        'SNT'
 
-        >>> sorted(DaitchMokotoff(max_length=20,
-        ... zero_pad=False).encode_alpha('The quick brown fox'))
-        ['TKKPRPNPKS', 'TKSKPRPNPKS']
+        >>> DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode_alpha('The quick brown fox')
+        'TKSKPRPNPKS,TKKPRPNPKS'
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
-        alphas = {
+        alphas = [
             code.rstrip('0').translate(self._alphabetic)
-            for code in self.encode(word)
-        }
-        return {code[:1] + code[1:].replace('Y', 'A') for code in alphas}
+            for code in self.encode(word).split(',')
+        ]
+        return ','.join(
+            code[:1] + code[1:].replace('Y', 'A') for code in alphas
+        )
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Daitch-Mokotoff Soundex code for a word.
 
         Parameters
@@ -331,23 +336,25 @@ class DaitchMokotoff(_Phonetic):
         Examples
         --------
         >>> pe = DaitchMokotoff()
-        >>> sorted(pe.encode('Christopher'))
-        ['494379', '594379']
+        >>> pe.encode('Christopher')
+        '494379,594379'
         >>> pe.encode('Niall')
-        {'680000'}
+        '680000'
         >>> pe.encode('Smith')
-        {'463000'}
+        '463000'
         >>> pe.encode('Schmidt')
-        {'463000'}
+        '463000'
 
-        >>> sorted(DaitchMokotoff(max_length=20,
-        ... zero_pad=False).encode('The quick brown fox'))
-        ['35457976754', '3557976754']
+        >>> DaitchMokotoff(max_length=20,
+        ... zero_pad=False).encode('The quick brown fox')
+        '35457976754,3557976754'
 
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
         dms = ['']  # initialize empty code list
@@ -359,8 +366,8 @@ class DaitchMokotoff(_Phonetic):
         # Nothing to convert, return base case
         if not word:
             if self._zero_pad:
-                return {'0' * self._max_length}
-            return {'0'}
+                return '0' * self._max_length
+            return '0'
 
         pos = 0
         while pos < len(word):
@@ -370,19 +377,40 @@ class DaitchMokotoff(_Phonetic):
                 if word[pos:].startswith(sstr):
                     # Having determined a valid substring start, retrieve the
                     # code
-                    dm_val = self._dms_table[sstr]
+                    dm_tup = cast(
+                        Tuple[
+                            Union[
+                                int,
+                                str,
+                                Tuple[Union[int, str], Union[int, str]],
+                            ],
+                            Union[
+                                int,
+                                str,
+                                Tuple[Union[int, str], Union[int, str]],
+                            ],
+                            Union[
+                                int,
+                                str,
+                                Tuple[Union[int, str], Union[int, str]],
+                            ],
+                        ],
+                        self._dms_table[sstr],
+                    )
 
                     # Having retried the code (triple), determine the correct
                     # positional variant (first, pre-vocalic, elsewhere)
                     if pos == 0:
-                        dm_val = dm_val[0]
+                        dm_val = dm_tup[
+                            0
+                        ]  # type: Union[int, str, Tuple[Union[int, str], Union[int, str]]]  # noqa: E501
                     elif (
                         pos + len(sstr) < len(word)
                         and word[pos + len(sstr)] in self._uc_v_set
                     ):
-                        dm_val = dm_val[1]
+                        dm_val = dm_tup[1]
                     else:
-                        dm_val = dm_val[2]
+                        dm_val = dm_tup[2]
 
                     # Build the code strings
                     if isinstance(dm_val, tuple):
@@ -395,19 +423,19 @@ class DaitchMokotoff(_Phonetic):
                     break
 
         # Filter out double letters and _ placeholders
-        dms = (
+        dms = [
             ''.join(c for c in self._delete_consecutive_repeats(_) if c != '_')
             for _ in dms
-        )
+        ]
 
         # Trim codes and return set
         if self._zero_pad:
-            dms = (
+            dms = [
                 (_ + ('0' * self._max_length))[: self._max_length] for _ in dms
-            )
+            ]
         else:
-            dms = (_[: self._max_length] for _ in dms)
-        return set(dms)
+            dms = [_[: self._max_length] for _ in dms]
+        return ','.join(sorted(set(dms)))
 
 
 if __name__ == '__main__':

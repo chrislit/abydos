@@ -19,7 +19,18 @@
 AZZOO similarity
 """
 
+from typing import (
+    Any,
+    Counter as TCounter,
+    Optional,
+    Sequence,
+    Set,
+    Union,
+    cast,
+)
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['AZZOO']
 
@@ -51,12 +62,14 @@ class AZZOO(_TokenDistance):
 
     def __init__(
         self,
-        sigma=0.5,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        sigma: float = 0.5,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize AZZOO instance.
 
         Parameters
@@ -102,7 +115,7 @@ class AZZOO(_TokenDistance):
         )
         self.set_params(sigma=sigma)
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the AZZOO similarity of two strings.
 
         Parameters
@@ -138,9 +151,9 @@ class AZZOO(_TokenDistance):
         a = self._intersection_card()
         d = self._total_complement_card()
 
-        return a + self.params['sigma'] * d
+        return cast(float, a + self.params['sigma'] * d)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the AZZOO similarity of two strings.
 
         Parameters

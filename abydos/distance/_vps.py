@@ -20,6 +20,7 @@ Victorian Panel Study (VPS) score
 """
 
 from collections import defaultdict
+from typing import DefaultDict, Set
 
 from ._distance import _Distance
 
@@ -34,7 +35,7 @@ class VPS(_Distance):
     .. versionadded:: 0.4.1
     """
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Victorian Panel Study score of two words.
 
         Parameters
@@ -70,11 +71,11 @@ class VPS(_Distance):
         if len(src) < len(tar):
             src, tar = tar, src
 
-        score = 0
+        score = 0.0
         discount = 0
 
-        src_tokens = defaultdict(set)
-        tar_tokens = defaultdict(set)
+        src_tokens = defaultdict(set)  # type: DefaultDict[str, Set[int]]
+        tar_tokens = defaultdict(set)  # type: DefaultDict[str, Set[int]]
         for slen in range(1, 4):
             for i in range(len(src) - slen + 1):
                 src_tokens[src[i : i + slen]].add(i)

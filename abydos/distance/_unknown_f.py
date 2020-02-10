@@ -20,8 +20,18 @@ Unknown F similarity
 """
 
 from math import log
+from typing import (
+    Any,
+    Counter as TCounter,
+    NoReturn,
+    Optional,
+    Sequence,
+    Set,
+    Union,
+)
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['UnknownF']
 
@@ -74,11 +84,13 @@ class UnknownF(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize UnknownF instance.
 
         Parameters
@@ -120,7 +132,7 @@ class UnknownF(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Unknown F similarity between two strings.
 
         Parameters
@@ -171,7 +183,7 @@ class UnknownF(_TokenDistance):
             1.0, 1 + log(part1) - (log((a + b) / n) + log((a + c) / n)) / 2
         )
 
-    def sim(self, *args, **kwargs):
+    def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters
@@ -192,7 +204,7 @@ class UnknownF(_TokenDistance):
         """
         raise NotImplementedError('Method disabled for Unknown F similarity.')
 
-    def dist(self, *args, **kwargs):
+    def dist(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.
 
         Parameters

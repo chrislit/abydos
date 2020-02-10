@@ -20,11 +20,12 @@ The util._ncr module defines _ncr, which computes n Choose r.
 """
 
 from math import factorial, gamma
+from typing import List
 
-__all__ = []
+__all__ = []  # type: List[str]
 
 
-def _ncr(n, r):
+def _ncr(n: float, r: float) -> float:
     r"""Return n Choose r.
 
     Cf. https://en.wikipedia.org/wiki/Combination

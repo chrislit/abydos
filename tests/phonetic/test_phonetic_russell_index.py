@@ -19,7 +19,6 @@
 This module contains unit tests for abydos.phonetic.RussellIndex
 """
 
-import math
 import unittest
 
 from abydos.phonetic import RussellIndex
@@ -35,22 +34,22 @@ class RussellIndexTestCases(unittest.TestCase):
 
     def test_russel_index(self):
         """Test abydos.phonetic.RussellIndex."""
-        self.assertTrue(math.isnan(self.pa.encode('')))
-        self.assertTrue(math.isnan(self.pa.encode('H')))
-        self.assertEqual(self.pa.encode('Hoppa'), 12)
-        self.assertEqual(self.pa.encode('Hopley'), 125)
-        self.assertEqual(self.pa.encode('Highfield'), 1254)
-        self.assertEqual(self.pa.encode('Wright'), 814)
-        self.assertEqual(self.pa.encode('Carter'), 31848)
-        self.assertEqual(self.pa.encode('Hopf'), 12)
-        self.assertEqual(self.pa.encode('Hay'), 1)
-        self.assertEqual(self.pa.encode('Haas'), 1)
-        self.assertEqual(self.pa.encode('Meyers'), 618)
-        self.assertEqual(self.pa.encode('Myers'), 618)
-        self.assertEqual(self.pa.encode('Meyer'), 618)
-        self.assertEqual(self.pa.encode('Myer'), 618)
-        self.assertEqual(self.pa.encode('Mack'), 613)
-        self.assertEqual(self.pa.encode('Knack'), 3713)
+        self.assertEqual(self.pa.encode(''), '')
+        self.assertEqual(self.pa.encode('H'), '')
+        self.assertEqual(self.pa.encode('Hoppa'), '12')
+        self.assertEqual(self.pa.encode('Hopley'), '125')
+        self.assertEqual(self.pa.encode('Highfield'), '1254')
+        self.assertEqual(self.pa.encode('Wright'), '814')
+        self.assertEqual(self.pa.encode('Carter'), '31848')
+        self.assertEqual(self.pa.encode('Hopf'), '12')
+        self.assertEqual(self.pa.encode('Hay'), '1')
+        self.assertEqual(self.pa.encode('Haas'), '1')
+        self.assertEqual(self.pa.encode('Meyers'), '618')
+        self.assertEqual(self.pa.encode('Myers'), '618')
+        self.assertEqual(self.pa.encode('Meyer'), '618')
+        self.assertEqual(self.pa.encode('Myer'), '618')
+        self.assertEqual(self.pa.encode('Mack'), '613')
+        self.assertEqual(self.pa.encode('Knack'), '3713')
 
     def test_russel_index_alpha(self):
         """Test abydos.phonetic.RussellIndex.encode_alpha."""

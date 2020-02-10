@@ -159,7 +159,7 @@ class Eudex(_Phonetic):
         'ÿ': 0b11100101,  # ÿ
     }
 
-    def __init__(self, max_length=8):
+    def __init__(self, max_length: int = 8) -> None:
         """Initialize Eudex instance.
 
         Parameters
@@ -173,7 +173,7 @@ class Eudex(_Phonetic):
         """
         self._max_length = max_length
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the eudex phonetic hash of a word.
 
         Parameters
@@ -183,27 +183,29 @@ class Eudex(_Phonetic):
 
         Returns
         -------
-        int
+        str
             The eudex hash
 
         Examples
         --------
         >>> pe = Eudex()
         >>> pe.encode('Colin')
-        432345564238053650
+        '432345564238053650'
         >>> pe.encode('Christopher')
-        433648490138894409
+        '433648490138894409'
         >>> pe.encode('Niall')
-        648518346341351840
+        '648518346341351840'
         >>> pe.encode('Smith')
-        720575940412906756
+        '720575940412906756'
         >>> pe.encode('Schmidt')
-        720589151732307997
+        '720589151732307997'
 
 
         .. versionadded:: 0.3.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str instead of int
 
         """
         # Lowercase input & filter unknown characters
@@ -237,7 +239,7 @@ class Eudex(_Phonetic):
         for val in values:
             hash_value = (hash_value << 8) | val
 
-        return hash_value
+        return str(hash_value)
 
 
 if __name__ == '__main__':

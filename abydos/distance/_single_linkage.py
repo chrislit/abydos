@@ -19,8 +19,12 @@
 single linkage distance
 """
 
+from typing import Any, Optional, cast
+
+from ._distance import _Distance
 from ._levenshtein import Levenshtein
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['SingleLinkage']
 
@@ -39,7 +43,12 @@ class SingleLinkage(_TokenDistance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, tokenizer=None, metric=None, **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        metric: Optional[_Distance] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize SingleLinkage instance.
 
         Parameters
@@ -64,12 +73,11 @@ class SingleLinkage(_TokenDistance):
 
         """
         super(SingleLinkage, self).__init__(tokenizer=tokenizer, **kwargs)
+        self._metric = cast(_Distance, metric)
         if metric is None:
             self._metric = Levenshtein()
-        else:
-            self._metric = metric
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the single linkage distance of two strings.
 
         Parameters
@@ -102,19 +110,19 @@ class SingleLinkage(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        src, tar = self._get_tokens()
+        src_tok, tar_tok = self._get_tokens()
 
         min_val = float('inf')
 
-        for term_src in src.keys():
-            for term_tar in tar.keys():
+        for term_src in src_tok.keys():
+            for term_tar in tar_tok.keys():
                 min_val = min(
                     min_val, self._metric.dist_abs(term_src, term_tar)
                 )
 
         return float(min_val)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized single linkage distance of two strings.
 
         Parameters
@@ -147,12 +155,12 @@ class SingleLinkage(_TokenDistance):
         """
         self._tokenize(src, tar)
 
-        src, tar = self._get_tokens()
+        src_tok, tar_tok = self._get_tokens()
 
         min_val = 1.0
 
-        for term_src in src.keys():
-            for term_tar in tar.keys():
+        for term_src in src_tok.keys():
+            for term_tar in tar_tok.keys():
                 min_val = min(min_val, self._metric.dist(term_src, term_tar))
 
         return float(min_val)

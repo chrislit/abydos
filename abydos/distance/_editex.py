@@ -20,9 +20,10 @@ editex
 """
 
 from sys import float_info
+from typing import Any, Tuple, cast
 from unicodedata import normalize as unicode_normalize
 
-from numpy import float as np_float
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -56,7 +57,13 @@ class Editex(_Distance):
 
     _all_letters = frozenset('ABCDEFGIJKLMNOPQRSTUVXYZ')
 
-    def __init__(self, cost=(0, 1, 2), local=False, taper=False, **kwargs):
+    def __init__(
+        self,
+        cost: Tuple[int, int, int] = (0, 1, 2),
+        local: bool = False,
+        taper: bool = False,
+        **kwargs: Any
+    ) -> None:
         """Initialize Editex instance.
 
         Parameters
@@ -83,14 +90,16 @@ class Editex(_Distance):
         self._local = local
         self._taper_enabled = taper
 
-    def _taper(self, pos, length):
+    def _taper(self, pos: int, length: int) -> float:
         return (
-            round(1 + ((length - pos) / length) * (1 + float_info.epsilon), 15)
+            round(
+                1.0 + ((length - pos) / length) * (1 + float_info.epsilon), 15
+            )
             if self._taper_enabled
-            else 1
+            else 1.0
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Editex distance between two strings.
 
         Parameters
@@ -125,7 +134,7 @@ class Editex(_Distance):
         """
         match_cost, group_cost, mismatch_cost = self._cost
 
-        def r_cost(ch1, ch2):
+        def r_cost(ch1: str, ch2: str) -> int:
             """Return r(a,b) according to Zobel & Dart's definition.
 
             Parameters
@@ -151,7 +160,7 @@ class Editex(_Distance):
                         return group_cost
             return mismatch_cost
 
-        def d_cost(ch1, ch2):
+        def d_cost(ch1: str, ch2: str) -> int:
             """Return d(a,b) according to Zobel & Dart's definition.
 
             Parameters
@@ -224,9 +233,9 @@ class Editex(_Distance):
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
         else:
-            return d_mat[src_len, tar_len]
+            return cast(float, d_mat[src_len, tar_len])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Editex distance between two strings.
 
         The Editex distance is normalized by dividing the Editex distance

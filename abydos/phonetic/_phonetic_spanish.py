@@ -43,7 +43,7 @@ class PhoneticSpanish(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'PBFTSLNKGR'))
 
-    def __init__(self, max_length=-1):
+    def __init__(self, max_length: int = -1) -> None:
         """Initialize PhoneticSpanish instance.
 
         Parameters
@@ -57,7 +57,7 @@ class PhoneticSpanish(_Phonetic):
         """
         self._max_length = max_length
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic PhoneticSpanish coding of word.
 
         Parameters
@@ -90,7 +90,7 @@ class PhoneticSpanish(_Phonetic):
         """
         return self.encode(word).translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the PhoneticSpanish coding of word.
 
         Parameters

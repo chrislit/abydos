@@ -19,6 +19,19 @@
 Phonetic edit distance
 """
 
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Iterable,
+    List,
+    Optional,
+    Sequence,
+    Tuple,
+    Union,
+    cast,
+)
+
 import numpy as np
 
 from ._levenshtein import Levenshtein
@@ -38,11 +51,11 @@ class PhoneticEditDistance(Levenshtein):
 
     def __init__(
         self,
-        mode='lev',
-        cost=(1, 1, 1, 0.33333),
-        normalizer=max,
-        weights=None,
-        **kwargs
+        mode: str = 'lev',
+        cost: Tuple[float, float, float, float] = (1, 1, 1, 0.33333),
+        normalizer: Callable[[List[float]], float] = max,
+        weights: Optional[Union[Iterable[float], Dict[str, float]]] = None,
+        **kwargs: Any
     ):
         """Initialize PhoneticEditDistance instance.
 
@@ -103,7 +116,9 @@ class PhoneticEditDistance(Levenshtein):
             weights = list(weights) + [0] * (len(_FEATURE_MASK) - len(weights))
         self._weights = weights
 
-    def _alignment_matrix(self, src, tar, backtrace=True):
+    def _alignment_matrix(
+        self, src: str, tar: str, backtrace: bool = True
+    ) -> Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """Return the phonetic edit distance alignment matrix.
 
         Parameters
@@ -129,10 +144,10 @@ class PhoneticEditDistance(Levenshtein):
         src_len = len(src)
         tar_len = len(tar)
 
-        src = ipa_to_features(src)
-        tar = ipa_to_features(tar)
+        src_list = ipa_to_features(src)
+        tar_list = ipa_to_features(tar)
 
-        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float)
+        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float_)
         if backtrace:
             trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(1, src_len + 1):
@@ -153,8 +168,15 @@ class PhoneticEditDistance(Levenshtein):
                     d_mat[traces[2]]
                     + (
                         sub_cost
-                        * (1.0 - cmp_features(src[i], tar[j], self._weights))
-                        if src[i] != tar[j]
+                        * (
+                            1.0
+                            - cmp_features(
+                                src_list[i],
+                                tar_list[j],
+                                cast(Sequence[float], self._weights),
+                            )
+                        )
+                        if src_list[i] != tar_list[j]
                         else 0
                     ),  # sub/==
                 )
@@ -166,8 +188,8 @@ class PhoneticEditDistance(Levenshtein):
                     if (
                         i + 1 > 1
                         and j + 1 > 1
-                        and src[i] == tar[j - 1]
-                        and src[i - 1] == tar[j]
+                        and src_list[i] == tar_list[j - 1]
+                        and src_list[i - 1] == tar_list[j]
                     ):
                         # transposition
                         d_mat[i + 1, j + 1] = min(
@@ -180,7 +202,7 @@ class PhoneticEditDistance(Levenshtein):
             return d_mat, trace_mat
         return d_mat
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the phonetic edit distance between two strings.
 
         Parameters
@@ -229,14 +251,16 @@ class PhoneticEditDistance(Levenshtein):
         if not tar:
             return del_cost * src_len
 
-        d_mat = self._alignment_matrix(src, tar, backtrace=False)
+        d_mat = cast(
+            np.ndarray, self._alignment_matrix(src, tar, backtrace=False)
+        )
 
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
         else:
-            return d_mat[src_len, tar_len]
+            return cast(float, d_mat[src_len, tar_len])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized phonetic edit distance between two strings.
 
         The edit distance is normalized by dividing the edit distance

@@ -20,8 +20,18 @@ Mutual Information similarity
 """
 
 from math import log2
+from typing import (
+    Any,
+    Counter as TCounter,
+    Optional,
+    Sequence,
+    Set,
+    Union,
+    cast,
+)
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['MutualInformation']
 
@@ -50,11 +60,13 @@ class MutualInformation(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize MutualInformation instance.
 
         Parameters
@@ -96,7 +108,7 @@ class MutualInformation(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Mutual Information similarity of two strings.
 
         Parameters
@@ -136,7 +148,7 @@ class MutualInformation(_TokenDistance):
 
         return log2((1 + a * n) / (1 + apb * apc))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Mutual Information similarity of two strings.
 
         Parameters
@@ -177,7 +189,7 @@ class MutualInformation(_TokenDistance):
             if not norm:
                 norm = [1]
 
-            return (1.0 + score / max(norm)) / 2.0
+            return cast(float, (1.0 + score / max(norm)) / 2.0)
         return 0.0
 
 

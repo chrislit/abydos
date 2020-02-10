@@ -19,6 +19,8 @@
 Rouge-SU similarity
 """
 
+from typing import Any
+
 from . import RougeS
 
 __all__ = ['RougeSU']
@@ -33,7 +35,7 @@ class RougeSU(RougeS):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, qval=2, **kwargs):
+    def __init__(self, qval: int = 2, **kwargs: Any) -> None:
         """Initialize RougeSU instance.
 
         Parameters
@@ -47,7 +49,7 @@ class RougeSU(RougeS):
         """
         super(RougeSU, self).__init__(qval=qval, **kwargs)
 
-    def sim(self, src, tar, beta=8):
+    def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-SU similarity of two strings.
 
         Parameters

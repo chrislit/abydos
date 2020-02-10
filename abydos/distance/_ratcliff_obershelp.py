@@ -19,7 +19,9 @@
 Ratcliff-Obershelp similarity
 """
 
-from numpy import int as np_int
+from typing import Tuple
+
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -47,7 +49,7 @@ class RatcliffObershelp(_Distance):
     .. versionadded:: 0.3.6
     """
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Ratcliff-Obershelp similarity of two strings.
 
         Parameters
@@ -81,7 +83,7 @@ class RatcliffObershelp(_Distance):
 
         """
 
-        def _lcsstr_stl(src, tar):
+        def _lcsstr_stl(src: str, tar: str) -> Tuple[int, int, int]:
             """Return start positions & length for Ratcliff-Obershelp.
 
             Parameters
@@ -115,7 +117,7 @@ class RatcliffObershelp(_Distance):
                         lengths[i, j] = 0
             return src_longest - longest, tar_longest - longest, longest
 
-        def _sstr_matches(src, tar):
+        def _sstr_matches(src: str, tar: str) -> int:
             """Return the sum of substring match lengths.
 
             This follows the Ratcliff-Obershelp algorithm

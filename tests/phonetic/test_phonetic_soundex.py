@@ -138,11 +138,11 @@ class SoundexTestCases(unittest.TestCase):
     def test_soundex_census(self):
         """Test abydos.phonetic.Soundex(Census variant method)."""
         pa_census = Soundex(var='Census')
-        self.assertEqual(pa_census.encode('Vandeusen'), ('V532', 'D250'))
-        self.assertEqual(pa_census.encode('van Deusen'), ('V532', 'D250'))
+        self.assertEqual(pa_census.encode('Vandeusen'), 'V532,D250')
+        self.assertEqual(pa_census.encode('van Deusen'), 'V532,D250')
         self.assertEqual(pa_census.encode('McDonald'), 'M235')
-        self.assertEqual(pa_census.encode('la Cruz'), ('L262', 'C620'))
-        self.assertEqual(pa_census.encode('vanDamme'), ('V535', 'D500'))
+        self.assertEqual(pa_census.encode('la Cruz'), 'L262,C620')
+        self.assertEqual(pa_census.encode('vanDamme'), 'V535,D500')
 
 
 if __name__ == '__main__':

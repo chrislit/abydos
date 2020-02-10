@@ -19,9 +19,12 @@
 Steffensen similarity
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from numpy import array as np_array
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['Steffensen']
 
@@ -73,12 +76,14 @@ class Steffensen(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        normalizer='proportional',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        normalizer: str = 'proportional',
+        **kwargs: Any
+    ) -> None:
         """Initialize Steffensen instance.
 
         Parameters
@@ -124,7 +129,7 @@ class Steffensen(_TokenDistance):
             **kwargs
         )
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Steffensen similarity of two strings.
 
         Parameters

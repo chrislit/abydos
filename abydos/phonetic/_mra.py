@@ -33,7 +33,7 @@ class MRA(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the MRA personal numeric identifier (PNI) for a word.
 
         Parameters

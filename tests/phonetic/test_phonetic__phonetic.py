@@ -51,11 +51,13 @@ class PhoneticTestCases(unittest.TestCase):
 
     def test_phonetic_encode(self):
         """Test abydos.phonetic._Phonetic.encode."""
-        self.assertEqual(self.pa.encode('word'), None)
+        self.assertEqual(self.pa.encode(''), '')
+        self.assertEqual(self.pa.encode('word'), 'word')
 
     def test_phonetic_encode_alpha(self):
         """Test abydos.phonetic._Phonetic.encode_alpha."""
-        self.assertEqual(self.pa.encode_alpha('word'), None)
+        self.assertEqual(self.pa.encode_alpha(''), '')
+        self.assertEqual(self.pa.encode_alpha('word'), 'word')
         self.assertEqual(
             self.dav.encode_alpha('word'), self.dav.encode('word')
         )

@@ -20,9 +20,11 @@ TF-IDF similarity
 """
 
 from math import log1p
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
 from ..corpus import UnigramCorpus
+from ..tokenizer import _Tokenizer
 
 __all__ = ['TFIDF']
 
@@ -51,7 +53,12 @@ class TFIDF(_TokenDistance):
 
     """
 
-    def __init__(self, tokenizer=None, corpus=None, **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        corpus: Optional[UnigramCorpus] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize TFIDF instance.
 
         Parameters
@@ -78,7 +85,7 @@ class TFIDF(_TokenDistance):
         super(TFIDF, self).__init__(tokenizer=tokenizer, **kwargs)
         self._corpus = corpus
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the TF-IDF similarity of two strings.
 
         Parameters

@@ -56,7 +56,7 @@ class SnowballNorwegian(_Snowball):
         'z',
     }
 
-    def stem(self, word):
+    def stem(self, word: str) -> str:
         """Return Snowball Norwegian stem.
 
         Parameters

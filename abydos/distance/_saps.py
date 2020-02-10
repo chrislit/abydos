@@ -19,11 +19,13 @@
 Syllable Alignment Pattern Searching tokenizer
 """
 
-from numpy import int as np_int
+from typing import Any, Callable, List, Optional, Tuple, cast
+
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
-from ..tokenizer import SAPSTokenizer
+from ..tokenizer import SAPSTokenizer, _Tokenizer
 
 __all__ = ['SAPS']
 
@@ -39,10 +41,18 @@ class SAPS(_Distance):
 
     def __init__(
         self,
-        cost=(1, -1, -4, 6, -2, -1, -3),
-        normalizer=max,
-        tokenizer=None,
-        **kwargs
+        cost: Tuple[int, int, int, int, int, int, int] = (
+            1,
+            -1,
+            -4,
+            6,
+            -2,
+            -1,
+            -3,
+        ),
+        normalizer: Callable[[List[float]], float] = max,
+        tokenizer: Optional[_Tokenizer] = None,
+        **kwargs: Any
     ):
         """Initialize SAPS instance.
 
@@ -76,12 +86,12 @@ class SAPS(_Distance):
         self._g1, self._g2 = cost[5:]
 
         self._normalizer = normalizer
-        if tokenizer is None:
-            self._tokenizer = SAPSTokenizer()
-        else:
+        if tokenizer is not None:
             self._tokenizer = tokenizer
+        else:
+            self._tokenizer = SAPSTokenizer()
 
-    def _s(self, src, tar):
+    def _s(self, src: str, tar: str) -> int:
         if src.isupper():
             if tar.isupper():
                 return self._s4 if src == tar else self._s5
@@ -93,13 +103,13 @@ class SAPS(_Distance):
             else:
                 return self._s3
 
-    def _g(self, ch):
+    def _g(self, ch: str) -> int:
         if ch.isupper():
             return self._g2
         else:
             return self._g1
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the SAPS similarity between two strings.
 
         Parameters
@@ -132,11 +142,14 @@ class SAPS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        src = self._tokenizer.tokenize(src).get_list()
-        tar = self._tokenizer.tokenize(tar).get_list()
-
-        src = ''.join([_[0].upper() + _[1:].lower() for _ in src])
-        tar = ''.join([_[0].upper() + _[1:].lower() for _ in tar])
+        self._tokenizer.tokenize(src)
+        src = ''.join(
+            [_[0].upper() + _[1:].lower() for _ in self._tokenizer.get_list()]
+        )
+        self._tokenizer.tokenize(tar)
+        tar = ''.join(
+            [_[0].upper() + _[1:].lower() for _ in self._tokenizer.get_list()]
+        )
 
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_int)
         for i in range(len(src)):
@@ -152,9 +165,9 @@ class SAPS(_Distance):
                     d_mat[i, j] + self._s(src[i], tar[j]),  # sub/==
                 )
 
-        return d_mat[len(src), len(tar)]
+        return cast(float, d_mat[len(src), len(tar)])
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized SAPS similarity between two strings.
 
         Parameters
@@ -189,10 +202,10 @@ class SAPS(_Distance):
         if score <= 0:
             return 0.0
 
-        src = self._tokenizer.tokenize(src).get_list()
-        src_max = sum(5 + len(_) for _ in src)
-        tar = self._tokenizer.tokenize(tar).get_list()
-        tar_max = sum(5 + len(_) for _ in tar)
+        self._tokenizer.tokenize(src)
+        src_max = sum(5 + len(_) for _ in self._tokenizer.get_list())
+        self._tokenizer.tokenize(tar)
+        tar_max = sum(5 + len(_) for _ in self._tokenizer.get_list())
 
         return score / max(src_max, tar_max)
 

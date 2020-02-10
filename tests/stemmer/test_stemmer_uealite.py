@@ -184,11 +184,13 @@ class UEALiteTestCases(unittest.TestCase):
 
     def test_uealite_wsj_set(self):
         """Test abydos.stemmer.UEALite (WSJ testset)."""
-        stmr_rrn = UEALite(return_rule_no=True)
         with open(_corpus_file('uea-lite_wsj.csv')) as wsj_ts:
             for wsj_line in wsj_ts:
                 (word, uea, rule) = wsj_line.strip().split(',')
-                self.assertEqual(stmr_rrn.stem(word), (uea, float(rule)))
+                self.assertEqual(
+                    self.stmr._stem_and_rule(word),  # noqa: SF01
+                    (uea, float(rule)),
+                )
 
 
 if __name__ == '__main__':

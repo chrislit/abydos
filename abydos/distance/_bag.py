@@ -18,9 +18,10 @@
 
 Bag similarity & distance
 """
+from typing import Any, Optional
 
 from ._token_distance import _TokenDistance
-from ..tokenizer import CharacterTokenizer
+from ..tokenizer import CharacterTokenizer, _Tokenizer
 
 __all__ = ['Bag']
 
@@ -38,7 +39,12 @@ class Bag(_TokenDistance):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, tokenizer=None, intersection_type='crisp', **kwargs):
+    def __init__(
+        self,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize Bag instance.
 
         Parameters
@@ -75,7 +81,7 @@ class Bag(_TokenDistance):
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 
-    def dist_abs(self, src, tar, normalized=False):
+    def dist_abs(self, src: str, tar: str, normalized: bool = False) -> float:
         """Return the bag distance between two strings.
 
         Parameters
@@ -130,7 +136,7 @@ class Bag(_TokenDistance):
 
         return dist
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized bag distance between two strings.
 
         Bag distance is normalized by dividing by :math:`max( |src|, |tar| )`.

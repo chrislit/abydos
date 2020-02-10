@@ -39,7 +39,7 @@ class ONCA(_Phonetic):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length: int = 4, zero_pad: bool = True) -> None:
         """Initialize ONCA instance.
 
         Parameters
@@ -57,7 +57,7 @@ class ONCA(_Phonetic):
         self._nysiis = NYSIIS(max_length=max_length * 3)
         self._soundex = Soundex(max_length=max_length, zero_pad=zero_pad)
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic ONCA code for a word.
 
         Parameters
@@ -88,7 +88,7 @@ class ONCA(_Phonetic):
         """
         return self._soundex.encode_alpha(self._nysiis.encode_alpha(word))
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Oxford Name Compression Algorithm (ONCA) code for a word.
 
         Parameters

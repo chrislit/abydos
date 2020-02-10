@@ -20,6 +20,7 @@ Raup-Crick similarity
 """
 
 from math import factorial
+from typing import Any
 
 from ._token_distance import _TokenDistance
 
@@ -48,7 +49,7 @@ class RaupCrick(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize RaupCrick instance.
 
         Parameters
@@ -62,7 +63,7 @@ class RaupCrick(_TokenDistance):
         """
         super(RaupCrick, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Raup-Crick similarity of two strings.
 
         Parameters
@@ -103,7 +104,9 @@ class RaupCrick(_TokenDistance):
         ac = self._tar_card()
         n = self._population_unique_card()
 
-        def _henderson_heron(ab, ac, a, n):
+        def _henderson_heron(
+            ab: float, ac: float, a: float, n: float
+        ) -> float:
             return (
                 factorial(ab)
                 * factorial(ac)
@@ -118,7 +121,9 @@ class RaupCrick(_TokenDistance):
                 )
             )
 
-        return sum(_henderson_heron(ab, ac, i, n) for i in range(0, a + 1))
+        return sum(
+            _henderson_heron(ab, ac, i, n) for i in range(0, int(a) + 1)
+        )
 
 
 if __name__ == '__main__':

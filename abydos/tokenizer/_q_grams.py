@@ -20,6 +20,7 @@ QGrams multi-set class
 """
 
 from collections import Iterable
+from typing import Callable, Iterable as TIterable, Optional, Union, cast
 
 from ._tokenizer import _Tokenizer
 
@@ -37,7 +38,13 @@ class QGrams(_Tokenizer):
     .. versionadded:: 0.1.0
     """
 
-    def __init__(self, qval=2, start_stop='$#', skip=0, scaler=None):
+    def __init__(
+        self,
+        qval: Union[int, TIterable[int]] = 2,
+        start_stop: str = '$#',
+        skip: Union[int, TIterable[int]] = 0,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
+    ) -> None:
         """Initialize QGrams.
 
         Parameters
@@ -81,7 +88,7 @@ class QGrams(_Tokenizer):
         --------
         >>> qg = QGrams().tokenize('AATTATAT')
         >>> qg
-        QGrams({'AT': 3, 'TA': 2, '$A': 1, 'AA': 1, 'TT': 1, 'T#': 1})
+        QGrams({'$A': 1, 'AA': 1, 'AT': 3, 'TT': 1, 'TA': 2, 'T#': 1})
 
         >>> qg = QGrams(qval=1, start_stop='').tokenize('AATTATAT')
         >>> qg
@@ -89,24 +96,24 @@ class QGrams(_Tokenizer):
 
         >>> qg = QGrams(qval=3, start_stop='').tokenize('AATTATAT')
         >>> qg
-        QGrams({'TAT': 2, 'AAT': 1, 'ATT': 1, 'TTA': 1, 'ATA': 1})
+        QGrams({'AAT': 1, 'ATT': 1, 'TTA': 1, 'TAT': 2, 'ATA': 1})
 
         >>> QGrams(qval=2, start_stop='$#').tokenize('interning')
-        QGrams({'in': 2, '$i': 1, 'nt': 1, 'te': 1, 'er': 1, 'rn': 1,
-        'ni': 1, 'ng': 1, 'g#': 1})
+        QGrams({'$i': 1, 'in': 2, 'nt': 1, 'te': 1, 'er': 1, 'rn': 1, 'ni': 1,
+        'ng': 1, 'g#': 1})
 
         >>> QGrams(start_stop='', skip=1).tokenize('AACTAGAAC')
         QGrams({'AC': 2, 'AT': 1, 'CA': 1, 'TG': 1, 'AA': 1, 'GA': 1, 'A': 1})
 
         >>> QGrams(start_stop='', skip=[0, 1]).tokenize('AACTAGAAC')
-        QGrams({'AC': 4, 'AA': 3, 'GA': 2, 'CT': 1, 'TA': 1, 'AG': 1,
-        'AT': 1, 'CA': 1, 'TG': 1, 'A': 1})
+        QGrams({'AA': 3, 'AC': 4, 'CT': 1, 'TA': 1, 'AG': 1, 'GA': 2, 'AT': 1,
+        'CA': 1, 'TG': 1, 'A': 1})
 
         >>> QGrams(qval=range(3), skip=[0, 1]).tokenize('interdisciplinarian')
-        QGrams({'i': 10, 'n': 7, 'r': 4, 'a': 4, 'in': 3, 't': 2, 'e': 2,
-        'd': 2, 's': 2, 'c': 2, 'p': 2, 'l': 2, 'ri': 2, 'ia': 2, '$i': 1,
-        'nt': 1, 'te': 1, 'er': 1, 'rd': 1, 'di': 1, 'is': 1, 'sc': 1, 'ci': 1,
-        'ip': 1, 'pl': 1, 'li': 1, 'na': 1, 'ar': 1, 'an': 1, 'n#': 1, '$n': 1,
+        QGrams({'i': 10, 'n': 7, 't': 2, 'e': 2, 'r': 4, 'd': 2, 's': 2,
+        'c': 2, 'p': 2, 'l': 2, 'a': 4, '$i': 1, 'in': 3, 'nt': 1, 'te': 1,
+        'er': 1, 'rd': 1, 'di': 1, 'is': 1, 'sc': 1, 'ci': 1, 'ip': 1, 'pl': 1,
+        'li': 1, 'na': 1, 'ar': 1, 'ri': 2, 'ia': 2, 'an': 1, 'n#': 1, '$n': 1,
         'it': 1, 'ne': 1, 'tr': 1, 'ed': 1, 'ds': 1, 'ic': 1, 'si': 1, 'cp': 1,
         'il': 1, 'pi': 1, 'ln': 1, 'nr': 1, 'ai': 1, 'ra': 1, 'a#': 1})
 
@@ -128,7 +135,7 @@ class QGrams(_Tokenizer):
 
         self._string_ss = self._string
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'QGrams':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -152,8 +159,8 @@ class QGrams(_Tokenizer):
             self.skip = (self.skip,)
 
         if string:
-            for qval_i in self.qval:
-                for skip_i in self.skip:
+            for qval_i in cast(TIterable[int], self.qval):
+                for skip_i in cast(TIterable[int], self.skip):
                     if qval_i < 1:
                         continue
 
@@ -180,7 +187,7 @@ class QGrams(_Tokenizer):
                         for i in range(len(string) - (qval_i - 1))
                     ]
 
-        super(QGrams, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

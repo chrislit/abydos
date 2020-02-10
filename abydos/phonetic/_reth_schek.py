@@ -115,7 +115,7 @@ class RethSchek(_Phonetic):
         },
     }
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return Reth-Schek Phonetik code for a word.
 
         Parameters

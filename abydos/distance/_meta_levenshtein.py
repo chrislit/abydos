@@ -19,16 +19,25 @@
 Meta-Levenshtein distance
 """
 
-from collections import Counter
+from collections import defaultdict
 from math import log1p
+from typing import (
+    Any,
+    Callable,
+    DefaultDict,
+    List,
+    Optional,
+    Tuple,
+    cast,
+)
 
-from numpy import float as np_float
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
 from ._jaro_winkler import JaroWinkler
 from ..corpus import UnigramCorpus
-from ..tokenizer import QGrams, WhitespaceTokenizer
+from ..tokenizer import QGrams, WhitespaceTokenizer, _Tokenizer
 
 __all__ = ['MetaLevenshtein']
 
@@ -44,12 +53,12 @@ class MetaLevenshtein(_Distance):
 
     def __init__(
         self,
-        tokenizer=None,
-        corpus=None,
-        metric=None,
-        normalizer=max,
-        **kwargs
-    ):
+        tokenizer: Optional[_Tokenizer] = None,
+        corpus: Optional[UnigramCorpus] = None,
+        metric: Optional[_Distance] = None,
+        normalizer: Callable[[List[float]], float] = max,
+        **kwargs: Any
+    ) -> None:
         """Initialize MetaLevenshtein instance.
 
         Parameters
@@ -82,7 +91,7 @@ class MetaLevenshtein(_Distance):
         """
         super(MetaLevenshtein, self).__init__(**kwargs)
         self._corpus = corpus
-        self._metric = metric
+        self._metric = JaroWinkler() if metric is None else metric
         self._normalizer = normalizer
 
         qval = 2 if 'qval' not in self.params else self.params['qval']
@@ -94,10 +103,7 @@ class MetaLevenshtein(_Distance):
             else QGrams(qval=qval, start_stop='$#', skip=0, scaler=None)
         )
 
-        if self._metric is None:
-            self._metric = JaroWinkler()
-
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Meta-Levenshtein distance of two strings.
 
         Parameters
@@ -150,7 +156,7 @@ class MetaLevenshtein(_Distance):
         else:
             corpus = self._corpus
 
-        dists = Counter()
+        dists = defaultdict(float)  # type: DefaultDict[Tuple[str, str], float]
         s_toks = set(src_tok.keys())
         t_toks = set(tar_tok.keys())
         for s_tok in s_toks:
@@ -166,7 +172,7 @@ class MetaLevenshtein(_Distance):
         for token in tar_tok.keys():
             vwt_dict[token] = log1p(tar_tok[token]) * corpus.idf(token)
 
-        def _dist(s_tok, t_tok):
+        def _dist(s_tok: str, t_tok: str) -> float:
             return dists[(s_tok, t_tok)] * vws_dict[s_tok] * vwt_dict[t_tok]
 
         d_mat = np_zeros(
@@ -186,9 +192,9 @@ class MetaLevenshtein(_Distance):
                     + _dist(src_ordered[i], tar_ordered[j]),  # sub/==
                 )
 
-        return d_mat[len(src_ordered), len(tar_ordered)]
+        return cast(float, d_mat[len(src_ordered), len(tar_ordered)])
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Levenshtein distance between two strings.
 
         The Levenshtein distance is normalized by dividing the Levenshtein

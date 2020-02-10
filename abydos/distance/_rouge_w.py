@@ -19,7 +19,9 @@
 Rouge-W similarity
 """
 
-from numpy import int as np_int
+from typing import Any, Callable, Optional, cast
+
+from numpy import int_ as np_int
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
@@ -35,7 +37,12 @@ class RougeW(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, f_func=None, f_inv=None, **kwargs):
+    def __init__(
+        self,
+        f_func: Optional[Callable[[float], float]] = None,
+        f_inv: Optional[Callable[[float], float]] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize RougeW instance.
 
         Parameters
@@ -53,23 +60,26 @@ class RougeW(_Distance):
 
         """
         super(RougeW, self).__init__(**kwargs)
-        self._f_func = f_func
-        self._f_inv = f_inv
 
-        if self._f_func is None:
+        if f_func is not None:
+            self._f_func = f_func  # type: Callable[[float], float]
+        else:
             self._f_func = RougeW._square  # noqa: SF01
-        if self._f_inv is None:
+
+        if f_inv is not None:
+            self._f_inv = f_inv  # type: Callable[[float], float]
+        else:
             self._f_inv = RougeW._sqrt  # noqa: SF01
 
     @staticmethod
-    def _square(n):
-        return n * n
+    def _square(n: float) -> float:
+        return float(n * n)
 
     @staticmethod
-    def _sqrt(n):
+    def _sqrt(n: float) -> float:
         return n ** 0.5
 
-    def wlcs(self, src, tar):
+    def wlcs(self, src: str, tar: str) -> float:
         """Return the Rouge-W weighted longest common sub-sequence length.
 
         Parameters
@@ -130,9 +140,9 @@ class RougeW(_Distance):
                         c_mat[i, j] = c_mat[i, j - 1]
                         w_mat[i, j] = 0
 
-        return c_mat[src_len - 1, tar_len - 1]
+        return cast(float, c_mat[src_len - 1, tar_len - 1])
 
-    def sim(self, src, tar, beta=8):
+    def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-W similarity of two strings.
 
         Parameters

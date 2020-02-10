@@ -19,6 +19,8 @@
 SonoriPy class
 """
 
+from typing import Callable, Optional, Union
+
 from ._tokenizer import _Tokenizer
 
 try:
@@ -26,7 +28,7 @@ try:
 except ImportError:  # pragma: no cover
     # If the system lacks the SyllabiPy library, that's fine, but SyllabiPy
     # tokenization won't be supported.
-    SonoriPy = None
+    SonoriPy = None  # type: ignore
 
 
 class SonoriPyTokenizer(_Tokenizer):
@@ -35,7 +37,9 @@ class SonoriPyTokenizer(_Tokenizer):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, scaler=None):
+    def __init__(
+        self, scaler: Optional[Union[str, Callable[[float], float]]] = None,
+    ) -> None:
         """Initialize Tokenizer.
 
         Parameters
@@ -67,7 +71,7 @@ class SonoriPyTokenizer(_Tokenizer):
 
         super(SonoriPyTokenizer, self).__init__(scaler)
 
-    def tokenize(self, string):
+    def tokenize(self, string: str) -> 'SonoriPyTokenizer':
         """Tokenize the term and store it.
 
         The tokenized term is stored as an ordered list and as a Counter
@@ -98,7 +102,7 @@ class SonoriPyTokenizer(_Tokenizer):
         if not self._ordered_tokens:
             self._ordered_tokens = [self._string]
 
-        super(SonoriPyTokenizer, self).tokenize()
+        self._scale_and_counterize()
         return self
 
 

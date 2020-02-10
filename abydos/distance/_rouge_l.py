@@ -19,6 +19,8 @@
 Rouge-L similarity
 """
 
+from typing import Any
+
 from . import LCSseq
 from ._distance import _Distance
 
@@ -35,7 +37,7 @@ class RougeL(_Distance):
 
     _lcs = LCSseq()
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize RougeL instance.
 
         Parameters
@@ -49,7 +51,7 @@ class RougeL(_Distance):
         """
         super(RougeL, self).__init__(**kwargs)
 
-    def sim(self, src, tar, beta=8):
+    def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-L similarity of two strings.
 
         Parameters

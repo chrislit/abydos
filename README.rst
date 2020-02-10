@@ -6,9 +6,9 @@ Abydos
 +------------------+------------------------------------------------------+
 | Code Quality     | |codeclimate| |scrutinizer| |codacy| |codefactor|    |
 +------------------+------------------------------------------------------+
-| Dependencies     | |requires| |snyk| |pyup| |cii|                       |
+| Dependencies     | |requires| |snyk| |pyup| |cii| |black|               |
 +------------------+------------------------------------------------------+
-| Local Analysis   | |pylint| |flake8| |pydocstyle| |sloccount| |black|   |
+| Local Analysis   | |pylint| |flake8| |pydocstyle| |sloccount| |mypy|    |
 +------------------+------------------------------------------------------+
 | Usage            | |docs| |mybinder| |license| |sourcerank| |zenodo|    |
 +------------------+------------------------------------------------------+
@@ -71,7 +71,11 @@ Abydos
     :target: https://bestpractices.coreinfrastructure.org/projects/1598
     :alt: CII Best Practices
 
-.. |pylint| image:: https://img.shields.io/badge/Pylint-9.06/10-yellowgreen.svg
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/ambv/black
+    :alt: black
+
+.. |pylint| image:: https://img.shields.io/badge/Pylint-9.13/10-yellowgreen.svg
     :target: #
     :alt: Pylint Score
 
@@ -83,13 +87,13 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-38,320-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,079-blue.svg
     :target: #
     :alt: SLOCCount
 
-.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/ambv/black
-    :alt: black
+.. |mypy| image:: https://img.shields.io/badge/mypy-1.87%25%20imprecise-1F5082.svg
+    :target: #
+    :alt: mypy Imprecision
 
 .. |docs| image:: https://readthedocs.org/projects/abydos/badge/?version=latest
     :target: https://abydos.readthedocs.org/en/latest/

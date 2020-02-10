@@ -19,6 +19,7 @@
 IBM's Alpha Search Inquiry System coding
 """
 
+from typing import Dict, List, Tuple, Union
 from unicodedata import normalize as unicode_normalize
 
 from ._phonetic import _Phonetic
@@ -106,7 +107,7 @@ class AlphaSIS(_Phonetic):
         'V': '8',
         'B': '9',
         'P': '9',
-    }
+    }  # type: Dict[str, Union[str, Tuple[str, ...]]]
     _alpha_sis_basic_order = (
         'SCH',
         'CZ',
@@ -149,7 +150,7 @@ class AlphaSIS(_Phonetic):
         zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP')
     )
 
-    def __init__(self, max_length=14):
+    def __init__(self, max_length: int = 14) -> None:
         """Initialize AlphaSIS instance.
 
         Parameters
@@ -167,7 +168,7 @@ class AlphaSIS(_Phonetic):
         else:
             self._max_length = 64
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Alpha-SIS code for a word.
 
         Parameters
@@ -177,35 +178,37 @@ class AlphaSIS(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The alphabetic Alpha-SIS value
 
         Examples
         --------
         >>> pe = AlphaSIS()
         >>> pe.encode_alpha('Christopher')
-        ('JRSTFR', 'KSRSTFR', 'RSTFR')
+        'JRSTFR,KSRSTFR,RSTFR'
         >>> pe.encode_alpha('Niall')
-        ('NL',)
+        'NL'
         >>> pe.encode_alpha('Smith')
-        ('MT',)
+        'MT'
         >>> pe.encode_alpha('Schmidt')
-        ('JMT',)
+        'JMT'
 
 
         .. versionadded:: 0.4.0
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
-        codes = self.encode(word)
+        codes = self.encode(word).split(',')
         alphas = [
             code[0].translate(self._alphabetic_initials).strip()
             + code[1:].translate(self._alphabetic_non_initials).rstrip('S')
             for code in codes
         ]
 
-        return tuple(alphas)
+        return ','.join(alphas)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the IBM Alpha Search Inquiry System code for a word.
 
         A collection is necessary as the return type since there can be
@@ -219,25 +222,27 @@ class AlphaSIS(_Phonetic):
 
         Returns
         -------
-        tuple
+        str
             The Alpha-SIS value
 
         Examples
         --------
         >>> pe = AlphaSIS()
         >>> pe.encode('Christopher')
-        ('06401840000000', '07040184000000', '04018400000000')
+        '06401840000000,07040184000000,04018400000000'
         >>> pe.encode('Niall')
-        ('02500000000000',)
+        '02500000000000'
         >>> pe.encode('Smith')
-        ('03100000000000',)
+        '03100000000000'
         >>> pe.encode('Schmidt')
-        ('06310000000000',)
+        '06310000000000'
 
 
         .. versionadded:: 0.1.0
         .. versionchanged:: 0.3.6
             Encapsulated in class
+        .. versionchanged:: 0.6.0
+            Made return a str only (comma-separated)
 
         """
         alpha = ['']
@@ -263,7 +268,7 @@ class AlphaSIS(_Phonetic):
             for k in self._alpha_sis_basic_order:
                 if word[pos:].startswith(k):
                     if isinstance(self._alpha_sis_basic[k], tuple):
-                        newalpha = []
+                        newalpha = []  # type: List[str]
                         for i in range(len(self._alpha_sis_basic[k])):
                             newalpha += [
                                 _ + self._alpha_sis_basic[k][i] for _ in alpha
@@ -284,13 +289,13 @@ class AlphaSIS(_Phonetic):
                 if alpha[i][pos] == alpha[i][pos - 1]:
                     alpha[i] = alpha[i][:pos] + alpha[i][pos + 1 :]
                 pos += 1
-        alpha = (_.replace('_', '') for _ in alpha)
+        alpha = [_.replace('_', '') for _ in alpha]
 
         # Trim codes and return tuple
-        alpha = (
+        alpha = [
             (_ + ('0' * self._max_length))[: self._max_length] for _ in alpha
-        )
-        return tuple(alpha)
+        ]
+        return ','.join(alpha)
 
 
 if __name__ == '__main__':

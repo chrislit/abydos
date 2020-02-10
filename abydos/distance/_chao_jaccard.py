@@ -20,13 +20,14 @@ Chao's Jaccard similarity
 """
 
 from collections import Counter
+from typing import Any, Tuple
 
 try:
     from random import choices
 except ImportError:  # pragma: no cover
     from random import choice
 
-    def choices(population, k=1):
+    def choices(population, k=1):  # type: ignore
         """Quick implementation of choices for Python < 3.6."""
         return [choice(population) for _ in range(k)]
 
@@ -44,7 +45,7 @@ class ChaoJaccard(_TokenDistance):
     .. versionadded:: 0.4.1
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize ChaoJaccard instance.
 
         Parameters
@@ -58,7 +59,7 @@ class ChaoJaccard(_TokenDistance):
         """
         super(ChaoJaccard, self).__init__(**kwargs)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return normalized Chao's Jaccard similarity of two strings.
 
         Parameters
@@ -93,7 +94,7 @@ class ChaoJaccard(_TokenDistance):
         """
         return max(0.0, min(1.0, self.sim_score(src, tar)))
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return Chao's Jaccard similarity of two strings.
 
         Parameters
@@ -139,7 +140,7 @@ class ChaoJaccard(_TokenDistance):
             return num / (u_hat + v_hat - u_hat * v_hat)
         return 0.0
 
-    def _get_estimates(self, src, tar):
+    def _get_estimates(self, src: str, tar: str) -> Tuple[float, float]:
         """Get the estimates U-hat & V-hat used for Chao's measures.
 
         Parameters
@@ -163,8 +164,8 @@ class ChaoJaccard(_TokenDistance):
         src_token_list = self.params['tokenizer'].tokenize(src).get_list()
         tar_token_list = self.params['tokenizer'].tokenize(tar).get_list()
 
-        src_sampled = Counter(choices(src_token_list, k=src_card))
-        tar_sampled = Counter(choices(tar_token_list, k=tar_card))
+        src_sampled = Counter(choices(src_token_list, k=int(src_card)))
+        tar_sampled = Counter(choices(tar_token_list, k=int(tar_card)))
         sample_intersection = src_sampled & tar_sampled
 
         f_1_plus = sum(
@@ -189,7 +190,7 @@ class ChaoJaccard(_TokenDistance):
         if not f_plus_2:
             f_plus_2 = 1
 
-        u_hat = 0
+        u_hat = 0.0
         if src_card:
             u_hat += sum(
                 src_sampled[tok] / src_card
@@ -207,7 +208,7 @@ class ChaoJaccard(_TokenDistance):
                 )
             )
 
-        v_hat = 0
+        v_hat = 0.0
         if tar_card:
             v_hat += sum(
                 tar_sampled[tok] / tar_card

@@ -19,7 +19,10 @@
 Stuart's Tau correlation
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['StuartTau']
 
@@ -49,11 +52,13 @@ class StuartTau(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize StuartTau instance.
 
         Parameters
@@ -95,7 +100,7 @@ class StuartTau(_TokenDistance):
             **kwargs
         )
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return the Stuart's Tau correlation of two strings.
 
         Parameters
@@ -138,7 +143,7 @@ class StuartTau(_TokenDistance):
             return 1.0
         return max(-1.0, min(1.0, 4 * (a + d - b - c) / (n ** 2)))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the Stuart's Tau similarity of two strings.
 
         Parameters

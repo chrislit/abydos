@@ -19,6 +19,8 @@
 Ehrenfeucht & Haussler's marking distance
 """
 
+from typing import Any
+
 from ._distance import _Distance
 
 __all__ = ['Marking']
@@ -36,7 +38,7 @@ class Marking(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         """Initialize Marking instance.
 
         Parameters
@@ -50,7 +52,7 @@ class Marking(_Distance):
         """
         super(Marking, self).__init__(**kwargs)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the marking distance of two strings.
 
         Parameters
@@ -92,7 +94,7 @@ class Marking(_Distance):
 
         return distance
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized marking distance of two strings.
 
         Parameters

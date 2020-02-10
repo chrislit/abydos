@@ -19,7 +19,10 @@
 YJHHR distance
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['YJHHR']
 
@@ -48,12 +51,14 @@ class YJHHR(_TokenDistance):
 
     def __init__(
         self,
-        pval=1,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        pval: int = 1,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize YJHHR instance.
 
         Parameters
@@ -98,7 +103,7 @@ class YJHHR(_TokenDistance):
         )
         self.set_params(pval=pval)
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the YJHHR distance of two strings.
 
         Parameters
@@ -139,7 +144,7 @@ class YJHHR(_TokenDistance):
 
         return float(round((b + c) ** (1 / self.params['pval']), 14))
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized YJHHR distance of two strings.
 
         Parameters

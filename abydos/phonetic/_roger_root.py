@@ -131,7 +131,7 @@ class RogerRoot(_Phonetic):
     _alphabetic_initial = dict(zip((ord(_) for _ in '012345'), ' AHJWY'))
     _alphabetic = dict(zip((ord(_) for _ in '0123456789'), 'STNMRLJKFP'))
 
-    def __init__(self, max_length=5, zero_pad=True):
+    def __init__(self, max_length: int = 5, zero_pad: bool = True) -> None:
         """Initialize RogerRoot instance.
 
         Parameters
@@ -149,7 +149,7 @@ class RogerRoot(_Phonetic):
         self._max_length = max_length
         self._zero_pad = zero_pad
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Roger Root code for a word.
 
         Parameters
@@ -183,7 +183,7 @@ class RogerRoot(_Phonetic):
             1:
         ].translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Roger Root code for a word.
 
         Parameters

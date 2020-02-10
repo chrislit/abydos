@@ -36,7 +36,7 @@ class Phonex(_Phonetic):
 
     _alphabetic = dict(zip((ord(_) for _ in '123456'), 'PSTLNR'))
 
-    def __init__(self, max_length=4, zero_pad=True):
+    def __init__(self, max_length: int = 4, zero_pad: bool = True) -> None:
         """Initialize Phonex instance.
 
         Parameters
@@ -58,7 +58,7 @@ class Phonex(_Phonetic):
             self._max_length = 64
         self._zero_pad = zero_pad
 
-    def encode_alpha(self, word):
+    def encode_alpha(self, word: str) -> str:
         """Return the alphabetic Phonex code for a word.
 
         Parameters
@@ -90,7 +90,7 @@ class Phonex(_Phonetic):
         code = self.encode(word).rstrip('0')
         return code[:1] + code[1:].translate(self._alphabetic)
 
-    def encode(self, word):
+    def encode(self, word: str) -> str:
         """Return the Phonex code for a word.
 
         Parameters

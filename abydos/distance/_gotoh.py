@@ -18,8 +18,9 @@
 
 Gotoh score
 """
+from typing import Any, Callable, Optional, cast
 
-from numpy import float32 as np_float32
+from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._needleman_wunsch import NeedlemanWunsch
@@ -36,7 +37,13 @@ class Gotoh(NeedlemanWunsch):
     .. versionadded:: 0.3.6
     """
 
-    def __init__(self, gap_open=1, gap_ext=0.4, sim_func=None, **kwargs):
+    def __init__(
+        self,
+        gap_open: float = 1,
+        gap_ext: float = 0.4,
+        sim_func: Optional[Callable[[str, str], float]] = None,
+        **kwargs: Any
+    ) -> None:
         """Initialize Gotoh instance.
 
         Parameters
@@ -58,11 +65,12 @@ class Gotoh(NeedlemanWunsch):
         super(Gotoh, self).__init__(**kwargs)
         self._gap_open = gap_open
         self._gap_ext = gap_ext
-        self._sim_func = sim_func
-        if self._sim_func is None:
-            self._sim_func = NeedlemanWunsch.sim_matrix
+        self._sim_func = cast(
+            Callable[[str, str], float],
+            NeedlemanWunsch.sim_matrix if sim_func is None else sim_func,
+        )  # type: Callable[[str, str], float]
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return the Gotoh score of two strings.
 
         Parameters
@@ -95,9 +103,9 @@ class Gotoh(NeedlemanWunsch):
             Encapsulated in class
 
         """
-        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
-        p_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
-        q_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float32)
+        d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
+        p_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
+        q_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
 
         d_mat[0, 0] = 0
         p_mat[0, 0] = float('-inf')
@@ -135,9 +143,9 @@ class Gotoh(NeedlemanWunsch):
                 )
 
         i, j = (n - 1 for n in d_mat.shape)
-        return max(d_mat[i, j], p_mat[i, j], q_mat[i, j])
+        return cast(float, max(d_mat[i, j], p_mat[i, j], q_mat[i, j]))
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the normalized Gotoh score of two strings.
 
         Parameters

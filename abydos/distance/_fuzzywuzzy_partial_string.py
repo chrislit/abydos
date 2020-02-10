@@ -37,7 +37,7 @@ class FuzzyWuzzyPartialString(_Distance):
     .. versionadded:: 0.4.0
     """
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return the FuzzyWuzzy Partial String similarity of two strings.
 
         Parameters

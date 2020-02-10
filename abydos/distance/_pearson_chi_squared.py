@@ -20,8 +20,10 @@ Pearson's Chi-Squared similarity
 """
 
 from math import copysign
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['PearsonChiSquared']
 
@@ -54,11 +56,13 @@ class PearsonChiSquared(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize PearsonChiSquared instance.
 
         Parameters
@@ -100,7 +104,7 @@ class PearsonChiSquared(_TokenDistance):
             **kwargs
         )
 
-    def sim_score(self, src, tar):
+    def sim_score(self, src: str, tar: str) -> float:
         """Return Pearson's Chi-Squared similarity of two strings.
 
         Parameters
@@ -150,7 +154,7 @@ class PearsonChiSquared(_TokenDistance):
             return num / (ab * ac * (b + d) * (c + d))
         return 0.0
 
-    def corr(self, src, tar):
+    def corr(self, src: str, tar: str) -> float:
         """Return Pearson's Chi-Squared correlation of two strings.
 
         Parameters
@@ -195,7 +199,7 @@ class PearsonChiSquared(_TokenDistance):
 
         return copysign(score, a * d - b * c)
 
-    def sim(self, src, tar):
+    def sim(self, src: str, tar: str) -> float:
         """Return Pearson's normalized Chi-Squared similarity of two strings.
 
         Parameters

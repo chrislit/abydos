@@ -19,7 +19,10 @@
 Unknown K distance
 """
 
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
+
 from ._token_distance import _TokenDistance
+from ..tokenizer import _Tokenizer
 
 __all__ = ['UnknownK']
 
@@ -49,11 +52,13 @@ class UnknownK(_TokenDistance):
 
     def __init__(
         self,
-        alphabet=None,
-        tokenizer=None,
-        intersection_type='crisp',
-        **kwargs
-    ):
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
+        tokenizer: Optional[_Tokenizer] = None,
+        intersection_type: str = 'crisp',
+        **kwargs: Any
+    ) -> None:
         """Initialize UnknownK instance.
 
         Parameters
@@ -95,7 +100,7 @@ class UnknownK(_TokenDistance):
             **kwargs
         )
 
-    def dist_abs(self, src, tar):
+    def dist_abs(self, src: str, tar: str) -> float:
         """Return the Unknown K distance of two strings.
 
         Parameters
@@ -135,7 +140,7 @@ class UnknownK(_TokenDistance):
             return 0.0
         return n * (1 - a / n)
 
-    def dist(self, src, tar):
+    def dist(self, src: str, tar: str) -> float:
         """Return the normalized Unknown K distance of two strings.
 
         Parameters
