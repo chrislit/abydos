@@ -19,7 +19,18 @@
 FlexMetric distance
 """
 
-from typing import Any, Callable, Collection, List, Optional, Tuple, cast
+from typing import (
+    Any,
+    Callable,
+    FrozenSet,
+    List,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    Union,
+    cast,
+)
 
 from numpy import float_ as np_float
 from numpy import zeros as np_zeros
@@ -40,8 +51,12 @@ class FlexMetric(_Distance):
     def __init__(
         self,
         normalizer: Callable[[List[float]], float] = max,
-        indel_costs: Optional[List[Tuple[Collection[str], float]]] = None,
-        subst_costs: Optional[List[Tuple[Collection[str], float]]] = None,
+        indel_costs: Optional[
+            List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]
+        ] = None,
+        subst_costs: Optional[
+            List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]
+        ] = None,
         **kwargs: Any
     ) -> None:
         """Initialize FlexMetric instance.
@@ -73,7 +88,9 @@ class FlexMetric(_Distance):
         super(FlexMetric, self).__init__(**kwargs)
         self._normalizer = normalizer
 
-        def _get_second(s: Tuple[Collection[str], float]) -> float:
+        def _get_second(
+            s: Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]
+        ) -> float:
             return s[1]
 
         if indel_costs is None:
@@ -82,7 +99,7 @@ class FlexMetric(_Distance):
                 (frozenset('e'), 0.5),
                 (frozenset('u'), 0.9),
                 (frozenset('rpn'), 0.95),
-            ]  # type: List[Tuple[Collection[str], float]]
+            ]  # type: List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]  # noqa: E501
         else:
             self._indel_costs = sorted(indel_costs, key=_get_second)
 
@@ -105,7 +122,7 @@ class FlexMetric(_Distance):
                 (frozenset('uw'), 0.4),
                 (frozenset('uo'), 0.8),
                 (frozenset('aeiouy'), 0.9),
-            ]  # type: List[Tuple[Collection[str], float]]
+            ]  # type: List[Tuple[Union[Sequence[str], Set[str], FrozenSet[str]], float]]  # noqa: E501
         else:
             self._subst_costs = sorted(subst_costs, key=_get_second)
 

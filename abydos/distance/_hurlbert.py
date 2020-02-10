@@ -20,7 +20,7 @@ Hurlbert correlation
 """
 
 from math import ceil, copysign, floor
-from typing import Any, Collection, Counter as TCounter, Optional, Union
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -73,7 +73,9 @@ class Hurlbert(_TokenDistance):
 
     def __init__(
         self,
-        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = None,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs: Any

@@ -19,7 +19,15 @@
 AZZOO similarity
 """
 
-from typing import Any, Collection, Counter as TCounter, Optional, Union, cast
+from typing import (
+    Any,
+    Counter as TCounter,
+    Optional,
+    Sequence,
+    Set,
+    Union,
+    cast,
+)
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -55,7 +63,9 @@ class AZZOO(_TokenDistance):
     def __init__(
         self,
         sigma: float = 0.5,
-        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = None,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs: Any

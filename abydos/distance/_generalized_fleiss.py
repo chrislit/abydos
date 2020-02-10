@@ -22,12 +22,12 @@ Generalized Fleiss correlation
 from typing import (
     Any,
     Callable,
-    Collection,
     Counter as TCounter,
     Dict,
     Iterable,
     Optional,
     Sequence,
+    Set,
     Union,
     cast,
 )
@@ -127,7 +127,9 @@ class GeneralizedFleiss(_TokenDistance):
 
     def __init__(
         self,
-        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = None,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         mean_func: str = 'arithmetic',

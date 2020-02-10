@@ -20,7 +20,7 @@ Pearson III correlation
 """
 
 from math import copysign
-from typing import Any, Collection, Counter as TCounter, Optional, Union
+from typing import Any, Counter as TCounter, Optional, Sequence, Set, Union
 
 from ._pearson_phi import PearsonPhi
 from ..tokenizer import _Tokenizer
@@ -62,7 +62,9 @@ class PearsonIII(PearsonPhi):
 
     def __init__(
         self,
-        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = None,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs: Any

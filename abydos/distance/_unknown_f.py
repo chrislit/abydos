@@ -22,10 +22,11 @@ Unknown F similarity
 from math import log
 from typing import (
     Any,
-    Collection,
     Counter as TCounter,
     NoReturn,
     Optional,
+    Sequence,
+    Set,
     Union,
 )
 
@@ -83,7 +84,9 @@ class UnknownF(_TokenDistance):
 
     def __init__(
         self,
-        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = None,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = None,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs: Any

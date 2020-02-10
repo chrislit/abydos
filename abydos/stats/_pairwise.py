@@ -19,7 +19,7 @@
 The stats._pairwise module implements pairwise statistical algorithms.
 """
 
-from typing import Callable, Collection, Optional, Sequence, Tuple, Union, cast
+from typing import Callable, Optional, Sequence, Set, Tuple, Union, cast
 
 from ._mean import amean, hmean, std
 from ..distance._levenshtein import Levenshtein
@@ -28,7 +28,7 @@ __all__ = ['mean_pairwise_similarity', 'pairwise_similarity_statistics']
 
 
 def mean_pairwise_similarity(
-    collection: Union[str, Collection[str]],
+    collection: Union[str, Sequence[str], Set[str]],
     metric: Optional[Callable[[str, str], float]] = None,
     mean_func: Callable[[Sequence[float]], float] = hmean,
     symmetric: bool = False,
@@ -106,8 +106,8 @@ def mean_pairwise_similarity(
 
 
 def pairwise_similarity_statistics(
-    src_collection: Collection[str],
-    tar_collection: Collection[str],
+    src_collection: Union[Sequence[str], Set[str]],
+    tar_collection: Union[Sequence[str], Set[str]],
     metric: Optional[Callable[[str, str], float]] = None,
     mean_func: Callable[[Sequence[float]], float] = amean,
     symmetric: bool = False,

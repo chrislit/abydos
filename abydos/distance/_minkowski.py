@@ -19,7 +19,15 @@
 Minkowski distance & similarity
 """
 
-from typing import Any, Collection, Counter as TCounter, Optional, Union, cast
+from typing import (
+    Any,
+    Counter as TCounter,
+    Optional,
+    Sequence,
+    Set,
+    Union,
+    cast,
+)
 
 from ._token_distance import _TokenDistance
 from ..tokenizer import _Tokenizer
@@ -39,7 +47,9 @@ class Minkowski(_TokenDistance):
     def __init__(
         self,
         pval: float = 1,
-        alphabet: Optional[Union[TCounter[str], Collection[str], int]] = 0,
+        alphabet: Optional[
+            Union[TCounter[str], Sequence[str], Set[str], int]
+        ] = 0,
         tokenizer: Optional[_Tokenizer] = None,
         intersection_type: str = 'crisp',
         **kwargs: Any
