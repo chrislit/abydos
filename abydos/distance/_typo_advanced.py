@@ -19,17 +19,24 @@
 Typo edit distance functions.
 """
 
+from collections import namedtuple
 from itertools import chain
+from json import load
 from math import log
-from typing import Any, Dict, Tuple, cast
+from os import listdir
+from os.path import join
+from typing import Any, Dict, FrozenSet, List, Tuple, cast
 
 from numpy import float_ as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance
+from ..util import package_path
 
 
 __all__ = ['TypoAdvanced']
+
+Keymap = namedtuple('Keymap', ('id', 'lang'))
 
 
 class TypoAdvanced(_Distance):
@@ -38,11 +45,45 @@ class TypoAdvanced(_Distance):
     .. versionadded:: 0.6.0
     """
 
+    with open(join(package_path('key_positions'), 'iso_positions.json')) as iso_fp:
+        _iso_positions = {key: tuple(value) for key, value in load(iso_fp).items()}
+
+    @staticmethod
+    def list_keymaps() -> List[Keymap]:
+        keymaps = []
+        for fn in listdir(package_path('windows_keymaps')):
+            with open(join(package_path('windows_keymaps'), fn)) as fh:
+                keymap_json = load(fh)
+            keymaps.append(Keymap(fn[:-5], keymap_json['lang']))
+        return keymaps
+
+    def get_keymap(self, keymap: str):# -> Dict[FrozenSet[str]: Dict[str, Tuple[float, float]]]:
+        try:
+            with open(join(package_path('windows_keymaps'), '{}.json'.format(keymap))) as fh:
+                keymap_dict = load(fh)
+                del keymap_dict['lang']
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                'Keymap file {}.json not found. You can'.format(keymap)
+                + ' install keymaps by calling'
+                + " abydos.util.download_package('keymaps')")
+
+        def _modifiers_fix(modifiers: str) -> FrozenSet[str]:
+            if modifiers == 'none':
+                return frozenset()
+            else:
+                return frozenset(modifiers.split('+'))
+
+        keymap_dict = {_modifiers_fix(mod): map for mod, map in keymap_dict.items()}
+        for mod in keymap_dict:
+            keymap_dict[mod] = {graph: self._iso_positions[pos] for graph, pos in keymap_dict[mod].items()}
+        return keymap_dict
+
     def __init__(
         self,
         metric: str = 'euclidean',
         cost: Tuple[float, float, float, float] = (1.0, 1.0, 0.5, 0.5),
-        layout: str = 'QWERTY',
+        layout: str = 'en',
         failsafe: bool = False,
         **kwargs: Any
     ):
@@ -80,6 +121,7 @@ class TypoAdvanced(_Distance):
         self._cost = cost
         self._layout = layout
         self._failsafe = failsafe
+        self._keymap = self.get_keymap(layout)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the typo distance between two strings.

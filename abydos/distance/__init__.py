@@ -616,6 +616,7 @@ from ._tulloss_t import TullossT
 from ._tulloss_u import TullossU
 from ._tversky import Tversky
 from ._typo import Typo
+from ._typo_advanced import TypoAdvanced
 from ._unigram_subtuple import UnigramSubtuple
 from ._unknown_a import UnknownA
 from ._unknown_b import UnknownB
@@ -913,6 +914,7 @@ __all__ = [
     'Sift4Simplest',
     'Sift4Extended',
     'Typo',
+    'TypoAdvanced',
     'Synoname',
     'Ozbay',
     'ISG',
