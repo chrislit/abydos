@@ -44,7 +44,7 @@ __all__ = [
 ]
 
 
-DATA_SUBDIRS = ['corpora']
+DATA_SUBDIRS = ['corpora', 'keymaps']
 INDEX_URL = (
     'https://raw.githubusercontent.com/chrislit/abydos-data/master/index.xml'
 )
