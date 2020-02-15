@@ -262,7 +262,7 @@ A large set of multi-set token-based distance metrics are provided, including:
 
     - Bag distance (:py:class:`.Bag`)
     - Soft cosine similarity (:py:class:`.SoftCosine`)
-    - Monge-Elkan distance (:py:class:`.MongeElkan`)
+    - Generalized Monge-Elkan distance (:py:class:`.MongeElkan`)
     - TF-IDF similarity (:py:class:`.TFIDF`)
     - SoftTF-IDF similarity (:py:class:`.SoftTFIDF`)
     - Jensen-Shannon divergence (:py:class:`.JensenShannon`)
