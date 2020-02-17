@@ -28,6 +28,7 @@ solution, and because their license (Apache) allows for it.
 
 import os
 import re
+import shutil
 import sys
 import urllib.request
 import zipfile
@@ -251,6 +252,7 @@ def download_package(
                 zip_fn = os.path.join(
                     cast(str, data_path), pack[4], pack[0] + '.zip'
                 )
+                shutil.rmtree(os.path.join(cast(str, data_path), pack[4], pack[0]), ignore_errors=True)
                 os.makedirs(
                     os.path.join(cast(str, data_path), pack[4]),
                     mode=0o775,
