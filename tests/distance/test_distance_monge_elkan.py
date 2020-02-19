@@ -22,6 +22,7 @@ This module contains unit tests for abydos.distance.MongeElkan
 import unittest
 
 from abydos.distance import Jaccard, MongeElkan
+from abydos.tokenizer import QGrams
 
 
 class MongeElkanTestCases(unittest.TestCase):
@@ -30,21 +31,23 @@ class MongeElkanTestCases(unittest.TestCase):
     abydos.distance.MongeElkan
     """
 
+    q2 = QGrams()
     cmp = MongeElkan()
-    cmp_sym = MongeElkan(symmetric=True)
-    cmp_jac = MongeElkan(sim_func=Jaccard())
-    cmp_jac_sim = MongeElkan(sim_func=Jaccard().sim)
+    cmp_q2 = MongeElkan(tokenizer=q2)
+    cmp_sym = MongeElkan(symmetric=True, tokenizer=q2)
+    cmp_jac = MongeElkan(sim_func=Jaccard(), tokenizer=q2)
+    cmp_jac_sim = MongeElkan(sim_func=Jaccard().sim, tokenizer=q2)
 
     def test_monge_elkan_sim(self):
         """Test abydos.distance.MongeElkan.sim."""
-        self.assertEqual(self.cmp.sim('', ''), 1)
-        self.assertEqual(self.cmp.sim('', 'a'), 0)
-        self.assertEqual(self.cmp.sim('a', 'a'), 1)
+        self.assertEqual(self.cmp_q2.sim('', ''), 1)
+        self.assertEqual(self.cmp_q2.sim('', 'a'), 0)
+        self.assertEqual(self.cmp_q2.sim('a', 'a'), 1)
 
-        self.assertEqual(self.cmp.sim('Niall', 'Neal'), 3 / 4)
-        self.assertEqual(self.cmp.sim('Niall', 'Njall'), 5 / 6)
-        self.assertEqual(self.cmp.sim('Niall', 'Niel'), 3 / 4)
-        self.assertEqual(self.cmp.sim('Niall', 'Nigel'), 3 / 4)
+        self.assertEqual(self.cmp_q2.sim('Niall', 'Neal'), 3 / 4)
+        self.assertEqual(self.cmp_q2.sim('Niall', 'Njall'), 5 / 6)
+        self.assertEqual(self.cmp_q2.sim('Niall', 'Niel'), 3 / 4)
+        self.assertEqual(self.cmp_q2.sim('Niall', 'Nigel'), 3 / 4)
 
         self.assertEqual(self.cmp_sym.sim('Niall', 'Neal'), 31 / 40)
         self.assertEqual(self.cmp_sym.sim('Niall', 'Njall'), 5 / 6)
@@ -54,15 +57,23 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(self.cmp_jac.sim('Njall', 'Neil'), 29 / 60)
         self.assertEqual(self.cmp_jac_sim.sim('Njall', 'Neil'), 29 / 60)
 
+        self.assertAlmostEqual(
+            MongeElkan().sim(
+                'Comput. Sci. & Eng. Dept., University of California, San Diego',  # noqa: E501
+                'Department of Computer Science, Univ. Calif., San Diego',
+            ),
+            1297 / 2200,
+        )
+
     def test_monge_elkan_dist(self):
         """Test abydos.distance.MongeElkan.dist."""
-        self.assertEqual(self.cmp.dist('', ''), 0)
-        self.assertEqual(self.cmp.dist('', 'a'), 1)
+        self.assertEqual(self.cmp_q2.dist('', ''), 0)
+        self.assertEqual(self.cmp_q2.dist('', 'a'), 1)
 
-        self.assertEqual(self.cmp.dist('Niall', 'Neal'), 1 / 4)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Njall'), 1 / 6)
-        self.assertEqual(self.cmp.dist('Niall', 'Niel'), 1 / 4)
-        self.assertEqual(self.cmp.dist('Niall', 'Nigel'), 1 / 4)
+        self.assertEqual(self.cmp_q2.dist('Niall', 'Neal'), 1 / 4)
+        self.assertAlmostEqual(self.cmp_q2.dist('Niall', 'Njall'), 1 / 6)
+        self.assertEqual(self.cmp_q2.dist('Niall', 'Niel'), 1 / 4)
+        self.assertEqual(self.cmp_q2.dist('Niall', 'Nigel'), 1 / 4)
 
         self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Neal'), 9 / 40)
         self.assertAlmostEqual(self.cmp_sym.dist('Niall', 'Njall'), 1 / 6)

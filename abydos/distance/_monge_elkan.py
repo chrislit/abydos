@@ -136,7 +136,8 @@ class MongeElkan(_Distance):
 
         Examples
         --------
-        >>> cmp = MongeElkan()
+        >>> from abydos.tokenizer import QGrams
+        >>> cmp = MongeElkan(tokenizer=QGrams())
         >>> cmp.sim('cat', 'hat')
         0.75
         >>> round(cmp.sim('Niall', 'Neil'), 12)
