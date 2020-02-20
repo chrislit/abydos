@@ -45,45 +45,274 @@ class TypoAdvanced(_Distance):
     .. versionadded:: 0.6.0
     """
 
-    with open(join(package_path('key_positions'), 'iso_positions.json')) as iso_fp:
-        _iso_positions = {key: tuple(value) for key, value in load(iso_fp).items()}
+    with open(
+        join(package_path('key_positions'), 'iso_positions.json')
+    ) as iso_fp:
+        _iso_positions = {
+            key: tuple(value) for key, value in load(iso_fp).items()
+        }
+
+    qwerty = {  # Save the windows-en keymap (mostly) as a base case
+        frozenset({}): {
+            '`': (0, 0.0),
+            '1': (0, 1.0),
+            '2': (0, 2.0),
+            '3': (0, 3.0),
+            '4': (0, 4.0),
+            '5': (0, 5.0),
+            '6': (0, 6.0),
+            '7': (0, 7.0),
+            '8': (0, 8.0),
+            '9': (0, 9.0),
+            '0': (0, 10.0),
+            '-': (0, 11.0),
+            '=': (0, 12.0),
+            'q': (1, 1.5),
+            'w': (1, 2.5),
+            'e': (1, 3.5),
+            'r': (1, 4.5),
+            't': (1, 5.5),
+            'y': (1, 6.5),
+            'u': (1, 7.5),
+            'i': (1, 8.5),
+            'o': (1, 9.5),
+            'p': (1, 10.5),
+            '[': (1, 11.5),
+            ']': (1, 12.5),
+            'a': (2, 1.75),
+            's': (2, 2.75),
+            'd': (2, 3.75),
+            'f': (2, 4.75),
+            'g': (2, 5.75),
+            'h': (2, 6.75),
+            'j': (2, 7.75),
+            'k': (2, 8.75),
+            'l': (2, 9.75),
+            ';': (2, 10.75),
+            "'": (2, 11.75),
+            '\\': (3, 1.25),
+            'z': (3, 2.25),
+            'x': (3, 3.25),
+            'c': (3, 4.25),
+            'v': (3, 5.25),
+            'b': (3, 6.25),
+            'n': (3, 7.25),
+            'm': (3, 8.25),
+            ',': (3, 9.25),
+            '.': (3, 10.25),
+            '/': (3, 11.25),
+            ' ': (4, 4.5),
+        },
+        frozenset({'shift'}): {
+            '~': (0, 0.0),
+            '!': (0, 1.0),
+            '@': (0, 2.0),
+            '#': (0, 3.0),
+            '$': (0, 4.0),
+            '%': (0, 5.0),
+            '^': (0, 6.0),
+            '&': (0, 7.0),
+            '*': (0, 8.0),
+            '(': (0, 9.0),
+            ')': (0, 10.0),
+            '_': (0, 11.0),
+            '+': (0, 12.0),
+            'Q': (1, 1.5),
+            'W': (1, 2.5),
+            'E': (1, 3.5),
+            'R': (1, 4.5),
+            'T': (1, 5.5),
+            'Y': (1, 6.5),
+            'U': (1, 7.5),
+            'I': (1, 8.5),
+            'O': (1, 9.5),
+            'P': (1, 10.5),
+            '{': (1, 11.5),
+            '}': (1, 12.5),
+            'A': (2, 1.75),
+            'S': (2, 2.75),
+            'D': (2, 3.75),
+            'F': (2, 4.75),
+            'G': (2, 5.75),
+            'H': (2, 6.75),
+            'J': (2, 7.75),
+            'K': (2, 8.75),
+            'L': (2, 9.75),
+            ':': (2, 10.75),
+            '"': (2, 11.75),
+            '|': (3, 1.25),
+            'Z': (3, 2.25),
+            'X': (3, 3.25),
+            'C': (3, 4.25),
+            'V': (3, 5.25),
+            'B': (3, 6.25),
+            'N': (3, 7.25),
+            'M': (3, 8.25),
+            '<': (3, 9.25),
+            '>': (3, 10.25),
+            '?': (3, 11.25),
+            ' ': (4, 4.5),
+        },
+        frozenset({'caps'}): {
+            '`': (0, 0.0),
+            '1': (0, 1.0),
+            '2': (0, 2.0),
+            '3': (0, 3.0),
+            '4': (0, 4.0),
+            '5': (0, 5.0),
+            '6': (0, 6.0),
+            '7': (0, 7.0),
+            '8': (0, 8.0),
+            '9': (0, 9.0),
+            '0': (0, 10.0),
+            '-': (0, 11.0),
+            '=': (0, 12.0),
+            'Q': (1, 1.5),
+            'W': (1, 2.5),
+            'E': (1, 3.5),
+            'R': (1, 4.5),
+            'T': (1, 5.5),
+            'Y': (1, 6.5),
+            'U': (1, 7.5),
+            'I': (1, 8.5),
+            'O': (1, 9.5),
+            'P': (1, 10.5),
+            '[': (1, 11.5),
+            ']': (1, 12.5),
+            'A': (2, 1.75),
+            'S': (2, 2.75),
+            'D': (2, 3.75),
+            'F': (2, 4.75),
+            'G': (2, 5.75),
+            'H': (2, 6.75),
+            'J': (2, 7.75),
+            'K': (2, 8.75),
+            'L': (2, 9.75),
+            ';': (2, 10.75),
+            "'": (2, 11.75),
+            '\\': (3, 1.25),
+            'Z': (3, 2.25),
+            'X': (3, 3.25),
+            'C': (3, 4.25),
+            'V': (3, 5.25),
+            'B': (3, 6.25),
+            'N': (3, 7.25),
+            'M': (3, 8.25),
+            ',': (3, 9.25),
+            '.': (3, 10.25),
+            '/': (3, 11.25),
+            ' ': (4, 4.5),
+        },
+        frozenset({'caps', 'shift'}): {
+            '~': (0, 0.0),
+            '!': (0, 1.0),
+            '@': (0, 2.0),
+            '#': (0, 3.0),
+            '$': (0, 4.0),
+            '%': (0, 5.0),
+            '^': (0, 6.0),
+            '&': (0, 7.0),
+            '*': (0, 8.0),
+            '(': (0, 9.0),
+            ')': (0, 10.0),
+            '_': (0, 11.0),
+            '+': (0, 12.0),
+            'q': (1, 1.5),
+            'w': (1, 2.5),
+            'e': (1, 3.5),
+            'r': (1, 4.5),
+            't': (1, 5.5),
+            'y': (1, 6.5),
+            'u': (1, 7.5),
+            'i': (1, 8.5),
+            'o': (1, 9.5),
+            'p': (1, 10.5),
+            '{': (1, 11.5),
+            '}': (1, 12.5),
+            'a': (2, 1.75),
+            's': (2, 2.75),
+            'd': (2, 3.75),
+            'f': (2, 4.75),
+            'g': (2, 5.75),
+            'h': (2, 6.75),
+            'j': (2, 7.75),
+            'k': (2, 8.75),
+            'l': (2, 9.75),
+            ':': (2, 10.75),
+            '"': (2, 11.75),
+            '|': (3, 1.25),
+            'z': (3, 2.25),
+            'x': (3, 3.25),
+            'c': (3, 4.25),
+            'v': (3, 5.25),
+            'b': (3, 6.25),
+            'n': (3, 7.25),
+            'm': (3, 8.25),
+            '<': (3, 9.25),
+            '>': (3, 10.25),
+            '?': (3, 11.25),
+            ' ': (4, 4.5),
+        },
+    }
 
     @staticmethod
     def list_keymaps() -> List[Keymap]:
         keymaps = []
-        for fn in listdir(package_path('windows_keymaps')):
-            with open(join(package_path('windows_keymaps'), fn)) as fh:
-                keymap_json = load(fh)
-            keymaps.append(Keymap(fn[:-5], keymap_json['lang']))
+        for package in (
+            'windows_keymaps',
+            'osx_keymaps',
+            'android_keymaps',
+            'chromeos_keymaps',
+        ):
+            try:
+                for fn in listdir(package_path(package)):
+                    with open(join(package_path(package), fn)) as fh:
+                        keymap_json = load(fh)
+                    keymaps.append(Keymap(fn[:-5], keymap_json['lang']))
+            except FileNotFoundError:
+                pass
         return keymaps
 
-    def get_keymap(self, keymap: str):# -> Dict[FrozenSet[str]: Dict[str, Tuple[float, float]]]:
+    def get_keymap(
+        self, keymap: str
+    ):  # -> Dict[FrozenSet[str]: Dict[str, Tuple[float, float]]]:
+        if not keymap:
+            return self.qwerty
+
         try:
-            with open(join(package_path('windows_keymaps'), '{}.json'.format(keymap))) as fh:
+            with open(
+                join(package_path('windows_keymaps'), '{}.json'.format(keymap))
+            ) as fh:
                 keymap_dict = load(fh)
                 del keymap_dict['lang']
         except FileNotFoundError:
             raise FileNotFoundError(
                 'Keymap file {}.json not found. You can'.format(keymap)
                 + ' install keymaps by calling'
-                + " abydos.util.download_package('keymaps')")
+                + " abydos.util.download_package('keymaps')"
+            )
 
         def _modifiers_fix(modifiers: str) -> FrozenSet[str]:
-            if modifiers == 'none':
+            if modifiers == '':
                 return frozenset()
             else:
                 return frozenset(modifiers.split('+'))
 
-        keymap_dict = {_modifiers_fix(mod): map for mod, map in keymap_dict.items()}
+        keymap_dict = {
+            _modifiers_fix(mod): map for mod, map in keymap_dict.items()
+        }
         for mod in keymap_dict:
-            keymap_dict[mod] = {graph: self._iso_positions[pos] for graph, pos in keymap_dict[mod].items()}
+            keymap_dict[mod] = {
+                graph: self._iso_positions[pos]
+                for graph, pos in keymap_dict[mod].items()
+            }
         return keymap_dict
 
     def __init__(
         self,
         metric: str = 'euclidean',
         cost: Tuple[float, float, float, float] = (1.0, 1.0, 0.5, 0.5),
-        layout: str = 'en',
+        layout: str = '',
         failsafe: bool = False,
         **kwargs: Any
     ):
@@ -188,23 +417,7 @@ class TypoAdvanced(_Distance):
         if not tar:
             return len(src) * del_cost
 
-        if self._layout == 'auto':
-            for kb in ['QWERTY', 'QWERTZ', 'AZERTY']:
-                keys = set(chain(*chain(*self._keyboard[kb])))
-                letters = set(src) | set(tar)
-                if not (letters - keys):
-                    keyboard = self._keyboard[kb]
-                    break
-            else:
-                # Fallback to QWERTY
-                keyboard = self._keyboard['QWERTY']
-        else:
-            keyboard = self._keyboard[self._layout]
-
-        kb_array = []
-        for kb_mode in keyboard:
-            kb_array.append({item for sublist in kb_mode for item in sublist})
-        keys = set(chain(*chain(*keyboard)))
+        keys = set(chain(*chain(*self._keymap.values())))
 
         def _kb_array_for_char(char: str) -> Tuple[Tuple[str, ...], ...]:
             """Return the keyboard layout that contains ch.
