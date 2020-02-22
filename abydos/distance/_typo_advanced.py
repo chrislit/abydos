@@ -25,7 +25,7 @@ from json import load
 from math import log
 from os import listdir
 from os.path import join
-from typing import Any, Dict, FrozenSet, List, Tuple, cast
+from typing import Any, FrozenSet, List, Tuple, cast
 
 from numpy import float_ as np_float
 from numpy import zeros as np_zeros
@@ -419,8 +419,8 @@ class TypoAdvanced(_Distance):
 
         keys = set(chain(*chain(*self._keymap.values())))
 
-        def _kb_array_for_char(char: str) -> Tuple[Tuple[str, ...], ...]:
-            """Return the keyboard layout that contains ch.
+        def _kb_modes_for_char(char: str) -> List[FrozenSet[str]]:
+            """Return the keyboard mode that contains ch.
 
             Parameters
             ----------
@@ -429,8 +429,8 @@ class TypoAdvanced(_Distance):
 
             Returns
             -------
-            tuple
-                A keyboard
+            list of frozensets
+                The keyboard modes containing the character
 
             Raises
             ------
@@ -440,60 +440,77 @@ class TypoAdvanced(_Distance):
             .. versionadded:: 0.6.0
 
             """
-            for i, kb_mode in enumerate(kb_array):
-                if char in kb_mode:
-                    return keyboard[i]
+            kb_modes = []
+            for kb_mode in self._keymap.keys():
+                if char in self._keymap[kb_mode]:
+                    kb_modes.append(kb_mode)
+            if kb_modes:
+                return kb_modes
             raise ValueError(char + ' not found in any keyboard layouts')
 
         def _substitution_cost(char1: str, char2: str) -> float:
             if self._failsafe and (char1 not in keys or char2 not in keys):
                 return ins_cost + del_cost
-            cost = sub_cost
-            cost *= metric_dict[self._metric](char1, char2) + shift_cost * (
-                _kb_array_for_char(char1) != _kb_array_for_char(char2)
-            )
+            cost = float('inf')
+
+            char1_modes = _kb_modes_for_char(char1)
+            char2_modes = _kb_modes_for_char(char2)
+
+            for ch1_mode in char1_modes:
+                for ch2_mode in char2_modes:
+                    new_cost = sub_cost * metric_dict[self._metric](
+                        ch1_mode, char1, ch2_mode, char2
+                    )
+                    new_cost += shift_cost * len(ch1_mode ^ ch2_mode)
+                    if new_cost < cost:
+                        cost = new_cost
             return cost
 
-        def _get_char_coord(
-            char: str, kb_array: Tuple[Tuple[str, ...], ...]
-        ) -> Tuple[int, int]:
-            """Return the row & column of char in the keyboard.
-
-            Parameters
-            ----------
-            char : str
-                The character to search for
-            kb_array : tuple of tuples
-                The array of key positions
-
-            Returns
-            -------
-            tuple
-                The row & column of the key
-
-            .. versionadded:: 0.6.0
-
-            """
-            for row in kb_array:  # pragma: no branch
-                if char in row:
-                    break
-            return kb_array.index(row), row.index(char)
-
-        def _euclidean_keyboard_distance(char1: str, char2: str) -> float:
-            row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
-            row2, col2 = _get_char_coord(char2, _kb_array_for_char(char2))
+        def _euclidean_keyboard_distance(
+            char1_mode: FrozenSet[str],
+            char1: str,
+            char2_mode: FrozenSet[str],
+            char2: str,
+        ) -> float:
+            row1, col1 = self._keymap[char1_mode][char1]
+            row2, col2 = self._keymap[char2_mode][char2]
             return ((row1 - row2) ** 2 + (col1 - col2) ** 2) ** 0.5
 
-        def _manhattan_keyboard_distance(char1: str, char2: str) -> float:
-            row1, col1 = _get_char_coord(char1, _kb_array_for_char(char1))
-            row2, col2 = _get_char_coord(char2, _kb_array_for_char(char2))
+        def _manhattan_keyboard_distance(
+            char1_mode: FrozenSet[str],
+            char1: str,
+            char2_mode: FrozenSet[str],
+            char2: str,
+        ) -> float:
+            row1, col1 = self._keymap[char1_mode][char1]
+            row2, col2 = self._keymap[char2_mode][char2]
             return abs(row1 - row2) + abs(col1 - col2)
 
-        def _log_euclidean_keyboard_distance(char1: str, char2: str) -> float:
-            return log(1 + _euclidean_keyboard_distance(char1, char2))
+        def _log_euclidean_keyboard_distance(
+            char1_mode: FrozenSet[str],
+            char1: str,
+            char2_mode: FrozenSet[str],
+            char2: str,
+        ) -> float:
+            return log(
+                1
+                + _euclidean_keyboard_distance(
+                    char1_mode, char1, char2_mode, char2
+                )
+            )
 
-        def _log_manhattan_keyboard_distance(char1: str, char2: str) -> float:
-            return log(1 + _manhattan_keyboard_distance(char1, char2))
+        def _log_manhattan_keyboard_distance(
+            char1_mode: FrozenSet[str],
+            char1: str,
+            char2_mode: FrozenSet[str],
+            char2: str,
+        ) -> float:
+            return log(
+                1
+                + _manhattan_keyboard_distance(
+                    char1_mode, char1, char2_mode, char2
+                )
+            )
 
         metric_dict = {
             'euclidean': _euclidean_keyboard_distance,
