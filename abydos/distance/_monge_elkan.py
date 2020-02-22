@@ -29,7 +29,7 @@ __all__ = ['MongeElkan']
 
 
 class MongeElkan(_Distance):
-    """Generalized Monge-Elkan similarity.
+    r"""Generalized Monge-Elkan similarity.
 
     For two sets of tokens X and Y, Monge-Elkan similarity :cite:`Monge:1996`
     is defined as:
