@@ -25,7 +25,7 @@ from json import load
 from math import log
 from os import listdir
 from os.path import join
-from typing import Any, FrozenSet, List, Tuple, cast
+from typing import Any, Dict, FrozenSet, List, Tuple, cast
 
 from numpy import float_ as np_float
 from numpy import zeros as np_zeros
@@ -52,7 +52,7 @@ class TypoAdvanced(_Distance):
             key: tuple(value) for key, value in load(iso_fp).items()
         }
 
-    qwerty = {  # Save the windows-en keymap (mostly) as a base case
+    _qwerty = {  # Save the windows-en keymap (mostly) as a base case
         frozenset({}): {
             '`': (0, 0.0),
             '1': (0, 1.0),
@@ -255,15 +255,27 @@ class TypoAdvanced(_Distance):
         },
     }
 
+    _keymap_packages = (
+        'windows_keymaps',
+        'osx_keymaps',
+        'android_keymaps',
+        'chromeos_keymaps',
+    )
+
     @staticmethod
     def list_keymaps() -> List[Keymap]:
+        """List installed keymaps.
+
+        Returns
+        -------
+        List[Keymap]
+            A list of all keymaps currently installed on the system
+
+        .. versionadded:: 0.6.0
+
+        """
         keymaps = []
-        for package in (
-            'windows_keymaps',
-            'osx_keymaps',
-            'android_keymaps',
-            'chromeos_keymaps',
-        ):
+        for package in TypoAdvanced._keymap_packages:
             try:
                 for fn in listdir(package_path(package)):
                     with open(join(package_path(package), fn)) as fh:
@@ -273,19 +285,39 @@ class TypoAdvanced(_Distance):
                 pass
         return keymaps
 
-    def get_keymap(
+    def _get_keymap(
         self, keymap: str
-    ):  # -> Dict[FrozenSet[str]: Dict[str, Tuple[float, float]]]:
-        if not keymap:
-            return self.qwerty
+    ) -> Dict[FrozenSet[str], Dict[str, Tuple[float, float]]]:
+        """Load a keymap from disk.
 
+        Parameters
+        ----------
+        keymap : str
+            The name (id) of the keymap
+
+        Returns
+        -------
+        Dict[FrozenSet[str] : Dict[str: Tuple[float, float]]]
+            A keymap dictionary
+
+        .. versionadded:: 0.6.0
+
+        """
+        if not keymap:
+            return self._qwerty
+
+        keymap_int = None
         try:
-            with open(
-                join(package_path('windows_keymaps'), '{}.json'.format(keymap))
-            ) as fh:
-                keymap_dict = load(fh)
-                del keymap_dict['lang']
+            for package in self._keymap_packages:
+                with open(
+                    join(package_path(package), '{}.json'.format(keymap))
+                ) as fh:
+                    keymap_int = load(fh)
+                    del keymap_int['lang']
         except FileNotFoundError:
+            pass
+
+        if keymap_int is None:
             raise FileNotFoundError(
                 'Keymap file {}.json not found. You can'.format(keymap)
                 + ' install keymaps by calling'
@@ -299,7 +331,7 @@ class TypoAdvanced(_Distance):
                 return frozenset(modifiers.split('+'))
 
         keymap_dict = {
-            _modifiers_fix(mod): map for mod, map in keymap_dict.items()
+            _modifiers_fix(mod): map for mod, map in keymap_int.items()
         }
         for mod in keymap_dict:
             keymap_dict[mod] = {
@@ -350,7 +382,7 @@ class TypoAdvanced(_Distance):
         self._cost = cost
         self._layout = layout
         self._failsafe = failsafe
-        self._keymap = self.get_keymap(layout)
+        self._keymap = self._get_keymap(layout)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the typo distance between two strings.
@@ -376,33 +408,33 @@ class TypoAdvanced(_Distance):
         --------
         >>> cmp = TypoAdvanced()
         >>> cmp.dist_abs('cat', 'hat')
-        1.5811388300841898
+        1.346291201783626
         >>> cmp.dist_abs('Niall', 'Neil')
-        2.8251407699364424
+        2.8081727482164247
         >>> cmp.dist_abs('Colin', 'Cuilen')
-        3.414213562373095
+        3.5
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        2.5
+        2.5153882032022077
 
         >>> cmp = TypoAdvanced(metric='manhattan')
         >>> cmp.dist_abs('cat', 'hat')
-        2.0
+        1.75
         >>> cmp.dist_abs('Niall', 'Neil')
         3.0
         >>> cmp.dist_abs('Colin', 'Cuilen')
         3.5
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        2.5
+        2.625
 
         >>> cmp = TypoAdvanced(metric='log-manhattan')
         >>> cmp.dist_abs('cat', 'hat')
-        0.8047189562170501
+        0.7520386983881371
         >>> cmp.dist_abs('Niall', 'Neil')
-        2.2424533248940004
+        2.250205418161983
         >>> cmp.dist_abs('Colin', 'Cuilen')
         2.242453324894
         >>> cmp.dist_abs('ATCG', 'TAGC')
-        2.3465735902799727
+        2.4054651081081646
 
 
         .. versionadded:: 0.6.0
@@ -561,13 +593,13 @@ class TypoAdvanced(_Distance):
         --------
         >>> cmp = TypoAdvanced()
         >>> round(cmp.dist('cat', 'hat'), 12)
-        0.527046276695
+        0.448763733928
         >>> round(cmp.dist('Niall', 'Neil'), 12)
-        0.565028153987
+        0.561634549643
         >>> round(cmp.dist('Colin', 'Cuilen'), 12)
-        0.569035593729
+        0.583333333333
         >>> cmp.dist('ATCG', 'TAGC')
-        0.625
+        0.6288470508005519
 
 
         .. versionadded:: 0.6.0
