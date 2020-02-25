@@ -19,13 +19,12 @@
 Typo edit distance functions.
 """
 
-from collections import namedtuple
 from itertools import chain
 from json import load
 from math import log
 from os import listdir
 from os.path import join
-from typing import Any, Dict, FrozenSet, List, Tuple, cast
+from typing import Any, Dict, FrozenSet, List, NamedTuple, Tuple, cast
 
 from numpy import float_ as np_float
 from numpy import zeros as np_zeros
@@ -36,7 +35,7 @@ from ..util import package_path
 
 __all__ = ['TypoAdvanced']
 
-Keymap = namedtuple('Keymap', ('id', 'lang'))
+Keymap = NamedTuple('Keymap', [('id', str), ('lang', str)])
 
 
 class TypoAdvanced(_Distance):
@@ -253,7 +252,7 @@ class TypoAdvanced(_Distance):
             '?': (3, 11.25),
             ' ': (4, 4.5),
         },
-    }
+    }  # type: Dict[FrozenSet[str], Dict[str, Tuple[float, float]]]
 
     _keymap_packages = (
         'windows_keymaps',
@@ -275,7 +274,7 @@ class TypoAdvanced(_Distance):
 
         """
         keymaps = []
-        for package in TypoAdvanced._keymap_packages:
+        for package in TypoAdvanced._keymap_packages:  # noqa: SF01
             try:
                 for fn in listdir(package_path(package)):
                     with open(join(package_path(package), fn)) as fh:
