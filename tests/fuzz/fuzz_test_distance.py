@@ -60,6 +60,8 @@ for name, obj in getmembers(ad):
 # corrections and additions
 algorithms['typo_dist_abs'] = ad.Typo(failsafe=True).dist_abs
 algorithms['typo_dist'] = ad.Typo(failsafe=True).dist
+algorithms['typoadvanced_dist_abs'] = ad.TypoAdvanced(failsafe=True).dist_abs
+algorithms['typoadvanced_dist'] = ad.TypoAdvanced(failsafe=True).dist
 
 
 class BigListOfNaughtyStringsTestCases(unittest.TestCase):
