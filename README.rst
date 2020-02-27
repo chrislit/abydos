@@ -87,11 +87,11 @@ Abydos
     :target: #
     :alt: pydocstyle Errors
 
-.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,079-blue.svg
+.. |sloccount| image:: https://img.shields.io/badge/SLOCCount-40,528-blue.svg
     :target: #
     :alt: SLOCCount
 
-.. |mypy| image:: https://img.shields.io/badge/mypy-1.87%25%20imprecise-1F5082.svg
+.. |mypy| image:: https://img.shields.io/badge/mypy-1.89%25%20imprecise-1F5082.svg
     :target: #
     :alt: mypy Imprecision
 
