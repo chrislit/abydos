@@ -863,23 +863,23 @@ class BeiderMorse(_Phonetic):
             The language of the term; supported values include:
 
                 - ``any``
-                - ``arabic``
-                - ``cyrillic``
+                - ``arabic`` (Arabic written in the Arabic script)
+                - ``cyrillic`` (Russian written in the Cyrillic script)
                 - ``czech``
                 - ``dutch``
                 - ``english``
                 - ``french``
                 - ``german``
-                - ``greek``
-                - ``greeklatin``
-                - ``hebrew``
+                - ``greek`` (Greek written in the Greek script)
+                - ``greeklatin`` (Greek transliterated to the Latin script)
+                - ``hebrew`` (Hebrew written in the Hebrew script)
                 - ``hungarian``
                 - ``italian``
                 - ``latvian``
                 - ``polish``
                 - ``portuguese``
                 - ``romanian``
-                - ``russian``
+                - ``russian`` (Russian transliterated to the Latin script)
                 - ``spanish``
                 - ``turkish``
 
