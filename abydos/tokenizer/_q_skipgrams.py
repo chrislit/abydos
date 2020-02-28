@@ -21,7 +21,7 @@ Q-Skipgrams multi-set class
 
 from collections import Iterable
 from itertools import combinations
-from typing import Callable, Iterable as TIterable, Optional, Union, cast
+from typing import Callable, Iterable as TIterable, Optional, Union
 
 from ._tokenizer import _Tokenizer
 
@@ -176,7 +176,7 @@ class QSkipgrams(_Tokenizer):
         if not isinstance(self.qval, Iterable):
             self.qval = (self.qval,)
 
-        for qval_i in cast(TIterable[int], self.qval):
+        for qval_i in self.qval:
             if qval_i < 1:
                 continue
 

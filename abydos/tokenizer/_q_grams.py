@@ -20,7 +20,7 @@ QGrams multi-set class
 """
 
 from collections import Iterable
-from typing import Callable, Iterable as TIterable, Optional, Union, cast
+from typing import Callable, Iterable as TIterable, Optional, Union
 
 from ._tokenizer import _Tokenizer
 
@@ -159,8 +159,8 @@ class QGrams(_Tokenizer):
             self.skip = (self.skip,)
 
         if string:
-            for qval_i in cast(TIterable[int], self.qval):
-                for skip_i in cast(TIterable[int], self.skip):
+            for qval_i in self.qval:
+                for skip_i in self.skip:
                     if qval_i < 1:
                         continue
 
