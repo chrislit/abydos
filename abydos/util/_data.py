@@ -92,7 +92,26 @@ else:
 
 
 def package_path(resource_name: str) -> str:
-    """Given a resource name, returns the path to the package."""
+    """Given a resource name, returns the path to the package.
+
+    Parameters
+    ----------
+    resource_name : str
+        The resource name being queried
+
+    Returns
+    -------
+    The local path to the resource
+
+    Raises
+    ------
+    FileNotFoundError
+        The specified resource could not be found
+
+
+    .. versionadded:: 0.5.0
+
+    """
     for path in data_path:
         for subdir in DATA_SUBDIRS:
             check_path = os.path.join(path, subdir, resource_name)
@@ -105,7 +124,24 @@ def package_path(resource_name: str) -> str:
 def list_installed_packages(
     path: Optional[str] = None,
 ) -> List[Tuple[str, str, float]]:
-    """List all installed data packages."""
+    """List all installed data packages.
+
+    Parameters
+    ----------
+    path : str or None
+        The path to your installed packages. If None is used, the default
+        installation locations will be checked.
+
+    Returns
+    -------
+    list of tuples of (str, str, float)
+        Each tuple of the list represents the package name, description, and
+        version number.
+
+
+    .. versionadded:: 0.5.0
+
+    """
     if path:
         paths = [path]
     else:
@@ -139,7 +175,25 @@ def list_available_packages(
     List[Tuple[str, str, float, str, str, str]],
     List[Tuple[str, str, List[str]]],
 ]:
-    """List all data packages available for install."""
+    """List all data packages available for install.
+
+    Parameters
+    ----------
+    url : str or None
+        The URL of the package repository. If None is supplied, the default
+        package repository is used.
+
+    Returns
+    -------
+    tuple of lists of tuples
+        The first tuple lists each individual package available in the
+        repository, while the second lists collections available in the
+        repository.
+
+
+    .. versionadded:: 0.5.0
+
+    """
     installed_packages = {_[0]: _[2] for _ in list_installed_packages()}
 
     if url is None:
@@ -184,6 +238,14 @@ def _default_download_dir() -> Optional[str]:
     This is mostly copied from NLTK's
     nltk.downloader.Downloader.default_download_dir
 
+    Returns
+    -------
+    str or None
+        The default download directory for the current platform
+
+
+    .. versionadded:: 0.5.0
+
     """
     # Check if we are on GAE where we cannot write into filesystem.
     if 'APPENGINE_RUNTIME' in os.environ:  # pragma: no cover
@@ -218,7 +280,25 @@ def download_package(
     force: bool = False,
     silent: bool = False,
 ) -> None:
-    """Download and install a package or collection."""
+    """Download and install a package or collection.
+
+    Parameters
+    ----------
+    resource_name : str
+        The resource (package or collection) name to download
+    url : str or None
+        The repository URL to use (or None for default)
+    data_path : str or None
+        The data path to install to (or None for platform default)
+    force : bool
+        Set to True to force overwriting data
+    silent : bool
+        Set to True to perform silent installation (without any prints)
+
+
+    .. versionadded:: 0.5.0
+
+    """
     packages, collections = list_available_packages(url)
     installed = list_installed_packages(data_path)
     if data_path is None:

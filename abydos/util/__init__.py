@@ -16,12 +16,46 @@
 
 """abydos.util.
 
-The util module defines various utility functions for other modules within
-Abydos, including:
+The util module defines various utility functions not for other modules within
+Abydos (and not intended for use by users), including:
 
     - _prod -- computes the product of a collection of numbers (akin to sum)
+    - _ncr -- computes n Choose r
 
-These functions are not intended for use by users.
+
+The util module also contains data downloading facilities. Currently, Abydos
+data includes corpora and keymaps. Corpora are used for some distance measures,
+such as SoftTF-IDF. The corpora available for Abydos are Q-Gram corpora based
+on large datasets, such as Google Books N-Grams and WikiText.
+
+Keymaps are used by the TypoAdvanced distance measure to represent different
+international keyboards for different platforms.
+
+The four functions in this module are:
+
+- package_path
+- list_available_packages
+- list_installed_packages
+- download_package
+
+``package_path`` identifies where a given package is located on the system.
+
+``list_available_packages`` lists all packages available in the package
+repository (on GitHub). It requires an active internet connection.
+
+``list_installed_packages`` lists all packages currently installed on the
+system.
+
+``download_package`` downloads a single package or a collection of packages
+from the package repository. It requires an active internet connection.
+
+To install all corpora, you can call ``download_package('qgram_corpora')``. To
+install all keymaps, you can call ``download_package('keymaps')``. And to
+install all packages, you can call ``download_package('all')``.
+
+
+----
+
 """
 
 from ._data import (
