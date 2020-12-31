@@ -406,7 +406,7 @@ class TypoAdvanced(_Distance):
                 return frozenset(modifiers.split('+'))
 
         keymap_dict = {
-            _modifiers_fix(mod): map for mod, map in keymap_int.items()
+            _modifiers_fix(mod): kmap for mod, kmap in keymap_int.items()
         }
         for mod in keymap_dict:
             keymap_dict[mod] = {

@@ -198,13 +198,13 @@ class QSkipgrams(_Tokenizer):
                 self._string_ss = string
 
             combs = list(combinations(enumerate(string), qval_i))
-            self._ordered_tokens += [''.join(l[1] for l in t) for t in combs]
+            self._ordered_tokens += [''.join(lt[1] for lt in t) for t in combs]
 
             if self._scaler == 'SSK':
                 self._ordered_weights += [
                     sum(
-                        l ** (t[-1][0] - t[0][0] + len(t) - 1)
-                        for l in self._lambda
+                        lt ** (t[-1][0] - t[0][0] + len(t) - 1)
+                        for lt in self._lambda
                     )
                     for t in combs
                 ]
