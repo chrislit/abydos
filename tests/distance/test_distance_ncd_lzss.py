@@ -48,10 +48,10 @@ class NCDlzssTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.dist('abc', 'abc'), 0.0)
         self.assertEqual(self.cmp.dist('abcd', 'efgh'), 0.8)
 
-        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 0.8333333333)
-        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 0.8333333333)
-        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 0.8333333333)
-        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 0.8333333333)
+        self.assertAlmostEqual(self.cmp.dist('Nigel', 'Niall'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Niall', 'Nigel'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Colin', 'Coiln'), 1.0)
+        self.assertAlmostEqual(self.cmp.dist('Coiln', 'Colin'), 1.0)
         self.assertAlmostEqual(self.cmp.dist('ATCAACGAGT', 'AACGATTAG'), 0.5)
 
     def test_ncd_lzss_sim(self):
@@ -70,10 +70,10 @@ class NCDlzssTestCases(unittest.TestCase):
         self.assertEqual(self.cmp.sim('abc', 'abc'), 1.0)
         self.assertEqual(self.cmp.sim('abcd', 'efgh'), 0.19999999999999996)
 
-        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.1666666667)
-        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.1666666667)
-        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.1666666667)
-        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.1666666667)
+        self.assertAlmostEqual(self.cmp.sim('Nigel', 'Niall'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Niall', 'Nigel'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Colin', 'Coiln'), 0.0)
+        self.assertAlmostEqual(self.cmp.sim('Coiln', 'Colin'), 0.0)
         self.assertAlmostEqual(self.cmp.sim('ATCAACGAGT', 'AACGATTAG'), 0.5)
 
 

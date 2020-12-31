@@ -81,10 +81,10 @@ class NCDlzss(_Distance):
             return 0.0
 
         if lzss is not None:
-            src_comp = lzss.encode(src)
-            tar_comp = lzss.encode(tar)
-            concat_comp = lzss.encode(src + tar)
-            concat_comp2 = lzss.encode(tar + src)
+            src_comp = lzss.compress(src)
+            tar_comp = lzss.compress(tar)
+            concat_comp = lzss.compress(src + tar)
+            concat_comp2 = lzss.compress(tar + src)
         else:  # pragma: no cover
             raise ValueError('Install the PyLZSS module in order to use LZSS')
 
