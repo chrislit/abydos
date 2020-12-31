@@ -19,7 +19,7 @@
 Q-Skipgrams multi-set class
 """
 
-from collections import Iterable
+from collections.abc import Iterable
 from itertools import combinations
 from typing import Callable, Iterable as TIterable, Optional, Union
 

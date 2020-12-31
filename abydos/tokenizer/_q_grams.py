@@ -19,7 +19,7 @@
 QGrams multi-set class
 """
 
-from collections import Iterable
+from collections.abc import Iterable
 from typing import Callable, Iterable as TIterable, Optional, Union
 
 from ._tokenizer import _Tokenizer
