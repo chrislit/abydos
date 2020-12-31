@@ -197,10 +197,15 @@ class HenryEarly(_Phonetic):
             # IId
             elif char == 'H' and prev in self._uc_c_set:
                 continue
-            elif char in self._uc_c_set - {
-                'L',
-                'R',
-            } and nxch in self._uc_c_set - {'L', 'R'}:
+            elif (
+                char
+                in self._uc_c_set
+                - {
+                    'L',
+                    'R',
+                }
+                and nxch in self._uc_c_set - {'L', 'R'}
+            ):
                 continue
             elif char == 'L' and nxch in {'M', 'N'}:
                 continue
