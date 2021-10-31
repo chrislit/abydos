@@ -103,7 +103,8 @@ class DaitchMokotoffTestCases(unittest.TestCase):
             '68',
         )
         self.assertEqual(
-            DaitchMokotoff(max_length=0, zero_pad=False).encode('Niall'), '68',
+            DaitchMokotoff(max_length=0, zero_pad=False).encode('Niall'),
+            '68',
         )
         self.assertEqual(
             DaitchMokotoff(max_length=0, zero_pad=True).encode('Niall'),

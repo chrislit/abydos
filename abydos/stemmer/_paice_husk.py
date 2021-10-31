@@ -240,9 +240,12 @@ class PaiceHusk(_Stemmer):
                 if word[-n:] in self._rule_table[n]:
                     accept = False
                     for rule in self._rule_table[n][word[-n:]]:
-                        (word, accept, intact, terminate,) = self._apply_rule(
-                            word, rule, intact, terminate
-                        )
+                        (
+                            word,
+                            accept,
+                            intact,
+                            terminate,
+                        ) = self._apply_rule(word, rule, intact, terminate)
                         if accept:
                             break
 

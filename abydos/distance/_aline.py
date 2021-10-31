@@ -1459,7 +1459,10 @@ class ALINE(_Distance):
                 ):
                     loc_out = deepcopy(out)
                     loc_out.append(
-                        (src_tok[i - 1], tar_tok[j - 2] + tar_tok[j - 1],)
+                        (
+                            src_tok[i - 1],
+                            tar_tok[j - 2] + tar_tok[j - 1],
+                        )
                     )
                     _retrieve(
                         i - 1,
@@ -1500,7 +1503,10 @@ class ALINE(_Distance):
                 ):
                     loc_out = deepcopy(out)
                     loc_out.append(
-                        (src_tok[i - 2] + src_tok[i - 1], tar_tok[j - 1],)
+                        (
+                            src_tok[i - 2] + src_tok[i - 1],
+                            tar_tok[j - 1],
+                        )
                     )
                     _retrieve(
                         i - 2,
