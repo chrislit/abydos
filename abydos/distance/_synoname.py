@@ -740,13 +740,15 @@ class Synoname(_Distance):
                         (
                             initial_diff
                             == self._lev.dist_abs(
-                                src_initials_str, tar_initials_str,
+                                src_initials_str,
+                                tar_initials_str,
                             )
                         )
                         or (
                             initial_diff
                             == self._lev.dist_abs(
-                                src_initials_str, tar_initials_str,
+                                src_initials_str,
+                                tar_initials_str,
                             )
                         )
                     ):

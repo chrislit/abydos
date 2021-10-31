@@ -26,11 +26,10 @@ from ._tokenizer import _Tokenizer
 try:
     from nltk.tokenize import LegalitySyllableTokenizer
     from nltk.tokenize.legality_principle import find_legal_onsets
-    from syllabipy.legalipy import getOnsets as find_legal_onsets  # noqa: N813
 except ImportError:  # pragma: no cover
     # If the system lacks the SyllabiPy library, that's fine, but SyllabiPy
     # tokenization won't be supported.
-    LegaliPy = None  # type: ignore
+    LegalitySyllableTokenizer = None  # type: ignore
     find_legal_onsets = None  # type: ignore
 
 
@@ -41,7 +40,8 @@ class LegaliPyTokenizer(_Tokenizer):
     """
 
     def __init__(
-        self, scaler: Optional[Union[str, Callable[[float], float]]] = None,
+        self,
+        scaler: Optional[Union[str, Callable[[float], float]]] = None,
     ) -> None:
         """Initialize Tokenizer.
 
@@ -66,7 +66,7 @@ class LegaliPyTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        if LegaliPy is None:
+        if LegalitySyllableTokenizer is None:
             raise TypeError(  # pragma: no cover
                 'LegaliPy tokenizer requires installation of SyllabiPy'
                 + ' package.'
