@@ -24,13 +24,14 @@ from typing import Callable, Optional, Union
 from ._tokenizer import _Tokenizer
 
 try:
-    from syllabipy.legalipy import LegaliPy
-    from syllabipy.legalipy import getOnsets as gen_onsets  # noqa: N813
+    from nltk.tokenize import LegalitySyllableTokenizer
+    from nltk.tokenize.legality_principle import find_legal_onsets
+    from syllabipy.legalipy import getOnsets as find_legal_onsets  # noqa: N813
 except ImportError:  # pragma: no cover
     # If the system lacks the SyllabiPy library, that's fine, but SyllabiPy
     # tokenization won't be supported.
     LegaliPy = None  # type: ignore
-    gen_onsets = None  # type: ignore
+    find_legal_onsets = None  # type: ignore
 
 
 class LegaliPyTokenizer(_Tokenizer):
@@ -70,7 +71,6 @@ class LegaliPyTokenizer(_Tokenizer):
                 'LegaliPy tokenizer requires installation of SyllabiPy'
                 + ' package.'
             )
-
         super(LegaliPyTokenizer, self).__init__(scaler)
 
         self._onsets = ['']
@@ -99,7 +99,7 @@ class LegaliPyTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        new_onsets = gen_onsets(text, threshold, clean)
+        new_onsets = self.tokenizer.legal_onsets
         if append:
             self._onsets = list(set(self._onsets + new_onsets))
         else:
@@ -132,8 +132,10 @@ class LegaliPyTokenizer(_Tokenizer):
         self._string = string
 
         self._ordered_tokens = []
-        for word in string.split():
-            self._ordered_tokens += LegaliPy(word, self._onsets)
+        words = string.split()
+        self.tokenizer = LegalitySyllableTokenizer(words)
+        for word in words:
+            self._ordered_tokens += self.tokenizer.tokenize(word, self._onsets)
         if not self._ordered_tokens:
             self._ordered_tokens = [self._string]
 
