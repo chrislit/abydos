@@ -158,6 +158,7 @@ latex_documents = [
     )
 ]
 
+bibtex_bibfiles = ["abydos.bib"]
 
 # -- Options for manual page output ---------------------------------------
 
