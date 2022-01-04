@@ -9,10 +9,6 @@ jobs:
 
   strategy:
     matrix:
-      Python35Linux:
-        python.version: '3.5'
-        imageName: 'ubuntu-latest'
-        architecture: 'x64'
       Python36Linux:
         python.version: '3.6'
         imageName: 'ubuntu-latest'
@@ -24,10 +20,6 @@ jobs:
       Python38Linux:
         python.version: '3.8'
         imageName: 'ubuntu-latest'
-        architecture: 'x64'
-      Python35Windows:
-        python.version: '3.5'
-        imageName: 'windows-latest'
         architecture: 'x64'
       Python36Windows:
         python.version: '3.6'
@@ -41,10 +33,6 @@ jobs:
         python.version: '3.8'
         imageName: 'windows-latest'
         architecture: 'x64'
-      Python35Windowsx86:
-        python.version: '3.5'
-        imageName: 'windows-latest'
-        architecture: 'x86'
       Python36Windowsx86:
         python.version: '3.6'
         imageName: 'windows-latest'
@@ -57,10 +45,6 @@ jobs:
         python.version: '3.8'
         imageName: 'windows-latest'
         architecture: 'x86'
-      Python35MacOS:
-        python.version: '3.5'
-        imageName: 'macOS-latest'
-        architecture: 'x64'
       Python36MacOS:
         python.version: '3.6'
         imageName: 'macOS-latest'

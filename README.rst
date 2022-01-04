@@ -312,7 +312,7 @@ To install from `conda-forge <https://anaconda.org/conda-forge/abydos>`_::
 
    conda install abydos
 
-It should run on Python 3.5-3.8.
+It should run on Python 3.6-3.10.
 
 Testing & Contributing
 ======================
