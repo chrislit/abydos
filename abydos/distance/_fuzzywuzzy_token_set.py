@@ -66,7 +66,7 @@ class FuzzyWuzzyTokenSet(_TokenDistance):
         """
         if tokenizer is None:
             tokenizer = RegexpTokenizer()
-        super(FuzzyWuzzyTokenSet, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src: str, tar: str) -> float:
         """Return the FuzzyWuzzy Token Set similarity of two strings.

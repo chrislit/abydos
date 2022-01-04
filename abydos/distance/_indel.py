@@ -48,7 +48,7 @@ class Indel(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
-        super(Indel, self).__init__(
+        super().__init__(
             mode='lev', cost=(1, 1, float('inf'), float('inf')), **kwargs
         )
 

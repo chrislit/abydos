@@ -92,7 +92,7 @@ class BLEU(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(BLEU, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._tokenizers = (
             [QGrams(qval=n, start_stop='') for n in range(n_min, n_max + 1)]
             if tokenizers is None

@@ -78,7 +78,7 @@ class Hassanat(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Hassanat, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Hassanat distance of two strings.

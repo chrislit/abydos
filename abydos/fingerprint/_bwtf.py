@@ -46,7 +46,7 @@ class BWTF(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        super(BWTF, self).__init__()
+        super().__init__()
         self._bwt = _BWT(terminator)
 
     def fingerprint(self, word: str) -> str:

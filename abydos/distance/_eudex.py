@@ -138,7 +138,7 @@ class Eudex(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Eudex, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._weights = weights
         self._max_length = max_length
         self._phonetic_alg = EudexPhonetic(max_length=max_length)

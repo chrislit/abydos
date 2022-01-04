@@ -54,7 +54,7 @@ class BISIM(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(BISIM, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._qval = qval
 
     def sim(self, src: str, tar: str) -> float:

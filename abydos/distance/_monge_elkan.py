@@ -108,7 +108,7 @@ class MongeElkan(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(MongeElkan, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         if isinstance(sim_func, _Distance):
             self._sim_func = sim_func.sim  # type: Callable[[str, str], float]
         elif sim_func is None:

@@ -147,7 +147,7 @@ class Typo(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Typo, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._metric = metric
         self._cost = cost
         self._layout = layout

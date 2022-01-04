@@ -56,7 +56,7 @@ class Extract(_Fingerprint):
             'EARNLOISTHDMCBGUWYJKPFVZXQ',
         ]
 
-        super(Extract, self).__init__()
+        super().__init__()
         if isinstance(letter_list, int) and 1 <= letter_list <= 4:
             self._letter_list = list(letter_lists[letter_list - 1])
         elif hasattr(letter_list, '__iter__'):

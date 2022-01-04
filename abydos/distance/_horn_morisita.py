@@ -67,7 +67,7 @@ class HornMorisita(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
-        super(HornMorisita, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def sim(self, src: str, tar: str) -> float:
         """Return the Horn-Morisita similarity of two strings.

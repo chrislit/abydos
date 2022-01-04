@@ -85,7 +85,7 @@ class Editex(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Editex, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._cost = cost
         self._local = local
         self._taper_enabled = taper

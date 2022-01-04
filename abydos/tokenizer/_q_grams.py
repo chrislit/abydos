@@ -124,7 +124,7 @@ class QGrams(_Tokenizer):
         """
         if qval == 0:
             raise ValueError('Use WhitespaceTokenizer instead of qval=0.')
-        super(QGrams, self).__init__(scaler)
+        super().__init__(scaler)
 
         # Save parameters
         self.qval = qval

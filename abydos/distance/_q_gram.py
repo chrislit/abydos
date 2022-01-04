@@ -106,7 +106,7 @@ class QGram(_TokenDistance):
                 qval = 2
             tokenizer = QGramTokenizer(qval=qval, start_stop='')
 
-        super(QGram, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 

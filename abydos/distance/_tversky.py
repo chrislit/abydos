@@ -110,7 +110,7 @@ class Tversky(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Tversky, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
         self.set_params(alpha=alpha, beta=beta, bias=bias)

@@ -146,7 +146,7 @@ class NeedlemanWunsch(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(NeedlemanWunsch, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._gap_cost = gap_cost
         self._sim_func = cast(
             Callable[[str, str], float],

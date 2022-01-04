@@ -100,7 +100,7 @@ class PhoneticDistance(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        super(PhoneticDistance, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.transforms = []  # type: List[Callable[[str], str]]
         if transforms:
             if isinstance(transforms, Sequence):

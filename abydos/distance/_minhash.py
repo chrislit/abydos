@@ -77,7 +77,7 @@ class MinHash(_Distance):
         """
         self._k = k
         self._seed = seed
-        super(MinHash, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
         qval = 2 if 'qval' not in self.params else self.params['qval']
         self.params['tokenizer'] = (

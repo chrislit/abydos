@@ -47,7 +47,7 @@ class BWTRLEF(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        super(BWTRLEF, self).__init__()
+        super().__init__()
         self._bwt = _BWT(terminator)
         self._rle = _RLE()
 

@@ -91,7 +91,7 @@ class Sift4Extended(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Sift4Extended, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._max_offset = max_offset
         self._max_distance = max_distance
 

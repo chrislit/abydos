@@ -61,7 +61,7 @@ class SmithWaterman(NeedlemanWunsch):
         .. versionadded:: 0.4.0
 
         """
-        super(SmithWaterman, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._gap_cost = gap_cost
         self._sim_func = cast(
             Callable[[str, str], float],

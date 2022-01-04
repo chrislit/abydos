@@ -60,7 +60,7 @@ class MLIPNS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(MLIPNS, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._threshold = threshold
         self._max_mismatches = max_mismatches
 

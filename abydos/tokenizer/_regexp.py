@@ -68,7 +68,7 @@ class RegexpTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(RegexpTokenizer, self).__init__(scaler)
+        super().__init__(scaler)
 
         # Save parameters
         self._regexp = re.compile(regexp, flags)

@@ -61,7 +61,7 @@ class QGram(_Fingerprint):
         .. versionadded:: 0.4.0
 
         """
-        super(QGram, self).__init__()
+        super().__init__()
         self._tokenizer = QGrams(qval, start_stop, skip)
         self._joiner = joiner
 

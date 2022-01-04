@@ -66,7 +66,7 @@ class FuzzyWuzzyTokenSort(_TokenDistance):
         """
         if tokenizer is None:
             tokenizer = RegexpTokenizer()
-        super(FuzzyWuzzyTokenSort, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, **kwargs
         )
 

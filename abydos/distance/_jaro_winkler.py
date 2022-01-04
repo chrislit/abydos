@@ -86,7 +86,7 @@ class JaroWinkler(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(JaroWinkler, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._qval = qval
         self._mode = mode
         self._long_strings = long_strings

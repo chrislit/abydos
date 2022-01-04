@@ -72,7 +72,7 @@ class LegaliPyTokenizer(_Tokenizer):
                 + ' package.'
             )
 
-        super(LegaliPyTokenizer, self).__init__(scaler)
+        super().__init__(scaler)
 
         self._onsets = ['']
 

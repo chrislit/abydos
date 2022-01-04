@@ -54,7 +54,7 @@ class CharacterTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(CharacterTokenizer, self).__init__(scaler)
+        super().__init__(scaler)
 
     def tokenize(self, string: str) -> 'CharacterTokenizer':
         """Tokenize the term and store it.

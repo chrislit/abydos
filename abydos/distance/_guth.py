@@ -68,7 +68,7 @@ class Guth(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        super(Guth, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         self.params['tokenizer'] = tokenizer
         if 'qval' in self.params:

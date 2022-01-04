@@ -102,7 +102,7 @@ class GilbertWells(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(GilbertWells, self).__init__(
+        super().__init__(
             alphabet=alphabet, tokenizer=tokenizer, **kwargs
         )
 

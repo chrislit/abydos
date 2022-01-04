@@ -65,7 +65,7 @@ class Whittaker(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Whittaker, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src: str, tar: str) -> float:
         """Return the Whittaker distance of two strings.

@@ -89,7 +89,7 @@ class MetaLevenshtein(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(MetaLevenshtein, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._corpus = corpus
         self._metric = JaroWinkler() if metric is None else metric
         self._normalizer = normalizer

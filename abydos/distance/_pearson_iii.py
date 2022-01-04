@@ -103,7 +103,7 @@ class PearsonIII(PearsonPhi):
         .. versionadded:: 0.4.0
 
         """
-        super(PearsonIII, self).__init__(
+        super().__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -141,7 +141,7 @@ class PearsonIII(PearsonPhi):
         .. versionadded:: 0.4.0
 
         """
-        phi = super(PearsonIII, self).corr(src, tar)
+        phi = super().corr(src, tar)
         return copysign(
             (abs(phi) / (self._population_unique_card() + phi)) ** 0.5, phi
         )

@@ -88,7 +88,7 @@ class Minkowski(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Minkowski, self).__init__(
+        super().__init__(
             tokenizer=tokenizer,
             alphabet=alphabet,
             intersection_type=intersection_type,

@@ -85,7 +85,7 @@ class FlexMetric(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(FlexMetric, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._normalizer = normalizer
 
         def _get_second(

@@ -102,7 +102,7 @@ class Dice(Tversky):
         .. versionadded:: 0.4.0
 
         """
-        super(Dice, self).__init__(
+        super().__init__(
             alpha=0.5,
             beta=0.5,
             bias=None,
@@ -144,7 +144,7 @@ class Dice(Tversky):
             Encapsulated in class
 
         """
-        return super(Dice, self).sim(src, tar)
+        return super().sim(src, tar)
 
 
 if __name__ == '__main__':

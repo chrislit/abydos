@@ -101,7 +101,7 @@ class SoftTFIDF(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(SoftTFIDF, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
         self._corpus = corpus
         self._threshold = threshold
         self._metric = JaroWinkler() if metric is None else metric

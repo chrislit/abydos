@@ -54,7 +54,7 @@ class LCCutter(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        super(LCCutter, self).__init__()
+        super().__init__()
         # Require a max_length of at least 2 and not more than 64
         if max_length != -1:
             self._max_length = min(max(2, max_length), 64)

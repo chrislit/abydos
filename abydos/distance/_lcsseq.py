@@ -58,7 +58,7 @@ class LCSseq(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(LCSseq, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._normalizer = normalizer
 
     def lcsseq(self, src: str, tar: str) -> str:

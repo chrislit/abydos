@@ -65,7 +65,7 @@ class Bhattacharyya(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Bhattacharyya, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Bhattacharyya distance of two strings.

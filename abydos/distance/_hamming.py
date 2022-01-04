@@ -57,7 +57,7 @@ class Hamming(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Hamming, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._diff_lens = diff_lens
 
     def dist_abs(self, src: str, tar: str) -> float:

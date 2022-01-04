@@ -59,7 +59,7 @@ class RougeW(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(RougeW, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
         if f_func is not None:
             self._f_func = f_func  # type: Callable[[float], float]

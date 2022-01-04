@@ -78,7 +78,7 @@ class Covington(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Covington, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._weights = weights
         self._vowels = set('aeiou')
         self._consonants = set('bcdfghjklmnpqrstvxz')

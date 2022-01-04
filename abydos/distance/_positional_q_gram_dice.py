@@ -65,7 +65,7 @@ class PositionalQGramDice(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(PositionalQGramDice, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, **kwargs
         )
         self._max_dist = max_dist

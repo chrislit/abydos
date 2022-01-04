@@ -61,7 +61,7 @@ class NLTKTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(NLTKTokenizer, self).__init__(scaler)
+        super().__init__(scaler)
 
         if (
             hasattr(nltk_tokenizer, 'tokenize')

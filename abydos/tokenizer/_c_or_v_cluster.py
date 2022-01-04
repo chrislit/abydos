@@ -73,7 +73,7 @@ class COrVClusterTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(COrVClusterTokenizer, self).__init__(scaler=scaler)
+        super().__init__(scaler=scaler)
         if consonants:
             self._consonants = consonants
         else:

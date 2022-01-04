@@ -82,7 +82,7 @@ class TFIDF(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(TFIDF, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
         self._corpus = corpus
 
     def sim(self, src: str, tar: str) -> float:

@@ -487,7 +487,7 @@ class Synoname(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Synoname, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._word_approx_min = word_approx_min
         self._char_approx_min = char_approx_min
         self._ret_name = ret_name

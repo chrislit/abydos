@@ -87,7 +87,7 @@ class UnknownG(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(UnknownG, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 

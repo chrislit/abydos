@@ -100,7 +100,7 @@ class PhoneticEditDistance(Levenshtein):
         .. versionadded:: 0.4.1
 
         """
-        super(PhoneticEditDistance, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._mode = mode
         self._cost = cost
         self._normalizer = normalizer

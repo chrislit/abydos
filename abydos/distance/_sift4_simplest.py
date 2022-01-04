@@ -49,7 +49,7 @@ class Sift4Simplest(Sift4):
         .. versionadded:: 0.4.0
 
         """
-        super(Sift4Simplest, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._max_offset = max_offset
 
     def dist_abs(self, src: str, tar: str) -> float:

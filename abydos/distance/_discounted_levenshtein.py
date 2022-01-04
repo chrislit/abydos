@@ -97,7 +97,7 @@ class DiscountedLevenshtein(Levenshtein):
         .. versionadded:: 0.4.1
 
         """
-        super(DiscountedLevenshtein, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._mode = mode
         self._normalizer = normalizer
         self._discount_from = discount_from

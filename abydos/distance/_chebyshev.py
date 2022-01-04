@@ -85,7 +85,7 @@ class Chebyshev(Minkowski):
         .. versionadded:: 0.4.0
 
         """
-        super(Chebyshev, self).__init__(
+        super().__init__(
             pval=float('inf'),
             alphabet=alphabet,
             tokenizer=tokenizer,
@@ -132,7 +132,7 @@ class Chebyshev(Minkowski):
             Encapsulated in class
 
         """
-        return super(Chebyshev, self).dist_abs(src, tar, False)
+        return super().dist_abs(src, tar, False)
 
     def sim(self, *args: Any, **kwargs: Any) -> NoReturn:
         """Raise exception when called.

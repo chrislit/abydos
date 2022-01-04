@@ -95,7 +95,7 @@ class WeightedJaccard(_TokenDistance):
 
         """
         self.weight = weight
-        super(WeightedJaccard, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 

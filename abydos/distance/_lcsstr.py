@@ -55,7 +55,7 @@ class LCSstr(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(LCSstr, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._normalizer = normalizer
 
     def lcsstr(self, src: str, tar: str) -> str:

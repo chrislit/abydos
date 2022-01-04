@@ -77,7 +77,7 @@ class Manhattan(Minkowski):
         .. versionadded:: 0.4.0
 
         """
-        super(Manhattan, self).__init__(
+        super().__init__(
             pval=1,
             alphabet=alphabet,
             tokenizer=tokenizer,
@@ -120,7 +120,7 @@ class Manhattan(Minkowski):
             Encapsulated in class
 
         """
-        return super(Manhattan, self).dist_abs(src, tar, normalized=normalized)
+        return super().dist_abs(src, tar, normalized=normalized)
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized Manhattan distance between two strings.

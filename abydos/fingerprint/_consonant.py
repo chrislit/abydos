@@ -65,7 +65,7 @@ class Consonant(_Fingerprint):
         .. versionadded:: 0.4.1
 
         """
-        super(Consonant, self).__init__()
+        super().__init__()
         self._doubles = doubles
 
         if vowels is None:

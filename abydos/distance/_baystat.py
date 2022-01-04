@@ -65,7 +65,7 @@ class Baystat(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Baystat, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._min_ss_len = min_ss_len
         self._left_ext = left_ext
         self._right_ext = right_ext

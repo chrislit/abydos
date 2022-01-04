@@ -64,7 +64,7 @@ class Morisita(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
-        super(Morisita, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def sim_score(self, src: str, tar: str) -> float:
         """Return the Morisita similarity of two strings.

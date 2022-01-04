@@ -77,7 +77,7 @@ class Bag(_TokenDistance):
         """
         if tokenizer is None:
             tokenizer = CharacterTokenizer()
-        super(Bag, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, intersection_type=intersection_type, **kwargs
         )
 

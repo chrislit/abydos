@@ -66,7 +66,7 @@ class QuantitativeJaccard(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(QuantitativeJaccard, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, **kwargs
         )
 

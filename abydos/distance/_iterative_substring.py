@@ -59,7 +59,7 @@ class IterativeSubString(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(IterativeSubString, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._normalize_strings = normalize_strings
         self._hamacher = hamacher
 

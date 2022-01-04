@@ -65,7 +65,7 @@ class BrainerdRobinson(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BrainerdRobinson, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def sim_score(self, src: str, tar: str) -> float:
         """Return the Brainerd-Robinson similarity of two strings.

@@ -71,7 +71,7 @@ class AverageLinkage(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(AverageLinkage, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
         self._metric = cast(_Distance, metric)
         if metric is None:
             self._metric = Levenshtein()

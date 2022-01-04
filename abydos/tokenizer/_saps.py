@@ -59,7 +59,7 @@ class SAPSTokenizer(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(SAPSTokenizer, self).__init__(scaler)
+        super().__init__(scaler)
 
     def tokenize(self, string: str) -> 'SAPSTokenizer':
         """Tokenize the term and store it.

@@ -66,7 +66,7 @@ class DamerauLevenshtein(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(DamerauLevenshtein, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._cost = cost
         self._normalizer = normalizer
 

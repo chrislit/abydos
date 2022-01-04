@@ -101,7 +101,7 @@ class Strcmp95(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Strcmp95, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._long_strings = long_strings
 
     def sim(self, src: str, tar: str) -> float:

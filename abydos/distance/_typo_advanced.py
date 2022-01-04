@@ -452,7 +452,7 @@ class TypoAdvanced(_Distance):
         .. versionadded:: 0.6.0
 
         """
-        super(TypoAdvanced, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._metric = metric
         self._cost = cost
         self._layout = layout

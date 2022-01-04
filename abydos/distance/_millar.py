@@ -55,7 +55,7 @@ class Millar(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
-        super(Millar, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return Millar's binomial deviance dissimilarity of two strings.

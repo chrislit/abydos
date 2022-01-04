@@ -61,7 +61,7 @@ class Phonetic(String):
         .. versionadded:: 0.4.0
 
         """
-        super(Phonetic, self).__init__()
+        super().__init__()
         if isinstance(phonetic_algorithm, _Phonetic):
             phonetic_algorithm = phonetic_algorithm.encode
         self._phonetic_algorithm = (
@@ -106,7 +106,7 @@ class Phonetic(String):
             self._phonetic_algorithm(word).split(',')[0]
             for word in phrase.split()
         )
-        return super(Phonetic, self).fingerprint(phonetic)
+        return super().fingerprint(phonetic)
 
 
 if __name__ == '__main__':

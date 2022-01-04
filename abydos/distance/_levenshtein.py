@@ -96,7 +96,7 @@ class Levenshtein(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Levenshtein, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._mode = mode
         self._cost = cost
         self._normalizer = normalizer

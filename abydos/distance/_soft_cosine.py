@@ -108,7 +108,7 @@ class SoftCosine(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(SoftCosine, self).__init__(tokenizer, **kwargs)
+        super().__init__(tokenizer, **kwargs)
         self.params['metric'] = metric if metric is not None else Levenshtein()
         if sim_method not in {'a', 'b', 'c', 'd'}:
             raise ValueError("sim_method must be one of 'a', 'b', 'c', or 'd'")

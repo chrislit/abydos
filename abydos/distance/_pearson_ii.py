@@ -101,7 +101,7 @@ class PearsonII(PearsonChiSquared):
         .. versionadded:: 0.4.0
 
         """
-        super(PearsonII, self).__init__(
+        super().__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,
@@ -141,7 +141,7 @@ class PearsonII(PearsonChiSquared):
         """
         if src == tar:
             return 2 ** 0.5 / 2
-        chi2 = super(PearsonII, self).sim_score(src, tar)
+        chi2 = super().sim_score(src, tar)
         return (chi2 / (self._population_unique_card() + chi2)) ** 0.5
 
     def sim(self, src: str, tar: str) -> float:

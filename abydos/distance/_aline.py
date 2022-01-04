@@ -1216,7 +1216,7 @@ class ALINE(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(ALINE, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._epsilon = epsilon
         self._c_skip = c_skip
         self._c_sub = c_sub

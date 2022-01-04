@@ -48,7 +48,7 @@ class RougeS(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(RougeS, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._qval = qval
         self._tokenizer = QSkipgrams(qval=qval, start_stop='')
 

@@ -62,7 +62,7 @@ class Gotoh(NeedlemanWunsch):
         .. versionadded:: 0.4.0
 
         """
-        super(Gotoh, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._gap_open = gap_open
         self._gap_ext = gap_ext
         self._sim_func = cast(

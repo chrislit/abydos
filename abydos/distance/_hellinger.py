@@ -64,7 +64,7 @@ class Hellinger(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(Hellinger, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Hellinger distance of two strings.

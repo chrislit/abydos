@@ -140,7 +140,7 @@ class QSkipgrams(_Tokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super(QSkipgrams, self).__init__(scaler)
+        super().__init__(scaler)
 
         # Save parameters
         self.qval = qval

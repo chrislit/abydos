@@ -59,7 +59,7 @@ class YujianBo(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
-        super(YujianBo, self).__init__(cost=cost, **kwargs)
+        super().__init__(cost=cost, **kwargs)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Yujian-Bo normalized edit distance between two strings.
@@ -129,7 +129,7 @@ class YujianBo(Levenshtein):
             return 0.0
 
         ins_cost, del_cost = self._cost[:2]
-        gld = super(YujianBo, self).dist_abs(src, tar)
+        gld = super().dist_abs(src, tar)
         return 2 * gld / (len(src) * del_cost + len(tar) * ins_cost + gld)
 
 

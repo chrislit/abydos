@@ -67,7 +67,7 @@ class SSK(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
-        super(SSK, self).__init__(
+        super().__init__(
             tokenizer=tokenizer, ssk_lambda=ssk_lambda, **kwargs
         )
 

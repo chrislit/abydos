@@ -67,7 +67,7 @@ class Tichy(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(Tichy, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._cost = cost
 
     def dist_abs(self, src: str, tar: str) -> float:

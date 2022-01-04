@@ -56,7 +56,7 @@ class NCDarith(_Distance):
             Encapsulated in class
 
         """
-        super(NCDarith, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._coder = Arithmetic()
         self._probs = probs
 

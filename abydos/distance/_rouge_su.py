@@ -47,7 +47,7 @@ class RougeSU(RougeS):
         .. versionadded:: 0.4.0
 
         """
-        super(RougeSU, self).__init__(qval=qval, **kwargs)
+        super().__init__(qval=qval, **kwargs)
 
     def sim(self, src: str, tar: str, beta: float = 8) -> float:
         """Return the Rouge-SU similarity of two strings.
@@ -82,7 +82,7 @@ class RougeSU(RougeS):
         .. versionadded:: 0.4.0
 
         """
-        return super(RougeSU, self).sim(
+        return super().sim(
             '$' * (self._qval - 1) + src, '$' * (self._qval - 1) + tar, beta
         )
 

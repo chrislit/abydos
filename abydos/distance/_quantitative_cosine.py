@@ -65,7 +65,7 @@ class QuantitativeCosine(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(QuantitativeCosine, self).__init__(tokenizer=tokenizer, **kwargs)
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src: str, tar: str) -> float:
         """Return the Quantitative Cosine similarity of two strings.

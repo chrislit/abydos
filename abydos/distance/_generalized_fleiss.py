@@ -224,7 +224,7 @@ class GeneralizedFleiss(_TokenDistance):
         self._marginals = marginals
         self._proportional = proportional
 
-        super(GeneralizedFleiss, self).__init__(
+        super().__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,

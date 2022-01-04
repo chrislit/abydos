@@ -78,7 +78,7 @@ class ShapiraStorerI(_Distance):
         """
         self._cost = cost
         self._prime = prime
-        super(ShapiraStorerI, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Shapira & Storer I edit distance between two strings.

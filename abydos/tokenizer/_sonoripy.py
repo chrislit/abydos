@@ -70,7 +70,7 @@ class SonoriPyTokenizer(_Tokenizer):
                 + ' package.'
             )
 
-        super(SonoriPyTokenizer, self).__init__(scaler)
+        super().__init__(scaler)
 
     def tokenize(self, string: str) -> 'SonoriPyTokenizer':
         """Tokenize the term and store it.

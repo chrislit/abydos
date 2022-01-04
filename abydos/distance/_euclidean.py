@@ -77,7 +77,7 @@ class Euclidean(Minkowski):
         .. versionadded:: 0.4.0
 
         """
-        super(Euclidean, self).__init__(
+        super().__init__(
             pval=2,
             alphabet=alphabet,
             tokenizer=tokenizer,
@@ -121,7 +121,7 @@ class Euclidean(Minkowski):
             Encapsulated in class
 
         """
-        return super(Euclidean, self).dist_abs(src, tar, normalized=normalized)
+        return super().dist_abs(src, tar, normalized=normalized)
 
     def dist(self, src: str, tar: str) -> float:
         """Return the normalized Euclidean distance between two strings.

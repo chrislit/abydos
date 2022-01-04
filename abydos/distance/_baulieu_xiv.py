@@ -95,7 +95,7 @@ class BaulieuXIV(_TokenDistance):
         .. versionadded:: 0.4.0
 
         """
-        super(BaulieuXIV, self).__init__(
+        super().__init__(
             alphabet=alphabet,
             tokenizer=tokenizer,
             intersection_type=intersection_type,

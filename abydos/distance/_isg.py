@@ -67,7 +67,7 @@ class ISG(_Distance):
         .. versionadded:: 0.4.1
 
         """
-        super(ISG, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self._full_guth = full_guth
         self._symmetric = symmetric
 
