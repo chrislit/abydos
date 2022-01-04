@@ -286,22 +286,22 @@ Required libraries:
 Optional libraries (all available on PyPI, some available on conda or
 conda-forge):
 
-- `SyllabiPy <http://syllabipy.com/>`_
+- `SyllabiPy <http://syllabipy.com/>`_ (PyPI only)
 - `NLTK <https://www.nltk.org/>`_
-- `PyLZSS <https://github.com/rumbah/pylzss>`_
-- `paq <https://github.com/observerss/paq>`_
+- `PyLZSS <https://github.com/rumbah/pylzss>`_ (PyPI only, package named lzss)
+- `paq <https://github.com/observerss/paq>`_ (PyPI only)
 
 
 To install Abydos (master) from Github source::
 
    git clone https://github.com/chrislit/abydos.git --recursive
    cd abydos
-   python setup install
+   python setup.py install
 
 If your default python command calls Python 2.7 but you want to install for
 Python 3, you may instead need to call::
 
-   python3 setup install
+   python3 setup.py install
 
 
 To install Abydos (latest release) from PyPI using pip::
