@@ -159,7 +159,7 @@ algorithms = {
     'spanish_metaphone': SpanishMetaphone().encode,
     'spanish_metaphone_modified': SpanishMetaphone(modified=True).encode,
     'spanish_metaphone_ml4': SpanishMetaphone(max_length=4).encode,
-    'spfc': lambda _: spfc.encode('{0} {0}'.format(_)),
+    'spfc': lambda _: spfc.encode(f'{_} {_}'),
     'statistics_canada': StatisticsCanada().encode,
     'statistics_canada_ml8': StatisticsCanada(max_length=8).encode,
     'waahlin': Waahlin().encode,
@@ -199,9 +199,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
                         algorithms[algo](ns)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for BLNS: {}'.format(
-                            inst, algo, ns
-                        )
+                        f'Exception "{inst}" thrown by {algo} for BLNS: {ns}'
                     )
 
 
@@ -228,9 +226,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                         algorithms[algo](word)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, word
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {word}'
                     )
 
     def fuzz_test_20pct(self):
@@ -249,9 +245,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                         algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_100pct(self):
@@ -270,9 +264,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                         algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmp(self):
@@ -292,9 +284,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_letter(self):
@@ -315,9 +305,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_latin(self):
@@ -338,9 +326,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_unicode(self):
@@ -358,9 +344,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
 

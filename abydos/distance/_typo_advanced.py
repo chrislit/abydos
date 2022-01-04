@@ -384,9 +384,7 @@ class TypoAdvanced(_Distance):
         keymap_int = None
         try:
             for package in self._keymap_packages:
-                with open(
-                    join(package_path(package), '{}.json'.format(keymap))
-                ) as fh:
+                with open(join(package_path(package), f'{keymap}.json')) as fh:
                     keymap_int = load(fh)
                     del keymap_int['lang']
         except FileNotFoundError:
@@ -394,9 +392,8 @@ class TypoAdvanced(_Distance):
 
         if keymap_int is None:
             raise FileNotFoundError(
-                'Keymap file {}.json not found. You can'.format(keymap)
-                + ' install keymaps by calling'
-                + " abydos.util.download_package('keymaps')"
+                f'Keymap file {keymap}.json not found. You can install keymaps by calling'
+                f" abydos.util.download_package('keymaps')"
             )
 
         def _modifiers_fix(modifiers: str) -> FrozenSet[str]:
@@ -421,7 +418,7 @@ class TypoAdvanced(_Distance):
         cost: Tuple[float, float, float, float] = (1.0, 1.0, 0.5, 0.5),
         layout: str = '',
         failsafe: bool = False,
-        **kwargs: Any
+        **kwargs: Any,
     ):
         """Initialize TypoAdvanced instance.
 

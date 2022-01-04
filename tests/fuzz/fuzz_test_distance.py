@@ -89,9 +89,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
                     algorithms[algo](ns, ns[: min(1, len(ns) - 2)])
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for BLNS: {} & {}'.format(
-                            inst, algo, ns, ns[: min(1, len(ns) - 1)]
-                        )
+                        f'Exception "{inst}" thrown by {algo} for BLNS: {ns} & {ns[: min(1, len(ns) - 1)]}'
                     )
 
 
@@ -125,9 +123,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](chosen, fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for words: {} & {}'.format(
-                            inst, algo, chosen, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for words: {chosen} & {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_letter(self):
@@ -149,9 +145,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](chosen, fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for words: {} & {}'.format(
-                            inst, algo, chosen, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for words: {chosen} & {fuzzed}'
                     )
 
 

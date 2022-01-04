@@ -47,7 +47,7 @@ class SchinkeTestCases(unittest.TestCase):
                 self.assertEqual(nv['n'], noun)
                 self.assertEqual(nv['v'], verb)
                 nv = self.stmr.stem(word)
-                self.assertEqual(nv, '{},{}'.format(noun, verb))
+                self.equal = self.assertEqual(nv, f'{noun},{verb}')
 
 
 if __name__ == '__main__':

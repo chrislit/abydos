@@ -165,7 +165,7 @@ class Schinke(_Stemmer):
 
         """
         nv = self.stem_dict(word)
-        return '{0},{1}'.format(nv['n'], nv['v'])
+        return f"{nv['n']},{nv['v']}"
 
     def stem_dict(self, word: str) -> Dict[str, str]:
         """Return the stem of a word according to the Schinke stemmer.

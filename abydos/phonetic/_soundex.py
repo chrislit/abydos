@@ -193,15 +193,9 @@ class Soundex(_Phonetic):
             'recurse' not in kwargs or kwargs['recurse'] is not False
         ):
             if word[:3] in {'VAN', 'CON'} and len(word) > 4:
-                return '{0},{1}'.format(
-                    self.encode(word, recurse=False),
-                    self.encode(word[3:], recurse=False),
-                )
+                return f'{self.encode(word, recurse=False)},{self.encode(word[3:], recurse=False)}'
             if word[:2] in {'DE', 'DI', 'LA', 'LE'} and len(word) > 3:
-                return '{0},{1}'.format(
-                    self.encode(word, recurse=False),
-                    self.encode(word[2:], recurse=False),
-                )
+                return f'{self.encode(word, recurse=False)},{self.encode(word[2:], recurse=False)}'
             # Otherwise, proceed as usual (var='American' mode, ostensibly)
 
         word = ''.join(c for c in word if c in self._uc_set)

@@ -105,9 +105,7 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
                     algorithms[algo](ns)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for BLNS: {}'.format(
-                            inst, algo, ns
-                        )
+                        f'Exception "{inst}" thrown by {algo} for BLNS: {ns}'
                     )
 
 
@@ -133,9 +131,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](word)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, word
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {word}'
                     )
 
     def fuzz_test_20pct(self):
@@ -153,9 +149,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_100pct(self):
@@ -173,9 +167,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmp(self):
@@ -195,9 +187,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_letter(self):
@@ -218,9 +208,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_latin(self):
@@ -241,9 +229,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_unicode(self):
@@ -261,9 +247,7 @@ class FuzzedWordsTestCases(unittest.TestCase):
                     algorithms[algo](fuzzed)
                 except Exception as inst:
                     self.fail(
-                        'Exception "{}" thrown by {} for word: {}'.format(
-                            inst, algo, fuzzed
-                        )
+                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
                     )
 
 

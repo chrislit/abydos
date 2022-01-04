@@ -295,22 +295,15 @@ def main(argv):
             if variant < 2:
                 if featint in checkset_f:
                     sys.stdout.write(
-                        'Feature set '
-                        + str(featint)
-                        + ' appears in CSV for two primary IPA '
-                        + 'symbols: '
-                        + symbol
-                        + ' and '
-                        + checkdict[featint]
+                        f'Feature set {str(featint)} appears in CSV for two primary IPA symbols: '
+                        f'{symbol} and {checkdict[featint]}'
                     )
                 else:
                     checkdict[featint] = symbol
                     checkset_f.add(featint)
 
             if variant < 5:
-                oline = "                     '{}': {},".format(
-                    symbol, featint
-                )
+                oline = f"                     '{symbol}': {featint},"
             else:
                 oline = ''
 
@@ -322,7 +315,7 @@ def main(argv):
     mag = len(keyline)
     for i in range(len(keyline)):
         features = int('0b' + ('00' * i) + '11' + ('00' * (mag - i - 1)), 2)
-        oline = "                '{}': {},".format(keyline[i], features)
+        oline = f"                '{keyline[i]}': {features},"
         ofile.write(oline + '\n')
 
     ofile.write('               }\n')

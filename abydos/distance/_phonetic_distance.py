@@ -74,7 +74,7 @@ class PhoneticDistance(_Distance):
         ] = None,
         metric: Optional[Union[Type[_Distance], _Distance]] = None,
         encode_alpha: bool = False,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """Initialize PhoneticDistance instance.
 
@@ -118,9 +118,7 @@ class PhoneticDistance(_Distance):
                 elif callable(trans):
                     continue
                 else:
-                    raise TypeError(
-                        '{} has unknown type {}'.format(trans, type(trans))
-                    )
+                    raise TypeError(f'{trans} has unknown type {type(trans)}')
 
             for trans in transforms:
                 if isinstance(trans, _Phonetic):
@@ -142,9 +140,7 @@ class PhoneticDistance(_Distance):
         elif metric is None:
             self.metric = None
         else:
-            raise TypeError(
-                '{} has unknown type {}'.format(metric, type(metric))
-            )
+            raise TypeError(f'{metric} has unknown type {type(metric)}')
 
     def dist_abs(self, src: str, tar: str) -> float:
         """Return the Phonetic distance.

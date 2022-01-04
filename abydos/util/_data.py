@@ -308,7 +308,7 @@ def download_package(
     for coll in collections:
         if resource_name == coll[0]:
             if not silent:  # pragma: no branch
-                print('Installing {} collection'.format(coll[1]))  # noqa: T001
+                print(f'Installing {coll[1]} collection')  # noqa: T001
             for resource_name in coll[2]:
                 download_package(resource_name, url, data_path)
             return
@@ -320,15 +320,11 @@ def download_package(
                         if pack[0] == inst[0] and pack[2] <= inst[2]:
                             if not silent:
                                 print(  # pragma: no cover  # noqa: T001
-                                    '{} package already up-to-date'.format(
-                                        pack[1]
-                                    )
+                                    f'{pack[1]} package already up-to-date'
                                 )
                             return
                 if not silent:  # pragma: no branch
-                    print(  # noqa: T001
-                        'Installing {} package'.format(pack[1])
-                    )
+                    print(f'Installing {pack[1]} package')  # noqa: T001
                 zip_fn = os.path.join(
                     cast(str, data_path), pack[4], pack[0] + '.zip'
                 )

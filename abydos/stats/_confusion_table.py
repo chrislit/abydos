@@ -223,9 +223,7 @@ class ConfusionTable:
         .. versionadded:: 0.1.0
 
         """
-        return 'tp:{}, tn:{}, fp:{}, fn:{}'.format(
-            self._tp, self._tn, self._fp, self._fn
-        )
+        return f'tp:{self._tp}, tn:{self._tn}, fp:{self._fp}, fn:{self._fn}'
 
     def __repr__(self) -> str:
         """Return representation.
@@ -246,9 +244,7 @@ class ConfusionTable:
         .. versionadded:: 0.4.0
 
         """
-        return 'ConfusionTable(tp={}, tn={}, fp={}, fn={})'.format(
-            self._tp, self._tn, self._fp, self._fn
-        )
+        return f'ConfusionTable(tp={self._tp}, tn={self._tn}, fp={self._fp}, fn={self._fn})'
 
     def to_tuple(self) -> Tuple[float, float, float, float]:
         """Cast to tuple.
