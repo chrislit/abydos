@@ -72,9 +72,7 @@ class WordpunctTokenizer(RegexpTokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super().__init__(
-            scaler, regexp=r'\w+|[^\w\s]+', flags=flags
-        )
+        super().__init__(scaler, regexp=r'\w+|[^\w\s]+', flags=flags)
 
 
 if __name__ == '__main__':

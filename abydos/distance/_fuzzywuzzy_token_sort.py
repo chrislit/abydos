@@ -66,9 +66,7 @@ class FuzzyWuzzyTokenSort(_TokenDistance):
         """
         if tokenizer is None:
             tokenizer = RegexpTokenizer()
-        super().__init__(
-            tokenizer=tokenizer, **kwargs
-        )
+        super().__init__(tokenizer=tokenizer, **kwargs)
 
     def sim(self, src: str, tar: str) -> float:
         """Return the FuzzyWuzzy Token Sort similarity of two strings.

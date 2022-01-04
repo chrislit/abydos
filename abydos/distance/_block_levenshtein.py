@@ -55,9 +55,7 @@ class BlockLevenshtein(Levenshtein):
         .. versionadded:: 0.4.0
 
         """
-        super().__init__(
-            cost=cost, normalizer=normalizer, **kwargs
-        )
+        super().__init__(cost=cost, normalizer=normalizer, **kwargs)
         self.lcs = LCSstr()
 
     def dist_abs(self, src: str, tar: str) -> float:

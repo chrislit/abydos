@@ -67,9 +67,7 @@ class SSK(_TokenDistance):
         .. versionadded:: 0.4.1
 
         """
-        super().__init__(
-            tokenizer=tokenizer, ssk_lambda=ssk_lambda, **kwargs
-        )
+        super().__init__(tokenizer=tokenizer, ssk_lambda=ssk_lambda, **kwargs)
 
         qval = 2 if 'qval' not in self.params else self.params['qval']
         self.params['tokenizer'] = (

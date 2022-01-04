@@ -71,9 +71,7 @@ class WhitespaceTokenizer(RegexpTokenizer):
         .. versionadded:: 0.4.0
 
         """
-        super().__init__(
-            scaler, regexp=r'\S+', flags=flags
-        )
+        super().__init__(scaler, regexp=r'\S+', flags=flags)
 
 
 if __name__ == '__main__':

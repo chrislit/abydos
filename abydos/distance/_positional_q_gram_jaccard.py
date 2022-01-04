@@ -65,9 +65,7 @@ class PositionalQGramJaccard(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super().__init__(
-            tokenizer=tokenizer, **kwargs
-        )
+        super().__init__(tokenizer=tokenizer, **kwargs)
         self._max_dist = max_dist
 
         qval = 2 if 'qval' not in self.params else self.params['qval']

@@ -64,9 +64,7 @@ class Phonix(_Phonetic):
         .. versionadded:: 0.3.6
 
         """
-        self._uc_c_set = (
-            super()._uc_set - super()._uc_v_set
-        )
+        self._uc_c_set = super()._uc_set - super()._uc_v_set
 
         self._substitutions = (
             (3, 'DG', 'G'),

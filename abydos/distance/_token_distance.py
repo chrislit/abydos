@@ -166,9 +166,7 @@ class _TokenDistance(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super().__init__(
-            intersection_type=intersection_type, **kwargs
-        )
+        super().__init__(intersection_type=intersection_type, **kwargs)
 
         qval = 2 if 'qval' not in self.params else self.params['qval']
         self.params['tokenizer'] = (
