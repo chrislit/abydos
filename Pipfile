@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 tox = "*"
 nose = "*"
+pytest = "*"
+pytest-cov = "*"
 coverage = "*"
 nltk = "*"
 syllabipy = "*"

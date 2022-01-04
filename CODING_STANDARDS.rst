@@ -1,7 +1,7 @@
 CODING STANDARDS
 ----------------
 
-- Nosetest will be used for testing.
+- Pytest will be used for testing.
 - Flake8 will be used for best practice conformance.
 - Pydocstyle will be used to ensure documentation style conformance to PEP257
   (for the most part) and NumPy documentation style.
@@ -25,8 +25,8 @@ git pushes
 A git push should be performed only under the following conditions:
 
 - library is syntactically correct (compiling correctly) in both Python 3
-- library passes all tests and doctests according to nosetests in Python 3
-- test coverage is 100% according to nosetests
+- library passes all tests and doctests according to pytest in Python 3
+- test coverage is 100% according to pytest
 - flake8 and pydocstyle should report 0 issues
 - black code styling has been applied
 
