@@ -418,8 +418,8 @@ class SynonameToolcode(_Fingerprint):
                     )
                 ).strip()
 
-        toolcode[4] = '{:02d}'.format(len(fname))
-        toolcode[5] = '{:02d}'.format(len(lname))
+        toolcode[4] = f'{len(fname):02d}'
+        toolcode[5] = f'{len(lname):02d}'
 
         # strip punctuation
         for char in ',/:;"&()!{|}?$%*+<=>[\\]^_`~':
@@ -486,14 +486,14 @@ class SynonameToolcode(_Fingerprint):
                             abbr in fname for abbr in ('i.', 'v.', 'x.')
                         ):
                             full_name = full_name[:loc]
-                            toolcode[7] += '{:03d}'.format(num) + 'a'
+                            toolcode[7] += f'{num:03d}a'
                             if toolcode[3] == '000':
-                                toolcode[3] = '{:03d}'.format(num)
+                                toolcode[3] = f'{num:03d}'
                             if normalize == 2:
                                 fname, lname = roman_check(match, fname, lname)
                     else:
                         full_name = full_name[:loc]
-                        toolcode[7] += '{:03d}'.format(num) + 'a'
+                        toolcode[7] += f'{num:03d}a'
             if method & self._method_dict['middle']:
                 match_context = ' ' + match + ' '
                 loc = 0
@@ -508,9 +508,9 @@ class SynonameToolcode(_Fingerprint):
                                     full_name[:loc]
                                     + full_name[loc + len(match) + 1 :]
                                 )
-                                toolcode[7] += '{:03d}'.format(num) + 'b'
+                                toolcode[7] += f'{num:03d}b'
                                 if toolcode[3] == '000':
-                                    toolcode[3] = '{:03d}'.format(num)
+                                    toolcode[3] = f'{num:03d}'
                                 if normalize == 2:
                                     fname, lname = roman_check(
                                         match, fname, lname
@@ -520,24 +520,24 @@ class SynonameToolcode(_Fingerprint):
                                 full_name[:loc]
                                 + full_name[loc + len(match) + 1 :]
                             )
-                            toolcode[7] += '{:03d}'.format(num) + 'b'
+                            toolcode[7] += f'{num:03d}b'
             if method & self._method_dict['beginning']:
                 match_context = match + ' '
                 loc = full_name.find(match_context)
                 if loc == 0:
                     full_name = full_name[len(match) + 1 :]
-                    toolcode[7] += '{:03d}'.format(num) + 'c'
+                    toolcode[7] += f'{num:03d}c'
             if method & self._method_dict['beginning_no_space']:
                 loc = full_name.find(match)
                 if loc == 0:
-                    toolcode[7] += '{:03d}'.format(num) + 'd'
+                    toolcode[7] += f'{num:03d}d'
                     if full_name[: len(match)] not in toolcode[9]:
                         toolcode[9] += full_name[: len(match)]
 
             if extra:
                 loc = full_name.find(extra)
                 if loc != -1:
-                    toolcode[7] += '{:03d}'.format(num) + 'X'
+                    toolcode[7] += f'{num:03d}X'
                     # Since extras are unique, we only look for each of them
                     # once, and they include otherwise impossible characters
                     # for this field, it's not possible for the following line
