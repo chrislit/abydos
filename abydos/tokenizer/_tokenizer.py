@@ -73,7 +73,7 @@ class _Tokenizer:
         .. versionadded:: 0.4.0
 
         """
-        super(_Tokenizer, self).__init__()
+        super().__init__()
 
         self._scaler = scaler
         self._tokens = defaultdict(int)  # type: DefaultDict[str, float]

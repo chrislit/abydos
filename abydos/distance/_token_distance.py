@@ -166,7 +166,7 @@ class _TokenDistance(_Distance):
         .. versionadded:: 0.4.0
 
         """
-        super(_TokenDistance, self).__init__(
+        super().__init__(
             intersection_type=intersection_type, **kwargs
         )
 
