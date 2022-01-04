@@ -50,6 +50,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinxcontrib.bibtex',
 ]
+bibtex_bibfiles = ['abydos.bib']
 
 smartquotes = False
 autoclass_content = 'both'
