@@ -129,9 +129,9 @@ class SoundD(_Phonetic):
         if word[:2] in {'KN', 'GN', 'PN', 'AC', 'WR'}:
             word = word[1:]
         elif word[:1] == 'X':
-            word = 'S' + word[1:]
+            word = f"S{word[1:]}"
         elif word[:2] == 'WH':
-            word = 'W' + word[2:]
+            word = f"W{word[2:]}"
 
         word = (
             word.replace('DGE', '20').replace('DGI', '20').replace('GH', '0')

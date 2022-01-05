@@ -69,8 +69,7 @@ class FONEM(_Phonetic):
         'V-19': (re_compile('B(O|U|OU)RNE?$'), 'BURN'),
         'V-20': (
             re_compile(
-                '(^IM|(?<=[BCDFGHJKLMNPQRSTVWXZ])'
-                + 'IM(?=[BCDFGHJKLMPQRSTVWXZ]))'
+                f"(^IM|(?<=[BCDFGHJKLMNPQRSTVWXZ])IM(?=[BCDFGHJKLMPQRSTVWXZ]))"
             ),
             'IN',
         ),
@@ -103,8 +102,7 @@ class FONEM(_Phonetic):
         'C-26': (re_compile('X[CSZ]'), 'X'),
         'C-27': (
             re_compile(
-                '(?<=[AEIOUY])Z|(?<=[BCDFGHJKLMNPQRSTVWXZ])'
-                + 'Z(?=[BCDFGHJKLMNPQRSTVWXZ])'
+                f"(?<=[AEIOUY])Z|(?<=[BCDFGHJKLMNPQRSTVWXZ])Z(?=[BCDFGHJKLMNPQRSTVWXZ])"
             ),
             'S',
         ),

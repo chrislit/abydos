@@ -137,24 +137,24 @@ class FuzzySoundex(_Phonetic):
             return '0'
 
         if word[:2] in {'CS', 'CZ', 'TS', 'TZ'}:
-            word = 'SS' + word[2:]
+            word = f"SS{word[2:]}"
         elif word[:2] == 'GN':
-            word = 'NN' + word[2:]
+            word = f"NN{word[2:]}"
         elif word[:2] in {'HR', 'WR'}:
-            word = 'RR' + word[2:]
+            word = f"RR{word[2:]}"
         elif word[:2] == 'HW':
-            word = 'WW' + word[2:]
+            word = f"WW{word[2:]}"
         elif word[:2] in {'KN', 'NG'}:
-            word = 'NN' + word[2:]
+            word = f"NN{word[2:]}"
 
         if word[-2:] == 'CH':
-            word = word[:-2] + 'KK'
+            word = f"{word[:-2]}KK"
         elif word[-2:] == 'NT':
-            word = word[:-2] + 'TT'
+            word = f"{word[:-2]}TT"
         elif word[-2:] == 'RT':
-            word = word[:-2] + 'RR'
+            word = f"{word[:-2]}RR"
         elif word[-3:] == 'RDT':
-            word = word[:-3] + 'RR'
+            word = f"{word[:-3]}RR"
 
         word = word.replace('CA', 'KA')
         word = word.replace('CC', 'KK')

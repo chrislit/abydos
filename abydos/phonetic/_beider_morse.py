@@ -363,8 +363,8 @@ class BeiderMorse(_Phonetic):
                 ):  # no match
                     continue
 
-                right = '^' + rcontext
-                left = lcontext + '$'
+                right = f"^{rcontext}"
+                left = f"{lcontext}$"
 
                 # check that right context is satisfied
                 if rcontext != '':
@@ -471,8 +471,8 @@ class BeiderMorse(_Phonetic):
                     lcontext = rule[_LCONTEXT_POS]
                     rcontext = rule[_RCONTEXT_POS]
 
-                    right = '^' + rcontext
-                    left = lcontext + '$'
+                    right = f"^{rcontext}"
+                    left = f"{lcontext}$"
 
                     # check to see if next sequence in phonetic matches the
                     # string in the rule
@@ -516,7 +516,7 @@ class BeiderMorse(_Phonetic):
             phonetic = self._normalize_lang_attrs(phonetic, True)
 
         if '|' in phonetic:
-            phonetic = '(' + self._remove_dupes(phonetic) + ')'
+            phonetic = f"({self._remove_dupes(phonetic)})"
 
         return phonetic
 
@@ -607,7 +607,7 @@ class BeiderMorse(_Phonetic):
         """
         alt_start = phonetic.find('(')
         if alt_start == -1:
-            return ' ' + self._phonetic_number(phonetic)
+            return f" {self._phonetic_number(phonetic)}"
 
         prefix = phonetic[:alt_start]
         alt_start += 1  # get past the (
@@ -675,8 +675,8 @@ class BeiderMorse(_Phonetic):
         result = '|'
         for i in range(len(alt_array)):
             alt = alt_array[i]
-            if alt and '|' + alt + '|' not in result:
-                result += alt + '|'
+            if alt and f"|{alt}|" not in result:
+                result += f"{alt}|"
 
         return result[1:-1]  # remove leading and trailing |
 
@@ -722,11 +722,7 @@ class BeiderMorse(_Phonetic):
             bracket_end = text.find(']', bracket_start)
             if bracket_end == -1:
                 raise ValueError(
-                    'No closing square bracket: text=('
-                    + text
-                    + ') strip=('
-                    + str(strip)
-                    + ')'
+                    f"No closing square bracket: text=({text}) strip=({str(strip)})"
                 )
             attrib &= int(text[bracket_start + 1 : bracket_end])
             text = text[:bracket_start] + text[bracket_end + 1 :]
@@ -737,7 +733,7 @@ class BeiderMorse(_Phonetic):
             # means that the attributes were incompatible and there is no
             # alternative here
             return '[0]'
-        return text + '[' + str(attrib) + ']'
+        return f"{text}[{str(attrib)}]"
 
     def _apply_rule_if_compat(
         self, phonetic: str, target: str, language_arg: int
@@ -795,7 +791,7 @@ class BeiderMorse(_Phonetic):
             this_candidate = candidate_array[i]
             if language_arg != 1:
                 this_candidate = self._normalize_lang_attrs(
-                    this_candidate + '[' + str(language_arg) + ']', False
+                    f"{this_candidate}[{str(language_arg)}]", False
                 )
             if this_candidate != '[0]':
                 found = True
@@ -809,7 +805,7 @@ class BeiderMorse(_Phonetic):
 
         # return the result of applying the rule
         if '|' in candidate:
-            candidate = '(' + candidate + ')'
+            candidate = f"({candidate})"
         return candidate
 
     def _language_index_from_code(self, code: int, name_mode: str) -> int:
@@ -922,7 +918,7 @@ class BeiderMorse(_Phonetic):
                     lang_choices += _LANG_DICT[lang]
                 elif not filter_langs:
                     raise ValueError(
-                        "Unknown '" + name_mode + "' language: '" + lang + "'"
+                        f"Unknown '{name_mode}' language: '{lang}'"
                     )
 
         self._language_arg = language_arg

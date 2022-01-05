@@ -162,19 +162,19 @@ class Caverphone(_Phonetic):
             word = word[:-1]
         if word:
             if word[:5] == 'cough':
-                word = 'cou2f' + word[5:]
+                word = f"cou2f{word[5:]}"
             if word[:5] == 'rough':
-                word = 'rou2f' + word[5:]
+                word = f"rou2f{word[5:]}"
             if word[:5] == 'tough':
-                word = 'tou2f' + word[5:]
+                word = f"tou2f{word[5:]}"
             if word[:6] == 'enough':
-                word = 'enou2f' + word[6:]
+                word = f"enou2f{word[6:]}"
             if self._version != 1 and word[:6] == 'trough':
-                word = 'trou2f' + word[6:]
+                word = f"trou2f{word[6:]}"
             if word[:2] == 'gn':
-                word = '2n' + word[2:]
+                word = f"2n{word[2:]}"
             if word[-2:] == 'mb':
-                word = word[:-1] + '2'
+                word = f"{word[:-1]}2"
             for src, tar in (
                 ('cq', '2q'),
                 ('ci', 'si'),
@@ -196,15 +196,15 @@ class Caverphone(_Phonetic):
             ):
                 word = word.replace(src, tar)
             if word[0] in self._lc_v_set:
-                word = 'A' + word[1:]
+                word = f"A{word[1:]}"
             for vowel in 'aeiou':
                 word = word.replace(vowel, '3')
             if self._version != 1:
                 word = word.replace('j', 'y')
                 if word[:2] == 'y3':
-                    word = 'Y3' + word[2:]
+                    word = f"Y3{word[2:]}"
                 if word[:1] == 'y':
-                    word = 'A' + word[1:]
+                    word = f"A{word[1:]}"
                 word = word.replace('y', '3')
             for src, tar in (('3gh3', '3kh3'), ('gh', '22'), ('g', 'k')):
                 word = word.replace(src, tar)
@@ -219,22 +219,22 @@ class Caverphone(_Phonetic):
             if self._version == 1:
                 word = word.replace('why', 'Why')
             if self._version != 1 and word[-1:] == 'w':
-                word = word[:-1] + '3'
+                word = f"{word[:-1]}3"
             word = word.replace('w', '2')
             if word[:1] == 'h':
-                word = 'A' + word[1:]
+                word = f"A{word[1:]}"
             word = word.replace('h', '2')
             word = word.replace('r3', 'R3')
             if self._version == 1:
                 word = word.replace('ry', 'Ry')
             if self._version != 1 and word[-1:] == 'r':
-                word = word[:-1] + '3'
+                word = f"{word[:-1]}3"
             word = word.replace('r', '2')
             word = word.replace('l3', 'L3')
             if self._version == 1:
                 word = word.replace('ly', 'Ly')
             if self._version != 1 and word[-1:] == 'l':
-                word = word[:-1] + '3'
+                word = f"{word[:-1]}3"
             word = word.replace('l', '2')
             if self._version == 1:
                 word = word.replace('j', 'y')
@@ -242,7 +242,7 @@ class Caverphone(_Phonetic):
                 word = word.replace('y', '2')
             word = word.replace('2', '')
             if self._version != 1 and word[-1:] == '3':
-                word = word[:-1] + 'A'
+                word = f"{word[:-1]}A"
             word = word.replace('3', '')
 
         # pad with 1s, then extract the necessary length of code

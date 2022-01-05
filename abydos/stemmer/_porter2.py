@@ -148,10 +148,10 @@ class Porter2(_Snowball):
 
         # Re-map vocalic Y to y (Y will be C, y will be V)
         if word[0] == 'y':
-            word = 'Y' + word[1:]
+            word = f"Y{word[1:]}"
         for i in range(1, len(word)):
             if word[i] == 'y' and word[i - 1] in self._vowels:
-                word = word[:i] + 'Y' + word[i + 1 :]
+                word = f"{word[:i]}Y{word[i + 1:]}"
 
         r1_start = self._sb_r1(word, self._r1_prefixes)
         r2_start = self._sb_r2(word, self._r1_prefixes)
@@ -233,20 +233,20 @@ class Porter2(_Snowball):
             and word[-1] in {'Y', 'y'}
             and word[-2] not in self._vowels
         ):
-            word = word[:-1] + 'i'
+            word = f"{word[:-1]}i"
 
         # Step 2
         if word[-2] == 'a':
             if word[-7:] == 'ational':
                 if len(word[r1_start:]) >= 7:
-                    word = word[:-5] + 'e'
+                    word = f"{word[:-5]}e"
             elif word[-6:] == 'tional':
                 if len(word[r1_start:]) >= 6:
                     word = word[:-2]
         elif word[-2] == 'c':
             if word[-4:] in {'enci', 'anci'}:
                 if len(word[r1_start:]) >= 4:
-                    word = word[:-1] + 'e'
+                    word = f"{word[:-1]}e"
         elif word[-2] == 'e':
             if word[-4:] == 'izer':
                 if len(word[r1_start:]) >= 4:
@@ -268,13 +268,13 @@ class Porter2(_Snowball):
                     word = word[:-2]
             elif word[-4:] == 'abli':
                 if len(word[r1_start:]) >= 4:
-                    word = word[:-1] + 'e'
+                    word = f"{word[:-1]}e"
             elif word[-4:] == 'alli':
                 if len(word[r1_start:]) >= 4:
                     word = word[:-2]
             elif word[-3:] == 'bli':
                 if len(word[r1_start:]) >= 3:
-                    word = word[:-1] + 'e'
+                    word = f"{word[:-1]}e"
             elif word[-2:] == 'li':
                 if (
                     r1_start >= 1
@@ -285,13 +285,13 @@ class Porter2(_Snowball):
         elif word[-2] == 'o':
             if word[-7:] == 'ization':
                 if len(word[r1_start:]) >= 7:
-                    word = word[:-5] + 'e'
+                    word = f"{word[:-5]}e"
             elif word[-5:] == 'ation':
                 if len(word[r1_start:]) >= 5:
-                    word = word[:-3] + 'e'
+                    word = f"{word[:-3]}e"
             elif word[-4:] == 'ator':
                 if len(word[r1_start:]) >= 4:
-                    word = word[:-2] + 'e'
+                    word = f"{word[:-2]}e"
         elif word[-2] == 's':
             if word[-7:] in {'fulness', 'ousness', 'iveness'}:
                 if len(word[r1_start:]) >= 7:
@@ -302,18 +302,18 @@ class Porter2(_Snowball):
         elif word[-2] == 't':
             if word[-6:] == 'biliti':
                 if len(word[r1_start:]) >= 6:
-                    word = word[:-5] + 'le'
+                    word = f"{word[:-5]}le"
             elif word[-5:] == 'aliti':
                 if len(word[r1_start:]) >= 5:
                     word = word[:-3]
             elif word[-5:] == 'iviti':
                 if len(word[r1_start:]) >= 5:
-                    word = word[:-3] + 'e'
+                    word = f"{word[:-3]}e"
 
         # Step 3
         if word[-7:] == 'ational':
             if len(word[r1_start:]) >= 7:
-                word = word[:-5] + 'e'
+                word = f"{word[:-5]}e"
         elif word[-6:] == 'tional':
             if len(word[r1_start:]) >= 6:
                 word = word[:-2]
@@ -380,7 +380,7 @@ class Porter2(_Snowball):
         # Change 'Y' back to 'y' if it survived stemming
         for i in range(0, len(word)):
             if word[i] == 'Y':
-                word = word[:i] + 'y' + word[i + 1 :]
+                word = f"{word[:i]}y{word[i + 1:]}"
 
         return word
 

@@ -126,7 +126,7 @@ class Norphone(_Phonetic):
             skip = 1
 
         if word[-2:] == 'DT':
-            word = word[:-2] + 'T'
+            word = f"{word[:-2]}T"
         # Though the rules indicate this rule applies in all positions, the
         # reference implementation indicates it applies only in final position.
         elif word[-2:-1] in self._uc_v_set and word[-1:] == 'D':

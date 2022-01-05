@@ -204,8 +204,8 @@ class Editex(_Distance):
             )
 
         d_mat = np_zeros((len(src) + 1, len(tar) + 1), dtype=np_float)
-        src = ' ' + src
-        tar = ' ' + tar
+        src = f" {src}"
+        tar = f" {tar}"
 
         if not self._local:
             for i in range(1, src_len + 1):

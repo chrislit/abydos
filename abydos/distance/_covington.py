@@ -294,11 +294,11 @@ class Covington(_Distance):
                 )
             if tar and tar_align[-1] != '-':
                 _add_alignments(
-                    cost, src, tar[1:], src_align + '-', tar_align + tar[0]
+                    cost, src, tar[1:], f"{src_align}-", tar_align + tar[0]
                 )
             if src and src_align[-1] != '-':
                 _add_alignments(
-                    cost, src[1:], tar, src_align + src[0], tar_align + '-'
+                    cost, src[1:], tar, src_align + src[0], f"{tar_align}-"
                 )
 
             if not src and not tar:

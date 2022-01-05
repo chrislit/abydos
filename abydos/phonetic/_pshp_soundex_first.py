@@ -168,20 +168,20 @@ class PSHPSoundexFirst(_Phonetic):
         else:
             # A. Prefix treatment
             if fname[:2] in {'GE', 'GI', 'GY'}:
-                fname = 'J' + fname[1:]
+                fname = f"J{fname[1:]}"
             elif fname[:2] in {'CE', 'CI', 'CY'}:
-                fname = 'S' + fname[1:]
+                fname = f"S{fname[1:]}"
             elif fname[:3] == 'CHR':
-                fname = 'K' + fname[1:]
+                fname = f"K{fname[1:]}"
             elif fname[:1] == 'C' and fname[:2] != 'CH':
-                fname = 'K' + fname[1:]
+                fname = f"K{fname[1:]}"
 
             if fname[:2] == 'KN':
-                fname = 'N' + fname[1:]
+                fname = f"N{fname[1:]}"
             elif fname[:2] == 'PH':
-                fname = 'F' + fname[1:]
+                fname = f"F{fname[1:]}"
             elif fname[:3] in {'WIE', 'WEI'}:
-                fname = 'V' + fname[1:]
+                fname = f"V{fname[1:]}"
 
             if self._german and fname[:1] in {'W', 'M', 'Y', 'Z'}:
                 fname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[

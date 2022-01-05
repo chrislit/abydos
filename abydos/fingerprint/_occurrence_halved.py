@@ -93,7 +93,7 @@ class OccurrenceHalved(_Fingerprint):
             Changed to return a str and added fingerprint_int method
 
         """
-        return ('{:0' + str(self._n_bits) + 'b}').format(
+        return (f"{{:0{str(self._n_bits)}b}}").format(
             self.fingerprint_int(word)
         )
 

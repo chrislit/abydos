@@ -176,9 +176,9 @@ class RethSchek(_Phonetic):
 
         # Replace final sequences
         if word[-2:] == 'ER':
-            word = word[:-2] + 'R'
+            word = f"{word[:-2]}R"
         elif word[-2:] == 'EL':
-            word = word[:-2] + 'L'
+            word = f"{word[:-2]}L"
         elif word[-1:] == 'H':
             word = word[:-1]
 

@@ -183,7 +183,7 @@ class Arithmetic:
         minval = Fraction(0)
         maxval = Fraction(1)
 
-        for char in text + '\x00':
+        for char in f'{text}\x00':
             prob_range = self._probs[char]
             delta = maxval - minval
             maxval = minval + prob_range[1] * delta

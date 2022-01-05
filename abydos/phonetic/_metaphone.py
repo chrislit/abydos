@@ -102,9 +102,9 @@ class Metaphone(_Phonetic):
         if ename[0:2] in {'PN', 'AE', 'KN', 'GN', 'WR'}:
             ename = ename[1:]
         elif ename[0] == 'X':
-            ename = 'S' + ename[1:]
+            ename = f"S{ename[1:]}"
         elif ename[0:2] == 'WH':
-            ename = 'W' + ename[2:]
+            ename = f"W{ename[2:]}"
 
         # Convert to metaphone
         elen = len(ename) - 1

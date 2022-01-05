@@ -1055,11 +1055,9 @@ class Phonet(_Phonetic):
         zip(
             (
                 ord(_)
-                for _ in 'abcdefghijklmnopqrstuvwxyzàáâãåäæ'
-                + 'çðèéêëìíîïñòóôõöøœšßþùúûüýÿ'
+                for _ in f"abcdefghijklmnopqrstuvwxyzàáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ"
             ),
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆ'
-            + 'ÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ',
+            f"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ"
         )
     )
 

@@ -106,7 +106,7 @@ class FuzzyWuzzyTokenSet(_TokenDistance):
         src_tok -= intersection
         tar_tok -= intersection
 
-        intersection = ' '.join(sorted(intersection)) + ' '
+        intersection = f"{' '.join(sorted(intersection))} "
         src = intersection + ' '.join(sorted(src_tok))
         tar = intersection + ' '.join(sorted(tar_tok))
 

@@ -262,7 +262,7 @@ class Typo(_Distance):
             for i, kb_mode in enumerate(kb_array):
                 if char in kb_mode:
                     return keyboard[i]
-            raise ValueError(char + ' not found in any keyboard layouts')
+            raise ValueError(f"{char} not found in any keyboard layouts")
 
         def _substitution_cost(char1: str, char2: str) -> float:
             if self._failsafe and (char1 not in keys or char2 not in keys):
