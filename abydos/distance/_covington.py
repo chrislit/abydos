@@ -50,7 +50,7 @@ class Covington(_Distance):
             40,
             50,
         ),
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """Initialize Covington instance.
 

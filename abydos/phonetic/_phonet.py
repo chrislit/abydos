@@ -1057,7 +1057,7 @@ class Phonet(_Phonetic):
                 ord(_)
                 for _ in f"abcdefghijklmnopqrstuvwxyzàáâãåäæçðèéêëìíîïñòóôõöøœšßþùúûüýÿ"
             ),
-            f"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ"
+            f"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÅÄÆÇÐÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒŠßÞÙÚÛÜÝŸ",
         )
     )
 

@@ -453,7 +453,7 @@ class Synoname(_Distance):
         char_approx_min: float = 0.73,
         tests: Union[int, TIterable[str]] = 2 ** 12 - 1,
         ret_name: bool = False,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """Initialize Synoname instance.
 

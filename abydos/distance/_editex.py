@@ -62,7 +62,7 @@ class Editex(_Distance):
         cost: Tuple[int, int, int] = (0, 1, 2),
         local: bool = False,
         taper: bool = False,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """Initialize Editex instance.
 

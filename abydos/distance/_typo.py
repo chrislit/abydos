@@ -116,7 +116,7 @@ class Typo(_Distance):
         cost: Tuple[float, float, float, float] = (1.0, 1.0, 0.5, 0.5),
         layout: str = 'QWERTY',
         failsafe: bool = False,
-        **kwargs: Any
+        **kwargs: Any,
     ):
         """Initialize Typo instance.
 
