@@ -168,22 +168,22 @@ if __name__ == '__main__':
     prefix = 'https://img.shields.io/badge/Pylint-'
     readme_text = re.sub(
         f'{prefix}(-?[0-9\\.]+/10-[a-z]+)',
-        f'{prefix + str(pylint_score)}/10-{pylint_color(pylint_score)}',
+        f'{prefix}{pylint_score}/10-{pylint_color(pylint_score)}',
         readme_text,
         1,
     )
 
     # prefix = 'https://img.shields.io/badge/pycodestyle-'
-    # readme_text = re.sub(prefix + r'([0-9\.]+-[a-z]+)',
-    #                      prefix + str(pycodestyle_score) + '-' +
-    #                      pycodestyle_color(pycodestyle_score),
-    #                      readme_text, 1)
+    # readme_text = re.sub(f'{prefix}([0-9\\.]+-[a-z]+)',
+    #                      f'{prefix}{pycodestyle_score}-'
+    #                      f'{pycodestyle_color(pycodestyle_score)}',
+    #                      readme_text,
+    #                      1)
 
     prefix = 'https://img.shields.io/badge/pydocstyle-'
     readme_text = re.sub(
         f'{prefix}([0-9\\.]+-[a-z]+)',
-        f'{prefix + str(pydocstyle_score)}-'
-        f'{pydocstyle_color(pydocstyle_score)}',
+        f'{prefix}{pydocstyle_score}-' f'{pydocstyle_color(pydocstyle_score)}',
         readme_text,
         1,
     )
@@ -191,19 +191,19 @@ if __name__ == '__main__':
     prefix = 'https://img.shields.io/badge/flake8-'
     readme_text = re.sub(
         f'{prefix}([0-9\\.]+-[a-z]+)',
-        f'{prefix + str(flake8_score)}-{flake8_color(flake8_score)}',
+        f'{prefix}{flake8_score}-{flake8_color(flake8_score)}',
         readme_text,
         1,
     )
 
     prefix = 'https://img.shields.io/badge/SLOCCount-'
     readme_text = re.sub(
-        f'{prefix}[0-9,]+', prefix + str(sloccount), readme_text, 1
+        f'{prefix}[0-9,]+', f'{prefix}{sloccount}', readme_text, 1
     )
 
     prefix = 'https://img.shields.io/badge/mypy-'
     readme_text = re.sub(
-        f'{prefix}[0-9.]+', prefix + str(imprecision), readme_text, 1
+        f'{prefix}[0-9.]+', f'{prefix}{imprecision}', readme_text, 1
     )
 
     with open('README.rst', 'w', encoding='utf-8') as f:
