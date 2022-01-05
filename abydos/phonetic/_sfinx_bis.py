@@ -260,13 +260,13 @@ class SfinxBis(_Phonetic):
             lokal_ordet = lokal_ordet.replace('PH', 'F')
 
             for i in self._harde_vokaler:
-                lokal_ordet = lokal_ordet.replace(i + 'Ü', i + 'J')
-                lokal_ordet = lokal_ordet.replace(i + 'Y', i + 'J')
-                lokal_ordet = lokal_ordet.replace(i + 'I', i + 'J')
+                lokal_ordet = lokal_ordet.replace(f'{i}Ü', f'{i}J')
+                lokal_ordet = lokal_ordet.replace(f'{i}Y', f'{i}J')
+                lokal_ordet = lokal_ordet.replace(f'{i}I', f'{i}J')
             for i in self._mjuka_vokaler:
-                lokal_ordet = lokal_ordet.replace(i + 'Ü', i + 'J')
-                lokal_ordet = lokal_ordet.replace(i + 'Y', i + 'J')
-                lokal_ordet = lokal_ordet.replace(i + 'I', i + 'J')
+                lokal_ordet = lokal_ordet.replace(f'{i}Ü', f'{i}J')
+                lokal_ordet = lokal_ordet.replace(f'{i}Y', f'{i}J')
+                lokal_ordet = lokal_ordet.replace(f'{i}I', f'{i}J')
 
             if 'H' in lokal_ordet:
                 for i in self._uc_c_set:
