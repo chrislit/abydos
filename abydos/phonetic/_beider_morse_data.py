@@ -1,4 +1,4 @@
-# Copyright 2014-2020 by Christopher C. Little.
+# Copyright 2014-2022 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # This file is based on Alexander Beider and Stephen P. Morse's implementation

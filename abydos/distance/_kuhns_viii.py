@@ -1,4 +1,4 @@
-# Copyright 2019-2020 by Christopher C. Little.
+# Copyright 2019-2022 by Christopher C. Little.
 # This file is part of Abydos.
 #
 # Abydos is free software: you can redistribute it and/or modify
