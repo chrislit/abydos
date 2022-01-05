@@ -132,8 +132,8 @@ class CastTestCases(unittest.TestCase):
 
     def test_str(self):
         """Test abydos.stats.ConfusionTable._str_."""
-        self.assertIsInstance(str(SCALE_TABLE), str)
-        self.assertEqual(str(SCALE_TABLE), 'tp:1, tn:2, fp:3, fn:4')
+        self.assertIsInstance(f'{SCALE_TABLE}', str)
+        self.assertEqual(f'{SCALE_TABLE}', 'tp:1, tn:2, fp:3, fn:4')
 
     def test_repr(self):
         """Test abydos.stats.ConfusionTable._repr_."""

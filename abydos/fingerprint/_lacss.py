@@ -72,7 +72,7 @@ class LACSS(_Fingerprint):
             Changed to return a str and added fingerprint_int method
 
         """
-        return str(self.fingerprint_int(word))
+        return f'{self.fingerprint_int(word)}'
 
     def fingerprint_int(self, word: str) -> int:
         """Return the LACSS coding.

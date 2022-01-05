@@ -239,7 +239,7 @@ class Eudex(_Phonetic):
         for val in values:
             hash_value = (hash_value << 8) | val
 
-        return str(hash_value)
+        return f'{hash_value}'
 
 
 if __name__ == '__main__':

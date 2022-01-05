@@ -269,7 +269,7 @@ def main(argv):
             if variant < 2:
                 if featint in checkset_f:
                     sys.stdout.write(
-                        f'Feature set {str(featint)} appears in CSV '
+                        f'Feature set {featint} appears in CSV '
                         f'for two primary IPA symbols: '
                         f'{symbol} and {checkdict[featint]}'
                     )

@@ -219,12 +219,12 @@ def pythonize(line, fn='', subdir='gen'):
     line = re.sub(r'\[\"\.\((L_[A-Z_+]+)\)\.\"\]', r'[\1]', line)
 
     line = re.sub(
-        'L_([A-Z]+)', lambda m: str(lang_dict[m.group(1).lower()]), line
+        'L_([A-Z]+)', lambda m: f'{lang_dict[m.group(1).lower()]}', line
     )
     for _ in range(4):
         line = re.sub(
             r'([0-9]+) *\+ *([0-9]+)',
-            lambda m: str(int(m.group(1)) + int(m.group(2))),
+            lambda m: f'{int(m.group(1)) + int(m.group(2))}',
             line,
         )
 
@@ -323,7 +323,7 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
 
     outfile.write('L_NONE = 0\n')
     for i, l in enumerate(lang_tuple):
-        outfile.write(f'L_{l.upper()} = 2**{str(i)}\n')
+        outfile.write(f'L_{l.upper()} = 2**{i}\n')
     outfile.write('\n\n')
 
     tail_text += '\nBMDATA = {}  # type: ignore\n'

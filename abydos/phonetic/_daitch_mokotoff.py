@@ -414,11 +414,11 @@ class DaitchMokotoff(_Phonetic):
 
                     # Build the code strings
                     if isinstance(dm_val, tuple):
-                        dms = [_ + str(dm_val[0]) for _ in dms] + [
-                            _ + str(dm_val[1]) for _ in dms
+                        dms = [f'{_}{dm_val[0]}' for _ in dms] + [
+                            f'{_}{dm_val[1]}' for _ in dms
                         ]
                     else:
-                        dms = [_ + str(dm_val) for _ in dms]
+                        dms = [f'{_}{dm_val}' for _ in dms]
                     pos += len(sstr)
                     break
 

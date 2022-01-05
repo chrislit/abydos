@@ -144,7 +144,7 @@ class LCCutter(_Fingerprint):
                     cval += 1
                 else:
                     break
-        code_list.append(str(cval))
+        code_list.append(f'{cval}')
 
         # length 3+
         for ch in uc[pos + 1 :]:
@@ -156,7 +156,7 @@ class LCCutter(_Fingerprint):
                     cval += 1
                 else:
                     break
-            code_list.append(str(cval))
+            code_list.append(f'{cval}')
 
         return ''.join(code_list[: self._max_length])
 

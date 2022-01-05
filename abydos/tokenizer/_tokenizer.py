@@ -259,7 +259,7 @@ class _Tokenizer:
         .. versionadded:: 0.4.0
 
         """
-        return f'{self.__class__.__name__}({str(self._tokens)[27:]}'
+        return f'{self.__class__.__name__}({f"{self._tokens}"[27:]}'
 
     def __and__(self, other: '_Tokenizer') -> TCounter[str]:
         """Return intersection with other tokens.

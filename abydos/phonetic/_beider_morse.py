@@ -723,7 +723,7 @@ class BeiderMorse(_Phonetic):
             if bracket_end == -1:
                 raise ValueError(
                     f'No closing square bracket: text=({text}) '
-                    f'strip=({str(strip)})'
+                    f'strip=({strip})'
                 )
             attrib &= int(text[bracket_start + 1 : bracket_end])
             text = text[:bracket_start] + text[bracket_end + 1 :]
@@ -734,7 +734,7 @@ class BeiderMorse(_Phonetic):
             # means that the attributes were incompatible and there is no
             # alternative here
             return '[0]'
-        return f'{text}[{str(attrib)}]'
+        return f'{text}[{attrib}]'
 
     def _apply_rule_if_compat(
         self, phonetic: str, target: str, language_arg: int
@@ -792,7 +792,7 @@ class BeiderMorse(_Phonetic):
             this_candidate = candidate_array[i]
             if language_arg != 1:
                 this_candidate = self._normalize_lang_attrs(
-                    f'{this_candidate}[{str(language_arg)}]', False
+                    f'{this_candidate}[{language_arg}]', False
                 )
             if this_candidate != '[0]':
                 found = True

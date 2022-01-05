@@ -77,7 +77,7 @@ class RLE:
         """
         if text:
             text = ''.join(
-                (str(n) + k if n > 2 else (k if n == 1 else 2 * k))
+                (f'{n}' + k if n > 2 else (k if n == 1 else 2 * k))
                 for n, k in ((len(list(g)), k) for k, g in groupby(text))
             )
         return text

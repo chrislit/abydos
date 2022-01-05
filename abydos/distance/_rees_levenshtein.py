@@ -43,7 +43,7 @@ class ReesLevenshtein(_Distance):
         self,
         block_limit: int = 2,
         normalizer: Callable[[List[float]], float] = max,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """Initialize ReesLevenshtein instance.
 
@@ -122,8 +122,8 @@ class ReesLevenshtein(_Distance):
 
             return string[start:end]
 
-        v_temp_str1 = str(src)
-        v_temp_str2 = str(tar)
+        v_temp_str1 = f'{src}'
+        v_temp_str2 = f'{tar}'
 
         # first trim common leading characters
         while v_temp_str1[:1] == v_temp_str2[:1]:
