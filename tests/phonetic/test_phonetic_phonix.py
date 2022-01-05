@@ -93,7 +93,7 @@ class PhonixTestCases(unittest.TestCase):
 
         # max_length bounds tests
         self.assertEqual(
-            Phonix(max_length=-1).encode('Niall'), 'N4' + '0' * 62
+            Phonix(max_length=-1).encode('Niall'), f"N4{'0' * 62}"
         )
         self.assertEqual(Phonix(max_length=0).encode('Niall'), 'N400')
 

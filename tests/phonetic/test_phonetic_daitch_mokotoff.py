@@ -71,8 +71,7 @@ class DaitchMokotoffTestCases(unittest.TestCase):
         )
         self.assertEqual(
             self.pa.encode('Jackson-Jackson'),
-            '145464,145465,154644,154645,154654,445464,445465,454644,'
-            + '454645,454654',
+            f"145464,145465,154644,154645,154654,445464,445465,454644,454645,454654",
         )
 
         # http://www.jewishgen.org/infofiles/soundex.html
@@ -91,7 +90,7 @@ class DaitchMokotoffTestCases(unittest.TestCase):
 
         # max_length bounds tests
         self.assertEqual(
-            DaitchMokotoff(max_length=-1).encode('Niall'), '68' + '0' * 62
+            DaitchMokotoff(max_length=-1).encode('Niall'), f"68{'0' * 62}"
         )
         self.assertEqual(
             DaitchMokotoff(max_length=0).encode('Niall'), '680000'

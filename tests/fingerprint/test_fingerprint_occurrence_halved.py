@@ -50,7 +50,7 @@ class OccurrenceHalvedFingerprintTestCases(unittest.TestCase):
         )
         self.assertEqual(
             OccurrenceHalved(64).fingerprint('instance'),
-            '01100100101110000000000100000000' + '0' * 32,
+            f"01100100101110000000000100000000{'0' * 32}",
         )
 
 

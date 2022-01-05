@@ -48,7 +48,7 @@ class CountFingerprintTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Count(64).fingerprint('instance'),
-            '01010100011001000000000100000000' + '0' * 32,
+            f"01010100011001000000000100000000{'0' * 32}",
         )
 
 

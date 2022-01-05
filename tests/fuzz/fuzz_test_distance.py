@@ -45,17 +45,17 @@ for name, obj in getmembers(ad):
         if 'dist_abs' in obj.__dict__ and 'Method disabled' not in getdoc(
             obj.dist_abs
         ):
-            algorithms[name.lower() + '_dist_abs'] = cls.dist_abs
+            algorithms[f"{name.lower()}_dist_abs"] = cls.dist_abs
         if 'sim_score' in obj.__dict__ and 'Method disabled' not in getdoc(
             obj.sim_score
         ):
-            algorithms[name.lower() + '_sim_score'] = cls.sim_score
+            algorithms[f"{name.lower()}_sim_score"] = cls.sim_score
         if 'dist' in obj.__dict__ and 'Method disabled' not in getdoc(
             obj.dist
         ):
-            algorithms[name.lower() + '_dist'] = cls.dist
+            algorithms[f"{name.lower()}_dist"] = cls.dist
         if 'sim' in obj.__dict__ and 'Method disabled' not in getdoc(obj.sim):
-            algorithms[name.lower() + '_sim'] = cls.sim
+            algorithms[f"{name.lower()}_sim"] = cls.sim
 
 # corrections and additions
 algorithms['typo_dist_abs'] = ad.Typo(failsafe=True).dist_abs

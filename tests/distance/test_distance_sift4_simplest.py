@@ -78,8 +78,7 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(
             Sift4Simplest(10).dist_abs(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing'
-                + ' elit.',
+                f"Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing elit.",
             ),
             20,
         )

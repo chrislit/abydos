@@ -385,15 +385,15 @@ class SynonameTestCases(unittest.TestCase):
         )
         self.assertEqual(
             self.cmp.dist_abs(
-                'Brueghel II (the Younger)#Pieter#' + 'Workshop of',
-                'Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+                f"Brueghel II (the Younger)#Pieter#Workshop of",
+                f"Brueghel II (the Younger)#Pieter#Workshop of",
             ),
             1,
         )
         self.assertEqual(
             self.cmp.dist_abs(
-                '22#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
-                '44#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+                f"22#Brueghel II (the Younger)#Pieter#Workshop of",
+                f"44#Brueghel II (the Younger)#Pieter#Workshop of",
             ),
             1,
         )
@@ -424,8 +424,8 @@ class SynonameTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.dist('', ''), 1 / 14)
         self.assertAlmostEqual(
             self.cmp.dist(
-                '22#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
-                '44#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+                f"22#Brueghel II (the Younger)#Pieter#Workshop of",
+                f"44#Brueghel II (the Younger)#Pieter#Workshop of",
             ),
             1 / 14,
         )
@@ -454,8 +454,8 @@ class SynonameTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.cmp.sim('', ''), 13 / 14)
         self.assertAlmostEqual(
             self.cmp.sim(
-                '22#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
-                '44#Brueghel II (the Younger)#Pieter#' + 'Workshop of',
+                f"22#Brueghel II (the Younger)#Pieter#Workshop of",
+                f"44#Brueghel II (the Younger)#Pieter#Workshop of",
             ),
             13 / 14,
         )
