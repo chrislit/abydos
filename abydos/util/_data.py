@@ -155,7 +155,7 @@ def list_installed_packages(
                 for package in possible_packages:
                     if os.path.isdir(os.path.join(check_path, package)):
                         with open(
-                            os.path.join(check_path, f"{package}.xml")
+                            os.path.join(check_path, f'{package}.xml')
                         ) as xml:
                             file = xml.read()
                             name = cast(
@@ -326,7 +326,7 @@ def download_package(
                 if not silent:  # pragma: no branch
                     print(f'Installing {pack[1]} package')  # noqa: T001
                 zip_fn = os.path.join(
-                    cast(str, data_path), pack[4], f"{pack[0]}.zip"
+                    cast(str, data_path), pack[4], f'{pack[0]}.zip'
                 )
                 shutil.rmtree(
                     os.path.join(cast(str, data_path), pack[4], pack[0]),
@@ -338,7 +338,7 @@ def download_package(
                     exist_ok=True,
                 )
                 urllib.request.urlretrieve(  # noqa: S310
-                    f"{pack[3][:-3]}xml", f"{zip_fn[:-3]}xml"
+                    f'{pack[3][:-3]}xml', f'{zip_fn[:-3]}xml'
                 )
                 urllib.request.urlretrieve(pack[3], zip_fn)  # noqa: S310
                 zip_pkg = zipfile.ZipFile(zip_fn)

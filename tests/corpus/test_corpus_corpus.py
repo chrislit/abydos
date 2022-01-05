@@ -124,7 +124,7 @@ class CorpusTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Corpus(
-                f'\n\nabc\r\n\ndef ghi.\n\na b c d e f g.\n\n\n',
+                '\n\nabc\r\n\ndef ghi.\n\na b c d e f g.\n\n\n',
                 filter_chars='.-',
             ).corpus,
             [
@@ -150,7 +150,7 @@ class CorpusTestCases(unittest.TestCase):
         # alternate document divider
         self.assertEqual(
             Corpus(
-                f"The quick brown@ fox jumped over@the lazy dog",
+                'The quick brown@ fox jumped over@the lazy dog',
                 doc_split='@',
             ).corpus,
             [
@@ -163,7 +163,7 @@ class CorpusTestCases(unittest.TestCase):
         # alternate sentence divider
         self.assertEqual(
             Corpus(
-                f"The quick brown$ fox jumped over$the lazy dog",
+                'The quick brown$ fox jumped over$the lazy dog',
                 sent_split='$',
             ).corpus,
             [
@@ -176,7 +176,7 @@ class CorpusTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Corpus(
-                f"The quick brown$ fox jumped over@the lazy dog",
+                'The quick brown$ fox jumped over@the lazy dog',
                 doc_split='@',
                 sent_split='$',
             ).corpus,
@@ -187,7 +187,8 @@ class CorpusTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Corpus(
-                f"<BOS> The quick brown <EOS><BOS> fox jumped over the lazy dog <EOS>",
+                '<BOS> The quick brown <EOS><BOS> '
+                'fox jumped over the lazy dog <EOS>',
                 sent_split='<BOS>',
                 stop_words=['<EOS>'],
             ).corpus,

@@ -862,7 +862,7 @@ def get_feature(vector: List[int], feature: str) -> List[Union[int, float]]:
 
     if feature not in _FEATURE_MASK:
         raise AttributeError(
-            "feature must be one of: '{}'".format(
+            "feature must be one of: '{}'".format(  # noqa: SFS201
                 "', '".join(_FEATURE_MASK.keys())
             )
         )

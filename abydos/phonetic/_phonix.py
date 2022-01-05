@@ -406,7 +406,7 @@ class Phonix(_Phonetic):
             for trans in self._substitutions:
                 word = repl_at[trans[0]](word, *trans[1:])
             if word[0] in self._uc_vy_set:
-                sdx = f"v{word[1:].translate(self._trans)}"
+                sdx = f'v{word[1:].translate(self._trans)}'
             else:
                 sdx = word[0] + word[1:].translate(self._trans)
             sdx = self._delete_consecutive_repeats(sdx)

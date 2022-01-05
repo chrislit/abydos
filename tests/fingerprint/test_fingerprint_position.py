@@ -50,7 +50,8 @@ class PositionFingerprintTestCases(unittest.TestCase):
         )
         self.assertEqual(
             Position(64).fingerprint('instance'),
-            f"1110111001110000010101111111111111101111111111111111111111111111",
+            '11101110011100000101011111111111'
+            '11101111111111111111111111111111',
         )
 
 

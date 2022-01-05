@@ -279,7 +279,7 @@ class AlphaSIS(_Phonetic):
                     pos += len(k)
                     break
             if pos == orig_pos:
-                alpha = [f"{_}_" for _ in alpha]
+                alpha = [f'{_}_' for _ in alpha]
                 pos += 1
 
         # Trim doublets and placeholders

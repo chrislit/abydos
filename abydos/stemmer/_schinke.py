@@ -273,13 +273,13 @@ class Schinke(_Stemmer):
                     'iunt',
                     'unt',
                 }:
-                    new_word = f"{word[:-endlen]}i"
+                    new_word = f'{word[:-endlen]}i'
                     addlen = 1
                 elif word[-endlen:] in {'beris', 'bor', 'bo'}:
-                    new_word = f"{word[:-endlen]}bi"
+                    new_word = f'{word[:-endlen]}bi'
                     addlen = 2
                 else:
-                    new_word = f"{word[:-endlen]}eri"
+                    new_word = f'{word[:-endlen]}eri'
                     addlen = 3
 
                 # Technically this diverges from the paper by considering the

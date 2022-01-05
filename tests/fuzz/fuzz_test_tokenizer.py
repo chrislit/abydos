@@ -83,9 +83,10 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
             for ns in blns:
                 try:
                     algorithms[algo](ns)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for BLNS: {ns}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'BLNS: {ns}'
                     )
 
 
@@ -109,9 +110,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for word in self.basewords:
                 try:
                     algorithms[algo](word)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for word: {word}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'word: {word}'
                     )
 
     def fuzz_test_20pct(self):
@@ -127,9 +129,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'word: {fuzzed}'
                     )
 
     def fuzz_test_100pct(self):
@@ -145,9 +148,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmp(self):
@@ -165,9 +169,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_letter(self):
@@ -186,9 +191,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_latin(self):
@@ -207,9 +213,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'word: {fuzzed}'
                     )
 
     def fuzz_test_fuzz_unicode(self):
@@ -225,9 +232,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for word: {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'word: {fuzzed}'
                     )
 
 

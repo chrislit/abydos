@@ -90,9 +90,9 @@ class SnowballGerman(_Snowball):
             for i in range(2, len(word)):
                 if word[i] in self._vowels and word[i - 2] in self._vowels:
                     if word[i - 1] == 'u':
-                        word = f"{word[:i - 1]}U{word[i:]}"
+                        word = f'{word[:i - 1]}U{word[i:]}'
                     elif word[i - 1] == 'y':
-                        word = f"{word[:i - 1]}Y{word[i:]}"
+                        word = f'{word[:i - 1]}Y{word[i:]}'
 
         if self._alternate_vowels:
             word = word.replace('ae', 'ä')
@@ -188,9 +188,9 @@ class SnowballGerman(_Snowball):
         # Change 'Y' and 'U' back to lowercase if survived stemming
         for i in range(0, len(word)):
             if word[i] == 'Y':
-                word = f"{word[:i]}y{word[i + 1:]}"
+                word = f'{word[:i]}y{word[i + 1:]}'
             elif word[i] == 'U':
-                word = f"{word[:i]}u{word[i + 1:]}"
+                word = f'{word[:i]}u{word[i + 1:]}'
 
         # Remove umlauts
         _umlauts = dict(zip((ord(_) for _ in 'äöü'), 'aou'))

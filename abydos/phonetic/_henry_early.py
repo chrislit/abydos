@@ -112,19 +112,19 @@ class HenryEarly(_Phonetic):
                 word[1:2] in self._uc_c_set and word[2:3] not in self._uc_c_set
             ):
                 if word[0] == 'Y':
-                    word = f"I{word[1:]}"
+                    word = f'I{word[1:]}'
             # Ib2
             elif word[1:2] in {'M', 'N'} and word[2:3] in self._uc_c_set:
                 if word[0] == 'E':
-                    word = f"A{word[1:]}"
+                    word = f'A{word[1:]}'
                 elif word[0] in {'I', 'U', 'Y'}:
-                    word = f"E{word[1:]}"
+                    word = f'E{word[1:]}'
             # Ib3
             elif word[:2] in self._diph:
                 word = self._diph[word[:2]] + word[2:]
             # Ib4
             elif word[1:2] in self._uc_vy_set and word[0] == 'Y':
-                word = f"I{word[1:]}"
+                word = f'I{word[1:]}'
 
         code = ''
         skip = 0

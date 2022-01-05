@@ -52,7 +52,7 @@ def _run_script():
             'sloccount',
         }:
             sys.exit(1)
-        with open(f"{args[0]}.log", 'w') as output:
+        with open(f'{args[0]}.log', 'w') as output:
             retval = call(args, stdout=output, shell=False)  # noqa: S603
             if args[0] in {'pylint', 'pycodestyle'}:
                 retval = 0

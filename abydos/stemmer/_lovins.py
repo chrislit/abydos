@@ -734,7 +734,7 @@ class Lovins(_Stemmer):
         """
         if stem[-3:-2] in {'a', 'i', 'o'}:
             return stem
-        return f"{stem[:-2]}l"
+        return f'{stem[:-2]}l'
 
     def _recode24(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 24.
@@ -757,7 +757,7 @@ class Lovins(_Stemmer):
         """
         if stem[-4:-3] == 's':
             return stem
-        return f"{stem[:-1]}s"
+        return f'{stem[:-1]}s'
 
     def _recode28(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 28.
@@ -780,7 +780,7 @@ class Lovins(_Stemmer):
         """
         if stem[-4:-3] in {'p', 't'}:
             return stem
-        return f"{stem[:-1]}s"
+        return f'{stem[:-1]}s'
 
     def _recode30(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 30.
@@ -803,7 +803,7 @@ class Lovins(_Stemmer):
         """
         if stem[-4:-3] == 'm':
             return stem
-        return f"{stem[:-1]}s"
+        return f'{stem[:-1]}s'
 
     def _recode32(self, stem: str) -> str:
         """Return Lovins' conditional recode rule 32.
@@ -826,7 +826,7 @@ class Lovins(_Stemmer):
         """
         if stem[-3:-2] == 'n':
             return stem
-        return f"{stem[:-1]}s"
+        return f'{stem[:-1]}s'
 
     _suffix = {}  # type: Dict[str, Optional[Callable[[str, int], bool]]]
     _recode = ()  # type: Tuple[Tuple[str, Union[str, Callable[[str], str]]], ...]  # noqa: E501

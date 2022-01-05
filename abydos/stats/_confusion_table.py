@@ -244,7 +244,10 @@ class ConfusionTable:
         .. versionadded:: 0.4.0
 
         """
-        return f'ConfusionTable(tp={self._tp}, tn={self._tn}, fp={self._fp}, fn={self._fn})'
+        return (
+            f'ConfusionTable(tp={self._tp}, tn={self._tn}, '
+            f'fp={self._fp}, fn={self._fn})'
+        )
 
     def to_tuple(self) -> Tuple[float, float, float, float]:
         """Cast to tuple.

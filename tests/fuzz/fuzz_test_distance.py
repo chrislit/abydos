@@ -45,17 +45,17 @@ for name, obj in getmembers(ad):
         if 'dist_abs' in obj.__dict__ and 'Method disabled' not in getdoc(
             obj.dist_abs
         ):
-            algorithms[f"{name.lower()}_dist_abs"] = cls.dist_abs
+            algorithms[f'{name.lower()}_dist_abs'] = cls.dist_abs
         if 'sim_score' in obj.__dict__ and 'Method disabled' not in getdoc(
             obj.sim_score
         ):
-            algorithms[f"{name.lower()}_sim_score"] = cls.sim_score
+            algorithms[f'{name.lower()}_sim_score'] = cls.sim_score
         if 'dist' in obj.__dict__ and 'Method disabled' not in getdoc(
             obj.dist
         ):
-            algorithms[f"{name.lower()}_dist"] = cls.dist
+            algorithms[f'{name.lower()}_dist'] = cls.dist
         if 'sim' in obj.__dict__ and 'Method disabled' not in getdoc(obj.sim):
-            algorithms[f"{name.lower()}_sim"] = cls.sim
+            algorithms[f'{name.lower()}_sim'] = cls.sim
 
 # corrections and additions
 algorithms['typo_dist_abs'] = ad.Typo(failsafe=True).dist_abs
@@ -87,9 +87,10 @@ class BigListOfNaughtyStringsTestCases(unittest.TestCase):
             for ns in blns:
                 try:
                     algorithms[algo](ns, ns[: min(1, len(ns) - 2)])
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for BLNS: {ns} & {ns[: min(1, len(ns) - 1)]}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'BLNS: {ns} & {ns[: min(1, len(ns) - 1)]}'
                     )
 
 
@@ -121,9 +122,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](chosen, fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for words: {chosen} & {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'words: {chosen} & {fuzzed}'
                     )
 
     def fuzz_test_fuzz_bmpsmp_letter(self):
@@ -143,9 +145,10 @@ class FuzzedWordsTestCases(unittest.TestCase):
             for algo in algs:
                 try:
                     algorithms[algo](chosen, fuzzed)
-                except Exception as inst:
+                except Exception as inst:  # noqa: B902
                     self.fail(
-                        f'Exception "{inst}" thrown by {algo} for words: {chosen} & {fuzzed}'
+                        f'Exception "{inst}" thrown by {algo} for '
+                        f'words: {chosen} & {fuzzed}'
                     )
 
 

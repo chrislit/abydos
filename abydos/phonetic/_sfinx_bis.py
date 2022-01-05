@@ -270,7 +270,7 @@ class SfinxBis(_Phonetic):
 
             if 'H' in lokal_ordet:
                 for i in self._uc_c_set:
-                    lokal_ordet = lokal_ordet.replace(f"H{i}", i)
+                    lokal_ordet = lokal_ordet.replace(f'H{i}', i)
 
             lokal_ordet = lokal_ordet.translate(self._substitutions)
 
@@ -299,50 +299,50 @@ class SfinxBis(_Phonetic):
                 lokal_ordet[0:1] in self._mjuka_vokaler
                 or lokal_ordet[0:1] in self._harde_vokaler
             ):
-                lokal_ordet = f"${lokal_ordet[1:]}"
+                lokal_ordet = f'${lokal_ordet[1:]}'
             elif lokal_ordet[0:2] in ('DJ', 'GJ', 'HJ', 'LJ'):
-                lokal_ordet = f"J{lokal_ordet[2:]}"
+                lokal_ordet = f'J{lokal_ordet[2:]}'
             elif (
                 lokal_ordet[0:1] == 'G'
                 and lokal_ordet[1:2] in self._mjuka_vokaler
             ):
-                lokal_ordet = f"J{lokal_ordet[1:]}"
+                lokal_ordet = f'J{lokal_ordet[1:]}'
             elif lokal_ordet[0:1] == 'Q':
-                lokal_ordet = f"K{lokal_ordet[1:]}"
+                lokal_ordet = f'K{lokal_ordet[1:]}'
             elif lokal_ordet[0:2] == 'CH' and lokal_ordet[2:3] in frozenset(
                 self._mjuka_vokaler | self._harde_vokaler
             ):
-                lokal_ordet = f"#{lokal_ordet[2:]}"
+                lokal_ordet = f'#{lokal_ordet[2:]}'
             elif (
                 lokal_ordet[0:1] == 'C'
                 and lokal_ordet[1:2] in self._harde_vokaler
             ):
-                lokal_ordet = f"K{lokal_ordet[1:]}"
+                lokal_ordet = f'K{lokal_ordet[1:]}'
             elif (
                 lokal_ordet[0:1] == 'C' and lokal_ordet[1:2] in self._uc_c_set
             ):
-                lokal_ordet = f"K{lokal_ordet[1:]}"
+                lokal_ordet = f'K{lokal_ordet[1:]}'
             elif lokal_ordet[0:1] == 'X':
-                lokal_ordet = f"S{lokal_ordet[1:]}"
+                lokal_ordet = f'S{lokal_ordet[1:]}'
             elif (
                 lokal_ordet[0:1] == 'C'
                 and lokal_ordet[1:2] in self._mjuka_vokaler
             ):
-                lokal_ordet = f"S{lokal_ordet[1:]}"
+                lokal_ordet = f'S{lokal_ordet[1:]}'
             elif lokal_ordet[0:3] in ('SKJ', 'STJ', 'SCH'):
-                lokal_ordet = f"#{lokal_ordet[3:]}"
+                lokal_ordet = f'#{lokal_ordet[3:]}'
             elif lokal_ordet[0:2] in ('SH', 'KJ', 'TJ', 'SJ'):
-                lokal_ordet = f"#{lokal_ordet[2:]}"
+                lokal_ordet = f'#{lokal_ordet[2:]}'
             elif (
                 lokal_ordet[0:2] == 'SK'
                 and lokal_ordet[2:3] in self._mjuka_vokaler
             ):
-                lokal_ordet = f"#{lokal_ordet[2:]}"
+                lokal_ordet = f'#{lokal_ordet[2:]}'
             elif (
                 lokal_ordet[0:1] == 'K'
                 and lokal_ordet[1:2] in self._mjuka_vokaler
             ):
-                lokal_ordet = f"#{lokal_ordet[1:]}"
+                lokal_ordet = f'#{lokal_ordet[1:]}'
             return lokal_ordet
 
         # Steg 1, Versaler
@@ -388,7 +388,7 @@ class SfinxBis(_Phonetic):
 
         # Steg 9, Koda resten till en sifferkod
         for vokal in self._mjuka_vokaler:
-            rest = [ordet.replace(f"C{vokal}", f"8{vokal}") for ordet in rest]
+            rest = [ordet.replace(f'C{vokal}', f'8{vokal}') for ordet in rest]
         rest = [ordet.translate(self._trans) for ordet in rest]
 
         # Steg 10, Ta bort intilliggande dubbletter

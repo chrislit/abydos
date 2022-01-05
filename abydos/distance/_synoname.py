@@ -205,7 +205,7 @@ class Synoname(_Distance):
             elif s_type == 'b':
                 loc = (
                     full_tar1.find(
-                        f" {self._stc._synoname_special_table[s_pos][1]} "
+                        f' {self._stc._synoname_special_table[s_pos][1]} '  # noqa: SF01, E501
                     )
                     + 1
                 )
@@ -248,7 +248,7 @@ class Synoname(_Distance):
             elif s_type == 'b':
                 loc = (
                     full_src1.find(
-                        f" {self._stc._synoname_special_table[s_pos][1]} "
+                        f' {self._stc._synoname_special_table[s_pos][1]} '  # noqa: SF01, E501
                     )
                     + 1
                 )
@@ -291,7 +291,7 @@ class Synoname(_Distance):
                 in full_tar2
             ):
                 loc = full_tar2.find(
-                    f" {self._stc._synoname_special_table[s_pos][1]}"  # noqa: SF01
+                    f' {self._stc._synoname_special_table[s_pos][1]}'  # noqa: SF01, E501
                 )
                 full_tar2 = (
                     full_tar2[:loc]
@@ -323,7 +323,7 @@ class Synoname(_Distance):
                 in full_src2
             ):
                 loc = full_src2.find(
-                    f" {self._stc._synoname_special_table[s_pos][1]}"  # noqa: SF01
+                    f' {self._stc._synoname_special_table[s_pos][1]}'  # noqa: SF01, E501
                 )
                 full_src2 = (
                     full_src2[:loc]
@@ -375,12 +375,12 @@ class Synoname(_Distance):
         # 5
         last_found = False
         for word in tar1_words:
-            if src_ln.endswith(word) or f"{word} " in src_ln:
+            if src_ln.endswith(word) or f'{word} ' in src_ln:
                 last_found = True
 
         if not last_found:
             for word in src1_words:
-                if tar_ln.endswith(word) or f"{word} " in tar_ln:
+                if tar_ln.endswith(word) or f'{word} ' in tar_ln:
                     last_found = True
 
         # 6
@@ -416,12 +416,12 @@ class Synoname(_Distance):
         # 9
         last_found = False
         for word in tar2_words:
-            if src_ln.endswith(word) or f"{word} " in src_ln:
+            if src_ln.endswith(word) or f'{word} ' in src_ln:
                 last_found = True
 
         if not last_found:
             for word in src2_words:
-                if tar_ln.endswith(word) or f"{word} " in tar_ln:
+                if tar_ln.endswith(word) or f'{word} ' in tar_ln:
                     last_found = True
 
         if not last_found:

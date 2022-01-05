@@ -112,24 +112,24 @@ class NYSIIS(_Phonetic):
         original_first_char = word[0]
 
         if word[:3] == 'MAC':
-            word = f"MCC{word[3:]}"
+            word = f'MCC{word[3:]}'
         elif word[:2] == 'KN':
-            word = f"NN{word[2:]}"
+            word = f'NN{word[2:]}'
         elif word[:1] == 'K':
-            word = f"C{word[1:]}"
+            word = f'C{word[1:]}'
         elif word[:2] in {'PH', 'PF'}:
-            word = f"FF{word[2:]}"
+            word = f'FF{word[2:]}'
         elif word[:3] == 'SCH':
-            word = f"SSS{word[3:]}"
+            word = f'SSS{word[3:]}'
         elif self._modified:
             if word[:2] == 'WR':
-                word = f"RR{word[2:]}"
+                word = f'RR{word[2:]}'
             elif word[:2] == 'RH':
-                word = f"RR{word[2:]}"
+                word = f'RR{word[2:]}'
             elif word[:2] == 'DG':
-                word = f"GG{word[2:]}"
+                word = f'GG{word[2:]}'
             elif word[:1] in self._uc_v_set:
-                word = f"A{word[1:]}"
+                word = f'A{word[1:]}'
 
         if self._modified and word[-1:] in {'S', 'Z'}:
             word = word[:-1]
@@ -139,16 +139,16 @@ class NYSIIS(_Phonetic):
             or word[-2:] == 'IE'
             or (self._modified and word[-2:] == 'YE')
         ):
-            word = f"{word[:-2]}Y"
+            word = f'{word[:-2]}Y'
         elif word[-2:] in {'DT', 'RT', 'RD'}:
-            word = f"{word[:-2]}D"
+            word = f'{word[:-2]}D'
         elif word[-2:] in {'NT', 'ND'}:
             word = word[:-2] + ('N' if self._modified else 'D')
         elif self._modified:
             if word[-2:] == 'IX':
-                word = f"{word[:-2]}ICK"
+                word = f'{word[:-2]}ICK'
             elif word[-2:] == 'EX':
-                word = f"{word[:-2]}ECK"
+                word = f'{word[:-2]}ECK'
             elif word[-2:] in {'JR', 'SR'}:
                 return 'ERROR'
 
@@ -162,53 +162,53 @@ class NYSIIS(_Phonetic):
                 skip -= 1
                 continue
             elif word[i : i + 2] == 'EV':
-                word = f"{word[:i]}AF{word[i + 2:]}"
+                word = f'{word[:i]}AF{word[i + 2:]}'
                 skip = 1
             elif word[i] in self._uc_v_set:
-                word = f"{word[:i]}A{word[i + 1:]}"
+                word = f'{word[:i]}A{word[i + 1:]}'
             elif self._modified and i != len(word) - 1 and word[i] == 'Y':
-                word = f"{word[:i]}A{word[i + 1:]}"
+                word = f'{word[:i]}A{word[i + 1:]}'
             elif word[i] == 'Q':
-                word = f"{word[:i]}G{word[i + 1:]}"
+                word = f'{word[:i]}G{word[i + 1:]}'
             elif word[i] == 'Z':
-                word = f"{word[:i]}S{word[i + 1:]}"
+                word = f'{word[:i]}S{word[i + 1:]}'
             elif word[i] == 'M':
-                word = f"{word[:i]}N{word[i + 1:]}"
+                word = f'{word[:i]}N{word[i + 1:]}'
             elif word[i : i + 2] == 'KN':
-                word = f"{word[:i]}N{word[i + 2:]}"
+                word = f'{word[:i]}N{word[i + 2:]}'
             elif word[i] == 'K':
-                word = f"{word[:i]}C{word[i + 1:]}"
+                word = f'{word[:i]}C{word[i + 1:]}'
             elif (
                 self._modified
                 and i == len(word) - 3
                 and word[i : i + 3] == 'SCH'
             ):
-                word = f"{word[:i]}SSA"
+                word = f'{word[:i]}SSA'
                 skip = 2
             elif word[i : i + 3] == 'SCH':
-                word = f"{word[:i]}SSS{word[i + 3:]}"
+                word = f'{word[:i]}SSS{word[i + 3:]}'
                 skip = 2
             elif (
                 self._modified
                 and i == len(word) - 2
                 and word[i : i + 2] == 'SH'
             ):
-                word = f"{word[:i]}SA"
+                word = f'{word[:i]}SA'
                 skip = 1
             elif word[i : i + 2] == 'SH':
-                word = f"{word[:i]}SS{word[i + 2:]}"
+                word = f'{word[:i]}SS{word[i + 2:]}'
                 skip = 1
             elif word[i : i + 2] == 'PH':
-                word = f"{word[:i]}FF{word[i + 2:]}"
+                word = f'{word[:i]}FF{word[i + 2:]}'
                 skip = 1
             elif self._modified and word[i : i + 3] == 'GHT':
-                word = f"{word[:i]}TTT{word[i + 3:]}"
+                word = f'{word[:i]}TTT{word[i + 3:]}'
                 skip = 2
             elif self._modified and word[i : i + 2] == 'DG':
-                word = f"{word[:i]}GG{word[i + 2:]}"
+                word = f'{word[:i]}GG{word[i + 2:]}'
                 skip = 1
             elif self._modified and word[i : i + 2] == 'WR':
-                word = f"{word[:i]}RR{word[i + 2:]}"
+                word = f'{word[:i]}RR{word[i + 2:]}'
                 skip = 1
             elif word[i] == 'H' and (
                 word[i - 1] not in self._uc_v_set
@@ -226,7 +226,7 @@ class NYSIIS(_Phonetic):
         if key[-1:] == 'S':
             key = key[:-1]
         if key[-2:] == 'AY':
-            key = f"{key[:-2]}Y"
+            key = f'{key[:-2]}Y'
         if key[-1:] == 'A':
             key = key[:-1]
         if self._modified and key[:1] == 'A':

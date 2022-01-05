@@ -146,29 +146,29 @@ class PSHPSoundexLast(_Phonetic):
         # both articles have this error(?).
         if not self._german:
             if lname[:3] == 'MAC':
-                lname = f"M{lname[3:]}"
+                lname = f'M{lname[3:]}'
             elif lname[:2] == 'MC':
-                lname = f"M{lname[2:]}"
+                lname = f'M{lname[2:]}'
 
         # The non-German-only rule to strip ' is unnecessary due to filtering
 
         if lname[:1] in {'E', 'I', 'O', 'U'}:
-            lname = f"A{lname[1:]}"
+            lname = f'A{lname[1:]}'
         elif lname[:2] in {'GE', 'GI', 'GY'}:
-            lname = f"J{lname[1:]}"
+            lname = f'J{lname[1:]}'
         elif lname[:2] in {'CE', 'CI', 'CY'}:
-            lname = f"S{lname[1:]}"
+            lname = f'S{lname[1:]}'
         elif lname[:3] == 'CHR':
-            lname = f"K{lname[1:]}"
+            lname = f'K{lname[1:]}'
         elif lname[:1] == 'C' and lname[:2] != 'CH':
-            lname = f"K{lname[1:]}"
+            lname = f'K{lname[1:]}'
 
         if lname[:2] == 'KN':
-            lname = f"N{lname[1:]}"
+            lname = f'N{lname[1:]}'
         elif lname[:2] == 'PH':
-            lname = f"F{lname[1:]}"
+            lname = f'F{lname[1:]}'
         elif lname[:3] in {'WIE', 'WEI'}:
-            lname = f"V{lname[1:]}"
+            lname = f'V{lname[1:]}'
 
         if self._german and lname[:1] in {'W', 'M', 'Y', 'Z'}:
             lname = {'W': 'V', 'M': 'N', 'Y': 'J', 'Z': 'S'}[lname[0]] + lname[
@@ -193,7 +193,7 @@ class PSHPSoundexLast(_Phonetic):
                 lname = lname[:-2]
 
         if lname[-1:] == 'R':
-            lname = f"{lname[:-1]}N"
+            lname = f'{lname[:-1]}N'
         elif lname[-2:] in {'SE', 'CE'}:
             lname = lname[:-2]
         if lname[-2:] == 'SS':
@@ -217,7 +217,7 @@ class PSHPSoundexLast(_Phonetic):
         if lname[-2:] in {'NG', 'ND'}:
             lname = lname[:-1]
         if not self._german and lname[-3:] in {'GAN', 'GEN'}:
-            lname = f"{lname[:-3]}A{lname[-2:]}"
+            lname = f'{lname[:-3]}A{lname[-2:]}'
 
         # C. Infix Treatment
         lname = lname.replace('CK', 'C')

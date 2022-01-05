@@ -203,10 +203,10 @@ class Porter(_Stemmer):
 
         # Re-map consonantal y to Y (Y will be C, y will be V)
         if word[0] == 'y':
-            word = f"Y{word[1:]}"
+            word = f'Y{word[1:]}'
         for i in range(1, len(word)):
             if word[i] == 'y' and word[i - 1] in self._vowels:
-                word = f"{word[:i]}Y{word[i + 1:]}"
+                word = f'{word[:i]}Y{word[i + 1:]}'
 
         # Step 1a
         if word[-1] == 's':
@@ -256,21 +256,21 @@ class Porter(_Stemmer):
 
         # Step 1c
         if word[-1] in {'Y', 'y'} and self._has_vowel(word[:-1]):
-            word = f"{word[:-1]}i"
+            word = f'{word[:-1]}i'
 
         # Step 2
         if len(word) > 1:
             if word[-2] == 'a':
                 if word[-7:] == 'ational':
                     if self._m_degree(word[:-7]) > 0:
-                        word = f"{word[:-5]}e"
+                        word = f'{word[:-5]}e'
                 elif word[-6:] == 'tional':
                     if self._m_degree(word[:-6]) > 0:
                         word = word[:-2]
             elif word[-2] == 'c':
                 if word[-4:] in {'enci', 'anci'}:
                     if self._m_degree(word[:-4]) > 0:
-                        word = f"{word[:-1]}e"
+                        word = f'{word[:-1]}e'
             elif word[-2] == 'e':
                 if word[-4:] == 'izer':
                     if self._m_degree(word[:-4]) > 0:
@@ -282,7 +282,7 @@ class Porter(_Stemmer):
             elif word[-2] == 'l':
                 if word[-3:] == 'bli':
                     if self._m_degree(word[:-3]) > 0:
-                        word = f"{word[:-1]}e"
+                        word = f'{word[:-1]}e'
                 elif word[-4:] == 'alli':
                     if self._m_degree(word[:-4]) > 0:
                         word = word[:-2]
@@ -298,13 +298,13 @@ class Porter(_Stemmer):
             elif word[-2] == 'o':
                 if word[-7:] == 'ization':
                     if self._m_degree(word[:-7]) > 0:
-                        word = f"{word[:-5]}e"
+                        word = f'{word[:-5]}e'
                 elif word[-5:] == 'ation':
                     if self._m_degree(word[:-5]) > 0:
-                        word = f"{word[:-3]}e"
+                        word = f'{word[:-3]}e'
                 elif word[-4:] == 'ator':
                     if self._m_degree(word[:-4]) > 0:
-                        word = f"{word[:-2]}e"
+                        word = f'{word[:-2]}e'
             elif word[-2] == 's':
                 if word[-5:] == 'alism':
                     if self._m_degree(word[:-5]) > 0:
@@ -318,10 +318,10 @@ class Porter(_Stemmer):
                         word = word[:-3]
                 elif word[-5:] == 'iviti':
                     if self._m_degree(word[:-5]) > 0:
-                        word = f"{word[:-3]}e"
+                        word = f'{word[:-3]}e'
                 elif word[-6:] == 'biliti':
                     if self._m_degree(word[:-6]) > 0:
-                        word = f"{word[:-5]}le"
+                        word = f'{word[:-5]}le'
 
         # Step 3
         if word[-5:] in 'icate':
@@ -394,7 +394,7 @@ class Porter(_Stemmer):
         # Change 'Y' back to 'y' if it survived stemming
         for i in range(len(word)):
             if word[i] == 'Y':
-                word = f"{word[:i]}y{word[i + 1:]}"
+                word = f'{word[:i]}y{word[i + 1:]}'
 
         return word
 

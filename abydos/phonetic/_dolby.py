@@ -167,9 +167,9 @@ class Dolby(_Phonetic):
 
         # Rule 1 (FL2)
         if word[:3] in {'MCG', 'MAG', 'MAC'}:
-            word = f"MK{word[3:]}"
+            word = f'MK{word[3:]}'
         elif word[:2] == 'MC':
-            word = f"MK{word[2:]}"
+            word = f'MK{word[2:]}'
 
         # Rule 2 (FL3)
         pos = len(word) - 2
@@ -204,7 +204,7 @@ class Dolby(_Phonetic):
         pos = word.find('CH', 1)
         while pos != -1:
             if word[pos - 1 : pos] not in self._uc_vy_set:
-                word = f"{word[:pos]}S{word[pos + 1:]}"
+                word = f'{word[:pos]}S{word[pos + 1:]}'
             pos = word.find('CH', pos + 1)
 
         word = word.replace('C', 'K')
@@ -244,9 +244,9 @@ class Dolby(_Phonetic):
             word = word[:-1]
         elif word[-2:] == 'GH':
             if word[-3:-2] in self._uc_vy_set:
-                word = f"{word[:-2]}F"
+                word = f'{word[:-2]}F'
             else:
-                word = f"{word[:-2]}G"
+                word = f'{word[:-2]}G'
         word = word.replace('GH', '')
 
         # Rule FL9

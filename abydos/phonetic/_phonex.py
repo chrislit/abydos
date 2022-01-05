@@ -136,11 +136,11 @@ class Phonex(_Phonetic):
         # Phonetic equivalents of first 2 characters
         # Works since duplicate letters are ignored
         if name[:2] == 'KN':
-            name = f"N{name[2:]}"  # KN.. == N..
+            name = f'N{name[2:]}'  # KN.. == N..
         elif name[:2] == 'PH':
-            name = f"F{name[2:]}"  # PH.. == F.. (H ignored anyway)
+            name = f'F{name[2:]}'  # PH.. == F.. (H ignored anyway)
         elif name[:2] == 'WR':
-            name = f"R{name[2:]}"  # WR.. == R..
+            name = f'R{name[2:]}'  # WR.. == R..
 
         if name:
             # Special case, ignore H first letter (subsequent Hs ignored
@@ -152,17 +152,17 @@ class Phonex(_Phonetic):
         if name:
             # Phonetic equivalents of first character
             if name[0] in self._uc_vy_set:
-                name = f"A{name[1:]}"
+                name = f'A{name[1:]}'
             elif name[0] in {'B', 'P'}:
-                name = f"B{name[1:]}"
+                name = f'B{name[1:]}'
             elif name[0] in {'V', 'F'}:
-                name = f"F{name[1:]}"
+                name = f'F{name[1:]}'
             elif name[0] in {'C', 'K', 'Q'}:
-                name = f"C{name[1:]}"
+                name = f'C{name[1:]}'
             elif name[0] in {'G', 'J'}:
-                name = f"G{name[1:]}"
+                name = f'G{name[1:]}'
             elif name[0] in {'S', 'Z'}:
-                name = f"S{name[1:]}"
+                name = f'S{name[1:]}'
 
             name_code = last = name[0]
 

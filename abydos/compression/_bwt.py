@@ -85,7 +85,7 @@ class BWT:
         if word:
             if self._terminator in word:
                 raise ValueError(
-                    'Specified terminator, {}, already in word.'.format(
+                    'Specified terminator, {}, already in word.'.format(  # noqa: SFS201, E501
                         self._terminator if self._terminator != '\0' else '\\0'
                     )
                 )
@@ -137,7 +137,7 @@ class BWT:
         if code:
             if self._terminator not in code:
                 raise ValueError(
-                    'Specified terminator, {}, absent from code.'.format(
+                    'Specified terminator, {}, absent from code.'.format(  # noqa: SFS201, E501
                         self._terminator if self._terminator != '\0' else '\\0'
                     )
                 )

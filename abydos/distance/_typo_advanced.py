@@ -392,8 +392,8 @@ class TypoAdvanced(_Distance):
 
         if keymap_int is None:
             raise FileNotFoundError(
-                f'Keymap file {keymap}.json not found. You can install keymaps by calling'
-                f" abydos.util.download_package('keymaps')"
+                f'Keymap file {keymap}.json not found. You can install keymaps '
+                f"by calling abydos.util.download_package('keymaps')"
             )
 
         def _modifiers_fix(modifiers: str) -> FrozenSet[str]:
@@ -550,7 +550,7 @@ class TypoAdvanced(_Distance):
                     kb_modes.append(kb_mode)
             if kb_modes:
                 return kb_modes
-            raise ValueError(f"{char} not found in any keyboard layouts")
+            raise ValueError(f'{char} not found in any keyboard layouts')
 
         def _substitution_cost(char1: str, char2: str) -> float:
             if self._failsafe and (char1 not in keys or char2 not in keys):

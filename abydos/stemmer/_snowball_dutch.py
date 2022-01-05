@@ -102,16 +102,16 @@ class SnowballDutch(_Snowball):
 
         for i in range(len(word)):
             if i == 0 and word[0] == 'y':
-                word = f"Y{word[1:]}"
+                word = f'Y{word[1:]}'
             elif word[i] == 'y' and word[i - 1] in self._vowels:
-                word = f"{word[:i]}Y{word[i + 1:]}"
+                word = f'{word[:i]}Y{word[i + 1:]}'
             elif (
                 word[i] == 'i'
                 and word[i - 1] in self._vowels
                 and i + 1 < len(word)
                 and word[i + 1] in self._vowels
             ):
-                word = f"{word[:i]}I{word[i + 1:]}"
+                word = f'{word[:i]}I{word[i + 1:]}'
 
         r1_start = max(3, self._sb_r1(word))
         r2_start = self._sb_r2(word)
@@ -119,7 +119,7 @@ class SnowballDutch(_Snowball):
         # Step 1
         if word[-5:] == 'heden':
             if len(word[r1_start:]) >= 5:
-                word = f"{word[:-3]}id"
+                word = f'{word[:-3]}id'
         elif word[-3:] == 'ene':
             if len(word[r1_start:]) >= 3 and (
                 word[-4] not in self._vowels and word[-6:-3] != 'gem'
@@ -206,9 +206,9 @@ class SnowballDutch(_Snowball):
         # Change 'Y' and 'U' back to lowercase if survived stemming
         for i in range(0, len(word)):
             if word[i] == 'Y':
-                word = f"{word[:i]}y{word[i + 1:]}"
+                word = f'{word[:i]}y{word[i + 1:]}'
             elif word[i] == 'I':
-                word = f"{word[:i]}i{word[i + 1:]}"
+                word = f'{word[:i]}i{word[i + 1:]}'
 
         return word
 

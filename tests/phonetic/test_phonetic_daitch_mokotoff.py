@@ -71,7 +71,8 @@ class DaitchMokotoffTestCases(unittest.TestCase):
         )
         self.assertEqual(
             self.pa.encode('Jackson-Jackson'),
-            f"145464,145465,154644,154645,154654,445464,445465,454644,454645,454654",
+            '145464,145465,154644,154645,154654,'
+            '445464,445465,454644,454645,454654',
         )
 
         # http://www.jewishgen.org/infofiles/soundex.html

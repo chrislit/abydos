@@ -482,9 +482,9 @@ class NRL(_Phonetic):
             if left_match:
                 new_pattern += '$'
                 if '^' not in pattern:
-                    new_pattern = f"^.*{new_pattern}"
+                    new_pattern = f'^.*{new_pattern}'
             else:
-                new_pattern = f"^{new_pattern.replace('^', '$')}"
+                new_pattern = f'^{new_pattern.replace("^", "$")}'
                 if '$' not in new_pattern:
                     new_pattern += '.*$'
 

@@ -403,7 +403,7 @@ class SynonameToolcode(_Fingerprint):
                 lname_end = lname[comma + 1 :]
                 while lname_end[0] in {' ', ','}:
                     lname_end = lname_end[1:]
-                fname = f"{lname_end} {fname}"
+                fname = f'{lname_end} {fname}'
                 lname = lname[:comma].strip()
 
         # do elder/younger move
@@ -426,7 +426,7 @@ class SynonameToolcode(_Fingerprint):
             full_name = full_name.replace(char, '')
         for pos, char in enumerate(full_name):
             if char == '-' and full_name[pos - 1 : pos + 2] != 'b-g':
-                full_name = f"{full_name[:pos]} {full_name[pos + 1:]}"
+                full_name = f'{full_name[:pos]} {full_name[pos + 1:]}'
 
         # Fill field 9 (search range)
         for letter in [_[0] for _ in full_name.split()]:
@@ -476,7 +476,7 @@ class SynonameToolcode(_Fingerprint):
         for num, special in enumerate(self._synoname_special_table):
             roman, match, extra, method = special
             if method & self._method_dict['end']:
-                match_context = f" {match}"
+                match_context = f' {match}'
                 loc = full_name.find(match_context)
                 if (len(full_name) > len(match_context)) and (
                     loc == len(full_name) - len(match_context)
@@ -495,7 +495,7 @@ class SynonameToolcode(_Fingerprint):
                         full_name = full_name[:loc]
                         toolcode[7] += f'{num:03d}a'
             if method & self._method_dict['middle']:
-                match_context = f" {match} "
+                match_context = f' {match} '
                 loc = 0
                 while loc != -1:
                     loc = full_name.find(match_context, loc + 1)
@@ -522,7 +522,7 @@ class SynonameToolcode(_Fingerprint):
                             )
                             toolcode[7] += f'{num:03d}b'
             if method & self._method_dict['beginning']:
-                match_context = f"{match} "
+                match_context = f'{match} '
                 loc = full_name.find(match_context)
                 if loc == 0:
                     full_name = full_name[len(match) + 1 :]

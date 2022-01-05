@@ -200,7 +200,7 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = re.sub(
         r'^\$([a-zA-Z]+)',
-        lambda m: f"_{sd.upper()}_{c2u(m.group(1)).upper()}",
+        lambda m: f'_{sd.upper()}_{c2u(m.group(1)).upper()}',
         line,
     )
 
@@ -210,9 +210,9 @@ def pythonize(line, fn='', subdir='gen'):
     line = re.sub(
         r'\$([a-zA-Z]+)',
         lambda m: (
-            f"L_{m.group(1).upper()}"
+            f'L_{m.group(1).upper()}'
             if m.group(1) in lang_dict
-            else f"${m.group(1)}"
+            else f'${m.group(1)}'
         ),
         line,
     )
@@ -257,7 +257,7 @@ def pythonize(line, fn='', subdir='gen'):
     code = code.rstrip()
     comment = comment.strip()
     if not re.match(r'^\s*$', code):
-        comment = f"  {comment}"
+        comment = f'  {comment}'
 
     if '(' in code and ')' in code:
         prefix = code[: code.find('(') + 1]
@@ -280,7 +280,7 @@ def pythonize(line, fn='', subdir='gen'):
         nl = False
         if array_seen and not (line[0] == '_' or line.startswith('BMDATA')):
             line = ' ' * 4 + line
-        return f"{line}\n"
+        return f'{line}\n'
     elif not nl:
         nl = True
         return '\n'
@@ -292,7 +292,7 @@ def _run_script():
     global array_seen, nl, sd, tail_text
 
     if len(sys.argv) > 1:
-        bmdir = f"{sys.argv[1].rstrip('/')}/"
+        bmdir = f'{sys.argv[1].rstrip("/")}/'
     else:
         bmdir = '../../bmpm/'
 
@@ -323,7 +323,7 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
 
     outfile.write('L_NONE = 0\n')
     for i, l in enumerate(lang_tuple):
-        outfile.write(f"L_{l.upper()} = 2**{str(i)}\n")
+        outfile.write(f'L_{l.upper()} = 2**{str(i)}\n')
     outfile.write('\n\n')
 
     tail_text += '\nBMDATA = {}  # type: ignore\n'
@@ -344,8 +344,8 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
 
         phps = [
             f
-            for f in sorted(listdir(f"{bmdir + s}/"))
-            if (isfile(f"{bmdir + s}/{f}") and f.endswith('.php'))
+            for f in sorted(listdir(f'{bmdir + s}/'))
+            if (isfile(f'{bmdir + s}/{f}') and f.endswith('.php'))
         ]
         for infilename in phps:
             for pfx in (
@@ -358,11 +358,11 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
             ):
                 if infilename.startswith(pfx):
                     array_seen = False
-                    infilepath = f"{bmdir + s}/{infilename}"
+                    infilepath = f'{bmdir + s}/{infilename}'
                     infileenc = chardet.detect(open(infilepath, 'rb').read())[
                         'encoding'
                     ]
-                    print(f"{s}/{infilename}")  # noqa: T001
+                    print(f'{s}/{infilename}')  # noqa: T001
                     infile = codecs.open(infilepath, 'r', infileenc)
                     # if infilename.startswith('lang'):
                     #     tuplename = infilename[:-4]
@@ -370,7 +370,7 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
                     #     tuplename = pfx + '_' + infilename[len(pfx) : -4]
                     # indent = len(tuplename) + 21
 
-                    outfile.write(f"# {s}/{infilename}\n")
+                    outfile.write(f'# {s}/{infilename}\n')
 
                     ignore = True
                     for line in infile:
@@ -407,7 +407,7 @@ __future__ import (\n    absolute_import,\n    division,\n    print_function,\
         line = line.rstrip()
         if line:
             if fixlanguagesarray:
-                line = f" {line.strip()}"
+                line = f' {line.strip()}'
                 fixlanguagesarray = False
             if len(line) > 79 or sep_lang in line:
                 line += '  # noqa: E501'

@@ -110,7 +110,7 @@ def main(argv):
             if line:
                 line = line.split(',')
                 term = line[last_col]
-                features = f'0b{"".join([binarize(val) for val in line[first_col:last_col]])}'
+                features = f'0b{"".join([binarize(val) for val in line[first_col:last_col]])}'  # noqa: E501
                 termdict[term] = int(features, 2)
 
         return termdict, feature_mask
@@ -196,12 +196,14 @@ def main(argv):
                     if ent[0] == '±':
                         if (features & efm) == 0:
                             sys.stdout.write(
-                                f'Incorrect entailment for {sym} for feature {fname} and entailment {ename}'
+                                f'Incorrect entailment for {sym} for '
+                                f'feature {fname} and entailment {ename}'
                             )
                     else:
                         if (features & efm) != efm:
                             sys.stdout.write(
-                                f'Incorrect entailment for {sym} for feature {fname} and entailment {ename}'
+                                f'Incorrect entailment for {sym} for '
+                                f'feature {fname} and entailment {ename}'
                             )
 
     checkdict = {}  # a mapping of symbol to feature
@@ -251,7 +253,7 @@ def main(argv):
             symbol = line[0]
             variant = int(line[1])
             segmental = bool(line[2])
-            features = f'0b{"".join([binarize(val) for val in line[first_col:last_col]])}'
+            features = f'0b{"".join([binarize(val) for val in line[first_col:last_col]])}'  # noqa: E501
             name = line[-1].strip()
             if not segmental:
                 features = f'-{features}'
@@ -267,7 +269,8 @@ def main(argv):
             if variant < 2:
                 if featint in checkset_f:
                     sys.stdout.write(
-                        f'Feature set {str(featint)} appears in CSV for two primary IPA symbols: '
+                        f'Feature set {str(featint)} appears in CSV '
+                        f'for two primary IPA symbols: '
                         f'{symbol} and {checkdict[featint]}'
                     )
                 else:

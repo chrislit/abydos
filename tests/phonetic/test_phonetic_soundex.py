@@ -94,7 +94,8 @@ class SoundexTestCases(unittest.TestCase):
         # max_length bounds tests
         self.assertEqual(
             Soundex(max_length=-1).encode('Niall'),
-            f"N400000000000000000000000000000000000000000000000000000000000000",
+            'N400000000000000000000000000000000000'
+            '000000000000000000000000000',
         )
         self.assertEqual(Soundex(max_length=0).encode('Niall'), 'N400')
 

@@ -79,7 +79,8 @@ class Sift4TestCases(unittest.TestCase):
         self.assertEqual(
             Sift4(10).dist_abs(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                f"Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing elit.",
+                'Amet Lorm ispum dolor sit amet, '
+                'consetetur adixxxpiscing elit.',
             ),
             12,
         )
@@ -144,7 +145,8 @@ class Sift4TestCases(unittest.TestCase):
         self.assertAlmostEqual(
             Sift4(10).dist(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                f"Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing elit.",
+                'Amet Lorm ispum dolor sit amet, '
+                'consetetur adixxxpiscing elit.',
             ),
             0.193548387,
         )
@@ -211,7 +213,8 @@ class Sift4TestCases(unittest.TestCase):
         self.assertAlmostEqual(
             Sift4(10).sim(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                f"Amet Lorm ispum dolor sit amet, consetetur adixxxpiscing elit.",
+                'Amet Lorm ispum dolor sit amet, '
+                'consetetur adixxxpiscing elit.',
             ),
             0.806451613,
         )

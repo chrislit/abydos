@@ -115,7 +115,7 @@ class Caumanns(_Stemmer):
         if len(word) > 5 and word[-5:] == 'erin*':
             word = word[:-1]
         if word[-1] == 'z':
-            word = f"{word[:-1]}x"
+            word = f'{word[:-1]}x'
 
         # Reverse substitutions:
         word = word.replace('$', 'sch')
