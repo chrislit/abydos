@@ -102,8 +102,8 @@ class Hamming(_Distance):
         if not self._diff_lens and len(src) != len(tar):
             raise ValueError(
                 'Undefined for sequences of unequal length; set diff_lens '
-                + 'to True for Hamming distance between strings of unequal '
-                + 'lengths.'
+                'to True for Hamming distance between strings of unequal '
+                'lengths.'
             )
 
         hdist = 0

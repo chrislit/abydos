@@ -92,7 +92,7 @@ class RussellIndex(_Phonetic):
         # remove any 1s after the first occurrence
         one = sdx.find('1') + 1
         if one:
-            sdx = sdx[:one] + ''.join(c for c in sdx[one:] if c != '1')
+            sdx = f'{sdx[:one]}{"".join(c for c in sdx[one:] if c != "1")}'
 
         # remove repeating characters
         sdx = self._delete_consecutive_repeats(sdx)

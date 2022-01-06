@@ -103,11 +103,11 @@ def pythonize(line, fn='', subdir='gen'):
     Parameters
     ----------
     line : str
-        A line of code
-        fn : str
-        A filename
-        subdir : str
-        The file's subdirectory
+    A line of code
+    fn : str
+    A filename
+    subdir : str
+    The file's subdirectory
 
     Returns
     -------
@@ -138,62 +138,32 @@ def pythonize(line, fn='', subdir='gen'):
 
     line = re.sub(
         r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", '
-        + r'\$languages\)\] = \$([a-zA-Z]+)',
+        r'\$languages\)\] = \$([a-zA-Z]+)',
         lambda m: (
-            "BMDATA['"
-            + subdir
-            + "']['"
-            + m.group(1)
-            + "'][L_"
-            + m.group(2).upper()
-            + '] = _'
-            + subdir.upper()
-            + '_'
-            + c2u(m.group(3)).upper()
+            f"BMDATA['{subdir}']['{m.group(1)}'][L_{m.group(2).upper()}] = "
+            f'_{subdir.upper()}_{c2u(m.group(3)).upper()}'
         ),
         line,
     )
 
     line = re.sub(
         r'\$(approx|rules|exact|hebrew)([A-Za-z]+) = _merge'
-        + r'\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
+        r'\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
         lambda m: (
-            "BMDATA['"
-            + subdir
-            + "']['"
-            + m.group(1)
-            + "'][L_"
-            + c2u(m.group(2)).upper()
-            + '] = _'
-            + subdir.upper()
-            + '_'
-            + c2u(m.group(3)).upper()
-            + ' + _'
-            + subdir.upper()
-            + '_'
-            + c2u(m.group(4)).upper()
+            f"BMDATA['{subdir}']['{m.group(1)}'][L_{c2u(m.group(2)).upper()}] "
+            f'= _{subdir.upper()}_{c2u(m.group(3)).upper()} + '
+            f'_{subdir.upper()}_{c2u(m.group(4)).upper()}'
         ),
         line,
     )
 
     line = re.sub(
         r'\$(approx|rules|exact)\[LanguageIndex\("([^"]+)", '
-        + r'\$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
+        r'\$languages\)\] = _merge\(\$([a-zA-Z]+), \$([a-zA-Z]+)\)',
         lambda m: (
-            "BMDATA['"
-            + subdir
-            + "']['"
-            + m.group(1)
-            + "'][L_"
-            + c2u(m.group(2)).upper()
-            + '] = _'
-            + subdir.upper()
-            + '_'
-            + c2u(m.group(3)).upper()
-            + ' + _'
-            + subdir.upper()
-            + '_'
-            + c2u(m.group(4)).upper()
+            f"BMDATA['{subdir}']['{m.group(1)}'][L_{c2u(m.group(2)).upper()}] "
+            f'= _{subdir.upper()}_{c2u(m.group(3)).upper()} + '
+            f'_{subdir.upper()}_{c2u(m.group(4)).upper()}'
         ),
         line,
     )

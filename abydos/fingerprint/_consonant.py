@@ -117,7 +117,10 @@ class Consonant(_Fingerprint):
             word = ''.join(char for char, _ in groupby(word))
 
         # remove vowels
-        word = word[:1] + ''.join(_ for _ in word[1:] if _ not in self._vowels)
+        word = (
+            f'{word[:1]}'
+            f'{"".join(_ for _ in word[1:] if _ not in self._vowels)}'
+        )
 
         return word
 

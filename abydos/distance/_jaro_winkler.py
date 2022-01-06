@@ -149,12 +149,12 @@ class JaroWinkler(_Distance):
             if self._boost_threshold > 1 or self._boost_threshold < 0:
                 raise ValueError(
                     'Unsupported boost_threshold assignment; '
-                    + 'boost_threshold must be between 0 and 1.'
+                    'boost_threshold must be between 0 and 1.'
                 )
             if self._scaling_factor > 0.25 or self._scaling_factor < 0:
                 raise ValueError(
                     'Unsupported scaling_factor assignment; '
-                    + 'scaling_factor must be between 0 and 0.25.'
+                    'scaling_factor must be between 0 and 0.25.'
                 )
 
         if src == tar:

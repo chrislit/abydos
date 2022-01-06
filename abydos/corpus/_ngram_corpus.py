@@ -78,8 +78,8 @@ class NGramCorpus:
             self.corpus_importer(corpus)
         else:
             raise TypeError(
-                f'Corpus argument must be None or of type abydos.corpus.Corpus. '
-                f'{type(corpus)} found.'
+                f'Corpus argument must be None or of type abydos.corpus.Corpus.'
+                f' {type(corpus)} found.'
             )
 
     def corpus_importer(

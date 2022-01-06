@@ -109,7 +109,9 @@ class LACSS(_Fingerprint):
         word = word.upper()
 
         # remove vowels
-        word = word[:1] + ''.join(_ for _ in word[1:] if _ not in 'AEIOUWHY')
+        word = (
+            f'{word[:1]}{"".join(_ for _ in word[1:] if _ not in "AEIOUWHY")}'
+        )
         word += 12 * 'A'
 
         # step 1

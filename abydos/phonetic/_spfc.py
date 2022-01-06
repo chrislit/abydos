@@ -178,8 +178,8 @@ class SPFC(_Phonetic):
             """
             raise AttributeError(
                 'Word attribute must be a string with a space or period '
-                + 'dividing the first and last names or a tuple/list '
-                + 'consisting of the first and last names'
+                'dividing the first and last names or a tuple/list '
+                'consisting of the first and last names'
             )
 
         if not word:

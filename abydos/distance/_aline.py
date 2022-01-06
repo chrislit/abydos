@@ -1177,7 +1177,7 @@ class ALINE(_Distance):
         mode: str = 'local',
         phones: str = 'aline',
         normalizer: Callable[[List[float]], float] = max,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """Initialize ALINE instance.
 
@@ -1392,10 +1392,10 @@ class ALINE(_Distance):
                             t_segment = cast(str, t_segment) + ts
                         else:
                             cast(List[str], s_segment).append(
-                                ss + ' ' * (len(ts) - len(ss))
+                                f'{ss}{" " * (len(ts) - len(ss))}'
                             )
                             cast(List[str], t_segment).append(
-                                ts + ' ' * (len(ss) - len(ts))
+                                f'{ts}{" " * (len(ss) - len(ts))}'
                             )
 
                 src_alignment_str = ' ‖ '.join(

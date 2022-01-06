@@ -107,8 +107,8 @@ class FuzzyWuzzyTokenSet(_TokenDistance):
         tar_tok -= intersection
 
         intersection = f"{' '.join(sorted(intersection))} "
-        src = intersection + ' '.join(sorted(src_tok))
-        tar = intersection + ' '.join(sorted(tar_tok))
+        src = f'{intersection}{" ".join(sorted(src_tok))}'
+        tar = f'{intersection}{" ".join(sorted(tar_tok))}'
 
         return max(
             SequenceMatcher(None, src, intersection).ratio(),

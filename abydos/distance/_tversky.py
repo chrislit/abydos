@@ -157,7 +157,7 @@ class Tversky(_TokenDistance):
         if self.params['alpha'] < 0 or self.params['beta'] < 0:
             raise ValueError(
                 'Unsupported weight assignment; alpha and beta '
-                + 'must be greater than or equal to 0.'
+                'must be greater than or equal to 0.'
             )
 
         if src == tar:

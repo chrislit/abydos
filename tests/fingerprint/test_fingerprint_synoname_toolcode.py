@@ -131,28 +131,17 @@ class SynonameToolcodeTestCases(unittest.TestCase):
         )
         self.assertEqual(
             self.fp.fingerprint(
-                'Lorem ipsum dolor sit amet, '
-                + 'consectetur adipiscing elit, '
-                + 'sed do eiusmod tempor '
-                + 'incididunt ut labore et dolore '
-                + 'magna aliqua. Nulla aliquet '
-                + 'porttitor lacus luctus accumsan '
-                + 'tortor posuere. Egestas purus '
-                + 'viverra accumsan in. Ultrices '
-                + 'mi tempus imperdiet nulla '
-                + 'malesuada pellentesque elit '
-                + 'eget gravida. Proin libero nunc '
-                + 'consequat interdum varius sit '
-                + 'amet mattis vulputate. Mauris '
-                + 'ultrices eros in cursus turpis '
-                + 'massa tincidunt dui. Faucibus '
-                + 'in ornare quam viverra orci '
-                + 'sagittis eu volutpat odio. Enim '
-                + 'blandit volutpat maecenas '
-                + 'volutpat blandit aliquam etiam. '
-                + 'Vel quam elementum pulvinar '
-                + 'etiam. Duis ut diam quam nulla '
-                + 'porttitor massa id.',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
+                'sed do eiusmod tempor incididunt ut labore et dolore '
+                'magna aliqua. Nulla aliquet porttitor lacus luctus accumsan '
+                'tortor posuere. Egestas purus viverra accumsan in. Ultrices '
+                'mi tempus imperdiet nulla malesuada pellentesque elit eget'
+                'gravida. Proin libero nunc consequat interdum varius sit '
+                'amet mattis vulputate. Mauris ultrices eros in cursus turpis '
+                'massa tincidunt dui. Faucibus in ornare quam viverra orci '
+                'sagittis eu volutpat odio. Enim blandit volutpat maecenas '
+                'volutpat blandit aliquam etiam. Vel quam elementum pulvinar '
+                'etiam. Duis ut diam quam nulla porttitor massa id.',
                 normalize=1,
             ).split(',')[-1],
             '02000060626$068d$lidsacetumnpvgflo',

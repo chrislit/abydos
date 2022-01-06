@@ -50,7 +50,7 @@ class PhoneticTestCases(unittest.TestCase):
         self.assertEqual(
             self.fp_phonet.fingerprint(' '.join(NIALL)),
             'knile makneil maknele neil nel nele nial nigeli '
-            + 'nigl nil noigialach oneil ui',
+            'nigl nil noigialach oneil ui',
         )
         self.assertEqual(
             self.fp_soundex.fingerprint(' '.join(NIALL)),

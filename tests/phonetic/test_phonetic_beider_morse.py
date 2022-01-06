@@ -106,7 +106,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'gen', 'exact', True).encode("D'Angelo"),
             'angelo,anxelo,anhelo,anjelo,anZelo,andZelo,dangelo'
-            + ',danxelo,danhelo,danjelo,danZelo,dandZelo',
+            ',danxelo,danhelo,danjelo,danZelo,dandZelo',
         )
         self.assertEqual(
             BeiderMorse('italian,greek,spanish', 'gen', 'exact', True).encode(
@@ -126,7 +126,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'gen', 'exact', False).encode("D'Angelo"),
             'angelo,anxelo,anhelo,anjelo,anZelo,andZelo,dangelo'
-            + ',danxelo,danhelo,danjelo,danZelo,dandZelo',
+            ',danxelo,danhelo,danjelo,danZelo,dandZelo',
         )
         self.assertEqual(
             BeiderMorse('italian,greek,spanish', 'gen', 'exact', False).encode(
@@ -142,16 +142,16 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'gen', 'approx', True).encode('Angelo'),
             'angilo,angYlo,agilo,ongilo,ongYlo,ogilo,Yngilo'
-            + ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
-            + ',anzilo,onzilo',
+            ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
+            ',anzilo,onzilo',
         )
         self.assertEqual(
             BeiderMorse('', 'gen', 'approx', True).encode("D'Angelo"),
             'angilo,angYlo,agilo,ongilo,ongYlo,ogilo,Yngilo'
-            + ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
-            + ',anzilo,onzilo,dangilo,dangYlo,dagilo,dongilo'
-            + ',dongYlo,dogilo,dYngilo,dYngYlo,danxilo,donxilo'
-            + ',danilo,donilo,daniilo,doniilo,danzilo,donzilo',
+            ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
+            ',anzilo,onzilo,dangilo,dangYlo,dagilo,dongilo'
+            ',dongYlo,dogilo,dYngilo,dYngYlo,danxilo,donxilo'
+            ',danilo,donilo,daniilo,doniilo,danzilo,donzilo',
         )
         self.assertEqual(
             BeiderMorse('italian,greek,spanish', 'gen', 'approx', True).encode(
@@ -167,16 +167,16 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'gen', 'approx', False).encode('Angelo'),
             'angilo,angYlo,agilo,ongilo,ongYlo,ogilo,Yngilo'
-            + ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
-            + ',anzilo,onzilo',
+            ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
+            ',anzilo,onzilo',
         )
         self.assertEqual(
             BeiderMorse('', 'gen', 'approx', False).encode("D'Angelo"),
             'angilo,angYlo,agilo,ongilo,ongYlo,ogilo,Yngilo'
-            + ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
-            + ',anzilo,onzilo,dangilo,dangYlo,dagilo,dongilo'
-            + ',dongYlo,dogilo,dYngilo,dYngYlo,danxilo,donxilo'
-            + ',danilo,donilo,daniilo,doniilo,danzilo,donzilo',
+            ',YngYlo,anxilo,onxilo,anilo,onilo,aniilo,oniilo'
+            ',anzilo,onzilo,dangilo,dangYlo,dagilo,dongilo'
+            ',dongYlo,dogilo,dYngilo,dYngYlo,danxilo,donxilo'
+            ',danilo,donilo,daniilo,doniilo,danzilo,donzilo',
         )
         self.assertEqual(
             BeiderMorse(
@@ -247,12 +247,12 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'ash', 'approx', True).encode('Angelo'),
             'angilo,angYlo,ongilo,ongYlo,Yngilo,YngYlo,anzilo'
-            + ',onzilo,anilo,onilo,anxilo,onxilo',
+            ',onzilo,anilo,onilo,anxilo,onxilo',
         )
         self.assertEqual(
             BeiderMorse('', 'ash', 'approx', True).encode("D'Angelo"),
             'dangilo,dangYlo,dongilo,dongYlo,dYngilo,dYngYlo'
-            + ',danzilo,donzilo,danilo,donilo,danxilo,donxilo',
+            ',danzilo,donzilo,danilo,donilo,danxilo,donxilo',
         )
         self.assertRaises(
             ValueError,
@@ -276,12 +276,12 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'ash', 'approx', False).encode('Angelo'),
             'angilo,angYlo,ongilo,ongYlo,Yngilo,YngYlo,anzilo'
-            + ',onzilo,anilo,onilo,anxilo,onxilo',
+            ',onzilo,anilo,onilo,anxilo,onxilo',
         )
         self.assertEqual(
             BeiderMorse('', 'ash', 'approx', False).encode("D'Angelo"),
             'dangilo,dangYlo,dongilo,dongYlo,dYngilo,dYngYlo'
-            + ',danzilo,donzilo,danilo,donilo,danxilo,donxilo',
+            ',danzilo,donzilo,danilo,donilo,danxilo,donxilo',
         )
         self.assertRaises(
             ValueError,
@@ -414,7 +414,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'gen', 'approx', False).encode('abram'),
             'abram,abrom,avram,avrom,obram,obrom,ovram,ovrom'
-            + ',Ybram,Ybrom,abran,abron,obran,obron',
+            ',Ybram,Ybrom,abran,abron,obran,obron',
         )
         self.assertEqual(
             BeiderMorse('', 'gen', 'approx', False).encode('Bendzin'),
@@ -423,7 +423,7 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'ash', 'approx', False).encode('abram'),
             'abram,abrom,avram,avrom,obram,obrom,ovram,ovrom'
-            + ',Ybram,Ybrom,ombram,ombrom,imbram,imbrom',
+            ',Ybram,Ybrom,ombram,ombrom,imbram,imbrom',
         )
         self.assertEqual(
             BeiderMorse('', 'ash', 'approx', False).encode('Halpern'),
@@ -453,8 +453,8 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse('', 'gen', 'exact', False).encode('van helsing'),
             'helSink,helsink,helzink,xelsink,elSink,elsink'
-            + ',vanhelsink,vanhelzink,vanjelsink,fanhelsink'
-            + ',fanhelzink,banhelsink',
+            ',vanhelsink,vanhelzink,vanjelsink,fanhelsink'
+            ',fanhelzink,banhelsink',
         )
 
     def test_beider_morse_encode_misc(self):
@@ -472,27 +472,27 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse(concat=False).encode('Rodham Clinton'),
             'rodam,rodom,rYdam,rYdom,rodan,rodon,rodxam,rodxom'
-            + ',rodxan,rodxon,rudam,rudom,klinton,klnton,klintun'
-            + ',klntun,tzlinton,tzlnton,tzlintun,tzlntun,zlinton'
-            + ',zlnton',
+            ',rodxan,rodxon,rudam,rudom,klinton,klnton,klintun'
+            ',klntun,tzlinton,tzlnton,tzlintun,tzlntun,zlinton'
+            ',zlnton',
         )
         self.assertEqual(
             BeiderMorse(concat=True).encode('Rodham Clinton'),
             'rodamklinton,rodomklinton,rodamklnton,rodomklnton'
-            + ',rodamklintun,rodomklintun,rodamklntun,rodomklntun'
-            + ',rodamtzlinton,rodomtzlinton,rodamtzlnton'
-            + ',rodomtzlnton,rodamtzlintun,rodomtzlintun'
-            + ',rodamtzlntun,rodomtzlntun,rodamzlinton'
-            + ',rodomzlinton,rodamzlnton,rodomzlnton,rodanklinton'
-            + ',rodonklinton,rodanklnton,rodonklnton'
-            + ',rodxamklinton,rodxomklinton,rodxamklnton'
-            + ',rodxomklnton,rodxanklinton,rodxonklinton'
-            + ',rodxanklnton,rodxonklnton,rudamklinton'
-            + ',rudomklinton,rudamklnton,rudomklnton,rudamklintun'
-            + ',rudomklintun,rudamklntun,rudomklntun'
-            + ',rudamtzlinton,rudomtzlinton,rudamtzlnton'
-            + ',rudomtzlnton,rudamtzlintun,rudomtzlintun'
-            + ',rudamtzlntun,rudomtzlntun',
+            ',rodamklintun,rodomklintun,rodamklntun,rodomklntun'
+            ',rodamtzlinton,rodomtzlinton,rodamtzlnton'
+            ',rodomtzlnton,rodamtzlintun,rodomtzlintun'
+            ',rodamtzlntun,rodomtzlntun,rodamzlinton'
+            ',rodomzlinton,rodamzlnton,rodomzlnton,rodanklinton'
+            ',rodonklinton,rodanklnton,rodonklnton'
+            ',rodxamklinton,rodxomklinton,rodxamklnton'
+            ',rodxomklnton,rodxanklinton,rodxonklinton'
+            ',rodxanklnton,rodxonklnton,rudamklinton'
+            ',rudomklinton,rudamklnton,rudomklnton,rudamklintun'
+            ',rudomklintun,rudamklntun,rudomklntun'
+            ',rudamtzlinton,rudomtzlinton,rudamtzlnton'
+            ',rudomtzlnton,rudamtzlintun,rudomtzlintun'
+            ',rudamtzlntun,rudomtzlntun',
         )
 
         # tests of name_mode values
@@ -508,43 +508,43 @@ class BeiderMorseTestCases(unittest.TestCase):
         self.assertEqual(
             BeiderMorse(name_mode='gen', concat=True).encode('bar Hayim'),
             'barDm,borDm,bYrDm,varDm,vorDm,barDn,borDn,barxDm'
-            + ',borxDm,varxDm,vorxDm,barxDn,borxDn',
+            ',borxDm,varxDm,vorxDm,barxDn,borxDn',
         )
         self.assertEqual(
             BeiderMorse(name_mode='general', concat=True).encode('bar Hayim'),
             'barDm,borDm,bYrDm,varDm,vorDm,barDn,borDn,barxDm'
-            + ',borxDm,varxDm,vorxDm,barxDn,borxDn',
+            ',borxDm,varxDm,vorxDm,barxDn,borxDn',
         )
         self.assertEqual(
             BeiderMorse(name_mode='Mizrahi', concat=True).encode('bar Hayim'),
             'barDm,borDm,bYrDm,varDm,vorDm,barDn,borDn,barxDm'
-            + ',borxDm,varxDm,vorxDm,barxDn,borxDn',
+            ',borxDm,varxDm,vorxDm,barxDn,borxDn',
         )
         self.assertEqual(
             BeiderMorse(name_mode='mizrahi', concat=True).encode('bar Hayim'),
             'barDm,borDm,bYrDm,varDm,vorDm,barDn,borDn,barxDm'
-            + ',borxDm,varxDm,vorxDm,barxDn,borxDn',
+            ',borxDm,varxDm,vorxDm,barxDn,borxDn',
         )
         self.assertEqual(
             BeiderMorse(name_mode='miz', concat=True).encode('bar Hayim'),
             'barDm,borDm,bYrDm,varDm,vorDm,barDn,borDn,barxDm'
-            + ',borxDm,varxDm,vorxDm,barxDn,borxDn',
+            ',borxDm,varxDm,vorxDm,barxDn,borxDn',
         )
 
         # test that out-of-range language_arg results in L_ANY
         self.assertEqual(
             BeiderMorse(language_arg=2 ** 32).encode('Rodham Clinton'),
             'rodam,rodom,rYdam,rYdom,rodan,rodon,rodxam,rodxom'
-            + ',rodxan,rodxon,rudam,rudom,klinton,klnton,klintun'
-            + ',klntun,tzlinton,tzlnton,tzlintun,tzlntun,zlinton'
-            + ',zlnton',
+            ',rodxan,rodxon,rudam,rudom,klinton,klnton,klintun'
+            ',klntun,tzlinton,tzlnton,tzlintun,tzlntun,zlinton'
+            ',zlnton',
         )
         self.assertEqual(
             BeiderMorse(language_arg=-4).encode('Rodham Clinton'),
             'rodam,rodom,rYdam,rYdom,rodan,rodon,rodxam,rodxom'
-            + ',rodxan,rodxon,rudam,rudom,klinton,klnton,klintun'
-            + ',klntun,tzlinton,tzlnton,tzlintun,tzlntun,zlinton'
-            + ',zlnton',
+            ',rodxan,rodxon,rudam,rudom,klinton,klnton,klintun'
+            ',klntun,tzlinton,tzlnton,tzlintun,tzlntun,zlinton'
+            ',zlnton',
         )
 
         # etc. (for code coverage)

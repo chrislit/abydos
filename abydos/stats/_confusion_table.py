@@ -123,7 +123,7 @@ class ConfusionTable:
             else:
                 raise AttributeError(
                     'ConfusionTable requires a 4-tuple when being created '
-                    + 'from a tuple.'
+                    'from a tuple.'
                 )
         elif isinstance(tp, dict):
             if 'tp' in tp:
