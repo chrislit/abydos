@@ -291,7 +291,7 @@ implementation in PHP.\n"""\n\n'
 
     outfile.write('L_NONE = 0\n')
     for i, l in enumerate(lang_tuple):
-        outfile.write(f'L_{l.upper()} = 2**{i}\n')
+        outfile.write(f'L_{l.upper()} = 2 ** {i}\n')
     outfile.write('\n\n')
 
     tail_text += '\nBMDATA = {}  # type: ignore\n'
