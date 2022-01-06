@@ -286,9 +286,7 @@ License\n# along with Abydos. If not, see <http://www.gnu.org/licenses/>.\n\n\
 """abydos.phonetic._beider_morse_data.\n\nBehind-the-scenes constants, \
 rules, etc. for the Beider-Morse Phonentic\nMatching (BMPM) algorithm\n\nDO \
 NOT EDIT - This document is automatically generated from the reference\n\
-implementation in PHP.\n"""\n\nfrom \
-__future__ import (\n    absolute_import,\n    division,\n    print_function,\
-    unicode_literals,\n)\n'
+implementation in PHP.\n"""\n\n'
     )
 
     outfile.write('L_NONE = 0\n')
