@@ -141,11 +141,11 @@ class PhoneticEditDistance(Levenshtein):
         """
         ins_cost, del_cost, sub_cost, trans_cost = self._cost
 
-        src_len = len(src)
-        tar_len = len(tar)
-
         src_list = ipa_to_features(src)
         tar_list = ipa_to_features(tar)
+
+        src_len = len(src_list)
+        tar_len = len(tar_list)
 
         d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float_)
         if backtrace:
@@ -255,6 +255,10 @@ class PhoneticEditDistance(Levenshtein):
             np.ndarray, self._alignment_matrix(src, tar, backtrace=False)
         )
 
+        src_len, tar_len = d_mat.shape
+        src_len = src_len-1
+        tar_len = tar_len-1
+        
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
         else:
