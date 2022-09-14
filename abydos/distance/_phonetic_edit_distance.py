@@ -255,6 +255,9 @@ class PhoneticEditDistance(Levenshtein):
             np.ndarray, self._alignment_matrix(src, tar, backtrace=False)
         )
 
+        src_len, tar_len = d_mat.shape
+        
+        
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
         else:
