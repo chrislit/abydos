@@ -256,7 +256,8 @@ class PhoneticEditDistance(Levenshtein):
         )
 
         src_len, tar_len = d_mat.shape
-        
+        src_len = src_len-1
+        tar_len = tar_len-1
         
         if int(d_mat[src_len, tar_len]) == d_mat[src_len, tar_len]:
             return int(d_mat[src_len, tar_len])
