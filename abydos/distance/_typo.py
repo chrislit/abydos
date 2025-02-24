@@ -23,7 +23,7 @@ from itertools import chain
 from math import log
 from typing import Any, Dict, Tuple, cast
 
-from numpy import float_ as np_float
+from numpy import float64 as np_float
 from numpy import zeros as np_zeros
 
 from ._distance import _Distance

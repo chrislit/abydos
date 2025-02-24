@@ -138,7 +138,7 @@ class Levenshtein(_Distance):
         tar_len = len(tar)
         max_len = max(src_len, tar_len)
 
-        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float_)
+        d_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.float64)
         if backtrace:
             trace_mat = np.zeros((src_len + 1, tar_len + 1), dtype=np.int8)
         for i in range(src_len + 1):

@@ -22,7 +22,7 @@ ALINE alignment, similarity, and distance
 from copy import deepcopy
 from typing import Any, Callable, Dict, List, Tuple, Union, cast
 
-from numpy import float_, inf, zeros
+from numpy import float64, inf, zeros
 
 from ._distance import _Distance
 
@@ -1593,7 +1593,7 @@ class ALINE(_Distance):
 
         tar_len = len(tar_tok)
 
-        s_mat = zeros((src_len + 1, tar_len + 1), dtype=float_)
+        s_mat = zeros((src_len + 1, tar_len + 1), dtype=float64)
 
         if self._mode == 'global':
             for i in range(1, src_len + 1):
